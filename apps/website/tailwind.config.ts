@@ -1,0 +1,20 @@
+import { config as mono } from "@yz13/mono/config";
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  presets: [mono],
+  darkMode: ["class"],
+  content: ["./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
+  corePlugins: {
+    preflight: true,
+  },
+  theme: {
+    extend: {
+      fontFamily: {
+        pixel: "var(--font-pixel)",
+      },
+    },
+  },
+};
+
+export default config;
