@@ -1,10 +1,20 @@
+import { Aside } from "../components/layout/aside"
+import { Container } from "../components/layout/container"
+import { Content } from "../components/layout/content"
+import { Logo } from "../components/layout/logo"
+import { NavList } from "../components/nav-list"
 
 
 const page = () => {
   return (
-    <div className="w-full h-dvh flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">Welcome to YZ13's Website</h1>
-    </div>
+    <Container>
+      <Aside className="space-y-4">
+        <Logo />
+        <NavList />
+      </Aside>
+      <Content>
+      </Content>
+    </Container>
   )
 }
 export default page
