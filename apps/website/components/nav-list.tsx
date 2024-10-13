@@ -1,29 +1,63 @@
 "use client"
 import { Button } from "@yz13/mono/components/button"
+import { Popover, PopoverContent, PopoverTrigger } from "@yz13/mono/components/popover"
 import { Separator } from "@yz13/mono/components/separator"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@yz13/mono/components/tooltip"
-import { ChevronDown } from "lucide-react"
+import { ArrowLeftIcon, ChevronRightIcon, FoldersIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { cn } from "yz13/cn"
 import { NavGroup as NavGroupType, navMap } from "../const/nav-map"
 
 const NavList = ({ className }: { className?: string }) => {
   const pathname = usePathname()
+  const isRoot = pathname === "/"
+  const filtered = useMemo(() => {
+    return navMap.filter((item) => {
+      if (pathname === "/") {
+        return true
+      } else {
+        if (item.type === "item") {
+          return pathname === item.path
+        } else return false
+      }
+    })
+  }, [navMap])
   return (
     <nav className={cn("flex flex-col", className)}>
       {
-        navMap.map((item) => {
-          if (item.type === "item") {
-            const Icon = item.icon
-            return <NavItem selected={pathname === item.path} path={item.path} label={item.label}><Icon size={18} /></NavItem>
-          } else if (item.type === "group") {
-            return <NavGroup group={item} />
-          } else if (item.type === "separator") {
-            return <Separator />
-          }
-        })
+        !isRoot &&
+        <NavItem path="/" label="Back">
+          <ArrowLeftIcon size={18} />
+        </NavItem>
+      }
+      {
+        filtered
+          .map((item, index) => {
+            if (item.type === "item") {
+              const Icon = item.icon
+              const items = item.items
+              return (
+                <>
+                  <NavItem key={item.id} selected={pathname === item.path} path={item.path} label={item.label}><Icon size={18} /></NavItem>
+                  {
+                    !!items.length &&
+                    items.map(
+                      subItem => {
+                        const SubIcon = subItem.icon
+                        return <NavItem key={subItem.id} selected={pathname === subItem.path} path={subItem.path} label={subItem.label}><SubIcon size={18} className="shrink-0" /></NavItem>
+                      }
+                    )
+                  }
+                </>
+              )
+            } else if (item.type === "group") {
+              return <NavGroup key={item.id} group={item} />
+            } else if (item.type === "separator") {
+              return <Separator key={`separator-${index}`} />
+            }
+          })
       }
     </nav>
   )
@@ -33,31 +67,43 @@ const NavGroup = ({ group }: { group: NavGroupType }) => {
   const pathname = usePathname()
   const [expanded, setExpanded] = useState<boolean>(false)
   return (
-    <div className={cn(
-      "flex flex-col",
-      expanded ? "border rounded-xl" : ""
-    )}>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="flex items-center h-9 md:px-2 px-0 gap-2 text-secondary text-sm"
+    <Popover open={expanded} onOpenChange={setExpanded}>
+      <PopoverTrigger
+        asChild
       >
-        <ChevronDown size={18} className={cn(expanded ? "rotate-180" : "")} />
-        <span className="lg:!inline md:!inline hidden text-inherit">{group.groupTitle}</span>
-      </button>
-      {
-        expanded && group.items.map((item) => {
-          const Icon = item.icon
-          return <NavItem
-            className="first:rounded-b-none first:rounded-t-xl rounded-none last-of-type:rounded-t-none last-of-type:rounded-b-xl"
-            selected={pathname === item.path}
-            path={item.path}
-            label={item.label}
-          >
-            <Icon size={18} />
-          </NavItem>
-        })
-      }
-    </div>
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className={cn(
+            "flex items-center h-9 md:px-2 px-0 gap-2 text-secondary text-sm border",
+            expanded ? "rounded-xl" : "border-transparent"
+          )}
+        >
+          <FoldersIcon size={18} />
+          <span className="lg:!inline md:!inline hidden text-inherit">{group.groupTitle}</span>
+          <ChevronRightIcon className="ml-auto" size={18} />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent
+        side="right" sideOffset={12}
+        align="start"
+        className="flex flex-col gap-0 w-56 rounded-xl p-0"
+      >
+        {
+          group.items.map((item) => {
+            const Icon = item.icon
+            return <NavItem
+              key={item.id}
+              className="first:rounded-b-none first:rounded-t-xl rounded-none last-of-type:rounded-t-none last-of-type:rounded-b-xl"
+              selected={pathname === item.path}
+              path={item.path}
+              label={item.label}
+            >
+              <Icon size={18} />
+            </NavItem>
+          })
+        }
+      </PopoverContent>
+    </Popover>
   )
 }
 
@@ -88,7 +134,7 @@ const NavItem = ({
         >
           <Link href={path}>
             {children}
-            <span className="lg:!inline md:!inline hidden text-inherit">{label}</span>
+            <span className="lg:!inline md:!inline hidden line-clamp-1 text-inherit">{label}</span>
           </Link>
         </Button>
       </TooltipTrigger>

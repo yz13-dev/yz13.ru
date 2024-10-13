@@ -1,8 +1,8 @@
-import { Aside } from "../components/layout/aside"
-import { Container } from "../components/layout/container"
-import { Content } from "../components/layout/content"
-import { Logo } from "../components/layout/logo"
-import { NavList } from "../components/nav-list"
+import { Aside } from "@/components/layout/aside"
+import { Container } from "@/components/layout/container"
+import { Content } from "@/components/layout/content"
+import { Logo } from "@/components/layout/logo"
+import { NavList } from "@/components/nav-list"
 
 
 const page = () => {
