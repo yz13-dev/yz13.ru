@@ -8,7 +8,7 @@ const Content = ({ children, className = "" }: ContentProps) => {
   return (
     <div
       className={cn(
-        "w-full h-fit flex flex-col gap-6 max-w-2xl mr-auto",
+        "w-full h-fit flex flex-col gap-6 mr-auto",
         className
       )}
     >
