@@ -1,0 +1,14 @@
+.light-mode-img {
+  display: block;
+}
+.dark-mode-img {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  .light-mode-img {
+    display: none;
+  }
+  .dark-mode-img {
+    display: block;
+  }
+}

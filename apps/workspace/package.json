@@ -1,20 +1,15 @@
 {
-  "name": "website",
+  "name": "workspace",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 3001",
+    "dev": "next dev --turbo --port 3002",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@yz13/mono": "*",
-    "yz13": "*",
-    "autoprefixer": "^10.4.20",
-    "lucide-react": "^0.452.0",
     "next": "14.2.6",
-    "postcss": "^8.4.47",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
