@@ -13,6 +13,7 @@ const page = () => {
         <NavList />
       </Aside>
       <Content>
+        <div className="max-w-4xl w-full mx-auto h-96 rounded-xl border"></div>
       </Content>
     </Container>
   )

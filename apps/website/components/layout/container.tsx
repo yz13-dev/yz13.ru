@@ -8,7 +8,7 @@ const Container = ({ children, className = "" }: ContainerProps) => {
   return (
     <main className={cn(
       "w-full h-fit flex",
-      "p-6 gap-6",
+      "md:!p-6 p-3 md:!gap-6 gap-3",
       className
     )}>
       {children}
