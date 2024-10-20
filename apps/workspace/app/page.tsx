@@ -1,17 +1,13 @@
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarGroup } from "@yz13/mono/components/sidebar"
+import { AppSidebar } from "@/components/sidebar/sidebar"
 
 const page = () => {
   return (
     <>
-      <Sidebar>
-        <SidebarHeader />
-        <SidebarContent>
-          <SidebarGroup></SidebarGroup>
-          <SidebarGroup></SidebarGroup>
-        </SidebarContent>
-        <SidebarFooter />
-      </Sidebar>
-      <main className="w-full h-dvh"></main>
+      <AppSidebar />
+      <main className="w-full h-dvh">
+        <header className="w-full h-14 flex items-center px-4">
+        </header>
+      </main>
     </>
   )
 }
