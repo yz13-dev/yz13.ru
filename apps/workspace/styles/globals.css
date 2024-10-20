@@ -1,0 +1,28 @@
+@import url("@yz13/mono/globals.css");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  ::selection {
+    @apply bg-foreground text-background;
+  }
+}
+
+.light-mode-image {
+  display: block;
+}
+
+.dark-mode-image {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .light-mode-image {
+    display: none;
+  }
+
+  .dark-mode-image {
+    display: block;
+  }
+}

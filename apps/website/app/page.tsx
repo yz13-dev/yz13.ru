@@ -26,12 +26,6 @@ const page = () => {
               <span className="text-xs text-secondary">owner@yz13.dev</span>
             </div>
           </div>
-          <div className="flex items-start gap-1 flex-wrap">
-            <span className="inline-flex p-0.5 pr-1.5 border rounded-full items-center gap-1">
-              <span className="size-4 rounded-full border" />
-              <span className="text-xs text-secondary">Russia</span>
-            </span>
-          </div>
           <div className="w-full grid h-16 grid-cols-4 gap-2">
             <Button
               className="w-full h-full rounded-xl border flex flex-col items-center justify-center hover:bg-yz-neutral-100 hover:border-foreground"
@@ -75,6 +69,22 @@ const page = () => {
             </Button>
           </div>
         </div >
+        <Separator />
+        <div className="w-full gap-4 h-fit grid grid-cols-6 auto-rows-auto">
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+          <div className="w-full aspect-square border rounded-lg" />
+        </div>
         <Logo />
         <Separator />
         <div className="w-full">
