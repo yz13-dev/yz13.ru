@@ -3,6 +3,7 @@ import { SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, Sidebar
 import { SearchIcon, SidebarIcon } from "lucide-react"
 import { cn } from "yz13/cn"
 import { Logo } from "../logo"
+import Link from "next/link"
 
 
 const Header = () => {
@@ -22,8 +23,10 @@ const Header = () => {
         </SidebarMenuItem>
 
         <SidebarMenuItem className="size-8">
-          <SidebarMenuButton>
-            <SearchIcon size={16} />
+          <SidebarMenuButton asChild>
+            <Link href="/search">
+              <SearchIcon size={16} />
+            </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>
 
