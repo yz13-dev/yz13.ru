@@ -1,5 +1,5 @@
 import { AppSidebar } from "@/components/sidebar/sidebar"
-import { BriefcaseIcon, Trash2Icon } from "lucide-react"
+import { BriefcaseIcon } from "lucide-react"
 
 const page = () => {
   return (
