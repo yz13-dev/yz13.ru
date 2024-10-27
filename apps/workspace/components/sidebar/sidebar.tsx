@@ -5,8 +5,12 @@ import Footer from "./footer"
 import Link from "next/link"
 import action from "@/actions/works/action"
 
-
-const AppSidebar = async () => {
+type Props = {
+  workId?: string
+}
+const AppSidebar = async ({
+  workId
+}: Props) => {
   const works = await action({})
   const data = works?.data ?? []
   const favorites = data.filter(work => work.favorite)
@@ -52,8 +56,9 @@ const AppSidebar = async () => {
               {
                 favorites
                   .map(work => {
-                    return <SidebarMenuItem>
-                      <SidebarMenuButton asChild>
+                    const isSelected = work.id === workId
+                    return <SidebarMenuItem key={work.id}>
+                      <SidebarMenuButton asChild isActive={isSelected}>
                         <Link href={`/works/${work.id}`}>
                           <BriefcaseIcon size={16} />
                           <span>{work.name}</span>

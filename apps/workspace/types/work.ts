@@ -30,11 +30,17 @@ type CheckboxListItemElement = {
   checked: boolean
 }
 
+type TaskElement = {
+  code: "task"
+  text: string
+  checked: boolean
+}
+
 type WorkElement = {
   id: string
   createdAt: string
   updatedAt: string
   workId: string
-} & (HeadingElement | ParagraphElement | ListElement)
+} & (HeadingElement | ParagraphElement | ListElement | TaskElement)
 
 export type { Work, WorkElement }
