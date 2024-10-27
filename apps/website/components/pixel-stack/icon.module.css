@@ -1,0 +1,92 @@
+.active-icon-wrapper {
+  & > svg > g > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  & > svg > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  @apply opacity-100 transition-all;
+}
+.icon-wrapper {
+  & > g > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  & > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  @apply opacity-50 hover:opacity-100 group-hover:opacity-100 transition-all;
+}
+.icon-wrapper:hover {
+  & > svg > g > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  & > svg > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  @apply opacity-50 hover:opacity-100 group-hover:opacity-100 transition-all;
+}
+.svg-icon {
+  fill: hsl(var(--icon-brand-color));
+  & > g > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  & > g > * {
+    fill: hsl(var(--icon-brand-color));
+    @apply transition-all;
+  }
+  @apply transition-all;
+}
+@media (prefers-color-scheme: dark) {
+  .active-icon-wrapper {
+    & > svg > g > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    & > svg > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    @apply opacity-100 transition-all;
+  }
+  .icon-wrapper {
+    & > g > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    & > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    @apply opacity-50 hover:opacity-100 group-hover:opacity-100 transition-all;
+  }
+  .icon-wrapper:hover {
+    & > svg > g > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    & > svg > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    @apply opacity-50 hover:opacity-100 group-hover:opacity-100 transition-all;
+  }
+  .svg-icon {
+    fill: hsl(var(--icon-brand-color));
+    & > g > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    & > g > * {
+      fill: hsl(var(--icon-brand-color));
+      @apply transition-all;
+    }
+    @apply opacity-100 transition-all;
+  }
+}

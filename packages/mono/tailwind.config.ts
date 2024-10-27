@@ -20,6 +20,7 @@ const config = {
         mono: 'var(--font-geist-mono)'
       },
       colors: {
+      	"pixel-icon": "hsl(var(--icon-brand-color))",
         background: 'hsl(var(--yz13-background))',
         foreground: 'hsl(var(--yz13-foreground))',
         border: 'hsl(var(--yz13-border))',

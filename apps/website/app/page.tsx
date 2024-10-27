@@ -6,6 +6,19 @@ import Link from "next/link"
 import { cn } from "yz13/cn"
 import Card from "./roadmap/card"
 import { list } from "@/const/road-map"
+import { IconBase } from "@/components/pixel-stack/icon-base"
+import { ReactIcon } from "@/components/pixel-stack/react-icon"
+import { NextIcon } from "@/components/pixel-stack/next-icon"
+import { TypeScriptIcon } from "@/components/pixel-stack/typescript-icon"
+import { TailwindIcon } from "@/components/pixel-stack/tailwind-icon"
+import { ShadcnIcon } from "@/components/pixel-stack/shadcn-ui-icon"
+import { ViteIcon } from "@/components/pixel-stack/vite-icon"
+import { NodeIcon } from "@/components/pixel-stack/node-icon"
+import { ZodIcon } from "@/components/pixel-stack/zod"
+import { HonoIcon } from "@/components/pixel-stack/hono-icon"
+import { SupabaseIcon } from "@/components/pixel-stack/supabase-icon"
+import { JestIcon } from "@/components/pixel-stack/jest-icon"
+import { MongoDBIcon } from "@/components/pixel-stack/mongodb-icon"
 
 const page = () => {
   const Highlight = ({ children }: { children: React.ReactNode }) => (
@@ -71,19 +84,80 @@ const page = () => {
         </div >
         <Separator />
         <div className="w-full gap-4 h-fit grid grid-cols-6 auto-rows-auto">
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <ReactIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <NextIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <TypeScriptIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <TailwindIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <ShadcnIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <ViteIcon size={48} />
+          </div>
 
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
-          <div className="w-full aspect-square border rounded-lg" />
+
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <NodeIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <ZodIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <HonoIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <SupabaseIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <JestIcon size={48} />
+          </div>
+          <div className={cn(
+            "w-full aspect-square border rounded-lg",
+            "flex items-center justify-center transition-colors hover:border-foreground"
+          )}>
+            <MongoDBIcon size={48} />
+          </div>
         </div>
         <Logo />
         <Separator />
