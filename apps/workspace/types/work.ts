@@ -2,6 +2,7 @@
 type Work = {
   id: string
   name: string
+  favorite: boolean
   description: string
   createdAt: string
   updatedAt: string

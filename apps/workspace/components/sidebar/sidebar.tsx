@@ -2,9 +2,14 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGrou
 import Header from "./header"
 import { BriefcaseIcon, CalendarIcon, CheckCircleIcon } from "lucide-react"
 import Footer from "./footer"
+import Link from "next/link"
+import action from "@/actions/works/action"
 
 
-const AppSidebar = () => {
+const AppSidebar = async () => {
+  const works = await action({})
+  const data = works?.data ?? []
+  const favorites = data.filter(work => work.favorite)
   return (
     <Sidebar collapsible="icon">
       <Header />
@@ -28,9 +33,11 @@ const AppSidebar = () => {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <BriefcaseIcon size={16} />
-                  <span>Works</span>
+                <SidebarMenuButton asChild>
+                  <Link href="/all-works">
+                    <BriefcaseIcon size={16} />
+                    <span>Works</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
 
@@ -41,6 +48,21 @@ const AppSidebar = () => {
         <SidebarGroup>
           <SidebarGroupLabel>Favorites</SidebarGroupLabel>
           <SidebarGroupContent>
+            <SidebarMenu>
+              {
+                favorites
+                  .map(work => {
+                    return <SidebarMenuItem>
+                      <SidebarMenuButton asChild>
+                        <Link href={`/works/${work.id}`}>
+                          <BriefcaseIcon size={16} />
+                          <span>{work.name}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  })
+              }
+            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

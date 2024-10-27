@@ -6,7 +6,7 @@ import schema from "./schema"
 
 export default client
   .schema(schema)
-  .action(async ({ parsedInput: { id } }) => {
-    const result = works.filter(item => item.id === id)
+  .action(async ({ parsedInput: { } }) => {
+    const result = works
     return result
   })
