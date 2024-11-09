@@ -6,7 +6,6 @@ import Link from "next/link"
 import { cn } from "yz13/cn"
 import Card from "./roadmap/card"
 import { list } from "@/const/road-map"
-import { IconBase } from "@/components/pixel-stack/icon-base"
 import { ReactIcon } from "@/components/pixel-stack/react-icon"
 import { NextIcon } from "@/components/pixel-stack/next-icon"
 import { TypeScriptIcon } from "@/components/pixel-stack/typescript-icon"
@@ -19,6 +18,8 @@ import { HonoIcon } from "@/components/pixel-stack/hono-icon"
 import { SupabaseIcon } from "@/components/pixel-stack/supabase-icon"
 import { JestIcon } from "@/components/pixel-stack/jest-icon"
 import { MongoDBIcon } from "@/components/pixel-stack/mongodb-icon"
+import { Checkbox } from "@yz13/mono/components/checkbox"
+import { Calendar } from "@yz13/mono/components/calendar"
 
 const page = () => {
   const Highlight = ({ children }: { children: React.ReactNode }) => (
@@ -26,140 +27,52 @@ const page = () => {
   )
   return (
     <>
-      <div className="w-full space-y-4 max-w-xl mx-auto md:!p-6 p-4">
+      <div className="w-full space-y-8 max-w-xl mx-auto md:!p-6 p-4">
         <div className="w-full flex items-center justify-between">
-          <span className="text-sm text-secondary">Fullstack Developer</span>
+          <div className="flex items-center gap-2">
+            <h1 className="text-sm text-foreground">YZ13</h1>
+            <span className="text-sm text-secondary">Fullstack Developer</span>
+          </div>
           <span className="text-sm">Available for work</span>
         </div>
-        <div className="p-2 rounded-xl border flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <div className="size-10 rounded-full border" />
-            <div className="flex flex-col">
-              <span className="text-base text-foreground">YZ13</span>
-              <span className="text-xs text-secondary">owner@yz13.dev</span>
-            </div>
+        <span className="text-xs text-secondary">Today, 5 November 2025</span>
+        <div className="w-full h-fit flex gap-2">
+          <div className="w-full space-y-1.5">
+            <ul>
+              <li>
+                <div className="p-2 rounded-xl flex items-start gap-2 border hover:bg-yz-neutral-100 hover:border-foreground">
+                  <div className="size-8 rounded-md border"></div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-sm text-foreground">Event 1</span>
+                    <span className="text-xs text-secondary">Mon, 11 Nov 2024</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
-          <div className="w-full grid h-16 grid-cols-4 gap-2">
-            <Button
-              className="w-full h-full rounded-xl border flex flex-col items-center justify-center hover:bg-yz-neutral-100 hover:border-foreground"
-              variant="outline"
-              asChild
-            >
-              <Link href="/profile">
-                <UserCircleIcon className="text-secondary" size={16} />
-                <span className="text-secondary text-xs">Profile</span>
-              </Link>
-            </Button>
-            <Button
-              className="w-full h-full rounded-xl border flex flex-col items-center justify-center hover:bg-yz-neutral-100 hover:border-foreground"
-              variant="outline"
-              asChild
-            >
-              <Link href="/contacts">
-                <ContactIcon className="text-secondary" size={16} />
-                <span className="text-secondary text-xs">Contacts</span>
-              </Link>
-            </Button>
-            <Button
-              className="w-full h-full rounded-xl border flex flex-col items-center justify-center hover:bg-yz-neutral-100 hover:border-foreground"
-              variant="outline"
-              asChild
-            >
-              <Link href="/roadmap">
-                <MapIcon className="text-secondary" size={16} />
-                <span className="text-secondary text-xs">Roadmap</span>
-              </Link>
-            </Button>
-            <Button
-              className="w-full h-full rounded-xl border flex flex-col items-center justify-center hover:bg-yz-neutral-100 hover:border-foreground"
-              variant="outline"
-              asChild
-            >
-              <Link href="/services">
-                <LayoutGridIcon className="text-secondary" size={16} />
-                <span className="text-secondary text-xs">Services</span>
-              </Link>
-            </Button>
-          </div>
-        </div >
-        <Separator />
-        <div className="w-full gap-4 h-fit grid grid-cols-6 auto-rows-auto">
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <ReactIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <NextIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <TypeScriptIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <TailwindIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <ShadcnIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <ViteIcon size={48} />
-          </div>
-
-
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <NodeIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <ZodIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <HonoIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <SupabaseIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <JestIcon size={48} />
-          </div>
-          <div className={cn(
-            "w-full aspect-square border rounded-lg",
-            "flex items-center justify-center transition-colors hover:border-foreground"
-          )}>
-            <MongoDBIcon size={48} />
+          <div className="h-full shrink-0 rounded-xl border">
+            <Calendar />
           </div>
         </div>
-        <Logo />
+        <Separator />
+        <ul className="space-y-1.5">
+          <li>
+            <div className="w-full border hover:bg-yz-neutral-100 hover:border-foreground flex items-center justify-between rounded-xl p-2 ">
+              <div className="flex items-center gap-2">
+                <Checkbox id="checkbox-task-1" />
+                <label className="text-sm" htmlFor="checkbox-task-1">Complete some stuff</label>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div className="w-full border hover:bg-yz-neutral-100 hover:border-foreground flex items-center justify-between rounded-xl p-2 ">
+              <div className="flex items-center gap-2">
+                <Checkbox id="checkbox-task-2" />
+                <label className="text-sm" htmlFor="checkbox-task-2">Start to todo stuff</label>
+              </div>
+            </div>
+          </li>
+        </ul>
         <Separator />
         <div className="w-full">
           <ul className="*:transition-colors grid sm:!grid-cols-2 grid-cols-1 auto-rows-auto gap-2">
