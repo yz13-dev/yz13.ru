@@ -3,12 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {}
-
-@media (prefers-color-scheme: dark) {
-  :root {}
-}
-
 @layer base {
   ::selection {
     @apply bg-foreground text-background;

@@ -1,8 +1,8 @@
-import { TooltipProvider } from "@yz13/mono/components/tooltip";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
-import "../styles/globals.css";
+import "@/styles/globals.css";
+import { SidebarProvider } from "@yz13/mono/components/sidebar";
 
 const PIXEL = localFont({
   src: "./fonts/neue-pixel-sans/neue-pixel-sans.ttf",
@@ -83,10 +83,10 @@ export default function RootLayout({
         PIXEL.variable,
       )}
     >
-      <body >
-        <TooltipProvider>
+      <body>
+        <SidebarProvider>
           {children}
-        </TooltipProvider>
+        </SidebarProvider>
       </body>
     </html>
   );
