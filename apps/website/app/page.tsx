@@ -1,50 +1,7 @@
-import { Logo } from "@/components/logo"
-import { Separator } from "@yz13/mono/components/separator"
-import Tasks from "./tasks"
-import AppSidebar from "@/components/app-sidebar/sidebar"
-import RoadMap from "./road-map"
-import Events from "./events"
+import { permanentRedirect } from "next/navigation"
 
-type PageProps = {
-  searchParams: {
-    sidebar?: string
-  }
+const page = () => {
+  return permanentRedirect("/home")
 }
-const page = ({ searchParams }: PageProps) => {
-  const { sidebar } = searchParams
-  const enableSidebar = sidebar === "true"
-  return (
-    <>
-      {
-        enableSidebar &&
-        <AppSidebar />
-      }
-      <main className="w-full h-dvh space-y-8 max-w-xl mx-auto md:!p-6 p-4">
-        <div className="w-full flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h1 className="text-sm text-foreground">YZ13</h1>
-            <span className="text-sm text-secondary">Fullstack Developer</span>
-          </div>
-          <span className="text-sm">Available for work</span>
-        </div>
-        <span className="text-xs text-secondary">Today, 5 November 2025</span>
-        <Events />
-        <Separator />
-        <Tasks />
-        <Separator />
-        <RoadMap />
-        <Separator />
-        <footer className="w-full h-fit flex justify-center mx-auto">
-          <div className="w-fit h-fit flex items-center gap-2 bg-background">
-            <div className="size-10 rounded-xl relative opacity-20 p-1">
-              <div className="w-full h-full relative">
-                <Logo className="w-full h-full" />
-              </div>
-            </div>
-          </div>
-        </footer>
-      </main>
-    </>
-  )
-}
+
 export default page
