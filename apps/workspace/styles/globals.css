@@ -1,4 +1,4 @@
-@import url("@yz13/mono/globals.css");
+@import url("mono/globals.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -1,5 +1,5 @@
-import { Separator } from "@yz13/mono/components/separator"
 import { LockIcon } from "lucide-react"
+import { Separator } from "mono/components/separator"
 import { cn } from "yz13/cn"
 
 export type RoadMap = {

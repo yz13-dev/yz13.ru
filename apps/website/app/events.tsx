@@ -1,4 +1,4 @@
-import { Calendar } from "@yz13/mono/components/calendar"
+import { Calendar } from "mono/components/calendar"
 
 
 const Events = () => {

@@ -1,5 +1,5 @@
-import { Button } from "@yz13/mono/components/button"
 import { Logo } from "@/components/logo"
+import { Button } from "mono/components/button"
 
 const Header = () => {
   return (

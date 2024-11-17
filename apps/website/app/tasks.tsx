@@ -1,4 +1,4 @@
-import { Checkbox } from "@yz13/mono/components/checkbox"
+import { Checkbox } from "mono/components/checkbox"
 
 
 const Tasks = () => {

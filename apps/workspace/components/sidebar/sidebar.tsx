@@ -1,9 +1,9 @@
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@yz13/mono/components/sidebar"
-import Header from "./header"
-import { BriefcaseIcon, CalendarIcon, CheckCircleIcon } from "lucide-react"
-import Footer from "./footer"
-import Link from "next/link"
 import action from "@/actions/works/action"
+import { BriefcaseIcon, CalendarIcon, CheckCircleIcon } from "lucide-react"
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "mono/components/sidebar"
+import Link from "next/link"
+import Footer from "./footer"
+import Header from "./header"
 
 type Props = {
   workId?: string

@@ -1,4 +1,4 @@
-import { config as mono } from "@yz13/mono/config";
+import { config as mono } from "mono/config";
 import type { Config } from "tailwindcss";
 
 const config: Config = {

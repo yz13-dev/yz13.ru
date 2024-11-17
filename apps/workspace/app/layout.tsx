@@ -1,7 +1,7 @@
-import { SidebarProvider } from "@yz13/mono/components/sidebar"
+import "@/styles/globals.css";
+import { SidebarProvider } from "mono/components/sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "@/styles/globals.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

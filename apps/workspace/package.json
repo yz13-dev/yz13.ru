@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@yz13/mono": "*",
+    "mono": "*",
+    "yz13": "*",
     "autoprefixer": "^10.4.20",
     "lucide-react": "^0.452.0",
     "next": "14.2.6",
@@ -17,7 +18,6 @@
     "postcss": "^8.4.47",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "yz13": "*",
     "zod": "^3.23.8"
   },
   "devDependencies": {

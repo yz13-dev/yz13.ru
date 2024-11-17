@@ -1,5 +1,5 @@
-import { Button } from "@yz13/mono/components/button"
 import { ArrowRightIcon } from "lucide-react"
+import { Button } from "mono/components/button"
 import Footer from "./footer"
 import Header from "./header"
 

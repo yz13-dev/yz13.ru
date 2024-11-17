@@ -1,8 +1,8 @@
+import "@/styles/globals.css";
+import { SidebarProvider } from "mono/components/sidebar";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
-import "@/styles/globals.css";
-import { SidebarProvider } from "@yz13/mono/components/sidebar";
 
 const PIXEL = localFont({
   src: "./fonts/neue-pixel-sans/neue-pixel-sans.ttf",

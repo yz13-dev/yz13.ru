@@ -1,7 +1,7 @@
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@yz13/mono/components/sidebar";
 import { CalendarIcon, CheckCircleIcon, HomeIcon, MapIcon } from "lucide-react";
-import Header from "./header";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "mono/components/sidebar";
 import Link from "next/link";
+import Header from "./header";
 
 const AppSidebar = async () => {
   return (

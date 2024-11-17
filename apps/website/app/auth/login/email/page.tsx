@@ -1,4 +1,4 @@
-import { Button } from "@yz13/mono/components/button"
+import { Button } from "mono/components/button"
 import Image from "next/image"
 import Link from "next/link"
 import { EmailForm } from "./email-form"

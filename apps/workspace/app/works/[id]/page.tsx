@@ -1,7 +1,7 @@
 import action from "@/actions/work/action"
 import { AppSidebar } from "@/components/sidebar/sidebar"
-import { Button } from "@yz13/mono/components/button"
 import { MoreVerticalIcon, StarIcon } from "lucide-react"
+import { Button } from "mono/components/button"
 import { redirect } from "next/navigation"
 
 type PageProps = {

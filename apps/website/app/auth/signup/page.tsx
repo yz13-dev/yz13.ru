@@ -1,5 +1,5 @@
-import { Button } from "@yz13/mono/components/button"
-import { Input } from "@yz13/mono/components/input"
+import { Button } from "mono/components/button"
+import { Input } from "mono/components/input"
 import Image from "next/image"
 import Link from "next/link"
 import { MdOpenInNew } from "react-icons/md"

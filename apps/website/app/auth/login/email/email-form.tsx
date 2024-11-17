@@ -1,6 +1,6 @@
 "use client"
-import { Button } from "@yz13/mono/components/button"
-import { Input } from "@yz13/mono/components/input"
+import { Button } from "mono/components/button"
+import { Input } from "mono/components/input"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { createClient } from "yz13/supabase/client"

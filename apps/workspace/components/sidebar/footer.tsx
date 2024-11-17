@@ -1,4 +1,4 @@
-import { SidebarFooter } from "@yz13/mono/components/sidebar"
+import { SidebarFooter } from "mono/components/sidebar"
 
 
 const Footer = () => {
