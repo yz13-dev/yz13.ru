@@ -20,7 +20,7 @@ const Item = ({ children }: { children: React.ReactNode }) => {
 }
 const Footer = () => {
   return (
-    <footer className="max-w-4xl w-full h-fit mx-auto px-6 pb-6 flex items-start justify-between">
+    <footer className="page-width-limit w-full h-fit pb-6 flex items-start justify-between">
       <Logo className="size-6" />
       <ListWrapper>
         <Title>Products</Title>

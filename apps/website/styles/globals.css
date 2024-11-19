@@ -4,9 +4,6 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply font-pixel;
-  }
   ::selection {
     @apply bg-foreground text-background;
   }
@@ -21,6 +18,12 @@
   }
   ::-webkit-scrollbar {
     @apply w-3 bg-background;
+  }
+}
+
+@layer components {
+  .page-width-limit {
+    @apply max-w-2xl mx-auto px-6 w-full;
   }
 }
 
