@@ -15,7 +15,7 @@ const AppSidebar = async () => {
               <SidebarMenuButton asChild>
                 <Link href="/">
                   <HomeIcon size={16} />
-                  <span>Workspace</span>
+                  <span>Home</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
