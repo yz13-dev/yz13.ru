@@ -34,33 +34,42 @@
     --max-width: 1536px;
     @apply mx-auto px-6 w-full max-w-[--max-width];
   }
+
   .widgets-grid {
     --gap: 8px;
-    /* --gap: 0px; */
     --cols: 22;
-    --cell-size: calc(var(--max-width) / var(--cols) - var(--gap));
+    --rows: 2;
+    /* Размер ячейки с учётом gap */
+    --cell-size: calc(
+      (var(--max-width) - (var(--gap) * (var(--cols) - 1))) / var(--cols)
+    );
+    display: grid;
     grid-template-columns: repeat(var(--cols), minmax(0, var(--cell-size)));
-    grid-auto-rows: minmax(0, calc(var(--cell-size)));
+    grid-template-rows: repeat(var(--rows), minmax(0, var(--cell-size)));
+    grid-auto-rows: minmax(0, var(--cell-size));
     justify-content: center;
     gap: var(--gap);
-    @apply grid w-full;
+    @apply w-full;
   }
+
   .widget-wrapper {
-    --column-start: 0;
-    --column-end: 0;
+    --column-start: 1; /* Первая колонка начинается с 1, а не 0 */
+    --column-end: 3;
+    --row-start: 1;
+    --row-end: 2;
+    /* Высчитываем span */
     --column-span: calc(var(--column-end) - var(--column-start) + 1);
-    --row-start: 0;
-    --row-end: 0;
     --row-span: calc(var(--row-end) - var(--row-start) + 1);
-    grid-column: span var(--column-span) / span var(--column-span);
-    grid-row: span var(--row-span) / span var(--row-span);
+    grid-column: var(--column-start) / span var(--column-span);
+    grid-row: var(--row-start) / span var(--row-span);
     @apply w-full h-full;
   }
+
   .clock-widget {
     @apply flex items-center justify-center;
 
     & > span {
-      @apply text-6xl font-bold;
+      @apply text-5xl font-bold;
     }
   }
 }

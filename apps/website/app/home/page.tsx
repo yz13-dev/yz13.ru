@@ -28,18 +28,119 @@ const widgets: HomeWidget[] = [
     },
     grid: {
       column: {
-        start: 3,
-        end: 3,
+        start: 4,
+        end: 4,
       },
       row: {
         start: 0,
         end: 0,
       }
     }
+  },
+  {
+    id: "quick-link",
+    link: {
+      icon: "home",
+      title: "Home",
+      href: "/",
+    },
+    grid: {
+      column: {
+        start: 5,
+        end: 5,
+      },
+      row: {
+        start: 0,
+        end: 0,
+      }
+    }
+  },
+  {
+    id: "quick-link",
+    link: {
+      icon: "home",
+      title: "Home",
+      href: "/",
+    },
+    grid: {
+      column: {
+        start: 4,
+        end: 4,
+      },
+      row: {
+        start: 2,
+        end: 2,
+      }
+    }
+  },
+  {
+    id: "quick-link",
+    link: {
+      icon: "home",
+      title: "Home",
+      href: "/",
+    },
+    grid: {
+      column: {
+        start: 5,
+        end: 5,
+      },
+      row: {
+        start: 2,
+        end: 2,
+      }
+    }
+  },
+  {
+    id: "quick-link",
+    link: {
+      icon: "home",
+      title: "Home",
+      href: "/",
+    },
+    grid: {
+      column: {
+        start: 1,
+        end: 3,
+      },
+      row: {
+        start: 2,
+        end: 4,
+      }
+    }
+  },
+  {
+    id: "quick-link",
+    link: {
+      icon: "home",
+      title: "Home",
+      href: "/",
+    },
+    grid: {
+      column: {
+        start: 6,
+        end: 9,
+      },
+      row: {
+        start: 1,
+        end: 2,
+      }
+    }
   }
 ]
 
+const getMaxRows = (widgets: HomeWidget[]) => {
+  let maxRows = 0
+  for (const widget of widgets) {
+    if (widget.grid.row.end > maxRows) {
+      maxRows = widget.grid.row.end
+    }
+  }
+  return maxRows
+}
+
 const page = () => {
+  const maxRows = getMaxRows(widgets)
   return (
     <div className="space-y-12 w-full">
       <header className="px-8 pt-8 max-w-screen-2xl mx-auto w-full h-fit flex items-center justify-start gap-4">
@@ -49,7 +150,13 @@ const page = () => {
         </div>
         <Button className="rounded-full" variant="outline" size="sm">Sign in</Button>
       </header>
-      <main className="px-8 page-width-limit widgets-grid w-full mx-auto">
+      <main
+        style={{
+          // @ts-expect-error
+          "--rows": `${maxRows}`,
+        }}
+        className="px-8 page-width-limit widgets-grid w-full mx-auto"
+      >
         {
           widgets.map((widget, index) => {
             if (widget.id === "quick-link") {
