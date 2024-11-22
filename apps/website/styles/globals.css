@@ -52,11 +52,10 @@
   }
 
   .widget-wrapper {
-    --column-start: 1; /* Первая колонка начинается с 1, а не 0 */
+    --column-start: 1;
     --column-end: 3;
     --row-start: 1;
     --row-end: 2;
-    /* Высчитываем span */
     --column-span: calc(var(--column-end) - var(--column-start) + 1);
     --row-span: calc(var(--row-end) - var(--row-start) + 1);
     grid-column: var(--column-start) / span var(--column-span);

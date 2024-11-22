@@ -1,6 +1,6 @@
 import { Logo } from "@/components/logo"
 import { Widget } from "@/types/widgets"
-import { Button } from "mono/components/button"
+import User from "./user"
 import Clock from "./widgets/clock"
 import Notes from "./widgets/notes"
 import QuickLink from "./widgets/quick-link"
@@ -93,7 +93,11 @@ const getMaxRows = (widgets: Widget[]) => {
   return maxRows
 }
 
-const page = () => {
+type PageProps = {
+  searchParams: {}
+}
+
+const page = async ({ searchParams }: PageProps) => {
   const maxRows = getMaxRows(widgets)
   return (
     <div className="space-y-12 w-full">
@@ -102,7 +106,7 @@ const page = () => {
           <Logo className="size-7" />
           <span className="text-2xl font-pixel">YZ13</span>
         </div>
-        <Button className="rounded-full" variant="outline" size="sm">Sign in</Button>
+        <User />
       </header>
       <main
         style={{
