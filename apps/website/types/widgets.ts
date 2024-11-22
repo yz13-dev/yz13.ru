@@ -21,10 +21,13 @@ export type WidgetGridPosition = {
     end: number;
   };
 };
+export type Grid = {
+  grid: WidgetGridPosition;
+};
 export type Clock = {
   id: "clock";
   timeZone: number;
-};
+} & Grid;
 export type QuickLink = {
   id: "quick-link";
   link: {
@@ -32,7 +35,10 @@ export type QuickLink = {
     title: string;
     href: string;
   };
-};
-export type HomeWidget = {
-  grid: WidgetGridPosition;
-} & (Clock | QuickLink);
+} & Grid;
+export type Notes = {
+  id: "notes";
+  items: string[];
+} & Grid;
+
+export type Widget = Clock | QuickLink | Notes;

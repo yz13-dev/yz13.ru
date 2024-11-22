@@ -37,9 +37,8 @@
 
   .widgets-grid {
     --gap: 8px;
-    --cols: 22;
+    --cols: 14;
     --rows: 2;
-    /* Размер ячейки с учётом gap */
     --cell-size: calc(
       (var(--max-width) - (var(--gap) * (var(--cols) - 1))) / var(--cols)
     );
@@ -69,7 +68,7 @@
     @apply flex items-center justify-center;
 
     & > span {
-      @apply text-5xl font-bold;
+      @apply text-7xl font-bold;
     }
   }
 }

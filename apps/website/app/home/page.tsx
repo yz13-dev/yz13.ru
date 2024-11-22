@@ -1,10 +1,11 @@
 import { Logo } from "@/components/logo"
-import { HomeWidget } from "@/types/widgets"
+import { Widget } from "@/types/widgets"
 import { Button } from "mono/components/button"
-import Link from "next/link"
-import { cn } from "yz13/cn"
+import Clock from "./widgets/clock"
+import Notes from "./widgets/notes"
+import QuickLink from "./widgets/quick-link"
 
-const widgets: HomeWidget[] = [
+const widgets: Widget[] = [
   {
     id: "clock",
     timeZone: 5,
@@ -41,8 +42,8 @@ const widgets: HomeWidget[] = [
     id: "quick-link",
     link: {
       icon: "home",
-      title: "Home",
-      href: "/",
+      title: "Socials",
+      href: "/socials",
     },
     grid: {
       column: {
@@ -56,48 +57,19 @@ const widgets: HomeWidget[] = [
     }
   },
   {
-    id: "quick-link",
-    link: {
-      icon: "home",
-      title: "Home",
-      href: "/",
-    },
-    grid: {
-      column: {
-        start: 4,
-        end: 4,
-      },
-      row: {
-        start: 2,
-        end: 2,
-      }
-    }
-  },
-  {
-    id: "quick-link",
-    link: {
-      icon: "home",
-      title: "Home",
-      href: "/",
-    },
-    grid: {
-      column: {
-        start: 5,
-        end: 5,
-      },
-      row: {
-        start: 2,
-        end: 2,
-      }
-    }
-  },
-  {
-    id: "quick-link",
-    link: {
-      icon: "home",
-      title: "Home",
-      href: "/",
-    },
+    id: "notes",
+    items: [
+      "Note 1",
+      "Note 2",
+      "Note 3",
+      "Note 4",
+      "Note 5",
+      "Note 6",
+      "Note 7",
+      "Note 8",
+      "Note 9",
+      "Note 10",
+    ],
     grid: {
       column: {
         start: 1,
@@ -105,31 +77,13 @@ const widgets: HomeWidget[] = [
       },
       row: {
         start: 2,
-        end: 4,
-      }
-    }
-  },
-  {
-    id: "quick-link",
-    link: {
-      icon: "home",
-      title: "Home",
-      href: "/",
-    },
-    grid: {
-      column: {
-        start: 6,
-        end: 9,
-      },
-      row: {
-        start: 1,
-        end: 2,
+        end: 3,
       }
     }
   }
 ]
 
-const getMaxRows = (widgets: HomeWidget[]) => {
+const getMaxRows = (widgets: Widget[]) => {
   let maxRows = 0
   for (const widget of widgets) {
     if (widget.grid.row.end > maxRows) {
@@ -159,47 +113,10 @@ const page = () => {
       >
         {
           widgets.map((widget, index) => {
-            if (widget.id === "quick-link") {
-              return (
-                <Link
-                  key={`${widget.id}-${index}`}
-                  href={widget.link.href}
-                  style={{
-                    // @ts-expect-error
-                    "--column-start": `${widget.grid.column.start}`,
-                    "--column-end": `${widget.grid.column.end}`,
-                    "--row-start": `${widget.grid.row.start}`,
-                    "--row-end": `${widget.grid.row.end}`,
-                  }}
-                  className={cn(
-                    "widget-wrapper",
-                    "rounded-xl border p-2 flex items-center justify-center",
-                    "hover:border-foreground"
-                  )}
-                >
-
-                </Link>
-              )
-            } else if (widget.id === "clock") {
-              return (
-                <div
-                  key={`${widget.id}-${index}`}
-                  style={{
-                    // @ts-expect-error
-                    "--column-start": `${widget.grid.column.start}`,
-                    "--column-end": `${widget.grid.column.end}`,
-                    "--row-start": `${widget.grid.row.start}`,
-                    "--row-end": `${widget.grid.row.end}`,
-                  }}
-                  className={cn(
-                    "widget-wrapper",
-                    widget.id === "clock" ? "clock-widget" : "",
-                  )}
-                >
-                  <span>13:08</span>
-                </div>
-              )
-            }
+            if (widget.id === "quick-link") return <QuickLink widget={widget} key={`${widget.id}-${index}`} />
+            if (widget.id === "clock") return <Clock widget={widget} key={`${widget.id}-${index}`} />
+            if (widget.id === "notes") return <Notes widget={widget} key={`${widget.id}-${index}`} />
+            return
           })
         }
       </main>
