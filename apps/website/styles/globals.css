@@ -36,8 +36,8 @@
   }
 
   .widgets-grid {
-    --gap: 8px;
-    --cols: 14;
+    --gap: 12px;
+    --cols: 13;
     --rows: 2;
     --cell-size: calc(
       (var(--max-width) - (var(--gap) * (var(--cols) - 1))) / var(--cols)
@@ -61,6 +61,13 @@
     grid-column: var(--column-start) / span var(--column-span);
     grid-row: var(--row-start) / span var(--row-span);
     @apply w-full h-full;
+  }
+
+  .widget-wrapper.folder-small {
+    @apply grid grid-cols-3 grid-rows-3;
+  }
+  .widget-wrapper.folder-medium {
+    @apply grid grid-cols-4 grid-rows-4;
   }
 
   .clock-widget {
