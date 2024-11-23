@@ -1,3 +1,4 @@
+import { applyGrid } from "@/lib/grid"
 import { QuickLink as QuickLinkProps } from "@/types/widgets"
 import Image from "next/image"
 import Link from "next/link"
@@ -9,13 +10,7 @@ const QuickLink = (props: Props<QuickLinkProps>) => {
   const content = widget.content
   return (
     <div
-      style={{
-        // @ts-expect-error
-        "--column-start": `${widget.grid.column.start}`,
-        "--column-end": `${widget.grid.column.end}`,
-        "--row-start": `${widget.grid.row.start}`,
-        "--row-end": `${widget.grid.row.end}`,
-      }}
+      style={applyGrid(widget.grid)}
       className={cn(
         "widget-wrapper",
         "relative p-2 flex flex-col justify-evenly items-center",

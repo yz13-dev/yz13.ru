@@ -6,7 +6,9 @@ export async function GET(request: Request) {
   const cookieStore = cookies(); // Получение cookies
   const supabase = createClient(cookieStore); // Создание клиента Supabase
 
-  // Инициализация сессии
+  const AUTH_PATH = "/auth/login";
+  const HOME_PATH = "/";
+
   const init = await supabase.auth.initialize();
   const {
     data: { user },
@@ -24,7 +26,7 @@ export async function GET(request: Request) {
 
     if (anonError) {
       console.error("Error during anonymous login:", anonError);
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+      return NextResponse.redirect(new URL(AUTH_PATH, request.url));
     }
 
     const { session } = anonData;
@@ -41,13 +43,13 @@ export async function GET(request: Request) {
       await supabase.auth.startAutoRefresh();
 
       // Перенаправляем на домашнюю страницу
-      return NextResponse.redirect(new URL("/home", request.url));
+      return NextResponse.redirect(new URL(HOME_PATH, request.url));
     } else {
       console.error("Session not found after anonymous login");
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+      return NextResponse.redirect(new URL(AUTH_PATH, request.url));
     }
   }
 
   // Если пользователь уже авторизован, перенаправляем на главную
-  return NextResponse.redirect(new URL("/home", request.url));
+  return NextResponse.redirect(new URL(HOME_PATH, request.url));
 }

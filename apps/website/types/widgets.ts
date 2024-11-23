@@ -27,28 +27,38 @@ export type Id = {
 export type Grid = {
   grid: WidgetGridPosition;
 };
+type Extension = Grid & Id;
+type Link = {
+  icon: string | null;
+  title: string;
+  href: string;
+};
 export type Clock = {
   widget_id: "clock";
   content: {
     timeZone: number;
   };
-} & Grid &
-  Id;
+} & Extension;
 export type QuickLink = {
   widget_id: "quick-link";
+  content: Link;
+} & Extension;
+export type LinksFolder = {
+  widget_id: "links-folder";
   content: {
-    icon: string | null;
-    title: string;
-    href: string;
+    links: Link[];
+    size: "small" | "medium" | "large"; // small - 4x4, medium - 6x6, large - 8x8
   };
-} & Grid &
-  Id;
+} & Extension;
 export type Notes = {
   widget_id: "notes";
   content: {
     items: string[];
   };
-} & Grid &
-  Id;
+} & Extension;
+export type Calendar = {
+  widget_id: "calendar";
+  content: {};
+} & Extension;
 
-export type Widget = Clock | QuickLink | Notes;
+export type Widget = Clock | QuickLink | Notes | Calendar;
