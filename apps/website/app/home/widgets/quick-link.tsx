@@ -1,11 +1,12 @@
 import { QuickLink as QuickLinkProps } from "@/types/widgets"
+import Image from "next/image"
 import Link from "next/link"
 import { cn } from "yz13/cn"
 import { Props } from "./props"
 
-
 const QuickLink = (props: Props<QuickLinkProps>) => {
   const { widget } = props
+  const content = widget.content
   return (
     <div
       style={{
@@ -21,10 +22,14 @@ const QuickLink = (props: Props<QuickLinkProps>) => {
         "group"
       )}
     >
-      <Link href={widget.link.href} className="w-full absolute left-0 top-0 h-full" />
+      <Link href={content.href} className="w-full absolute left-0 top-0 h-full" />
       <div className="size-12 rounded-xl border group-hover:border-foreground transition-colors">
+        {
+          content.icon &&
+          <Image src={content.icon ?? ""} alt={content.title} width={24} height={24} />
+        }
       </div>
-      <span className="text-xs">{widget.link.title}</span>
+      <span className="text-xs">{content.title}</span>
     </div>
   )
 }

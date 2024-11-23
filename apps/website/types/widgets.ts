@@ -21,24 +21,34 @@ export type WidgetGridPosition = {
     end: number;
   };
 };
+export type Id = {
+  id: string;
+};
 export type Grid = {
   grid: WidgetGridPosition;
 };
 export type Clock = {
-  id: "clock";
-  timeZone: number;
-} & Grid;
+  widget_id: "clock";
+  content: {
+    timeZone: number;
+  };
+} & Grid &
+  Id;
 export type QuickLink = {
-  id: "quick-link";
-  link: {
+  widget_id: "quick-link";
+  content: {
     icon: string | null;
     title: string;
     href: string;
   };
-} & Grid;
+} & Grid &
+  Id;
 export type Notes = {
-  id: "notes";
-  items: string[];
-} & Grid;
+  widget_id: "notes";
+  content: {
+    items: string[];
+  };
+} & Grid &
+  Id;
 
 export type Widget = Clock | QuickLink | Notes;

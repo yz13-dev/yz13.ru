@@ -6,6 +6,7 @@ import { Props } from "./props";
 
 const Clock = (props: Props<ClockProps>) => {
   const { widget } = props
+  const content = widget.content
   return (
     <div
       style={{

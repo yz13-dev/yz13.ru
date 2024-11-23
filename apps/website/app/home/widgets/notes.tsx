@@ -2,6 +2,7 @@ import { applyGrid } from "@/lib/grid";
 import { Notes as NotesProps } from "@/types/widgets";
 import { NotebookIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import Link from "next/link";
 import { cn } from "yz13/cn";
 import { Props } from "./props";
 
@@ -10,6 +11,8 @@ import { Props } from "./props";
 
 const Notes = (props: Props<NotesProps>) => {
   const { widget } = props
+  const content = widget.content
+  const id = widget.id
   return (
     <div
       style={applyGrid(widget.grid)}
@@ -26,13 +29,22 @@ const Notes = (props: Props<NotesProps>) => {
         </span>
         <Button variant="secondary" size="sm">Add note</Button>
       </div>
-      <ul className="w-full h-[calc(100%-32px-8px)] space-y-2 overflow-y-auto">
+      <ul className="w-full h-[calc(100%-32px-8px)] space-y-1 overflow-y-auto">
         {
-          widget.items.map((note, index) => {
-            return <li key={widget.id + `-${index}-` + note} className="w-full h-8">
-              <span className="text-sm text-secondary">{note}</span>
-            </li>
-          })
+          content
+            .items
+            .map(
+              (note, index) => {
+                return <li key={widget.widget_id + `-${index}-` + note} className="w-full h-9">
+                  <Link
+                    href={`?note=${id}&index=${index}`}
+                    className="flex w-full h-full items-center gap-2 hover:bg-yz-neutral-100 rounded-lg px-3"
+                  >
+                    <span className="text-sm text-secondary line-clamp-1">{note}</span>
+                  </Link>
+                </li>
+              }
+            )
         }
       </ul>
     </div>
