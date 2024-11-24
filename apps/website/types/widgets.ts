@@ -36,7 +36,7 @@ type Link = {
 export type Clock = {
   widget_id: "clock";
   content: {
-    timeZone: number;
+    timeZone: string;
   };
 } & Extension;
 export type QuickLink = {
