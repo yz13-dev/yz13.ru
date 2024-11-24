@@ -11,7 +11,7 @@ import LinksFolder from "./widgets/links-folder"
 import Notes from "./widgets/notes"
 import QuickLink from "./widgets/quick-link"
 
-const getMaxRows = (widgets: Widget[]) => {
+export const getMaxRows = (widgets: Widget[]) => {
   let maxRows = 0
   for (const widget of widgets) {
     if (widget.grid.row.end > maxRows) {
@@ -25,13 +25,13 @@ type GridProps = {
   searchParams?: SearchParams
 }
 
-const Grid = async ({ searchParams }: GridProps) => {
+export const UserGrid = async ({ searchParams }: GridProps) => {
   const user = await auth()
   if (user === null) return null
   const workspace = await action({ userId: user?.id })
   const workspaceData = workspace?.data as Workspace | null
   if (!workspaceData) {
-    return redirect("/home/new")
+    return redirect("/home/public")
   }
   const workspaceId = workspaceData.id as string
   const grid = await getGrid({ workspace: workspaceId })
@@ -69,4 +69,29 @@ const Grid = async ({ searchParams }: GridProps) => {
     </>
   )
 }
-export default Grid
+
+export const Grid = ({ widgets = [] }: { widgets?: Widget[] }) => {
+  const maxRows = getMaxRows(widgets)
+
+  return (
+    <main
+      style={{
+        // @ts-expect-error
+        "--rows": `${maxRows}`,
+      }}
+      className="px-8 page-width-limit widgets-grid w-full mx-auto"
+    >
+      {
+        widgets
+          .map((widget, index) => {
+            if (widget.widget_id === "quick-link") return <QuickLink widget={widget} key={`${widget.id}-${index}`} />
+            if (widget.widget_id === "clock") return <Clock widget={widget} key={`${widget.id}-${index}`} />
+            if (widget.widget_id === "notes") return <Notes widget={widget} key={`${widget.id}-${index}`} />
+            if (widget.widget_id === "calendar") return <Calendar widget={widget} key={`${widget.id}-${index}`} />
+            if (widget.widget_id === "links-folder") return <LinksFolder widget={widget} key={`${widget.id}-${index}`} />
+            return
+          })
+      }
+    </main>
+  )
+}

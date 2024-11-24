@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "ahooks": "^3.8.1",
     "autoprefixer": "^10.4.20",
     "dayjs": "^1.11.13",
     "lucide-react": "^0.452.0",

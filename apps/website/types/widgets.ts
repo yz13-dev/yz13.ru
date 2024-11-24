@@ -61,4 +61,4 @@ export type Calendar = {
   content: {};
 } & Extension;
 
-export type Widget = Clock | QuickLink | Notes | Calendar;
+export type Widget = Clock | QuickLink | Notes | Calendar | LinksFolder;
