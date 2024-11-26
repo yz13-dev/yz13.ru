@@ -20,13 +20,13 @@ const User = async () => {
   )
   const avatarUrl = user.user_metadata.avatar_url
   return (
-    <div className="size-8 flex items-center justify-center rounded-full border">
+    <Link href="/account" className="size-8 flex items-center justify-center rounded-full border">
       {
         avatarUrl
           ? <Image src={avatarUrl} alt="avatar" width={32} height={32} className="rounded-full" />
           : <UserIcon size={18} />
       }
-    </div>
+    </Link>
   )
 }
 export default User

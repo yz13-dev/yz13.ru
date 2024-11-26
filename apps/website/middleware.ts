@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "yz13/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
-  // @ts-expect-error
-  const { supabase } = createClient(request);
-  await supabase.auth.getUser();
+  // const { supabase } = createClient(request);
+  // await supabase.auth.getUser();
   return NextResponse.next();
 }
 

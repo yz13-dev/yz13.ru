@@ -1,8 +1,5 @@
 import { action as getGrid } from "@/actions/grid/get/action"
-import { action, Workspace } from "@/actions/workspace/get/action"
-import { auth } from "@/lib/auth"
 import { Widget } from "@/types/widgets"
-import { redirect } from "next/navigation"
 import NotesModal from "./modals/notes-modal"
 import { SearchParams } from "./page"
 import Calendar from "./widgets/calendar"
@@ -22,18 +19,11 @@ export const getMaxRows = (widgets: Widget[]) => {
 }
 
 type GridProps = {
+  workspaceId: string
   searchParams?: SearchParams
 }
 
-export const UserGrid = async ({ searchParams }: GridProps) => {
-  const user = await auth()
-  if (user === null) return null
-  const workspace = await action({ userId: user?.id })
-  const workspaceData = workspace?.data as Workspace | null
-  if (!workspaceData) {
-    return redirect("/home/public")
-  }
-  const workspaceId = workspaceData.id as string
+export const UserGrid = async ({ workspaceId, searchParams }: GridProps) => {
   const grid = await getGrid({ workspace: workspaceId })
   const gridData = grid?.data as any[]
   const maxRows = getMaxRows(gridData)

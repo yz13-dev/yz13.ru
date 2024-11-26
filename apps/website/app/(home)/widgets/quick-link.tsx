@@ -1,5 +1,6 @@
 import { applyGrid } from "@/lib/grid"
 import { QuickLink as QuickLinkProps } from "@/types/widgets"
+import { LinkIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { cn } from "yz13/cn"
@@ -18,10 +19,11 @@ const QuickLink = (props: Props<QuickLinkProps>) => {
       )}
     >
       <Link href={content.href} className="w-full absolute left-0 top-0 h-full" />
-      <div className="size-12 rounded-xl border group-hover:border-foreground transition-colors">
+      <div className="size-12 rounded-xl block content-center border group-hover:border-foreground transition-colors">
         {
-          content.icon &&
-          <Image src={content.icon ?? ""} alt={content.title} width={24} height={24} />
+          content.icon
+            ? <Image src={content.icon ?? ""} alt={content.title} width={24} height={24} />
+            : <LinkIcon size={16} className="mx-auto" />
         }
       </div>
       <span className="text-xs">{content.title}</span>
