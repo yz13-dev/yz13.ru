@@ -1,3 +1,4 @@
+import Dock from "./dock"
 import PersonalWorkspace from "./personal-workspace"
 
 export type SearchParams = {
@@ -11,6 +12,11 @@ type PageProps = {
 }
 
 const page = async ({ searchParams }: PageProps) => {
-  return <PersonalWorkspace searchParams={searchParams} />
+  return (
+    <>
+      <PersonalWorkspace searchParams={searchParams} />
+      <Dock />
+    </>
+  )
 }
 export default page
