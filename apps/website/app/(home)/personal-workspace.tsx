@@ -15,7 +15,7 @@ type PageProps = {
 }
 const PersonalWorkspace = async ({ searchParams }: PageProps) => {
   const user = await auth()
-  if (user === null) return null
+  if (user === null) return redirect("/auth/login/anon")
   const workspace = await action({ userId: user?.id })
   const workspaceData = workspace?.data as WorkspaceType | null
   if (!workspaceData) {

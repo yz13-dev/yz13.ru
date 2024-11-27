@@ -1,15 +1,16 @@
+import { auth } from "@/lib/auth";
+import { User as USER } from "@supabase/supabase-js";
 import { UserIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "yz13/supabase/server";
 
 
-const User = async () => {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const { data: { user } } = await supabase.auth.getUser();
+type Props = {
+  providedUser?: USER | null
+}
+const User = async ({ providedUser }: Props) => {
+  const user = providedUser ?? (await auth())
 
   if (!user) return (
     <Button className="rounded-full" variant="outline" size="sm" asChild>

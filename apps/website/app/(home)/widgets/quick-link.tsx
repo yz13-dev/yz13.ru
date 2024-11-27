@@ -9,6 +9,7 @@ import { Props } from "./props"
 const QuickLink = (props: Props<QuickLinkProps>) => {
   const { widget } = props
   const content = widget.content
+  const isIconLink = content.href.includes("https") || content.href.includes("http")
   return (
     <div
       style={applyGrid(widget.grid)}
