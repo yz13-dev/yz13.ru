@@ -1,6 +1,7 @@
 import PersonalWorkspace from "./personal-workspace"
 
 export type SearchParams = {
+  workspace?: string
   note?: string
   index?: string
 }

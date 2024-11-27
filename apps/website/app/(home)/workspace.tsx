@@ -1,7 +1,7 @@
 import { Workspace as WorkspaceType } from "@/actions/workspace/get/action"
 import { Logo } from "@/components/logo"
 import { auth } from "@/lib/auth"
-import { SettingsIcon } from "lucide-react"
+import { PlusIcon, SettingsIcon } from "lucide-react"
 import { Button } from "mono/components/button"
 import { Skeleton } from "mono/components/skeleton"
 import Link from "next/link"
@@ -43,8 +43,12 @@ const Header = async ({ actions, info, workspace }: HeaderProps) => {
       </div>
       <div className="flex items-center gap-2">
         {
-          isOwner &&
-          <Button size="icon" variant="outline" className="rounded-full"><SettingsIcon size={16} /></Button>
+          isOwner && (
+            <>
+              <Button size="icon" variant="outline" className="rounded-full"><PlusIcon size={16} /></Button>
+              <Button size="icon" variant="outline" className="rounded-full"><SettingsIcon size={16} /></Button>
+            </>
+          )
         }
         {actions}
       </div>
