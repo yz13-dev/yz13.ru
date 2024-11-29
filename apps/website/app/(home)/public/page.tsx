@@ -5,7 +5,8 @@ import PublicWorkspace from "./public-workspace"
 type PageProps = {
   searchParams: SearchParams
 }
-const page = async ({ searchParams }: PageProps) => {
+const page = async (props: PageProps) => {
+  const searchParams = await props.searchParams;
   return <PublicWorkspace searchParams={searchParams} />
 }
 export default page

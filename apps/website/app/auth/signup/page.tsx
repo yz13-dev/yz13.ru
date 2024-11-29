@@ -5,12 +5,13 @@ import Link from "next/link"
 import { MdOpenInNew } from "react-icons/md"
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     lang?: string
     continue?: string
-  }
+  }>
 }
-const page = async ({ searchParams }: Props) => {
+const page = async (props: Props) => {
+  const searchParams = await props.searchParams;
   const continueLink = searchParams.continue
   const loginLink = "/login" + (continueLink ? `?continue=${continueLink}` : "")
   return (

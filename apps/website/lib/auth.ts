@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 
 export const auth = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const {
     data: { user },

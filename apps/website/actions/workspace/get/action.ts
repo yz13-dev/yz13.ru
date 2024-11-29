@@ -15,7 +15,7 @@ export type Workspace = {
 export const action = client
   .schema(schema)
   .action(async ({ parsedInput: { userId, workspaceId } }) => {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     if (workspaceId) {
       const { data, error } = await supabase

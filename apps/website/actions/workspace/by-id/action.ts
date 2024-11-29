@@ -6,7 +6,7 @@ import { schema } from "./schema";
 export const action = client
   .schema(schema)
   .action(async ({ parsedInput: { id } }) => {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       // @ts-expect-error

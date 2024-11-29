@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import { createClient } from "yz13/supabase/server";
 
 export async function GET(request: Request) {
-  const cookieStore = cookies(); // Получение cookies
+  const cookieStore = await cookies(); // Получение cookies
   const supabase = createClient(cookieStore); // Создание клиента Supabase
 
   const {

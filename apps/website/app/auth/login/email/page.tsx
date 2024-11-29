@@ -4,12 +4,13 @@ import Link from "next/link"
 import { EmailForm } from "./email-form"
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     lang?: string
     continue?: string
-  }
+  }>
 }
-const page = async ({ searchParams }: Props) => {
+const page = async (props: Props) => {
+  const searchParams = await props.searchParams;
   const continueLink = searchParams.continue
   const backLink = "/login" + (continueLink ? `?continue=${continueLink}` : "")
   return (

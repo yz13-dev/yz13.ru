@@ -11,7 +11,8 @@ type PageProps = {
   searchParams: SearchParams
 }
 
-const page = async ({ searchParams }: PageProps) => {
+const page = async (props: PageProps) => {
+  const searchParams = await props.searchParams;
   return (
     <>
       <PersonalWorkspace searchParams={searchParams} />

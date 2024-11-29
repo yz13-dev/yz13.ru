@@ -5,14 +5,15 @@ import { Logged } from "./logged"
 import { UnLogged } from "./unlogged"
 
 type Props = {
-  params: {}
-  searchParams: {
+  params: Promise<{}>
+  searchParams: Promise<{
     lang?: string
     continue?: string
-  }
+  }>
 }
-const page = async ({ searchParams, params }: Props) => {
-  const cks = cookies()
+const page = async (props: Props) => {
+  const searchParams = await props.searchParams;
+  const cks = await cookies()
   const sp = createClient(cks)
   const { data: { user } } = await sp.auth.getUser()
   const isLogged = !!user

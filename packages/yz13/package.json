@@ -34,6 +34,11 @@
       "require": "./dist/supabase/server.cjs",
       "types": "./dist/supabase/server.d.ts"
     },
+    "./supabase/admin": {
+      "import": "./dist/supabase/admin.js",
+      "require": "./dist/supabase/admin.cjs",
+      "types": "./dist/supabase/admin.d.ts"
+    },
     "./supabase/middleware": {
       "import": "./dist/supabase/middleware.js",
       "require": "./dist/supabase/middleware.cjs",
