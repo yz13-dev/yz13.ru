@@ -253,7 +253,8 @@
       "import": "./dist/components/widgets/stack/index.js",
       "require": "./dist/components/widgets/stack/index.cjs"
     },
-    "./globals.css": "./dist/globals.css"
+    "./globals.css": "./dist/globals.css",
+    "./theme.css": "./dist/styles/theme.css"
   },
   "files": [
     "dist",

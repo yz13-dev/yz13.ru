@@ -29,7 +29,7 @@ const PublicWorkspace = async ({ searchParams }: PageProps) => {
       <Workspace.Header
         workspace={workspaceData}
         actions={
-          <Button size="icon" variant="outline" className="rounded-full">
+          <Button size="icon" variant="outline" className="rounded-full size-9">
             <LayoutGridIcon size={16} />
             <span className="sr-only">Services</span>
           </Button>

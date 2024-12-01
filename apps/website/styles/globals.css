@@ -1,13 +1,113 @@
 @import url("mono/globals.css");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --container-center: true;
+  --container-padding: 2rem;
+  --container-screens-2xl: 1400px;
+
+  --color-pixel-icon: hsl(var(--icon-brand-color));
+
+  --color-background: hsl(var(--yz13-background));
+  --color-foreground: hsl(var(--yz13-foreground));
+
+  --color-border: hsl(var(--yz13-border));
+
+  --color-yz-neutral-50: hsl(var(--yz13-neutral-50));
+  --color-yz-neutral-100: hsl(var(--yz13-neutral-100));
+  --color-yz-neutral-200: hsl(var(--yz13-neutral-200));
+  --color-yz-neutral-300: hsl(var(--yz13-neutral-300));
+  --color-yz-neutral-400: hsl(var(--yz13-neutral-400));
+  --color-yz-neutral-500: hsl(var(--yz13-neutral-500));
+  --color-yz-neutral-600: hsl(var(--yz13-neutral-600));
+  --color-yz-neutral-700: hsl(var(--yz13-neutral-700));
+  --color-yz-neutral-800: hsl(var(--yz13-neutral-800));
+  --color-yz-neutral-900: hsl(var(--yz13-neutral-900));
+
+  --color-yz-success-100: hsl(var(--yz13-success-100));
+  --color-yz-success-200: hsl(var(--yz13-success-200));
+  --color-yz-success-300: hsl(var(--yz13-success-300));
+  --color-yz-success-400: hsl(var(--yz13-success-400));
+  --color-yz-success-accent: hsl(var(--yz13-success-accent));
+  --color-yz-success-foreground: hsl(var(--yz13-success-foreground));
+  --color-yz-success-background: hsl(var(--yz13-success-background));
+  --color-yz-success-border: hsl(var(--yz13-success-border));
+
+  --color-yz-error-100: hsl(var(--yz13-error-100));
+  --color-yz-error-200: hsl(var(--yz13-error-200));
+  --color-yz-error-300: hsl(var(--yz13-error-300));
+  --color-yz-error-400: hsl(var(--yz13-error-400));
+  --color-yz-error-accent: hsl(var(--yz13-error-accent));
+  --color-yz-error-foreground: hsl(var(--yz13-error-foreground));
+  --color-yz-error-background: hsl(var(--yz13-error-background));
+  --color-yz-error-border: hsl(var(--yz13-error-border));
+
+  --color-yz-warning-100: hsl(var(--yz13-warning-100));
+  --color-yz-warning-200: hsl(var(--yz13-warning-200));
+  --color-yz-warning-300: hsl(var(--yz13-warning-300));
+  --color-yz-warning-400: hsl(var(--yz13-warning-400));
+  --color-yz-warning-accent: hsl(var(--yz13-warning-accent));
+  --color-yz-warning-foreground: hsl(var(--yz13-warning-foreground));
+  --color-yz-warning-background: hsl(var(--yz13-warning-background));
+  --color-yz-warning-border: hsl(var(--yz13-warning-border));
+
+  --color-yz-secondary: hsl(var(--yz13-secondary));
+
+  --color-yz-highlight-alert: hsl(var(--yz13-alert));
+  --color-yz-highlight-purple: hsl(var(--yz13-purple));
+  --color-yz-highlight-cyan: hsl(var(--yz13-cyan));
+  --color-yz-highlight-violet: hsl(var(--yz13-violet));
+
+  --color-yz-link-color: hsl(var(--yz13-link-color));
+  --color-yz-link-style: var(--yz13-link-style);
+
+  --color-yz-code: hsl(var(--yz13-code));
+
+  --color-sidebar-background: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
+  --color-sidebar-accent: hsl(var(--sidebar-accent));
+  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-sidebar-ring: hsl(var(--sidebar-ring));
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  --animate-long-spin: long-spin 1s linear infinite;
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  /*  */
   --split-view-width: var(--sidebar-width);
 }
 
 @layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border);
+  }
   ::selection {
     @apply bg-foreground text-background;
   }
@@ -26,6 +126,9 @@
 }
 
 @layer components {
+  body {
+    @apply font-sans bg-background text-foreground;
+  }
   .split-view {
     --split-view-width: calc(100dvw - var(--sidebar-width) / 2);
     width: var(--split-view-width);
