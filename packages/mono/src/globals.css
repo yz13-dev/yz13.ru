@@ -1,6 +1,5 @@
+@import "tailwindcss";
 @import url("./styles/vars.css");
-@tailwind components;
-@tailwind utilities;
 
 @layer components {
   body {

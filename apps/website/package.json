@@ -3,24 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3001",
+    "dev": "next dev --turbo --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.46.1",
+    "@supabase/supabase-js": "^2.46.2",
     "ahooks": "^3.8.1",
     "autoprefixer": "^10.4.20",
     "dayjs": "^1.11.13",
     "favicon-fetch": "^1.0.0",
+    "latest": "^0.2.0",
     "lucide-react": "^0.452.0",
     "mono": "*",
-    "next": "15.0.3",
     "next-safe-action": "^7.9.9",
-    "postcss": "^8.4.47",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "postcss": "^8.4.49",
+    "next": "14.2.6",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "yz13": "*",
     "zod": "^3.23.8",
     "zustand": "^5.0.1"
@@ -28,15 +29,11 @@
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@types/node": "^20",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-    "eslint": "^8",
+    "@types/node": "^20.17.9",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
     "typescript": "^5"
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }
