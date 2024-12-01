@@ -3,8 +3,8 @@
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "skipLibCheck": true,
-    "module": "ES2020",
-    "moduleResolution": "Node",
+    "module": "ESNext",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noEmit": true,
@@ -16,7 +16,7 @@
     }
   },
   "include": [
-    "vite.config.ts",
+    "vite.config.mts",
     "tailwind.config.ts"
   ]
 }

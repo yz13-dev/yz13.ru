@@ -5,7 +5,7 @@ import { defineConfig } from "tsup";
 const getSrcEntries = () => {
   const initialPath = join("./", "src");
   const result: string[] = [];
-
+  console.log(result);
   const exploreDirectory = (path: string) => {
     const entries = readdirSync(path);
     entries.forEach((entry) => {
