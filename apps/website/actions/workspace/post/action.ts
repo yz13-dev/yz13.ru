@@ -1,24 +1,18 @@
 "use server";
 import client from "@/actions/client";
-import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
+import { API_URL } from "@/const/api";
 import { schema } from "./schema";
 
 export const action = client
   .schema(schema)
   .action(async ({ parsedInput: { userId } }) => {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      // @ts-expect-error
-      .from("workspaces")
-      // @ts-expect-error
-      .insert([{ user: userId }])
-      .select();
-    console.log(data, error);
-    if (error) {
-      return null;
-    } else {
+    try {
+      const url = new URL(`/user/${userId}/workspace`, API_URL);
+      const res = await fetch(url.toString(), { method: "POST" });
+      const data = await res.json();
       return data;
+    } catch (e) {
+      console.log(e);
+      return null;
     }
   });

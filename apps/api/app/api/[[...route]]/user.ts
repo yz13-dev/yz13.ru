@@ -18,19 +18,18 @@ user.get("/:uid", async (c) => {
 });
 
 user.post("/:uid/workspace", async (c) => {
-  const uid = c.req.param("uid")
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+  const uid = c.req.param("uid");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     // @ts-expect-error
     .from("workspaces")
     // @ts-expect-error
     .insert([{ user: uid }])
     .select();
-  console.log(data, error);
   if (error) {
-    return c.json(null)
+    return c.json(null);
   } else {
     return c.json(data);
   }
-})
+});

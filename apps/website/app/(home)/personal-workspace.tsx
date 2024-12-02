@@ -16,9 +16,7 @@ const PersonalWorkspace = async ({ searchParams }: PageProps) => {
   if (user === null) return redirect("/auth/login/anon")
   const workspace = await action({ userId: user?.id, workspaceId: searchParams?.workspace })
   const workspaceData = workspace?.data as WorkspaceType | null
-  if (!workspaceData) {
-    return redirect("/public")
-  }
+  if (!workspaceData) return redirect("/public")
   const workspaceId = workspaceData.id as string
   const workspaceName = workspaceData?.name ?? "Untitled"
   return (

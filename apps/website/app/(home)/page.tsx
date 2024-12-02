@@ -13,6 +13,12 @@ type PageProps = {
 
 const page = async (props: PageProps) => {
   const searchParams = await props.searchParams;
+  const isProd = process.env.NODE_ENV === "production";
+  if (isProd) return (
+    <div className="w-full h-dvh flex items-center justify-center">
+      <span>Realese soon</span>
+    </div>
+  )
   return (
     <>
       <PersonalWorkspace searchParams={searchParams} />

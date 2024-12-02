@@ -19,9 +19,6 @@ const PublicWorkspace = async ({ searchParams }: PageProps) => {
   const grid = await getGrid({ workspace: workspaceId })
   const gridData = grid?.data as any[]
 
-  console.log(workspace, workspaceData)
-  console.log(grid, gridData)
-
   const showNotesModal = searchParams?.note && searchParams?.index
   const targetNote = showNotesModal ? gridData.find((widget) => widget.id === searchParams?.note) : null
   const targetIndex = showNotesModal ? parseInt(searchParams?.index ?? "0") : null
