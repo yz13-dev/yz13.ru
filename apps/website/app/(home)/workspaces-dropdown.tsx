@@ -15,6 +15,7 @@ const WorkspacesDropdown = async ({ children, currentWorkspace, userId }: Props)
   const workspaces = userId && await getWorkspacesByUser({ id: userId })
   const workspacesData = workspaces ? workspaces?.data as unknown as Workspace[] : []
   const isLimit = workspacesData.length >= 3
+  console.log(currentWorkspace)
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild={!!children}>

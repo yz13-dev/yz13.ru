@@ -19,6 +19,9 @@ const PublicWorkspace = async ({ searchParams }: PageProps) => {
   const grid = await getGrid({ workspace: workspaceId })
   const gridData = grid?.data as any[]
 
+  console.log(workspace, workspaceData)
+  console.log(grid, gridData)
+
   const showNotesModal = searchParams?.note && searchParams?.index
   const targetNote = showNotesModal ? gridData.find((widget) => widget.id === searchParams?.note) : null
   const targetIndex = showNotesModal ? parseInt(searchParams?.index ?? "0") : null
@@ -27,7 +30,7 @@ const PublicWorkspace = async ({ searchParams }: PageProps) => {
   return (
     <Workspace.Wrapper>
       <Workspace.Header
-        workspace={workspaceData}
+        workspace={null}
         actions={
           <Button size="icon" variant="outline" className="rounded-full size-9">
             <LayoutGridIcon size={16} />
