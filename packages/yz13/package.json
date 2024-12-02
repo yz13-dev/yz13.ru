@@ -5,49 +5,49 @@
   "description": "yz13 package",
   "exports": {
     "./dynamic-image": {
+      "types": "./dist/dynamic-image/image.d.ts",
       "import": "./dist/dynamic-image/image.js",
-      "require": "./dist/dynamic-image/image.cjs",
-      "types": "./dist/dynamic-image/image.d.ts"
+      "require": "./dist/dynamic-image/image.cjs"
     },
     "./cn": {
+      "types": "./dist/lib/cn.d.ts",
       "import": "./dist/lib/cn.js",
-      "require": "./dist/lib/cn.cjs",
-      "types": "./dist/lib/cn.d.ts"
+      "require": "./dist/lib/cn.cjs"
     },
     "./get-url": {
+      "types": "./dist/lib/get-url.d.ts",
       "import": "./dist/lib/get-url.js",
-      "require": "./dist/lib/get-url.cjs",
-      "types": "./dist/lib/get-url.d.ts"
+      "require": "./dist/lib/get-url.cjs"
     },
     "./supabase/database": {
+      "types": "./dist/supabase/database.d.ts",
       "import": "./dist/supabase/database.js",
-      "require": "./dist/supabase/database.cjs",
-      "types": "./dist/supabase/database.d.ts"
+      "require": "./dist/supabase/database.cjs"
     },
     "./supabase/client": {
+      "types": "./dist/supabase/client.d.ts",
       "import": "./dist/supabase/client.js",
-      "require": "./dist/supabase/client.cjs",
-      "types": "./dist/supabase/client.d.ts"
+      "require": "./dist/supabase/client.cjs"
     },
     "./supabase/server": {
+      "types": "./dist/supabase/server.d.ts",
       "import": "./dist/supabase/server.js",
-      "require": "./dist/supabase/server.cjs",
-      "types": "./dist/supabase/server.d.ts"
+      "require": "./dist/supabase/server.cjs"
     },
     "./supabase/admin": {
+      "types": "./dist/supabase/admin.d.ts",
       "import": "./dist/supabase/admin.js",
-      "require": "./dist/supabase/admin.cjs",
-      "types": "./dist/supabase/admin.d.ts"
+      "require": "./dist/supabase/admin.cjs"
     },
     "./supabase/middleware": {
+      "types": "./dist/supabase/middleware.d.ts",
       "import": "./dist/supabase/middleware.js",
-      "require": "./dist/supabase/middleware.cjs",
-      "types": "./dist/supabase/middleware.d.ts"
+      "require": "./dist/supabase/middleware.cjs"
     },
     "./supabase/storage": {
+      "types": "./dist/supabase/storage.d.ts",
       "import": "./dist/supabase/storage.js",
-      "require": "./dist/supabase/storage.cjs",
-      "types": "./dist/supabase/storage.d.ts"
+      "require": "./dist/supabase/storage.cjs"
     }
   },
   "files": [
@@ -55,7 +55,7 @@
   ],
   "scripts": {
     "publish": "bun run build",
-    "build": "rimraf ./dist && tsup",
+    "build": "tsup",
     "dev": "tsup --watch --clean=false",
     "test": "jest .test.ts"
   },
