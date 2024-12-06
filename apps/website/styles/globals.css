@@ -4,6 +4,7 @@
 @theme {
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  --font-pixel: var(--font-pixel);
 
   --container-center: true;
   --container-padding: 2rem;

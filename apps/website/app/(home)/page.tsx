@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Dock from "./dock"
 import PersonalWorkspace from "./personal-workspace"
 
@@ -20,10 +21,13 @@ const page = async (props: PageProps) => {
     </div>
   )
   return (
-    <>
-      <PersonalWorkspace searchParams={searchParams} />
-      <Dock />
-    </>
+    <div className="w-full h-dvh flex flex-col gap-6 items-center justify-center">
+      <div className="h-16 w-56 relative">
+        <Image className="light-mode-image" src="/yz-full-light.svg" fill alt="yz-logo" />
+        <Image className="dark-mode-image" src="/yz-full-dark.svg" fill alt="yz-logo" />
+      </div>
+      <span className="text-3xl font-pixel">Realese soon</span>
+    </div>
   )
 }
 export default page

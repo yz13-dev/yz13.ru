@@ -51,13 +51,13 @@ export const metadata: Metadata = {
       rel: "icon",
       type: "image/svg+xml",
       media: "(prefers-color-scheme: light)",
-      url: "https://yzstatic.yz13.space/logo/yz-light.svg",
+      url: "/yz-light.svg",
     },
     {
       rel: "icon",
       type: "image/svg+xml",
       media: "(prefers-color-scheme: dark)",
-      url: "https://yzstatic.yz13.space/logo/yz-dark.svg",
+      url: "/yz-dark.svg",
     },
   ],
 };
