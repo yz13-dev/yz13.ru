@@ -62,7 +62,7 @@ export default function RootLayout({
         PIXEL.variable,
       )}
     >
-      <body>
+      <body className="bg-yz-neutral-100">
         {children}
       </body>
     </html>
