@@ -253,7 +253,7 @@
       "import": "./dist/components/widgets/stack/index.js",
       "require": "./dist/components/widgets/stack/index.cjs"
     },
-        "./config": {
+    "./config": {
       "types": "./dist/tailwind.config.d.ts",
       "import": "./dist/tailwind.config.js",
       "require": "./dist/tailwind.config.mjs"
@@ -264,8 +264,7 @@
   },
   "files": [
     "dist",
-    "README.md",
-    "index.css"
+    "README.md"
   ],
   "scripts": {
     "dev": "tsup --watch --clean=false",

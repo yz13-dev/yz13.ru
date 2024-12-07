@@ -1,5 +1,4 @@
 import Image from "next/image"
-import BgCanvas from "./bg-canvas"
 import Link from "next/link"
 
 

@@ -1,3 +1,4 @@
+import "mono/css/globals.css"
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
@@ -7,6 +8,7 @@ import { cn } from "yz13/cn";
 const PIXEL = Pixelify_Sans({
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600", "700"],
+  preload: true,
   display: "swap",
   variable: "--font-yz-pixel",
 })
@@ -62,7 +64,7 @@ export default function RootLayout({
         PIXEL.variable,
       )}
     >
-      <body className="bg-yz-neutral-100">
+      <body>
         {children}
       </body>
     </html>

@@ -9,8 +9,8 @@
     }
   ],
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "ES2020",
+    "moduleResolution": "Node",
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {

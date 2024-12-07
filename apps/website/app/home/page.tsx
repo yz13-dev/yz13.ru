@@ -9,20 +9,22 @@ const LiveTime = dynamic(() => import("./live-time"), {
 const page = () => {
   return (
     <>
-      <header className="w-full flex items-center justify-between p-12">
+      <header className="w-full flex items-center justify-between lg:p-12 p-6">
         <Logo className="w-20 h-11" />
-        <User />
+        <User size="md" />
       </header>
-      <div className="max-w-5xl w-full mx-auto divide-y mt-24">
-        <section className="space-y-12 p-12 border-b">
+      <div className="max-w-5xl w-full mx-auto divide-y mt-12 lg:mt-24">
+        <section className="space-y-12 lg:p-12 p-6 border-b">
           <div className="space-y-3">
             <h1 className="text-4xl font-semibold">Hi there, i'm YZ13</h1>
             <p className="text-2xl text-secondary">
               Just fullstack developer, nothing crazy.
             </p>
-            <div className="flex items-center gap-2">
+          </div>
+          <div className="w-full space-y-3">
+            <div className="w-full flex items-center gap-2">
               <span className="text-xs h-6 font-medium flex items-center">Frontend:</span>
-              <ul className="inline-flex items-start gap-1 wrap">
+              <ul className="inline-flex items-start gap-1 flex-wrap">
                 <li><span className="text-xs px-2 py-1 rounded-full border">React</span></li>
                 <li><span className="text-xs px-2 py-1 rounded-full border">Typescript</span></li>
                 <li><span className="text-xs px-2 py-1 rounded-full border">NextJS</span></li>
@@ -31,9 +33,9 @@ const page = () => {
                 <li><span className="text-xs px-2 py-1 rounded-full border">Zod</span></li>
               </ul>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="w-full flex items-center gap-2">
               <span className="text-xs h-6 font-medium flex items-center">Backend:</span>
-              <ul className="inline-flex items-start gap-1 wrap">
+              <ul className="inline-flex items-start gap-1 flex-wrap">
                 <li><span className="text-xs px-2 py-1 rounded-full border">NodeJS</span></li>
                 <li><span className="text-xs px-2 py-1 rounded-full border">Typescript</span></li>
                 <li><span className="text-xs px-2 py-1 rounded-full border">PostgresQL</span></li>
@@ -44,14 +46,14 @@ const page = () => {
           <div className="w-full flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1">
-                <div className="size-1.5 rounded-full animate-pulse bg-yz-success-foreground" />
-                <span className="text-sm">Available for work</span>
+                <div className="size-1.5 rounded-full animate-pulse bg-success-foreground" />
+                <span className="text-sm text-secondary">Available for work</span>
               </div>
-              <span className="text-sm">/</span>
+              <span className="text-sm text-secondary">/</span>
               <div className="flex items-center gap-1">
-                <ClockIcon size={12} />
-                <LiveTime />
-                <span className="text-sm">UTC +5</span>
+                <ClockIcon size={12} className="text-secondary" />
+                <LiveTime className="text-secondary" />
+                <span className="text-sm text-secondary">UTC +5</span>
               </div>
             </div>
             <div className="flex items-center gap-2">

@@ -10,9 +10,6 @@ const config: Config = {
   },
   theme: {
     extend: {
-      fontFamily: {
-        pixel: "var(--font-pixel)",
-      },
     },
   },
 };

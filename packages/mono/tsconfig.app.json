@@ -9,8 +9,8 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "ES2020",
+    "moduleResolution": "Node",
     "skipLibCheck": true,
     /* Bundler mode */
     "allowImportingTsExtensions": true,
