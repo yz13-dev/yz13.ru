@@ -1,46 +1,25 @@
 import "@/styles/globals.css";
-import { SidebarProvider } from "mono/components/sidebar";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { Pixelify_Sans } from "next/font/google"
 import { cn } from "yz13/cn";
 
-const PIXEL = localFont({
-  src: "./fonts/neue-pixel-sans/neue-pixel-sans.ttf",
-  variable: "--font-pixel",
-  preload: true,
-  adjustFontFallback: "Arial",
-});
+const PIXEL = Pixelify_Sans({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-yz-pixel",
+})
 
-const RU_FONT = localFont({
-  src: [
-    {
-      path: "./fonts/suisse-intl/SuisseIntl-Light.otf",
-      weight: "300",
-    },
-    {
-      path: "./fonts/suisse-intl/SuisseIntl-Regular.otf",
-      weight: "400",
-    },
-    {
-      path: "./fonts/suisse-intl/SuisseIntl-Medium.otf",
-      weight: "500",
-    },
-    {
-      path: "./fonts/suisse-intl/SuisseIntl-SemiBold.otf",
-      weight: "600",
-    },
-    {
-      path: "./fonts/suisse-intl/SuisseIntl-Bold.otf",
-      weight: "700",
-    },
-  ],
+const Geist = localFont({
+  src: "./fonts/geist/GeistVF.woff",
   fallback: ["Inter"],
-  variable: "--font-sans",
+  variable: "--font-yz-sans",
 });
 
 const GeistMono = localFont({
   src: "./fonts/geist/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
+  variable: "--font-yz-mono",
 });
 
 export const metadata: Metadata = {
@@ -78,15 +57,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        RU_FONT.variable,
+        Geist.variable,
         GeistMono.variable,
         PIXEL.variable,
       )}
     >
       <body>
-        <SidebarProvider>
-          {children}
-        </SidebarProvider>
+        {children}
       </body>
     </html>
   );

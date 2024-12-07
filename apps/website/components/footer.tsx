@@ -1,4 +1,7 @@
 import { Logo } from "@/components/logo"
+import { SunIcon } from "lucide-react"
+import { Button } from "mono/components/button"
+import { cn } from "yz13/cn"
 
 const ListWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -18,9 +21,9 @@ const Item = ({ children }: { children: React.ReactNode }) => {
     <li className="hover:underline">{children}</li>
   )
 }
-const Footer = () => {
+const Footer = ({ className = "" }: { className?: string }) => {
   return (
-    <footer className="w-full h-fit pb-6 flex items-start justify-between">
+    <footer className={cn("w-full h-fit pb-6 flex items-start justify-between", className)}>
       <Logo className="size-6" />
       <ListWrapper>
         <Title>Products</Title>

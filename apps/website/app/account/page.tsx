@@ -4,7 +4,7 @@ import { Button } from "mono/components/button"
 import { Skeleton } from "mono/components/skeleton"
 import Link from "next/link"
 import { Suspense } from "react"
-import User from "../(home)/user"
+import User from "../../components/user"
 
 
 
