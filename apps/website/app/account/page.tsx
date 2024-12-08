@@ -14,13 +14,12 @@ const page = () => {
       <header className="w-full h-fit flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <Logo className="size-7" />
-            <span className="text-2xl font-pixel">YZ13</span>
+            <Logo className="h-7 w-20" type="full" />
           </Link>
         </div>
         <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-8 rounded-full" />}>
-            <User />
+            <User size="sm" />
           </Suspense>
         </div>
       </header>

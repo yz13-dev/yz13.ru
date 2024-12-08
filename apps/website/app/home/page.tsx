@@ -1,7 +1,13 @@
 import { Logo } from "@/components/logo"
 import User from "@/components/user"
-import { ClockIcon, MonitorIcon, MoonIcon, SunIcon } from "lucide-react"
+import { ClockIcon, MailIcon, MonitorIcon, MoonIcon, SunIcon } from "lucide-react"
 import dynamic from "next/dynamic"
+import Link from "next/link"
+import { Skill } from "@/components/skill-label"
+import RoadMap from "../road-map"
+import { SidebarProvider } from "mono/components/sidebar"
+import ContentSection from "./content-section"
+import ContentSidebar from "./content-sidebar"
 const LiveTime = dynamic(() => import("./live-time"), {
   ssr: false
 })
@@ -13,8 +19,8 @@ const page = () => {
         <Logo className="w-20 h-11" />
         <User size="md" />
       </header>
-      <div className="max-w-5xl w-full mx-auto divide-y mt-12 lg:mt-24">
-        <section className="space-y-12 lg:p-12 p-6 border-b">
+      <div className="max-w-5xl w-full mx-auto divide-y mt-12 h-[calc(80dvh-144px)] lg:mt-20">
+        <section className="space-y-12 lg:p-12 p-6">
           <div className="space-y-3">
             <h1 className="text-4xl font-semibold">Hi there, i'm YZ13</h1>
             <p className="text-2xl text-secondary">
@@ -22,24 +28,24 @@ const page = () => {
             </p>
           </div>
           <div className="w-full space-y-3">
-            <div className="w-full flex items-center gap-2">
-              <span className="text-xs h-6 font-medium flex items-center">Frontend:</span>
+            <div className="w-full flex lg:flex-row flex-col lg:items-center items-start gap-2">
+              <span className="text-sm h-6 font-medium flex items-center">Frontend:</span>
               <ul className="inline-flex items-start gap-1 flex-wrap">
-                <li><span className="text-xs px-2 py-1 rounded-full border">React</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">Typescript</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">NextJS</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">Vite</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">TailwindCSS</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">Zod</span></li>
+                <li><Skill><Skill.Label>React</Skill.Label><Skill.Scale current={4} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>Typescript</Skill.Label><Skill.Scale current={3} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>NextJS</Skill.Label><Skill.Scale current={4} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>Vite</Skill.Label><Skill.Scale current={2} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>TailwindCSS</Skill.Label><Skill.Scale current={4} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>Zod</Skill.Label><Skill.Scale current={2} max={5} /></Skill></li>
               </ul>
             </div>
-            <div className="w-full flex items-center gap-2">
-              <span className="text-xs h-6 font-medium flex items-center">Backend:</span>
+            <div className="w-full flex lg:flex-row flex-col lg:items-center items-start gap-2">
+              <span className="text-sm h-6 font-medium flex items-center">Backend:</span>
               <ul className="inline-flex items-start gap-1 flex-wrap">
-                <li><span className="text-xs px-2 py-1 rounded-full border">NodeJS</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">Typescript</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">PostgresQL</span></li>
-                <li><span className="text-xs px-2 py-1 rounded-full border">MongoDB</span></li>
+                <li><Skill><Skill.Label>NodeJS</Skill.Label><Skill.Scale current={3} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>Typescript</Skill.Label><Skill.Scale current={3} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>PostgresQL</Skill.Label><Skill.Scale current={1} max={5} /></Skill></li>
+                <li><Skill><Skill.Label>MongoDB</Skill.Label><Skill.Scale current={1} max={5} /></Skill></li>
               </ul>
             </div>
           </div>
@@ -57,15 +63,17 @@ const page = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <Link href="mailto:yz13.vessel@gmail.com" className="text-sm text-secondary inline-flex items-center gap-1.5"><MailIcon size={14} /> Mail me</Link>
             </div>
           </div>
         </section>
       </div>
-      <div className="my-14 max-w-5xl w-full mx-auto px-12 mt-14 flex items-center justify-between">
-        <span className="text-xs text-secondary">@YZ13</span>
-        <div className="flex items-center rounded-full border">
-        </div>
-      </div>
+      <section className="relative w-full rounded-t-3xl bg-background p-6 border">
+        <SidebarProvider>
+          <ContentSidebar />
+          <ContentSection />
+        </SidebarProvider>
+      </section>
     </>
   )
 }

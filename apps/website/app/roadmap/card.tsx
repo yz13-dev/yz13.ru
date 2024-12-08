@@ -16,7 +16,6 @@ const Card = ({ item }: { item: RoadMap }) => {
   const statuses = ["plan", "dev", "approval", "prod"]
   const statusIndex = statuses.indexOf(status)
   return (
-
     <div className="p-2.5 h-fit flex gap-3 flex-col">
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center gap-2">
