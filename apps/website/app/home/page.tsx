@@ -1,13 +1,10 @@
 import { Logo } from "@/components/logo"
 import User from "@/components/user"
-import { ClockIcon, MailIcon, MonitorIcon, MoonIcon, SunIcon } from "lucide-react"
+import { ClockIcon, MailIcon } from "lucide-react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
-import { Skill } from "@/components/skill-label"
-import RoadMap from "../road-map"
-import { SidebarProvider } from "mono/components/sidebar"
 import ContentSection from "./content-section"
-import ContentSidebar from "./content-sidebar"
+import HeroSection from "./hero-section"
 const LiveTime = dynamic(() => import("./live-time"), {
   ssr: false
 })
@@ -16,63 +13,60 @@ const page = () => {
   return (
     <>
       <header className="w-full flex items-center justify-between lg:p-12 p-6">
-        <Logo className="w-20 h-11" />
-        <User size="md" />
+        <div>
+          <Logo className="w-20 h-11" />
+        </div>
+        <div>
+          {
+            process.env.NODE_ENV === "development" &&
+            <User size="md" />
+          }
+        </div>
       </header>
-      <div className="max-w-5xl w-full mx-auto divide-y mt-12 h-[calc(80dvh-144px)] lg:mt-20">
-        <section className="space-y-12 lg:p-12 p-6">
-          <div className="space-y-3">
-            <h1 className="text-4xl font-semibold">Hi there, i'm YZ13</h1>
-            <p className="text-2xl text-secondary">
-              Just fullstack developer, nothing crazy.
-            </p>
+      <div className="relative mt-12 flex flex-col items-center lg:h-[calc(70dvh-144px)] h-[calc(80dvh-144px)] lg:mt-20">
+        <HeroSection />
+
+        <div className="absolute -z-10 lg:-bottom-32 -bottom-48 min-w-[1440] w-full px-32 flex items-center justify-between">
+          <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
+            <div className="w-36 aspect-square rounded-3xl border"></div>
+            <div className="w-36 aspect-square rounded-3xl row-start-2 col-start-2 border"></div>
+            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-1 border"></div>
+            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-3 border"></div>
           </div>
-          <div className="w-full space-y-3">
-            <div className="w-full flex lg:flex-row flex-col lg:items-center items-start gap-2">
-              <span className="text-sm h-6 font-medium flex items-center">Frontend:</span>
-              <ul className="inline-flex items-start gap-1 flex-wrap">
-                <li><Skill><Skill.Label>React</Skill.Label><Skill.Scale current={4} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>Typescript</Skill.Label><Skill.Scale current={3} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>NextJS</Skill.Label><Skill.Scale current={4} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>Vite</Skill.Label><Skill.Scale current={2} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>TailwindCSS</Skill.Label><Skill.Scale current={4} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>Zod</Skill.Label><Skill.Scale current={2} max={5} /></Skill></li>
-              </ul>
-            </div>
-            <div className="w-full flex lg:flex-row flex-col lg:items-center items-start gap-2">
-              <span className="text-sm h-6 font-medium flex items-center">Backend:</span>
-              <ul className="inline-flex items-start gap-1 flex-wrap">
-                <li><Skill><Skill.Label>NodeJS</Skill.Label><Skill.Scale current={3} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>Typescript</Skill.Label><Skill.Scale current={3} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>PostgresQL</Skill.Label><Skill.Scale current={1} max={5} /></Skill></li>
-                <li><Skill><Skill.Label>MongoDB</Skill.Label><Skill.Scale current={1} max={5} /></Skill></li>
-              </ul>
-            </div>
+          <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
+            <div className="w-36 aspect-square rounded-3xl col-start-3 border"></div>
+            <div className="w-36 aspect-square rounded-3xl row-start-2 col-start-2 border"></div>
+            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-1 border"></div>
+            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-3 border"></div>
           </div>
-          <div className="w-full flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                <div className="size-1.5 rounded-full animate-pulse bg-success-foreground" />
-                <span className="text-sm text-secondary">Available for work</span>
-              </div>
-              <span className="text-sm text-secondary">/</span>
-              <div className="flex items-center gap-1">
-                <ClockIcon size={12} className="text-secondary" />
-                <LiveTime className="text-secondary" />
-                <span className="text-sm text-secondary">UTC +5</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Link href="mailto:yz13.vessel@gmail.com" className="text-sm text-secondary inline-flex items-center gap-1.5"><MailIcon size={14} /> Mail me</Link>
-            </div>
-          </div>
-        </section>
+        </div>
       </div>
-      <section className="relative w-full rounded-t-3xl bg-background p-6 border">
-        <SidebarProvider>
-          <ContentSidebar />
-          <ContentSection />
-        </SidebarProvider>
+
+      <div className="w-full max-w-screen-sm flex mx-auto p-6 items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <div className="size-1.5 rounded-full animate-pulse bg-success-foreground" />
+            <span className="text-sm text-secondary">Available for work</span>
+          </div>
+          <span className="text-sm text-secondary">/</span>
+          <div className="flex items-center gap-1">
+            <ClockIcon size={12} className="text-secondary" />
+            <LiveTime className="text-secondary" />
+            <span className="text-sm text-secondary">UTC +5</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link href="mailto:yz13.vessel@gmail.com" className="text-sm text-secondary inline-flex items-center gap-1.5"><MailIcon size={14} /> Mail me</Link>
+        </div>
+      </div>
+      <section className="relative w-full h-screen bg-background border-t">
+        {
+          process.env.NODE_ENV === "development"
+            ? <ContentSection />
+            : <div className="w-full h-full flex items-center justify-center">
+              <span className="text-xl font-pixel">New content is coming soon</span>
+            </div>
+        }
       </section>
     </>
   )

@@ -20,7 +20,7 @@ const Skill = ({ children }: SkillProps) => {
   return (
     <div className={cn(
       "hover:border-foreground hover:cursor-pointer transition-colors",
-      "py-1 rounded-full border inline-flex items-center divide-x hover:bg-background"
+      "py-1 rounded-full border bg-background inline-flex items-center divide-x hover:bg-background"
     )}>
       {children}
     </div>

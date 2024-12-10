@@ -4,8 +4,9 @@ export async function middleware(request: NextRequest) {
   // const { supabase } = createClient(request);
   // await supabase.auth.getUser();
   const isProd = process.env.NODE_ENV === "production";
-  const isSoonPage = request.nextUrl.pathname.startsWith("/realese-soon");
-  if (isProd && !isSoonPage) return NextResponse.redirect(new URL("/realese-soon", request.url));
+  const isSoonPage = request.nextUrl.pathname.startsWith("/home");
+  if (isProd && !isSoonPage)
+    return NextResponse.redirect(new URL("/home", request.url));
   else return NextResponse.next();
 }
 

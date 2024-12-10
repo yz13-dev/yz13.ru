@@ -1,8 +1,8 @@
-import "mono/css/globals.css"
 import "@/styles/globals.css";
+import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
+import { Onest, Pixelify_Sans } from "next/font/google";
 import localFont from "next/font/local";
-import { Pixelify_Sans } from "next/font/google"
 import { cn } from "yz13/cn";
 
 const PIXEL = Pixelify_Sans({
@@ -13,13 +13,20 @@ const PIXEL = Pixelify_Sans({
   variable: "--font-yz-pixel",
 })
 
-const Geist = localFont({
-  src: "./fonts/geist/GeistVF.woff",
+const SANS = Onest({
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
   fallback: ["Inter"],
+  display: "swap",
   variable: "--font-yz-sans",
 });
+// localFont({
+//   src: "./fonts/geist/GeistVF.woff",
+//   fallback: ["Inter"],
+//   variable: "--font-yz-sans",
+// });
 
-const GeistMono = localFont({
+const MONO = localFont({
   src: "./fonts/geist/GeistMonoVF.woff",
   variable: "--font-yz-mono",
 });
@@ -59,8 +66,8 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        Geist.variable,
-        GeistMono.variable,
+        SANS.variable,
+        MONO.variable,
         PIXEL.variable,
       )}
     >
