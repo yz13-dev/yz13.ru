@@ -4,7 +4,7 @@ import { ClockIcon, MailIcon } from "lucide-react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import ContentSection from "./content-section"
-import HeroSection from "./hero-section"
+import HeroSection, { HeroBackground } from "./hero-section"
 const LiveTime = dynamic(() => import("./live-time"), {
   ssr: false
 })
@@ -25,21 +25,7 @@ const page = () => {
       </header>
       <div className="relative mt-12 flex flex-col items-center lg:h-[calc(70dvh-144px)] h-[calc(80dvh-144px)] lg:mt-20">
         <HeroSection />
-
-        <div className="absolute -z-10 lg:-bottom-32 -bottom-48 min-w-[1440] w-full px-32 flex items-center justify-between">
-          <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
-            <div className="w-36 aspect-square rounded-3xl border"></div>
-            <div className="w-36 aspect-square rounded-3xl row-start-2 col-start-2 border"></div>
-            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-1 border"></div>
-            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-3 border"></div>
-          </div>
-          <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
-            <div className="w-36 aspect-square rounded-3xl col-start-3 border"></div>
-            <div className="w-36 aspect-square rounded-3xl row-start-2 col-start-2 border"></div>
-            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-1 border"></div>
-            <div className="w-36 aspect-square rounded-3xl row-start-3 col-start-3 border"></div>
-          </div>
-        </div>
+        <HeroBackground />
       </div>
 
       <div className="w-full max-w-screen-sm flex mx-auto p-6 items-center justify-between">
