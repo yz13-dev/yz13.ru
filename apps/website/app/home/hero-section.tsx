@@ -115,11 +115,11 @@ const SkillSection = () => {
 const HeroBackground = () => {
   const { active } = useSkillStore()
   return (
-    <div className="absolute -z-10 lg:-bottom-32 -bottom-48 min-w-[1440] w-full lg:!px-32 md:px-20 px-12 flex items-center justify-between">
+    <div className="absolute -z-10 lg:-bottom-32 -bottom-56 min-w-[1440] w-full lg:!px-32 md:px-20 px-12 flex items-center justify-between">
       <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
         <div className={cn(
           "w-36 aspect-square rounded-3xl transition-colors border",
-          active === "react" ? "border-foreground" : "",
+          active === "react" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
@@ -131,7 +131,7 @@ const HeroBackground = () => {
         </div>
         <div className={cn(
           "w-36 aspect-square rounded-3xl row-start-2 col-start-2 transition-colors border",
-          active === "nextjs" ? "border-foreground" : "",
+          active === "nextjs" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
@@ -143,7 +143,7 @@ const HeroBackground = () => {
         </div>
         <div className={cn(
           "w-36 aspect-square rounded-3xl row-start-3 col-start-1 transition-colors border",
-          active === "typescript" ? "border-foreground" : "",
+          active === "typescript" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
@@ -155,7 +155,7 @@ const HeroBackground = () => {
         </div>
         <div className={cn(
           "w-36 aspect-square rounded-3xl row-start-3 col-start-3 transition-colors border",
-          active === "tailwindcss" ? "border-foreground" : "",
+          active === "tailwindcss" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
@@ -169,7 +169,7 @@ const HeroBackground = () => {
       <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
         <div className={cn(
           "w-36 aspect-square rounded-3xl col-start-3 transition-colors border",
-          active === "nodejs" ? "border-foreground" : "",
+          active === "nodejs" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
@@ -181,7 +181,7 @@ const HeroBackground = () => {
         </div>
         <div className={cn(
           "w-36 aspect-square rounded-3xl row-start-2 col-start-2 transition-colors border",
-          active === "zod" ? "border-foreground" : "",
+          active === "zod" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
@@ -193,7 +193,7 @@ const HeroBackground = () => {
         </div>
         <div className={cn(
           "w-36 aspect-square rounded-3xl row-start-3 col-start-1 transition-colors border",
-          active === "supabase" ? "border-foreground" : "",
+          active === "supabase" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
@@ -205,7 +205,7 @@ const HeroBackground = () => {
         </div>
         <div className={cn(
           "w-36 aspect-square rounded-3xl row-start-3 col-start-3 transition-colors border",
-          active === "mongodb" ? "border-foreground" : "",
+          active === "mongodb" ? "border-foreground bg-yz-neutral-100" : "",
           "flex items-center justify-center"
         )}
         >
