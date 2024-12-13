@@ -1,4 +1,5 @@
 "use client"
+import { Logo } from "@/components/logo"
 import { MongoDBIcon } from "@/components/pixel-stack/mongodb-icon"
 import { NextIcon } from "@/components/pixel-stack/next-icon"
 import { NodeIcon } from "@/components/pixel-stack/node-icon"
@@ -15,15 +16,28 @@ import { create } from "zustand"
 const HeroSection = () => {
   return (
     <section className="max-w-5xl w-full mx-auto flex flex-col items-center justify-center gap-y-12 lg:p-12 p-6">
-      <div className="space-y-3">
-        <h1 className="lg:!text-9xl text-7xl text-center font-semibold">YZ13</h1>
-        <p className="lg:!text-3xl text-xl text-center text-secondary">
+      <MiniHeroSection />
+    </section>
+  )
+}
+
+const MiniHeroSection = () => {
+  return (
+    <div className="max-w-md w-full border rounded-2xl divide-y hover:border-foreground transition-colors">
+      <div className="space-y-2 p-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Logo className="size-9" />
+            <span className="text-2xl font-pixel  text-foreground">YZ13</span>
+          </div>
+          <span className="text-sm text-secondary">Fullstack developer</span>
+        </div>
+        <p className="text-base text-secondary">
           Just fullstack developer, nothing crazy.
         </p>
       </div>
-
-      <SkillSection />
-    </section>
+      <SkillSection className="justify-start p-4" />
+    </div>
   )
 }
 
@@ -85,10 +99,10 @@ const useSkillStore = create<State & Action>()((set) => ({
   }
 }))
 
-const SkillSection = () => {
+const SkillSection = ({ className = "" }: { className?: string }) => {
   const { active, setActive } = useSkillStore()
   return (
-    <ul className="max-w-md inline-flex items-center justify-center w-full gap-1 flex-wrap">
+    <ul className={cn("max-w-md inline-flex items-center justify-center w-full gap-1 flex-wrap", className)}>
       {skills.map((skill) => (
         <li key={skill.id}>
           <Skill

@@ -1,5 +1,3 @@
-import { Logo } from "@/components/logo"
-import User from "@/components/user"
 import { ClockIcon, MailIcon } from "lucide-react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
@@ -12,18 +10,7 @@ const LiveTime = dynamic(() => import("./live-time"), {
 const page = () => {
   return (
     <>
-      <header className="w-full flex items-center justify-between lg:p-12 p-6">
-        <div>
-          <Logo className="w-20 h-11" />
-        </div>
-        <div>
-          {
-            process.env.NODE_ENV === "development" &&
-            <User size="md" />
-          }
-        </div>
-      </header>
-      <div className="relative mt-12 flex flex-col items-center lg:h-[calc(70dvh-144px)] h-[calc(80dvh-144px)] lg:mt-20">
+      <div className="relative mt-0 flex flex-col items-center lg:h-[calc(70dvh-144px)] h-fit lg:mt-20">
         <HeroSection />
         <HeroBackground />
       </div>

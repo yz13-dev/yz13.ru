@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
+  "globalDependencies": [".env.local"],
   "tasks": {
     "build": {
       "dependsOn": [
@@ -21,6 +22,10 @@
       ]
     },
     "dev": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
       "cache": false,
       "persistent": true
     }
