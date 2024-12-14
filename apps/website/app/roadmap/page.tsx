@@ -1,35 +1,41 @@
-import { cn } from "yz13/cn"
-import Card, { RoadMap } from "./card"
-import Link from "next/link"
-import { Logo } from "@/components/logo"
-import { list } from "@/const/road-map"
+import { Checkbox } from "mono/components/checkbox"
 
 
 
 const page = () => {
   return (
-    <div className="w-full h-dvh flex py-6 pl-24 items-start justify-start">
-      <Link href="/">
-        <Logo className="size-12 absolute top-6 left-6" />
-      </Link>
-      <div className="w-fit h-full flex items-start justify-start gap-2">
-        {
-          list
-            .map(
-              item =>
-                <div
-                  key={item.id}
-                  className={cn(
-                    "w-72 peer rounded-xl border transition-colors",
-                    "hover:border-foreground hover:bg-yz-neutral-100"
-                  )}
-                >
-                  <Card item={item} />
-                </div>
-            )
-        }
+    <div className="max-w-screen-sm mx-auto p-6 border-x w-full space-y-4 min-h-screen">
+      <h1 className="text-secondary">Roadmap</h1>
+
+      <div className="relative flex items-center">
+        <span className="text-secondary text-sm px-2 py-1 rounded-lg border">2023</span>
+      </div>
+      <RoadMapCard />
+    </div>
+  )
+}
+
+const RoadMapCard = () => {
+  return (
+    <div className="w-full space-y-2">
+      <div className="w-full flex">
+        <div className="flex flex-col gap-2">
+          <div className="size-7 shrink-0 flex items-center justify-center">
+            <Checkbox />
+          </div>
+          <div className="w-full h-full"></div>
+        </div>
+        <div className="w-full space-y-2 p-2 border rounded-xl">
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-foreground text-sm">Action</span>
+            </div>
+            <span className="text-secondary text-sm">3 days ago</span>
+          </div>
+        </div>
       </div>
     </div>
   )
 }
+
 export default page
