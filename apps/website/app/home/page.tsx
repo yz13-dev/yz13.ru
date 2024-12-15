@@ -1,16 +1,20 @@
-import dynamic from "next/dynamic"
+import { NuqsAdapter } from "nuqs/adapters/next"
 import Header from "./header"
 import WorkspacesContainer from "./workspaces/container"
-const LiveTime = dynamic(() => import("./live-time"), {
-  ssr: false
-})
 
-const page = () => {
+
+type PageProps = {
+  searchParams: {
+    id: string
+  }
+}
+const page = ({ searchParams }: PageProps) => {
+  const id = searchParams.id
   return (
-    <>
+    <NuqsAdapter>
       <Header />
-      <WorkspacesContainer />
-    </>
+      <WorkspacesContainer providedId={id} />
+    </NuqsAdapter>
   )
 }
 

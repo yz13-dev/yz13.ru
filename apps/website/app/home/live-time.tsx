@@ -1,20 +1,19 @@
 "use client"
-import { useState } from "react"
+import { useInterval } from "ahooks"
 import dayjs from "dayjs"
 import timezone from "dayjs/plugin/timezone"
 import utc from "dayjs/plugin/utc"
-import { useInterval } from "ahooks"
 import { cn } from "yz13/cn"
+import useTimeStore, { getNewTime } from "./store/time.store"
 
 dayjs.extend(timezone)
 dayjs.extend(utc)
 
 const LiveTime = ({ className = "" }: { className?: string }) => {
-  const TZ = "Asia/Yekaterinburg"
+  const { time, setTime } = useTimeStore()
   const getTime = () => {
-    return dayjs().tz(TZ)
+    return getNewTime()
   }
-  const [time, setTime] = useState(getTime())
   useInterval(() => {
     setTime(getTime())
   }, 1000)

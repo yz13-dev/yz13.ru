@@ -1,4 +1,6 @@
+import BlogWorkspace from "../workspaces/blog.workspace";
 import DefaultWorkspace from "../workspaces/default.workspace";
+
 
 type Workspace = {
   id: string;
@@ -9,25 +11,25 @@ type Workspace = {
   component: React.ReactNode;
 };
 
-const newsWorkspace: Workspace = {
-  id: "1",
-  name: "News",
-  description: "Latest news from the team",
-  icon: "news",
-  color: "primary",
-  component: <div>News</div>,
-};
 const defaultWorkspace: Workspace = {
-  id: "2",
+  id: "default",
   name: "Default",
   description: "Default workspace",
   icon: "news",
   color: "primary",
   component: <DefaultWorkspace />,
 };
+const newsWorkspace: Workspace = {
+  id: "blog",
+  name: "Blog",
+  description: "Latest news from the team",
+  icon: "news",
+  color: "primary",
+  component: <BlogWorkspace />,
+};
 const projectsWorkspace: Workspace = {
-  id: "3",
-  name: "Projects",
+  id: "works",
+  name: "works",
   description: "Projects I'm working on",
   icon: "news",
   color: "primary",
@@ -36,5 +38,5 @@ const projectsWorkspace: Workspace = {
 
 export const workspaces = {
   defaultId: defaultWorkspace.id,
-  items: [newsWorkspace, defaultWorkspace, projectsWorkspace],
+  items: [defaultWorkspace, newsWorkspace, projectsWorkspace],
 };

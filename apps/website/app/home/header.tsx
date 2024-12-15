@@ -3,6 +3,7 @@
 import { WheelEvent } from "react"
 import { cn } from "yz13/cn"
 import { workspaces } from "./const/workspaces"
+import useTimeStore from "./store/time.store"
 import useWorkspaceStore from "./store/workspace.store"
 
 
@@ -10,13 +11,20 @@ const Header = () => {
   return (
     <header className="w-full h-9 p-1 flex items-center justify-between gap-2">
       <WorspaceSelector />
-      <div className="h-full w-fit border rounded-lg px-2 flex items-center justify-center gap-1">
-        <span className="text-xs">15 December 2024</span>
-      </div>
+      <Date />
       <div className="h-full w-fit border rounded-lg px-2 flex items-center justify-center gap-1">
         <span className="text-xs">EN</span>
       </div>
     </header>
+  )
+}
+
+const Date = () => {
+  const { time } = useTimeStore()
+  return (
+    <div className="h-full w-fit border rounded-lg px-2 flex items-center justify-center gap-1">
+      <span className="text-xs">{time.format("DD MMMM YYYY")}</span>
+    </div>
   )
 }
 
@@ -50,7 +58,7 @@ const WorspaceSelector = () => {
             className={cn(
               "w-2 h-2 rounded-full bg-yz-neutral-300 transition-all duration-700 delay-150",
               active === item.id
-                ? "w-6 bg-foreground"
+                ? "w-6 h-2.5 bg-foreground"
                 : ""
             )}
             onClick={() => switchWorkspace(item.id)}
