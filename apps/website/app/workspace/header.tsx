@@ -1,6 +1,7 @@
 "use client"
-
-import { WheelEvent } from "react"
+import { motion } from "motion/react"
+import { usePathname, useRouter } from "next/navigation"
+import { useEffect, WheelEvent } from "react"
 import { cn } from "yz13/cn"
 import { workspaces } from "./const/workspaces"
 import useTimeStore from "./store/time.store"
@@ -9,7 +10,7 @@ import useWorkspaceStore from "./store/workspace.store"
 
 const Header = () => {
   return (
-    <header className="w-full h-9 p-1 flex items-center justify-between gap-2">
+    <header className="w-full h-9 p-1 flex items-center justify-between gap-2 sticky top-0 bg-background z-30">
       <WorspaceSelector />
       <Date />
       <div className="h-full w-fit border rounded-lg px-2 flex items-center justify-center gap-1">
@@ -46,6 +47,15 @@ const WorspaceSelector = () => {
       }
     }
   }
+  const prefix = "/workspace"
+  const router = useRouter()
+  const pathName = usePathname()
+  useEffect(() => {
+    const isDefault = active === "default"
+    const path = `${prefix}/${active}`
+    if (isDefault && pathName !== prefix) router.push(prefix)
+    if (!isDefault && pathName !== path) router.push(path)
+  }, [active])
   return (
     <div
       className="h-full w-fit border rounded-lg px-2 flex items-center justify-center gap-1"
@@ -53,10 +63,11 @@ const WorspaceSelector = () => {
     >
       {
         config.items.map((item) => (
-          <div
+          <motion.div
+            layoutId={item.id}
             key={item.id}
             className={cn(
-              "w-2 h-2 rounded-full bg-yz-neutral-300 transition-all duration-700 delay-150",
+              "w-2 h-2 rounded-full bg-yz-neutral-300 transition-all duration-700 delay-75",
               active === item.id
                 ? "w-6 h-2.5 bg-foreground"
                 : ""

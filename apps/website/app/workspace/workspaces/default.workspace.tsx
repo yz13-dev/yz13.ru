@@ -2,7 +2,6 @@ import { ClockIcon } from "lucide-react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { PiGithubLogo, PiTelegramLogo, PiXLogo } from "react-icons/pi"
-import ContentSection from "../content-section"
 import HeroSection, { HeroBackground } from "../hero-section"
 const LiveTime = dynamic(() => import("../live-time"), {
   ssr: false
@@ -12,7 +11,7 @@ const LiveTime = dynamic(() => import("../live-time"), {
 const DefaultWorkspace = () => {
   return (
     <>
-      <div className="relative mt-0 flex flex-col items-center lg:h-[calc(70dvh-144px)] h-fit lg:mt-20">
+      <div className="relative mt-0 flex flex-col items-center h-[calc(70dvh-144px)] lg:mt-20">
         <HeroSection />
         <HeroBackground />
       </div>
@@ -41,14 +40,7 @@ const DefaultWorkspace = () => {
           </Link>
         </div>
       </div>
-      <section className="relative w-full h-fit bg-background border-t">
-        {
-          process.env.NODE_ENV === "development"
-            ? <ContentSection />
-            : <div className="w-full h-full flex items-center justify-center">
-              <span className="text-xl font-pixel">New content is coming soon</span>
-            </div>
-        }
+      <section className="relative w-full h-[30dvh] bg-background border-t">
       </section>
     </>
   )

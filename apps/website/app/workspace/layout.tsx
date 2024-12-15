@@ -1,12 +1,15 @@
-import { SidebarProvider } from "mono/components/sidebar"
+import { NuqsAdapter } from "nuqs/adapters/next"
+import Header from "./header"
 
-
-
-const layout = ({ children }: { children: React.ReactNode }) => {
+type LayoutProps = {
+  children: React.ReactNode
+}
+const layout = ({ children }: LayoutProps) => {
   return (
-    <SidebarProvider>
+    <NuqsAdapter>
+      <Header />
       {children}
-    </SidebarProvider>
+    </NuqsAdapter>
   )
 }
 

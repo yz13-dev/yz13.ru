@@ -1,5 +1,17 @@
-import BlogWorkspace from "../workspaces/blog.workspace";
-import DefaultWorkspace from "../workspaces/default.workspace";
+import dynamic from "next/dynamic";
+import WorkspaceLoader from "../workspaces/workspace.loader";
+const BlogWorkspace = dynamic(() => import("../workspaces/blog.workspace"), {
+  loading: () => <WorkspaceLoader />,
+  ssr: false
+});
+const WorksWorkspace = dynamic(() => import("../workspaces/works.workspace"), {
+  loading: () => <WorkspaceLoader />,
+  ssr: false
+});
+const DefaultWorkspace = dynamic(() => import("../workspaces/default.workspace"), {
+  loading: () => <WorkspaceLoader />,
+  ssr: false
+});
 
 
 type Workspace = {
@@ -33,7 +45,7 @@ const projectsWorkspace: Workspace = {
   description: "Projects I'm working on",
   icon: "news",
   color: "primary",
-  component: <div>Projects</div>,
+  component: <WorksWorkspace />,
 };
 
 export const workspaces = {

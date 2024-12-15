@@ -54,20 +54,21 @@ const WorkspacesContainer = ({ providedId }: Props) => {
   return (
     <Carousel
       setApi={setApi}
-      defaultValue={workspaceIndex}
-      className="w-full min-h-[calc(100dvh - 36px)]"
+      className="w-full min-h-[calc(100dvh - 36px)] h-fit"
     >
       <CarouselContent>
         {
-          workspaces.items.map(item => {
-            return (
-              <CarouselItem key={item.id} className="w-full h-full">
-                <Suspense fallback={<WorkspaceLoader />}>
-                  {item.component}
-                </Suspense>
-              </CarouselItem>
-            )
-          })
+          workspaces
+            .items
+            .map(item => {
+              return (
+                <CarouselItem key={item.id} className="w-full min-h-[calc(100dvh - 36px)] h-fit">
+                  <Suspense fallback={<WorkspaceLoader />}>
+                    {item.component}
+                  </Suspense>
+                </CarouselItem>
+              )
+            })
         }
       </CarouselContent>
     </Carousel>

@@ -2,7 +2,7 @@ import { permanentRedirect } from "next/navigation"
 
 
 const page = () => {
-  return permanentRedirect("/home")
+  return permanentRedirect("/workspace")
 }
 
 export default page
