@@ -129,108 +129,110 @@ const SkillSection = ({ className = "" }: { className?: string }) => {
 const HeroBackground = () => {
   const { active } = useSkillStore()
   return (
-    <div className="absolute -z-10 lg:-bottom-32 -bottom-56 min-w-[1440] w-full lg:!px-32 md:px-20 px-12 flex items-center justify-between">
-      <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl transition-colors border",
-          active === "react" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <ReactIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "react" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
+    <>
+      <div className="absolute -z-10 lg:-bottom-32 -bottom-56 min-w-[1440] w-full lg:!px-32 md:px-20 px-12 flex items-center justify-between">
+        <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl transition-colors border",
+            active === "react" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <ReactIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "react" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl row-start-2 col-start-2 transition-colors border",
+            active === "nextjs" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <NextIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "nextjs" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl row-start-3 col-start-1 transition-colors border",
+            active === "typescript" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <TypeScriptIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "typescript" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl row-start-3 col-start-3 transition-colors border",
+            active === "tailwindcss" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <TailwindIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "tailwindcss" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
         </div>
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl row-start-2 col-start-2 transition-colors border",
-          active === "nextjs" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <NextIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "nextjs" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
-        </div>
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl row-start-3 col-start-1 transition-colors border",
-          active === "typescript" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <TypeScriptIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "typescript" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
-        </div>
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl row-start-3 col-start-3 transition-colors border",
-          active === "tailwindcss" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <TailwindIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "tailwindcss" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
+        <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl col-start-3 transition-colors border",
+            active === "nodejs" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <NodeIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "nodejs" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl row-start-2 col-start-2 transition-colors border",
+            active === "zod" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <ZodIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "zod" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl row-start-3 col-start-1 transition-colors border",
+            active === "supabase" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <SupabaseIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "supabase" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
+          <div className={cn(
+            "w-36 aspect-square rounded-3xl row-start-3 col-start-3 transition-colors border",
+            active === "mongodb" ? "border-foreground bg-yz-neutral-100" : "",
+            "flex items-center justify-center"
+          )}
+          >
+            <MongoDBIcon
+              // @ts-expect-error
+              style={{ "--icon-brand-color": active === "mongodb" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
+              className="size-16"
+            />
+          </div>
         </div>
       </div>
-      <div className="grid aspect-square grid-cols-3 grid-rows-3 gap-6">
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl col-start-3 transition-colors border",
-          active === "nodejs" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <NodeIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "nodejs" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
-        </div>
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl row-start-2 col-start-2 transition-colors border",
-          active === "zod" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <ZodIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "zod" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
-        </div>
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl row-start-3 col-start-1 transition-colors border",
-          active === "supabase" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <SupabaseIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "supabase" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
-        </div>
-        <div className={cn(
-          "w-36 aspect-square rounded-3xl row-start-3 col-start-3 transition-colors border",
-          active === "mongodb" ? "border-foreground bg-yz-neutral-100" : "",
-          "flex items-center justify-center"
-        )}
-        >
-          <MongoDBIcon
-            // @ts-expect-error
-            style={{ "--icon-brand-color": active === "mongodb" ? "var(--yz13-foreground)" : "var(--yz13-border)" }}
-            className="size-16"
-          />
-        </div>
-      </div>
-    </div>
+    </>
   )
 }
 
