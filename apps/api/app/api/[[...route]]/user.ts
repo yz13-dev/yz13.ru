@@ -33,3 +33,19 @@ user.post("/:uid/workspace", async (c) => {
     return c.json(data);
   }
 });
+
+user.get("/:uid/lists", async (c) => {
+  const uid = c.req.param("uid");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    // @ts-expect-error
+    .from("lists")
+    .select()
+    .eq("user", uid);
+  if (error) {
+    return c.json([]);
+  } else {
+    return c.json(data);
+  }
+});

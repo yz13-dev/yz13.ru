@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import WorkspaceLoader from "../workspaces/workspace.loader";
-const BlogWorkspace = dynamic(() => import("../workspaces/blog.workspace"), {
+const ProductivityWorkspace = dynamic(() => import("../workspaces/productivity/productivity.workspace"), {
   loading: () => <WorkspaceLoader />,
   ssr: false
 });
@@ -23,7 +23,7 @@ type Workspace = {
   component: React.ReactNode;
 };
 
-const defaultWorkspace: Workspace = {
+export const defaultWorkspace: Workspace = {
   id: "default",
   name: "Default",
   description: "Default workspace",
@@ -31,17 +31,17 @@ const defaultWorkspace: Workspace = {
   color: "primary",
   component: <DefaultWorkspace />,
 };
-const newsWorkspace: Workspace = {
-  id: "blog",
-  name: "Blog",
-  description: "Latest news from the team",
+export const productivityWorkspace: Workspace = {
+  id: "productivity",
+  name: "Productivity",
+  description: "Board of my productivity",
   icon: "news",
   color: "primary",
-  component: <BlogWorkspace />,
+  component: <ProductivityWorkspace />,
 };
-const projectsWorkspace: Workspace = {
+export const projectsWorkspace: Workspace = {
   id: "works",
-  name: "works",
+  name: "Works",
   description: "Projects I'm working on",
   icon: "news",
   color: "primary",
@@ -50,5 +50,5 @@ const projectsWorkspace: Workspace = {
 
 export const workspaces = {
   defaultId: defaultWorkspace.id,
-  items: [defaultWorkspace, newsWorkspace, projectsWorkspace],
+  items: [defaultWorkspace, productivityWorkspace, projectsWorkspace],
 };

@@ -1,13 +1,17 @@
 import { NuqsAdapter } from "nuqs/adapters/next"
-import Header from "./header"
+import Header from "../header"
 
 type LayoutProps = {
   children: React.ReactNode
+  params: {
+    workspace: string
+  }
 }
-const layout = ({ children }: LayoutProps) => {
+const layout = ({ children, params }: LayoutProps) => {
+  const id = params.workspace
   return (
     <NuqsAdapter>
-      <Header />
+      <Header workspace={id} />
       {children}
     </NuqsAdapter>
   )

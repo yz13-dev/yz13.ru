@@ -1,15 +1,14 @@
+import { NuqsAdapter } from "nuqs/adapters/next"
+import Header from "./header"
 import DefaultWorkspace from "./workspaces/default.workspace"
 
 
-type PageProps = {
-  searchParams: {
-    id: string
-  }
-}
-const page = ({ searchParams }: PageProps) => {
-  const id = searchParams.id
+const page = () => {
   return (
-    <DefaultWorkspace />
+    <NuqsAdapter>
+      <Header />
+      <DefaultWorkspace />
+    </NuqsAdapter>
   )
 }
 
