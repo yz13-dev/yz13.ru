@@ -20,3 +20,18 @@ workspace.get("/:wid", async (c) => {
   if (error) return c.json(error, 404);
   return c.json(data);
 });
+
+workspace.get("/:wid/lists", async (c) => {
+  const wid = c.req.param("wid");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data, error } = await supabase
+    // @ts-expect-error
+    .from("lists")
+    .select("*")
+    .eq("workspace", wid);
+
+  if (error) return c.json(error, 404);
+  return c.json(data);
+});
