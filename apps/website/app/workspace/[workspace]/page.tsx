@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
+import { Suspense } from "react"
 import { workspaces } from "../const/workspaces"
-
+import Loading from "./loading"
 
 type PageProps = {
   params: {
@@ -12,7 +13,11 @@ const page = ({ params }: PageProps) => {
   const items = workspaces.items
   const target = items.find(item => item.id === id)
   if (!target) return redirect("/workspace")
-  return target.component
+  return (
+    <Suspense fallback={<Loading />}>
+      {target.component}
+    </Suspense>
+  )
 }
 
 export default page

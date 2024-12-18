@@ -1,5 +1,5 @@
 import { z } from "zod";
 
-export const schema = z.object({
-  id: z.string(),
+export default z.object({
+  uid: z.string(),
 });

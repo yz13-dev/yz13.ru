@@ -3,13 +3,13 @@ import ProductivitySidebarHeader from "./sidebar-header"
 
 
 
-const ProductivitySidebar = () => {
+const ProductivitySidebar = ({ workspace }: { workspace?: any }) => {
   return (
     <Sidebar
-      className="rounded-xl h-[calc(100dvh-36px)] mt-9 bg-background-back !border"
+      className="rounded-xl h-[calc(100dvh-36px)] mt-9"
       collapsible="icon"
     >
-      <ProductivitySidebarHeader />
+      <ProductivitySidebarHeader workspace={workspace} />
     </Sidebar>
   )
 }

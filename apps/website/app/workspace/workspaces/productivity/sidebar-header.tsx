@@ -1,12 +1,13 @@
 "use client"
-import { LockIcon, SidebarIcon } from "lucide-react"
+import { LockIcon, LockOpenIcon, SidebarIcon } from "lucide-react"
 import { SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "mono/components/sidebar"
 import { cn } from "yz13/cn"
 
 
-const ProductivitySidebarHeader = () => {
+const ProductivitySidebarHeader = ({ workspace }: { workspace?: any }) => {
   const { state, toggleSidebar } = useSidebar()
   const isExpanded = state === "expanded"
+  const isPublic = workspace?.public || false
   return (
     <SidebarHeader>
       <SidebarMenu className={cn(
@@ -16,8 +17,12 @@ const ProductivitySidebarHeader = () => {
       )}>
         <SidebarMenuItem>
           <SidebarMenuButton>
-            <LockIcon size={16} />
-            <span className="text-lg font-semibold text-foreground/80">Private</span>
+            {
+              isPublic
+                ? <LockOpenIcon size={16} />
+                : <LockIcon size={16} />
+            }
+            <span className="text-lg font-semibold text-foreground/80">{isPublic ? "Public" : "Private"}</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
         <SidebarMenuItem>

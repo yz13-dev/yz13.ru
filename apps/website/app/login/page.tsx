@@ -22,8 +22,8 @@ const page = async (props: Props) => {
     <div className="max-w-3xl w-full mx-auto h-screen">
       <div className="w-full absolute top-0 left-0 flex justify-center p-6">
         <div className="size-12 relative">
-          <Image className="light-mode-image" src="https://yzstatic.yz13.space/logo/yz-light.svg" fill alt="image" />
-          <Image className="dark-mode-image" src="https://yzstatic.yz13.space/logo/yz-dark.svg" fill alt="image" />
+          <Image className="light-mode-image" src="/yz-light.svg" fill alt="image" />
+          <Image className="dark-mode-image" src="/yz-dark.svg" fill alt="image" />
         </div>
       </div>
       <div className="flex relative flex-col items-center h-full justify-center w-full">

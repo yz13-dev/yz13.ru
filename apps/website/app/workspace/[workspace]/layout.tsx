@@ -1,4 +1,5 @@
 import { NuqsAdapter } from "nuqs/adapters/next"
+import UserContextProvider from "../contexts/user.context"
 import Header from "../header"
 
 type LayoutProps = {
@@ -11,8 +12,10 @@ const layout = ({ children, params }: LayoutProps) => {
   const id = params.workspace
   return (
     <NuqsAdapter>
-      <Header workspace={id} />
-      {children}
+      <UserContextProvider>
+        <Header workspace={id} />
+        {children}
+      </UserContextProvider>
     </NuqsAdapter>
   )
 }

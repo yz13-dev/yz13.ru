@@ -11,10 +11,16 @@ import useWorkspaceStore from "./store/workspace.store"
 const Header = ({ workspace }: { workspace?: string }) => {
   return (
     <header className="w-full h-9 p-1 flex items-center justify-between gap-2 sticky top-0 bg-background z-30">
-      <WorspaceSelector workspace={workspace} />
-      <Date />
-      <div className="h-full w-fit border rounded-lg px-2 flex items-center justify-center gap-1">
-        <span className="text-xs">EN</span>
+      <div className="h-full w-1/3 flex items-center justify-start">
+        <WorspaceSelector workspace={workspace} />
+      </div>
+      <div className="h-full w-1/3 flex items-center justify-center">
+        <Date />
+      </div>
+      <div className="h-full w-1/3 flex items-center justify-end">
+        <div className="h-full w-fit border rounded-lg px-2 flex items-center justify-center gap-1">
+          <span className="text-xs">EN</span>
+        </div>
       </div>
     </header>
   )
@@ -32,6 +38,8 @@ const Date = () => {
 const WorspaceSelector = ({ workspace }: { workspace?: string }) => {
   const { active, switchWorkspace } = useWorkspaceStore()
   const config = workspaces
+  const prefix = "/workspace"
+  const router = useRouter()
   const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
     e.stopPropagation()
     const shiftPressed = e.shiftKey === true
@@ -53,11 +61,14 @@ const WorspaceSelector = ({ workspace }: { workspace?: string }) => {
     if (nextIndex < 0 || nextIndex > config.items.length) return
     else {
       const newWorkspace = config.items[nextIndex]
-      if (newWorkspace) switchWorkspace(newWorkspace.id)
+      if (newWorkspace) {
+        const path = `${prefix}/${newWorkspace.id}`
+        switchWorkspace(newWorkspace.id)
+        router.push(path)
+      }
     }
   }
-  const prefix = "/workspace"
-  const router = useRouter()
+
   const pathName = usePathname()
   const activeWorkspace = useMemo(() => config.items.find((item) => item.id === active), [active])
   const isFirst = useMemo(() => activeWorkspace?.id === config.items[0]?.id, [activeWorkspace])

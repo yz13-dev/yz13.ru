@@ -1,20 +1,14 @@
-import client from "@/actions/client";
-import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
-import { schema } from "./schema";
+import { API_URL } from "@/const/api";
 
-export const getWorkspacesByUser = client
-  .schema(schema)
-  .action(async ({ parsedInput: { id } }) => {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      // @ts-expect-error
-      .from("workspaces")
-      .select("*")
-      .eq("user", id)
-      .order("created_at", { ascending: false })
-      .limit(10);
-    if (error) return [];
-    else return data;
-  });
+export const getUserWorkspaces = async (uid: string) => {
+  try {
+    const path = `/user/${uid}/workspaces`;
+    const url = new URL(path, API_URL);
+    const res = await fetch(url.toString());
+    if (res.status === 200) return await res.json();
+    else return [];
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
+};
