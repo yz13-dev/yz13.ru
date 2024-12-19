@@ -1,15 +1,8 @@
-import { NuqsAdapter } from "nuqs/adapters/next"
-import Header from "./header"
-import DefaultWorkspace from "./workspaces/default.workspace"
+import { redirect } from "next/navigation"
 
 
 const page = () => {
-  return (
-    <NuqsAdapter>
-      <Header />
-      <DefaultWorkspace />
-    </NuqsAdapter>
-  )
+  return redirect("/workspace/home")
 }
 
 export default page

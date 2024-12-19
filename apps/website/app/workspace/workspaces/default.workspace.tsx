@@ -11,7 +11,7 @@ const LiveTime = dynamic(() => import("../live-time"), {
 const DefaultWorkspace = () => {
   return (
     <>
-      <div className="relative mt-0 flex flex-col items-center h-[calc(70dvh-144px)] lg:mt-20">
+      <div className="relative mt-0 flex flex-col items-center h-[calc(70dvh-144px)] lg:mt-20 ">
         <HeroSection />
         <HeroBackground />
       </div>

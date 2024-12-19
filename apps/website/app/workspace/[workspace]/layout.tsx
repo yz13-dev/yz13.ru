@@ -1,6 +1,7 @@
 import { NuqsAdapter } from "nuqs/adapters/next"
 import UserContextProvider from "../contexts/user.context"
-import Header from "../header"
+import Dock from "../dock"
+import WorkspacesContainer from "../workspaces/container"
 
 type LayoutProps = {
   children: React.ReactNode
@@ -13,8 +14,10 @@ const layout = ({ children, params }: LayoutProps) => {
   return (
     <NuqsAdapter>
       <UserContextProvider>
-        <Header workspace={id} />
-        {children}
+        <WorkspacesContainer>
+          {children}
+        </WorkspacesContainer>
+        <Dock id={id} />
       </UserContextProvider>
     </NuqsAdapter>
   )

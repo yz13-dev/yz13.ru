@@ -9,13 +9,12 @@ import { cn } from "yz13/cn";
 
 type Props = {
   providedUser?: USER | null
-  size?: "sm" | "md" | "lg"
 }
-const User = async ({ providedUser, size = "md" }: Props) => {
+const User = async ({ providedUser }: Props) => {
   const user = providedUser ?? (await auth())
 
   if (!user) return (
-    <Button className="rounded-full" variant="outline" size={size} asChild>
+    <Button className="rounded-full" variant="outline" asChild>
       <Link href="/auth/login">
         Sign in
       </Link>
@@ -24,8 +23,7 @@ const User = async ({ providedUser, size = "md" }: Props) => {
   const avatarUrl = user.user_metadata.avatar_url
   return (
     <Link href="/account" className={cn(
-      "size-8 flex items-center justify-center rounded-full border relative",
-      size === "sm" ? "size-8" : size === "md" ? "size-12" : "size-16"
+      "size-9 flex items-center justify-center rounded-full border relative",
     )}>
       {
         avatarUrl
