@@ -109,7 +109,11 @@ function registerSystemCommands() {
     description: "Displays the current version of the yz package manager",
     execute: () => [{ type: "stdout", message: pkg.version }],
   };
-
+  terminalState.systemCommands["greeting"] = {
+    name: "greeting",
+    description: "Displays the greeting message",
+    execute: () => [{ type: "stdout", message: "" }],
+  };
   terminalState.systemCommands["help"] = {
     name: "help",
     description: "Lists all available commands",
