@@ -1,22 +1,29 @@
 "use client";
 import { useState } from "react";
-import { Context } from "./terminal";
-import { terminalApi } from "./terminal.api";
+import { cn } from "yz13/cn";
+import useTimeStore from "../workspace/store/time.store";
+import { getTerminalState, pushToHistory, TerminalState } from "./terminal";
+import { executeCommand, terminal } from "./terminal.api";
 
 const TerminalInput = () => {
-  const ctx = new Context()
   const [value, setValue] = useState<string>("")
-  const handleCommand = (command: string) => {
-    const parsed = terminalApi.parse(command)
-    if (parsed) terminalApi.executePackageCommand(ctx, parsed.packageId, parsed.command, parsed.args)
+  function handleInput(state: TerminalState, input: string) {
+    const parsed = terminal.parseInput(input);
+    executeCommand({ state, input: parsed, resolve: pushToHistory });
   }
+  const time = useTimeStore(state => state.time)
   return (
     <div className="w-full flex flex-col gap-1">
-      <span className="text-sm text-foreground">user@yz13.ru</span>
+      <div className="flex items-center gap-2 *:font-mono">
+        <span className="text-sm text-secondary">{time.format("HH:mm")}</span>
+        <span className="text-sm text-foreground">user@yz13.ru</span>
+        <span className="text-sm text-foreground">~/</span>
+      </div>
+
       <textarea
         onKeyUp={e => {
           if (e.key === "Enter") {
-            handleCommand(value)
+            handleInput(getTerminalState(), value)
             setValue("")
           }
         }}
@@ -28,7 +35,11 @@ const TerminalInput = () => {
             setValue("")
           } else setValue(noNewLines)
         }}
-        className="resize-none w-full bg-transparent outline-none" placeholder="Type command here"
+        className={cn(
+          "resize-none w-full bg-transparent outline-none",
+          "text-sm font-mono"
+        )}
+        placeholder="Type command here"
       />
     </div>
   )
