@@ -8,10 +8,6 @@ const config: Config = {
   corePlugins: {
     preflight: true,
   },
-  theme: {
-    extend: {
-    },
-  },
 };
 
 export default config;

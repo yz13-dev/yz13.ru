@@ -1,11 +1,10 @@
-@import url("mono/css/globals.css");
-
+/* @import url("mono/css/globals.css"); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/*
 @layer components {
   body {
     @apply font-sans bg-background text-foreground;
   }
-}
+} */

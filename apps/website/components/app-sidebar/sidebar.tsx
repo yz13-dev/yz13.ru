@@ -1,53 +1,65 @@
-import { CalendarIcon, CheckCircleIcon, HomeIcon, MapIcon } from "lucide-react";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "mono/components/sidebar";
+import { ComputerIcon, TerminalSquareIcon } from "lucide-react";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "mono/components/sidebar";
 import Link from "next/link";
-import Header from "./header";
 
-const AppSidebar = async () => {
+const AppSidebar = async ({ className = "" }: { className?: string }) => {
   return (
-    <Sidebar collapsible="icon"  >
-      <Header />
+    <Sidebar collapsible="icon" className={className}>
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>
 
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href="/">
-                  <HomeIcon size={16} />
-                  <span>Home</span>
+                <Link href="/" className="p-3 rounded-lg !h-9">
+                  <ComputerIcon size={18} />
+                  <span>Workspaces</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
-                <Link href="/tasks">
-                  <CheckCircleIcon size={16} />
-                  <span>Tasks</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="/events">
-                  <CalendarIcon size={16} />
-                  <span>Events</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <Link href="/roadmap">
-                  <MapIcon size={16} />
-                  <span>Roadmap</span>
+                <Link href="/" className="p-3 rounded-lg !h-9">
+                  <TerminalSquareIcon size={18} />
+                  <span>Terminal</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
           </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-3">Works</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/" className="p-3 rounded-lg !h-9">
+                    <span>Reservia</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel className="px-3">Team</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/" className="p-3 rounded-lg !h-9">
+                    <span>Members</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+            </SidebarMenu>
+          </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter />

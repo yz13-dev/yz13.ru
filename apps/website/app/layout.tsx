@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
 import { Onest, Pixelify_Sans } from "next/font/google";
 import localFont from "next/font/local";

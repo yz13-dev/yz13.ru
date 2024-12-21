@@ -109,6 +109,8 @@ export function executeCommand(props: ExecArgs) {
           input.args,
           state
         ) as CommandOutput[];
+        entry.block = systemCommand.block;
+        updateProccess(entry);
       }
     } else {
       const packageName = input.packageName;
@@ -122,6 +124,7 @@ export function executeCommand(props: ExecArgs) {
         else {
           createProccess(entry);
           entry.output = command.execute(input.args, state) as CommandOutput[];
+          entry.block = command.block;
           updateProccess(entry);
         }
       } else {
@@ -129,6 +132,7 @@ export function executeCommand(props: ExecArgs) {
         entry.output = [
           { type: "stderr", message: `Command "${input.command}" not found.` },
         ];
+        entry.block = "code";
         entry.status = "error";
         updateProccess(entry);
       }
@@ -144,6 +148,7 @@ export function executeCommand(props: ExecArgs) {
         message: `Error: ${err instanceof Error ? err.message : err}`,
       },
     ];
+    entry.block = "code";
     entry.status = "error";
     entry.endTimestamp = Date.now();
     updateProccess(entry);
@@ -163,13 +168,15 @@ async function executeAsyncCommand(props: ExecArgs) {
 
     if (command) {
       createProccess(entry);
-      entry.output = await command.execute(input.args, state); // Асинхронное выполнение
+      entry.output = await command.execute(input.args, state);
+      entry.block = command.block;
       updateProccess(entry);
     } else {
       createProccess(entry);
       entry.output = [
         { type: "stderr", message: `Command "${input.command}" not found.` },
       ];
+      entry.block = "code";
       entry.status = "error";
       updateProccess(entry);
     }
@@ -184,6 +191,7 @@ async function executeAsyncCommand(props: ExecArgs) {
         message: `Error: ${err instanceof Error ? err.message : err}`,
       },
     ];
+    entry.block = "code";
     entry.status = "error";
     entry.endTimestamp = Date.now();
     updateProccess(entry);

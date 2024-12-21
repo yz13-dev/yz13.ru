@@ -8,6 +8,7 @@ const fetchPackage: InstalledPackage = {
     {
       name: "get",
       description: "Fetches data from a URL",
+      block: "code",
       isAsync: true,
       execute: async (args) => {
         const [url] = args;
@@ -15,10 +16,10 @@ const fetchPackage: InstalledPackage = {
         try {
           const response = await fetch(url);
           const text = await response.text();
-          return [{ type: "stdout", message: text }];
+          return [{ type: "stdout", message: text, block: "code" }];
         } catch (err) {
           const msg = err instanceof Error ? err.message : err;
-          return [{ type: "stderr", message: `Error: ${msg}` }];
+          return [{ type: "stderr", message: `Error: ${msg}`, block: "code" }];
         }
       },
     },

@@ -2,11 +2,15 @@ import pkg from "@/package.json";
 import { create } from "zustand";
 import fetchPackage from "./packages/fetch.package";
 import mathPackage from "./packages/math.package";
+import yz13Package from "./packages/yz13.package";
+
+type CommandBlock = "code" | "list" | "banner";
 
 interface Command {
   name: string; // Название команды
   description: string; // Описание команды
-  isAsync?: boolean; // Является ли команда асинхронной
+  isAsync?: boolean;
+  block?: CommandBlock;
   execute: (
     args: string[],
     terminalState: TerminalState
@@ -20,10 +24,12 @@ export interface CommandOutputEntry {
   timestamp: number;
   endTimestamp: number | null;
   status: "pending" | "completed" | "error"; // Статус выполнения
+  block?: CommandBlock;
 }
 
 export interface CommandOutput {
   type: "stdout" | "stderr";
+  link?: string;
   message: string;
 }
 
@@ -163,7 +169,8 @@ function registerPackage(packageName: string, packageCommands: Command[]) {
 
 registerSystemCommands();
 
-const packages: InstalledPackage[] = [mathPackage, fetchPackage];
+const packages: InstalledPackage[] = [mathPackage, fetchPackage, yz13Package];
+
 packages.forEach((pkg) => {
   const commands = pkg.commands;
   const pkgName = pkg.name;
