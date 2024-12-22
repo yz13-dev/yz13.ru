@@ -9,7 +9,12 @@ import useTimeStore, { getNewTime } from "./store/time.store"
 dayjs.extend(timezone)
 dayjs.extend(utc)
 
-const LiveTime = ({ className = "" }: { className?: string }) => {
+type LiveTimeProps = {
+  className?: string
+  showSeconds?: boolean
+}
+
+const LiveTime = ({ className = "", showSeconds = false }: LiveTimeProps) => {
   const { time, setTime } = useTimeStore()
   const getTime = () => {
     return getNewTime()
@@ -17,7 +22,15 @@ const LiveTime = ({ className = "" }: { className?: string }) => {
   useInterval(() => {
     setTime(getTime())
   }, 1000)
-  return <span className={cn("text-sm", className)}>{time.format("HH:mm:ss")}</span>
+  return (
+    <span className={cn("text-sm", className)}>
+      {
+        showSeconds
+          ? time.format("HH:mm:ss")
+          : time.format("HH:mm")
+      }
+    </span>
+  )
 }
 
 export default LiveTime

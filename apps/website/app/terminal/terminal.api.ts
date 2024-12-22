@@ -56,7 +56,7 @@ export const terminal = {
     return { packageName, command, args, options, raw: input };
   },
 };
-function generateUniqueId() {
+export function generateUniqueId() {
   return Math.random().toString(36).substring(2, 10); // Простая генерация ID
 }
 type ExecArgs = {
