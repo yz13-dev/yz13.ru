@@ -4,7 +4,7 @@ import { Label } from "mono/components/label"
 import { RadioGroup, RadioGroupItem } from "mono/components/radio-group"
 import { ReactNode, useState } from "react"
 import { cn } from "yz13/cn"
-import { generateUniqueId } from "./terminal/terminal.api"
+import { generateUniqueId } from "../../terminal/terminal.api"
 
 
 const frontend = [
@@ -22,11 +22,6 @@ const frontend = [
     checked: true,
     id: generateUniqueId(),
     name: "UI-kit",
-  },
-  {
-    checked: true,
-    id: generateUniqueId(),
-    name: "Connect to API",
   },
   {
     checked: true,

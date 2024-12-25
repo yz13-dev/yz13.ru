@@ -2,7 +2,7 @@ import { ClockIcon } from "lucide-react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { PiGithubLogoDuotone, PiTelegramLogoDuotone, PiTwitterLogoDuotone } from "react-icons/pi"
-const LiveTime = dynamic(() => import("./workspace/live-time"), {
+const LiveTime = dynamic(() => import("../../workspace/live-time"), {
   ssr: false,
   loading: () => <span className="text-sm inline-block text-secondary">13:00</span>
 })
