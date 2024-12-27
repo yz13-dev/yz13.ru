@@ -1,13 +1,9 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  // const { supabase } = createClient(request);
-  // await supabase.auth.getUser();
-  // const isProd = process.env.NODE_ENV === "production";
-  // const isSoonPage = request.nextUrl.pathname.startsWith("/workspace");
-  // if (isProd && !isSoonPage)
-  //   return NextResponse.redirect(new URL("/workspace", request.url));
-  // else return NextResponse.next();
+  const isRoot = request.nextUrl.pathname === "/";
+  if (isRoot) return NextResponse.redirect(new URL("/discover", request.url));
+  else return NextResponse.next();
 }
 
 export const config = {

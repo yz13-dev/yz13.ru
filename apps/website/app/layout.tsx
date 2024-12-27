@@ -1,17 +1,20 @@
 import "@/styles/globals.css";
 import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
-import { Onest, Pixelify_Sans } from "next/font/google";
+import { Onest } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
 
-const PIXEL = Pixelify_Sans({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
-  preload: true,
-  display: "swap",
+const PIXEL = localFont({
+  src: [
+    {
+      path: "./fonts/departure-mono/departure-mono-nerd-font-mono-regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
   variable: "--font-yz-pixel",
-})
+});
 
 const SANS = Onest({
   subsets: ["latin", "latin-ext", "cyrillic"],
@@ -65,15 +68,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(
-        SANS.variable,
-        MONO.variable,
-        PIXEL.variable,
-      )}
+      className={cn(SANS.variable, MONO.variable, PIXEL.variable)}
     >
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
