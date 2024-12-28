@@ -1,8 +1,8 @@
 import {
-  ArrowRightIcon,
-  BriefcaseBusinessIcon,
-  EllipsisIcon,
-  GlobeIcon,
+    ArrowRightIcon,
+    BriefcaseBusinessIcon,
+    EllipsisIcon,
+    GlobeIcon,
 } from "lucide-react";
 import { Button } from "mono/components/button";
 import dynamic from "next/dynamic";
@@ -44,7 +44,8 @@ const page = () => {
         </div>
         <div className="grid w-full gap-3 lg:!grid-cols-3 sm:grid-cols-2 grid-cols-1">
           <RoleSelection className="w-full" />
-
+{
+  process.env.NODE_ENV === "development" &&
           <div className="w-full relative rounded-xl p-1 space-y-1 border">
             <div className="w-full rounded-lg bg-yz-neutral-100 relative hover:bg-yz-neutral-200 border border-transparent hover:border-yz-neutral-300 aspect-[16/10]">
               <Image
@@ -70,7 +71,7 @@ const page = () => {
               </div>
             </div>
           </div>
-
+}
           {/*
             <div className="w-full rounded-xl p-1 space-y-1 border">
             <div className="w-full rounded-xl bg-yz-neutral-100 hover:bg-yz-neutral-200 border border-transparent hover:border-yz-neutral-300 aspect-[16/10]"></div>
