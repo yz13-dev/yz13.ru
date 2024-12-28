@@ -1,9 +1,7 @@
 import { Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { cn } from "yz13/cn";
 import icons from "../icons";
-
-
-
+import useWorkspaceStore from "../store/workspace.store";
 
 export type PaymentNode = Node<
   {
@@ -14,6 +12,7 @@ export type PaymentNode = Node<
 
 const Payment = (props: NodeProps<PaymentNode>) => {
   const { type, data, selected } = props;
+  const workspace = useWorkspaceStore((state) => state.workspace);
   const value = data.value;
   const Icon = icons[type];
   return (
@@ -27,7 +26,10 @@ const Payment = (props: NodeProps<PaymentNode>) => {
         <Icon size={18} />
         <span>{type}</span>
       </div>
-      <span className="text-sm">Значение: {value}</span>
+      <span className="text-sm">
+        Значение: {value}
+        {workspace?.currencySign}
+      </span>
       <Handle
         type="target"
         className={cn(
@@ -45,7 +47,7 @@ const Payment = (props: NodeProps<PaymentNode>) => {
         position={Position.Left}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Payment
+export default Payment;

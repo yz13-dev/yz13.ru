@@ -1,3 +1,4 @@
+import User from "@/components/user";
 import "@xyflow/react/dist/base.css";
 import Dock from "./dock";
 import { Info, Nav, Status } from "./header";
@@ -8,7 +9,9 @@ const page = () => {
     <div className="w-full h-dvh relative">
       <Nav />
       <Status />
-      <Info />
+      <Info>
+        <User />
+      </Info>
       <Dock />
       <NodesMap
         nodes={[
@@ -25,7 +28,7 @@ const page = () => {
             data: { value: 100 },
           },
         ]}
-      ></NodesMap>
+      />
     </div>
   );
 };

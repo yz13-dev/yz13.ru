@@ -1,39 +1,38 @@
-import { cookies } from "next/headers"
-import Image from "next/image"
-import { createClient } from "yz13/supabase/server"
-import { Logged } from "./logged"
-import { UnLogged } from "./unlogged"
+import { Logo } from "@/components/logo";
+import { cookies } from "next/headers";
+import Link from "next/link";
+import { createClient } from "yz13/supabase/server";
+import { LoginForm } from "./login-form";
 
 type Props = {
-  params: Promise<{}>
+  params: Promise<{}>;
   searchParams: Promise<{
-    lang?: string
-    continue?: string
-  }>
-}
+    lang?: string;
+    continue?: string;
+  }>;
+};
 const page = async (props: Props) => {
   const searchParams = await props.searchParams;
-  const cks = await cookies()
-  const sp = createClient(cks)
-  const { data: { user } } = await sp.auth.getUser()
-  const isLogged = !!user
-  const continueLink = searchParams.continue
+  const cks = await cookies();
+  const sp = createClient(cks);
+  const {
+    data: { user },
+  } = await sp.auth.getUser();
+  const isLogged = !!user;
+  const continueLink = searchParams.continue;
   return (
-    <div className="max-w-3xl w-full mx-auto h-screen">
-      <div className="w-full absolute top-0 left-0 flex justify-center p-6">
-        <div className="size-12 relative">
-          <Image className="light-mode-image" src="/yz-light.svg" fill alt="image" />
-          <Image className="dark-mode-image" src="/yz-dark.svg" fill alt="image" />
-        </div>
-      </div>
-      <div className="flex relative flex-col items-center h-full justify-center w-full">
-        {
-          isLogged
-            ? <Logged user={user} continue={continueLink} />
-            : <UnLogged continue={continueLink} />
-        }
+    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <Link
+          href="/"
+          className="flex items-center gap-2 self-center font-pixel"
+        >
+          <Logo className="size-8 relative" />
+          <span className="text-lg">YZ13</span>
+        </Link>
+        <LoginForm />
       </div>
     </div>
-  )
-}
-export default page
+  );
+};
+export default page;
