@@ -38,27 +38,31 @@ const page = ({}: PageProps) => {
           <section
             className={cn(
               "w-full grid grid-cols-7 gap-3",
-              "*:w-full *:aspect-square *:rounded-2xl *:border *:border-dashed",
+              "*:w-full *:aspect-square",
             )}
           >
-            <div className="flex items-center justify-center">
-              <Link href="/finance">
-                <Image
-                  className="dark-mode-image"
-                  src="/apps/yz-finance-dark.svg"
-                  width={48}
-                  height={48}
-                  alt="yz-finance"
-                />
-                <Image
-                  className="light-mode-image"
-                  src="/apps/yz-finance-light.svg"
-                  width={48}
-                  height={48}
-                  alt="yz-finance"
-                />
-              </Link>
-            </div>
+            <Link
+              href="/finance"
+              className="flex flex-col group items-center justify-evenly gap-2"
+            >
+              <Image
+                className="dark-mode-image"
+                src="/apps/yz-finance-dark.svg"
+                width={42}
+                height={42}
+                alt="yz-finance"
+              />
+              <Image
+                className="light-mode-image"
+                src="/apps/yz-finance-light.svg"
+                width={42}
+                height={42}
+                alt="yz-finance"
+              />
+              <span className="text-xs text-center font-pixel text-secondary group-hover:text-foreground">
+                Finance
+              </span>
+            </Link>
             {/* <div className="w-full h-16 col-span-full flex items-center justify-center">
               <span className="text-sm text-secondary">Realeses</span>
             </div> */}

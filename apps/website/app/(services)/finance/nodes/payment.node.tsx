@@ -2,14 +2,17 @@ import { Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { cn } from "yz13/cn";
 import icons from "../icons";
 
-export type AccountNode = Node<
+
+
+
+export type PaymentNode = Node<
   {
     value: number;
   },
-  "account"
+  "payment"
 >;
 
-const Account = (props: NodeProps<AccountNode>) => {
+const Payment = (props: NodeProps<PaymentNode>) => {
   const { type, data, selected } = props;
   const value = data.value;
   const Icon = icons[type];
@@ -42,7 +45,7 @@ const Account = (props: NodeProps<AccountNode>) => {
         position={Position.Left}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Account;
+export default Payment

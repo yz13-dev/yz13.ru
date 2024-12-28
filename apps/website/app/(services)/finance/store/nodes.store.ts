@@ -1,21 +1,54 @@
-import { Node } from "@xyflow/react";
+import {
+  addEdge,
+  applyEdgeChanges,
+  applyNodeChanges,
+  Edge,
+  Node,
+  OnConnect,
+  OnEdgesChange,
+  OnNodesChange,
+} from "@xyflow/react";
 import { create } from "zustand";
 
 type Actions = {
   setNodes: (nodes: Node[]) => void;
+  setEdges: (edges: Edge[]) => void;
+  onNodesChange: OnNodesChange<Node>;
+  onEdgesChange: OnEdgesChange;
+  onConnect: OnConnect;
 };
 
 type State = {
   nodes: Node[];
+  edges: Edge[];
 };
 
-export const useNodeStore = create<State & Actions>()((set) => ({
+export type NodeStore = State & Actions;
+
+export const useNodeStore = create<NodeStore>()((set, get) => ({
   nodes: [],
-  setNodes: (nodes: Node[]) => set({ nodes }),
+  edges: [],
+  onNodesChange: (changes) => {
+    set({
+      nodes: applyNodeChanges(changes, get().nodes),
+    });
+  },
+  onEdgesChange: (changes) => {
+    set({
+      edges: applyEdgeChanges(changes, get().edges),
+    });
+  },
+  onConnect: (connection) => {
+    set({
+      edges: addEdge(connection, get().edges),
+    });
+  },
+  setNodes: (nodes) => {
+    set({ nodes });
+  },
+  setEdges: (edges) => {
+    set({ edges });
+  },
 }));
 
-const getNodes = () => useNodeStore.getState().nodes;
-const setNodes = (nodes: Node[]) => useNodeStore.getState().setNodes(nodes);
-
-export { getNodes, setNodes };
 export default useNodeStore;
