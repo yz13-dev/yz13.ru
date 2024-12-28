@@ -68,6 +68,7 @@ export const records: LibraryRecord[] = [
         tag: "img",
         attributes: {
           className: "w-full object-conver rounded-xl aspect-[16/10]",
+          // @ts-expect-error
           src: "/layers/finance-16-10.png",
           alt: "finance-app",
         },
