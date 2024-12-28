@@ -1,18 +1,19 @@
-import { Background, ReactFlow } from "@xyflow/react";
+import User from "@/components/user";
 import "@xyflow/react/dist/base.css";
-import { Nav, Status, Info } from "./header";
 import Dock from "./dock";
-import { types } from "./node-types";
+import { Info, Nav, Status } from "./header";
+import NodesMap from "./node-map";
 
 const page = () => {
   return (
     <div className="w-full h-dvh relative">
       <Nav />
       <Status />
-      <Info />
+      <Info>
+        <User />
+      </Info>
       <Dock />
-      <ReactFlow
-        nodeTypes={types}
+      <NodesMap
         nodes={[
           {
             type: "account",
@@ -20,10 +21,14 @@ const page = () => {
             position: { x: 100, y: 100 },
             data: { value: 100 },
           },
+          {
+            type: "payment",
+            id: "2",
+            position: { x: 300, y: 300 },
+            data: { value: 100 },
+          },
         ]}
-      >
-        <Background />
-      </ReactFlow>
+      />
     </div>
   );
 };

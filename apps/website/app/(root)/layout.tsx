@@ -1,5 +1,6 @@
-import { Logo } from "@/components/logo"
-import Nav from "./nav"
+import { Logo } from "@/components/logo";
+import User from "@/components/user";
+import Nav from "./nav";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,12 +12,12 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         </div>
         <div className="flex items-center gap-2">
           <Nav />
-          {/* <User /> */}
+          <User disabled />
         </div>
       </header>
       {children}
     </>
-  )
-}
+  );
+};
 
-export default layout
+export default layout;

@@ -1,9 +1,11 @@
+"use client";
 import { Logo } from "@/components/logo";
-import User from "@/components/user";
 import { ChevronDown, ChevronLeft, MapIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Image from "next/image";
 import Link from "next/link";
+import { ReactNode, useEffect } from "react";
+import useWorkspaceStore from "./store/workspace.store";
 
 const Nav = () => {
   return (
@@ -37,10 +39,19 @@ const Nav = () => {
 };
 
 const Status = () => {
+  const workspace = useWorkspaceStore((state) => state.workspace);
+  const setWorkspace = useWorkspaceStore((state) => state.setWorkspace);
+
+  useEffect(() => {
+    setWorkspace({
+      currency: "USD",
+      currencySign: "$",
+    });
+  }, []);
   return (
     <div className="absolute top-6 left-0 right-0 mx-auto w-fit z-10 flex items-center gap-2">
       <div className="w-fit border flex items-center gap-2 py-1 px-2 rounded-xl bg-background">
-        0.0$
+        0.0{workspace?.currencySign}
       </div>
       <div className="w-fit border flex items-center gap-2 py-1 px-2 rounded-xl bg-background">
         <MapIcon size={16} />
@@ -51,12 +62,12 @@ const Status = () => {
   );
 };
 
-const Info = () => {
+const Info = ({ children }: { children?: ReactNode }) => {
   return (
     <div className="absolute top-6 right-6 w-fit z-10 flex items-center gap-2">
-      <User />
+      {children}
     </div>
   );
 };
 
-export { Nav, Status, Info };
+export { Info, Nav, Status };

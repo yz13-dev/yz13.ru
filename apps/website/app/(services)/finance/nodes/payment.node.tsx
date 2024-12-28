@@ -1,17 +1,16 @@
-"use client";
 import { Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { cn } from "yz13/cn";
 import icons from "../icons";
 import useWorkspaceStore from "../store/workspace.store";
 
-export type AccountNode = Node<
+export type PaymentNode = Node<
   {
     value: number;
   },
-  "account"
+  "payment"
 >;
 
-const Account = (props: NodeProps<AccountNode>) => {
+const Payment = (props: NodeProps<PaymentNode>) => {
   const { type, data, selected } = props;
   const workspace = useWorkspaceStore((state) => state.workspace);
   const value = data.value;
@@ -19,7 +18,7 @@ const Account = (props: NodeProps<AccountNode>) => {
   return (
     <div
       className={cn(
-        "relative w-80 rounded-xl bg-background border p-3 flex flex-col gap-2",
+        "w-80 rounded-xl bg-background border p-3 flex flex-col gap-2",
         selected && "ring-1 outline-none ring-offset-2 ring-foreground",
       )}
     >
@@ -51,4 +50,4 @@ const Account = (props: NodeProps<AccountNode>) => {
   );
 };
 
-export default Account;
+export default Payment;
