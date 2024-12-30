@@ -1,6 +1,6 @@
 import {
-  BadgePlusIcon,
   SmartphoneIcon,
+  StickerIcon,
   TerminalSquareIcon,
   ToggleLeftIcon,
 } from "lucide-react";
@@ -24,8 +24,8 @@ const Sidebar = () => {
       </Button>
       <Separator />
       <Button variant="secondary" className="w-full gap-2 justify-start">
-        <BadgePlusIcon size={16} />
-        <Span>New</Span>
+        <StickerIcon size={16} />
+        <Span>Releases</Span>
       </Button>
       <Button variant="ghost" className="w-full gap-2 justify-start">
         <SmartphoneIcon size={16} />
