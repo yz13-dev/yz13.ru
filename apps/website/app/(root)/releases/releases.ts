@@ -17,7 +17,16 @@ export type ReleaseStage =
   | "in_plans"
   | "in_progress"
   | "in_review"
+  | "in_testing"
   | "released";
+
+const stageAsProgress: Record<ReleaseStage, number> = {
+  in_plans: 0,
+  in_progress: 25,
+  in_testing: 50,
+  in_review: 75,
+  released: 100,
+};
 
 const finance: Release = {
   id: "finance",
@@ -26,6 +35,10 @@ const finance: Release = {
   description: "App to track your spending",
   created_at: dayjs("2024-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
+  icon: {
+    dark: "/apps/yz-finance-dark.svg",
+    light: "/apps/yz-finance-light.svg",
+  },
 };
 
 const puzzle: Release = {
@@ -45,6 +58,7 @@ export const getStage: Record<ReleaseStage, string> = {
   in_plans: "In plans",
   in_progress: "In progress",
   in_review: "In review",
+  in_testing: "In testing",
   released: "Released",
 };
 
@@ -52,6 +66,7 @@ export const getGroups = () => {
   const groups: Record<ReleaseStage, Release[]> = {
     in_plans: [],
     in_progress: [],
+    in_testing: [],
     in_review: [],
     released: [],
   };
@@ -61,6 +76,12 @@ export const getGroups = () => {
   });
 
   return groups;
+};
+
+export const getReleaseProgress = (id: string) => {
+  const release = getRelease(id);
+  if (!release) return 0;
+  return stageAsProgress[release.stage];
 };
 
 export const getRelease = (id: string) => {

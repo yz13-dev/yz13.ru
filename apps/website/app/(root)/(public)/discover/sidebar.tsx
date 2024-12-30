@@ -22,11 +22,13 @@ const Sidebar = () => {
           <Span>Terminal</Span>
         </Link>
       </Button>
-      <Separator />
-      <Button variant="secondary" className="w-full gap-2 justify-start">
-        <StickerIcon size={16} />
-        <Span>Releases</Span>
+      <Button variant="ghost" className="w-full gap-2 justify-start" asChild>
+        <Link href="/releases">
+          <StickerIcon size={16} />
+          <Span>Releases</Span>
+        </Link>
       </Button>
+      <Separator />
       <Button variant="ghost" className="w-full gap-2 justify-start">
         <SmartphoneIcon size={16} />
         <Span>Screens</Span>
