@@ -1,5 +1,7 @@
 import { cn } from "yz13/cn";
 
+const elements = ["Button", "Input", "Card", "Badge", "Avatar"];
+
 const UiElements = () => {
   return (
     <section className="w-full space-y-3">
@@ -10,21 +12,18 @@ const UiElements = () => {
           "*:bg-yz-neutral-200 *:text-foreground/80 *:px-3 *:py-1 *:rounded-full *:text-sm",
         )}
       >
-        <li className="hover:text-foreground transition-colors cursor-pointer">
-          Button
-        </li>
-        <li className="hover:text-foreground transition-colors cursor-pointer">
-          Input
-        </li>
-        <li className="hover:text-foreground transition-colors cursor-pointer">
-          Card
-        </li>
-        <li className="hover:text-foreground transition-colors cursor-pointer">
-          Badge
-        </li>
-        <li className="hover:text-foreground transition-colors cursor-pointer">
-          Avatar
-        </li>
+        {elements.lengt ? (
+          elements.map((element) => (
+            <li
+              key={element}
+              className="hover:text-foreground transition-colors cursor-pointer"
+            >
+              {element}
+            </li>
+          ))
+        ) : (
+          <span className="text-secondary">No UI Elements yet</span>
+        )}
       </ul>
     </section>
   );
