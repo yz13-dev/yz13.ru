@@ -12,7 +12,7 @@ const UiElements = () => {
           "*:bg-yz-neutral-200 *:text-foreground/80 *:px-3 *:py-1 *:rounded-full *:text-sm",
         )}
       >
-        {elements.lengt ? (
+        {elements.length ? (
           elements.map((element) => (
             <li
               key={element}
