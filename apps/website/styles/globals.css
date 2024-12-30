@@ -2,9 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/*
+
 @layer components {
   body {
-    @apply font-sans bg-background text-foreground;
+    @apply font-sans !bg-background-back text-foreground;
   }
-} */
+}

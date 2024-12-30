@@ -11,22 +11,30 @@ const page = ({}: PageProps) => {
           <AppsLine />
           <section className="w-full space-y-3">
             <span className="text-sm text-secondary">Screens</span>
-            <div className="w-full grid grid-cols-4 gap-3">
-              <div className="w-full h-36 col-span-full flex items-center justify-center rounded-xl border border-dashed">
-                <span className="text-sm text-secondary">Different</span>
+            <div className="w-full grid grid-cols-4 gap-3 *:bg-background *:border *:p-3">
+              <div className="w-full aspect-square rounded-xl">
+                <span className="text-sm text-foreground">Signup</span>
               </div>
-              {/* <div className="w-full aspect-square rounded-xl bg-yz-neutral-100"></div> */}
-              {/* <div className="w-full aspect-square rounded-xl bg-yz-neutral-100"></div> */}
-              {/* <div className="w-full h-full col-span-2 rounded-xl bg-yz-neutral-100"></div> */}
+              <div className="w-full aspect-square rounded-xl">
+                <span className="text-sm text-foreground">Login</span>
+              </div>
+              <div className="w-full h-full col-span-2 rounded-xl">
+                <span className="text-sm text-foreground">Home</span>
+              </div>
             </div>
-            <div className="w-full grid grid-cols-4 gap-3">
-              <div className="w-full h-36 col-span-full flex items-center justify-center rounded-xl border border-dashed">
-                <span className="text-sm text-secondary">Screens</span>
+            <div className="w-full grid grid-cols-4 gap-3 *:bg-background *:border *:p-3">
+              <div className="w-full aspect-square rounded-xl">
+                <span className="text-sm text-foreground">Seach</span>
               </div>
-              {/* <div className="w-full aspect-square rounded-xl bg-yz-neutral-100"></div> */}
-              {/* <div className="w-full aspect-square rounded-xl bg-yz-neutral-100"></div> */}
-              {/* <div className="w-full aspect-square rounded-xl bg-yz-neutral-100"></div> */}
-              {/* <div className="w-full aspect-square rounded-xl bg-yz-neutral-100"></div> */}
+              <div className="w-full aspect-square rounded-xl">
+                <span className="text-sm text-foreground">Profile</span>
+              </div>
+              <div className="w-full aspect-square rounded-xl">
+                <span className="text-sm text-foreground">Checkout</span>
+              </div>
+              <div className="w-full aspect-square rounded-xl">
+                <span className="text-sm text-foreground">Settings</span>
+              </div>
             </div>
           </section>
           {/* <section className="w-full space-y-3">
