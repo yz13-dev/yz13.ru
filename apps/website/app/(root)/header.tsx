@@ -1,6 +1,8 @@
 import { Logo } from "@/components/logo";
 import User from "@/components/user";
+import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
+import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import Nav from "./nav";
 
@@ -21,7 +23,9 @@ const Header = ({ className = "" }: HeaderProps) => {
       </Link>
       <div className="flex items-center gap-2">
         <Nav />
-        <User disabled />
+        <Suspense fallback={<Skeleton className="size-9 rounded-full" />}>
+          <User disabled />
+        </Suspense>
       </div>
     </header>
   );
