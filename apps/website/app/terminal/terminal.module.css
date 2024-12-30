@@ -9,7 +9,7 @@
   padding-left: var(--padding);
   padding-right: var(--padding);
   padding-bottom: var(--padding);
-  @apply w-full min-h-dvh h-fit bg-background;
+  @apply w-full min-h-dvh h-fit;
 
   .terminal-header {
     height: var(--header-height);

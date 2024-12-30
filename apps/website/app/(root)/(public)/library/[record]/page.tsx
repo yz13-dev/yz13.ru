@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createElement } from "react";
-import { expampleRecord, records } from "../records";
+import { records } from "../records";
 
 type PageProps = {
   params: {
@@ -27,12 +27,12 @@ const page = ({ params }: PageProps) => {
             href={`/library/${recordId}`}
             className="hover:text-foreground transition-colors"
           >
-            {record.title}
+            {record.name}
           </Link>
         </div>
         {record.content.map(({ tag, attributes }, index) => {
           return createElement(tag, {
-            key: `${tag}-${expampleRecord.id}-${index}`,
+            key: `${tag}-${record.id}-${index}`,
             ...attributes,
           });
         })}

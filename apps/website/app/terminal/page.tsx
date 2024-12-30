@@ -1,9 +1,7 @@
-import TerminalHeader from "./terminal-header"
-import TerminalInput from "./terminal-input"
-import TerminalOutput from "./terminal-output"
-import terminal from "./terminal.module.css"
-
-
+import TerminalHeader from "./terminal-header";
+import TerminalInput from "./terminal-input";
+import TerminalOutput from "./terminal-output";
+import terminal from "./terminal.module.css";
 
 const page = () => {
   return (
@@ -11,12 +9,10 @@ const page = () => {
       <div className={terminal.terminal}>
         <TerminalHeader />
         <TerminalOutput />
-        <TerminalInput />
+        <TerminalInput commandsOnStart={["greeting"]} />
       </div>
     </>
-  )
-}
+  );
+};
 
-
-
-export default page
+export default page;

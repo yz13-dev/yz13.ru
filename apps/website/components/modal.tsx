@@ -1,13 +1,50 @@
+"use client";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "mono/components/dialog";
+import { Drawer, DrawerContent } from "mono/components/drawer";
+import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
-
-const Modal = ({ children, onClose }: { children?: React.ReactNode, onClose?: () => void }) => {
+const Modal = ({
+  className = "",
+  children,
+  onClose,
+}: {
+  className?: string;
+  children?: React.ReactNode;
+  onClose?: () => void;
+}) => {
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1224px)",
+  });
+  const [open, setOpen] = useState(true);
+  const handleChange = (open: boolean) => {
+    setOpen(open);
+    if (open === false) {
+      setTimeout(() => {
+        onClose && onClose();
+      }, 100);
+    }
+  };
+  if (!isDesktop)
+    return (
+      <Drawer open={open} onOpenChange={handleChange}>
+        <DrawerContent className={className}>{children}</DrawerContent>
+      </Drawer>
+    );
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background/30 backdrop-blur-sm p-4 overflow-y-auto"
-    >
-      {children}
-    </div>
-  )
-}
+    <Dialog open={open} onOpenChange={handleChange}>
+      <DialogContent className={className}>
+        <DialogTitle className="sr-only" />
+        <DialogDescription className="sr-only" />
+        {children}
+      </DialogContent>
+    </Dialog>
+  );
+};
 
-export default Modal
+export default Modal;
