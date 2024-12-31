@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import Image from "next/image";
 import Link from "next/link";
 import Header from "../header";
+import ReleaseIcon from "./release-icon";
 import ReleaseModal from "./release-modal";
 import { getGroups, getStage, ReleaseStage } from "./releases";
 
@@ -41,26 +41,7 @@ const page = ({ searchParams }: PageProps) => {
                     key={release.id + "/" + release.created_at}
                     className="flex gap-2 rounded-xl bg-background p-2 border"
                   >
-                    <div className="size-6 shrink-0 rounded-md border bg-yz-neutral-100 p-1">
-                      <div className="w-full h-full relative">
-                        {release.icon && (
-                          <>
-                            <Image
-                              className="dark-mode-image"
-                              src={release.icon.dark}
-                              fill
-                              alt=""
-                            />
-                            <Image
-                              className="light-mode-image"
-                              src={release.icon.dark}
-                              fill
-                              alt=""
-                            />
-                          </>
-                        )}
-                      </div>
-                    </div>
+                    <ReleaseIcon icon={release.icon} />
                     <div className="flex flex-col">
                       <Link
                         href={`?id=${release.id}`}

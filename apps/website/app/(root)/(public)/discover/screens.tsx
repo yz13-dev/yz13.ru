@@ -78,7 +78,12 @@ const Screens = () => {
   return (
     <section className="w-full space-y-3">
       <span className="text-sm text-secondary">Screens</span>
-      <div className="w-full grid grid-cols-4 gap-3 *:relative *:transition-colors *:overflow-hidden *:rounded-2xl *:bg-background/40 *:border *:p-3">
+      <div
+        className={cn(
+          "w-full gap-3 *:relative *:transition-colors *:overflow-hidden *:rounded-2xl *:bg-background/40 *:border *:p-3",
+          "grid sm:!grid-cols-4 grid-cols-2 auto-rows-auto",
+        )}
+      >
         <ScreenCategory
           category="signup"
           name="Signup"
@@ -90,7 +95,7 @@ const Screens = () => {
         <ScreenCategory
           category="login"
           name="Login"
-          className="aspect-square"
+          className="aspect-square "
           count={0}
           covers={[{ aspectRatio: "9/16" }, { aspectRatio: "9/16" }]}
         />
@@ -98,12 +103,17 @@ const Screens = () => {
         <ScreenCategory
           category="home"
           name="Home"
-          className="col-span-2"
+          className="col-span-2 sm:!aspect-auto aspect-video"
           count={0}
           covers={[{ aspectRatio: "9/16" }, { aspectRatio: "9/16" }]}
         />
       </div>
-      <div className="w-full grid grid-cols-4 gap-3 *:group *:relative *:transition-colors *:overflow-hidden *:rounded-2xl *:bg-background/40 *:border *:p-3">
+      <div
+        className={cn(
+          "w-full gap-3 *:relative *:transition-colors *:overflow-hidden *:rounded-2xl *:bg-background/40 *:border *:p-3",
+          "grid sm:!grid-cols-4 grid-cols-2 auto-rows-auto",
+        )}
+      >
         <ScreenCategory
           category="search"
           name="Search"

@@ -1,7 +1,7 @@
 "use client";
+import useTimeStore from "@/components/live/time.store";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "yz13/cn";
-import useTimeStore from "../workspace/store/time.store";
 import {
   getTerminalState,
   pushToHistory,

@@ -1,34 +1,16 @@
-import { Logo } from "@/components/logo";
-import User from "@/components/user";
-import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
-import { Suspense } from "react";
-import { cn } from "yz13/cn";
+import { Header } from "@/components/header";
 import Nav from "./nav";
 
-type HeaderProps = {
-  className?: string;
-};
-const Header = ({ className = "" }: HeaderProps) => {
+const PublicHeader = ({ className = "" }: { className?: string }) => {
   return (
-    <header
-      className={cn(
-        "w-full h-16 px-3 flex items-center justify-between",
-        className,
-      )}
-    >
-      <Link href="/" className="flex items-center gap-2">
-        <Logo className="size-9" />
-        <span className="font-pixel text-xl">YZ13</span>
-      </Link>
-      <div className="flex items-center gap-2">
+    <Header className={className}>
+      <Header.Left></Header.Left>
+      <Header.Center></Header.Center>
+      <Header.Right>
         <Nav />
-        <Suspense fallback={<Skeleton className="size-9 rounded-full" />}>
-          <User disabled />
-        </Suspense>
-      </div>
-    </header>
+      </Header.Right>
+    </Header>
   );
 };
 
-export default Header;
+export default PublicHeader;
