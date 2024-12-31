@@ -1,6 +1,6 @@
 "use client";
 
-import useTimeStore from "@/app/workspace/store/time.store";
+import useTimeStore from "@/components/live/time.store";
 import { useDebounceEffect } from "ahooks";
 import { Dayjs } from "dayjs";
 import { useEffect, useRef, useState } from "react";
@@ -64,7 +64,7 @@ const WeekLine = () => {
             key={date.format("YYYY-MM-DD")}
             id={"d-" + date.format("YYYY-MM-DD")}
             className={cn(
-              "w-14 shrink-0 rounded-lg flex items-center justify-center border gap-0 flex-col h-full",
+              "w-14 shrink-0 rounded-xl flex items-center justify-center border gap-0 flex-col h-full",
               date.isSame(time, "day")
                 ? "bg-foreground text-background border-foreground"
                 : "",

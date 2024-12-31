@@ -1,4 +1,4 @@
-const LiveTime = dynamic(() => import("@/app/workspace/live-time"), {
+const LiveTime = dynamic(() => import("@/components/live/live-time"), {
   ssr: false,
 });
 import { ClockIcon } from "lucide-react";

@@ -6,7 +6,7 @@ import {
   PiTelegramLogoDuotone,
   PiTwitterLogoDuotone,
 } from "react-icons/pi";
-const LiveTime = dynamic(() => import("@/app/workspace/live-time"), {
+const LiveTime = dynamic(() => import("@/components/live/live-time"), {
   ssr: false,
   loading: () => (
     <span className="text-sm inline-block text-secondary">13:00</span>

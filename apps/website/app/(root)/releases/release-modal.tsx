@@ -2,8 +2,8 @@
 import Modal from "@/components/modal";
 import dayjs from "dayjs";
 import { Progress } from "mono/components/progress";
-import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import ReleaseIcon from "./release-icon";
 import { getRelease, getReleaseProgress } from "./releases";
 
 const ReleaseModal = ({ id }: { id: string }) => {
@@ -24,26 +24,7 @@ const ReleaseModal = ({ id }: { id: string }) => {
       }}
     >
       <div className="w-full flex items-start gap-4">
-        <div className="size-12 shrink-0 rounded-lg border bg-yz-neutral-100 p-2">
-          <div className="w-full h-full relative">
-            {release.icon && (
-              <>
-                <Image
-                  className="dark-mode-image"
-                  src={release.icon.dark}
-                  fill
-                  alt=""
-                />
-                <Image
-                  className="light-mode-image"
-                  src={release.icon.light}
-                  fill
-                  alt=""
-                />
-              </>
-            )}
-          </div>
-        </div>
+        <ReleaseIcon icon={release.icon} className="size-12 rounded-lg p-2" />
         <div className="flex flex-col gap-4 w-full">
           <div className="flex flex-col">
             <h2 className="text-2xl font-medium">{release.name}</h2>
