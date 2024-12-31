@@ -50,9 +50,18 @@ const puzzle: Release = {
   updated_at: dayjs("2024-12-30").toString(),
 };
 
-export { finance, puzzle };
+const drafts: Release = {
+  id: "drafts",
+  stage: "in_plans",
+  name: "Drafts",
+  description: "Design drafts",
+  created_at: dayjs("2024-12-30").toString(),
+  updated_at: dayjs("2024-12-30").toString(),
+};
 
-export const releases: Release[] = [puzzle, finance];
+export { drafts, finance, puzzle };
+
+export const releases: Release[] = [puzzle, finance, drafts];
 
 export const getStage: Record<ReleaseStage, string> = {
   in_plans: "In plans",

@@ -16,7 +16,7 @@ const page = ({}: PageProps) => {
     <div className="h-fit w-full p-3 max-w-4xl mx-auto min-h-[calc(100dvh - 64px)] space-y-6">
       <div className="w-full flex items-start gap-6">
         <Sidebar />
-        <div className="lg:!w-[calc(100%-208px)] w-[calc(100%-48px)] space-y-6">
+        <div className="lg:!w-[calc(100%-208px-24px)] w-[calc(100%-48px-24px)] space-y-6">
           <Availability />
           <WeekLine />
           <AppsLine />

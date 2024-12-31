@@ -56,7 +56,7 @@ const WeekLine = () => {
   return (
     <div
       ref={ref}
-      className="w-full shrink-0 h-16 flex items-center overflow-hidden gap-5"
+      className="w-full shrink-0 h-16 flex items-center overflow-hidden gap-4"
     >
       {range.map((date, i) => {
         return (
@@ -65,7 +65,9 @@ const WeekLine = () => {
             id={"d-" + date.format("YYYY-MM-DD")}
             className={cn(
               "w-14 shrink-0 rounded-lg flex items-center justify-center border gap-0 flex-col h-full",
-              date.isSame(time, "day") ? "bg-foreground/10" : "",
+              date.isSame(time, "day")
+                ? "bg-foreground text-background border-foreground"
+                : "",
             )}
           >
             <span className="text-sm text-secondary">{date.format("ddd")}</span>

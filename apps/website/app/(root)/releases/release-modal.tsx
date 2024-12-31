@@ -36,7 +36,7 @@ const ReleaseModal = ({ id }: { id: string }) => {
                 />
                 <Image
                   className="light-mode-image"
-                  src={release.icon.dark}
+                  src={release.icon.light}
                   fill
                   alt=""
                 />
