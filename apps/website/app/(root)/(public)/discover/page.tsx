@@ -1,4 +1,4 @@
-import Dock from "@/components/dock";
+import Dock from "@/components/dock/dock";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
 import AppsLine from "./apps-line";

@@ -1,4 +1,4 @@
-import Dock from "@/components/dock";
+import Dock from "@/components/dock/dock";
 import dayjs from "dayjs";
 import Link from "next/link";
 import Header from "../header";
