@@ -52,11 +52,15 @@ const puzzle: Release = {
 
 const drafts: Release = {
   id: "drafts",
-  stage: "in_plans",
+  stage: "in_progress",
   name: "Drafts",
   description: "Design drafts",
   created_at: dayjs("2024-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
+  icon: {
+    dark: "/apps/yz-drafts-dark.svg",
+    light: "/apps/yz-drafts-light.svg",
+  },
 };
 
 export { drafts, finance, puzzle };
