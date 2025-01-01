@@ -27,10 +27,15 @@ type SidesProps = {
   children?: React.ReactNode;
 };
 
-const Left = ({ children, className = "" }: SidesProps) => {
+const Left = ({
+  link,
+  children,
+  className = "",
+}: SidesProps & { link?: string }) => {
+  const logoLink = link ? link : "/";
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <Link href="/" className="flex items-center gap-2">
+      <Link href={logoLink} className="flex items-center gap-2">
         <Logo className="size-9" />
         <span className="font-pixel text-xl">YZ13</span>
       </Link>

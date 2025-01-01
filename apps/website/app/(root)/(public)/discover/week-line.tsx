@@ -1,12 +1,17 @@
 "use client";
-
 import useTimeStore from "@/components/live/time.store";
 import { useDebounceEffect } from "ahooks";
 import { Dayjs } from "dayjs";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 
-const WeekLine = () => {
+type WeekLineProps = {
+  link?: string;
+};
+
+const WeekLine = ({ link }: WeekLineProps) => {
+  const router = useRouter();
   const time = useTimeStore((state) => state.time);
   const [day, setDay] = useState(time.date());
   const ref = useRef<HTMLDivElement>(null);
@@ -26,7 +31,7 @@ const WeekLine = () => {
     }
   };
   const getRange = () => {
-    const length = 12;
+    const length = 13;
     const range = Array.from({ length })
       .map((_, i) => i - length / 2)
       .sort((a, b) => a - b)
@@ -56,7 +61,16 @@ const WeekLine = () => {
   return (
     <div
       ref={ref}
-      className="w-full shrink-0 h-16 flex items-center overflow-hidden gap-4"
+      onClick={() => {
+        if (link) {
+          router.push(link);
+        }
+      }}
+      className={cn(
+        "w-full shrink-0 h-20 p-2 flex items-center overflow-hidden gap-4",
+        "relative rounded-xl ",
+        link ? "hover:bg-yz-neutral-200 cursor-pointer" : "",
+      )}
     >
       {range.map((date, i) => {
         return (
@@ -64,10 +78,10 @@ const WeekLine = () => {
             key={date.format("YYYY-MM-DD")}
             id={"d-" + date.format("YYYY-MM-DD")}
             className={cn(
-              "w-14 shrink-0 rounded-xl flex items-center justify-center border gap-0 flex-col h-full",
+              "w-14 shrink-0 rounded-xl flex items-center justify-center border gap-0 flex-col h-full transition-all",
               date.isSame(time, "day")
-                ? "bg-foreground text-background border-foreground"
-                : "",
+                ? "bg-foreground text-background border-foreground mx-2"
+                : "scale-90",
             )}
           >
             <span className="text-sm text-secondary">{date.format("ddd")}</span>

@@ -107,13 +107,6 @@ const Screens = () => {
           count={0}
           covers={[{ aspectRatio: "9/16" }, { aspectRatio: "9/16" }]}
         />
-      </div>
-      <div
-        className={cn(
-          "w-full gap-3 *:relative *:transition-colors *:overflow-hidden *:rounded-2xl *:bg-background/40 *:border *:p-3",
-          "grid sm:!grid-cols-4 grid-cols-2 auto-rows-auto",
-        )}
-      >
         <ScreenCategory
           category="search"
           name="Search"

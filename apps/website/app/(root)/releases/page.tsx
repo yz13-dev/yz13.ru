@@ -1,3 +1,4 @@
+import Dock from "@/components/dock";
 import dayjs from "dayjs";
 import Link from "next/link";
 import Header from "../header";
@@ -65,6 +66,7 @@ const page = ({ searchParams }: PageProps) => {
           );
         })}
       </div>
+      <Dock />
     </>
   );
 };
