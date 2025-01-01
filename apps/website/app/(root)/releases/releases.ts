@@ -52,7 +52,7 @@ const puzzle: Release = {
 
 const drafts: Release = {
   id: "drafts",
-  stage: "in_plans",
+  stage: "in_progress",
   name: "Drafts",
   description: "Design drafts",
   created_at: dayjs("2024-12-30").toString(),

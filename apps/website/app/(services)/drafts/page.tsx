@@ -7,7 +7,14 @@ const page = () => {
   return (
     <>
       <Header>
-        <Header.Left className="gap-4">
+        <Header.Left
+          className="gap-4"
+          title="Drafts"
+          logo={{
+            light: "/apps/yz-drafts-light.svg",
+            dark: "/apps/yz-drafts-dark.svg",
+          }}
+        >
           <nav className="flex gap-3 items-center *:text-sm *:text-secondary">
             <span>Popular</span>
             <span>Newest</span>
