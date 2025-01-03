@@ -10,6 +10,7 @@ type Props = {
   providedUser?: USER | null;
   disabled?: boolean;
 };
+
 const User = async ({ disabled = false, providedUser }: Props) => {
   const user = providedUser ?? (await auth());
 

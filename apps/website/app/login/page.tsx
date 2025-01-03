@@ -1,6 +1,7 @@
 import { Logo } from "@/components/logo";
 import { cookies } from "next/headers";
 import Link from "next/link";
+import { permanentRedirect } from "next/navigation";
 import { createClient } from "yz13/supabase/server";
 import { LoginForm } from "./login-form";
 
@@ -18,8 +19,8 @@ const page = async (props: Props) => {
   const {
     data: { user },
   } = await sp.auth.getUser();
-  const isLogged = !!user;
   const continueLink = searchParams.continue;
+  if (user) return permanentRedirect(continueLink || "/");
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
       <div className="flex w-full max-w-sm flex-col gap-6">
@@ -30,7 +31,7 @@ const page = async (props: Props) => {
           <Logo className="size-8 relative" />
           <span className="text-lg">YZ13</span>
         </Link>
-        <LoginForm />
+        <LoginForm continueLink={continueLink} />
       </div>
     </div>
   );
