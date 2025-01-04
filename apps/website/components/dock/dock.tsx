@@ -8,7 +8,6 @@ import {
   SearchIcon,
   SettingsIcon,
   StickerIcon,
-  TerminalSquareIcon,
   WifiIcon,
   WifiOff,
   XIcon,
@@ -49,7 +48,7 @@ const Items = ({
           Discover
         </Link>
       </Button>
-      <Button
+      {/* <Button
         variant="ghost"
         size="lg"
         className="w-fit !rounded-none gap-2"
@@ -59,7 +58,7 @@ const Items = ({
           <TerminalSquareIcon size={18} />
           Terminal
         </Link>
-      </Button>
+      </Button> */}
       <Button
         variant="ghost"
         size="lg"

@@ -9,6 +9,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "mono/components/dropdown-menu";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { createClient } from "yz13/supabase/client";
 import ThemeSwitcher from "../theme/theme-switcher";
 
 const UserDropdown = ({
@@ -18,6 +21,12 @@ const UserDropdown = ({
   user: User;
   children: React.ReactNode;
 }) => {
+  const router = useRouter();
+  const handleSignOut = () => {
+    const supabase = createClient();
+    supabase.auth.signOut();
+    router.refresh();
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
@@ -34,9 +43,11 @@ const UserDropdown = ({
           Profile
           <UserCircleIcon size={16} />
         </DropdownMenuItem>
-        <DropdownMenuItem className="justify-between">
-          Account settings
-          <SettingsIcon size={16} />
+        <DropdownMenuItem className="justify-between" asChild>
+          <Link href="/settings">
+            Account settings
+            <SettingsIcon size={16} />
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Workspace</DropdownMenuItem>
@@ -45,7 +56,7 @@ const UserDropdown = ({
           <ThemeSwitcher />
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="justify-between">
+        <DropdownMenuItem className="justify-between" onClick={handleSignOut}>
           Sign out
           <LogOutIcon size={16} />
         </DropdownMenuItem>

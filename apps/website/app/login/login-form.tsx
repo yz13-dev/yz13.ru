@@ -1,5 +1,5 @@
 "use client";
-import { LoaderIcon } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import {
   Card,
@@ -119,7 +119,7 @@ export function LoginForm({
                   className="w-full gap-2"
                 >
                   {isLoading && (
-                    <LoaderIcon className="animate-spin" size={18} />
+                    <Loader2Icon className="animate-spin" size={18} />
                   )}
                   Login
                 </Button>
