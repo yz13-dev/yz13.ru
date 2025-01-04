@@ -21,7 +21,6 @@ const WeekLine = ({ link }: WeekLineProps) => {
     if (div) {
       const target = div.querySelector(`#d-${date.format("YYYY-MM-DD")}`);
       if (target) {
-        console.log(target);
         target.scrollIntoView({
           behavior: "smooth",
           block: "center",

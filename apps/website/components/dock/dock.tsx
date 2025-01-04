@@ -1,4 +1,5 @@
 "use client";
+import { User } from "@supabase/supabase-js";
 import { useNetwork } from "ahooks";
 import {
   ChevronDownIcon,
@@ -7,7 +8,6 @@ import {
   SearchIcon,
   SettingsIcon,
   StickerIcon,
-  TerminalSquareIcon,
   WifiIcon,
   WifiOff,
   XIcon,
@@ -23,8 +23,10 @@ import {
 } from "mono/components/command";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
+import { createClient } from "yz13/supabase/client";
+import UserCircle from "../user/user-circle";
 
 const Items = ({
   open,
@@ -46,7 +48,7 @@ const Items = ({
           Discover
         </Link>
       </Button>
-      <Button
+      {/* <Button
         variant="ghost"
         size="lg"
         className="w-fit !rounded-none gap-2"
@@ -56,7 +58,7 @@ const Items = ({
           <TerminalSquareIcon size={18} />
           Terminal
         </Link>
-      </Button>
+      </Button> */}
       <Button
         variant="ghost"
         size="lg"
@@ -99,6 +101,13 @@ const Menu = ({
   open?: boolean;
   onOpenChange?: (state: boolean) => void;
 }) => {
+  const supabase = createClient();
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    supabase.auth.onAuthStateChange((state, session) => {
+      setUser(session?.user ?? null);
+    });
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0, y: 25, width: "75%" }}
@@ -127,9 +136,15 @@ const Menu = ({
       </Command>
       <div className="flex flex-row gap-2 w-full justify-between p-2 rounded-xl border bg-background-back">
         <div className="flex flex-row gap-2 w-fit items-center">
-          <Button variant="secondary" size="sm">
-            Sign in
-          </Button>
+          {user ? (
+            <>
+              <UserCircle user={user} className="size-8" />
+            </>
+          ) : (
+            <Button variant="secondary" size="sm">
+              Sign in
+            </Button>
+          )}
           {/* <div className="size-8 rounded-full bg-yz-neutral-200" /> */}
           {/* <span className="text-sm text-foreground">YZ13</span> */}
         </div>

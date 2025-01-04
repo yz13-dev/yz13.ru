@@ -1,4 +1,5 @@
 import { Header } from "@/components/header";
+import User from "./(public)/user";
 import Nav from "./nav";
 
 const PublicHeader = ({ className = "" }: { className?: string }) => {
@@ -8,6 +9,7 @@ const PublicHeader = ({ className = "" }: { className?: string }) => {
       <Header.Center></Header.Center>
       <Header.Right>
         <Nav />
+        <User />
       </Header.Right>
     </Header>
   );

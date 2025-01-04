@@ -1,3 +1,5 @@
+"use client";
+import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import {
   Card,
@@ -9,12 +11,44 @@ import {
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ComponentPropsWithoutRef, useState } from "react";
 import { cn } from "yz13/cn";
+import { createClient } from "yz13/supabase/client";
 
-export function SignupForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+type FormProps = ComponentPropsWithoutRef<"div"> & {
+  continueLink?: string;
+};
+
+export function SignupForm({ className, continueLink, ...props }: FormProps) {
+  const supabase = createClient();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [hasError, setError] = useState<boolean>(false);
+  const [nickname, setNickname] = useState("");
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const signIn = async () => {
+    try {
+      setIsLoading(true);
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            nickname: nickname,
+          },
+        },
+      });
+      const user = data.user;
+      if (error) setError(true);
+      if (user) router.push(continueLink || "/");
+    } catch (error) {
+      setError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -33,6 +67,8 @@ export function SignupForm({
                     type="text"
                     placeholder="yz13"
                     required
+                    value={nickname}
+                    onChange={(e) => setNickname(e.target.value)}
                   />
                 </div>
                 <div className="grid gap-2">
@@ -42,21 +78,44 @@ export function SignupForm({
                     type="email"
                     placeholder="m@example.com"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
-                <Button type="submit" className="w-full">
+                {hasError && (
+                  <span className="text-xs text-error-foreground">
+                    Ошибка, проверьте правильно ли введены почта и/или пароль
+                  </span>
+                )}
+                <Button
+                  onClick={signIn}
+                  type="submit"
+                  disabled={
+                    isLoading || email.length === 0 || password.length === 0
+                  }
+                  className="w-full gap-2"
+                >
+                  {isLoading && (
+                    <Loader2Icon className="animate-spin" size={18} />
+                  )}
                   Sign up
                 </Button>
               </div>
               <div className="text-center text-sm">
                 Already have account?{" "}
-                <Link href="/signup" className="underline underline-offset-4">
+                <Link href="/login" className="underline underline-offset-4">
                   Login
                 </Link>
               </div>
