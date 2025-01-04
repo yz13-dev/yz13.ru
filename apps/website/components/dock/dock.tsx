@@ -27,7 +27,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
-import UserCircle from "../user-circle";
+import UserCircle from "../user/user-circle";
 
 const Items = ({
   open,

@@ -9,9 +9,9 @@ const WeekLine = dynamic(() => import("./week-line"), {
   ssr: false,
   loading: () => <Skeleton className="w-full h-16" />,
 });
+
 type PageProps = {};
 const page = ({}: PageProps) => {
-  // 48px/208px
   return (
     <>
       <div className="h-fit w-full p-3 max-w-4xl mx-auto min-h-[calc(100dvh - 64px)] space-y-6">

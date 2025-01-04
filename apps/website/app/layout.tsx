@@ -1,3 +1,4 @@
+import ThemeObserver from "@/components/theme/theme-observer";
 import "@/styles/globals.css";
 import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
@@ -89,7 +90,10 @@ export default function RootLayout({
       lang="en"
       className={cn(SANS.variable, MONO.variable, PIXEL.variable)}
     >
-      <body>{children}</body>
+      <body>
+        <ThemeObserver />
+        {children}
+      </body>
     </html>
   );
 }

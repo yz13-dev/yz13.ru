@@ -1,10 +1,8 @@
-import { Skeleton } from "mono/components/skeleton";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactElement, Suspense } from "react";
+import { ReactElement } from "react";
 import { cn } from "yz13/cn";
 import { Logo } from "./logo";
-import User from "./user";
 
 type HeaderProps = {
   className?: string;
@@ -70,12 +68,7 @@ const Left = ({
 
 const Right = ({ children, className = "" }: SidesProps) => {
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      {children}
-      <Suspense fallback={<Skeleton className="size-9 rounded-full" />}>
-        <User disabled />
-      </Suspense>
-    </div>
+    <div className={cn("flex items-center gap-2", className)}>{children}</div>
   );
 };
 
