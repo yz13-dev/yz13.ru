@@ -25,7 +25,7 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setError] = useState<boolean>(false);
-  const [nickname, setNickname] = useState("");
+  const [username, setUsername] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const signIn = async () => {
@@ -36,7 +36,7 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
         password: password,
         options: {
           data: {
-            nickname: nickname,
+            username,
           },
         },
       });
@@ -67,8 +67,8 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
                     type="text"
                     placeholder="yz13"
                     required
-                    value={nickname}
-                    onChange={(e) => setNickname(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className="grid gap-2">
