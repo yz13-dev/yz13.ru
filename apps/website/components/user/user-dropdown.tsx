@@ -27,6 +27,7 @@ const UserDropdown = ({
     supabase.auth.signOut();
     router.refresh();
   };
+  const positionOrEmail = user.user_metadata.position ?? user.email;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
@@ -36,7 +37,7 @@ const UserDropdown = ({
             {user.user_metadata.nickname ?? "Username"}
           </span>
           <span className="text-xs text-foreground font-normal">
-            {user.email}
+            {positionOrEmail}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuItem className="justify-between">
@@ -44,7 +45,7 @@ const UserDropdown = ({
           <UserCircleIcon size={16} />
         </DropdownMenuItem>
         <DropdownMenuItem className="justify-between" asChild>
-          <Link href="/settings">
+          <Link href="/account">
             Account settings
             <SettingsIcon size={16} />
           </Link>

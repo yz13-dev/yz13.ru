@@ -26,7 +26,6 @@ const NodesMap = ({ nodes: provided = [] }: NodesMapProps) => {
   useEffect(() => {
     if (provided) setNodes(provided);
   }, [provided]);
-  console.log(nodes, edges);
   return (
     <ReactFlow
       nodeTypes={types}
