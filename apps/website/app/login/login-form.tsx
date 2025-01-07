@@ -13,7 +13,6 @@ import { Label } from "mono/components/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ComponentPropsWithoutRef, useState } from "react";
-import { PiGithubLogoBold, PiGoogleLogoBold } from "react-icons/pi";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 
@@ -54,13 +53,14 @@ export function LoginForm({
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>
-            Login with your Github or Google account
+            Login to your account to continue
+            {/* with your Github or Google account */}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <div className="grid gap-6">
-              <div className="flex flex-col gap-4">
+              {/* <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full gap-2">
                   <PiGithubLogoBold size={18} />
                   Login with Github
@@ -74,7 +74,7 @@ export function LoginForm({
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
                   Or continue with
                 </span>
-              </div>
+              </div> */}
               <div className="grid gap-6">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
