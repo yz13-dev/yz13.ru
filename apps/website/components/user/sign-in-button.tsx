@@ -15,14 +15,14 @@ const SignInButton = ({
   if (href && !isDisabled) {
     return (
       <Button className={className} asChild disabled={disabled} {...props}>
-        <Link href={href}>Sign In</Link>
+        <Link href={href}>Войти</Link>
       </Button>
     );
   }
   return (
     <Button className={className} disabled={disabled} {...props}>
       {isDisabled && <LockIcon size={16} />}
-      Sign In
+      Войти
     </Button>
   );
 };

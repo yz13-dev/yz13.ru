@@ -51,9 +51,9 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardTitle className="text-xl">С возвращением</CardTitle>
           <CardDescription>
-            Login to your account to continue
+            Войдите в свою учетную запись чтобы продолжить
             {/* with your Github or Google account */}
           </CardDescription>
         </CardHeader>
@@ -77,7 +77,7 @@ export function LoginForm({
               </div> */}
               <div className="grid gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Почта</Label>
                   <Input
                     id="email"
                     type="email"
@@ -89,12 +89,12 @@ export function LoginForm({
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">Пароль</Label>
                     <a
                       href="#"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      Забыли пароль?
                     </a>
                   </div>
                   <Input
@@ -121,13 +121,13 @@ export function LoginForm({
                   {isLoading && (
                     <Loader2Icon className="animate-spin" size={18} />
                   )}
-                  Login
+                  Продолжить
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                Еще нет учетной записи?{" "}
                 <Link href="/signup" className="underline underline-offset-4">
-                  Sign up
+                  Зарегистрируйтесь
                 </Link>
               </div>
             </div>
@@ -135,8 +135,9 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
+        <a href="#">Условиями использования</a> и{" "}
+        <a href="#">Политикой конфиденциальности</a>.
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const page = () => {
       <section className="w-full flex flex-col-reverse gap-3">
         <div className="w-fit space-y-3">
           <p className="text-sm text-secondary">
-            Just frontend developer, nothing crazy.
+            Просто разработчик, ничего интересного.
           </p>
           <SocialsBlock />
         </div>
@@ -24,7 +24,7 @@ const page = () => {
       <section className="w-full space-y-3">
         <div className="w-full flex items-center justify-between">
           <h3 className="text-sm inline-flex items-center gap-2">
-            <BriefcaseBusinessIcon size={16} /> Works
+            <BriefcaseBusinessIcon size={16} /> Работы
           </h3>
           <Button
             className="rounded-full size-6 p-0"

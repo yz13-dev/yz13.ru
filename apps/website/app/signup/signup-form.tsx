@@ -53,15 +53,17 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome in YZ13</CardTitle>
-          <CardDescription>Create new account to continue</CardDescription>
+          <CardTitle className="text-xl">Добро пожаловать в YZ13</CardTitle>
+          <CardDescription>
+            Создайте свой аккаунт для продолжения
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <div className="grid gap-6">
               <div className="grid gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="nickname">Nickname</Label>
+                  <Label htmlFor="nickname">Имя пользователя</Label>
                   <Input
                     id="nickname"
                     type="text"
@@ -72,7 +74,7 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">Почта</Label>
                   <Input
                     id="email"
                     type="email"
@@ -84,7 +86,7 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
                 </div>
                 <div className="grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">Пароль</Label>
                   </div>
                   <Input
                     id="password"
@@ -110,13 +112,13 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
                   {isLoading && (
                     <Loader2Icon className="animate-spin" size={18} />
                   )}
-                  Sign up
+                  Продолжить
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Already have account?{" "}
+                Уже есть аккаунт?{" "}
                 <Link href="/login" className="underline underline-offset-4">
-                  Login
+                  Войти
                 </Link>
               </div>
             </div>
@@ -124,8 +126,9 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
+        <a href="#">Условиями использования</a> и{" "}
+        <a href="#">Политикой конфиденциальности</a>.
       </div>
     </div>
   );

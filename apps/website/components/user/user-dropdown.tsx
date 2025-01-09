@@ -41,24 +41,24 @@ const UserDropdown = ({
           </span>
         </DropdownMenuLabel>
         <DropdownMenuItem className="justify-between">
-          Profile
+          Профиль
           <UserCircleIcon size={16} />
         </DropdownMenuItem>
         <DropdownMenuItem className="justify-between" asChild>
           <Link href="/account">
-            Account settings
+            Настройки аккаунта
             <SettingsIcon size={16} />
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Workspace</DropdownMenuItem>
+        <DropdownMenuItem>Рабочее пространство</DropdownMenuItem>
         <DropdownMenuLabel className="flex flex-row items-center justify-between">
-          <span className="text-sm font-normal">Theme</span>
+          <span className="text-sm font-normal">Тема</span>
           <ThemeSwitcher />
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="justify-between" onClick={handleSignOut}>
-          Sign out
+          Выйти из аккаунта
           <LogOutIcon size={16} />
         </DropdownMenuItem>
       </DropdownMenuContent>
