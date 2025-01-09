@@ -12,7 +12,13 @@ const User = () => {
           <UserCircle user={user} />
         </UserDropdown>
       )}
-      unauthorized={<SignInButton href="/login" variant="secondary" />}
+      unauthorized={
+        <SignInButton
+          href="/login"
+          className="rounded-full"
+          variant="secondary"
+        />
+      }
     />
   );
 };
