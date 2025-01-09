@@ -1,4 +1,6 @@
 import dayjs, { Dayjs } from "dayjs";
+import "dayjs/locale/en";
+import "dayjs/locale/ru";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { create } from "zustand";
@@ -15,12 +17,12 @@ type State = {
   time: Dayjs;
 };
 
+export const getNewTime = () => dayjs().tz(TZ).locale("ru");
+
 const useTimeStore = create<State & Action>((set) => ({
-  time: dayjs().tz(TZ),
+  time: getNewTime(),
   setTime: (date: Dayjs) => set({ time: date }),
 }));
-
-export const getNewTime = () => dayjs().tz(TZ);
 
 export const getTime = () => useTimeStore.getState().time;
 export const setTime = (date: Dayjs) => useTimeStore.setState({ time: date });

@@ -21,7 +21,7 @@ const page = ({ searchParams }: PageProps) => {
       <Header />
       {releaseId && <ReleaseModal id={releaseId} />}
       <div className="w-full p-3 max-w-screen-2xl mx-auto">
-        <h1 className="text-3xl font-semibold">Releases</h1>
+        <h1 className="text-3xl font-semibold">Релизы</h1>
       </div>
       <div className="w-full p-3 overflow-auto flex items-start gap-3 max-w-screen-2xl mx-auto">
         {groupsKeys.map((groupKey) => {

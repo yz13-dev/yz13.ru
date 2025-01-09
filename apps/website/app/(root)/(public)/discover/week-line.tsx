@@ -83,7 +83,7 @@ const WeekLine = ({ link }: WeekLineProps) => {
                 : "scale-90",
             )}
           >
-            <span className="text-sm text-secondary">{date.format("ddd")}</span>
+            <span className="text-sm text-secondary">{date.format("dd")}</span>
             <span className="font-medium text-lg">{date.format("DD")}</span>
           </div>
         );

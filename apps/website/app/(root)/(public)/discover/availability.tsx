@@ -12,7 +12,7 @@ const Availability = () => {
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1">
           <div className="size-1.5 rounded-full animate-pulse bg-success-foreground" />
-          <span className="text-sm text-secondary">Available for work</span>
+          <span className="text-sm text-secondary">Доступен для заказов</span>
         </div>
         <span className="text-sm text-secondary">/</span>
         <div className="flex items-center gap-1">

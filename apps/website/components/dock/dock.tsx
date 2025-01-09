@@ -45,7 +45,7 @@ const Items = ({
       >
         <Link href="/discover">
           <LayoutGridIcon size={18} />
-          Discover
+          Обзор
         </Link>
       </Button>
       {/* <Button
@@ -67,7 +67,7 @@ const Items = ({
       >
         <Link href="/releases">
           <StickerIcon size={18} />
-          Releases
+          Релизы
         </Link>
       </Button>
       <Button
@@ -120,17 +120,17 @@ const Menu = ({
       )}
     >
       <Command>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput placeholder="Введите команду или поиск..." />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>Пусто.</CommandEmpty>
           <CommandGroup heading="Releases">
-            <CommandItem>Open releases</CommandItem>
-            <CommandItem>Open finance</CommandItem>
-            <CommandItem>Open drafts</CommandItem>
+            <CommandItem>Открыть релизы</CommandItem>
+            <CommandItem>Открыть финансы</CommandItem>
+            <CommandItem>Открыть черновики</CommandItem>
           </CommandGroup>
-          <CommandGroup heading="Quick actions">
-            <CommandItem>Create draft</CommandItem>
-            <CommandItem>Create finance map</CommandItem>
+          <CommandGroup heading="Быстрые действия">
+            <CommandItem>Создать черновик</CommandItem>
+            <CommandItem>Создать карту финансов</CommandItem>
           </CommandGroup>
         </CommandList>
       </Command>
@@ -142,7 +142,7 @@ const Menu = ({
             </>
           ) : (
             <Button variant="secondary" size="sm">
-              Sign in
+              Войти
             </Button>
           )}
           {/* <div className="size-8 rounded-full bg-yz-neutral-200" /> */}

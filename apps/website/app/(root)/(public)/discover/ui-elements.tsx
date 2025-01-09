@@ -5,7 +5,7 @@ const elements = ["Button", "Input", "Card", "Badge", "Avatar"];
 const UiElements = () => {
   return (
     <section className="w-full space-y-3">
-      <span className="text-sm text-secondary">UI Elements</span>
+      <span className="text-sm text-secondary">UI Элементы</span>
       <ul
         className={cn(
           "w-full h-fit flex items-start flex-wrap gap-1",

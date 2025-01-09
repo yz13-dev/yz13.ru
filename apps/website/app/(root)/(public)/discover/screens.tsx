@@ -77,7 +77,7 @@ const ScreenCategory = ({
 const Screens = () => {
   return (
     <section className="w-full space-y-3">
-      <span className="text-sm text-secondary">Screens</span>
+      <span className="text-sm text-secondary">Страницы</span>
       <div
         className={cn(
           "w-full gap-3 *:relative *:transition-colors *:overflow-hidden *:rounded-2xl *:bg-background/40 *:border *:p-3",
