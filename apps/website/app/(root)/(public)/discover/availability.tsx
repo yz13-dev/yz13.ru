@@ -34,7 +34,7 @@ const Availability = () => {
             className="text-secondary hover:text-foreground transition-colors"
           />
         </Link>
-        <Link target="_blank" href="https://t.me/yztheceo">
+        <Link target="_blank" href="https://t.me/yz13_dev">
           <PiTelegramLogo
             size={16}
             className="text-secondary hover:text-foreground transition-colors"

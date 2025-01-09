@@ -4,22 +4,25 @@ import Availability from "./(root)/(public)/discover/availability";
 const page = () => {
   return (
     <div className="w-full h-dvh flex flex-col items-center justify-center gap-6">
-      <div className="w-full max-w-md space-y-6">
+      <div className="w-full max-w-lg space-y-6 p-6">
         <div className="flex items-start gap-3">
-          <div className="size-14 shrink-0 rounded-full bg-yz-neutral-200 flex items-center justify-center">
-            <Logo className="size-8" />
-          </div>
           <div className="flex flex-col gap-1">
-            <span className="text-foreground text-xl font-medium inline-flex items-start flex-wrap gap-2">
-              YZ13,
-              <span className="text-secondary">
-                frontend developer, nothing crazy.
+            <div className="inline-flex items-center mb-2 gap-2 flex-wrap">
+              <Logo size={{ width: 32, height: 32 }} />
+              <span className="text-foreground text-xl font-pixel font-semibold">
+                YZ13
               </span>
+            </div>
+            <span className="text-secondary text-xl font-medium">
+              <span className="text-foreground">Фронтенд разработчик</span>,
+              ничего серьезного.
             </span>
-            <span className="text-secondary">On my way to fullstack.</span>
+            <span className="text-secondary text-xl font-medium">
+              На пути к фуллстеку.
+            </span>
           </div>
         </div>
-        <div className="w-full px-4">
+        <div className="w-full px-2">
           <Availability />
         </div>
       </div>
