@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const isRoot = request.nextUrl.pathname === "/";
-  if (isRoot) return NextResponse.redirect(new URL("/discover", request.url));
-  else return NextResponse.next();
+  // const isRoot = request.nextUrl.pathname === "/";
+  // if (isRoot) return NextResponse.redirect(new URL("/discover", request.url));
+  // else return NextResponse.next();
 }
 
 export const config = {
