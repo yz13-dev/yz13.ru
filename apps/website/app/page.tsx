@@ -1,4 +1,5 @@
 import { Logo } from "@/components/logo";
+import { SparklesText } from "@/components/sparkle-text";
 import Availability from "./(root)/(public)/discover/availability";
 
 const page = () => {
@@ -14,7 +15,11 @@ const page = () => {
               </span>
             </div>
             <span className="text-secondary text-xl font-medium">
-              <span className="text-foreground">Фронтенд разработчик</span>,
+              <SparklesText
+                text="Фронтенд разработчик"
+                className="text-foreground inline mr-2 text-xl font-medium"
+              />
+              {/* <span className="text-foreground">Фронтенд разработчик</span>, */}
               ничего серьезного.
             </span>
             <span className="text-secondary text-xl font-medium">
