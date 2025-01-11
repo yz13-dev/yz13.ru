@@ -15,44 +15,10 @@ interface Sparkle {
 }
 
 interface SparklesTextProps {
-  /**
-   * @default <div />
-   * @type ReactElement
-   * @description
-   * The component to be rendered as the text
-   * */
   as?: ReactElement;
-
-  /**
-   * @default ""
-   * @type string
-   * @description
-   * The className of the text
-   */
   className?: string;
-
-  /**
-   * @required
-   * @type string
-   * @description
-   * The text to be displayed
-   * */
   text: string;
-
-  /**
-   * @default 10
-   * @type number
-   * @description
-   * The count of sparkles
-   * */
   sparklesCount?: number;
-
-  /**
-   * @default "{first: '#9E7AFF', second: '#FE8BBB'}"
-   * @type string
-   * @description
-   * The colors of the sparkles
-   * */
   colors?: {
     first: string;
     second: string;
@@ -63,7 +29,7 @@ const SparklesText: React.FC<SparklesTextProps> = ({
   text,
   colors = { first: "#9E7AFF", second: "#FE8BBB" },
   className,
-  sparklesCount = 10,
+  sparklesCount = 20,
   ...props
 }) => {
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
@@ -85,23 +51,24 @@ const SparklesText: React.FC<SparklesTextProps> = ({
       setSparkles(newSparkles);
     };
 
+    let animationFrameId: number;
+
     const updateStars = () => {
       setSparkles((currentSparkles) =>
-        currentSparkles.map((star) => {
-          if (star.lifespan <= 0) {
-            return generateStar();
-          } else {
-            return { ...star, lifespan: star.lifespan - 0.1 };
-          }
-        }),
+        currentSparkles.map((star) =>
+          star.lifespan <= 0
+            ? generateStar()
+            : { ...star, lifespan: star.lifespan - 0.05 },
+        ),
       );
+      animationFrameId = requestAnimationFrame(updateStars);
     };
 
     initializeStars();
-    const interval = setInterval(updateStars, 100);
+    animationFrameId = requestAnimationFrame(updateStars);
 
-    return () => clearInterval(interval);
-  }, [colors.first, colors.second]);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [colors.first, colors.second, sparklesCount]);
 
   return (
     <div
@@ -118,7 +85,7 @@ const SparklesText: React.FC<SparklesTextProps> = ({
         {sparkles.map((sparkle) => (
           <Sparkle key={sparkle.id} {...sparkle} />
         ))}
-        <strong>{text}</strong>
+        <span>{text}</span>
       </span>
     </div>
   );

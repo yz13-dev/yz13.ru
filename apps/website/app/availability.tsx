@@ -5,14 +5,30 @@ import { ClockIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { PiGithubLogo, PiTelegramLogo, PiXLogo } from "react-icons/pi";
+import { cn } from "yz13/cn";
 
-const Availability = () => {
+type AvailabilityProps = {
+  status?: "available" | "unavailable";
+};
+
+const Availability = ({ status = "unavailable" }: AvailabilityProps) => {
   return (
     <div className="w-full flex items-center justify-between gap-2">
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1">
-          <div className="size-1.5 rounded-full animate-pulse bg-success-foreground" />
-          <span className="text-sm text-secondary">Доступен для заказов</span>
+          <div
+            className={cn(
+              "size-1.5 rounded-full animate-pulse",
+              status === "available"
+                ? "bg-success-foreground"
+                : "bg-error-foreground",
+            )}
+          />
+          <span className="text-sm text-secondary">
+            {status === "available"
+              ? "Открыт для заказов"
+              : "Работаю над заказами"}
+          </span>
         </div>
         <span className="text-sm text-secondary">/</span>
         <div className="flex items-center gap-1">

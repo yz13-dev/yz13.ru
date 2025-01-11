@@ -1,5 +1,6 @@
 "use client";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
+import { Skeleton } from "mono/components/skeleton";
 import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import useThemeStore, {
@@ -7,6 +8,10 @@ import useThemeStore, {
   Theme,
   setTheme as updateTheme,
 } from "./theme.store";
+
+const ThemeSkeleton = () => {
+  return <Skeleton className="w-[74px] h-6 rounded-full" />;
+};
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useState<Theme>(getTheme());
@@ -51,4 +56,5 @@ const ThemeSwitcher = () => {
   );
 };
 
+export { ThemeSkeleton };
 export default ThemeSwitcher;
