@@ -2,8 +2,15 @@ import ThemeObserver from "@/components/theme/theme-observer";
 import "@/styles/globals.css";
 import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
+const SessionObserver = dynamic(
+  () => import("./visitor-session/session-observer"),
+  {
+    ssr: false,
+  },
+);
 
 const PIXEL = localFont({
   src: [
@@ -75,8 +82,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f7f7" },
-    { media: "(prefers-color-scheme: dark)", color: "#080808" },
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
 
@@ -92,6 +99,7 @@ export default function RootLayout({
     >
       <body>
         <ThemeObserver />
+        <SessionObserver />
         {children}
       </body>
     </html>

@@ -5,9 +5,6 @@ const config: Config = {
   presets: [mono],
   darkMode: ["class"],
   content: ["./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
-  corePlugins: {
-    preflight: true,
-  },
 };
 
 export default config;

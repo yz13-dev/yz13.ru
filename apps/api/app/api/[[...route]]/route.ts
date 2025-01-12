@@ -4,6 +4,7 @@ import { handle } from "hono/vercel";
 import { lists } from "./productivity";
 import { user } from "./user";
 import { user_workspace } from "./user-workspace";
+import { visitor_session } from "./visitor-session";
 import { workspace } from "./workspace";
 
 export const runtime = "edge";
@@ -14,6 +15,7 @@ app.route("/user/:uid/workspace", user_workspace);
 app.route("/workspace", workspace);
 app.route("/user", user);
 app.route("/lists", lists);
+app.route("/visitor-session", visitor_session);
 
 app.get("/version", (c) => {
   const version = packageJson.version;

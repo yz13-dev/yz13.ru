@@ -5,6 +5,6 @@
 
 @layer components {
   body {
-    @apply font-sans !bg-background-back text-foreground;
+    @apply font-sans bg-background text-foreground;
   }
 }
