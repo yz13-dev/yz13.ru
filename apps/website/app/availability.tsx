@@ -1,7 +1,6 @@
 const LiveTime = dynamic(() => import("@/components/live/live-time"), {
   ssr: false,
 });
-import { ClockIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { PiGithubLogo, PiTelegramLogo, PiXLogo } from "react-icons/pi";
@@ -29,12 +28,6 @@ const Availability = ({ status = "unavailable" }: AvailabilityProps) => {
               ? "Открыт для заказов"
               : "Работаю над заказами"}
           </span>
-        </div>
-        <span className="text-sm text-secondary">/</span>
-        <div className="flex items-center gap-1">
-          <ClockIcon size={12} className="text-secondary" />
-          <LiveTime className="text-secondary" />
-          <span className="text-sm text-secondary">UTC +5</span>
         </div>
       </div>
       <div className="flex items-center gap-2">
