@@ -1,4 +1,5 @@
 export const isDev = process.env.NODE_ENV === "development";
+export const isProd = process.env.NODE_ENV === "production";
 
 export const getURL = () => {
   let url =
@@ -13,9 +14,9 @@ export const getURL = () => {
 export const getHOST = () => {
   let url = isDev
     ? "http://localhost:3000/"
-    : process?.env?.NEXT_PUBLIC_SITE_URL ??
+    : (process?.env?.NEXT_PUBLIC_SITE_URL ??
       process?.env?.NEXT_PUBLIC_VERCEL_URL ??
-      "http://localhost:3000/";
+      "http://localhost:3000/");
   url = url.startsWith("http://")
     ? url.replace("http://", "")
     : url.startsWith("https://")

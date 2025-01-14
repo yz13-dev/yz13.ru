@@ -5,7 +5,7 @@ import { useInterval } from "ahooks";
 import { CircleCheckIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { useEffect, useMemo, useState } from "react";
-import { isDev } from "../login/get-url";
+import { isProd } from "../login/get-url";
 import useVisitorStore, {
   getVisitorId,
   setVisitorId as updateVisitorId,
@@ -19,6 +19,7 @@ const SessionWatcher = () => {
   useInterval(
     () => {
       setTime((t) => t + 1);
+      console.log("time: ", format());
     },
     ready ? 1000 : undefined,
   );
@@ -35,11 +36,11 @@ const SessionWatcher = () => {
     if (canBeSaved && visitorId) await postVisitorSession(visitorId, time);
   };
   useEffect(() => {
-    if (isDev) setReady(true);
     useVisitorStore.subscribe(({ visitorId: newVisitorId }) => {
       console.log("Visitor ID: ", visitorId);
       if (newVisitorId !== visitorId) setVisitorId(newVisitorId);
     });
+    if (isProd) setReady(true);
   }, []);
   useEffect(() => {
     if (canBeSaved && !visitorId) {
@@ -67,7 +68,8 @@ const SessionWatcher = () => {
       </Badge>
     );
   };
-  return <>{isDev && <Timer />}</>;
+  return <></>;
+  // return <>{isDev && <Timer />}</>;
 };
 
 export default SessionWatcher;
