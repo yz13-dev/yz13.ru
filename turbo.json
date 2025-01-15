@@ -1,8 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
-  "globalEnv": ["RESEND_API_KEY"],
-  "globalDependencies": [".env*"],
+  "globalEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
+  "globalDependencies": [
+    ".env.local",
+    ".env.development",
+    ".env.production",
+    ".env.test",
+    ".env.staging",
+    ".env.preview"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -14,7 +21,7 @@
     },
     "dev": {
       "cache": false,
-      "passThroughEnv": ["RESEND_API_KEY"],
+      "passThroughEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
       "persistent": true
     }
   }
