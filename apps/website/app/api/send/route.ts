@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { Resend } from "resend";
 
-export const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 const REDIRECT_EMAIL = process.env!.REDIRECT_EMAIL;
 export async function POST(request: NextRequest) {
   try {
