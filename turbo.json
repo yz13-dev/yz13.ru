@@ -1,7 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
-  "globalEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
+  "globalEnv": [
+    "RESEND_API_KEY",
+    "EDGE_CONFIG",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_SUPABASE_URL"
+  ],
+  "daemon": true,
   "globalDependencies": [
     ".env.local",
     ".env.development",
@@ -21,7 +27,23 @@
     },
     "dev": {
       "cache": false,
-      "passThroughEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
+      "env": [
+        "RESEND_API_KEY",
+        "EDGE_CONFIG",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "POSTGRES_DATABASE",
+        "POSTGRES_HOST",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_PRISMA_URL",
+        "POSTGRES_URL",
+        "POSTGRES_URL_NON_POOLING",
+        "POSTGRES_USER",
+        "SUPABASE_ANON_KEY",
+        "SUPABASE_JWT_SECRET",
+        "SUPABASE_SERVICE_ROLE_KEY",
+        "SUPABASE_URL"
+      ],
       "persistent": true
     }
   }

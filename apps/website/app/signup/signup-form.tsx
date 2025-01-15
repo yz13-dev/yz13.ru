@@ -36,6 +36,7 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
         password: password,
         options: {
           data: {
+            role: "user",
             username,
           },
         },
