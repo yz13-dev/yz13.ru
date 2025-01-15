@@ -1,15 +1,12 @@
-import { Button } from "mono/components/button";
-import Link from "next/link";
+import { auth } from "@/lib/auth";
 import ContactForm from "./contact-form";
 
-const page = () => {
+const page = async () => {
+  const user = await auth();
+  const email = user?.email;
   return (
     <div className="w-full h-dvh flex items-center justify-center">
-      <Button variant="outline" className="shrink-0" asChild>
-        <Link href="/">Домой</Link>
-      </Button>
-
-      <ContactForm />
+      <ContactForm userEmail={email} />
     </div>
   );
 };

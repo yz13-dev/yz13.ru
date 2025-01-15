@@ -1,6 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
+  "globalEnv": ["RESEND_API_KEY"],
+  "globalDependencies": [".env*"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -12,6 +14,7 @@
     },
     "dev": {
       "cache": false,
+      "passThroughEnv": ["RESEND_API_KEY"],
       "persistent": true
     }
   }
