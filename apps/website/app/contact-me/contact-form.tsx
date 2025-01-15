@@ -2,7 +2,6 @@
 
 import AutoTextarea from "@/components/auto-textarea";
 import { Logo } from "@/components/logo";
-import { resend } from "@/const/resend";
 import { ArrowLeftIcon, ExternalLinkIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
@@ -35,13 +34,18 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
         setEmailError(true);
         return setIsEmailValid(false);
       } else {
-        console.log(resend);
-        await resend.emails.send({
-          from: "request@yz13.ru",
-          to: "voff.fomin2018@yandex.ru",
-          subject: "Contact form",
-          text: text,
+        const url = new URL("/api/send", location.origin);
+        url.searchParams.set("to", email);
+        url.searchParams.set("subject", "Запрос на сотрудничество");
+        url.searchParams.set("type", radioValue);
+        await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain",
+          },
+          body: text,
         });
+        router.push("/");
       }
     } catch (e) {
       console.error(e);
@@ -64,15 +68,17 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
       <p className="text-base font-medium">Готовы начать сотрудничать?</p>
 
       <p className="text-sm text-secondary">
-        Напишите нам на почту или в телеграм сообщение о предложении или
-        задании.
+        Напишите на почту или в телеграм сообщение о предложении или задании.
       </p>
       <div className="w-full flex items-center gap-4 *:text-secondary *:text-sm">
-        <Link href="mailto:info@yz13.dev" className="flex items-center gap-2">
+        <Link
+          href="mailto:YZTHECEO@yandex.ru"
+          className="flex items-center gap-2"
+        >
           Mail
           <ExternalLinkIcon size={13} />
         </Link>
-        <Link href="https://t.me/yz13dev" className="flex items-center gap-2">
+        <Link href="https://t.me/yz13_dev" className="flex items-center gap-2">
           Telegram
           <ExternalLinkIcon size={13} />
         </Link>

@@ -1,5 +1,4 @@
 import { HandwrittenStrikethrough } from "@/components/handwritten-strikethrough";
-import UnderlinedText from "@/components/handwritten-underline";
 import { Logo } from "@/components/logo";
 import { NextIcon } from "@/components/pixel-stack/next-icon";
 import { ReactIcon } from "@/components/pixel-stack/react-icon";
@@ -10,8 +9,9 @@ import { SparklesText } from "@/components/sparkle-text";
 import { Badge } from "mono/components/badge";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import { Suspense } from "react";
 import Availability from "./availability";
+import ConnectButton from "./connect-button";
 import { isDev } from "./login/get-url";
 import User from "./user";
 const LiveTime = dynamic(() => import("@/components/live/live-time"), {
@@ -51,19 +51,20 @@ const page = () => {
                 <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
                 фуллстеку.
               </span>
-              <UnderlinedText>
-                <Link
-                  href="/contact-me"
-                  className="text-foreground text-xl font-medium w-fit inline"
-                >
-                  Связаться.
-                </Link>
-              </UnderlinedText>
+              <Suspense
+                fallback={
+                  <Skeleton className="w-28 h-7 rounded-lg inline-block" />
+                }
+              >
+                <ConnectButton />
+              </Suspense>
             </div>
           </div>
         </div>
         <div className="w-full">
-          <Availability />
+          <Suspense fallback={<Skeleton className="h-5 w-full rounded-md" />}>
+            <Availability />
+          </Suspense>
         </div>
         <div className="w-full !mt-12 space-y-6">
           <span className="text-secondary text-xl font-medium">Мой стек:</span>

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.2",
+    "@vercel/edge-config": "^1.4.0",
     "@xyflow/react": "^12.3.6",
     "ahooks": "^3.8.4",
     "autoprefixer": "^10.4.20",

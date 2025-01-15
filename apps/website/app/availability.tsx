@@ -1,16 +1,19 @@
 const LiveTime = dynamic(() => import("@/components/live/live-time"), {
   ssr: false,
 });
+import { get } from "@vercel/edge-config";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { PiGithubLogo, PiTelegramLogo, PiXLogo } from "react-icons/pi";
 import { cn } from "yz13/cn";
 
-type AvailabilityProps = {
-  status?: "available" | "unavailable";
-};
+type AvailabilityProps = {};
 
-const Availability = ({ status = "unavailable" }: AvailabilityProps) => {
+const Availability = async ({}: AvailabilityProps) => {
+  const busy = (await get("busy")) ?? false;
+  const status: "available" | "unavailable" = busy
+    ? "unavailable"
+    : "available";
   return (
     <div className="w-full flex items-center justify-between gap-2">
       <div className="flex items-center gap-2">
