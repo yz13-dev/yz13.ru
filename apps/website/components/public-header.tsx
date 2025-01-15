@@ -1,4 +1,3 @@
-import Nav from "@/app/nav";
 import User from "@/app/user";
 import { Header } from "./header";
 
@@ -8,7 +7,6 @@ const PublicHeader = ({ className = "" }: { className?: string }) => {
       <Header.Left></Header.Left>
       <Header.Center></Header.Center>
       <Header.Right>
-        <Nav />
         <User />
       </Header.Right>
     </Header>

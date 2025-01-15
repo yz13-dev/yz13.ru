@@ -10,6 +10,8 @@ import { Badge } from "mono/components/badge";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
 import Availability from "./availability";
+import { isDev } from "./login/get-url";
+import User from "./user";
 const LiveTime = dynamic(() => import("@/components/live/live-time"), {
   ssr: false,
   loading: () => <Skeleton className="w-14 h-7 rounded-lg" />,
@@ -19,16 +21,19 @@ const page = () => {
   return (
     <div className="w-full min-h-dvh h-fit flex flex-col items-center gap-6">
       <div className="w-full max-w-lg space-y-6 mt-[30dvh] *:px-6">
-        <div className="flex items-start gap-3">
-          <div className="flex flex-col gap-1">
-            <div className="mb-2 gap-2 flex items-center  justify-between">
+        <div className="flex items-start gap-3 w-full">
+          <div className="flex flex-col gap-1 w-full">
+            <div className="mb-2 gap-2 flex items-center w-full justify-between">
               <div className="flex items-center gap-2">
                 <Logo size={{ width: 32, height: 32 }} />
                 <span className="text-foreground text-xl font-pixel font-semibold">
                   YZ13
                 </span>
               </div>
-              <LiveTime className="text-secondary text-xl font-medium" />
+              <div className="flex items-center gap-4">
+                <LiveTime className="text-secondary text-xl font-medium" />
+                {isDev && <User />}
+              </div>
             </div>
             <span className="text-secondary text-xl font-medium">
               <SparklesText
