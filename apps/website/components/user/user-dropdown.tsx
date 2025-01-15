@@ -1,6 +1,11 @@
 "use client";
 import { User } from "@supabase/supabase-js";
-import { LogOutIcon, SettingsIcon, UserCircleIcon } from "lucide-react";
+import {
+  FolderIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserCircleIcon,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,8 +55,11 @@ const UserDropdown = ({
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/workspace">Рабочее пространство</Link>
+        <DropdownMenuItem className="justify-between" asChild>
+          <Link href="/workspace">
+            Рабочее пространство
+            <FolderIcon size={16} />
+          </Link>
         </DropdownMenuItem>
         {/* <DropdownMenuLabel className="flex flex-row items-center justify-between">
           <span className="text-sm font-normal">Тема</span>

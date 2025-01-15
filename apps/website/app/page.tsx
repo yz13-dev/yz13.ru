@@ -1,4 +1,5 @@
 import { HandwrittenStrikethrough } from "@/components/handwritten-strikethrough";
+import UnderlinedText from "@/components/handwritten-underline";
 import { Logo } from "@/components/logo";
 import { NextIcon } from "@/components/pixel-stack/next-icon";
 import { ReactIcon } from "@/components/pixel-stack/react-icon";
@@ -9,6 +10,7 @@ import { SparklesText } from "@/components/sparkle-text";
 import { Badge } from "mono/components/badge";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import Availability from "./availability";
 import { isDev } from "./login/get-url";
 import User from "./user";
@@ -25,7 +27,7 @@ const page = () => {
           <div className="flex flex-col gap-1 w-full">
             <div className="mb-2 gap-2 flex items-center w-full justify-between">
               <div className="flex items-center gap-2">
-                <Logo size={{ width: 32, height: 32 }} />
+                <Logo size={{ width: 32, height: 18 }} />
                 <span className="text-foreground text-xl font-pixel font-semibold">
                   YZ13
                 </span>
@@ -35,19 +37,29 @@ const page = () => {
                 {isDev && <User />}
               </div>
             </div>
-            <span className="text-secondary text-xl font-medium">
-              <SparklesText
-                text="Фронтенд разработчик,"
-                className="text-foreground inline mr-2 text-xl font-medium"
-              />
-              {/* <span className="text-foreground">Фронтенд разработчик</span>, */}
-              ничего серьезного.
-            </span>
-            <span className="text-secondary text-xl font-medium">
-              На пути к{" "}
-              <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
-              фуллстеку.
-            </span>
+            <div>
+              <span className="text-secondary text-xl w-fit inline-block font-medium mr-2">
+                <SparklesText
+                  text="Фронтенд разработчик,"
+                  className="text-foreground inline mr-2 text-xl font-medium"
+                />
+                {/* <span className="text-foreground">Фронтенд разработчик</span>, */}
+                ничего серьезного.
+              </span>
+              <span className="text-secondary text-xl font-medium w-fit inline mr-2">
+                На пути к{" "}
+                <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
+                фуллстеку.
+              </span>
+              <UnderlinedText>
+                <Link
+                  href="/contact-me"
+                  className="text-foreground text-xl font-medium w-fit inline"
+                >
+                  Связаться.
+                </Link>
+              </UnderlinedText>
+            </div>
           </div>
         </div>
         <div className="w-full">

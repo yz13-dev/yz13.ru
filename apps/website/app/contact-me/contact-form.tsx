@@ -2,6 +2,7 @@
 
 import AutoTextarea from "@/components/auto-textarea";
 import { Logo } from "@/components/logo";
+import { useDebounceEffect } from "ahooks";
 import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Drawer, DrawerContent } from "mono/components/drawer";
@@ -14,24 +15,34 @@ import { useState } from "react";
 import { isDev } from "../login/get-url";
 import User from "../user";
 
-const ContactForm = () => {
+const ContactForm = ({ noRedirect }: { noRedirect?: boolean }) => {
+  const [open, setOpen] = useState(true);
   const router = useRouter();
   const [text, setText] = useState("");
+  useDebounceEffect(
+    () => {
+      if (!open) setOpen(true);
+    },
+    [open],
+    { wait: 1000 },
+  );
   return (
     <Drawer
       defaultOpen
+      open={open}
+      onOpenChange={setOpen}
       onClose={() => {
-        router.push("/");
+        if (!noRedirect) router.back();
       }}
     >
-      <DrawerContent className="space-y-6 *:px-6 pb-6 h-fit max-w-lg mx-auto overflow-y-auto after:hidden">
+      <DrawerContent className="space-y-6 *:px-6 pb-6 h-fit max-w-lg mx-auto overflow-y-auto after:hidden rounded-t-2xl">
         <div className="gap-2 flex items-center w-full justify-between">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <Logo size={{ width: 32, height: 32 }} />
             <span className="text-foreground text-xl font-pixel font-semibold">
               YZ13
             </span>
-          </div>
+          </Link>
           {isDev && <User />}
         </div>
 
