@@ -15,6 +15,7 @@ const User = () => {
       unauthorized={
         <SignInButton
           href="/login"
+          size="sm"
           className="rounded-full"
           variant="secondary"
         />

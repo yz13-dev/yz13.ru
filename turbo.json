@@ -1,20 +1,27 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
-  "globalDependencies": [".env.local"],
-  "daemon": true,
+  "globalEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
+  "globalDependencies": [
+    ".env.local",
+    ".env.development",
+    ".env.production",
+    ".env.test",
+    ".env.staging",
+    ".env.preview"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
     "dev": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "cache": false,
+      "passThroughEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
       "persistent": true
     }
   }

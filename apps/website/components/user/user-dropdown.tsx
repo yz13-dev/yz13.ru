@@ -1,6 +1,11 @@
 "use client";
 import { User } from "@supabase/supabase-js";
-import { LogOutIcon, SettingsIcon, UserCircleIcon } from "lucide-react";
+import {
+  FolderIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserCircleIcon,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +17,6 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "yz13/supabase/client";
-import ThemeSwitcher from "../theme/theme-switcher";
 
 const UserDropdown = ({
   user,
@@ -51,11 +55,16 @@ const UserDropdown = ({
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Рабочее пространство</DropdownMenuItem>
-        <DropdownMenuLabel className="flex flex-row items-center justify-between">
+        <DropdownMenuItem className="justify-between" asChild>
+          <Link href="/workspace">
+            Рабочее пространство
+            <FolderIcon size={16} />
+          </Link>
+        </DropdownMenuItem>
+        {/* <DropdownMenuLabel className="flex flex-row items-center justify-between">
           <span className="text-sm font-normal">Тема</span>
           <ThemeSwitcher />
-        </DropdownMenuLabel>
+        </DropdownMenuLabel> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="justify-between" onClick={handleSignOut}>
           Выйти из аккаунта

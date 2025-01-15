@@ -1,8 +1,8 @@
+import PublicHeader from "@/components/public-header";
 import { auth } from "@/lib/auth";
 import { UserCircleIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
-import PublicHeader from "../(root)/header";
 import { UserProvider } from "./user.store";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {

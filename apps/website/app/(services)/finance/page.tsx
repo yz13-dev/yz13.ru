@@ -1,4 +1,4 @@
-import PublicHeader from "@/app/(root)/header";
+import PublicHeader from "@/components/public-header";
 import { ExternalLinkIcon, PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";

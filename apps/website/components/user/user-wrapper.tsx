@@ -29,7 +29,7 @@ const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
     });
     setLoading(false);
   }, []);
-  if (loading) return <div className="rounded-full bg-yz-neutral-200 size-8" />;
+  if (loading) return <div className="rounded-full bg-yz-neutral-200 size-9" />;
   if (!authorized && !unauthorized) return;
   if (user && authorized) return authorized(user);
   else return unauthorized;

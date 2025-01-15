@@ -9,7 +9,11 @@ import { SparklesText } from "@/components/sparkle-text";
 import { Badge } from "mono/components/badge";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import Availability from "./availability";
+import ConnectButton from "./connect-button";
+import { isDev } from "./login/get-url";
+import User from "./user";
 const LiveTime = dynamic(() => import("@/components/live/live-time"), {
   ssr: false,
   loading: () => <Skeleton className="w-14 h-7 rounded-lg" />,
@@ -19,34 +23,48 @@ const page = () => {
   return (
     <div className="w-full min-h-dvh h-fit flex flex-col items-center gap-6">
       <div className="w-full max-w-lg space-y-6 mt-[30dvh] *:px-6">
-        <div className="flex items-start gap-3">
-          <div className="flex flex-col gap-1">
-            <div className="mb-2 gap-2 flex items-center  justify-between">
+        <div className="flex items-start gap-3 w-full">
+          <div className="flex flex-col gap-1 w-full">
+            <div className="mb-2 gap-2 flex items-center w-full justify-between">
               <div className="flex items-center gap-2">
-                <Logo size={{ width: 32, height: 32 }} />
+                <Logo size={{ width: 32, height: 18 }} />
                 <span className="text-foreground text-xl font-pixel font-semibold">
                   YZ13
                 </span>
               </div>
-              <LiveTime className="text-secondary text-xl font-medium" />
+              <div className="flex items-center gap-4">
+                <LiveTime className="text-secondary text-xl font-medium" />
+                {isDev && <User />}
+              </div>
             </div>
-            <span className="text-secondary text-xl font-medium">
-              <SparklesText
-                text="Фронтенд разработчик,"
-                className="text-foreground inline mr-2 text-xl font-medium"
-              />
-              {/* <span className="text-foreground">Фронтенд разработчик</span>, */}
-              ничего серьезного.
-            </span>
-            <span className="text-secondary text-xl font-medium">
-              На пути к{" "}
-              <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
-              фуллстеку.
-            </span>
+            <div>
+              <span className="text-secondary text-xl w-fit inline-block font-medium mr-2">
+                <SparklesText
+                  text="Фронтенд разработчик,"
+                  className="text-foreground inline mr-2 text-xl font-medium"
+                />
+                {/* <span className="text-foreground">Фронтенд разработчик</span>, */}
+                ничего серьезного.
+              </span>
+              <span className="text-secondary text-xl font-medium w-fit inline mr-2">
+                На пути к{" "}
+                <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
+                фуллстеку.
+              </span>
+              <Suspense
+                fallback={
+                  <Skeleton className="w-28 h-7 rounded-lg inline-block" />
+                }
+              >
+                <ConnectButton />
+              </Suspense>
+            </div>
           </div>
         </div>
         <div className="w-full">
-          <Availability />
+          <Suspense fallback={<Skeleton className="h-5 w-full rounded-md" />}>
+            <Availability />
+          </Suspense>
         </div>
         <div className="w-full !mt-12 space-y-6">
           <span className="text-secondary text-xl font-medium">Мой стек:</span>
