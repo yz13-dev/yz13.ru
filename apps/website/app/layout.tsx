@@ -1,5 +1,6 @@
 import ThemeObserver from "@/components/theme/theme-observer";
 import "@/styles/globals.css";
+import { TooltipProvider } from "mono/components/tooltip";
 import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
@@ -100,10 +101,12 @@ export default function RootLayout({
       className={cn(SANS.variable, MONO.variable, PIXEL.variable)}
     >
       <body>
-        <ThemeObserver />
-        <SessionObserver />
-        {children}
-        {modal}
+        <TooltipProvider>
+          <ThemeObserver />
+          <SessionObserver />
+          {children}
+          {modal}
+        </TooltipProvider>
       </body>
     </html>
   );
