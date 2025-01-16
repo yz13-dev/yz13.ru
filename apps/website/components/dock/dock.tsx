@@ -1,5 +1,4 @@
 "use client";
-import RadioPlayer from "@/app/radio-player";
 import User from "@/app/user";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useNetwork } from "ahooks";
@@ -19,17 +18,23 @@ import {
   CommandItem,
   CommandList,
 } from "mono/components/command";
+import { Skeleton } from "mono/components/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "mono/components/tooltip";
 import { AnimatePresence, motion } from "motion/react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 import UserCircle from "../user/user-circle";
+const RadioPlayer = dynamic(() => import("@/app/radio-player"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-64 h-[46px] rounded-xl" />
+  })
 
 const Items = ({
   open,
