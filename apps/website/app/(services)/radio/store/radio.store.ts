@@ -3,6 +3,7 @@ import { create } from "zustand";
 
 type State = {
   audio: HTMLAudioElement;
+  loading: boolean;
   played: boolean;
   muted: boolean;
   volume: number;
@@ -10,6 +11,9 @@ type State = {
 
 type Actions = {
   setVolume: (volume: number) => void;
+  setPlay: (played: boolean) => void;
+  setMute: (muted: boolean) => void;
+  setLoading: (loading: boolean) => void;
   togglePlay: () => void;
   toggleMute: () => void;
   setAudio: (src: string) => void;
@@ -20,6 +24,23 @@ const useAudioStore = create<State & Actions>()((set) => ({
   played: true,
   muted: true,
   volume: 0.1,
+  loading: true,
+  setLoading: (loading) =>
+    set((state) => {
+      state.loading = loading;
+      return { loading };
+    }),
+  setPlay: (played) =>
+    set((state) => {
+      state.played = played;
+      return { played };
+    }),
+  setMute: (muted) =>
+    set((state) => {
+      state.muted = muted;
+      return { muted };
+    }),
+
   setVolume: (volume) =>
     set((state) => {
       state.audio.volume = volume;
@@ -62,7 +83,17 @@ const preflight = () => {
     audio.muted = true;
     useAudioStore.getState().muted = true;
     useAudioStore.getState().setVolume(0.1);
-    audio.play();
+    audio.oncanplay = () => {
+      useAudioStore.getState().setLoading(false);
+      audio
+        .play()
+        .then(() => {
+          useAudioStore.getState().setPlay(true);
+        })
+        .catch(() => {
+          useAudioStore.getState().setPlay(false);
+        });
+    };
   }
 };
 
