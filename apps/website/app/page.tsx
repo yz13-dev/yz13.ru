@@ -1,3 +1,4 @@
+import Dock from "@/components/dock/dock";
 import { HandwrittenStrikethrough } from "@/components/handwritten-strikethrough";
 import { Logo } from "@/components/logo";
 import { NextIcon } from "@/components/pixel-stack/next-icon";
@@ -16,9 +17,6 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import Availability from "./availability";
 import ConnectButton from "./connect-button";
-import { isDev } from "./login/get-url";
-import RadioPlayer from "./radio-player";
-import User from "./user";
 const LiveTime = dynamic(() => import("@/components/live/live-time"), {
   ssr: false,
   loading: () => <Skeleton className="w-14 h-7 rounded-lg" />,
@@ -27,7 +25,7 @@ const LiveTime = dynamic(() => import("@/components/live/live-time"), {
 const page = () => {
   return (
     <>
-      <RadioPlayer />
+      <Dock />
       <div className="w-full max-w-lg space-y-6 mx-auto mt-[30dvh] *:px-6">
         <div className="flex items-start gap-3 w-full">
           <div className="flex flex-col gap-1 w-full">
@@ -40,7 +38,6 @@ const page = () => {
               </div>
               <div className="flex items-center gap-4">
                 <LiveTime className="text-secondary text-xl font-medium" />
-                {isDev && <User />}
               </div>
             </div>
             <div>

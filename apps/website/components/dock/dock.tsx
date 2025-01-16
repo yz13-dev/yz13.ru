@@ -1,16 +1,14 @@
 "use client";
-import { User } from "@supabase/supabase-js";
+import RadioPlayer from "@/app/radio-player";
+import User from "@/app/user";
+import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useNetwork } from "ahooks";
 import {
   ChevronDownIcon,
-  LayoutGridIcon,
-  MenuIcon,
-  SearchIcon,
+  Loader2,
   SettingsIcon,
-  StickerIcon,
   WifiIcon,
   WifiOff,
-  XIcon,
 } from "lucide-react";
 import { Button } from "mono/components/button";
 import {
@@ -21,6 +19,11 @@ import {
   CommandItem,
   CommandList,
 } from "mono/components/command";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "mono/components/tooltip";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -35,61 +38,25 @@ const Items = ({
   open?: boolean;
   onOpenChange?: (state: boolean) => void;
 }) => {
+  const [unMuteReminder, setUnMuteReminder] = useState<boolean>(true);
   return (
-    <div className="flex flex-row items-center *:!px-3">
-      <Button
-        variant="ghost"
-        size="lg"
-        className="w-fit !rounded-r-none rounded-l-xl gap-2"
-        asChild
-      >
-        <Link href="/discover">
-          <LayoutGridIcon size={18} />
-          Обзор
-        </Link>
-      </Button>
-      {/* <Button
-        variant="ghost"
-        size="lg"
-        className="w-fit !rounded-none gap-2"
-        asChild
-      >
-        <Link href="/terminal">
-          <TerminalSquareIcon size={18} />
-          Terminal
-        </Link>
-      </Button> */}
-      <Button
-        variant="ghost"
-        size="lg"
-        className="w-fit !rounded-none gap-2"
-        asChild
-      >
-        <Link href="/releases">
-          <StickerIcon size={18} />
-          Релизы
-        </Link>
-      </Button>
-      <Button
-        variant="ghost"
-        size="lg"
-        className="w-fit !rounded-none gap-2"
-        disabled
-        asChild
-      >
-        <Link href="/search">
-          <SearchIcon size={18} />
-        </Link>
-      </Button>
-      <Button
-        disabled={!onOpenChange}
-        onClick={() => onOpenChange && onOpenChange(!open)}
-        variant="ghost"
-        size="lg"
-        className="w-fit !rounded-l-none rounded-r-xl gap-2"
-      >
-        {open ? <XIcon size={18} /> : <MenuIcon size={18} />}
-      </Button>
+    <div className="flex flex-row items-center p-1 space-x-1">
+      <Tooltip delayDuration={100} open={unMuteReminder}>
+        <TooltipTrigger asChild>
+          <div
+            className="h-12 rounded-xl border transition-all w-fit"
+            onMouseEnter={() => setUnMuteReminder(false)}
+          >
+            <RadioPlayer />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="top" sideOffset={12} className="border">
+          По умолчанию у радио выключен звук.
+        </TooltipContent>
+      </Tooltip>
+      <div className="size-12 rounded-xl border flex items-center justify-center">
+        <User sideOffset={12} asSquare />
+      </div>
     </div>
   );
 };
@@ -102,7 +69,7 @@ const Menu = ({
   onOpenChange?: (state: boolean) => void;
 }) => {
   const supabase = createClient();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   useEffect(() => {
     supabase.auth.onAuthStateChange((state, session) => {
       setUser(session?.user ?? null);
@@ -116,7 +83,7 @@ const Menu = ({
       transition={{ delay: 0.1, duration: 0.4, type: "spring" }}
       className={cn(
         "max-w-md h-fit flex flex-col justify-between gap-2 p-2",
-        "rounded-2xl bg-background absolute left-0 right-0 mx-auto bottom-16 border",
+        "rounded-2xl z-20 bg-background absolute left-0 right-0 mx-auto bottom-16 border",
       )}
     >
       <Command>
@@ -173,6 +140,11 @@ const Menu = ({
 
 const ConnectionStatus = ({ size = 16 }: { size?: number }) => {
   const networkState = useNetwork();
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setReady(true);
+  }, []);
+  if (!ready) return <Loader2 size={size} className="animate-spin" />;
   if (networkState.online) return <WifiIcon size={size} />;
   else return <WifiOff size={size} />;
 };

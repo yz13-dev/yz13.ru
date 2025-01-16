@@ -4,16 +4,21 @@ import UserCircle from "@/components/user/user-circle";
 import UserDropdown from "@/components/user/user-dropdown";
 import UserWrapper from "@/components/user/user-wrapper";
 
-const User = () => {
+type UserProps = {
+  sideOffset?: number;
+  asSquare?: boolean;
+};
+const User = ({ sideOffset, asSquare = false }: UserProps) => {
   return (
     <UserWrapper
       authorized={(user) => (
-        <UserDropdown user={user}>
+        <UserDropdown user={user} sideOffset={sideOffset}>
           <UserCircle user={user} />
         </UserDropdown>
       )}
       unauthorized={
         <SignInButton
+          asSquare={asSquare}
           href="/login"
           size="sm"
           className="rounded-full"

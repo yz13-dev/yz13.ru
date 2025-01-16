@@ -3,12 +3,18 @@ import {
   ExternalLinkIcon,
   PauseIcon,
   PlayIcon,
+  RadioIcon,
   Volume,
   Volume1,
   Volume2,
   VolumeOffIcon,
 } from "lucide-react";
 import { Button } from "mono/components/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "mono/components/popover";
 import { Slider } from "mono/components/slider";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
@@ -18,7 +24,7 @@ import useAudioStore from "./(services)/radio/store/radio.store";
 
 const RadioPlayer = () => {
   const audio = useAudioStore((state) => state.audio);
-  const [inFocus, setInFocus] = useState<boolean>(false);
+  const [openVolume, setOpenVolume] = useState<boolean>(false);
 
   const { played, muted, volume, setVolume, togglePlay, toggleMute } =
     useAudioStore();
@@ -39,22 +45,14 @@ const RadioPlayer = () => {
   };
 
   return (
-    <motion.footer
-      onMouseEnter={() => setInFocus(true)}
-      onMouseLeave={() => setInFocus(false)}
-      className="h-12 w-fit overflow-hidden fixed left-0 right-0 bottom-3 mx-auto flex flex-row items-center p-1 gap-2 rounded-full bg-background border"
-    >
-      <Button size="icon" className="rounded-full" onClick={handlePlaySwitch}>
-        {played ? (
-          <PauseIcon size={18} className="text-primary" />
-        ) : (
-          <PlayIcon size={18} className="text-secondary" />
-        )}
-      </Button>
+    <div className="h-full w-fit overflow-hidden flex flex-row items-center p-1 gap-2">
+      <div className="h-full aspect-square rounded-lg border flex items-center justify-center">
+        <RadioIcon size={18} className="text-secondary" />
+      </div>
       <AnimatePresence>
         {played && (
           <motion.div
-            className={cn("flex flex-col shrink-0", !inFocus && "mr-2")}
+            className={cn("flex flex-col shrink-0")}
             initial={{ opacity: 0, y: 100, width: "100px" }}
             animate={
               played
@@ -75,43 +73,58 @@ const RadioPlayer = () => {
           </motion.div>
         )}
       </AnimatePresence>
-      <AnimatePresence>
-        {inFocus && (
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 25 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-row gap-2 items-center"
-          >
-            <Button
-              size="icon"
-              variant="ghost"
-              className="rounded-full"
-              onClick={handleMute}
-            >
-              {muted ? (
-                <VolumeOffIcon size={18} />
-              ) : volume > 0.25 && volume <= 0.5 ? (
-                <Volume1 size={18} />
-              ) : volume > 0.5 ? (
-                <Volume2 size={18} />
-              ) : (
-                <Volume size={18} />
-              )}
-            </Button>
-            <Slider
-              className="w-16 h-2 mr-2"
-              min={0}
-              max={1}
-              value={[volume]}
-              step={0.1}
-              onValueChange={(value) => handleVolume(value[0] ?? 0)}
-            />
-          </motion.div>
+      <Button
+        size="icon"
+        variant="ghost"
+        className="rounded-full"
+        onClick={handlePlaySwitch}
+      >
+        {played ? (
+          <PauseIcon size={18} className="text-primary" />
+        ) : (
+          <PlayIcon size={18} className="text-secondary" />
         )}
-      </AnimatePresence>
-    </motion.footer>
+      </Button>
+      <Popover open={openVolume} onOpenChange={setOpenVolume}>
+        <PopoverTrigger
+          asChild
+          onMouseEnter={() => setOpenVolume(true)}
+          onMouseLeave={() => setOpenVolume(false)}
+        >
+          <Button
+            size="icon"
+            variant="ghost"
+            className="rounded-full"
+            onClick={handleMute}
+          >
+            {muted ? (
+              <VolumeOffIcon size={18} />
+            ) : volume > 0.25 && volume <= 0.5 ? (
+              <Volume1 size={18} />
+            ) : volume > 0.5 ? (
+              <Volume2 size={18} />
+            ) : (
+              <Volume size={18} />
+            )}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent
+          className="w-fit rounded-full p-2"
+          side="top"
+          onMouseEnter={() => setOpenVolume(true)}
+          onMouseLeave={() => setOpenVolume(false)}
+        >
+          <Slider
+            className="w-20 h-2"
+            min={0}
+            max={1}
+            value={[volume]}
+            step={0.1}
+            onValueChange={(value) => handleVolume(value[0] ?? 0)}
+          />
+        </PopoverContent>
+      </Popover>
+    </div>
   );
 };
 
