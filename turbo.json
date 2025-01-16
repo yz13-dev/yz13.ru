@@ -1,7 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "stream",
-  "globalEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
+  "globalEnv": [
+    "RESEND_API_KEY",
+    "EDGE_CONFIG",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_SUPABASE_URL"
+  ],
   "globalDependencies": [
     ".env.local",
     ".env.development",
@@ -21,7 +26,6 @@
     },
     "dev": {
       "cache": false,
-      "passThroughEnv": ["RESEND_API_KEY", "EDGE_CONFIG"],
       "persistent": true
     }
   }

@@ -21,8 +21,10 @@ import { createClient } from "yz13/supabase/client";
 const UserDropdown = ({
   user,
   children,
+  sideOffset = 4,
 }: {
   user: User;
+  sideOffset?: number;
   children: React.ReactNode;
 }) => {
   const router = useRouter();
@@ -35,10 +37,14 @@ const UserDropdown = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 rounded-xl">
+      <DropdownMenuContent
+        align="end"
+        className="w-56 rounded-xl"
+        sideOffset={sideOffset}
+      >
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-sm font-medium">
-            {user.user_metadata.nickname ?? "Username"}
+            {user.user_metadata.username ?? "Username"}
           </span>
           <span className="text-xs text-foreground font-normal">
             {positionOrEmail}

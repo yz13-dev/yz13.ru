@@ -10,7 +10,6 @@ workspace.get("/:wid", async (c) => {
   const supabase = createClient(cookieStore);
 
   const { data, error } = await supabase
-    // @ts-expect-error
     .from("workspaces")
     .select("*")
     .eq("id", wid)
@@ -27,7 +26,6 @@ workspace.get("/:wid/lists", async (c) => {
   const supabase = createClient(cookieStore);
 
   const { data, error } = await supabase
-    // @ts-expect-error
     .from("lists")
     .select("*")
     .eq("workspace", wid);

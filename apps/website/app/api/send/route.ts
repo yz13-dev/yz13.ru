@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       tags: [{ name: "type", value: type }],
     });
 
-    console.log(data, error);
+    // console.log(data, error);
 
     if (error) {
       return Response.json({ error }, { status: 500 });

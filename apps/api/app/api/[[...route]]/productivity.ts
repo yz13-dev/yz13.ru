@@ -10,7 +10,6 @@ lists.get("/:listId", async (c) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
-    // @ts-expect-error
     .from("lists")
     .select()
     .eq("id", listId)
@@ -28,7 +27,6 @@ lists.get("/:listId/all", async (c) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
-    // @ts-expect-error
     .from("tasks")
     .select()
     .eq("list_id", listId);
