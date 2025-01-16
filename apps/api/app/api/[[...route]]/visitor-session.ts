@@ -17,10 +17,8 @@ visitor_session.post("/", async (c) => {
     const body = await c.req.json();
     sessionBodySchema.parse(body);
     const { data, error } = await supabase
-      // @ts-expect-error
       .from("visitor-session")
       .insert({
-        // @ts-expect-error
         visitor_id: body.visitor_id,
         duration: body.duration,
       })

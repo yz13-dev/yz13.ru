@@ -22,9 +22,7 @@ user.post("/:uid/workspace", async (c) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
-    // @ts-expect-error
     .from("workspaces")
-    // @ts-expect-error
     .insert([{ user: uid }])
     .select();
   if (error) {
@@ -39,7 +37,6 @@ user.get("/:uid/workspaces", async (c) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
-    // @ts-expect-error
     .from("workspaces")
     .select()
     .eq("user", uid);
@@ -54,11 +51,7 @@ user.get("/:uid/lists", async (c) => {
   const uid = c.req.param("uid");
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const { data, error } = await supabase
-    // @ts-expect-error
-    .from("lists")
-    .select()
-    .eq("user", uid);
+  const { data, error } = await supabase.from("lists").select().eq("user", uid);
   if (error) {
     return c.json([]);
   } else {
