@@ -1,6 +1,7 @@
 "use client";
 import {
   ExternalLinkIcon,
+  Loader2Icon,
   PauseIcon,
   PlayIcon,
   RadioIcon,
@@ -26,6 +27,7 @@ const RadioPlayer = () => {
   const audio = useAudioStore((state) => state.audio);
   const [openVolume, setOpenVolume] = useState<boolean>(false);
 
+  const loading = useAudioStore((state) => state.loading);
   const { played, muted, volume, setVolume, togglePlay, toggleMute } =
     useAudioStore();
 
@@ -45,7 +47,7 @@ const RadioPlayer = () => {
   };
 
   return (
-    <div className="h-full w-fit overflow-hidden flex flex-row items-center p-1 gap-2">
+    <div className="h-full w-fit overflow-hidden flex flex-row items-center p-1 gap-2 bg-background-back rounded-xl">
       <div className="h-full aspect-square rounded-lg border flex items-center justify-center">
         <RadioIcon size={18} className="text-secondary" />
       </div>
@@ -77,10 +79,13 @@ const RadioPlayer = () => {
         size="icon"
         variant="ghost"
         className="rounded-full"
+        disabled={loading}
         onClick={handlePlaySwitch}
       >
-        {played ? (
-          <PauseIcon size={18} className="text-primary" />
+        {loading ? (
+          <Loader2Icon size={18} className="text-foreground animate-spin" />
+        ) : played ? (
+          <PauseIcon size={18} className="text-foreground" />
         ) : (
           <PlayIcon size={18} className="text-secondary" />
         )}
@@ -109,7 +114,7 @@ const RadioPlayer = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-fit rounded-full p-2"
+          className="w-fit rounded-full p-2 flex items-center"
           side="top"
           onMouseEnter={() => setOpenVolume(true)}
           onMouseLeave={() => setOpenVolume(false)}
@@ -119,9 +124,12 @@ const RadioPlayer = () => {
             min={0}
             max={1}
             value={[volume]}
-            step={0.1}
+            step={0.05}
             onValueChange={(value) => handleVolume(value[0] ?? 0)}
           />
+          <span className="text-xs text-center w-5 text-secondary mx-2">
+            {(volume * 100).toFixed()}
+          </span>
         </PopoverContent>
       </Popover>
     </div>
