@@ -31,8 +31,8 @@ const stageAsProgress: Record<ReleaseStage, number> = {
 const finance: Release = {
   id: "finance",
   stage: "in_progress",
-  name: "Finance",
-  description: "App to track your spending",
+  name: "Финансы",
+  description: "Сервис для отслеживания и управления финансовыми расходами",
   created_at: dayjs("2024-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
   icon: {
@@ -41,18 +41,27 @@ const finance: Release = {
   },
 };
 
-const puzzle: Release = {
-  id: "puzzle-game",
-  stage: "in_plans",
-  name: "Puzzle game",
-  description: "Game where you have to solve a puzzle with friends",
+const draft: Release = {
+  id: "draft",
+  stage: "in_progress",
+  name: "Черновики",
+  description: "Сервия для публикации черновиков ui-дизайнов",
   created_at: dayjs("2023-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
 };
 
-export { finance, puzzle };
+const puzzle: Release = {
+  id: "puzzle-game",
+  stage: "in_plans",
+  name: "Пазл",
+  description: "Игра по сброру пазлов",
+  created_at: dayjs("2023-12-30").toString(),
+  updated_at: dayjs("2024-12-30").toString(),
+};
 
-export const releases: Release[] = [puzzle, finance];
+export { draft, finance, puzzle };
+
+export const releases: Release[] = [puzzle, finance, draft];
 
 export const getStage: Record<ReleaseStage, string> = {
   in_plans: "In plans",

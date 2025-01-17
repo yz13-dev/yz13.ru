@@ -1,4 +1,5 @@
 "use client";
+import { getMuted } from "@/app/(services)/radio/store/radio.store";
 import User from "@/app/user";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useNetwork } from "ahooks";
@@ -33,7 +34,7 @@ import { createClient } from "yz13/supabase/client";
 import UserCircle from "../user/user-circle";
 const RadioPlayer = dynamic(() => import("@/components/radio-player"), {
   ssr: false,
-  loading: () => <Skeleton className="w-64 h-[46px] rounded-xl" />,
+  loading: () => <Skeleton className="size-12 rounded-xl" />,
 });
 
 const Items = ({
@@ -43,7 +44,7 @@ const Items = ({
   open?: boolean;
   onOpenChange?: (state: boolean) => void;
 }) => {
-  const [unMuteReminder, setUnMuteReminder] = useState<boolean>(true);
+  const [unMuteReminder, setUnMuteReminder] = useState<boolean>(getMuted());
   return (
     <div className="flex flex-row items-center p-1 space-x-1">
       <Tooltip delayDuration={100} open={unMuteReminder}>
@@ -164,7 +165,7 @@ const Dock = () => {
       <div
         className={cn(
           "h-fit w-fit flex flex-row fixed left-0 right-0 mx-auto sm:!bottom-3 bottom-0 items-center justify-center",
-          "bg-background border rounded-xl max-w-full",
+          "bg-background border rounded-2xl max-w-full",
         )}
       >
         <Items onOpenChange={setIsOpen} open={isOpen} />

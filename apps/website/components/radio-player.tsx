@@ -75,16 +75,16 @@ const RadioPlayer = () => {
         {played && (
           <motion.div
             className={cn("flex flex-col shrink-0")}
-            initial={{ opacity: 0, y: 100, width: "100px" }}
+            initial={{ opacity: 0, y: 50, width: 0 }}
             animate={
               played
                 ? { width: "fit-content", opacity: 1, y: 0 }
-                : { width: "0px", opacity: 0, y: 100 }
+                : { width: 0, opacity: 0, y: 50 }
             }
-            exit={{ opacity: 0, y: 100, width: "100px" }}
+            exit={{ opacity: 0, y: 50, width: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="text-xs line-clamp-1">Сейчас играет: fluxfm</span>
+            <span className="text-xs line-clamp-1">Радио: fluxfm</span>
             <Link
               href="https://www.fluxfm.de"
               className="text-xs flex gap-1 text-secondary hover:underline items-center"
@@ -143,7 +143,7 @@ const RadioPlayer = () => {
             onMouseLeave={() => setOpenVolume(false)}
           >
             <Slider
-              className="w-20 h-2"
+              className="w-24 h-2"
               min={0}
               max={1}
               value={[volume]}

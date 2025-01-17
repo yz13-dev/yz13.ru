@@ -77,6 +77,10 @@ const useAudioStore = create<State & Actions>()((set) => ({
     }),
 }));
 
+const getMuted = () => {
+  return useAudioStore.getState().muted;
+};
+
 const preflight = () => {
   const audio = useAudioStore.getState().audio;
   if (audio) {
@@ -99,4 +103,5 @@ const preflight = () => {
 
 preflight();
 
+export { getMuted };
 export default useAudioStore;
