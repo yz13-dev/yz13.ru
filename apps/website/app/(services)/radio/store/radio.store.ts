@@ -21,7 +21,7 @@ type Actions = {
 
 const useAudioStore = create<State & Actions>()((set) => ({
   audio: new Audio("https://channels.fluxfm.de/chillhop/stream.aac"), // начальный источник
-  played: true,
+  played: false,
   muted: true,
   volume: 0.1,
   loading: true,
@@ -85,14 +85,14 @@ const preflight = () => {
     useAudioStore.getState().setVolume(0.1);
     audio.oncanplay = () => {
       useAudioStore.getState().setLoading(false);
-      audio
-        .play()
-        .then(() => {
-          useAudioStore.getState().setPlay(true);
-        })
-        .catch(() => {
-          useAudioStore.getState().setPlay(false);
-        });
+      // audio
+      //   .play()
+      //   .then(() => {
+      //     useAudioStore.getState().setPlay(true);
+      //   })
+      //   .catch(() => {
+      //     useAudioStore.getState().setPlay(false);
+      //   });
     };
   }
 };

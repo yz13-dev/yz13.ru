@@ -31,10 +31,10 @@ import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 import UserCircle from "../user/user-circle";
-const RadioPlayer = dynamic(() => import("@/app/radio-player"), {
+const RadioPlayer = dynamic(() => import("@/components/radio-player"), {
   ssr: false,
-  loading: () => <Skeleton className="w-64 h-[46px] rounded-xl" />
-  })
+  loading: () => <Skeleton className="w-64 h-[46px] rounded-xl" />,
+});
 
 const Items = ({
   open,
