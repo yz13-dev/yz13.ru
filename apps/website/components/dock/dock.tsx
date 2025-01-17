@@ -31,6 +31,14 @@ import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 import UserCircle from "../user/user-circle";
+const LiveTime = dynamic(() => import("../live/live-time"), {
+  ssr: false,
+  loading: () => (
+    <span className="h-7 w-12 text-center text-lg font-medium text-secondary/50">
+      00:00
+    </span>
+  ),
+});
 const RadioPlayer = dynamic(() => import("@/components/radio-player"), {
   ssr: false,
   loading: () => <Skeleton className="size-12 rounded-xl" />,
@@ -59,6 +67,9 @@ const Items = ({
           По умолчанию у радио выключен звук.
         </TooltipContent>
       </Tooltip>
+      <div className="h-12 px-3 rounded-xl border flex items-center justify-center">
+        <LiveTime className="text-lg w-12 text-center font-medium" />
+      </div>
       <div className="size-12 rounded-xl border flex items-center justify-center">
         <User sideOffset={12} asSquare />
       </div>
