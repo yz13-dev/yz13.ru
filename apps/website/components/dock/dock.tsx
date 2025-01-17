@@ -31,10 +31,10 @@ import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 import UserCircle from "../user/user-circle";
-const RadioPlayer = dynamic(() => import("@/app/radio-player"), {
+const RadioPlayer = dynamic(() => import("@/components/radio-player"), {
   ssr: false,
-  loading: () => <Skeleton className="w-64 h-[46px] rounded-xl" />
-  })
+  loading: () => <Skeleton className="size-12 rounded-xl" />,
+});
 
 const Items = ({
   open,
@@ -164,7 +164,7 @@ const Dock = () => {
       <div
         className={cn(
           "h-fit w-fit flex flex-row fixed left-0 right-0 mx-auto sm:!bottom-3 bottom-0 items-center justify-center",
-          "bg-background border rounded-xl max-w-full",
+          "bg-background border rounded-2xl max-w-full",
         )}
       >
         <Items onOpenChange={setIsOpen} open={isOpen} />
