@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.46.2",
+    "@vercel/analytics": "^1.4.1",
     "@vercel/edge-config": "^1.4.0",
+    "@vercel/speed-insights": "^1.1.0",
     "@xyflow/react": "^12.3.6",
     "ahooks": "^3.8.4",
     "autoprefixer": "^10.4.20",
