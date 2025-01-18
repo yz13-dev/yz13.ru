@@ -1,4 +1,5 @@
 "use client";
+import { isDev } from "@/app/login/get-url";
 import User from "@/app/user";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useNetwork } from "ahooks";
@@ -53,27 +54,33 @@ const Items = ({
 }) => {
   const [unMuteReminder, setUnMuteReminder] = useState<boolean>(true);
   return (
-    <div className="flex flex-row items-center p-1 space-x-1">
-      <Tooltip delayDuration={100} open={unMuteReminder}>
-        <TooltipTrigger asChild>
-          <div
-            className="h-12 rounded-xl border transition-all w-fit"
-            onMouseEnter={() => setUnMuteReminder(false)}
-          >
-            <RadioPlayer />
+    <>
+      <div className="flex flex-row items-center space-x-1 *:bg-background">
+        <Tooltip delayDuration={100} open={unMuteReminder}>
+          <TooltipTrigger asChild>
+            <div
+              className="h-12 rounded-xl border transition-all w-fit"
+              onMouseEnter={() => setUnMuteReminder(false)}
+            >
+              <RadioPlayer />
+            </div>
+          </TooltipTrigger>
+          <TooltipContent side="top" sideOffset={12} className="border">
+            По умолчанию у радио выключен звук.
+          </TooltipContent>
+        </Tooltip>
+      </div>
+      <div className="flex flex-row items-center space-x-1 *:bg-background">
+        <div className="h-12 px-3 rounded-xl border flex items-center justify-center">
+          <LiveTime className="text-lg w-12 text-center font-medium select-none" />
+        </div>
+        {isDev && (
+          <div className="size-12 rounded-xl border flex items-center justify-center">
+            <User sideOffset={12} asSquare />
           </div>
-        </TooltipTrigger>
-        <TooltipContent side="top" sideOffset={12} className="border">
-          По умолчанию у радио выключен звук.
-        </TooltipContent>
-      </Tooltip>
-      <div className="h-12 px-3 rounded-xl border flex items-center justify-center">
-        <LiveTime className="text-lg w-12 text-center font-medium" />
+        )}
       </div>
-      <div className="size-12 rounded-xl border flex items-center justify-center">
-        <User sideOffset={12} asSquare />
-      </div>
-    </div>
+    </>
   );
 };
 
@@ -165,7 +172,7 @@ const ConnectionStatus = ({ size = 16 }: { size?: number }) => {
   else return <WifiOff size={size} />;
 };
 
-const Dock = () => {
+const Dock = ({ className = "" }: { className?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -174,8 +181,9 @@ const Dock = () => {
       </AnimatePresence>
       <div
         className={cn(
-          "h-fit w-fit flex flex-row fixed left-0 right-0 mx-auto sm:!bottom-3 bottom-0 items-center justify-center",
-          "bg-background border rounded-2xl max-w-full",
+          "h-fit w-fit flex flex-row fixed left-0 right-0 mx-auto bottom-3 items-center justify-center",
+          "bg-background-back bg-opacity-60 backdrop-blur border rounded-2xl max-w-full gap-1 p-1",
+          className,
         )}
       >
         <Items onOpenChange={setIsOpen} open={isOpen} />

@@ -1,4 +1,5 @@
 import User from "@/app/user";
+import Dock from "@/components/dock/dock";
 import { Header } from "@/components/header";
 import { ChartColumnBigIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -29,6 +30,7 @@ const page = () => {
           <User />
         </Header.Right>
       </Header>
+      <Dock />
     </>
   );
 };

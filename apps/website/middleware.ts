@@ -1,6 +1,11 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { isDev } from "./app/login/get-url";
 
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  if (!isDev && pathname.startsWith("/workspace")) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
   // const isRoot = request.nextUrl.pathname === "/";
   // if (isRoot) return NextResponse.redirect(new URL("/discover", request.url));
   // else return NextResponse.next();
