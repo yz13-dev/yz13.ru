@@ -1,6 +1,9 @@
 import Dock from "@/components/dock/dock";
 import PageDockFiller from "@/components/page-dock-filler";
-import RadiosPlaylist from "./radios-playlist";
+import dynamic from "next/dynamic";
+const RadiosPlaylist = dynamic(() => import("./radios-playlist"), {
+  ssr: false,
+});
 
 const page = () => {
   return (
