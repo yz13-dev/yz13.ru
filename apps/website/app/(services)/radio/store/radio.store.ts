@@ -1,59 +1,39 @@
 "use client";
 import { create } from "zustand";
+import {
+  getAudioSrc,
+  getPlayed,
+  getVolume,
+  setPlayed,
+  setVolume,
+} from "./audio.store";
 
 type State = {
   audio: HTMLAudioElement;
   loading: boolean;
-  played: boolean;
   muted: boolean;
-  volume: number;
 };
 
 type Actions = {
-  setVolume: (volume: number) => void;
-  setPlay: (played: boolean) => void;
   setMute: (muted: boolean) => void;
   setLoading: (loading: boolean) => void;
-  togglePlay: () => void;
   toggleMute: () => void;
   setAudio: (src: string) => void;
 };
 
 const useAudioStore = create<State & Actions>()((set) => ({
-  audio: new Audio("https://channels.fluxfm.de/chillhop/stream.aac"), // начальный источник
-  played: false,
+  audio: new Audio(getAudioSrc()), // начальный источник
   muted: true,
-  volume: 0.1,
   loading: true,
   setLoading: (loading) =>
     set((state) => {
       state.loading = loading;
       return { loading };
     }),
-  setPlay: (played) =>
-    set((state) => {
-      state.played = played;
-      return { played };
-    }),
   setMute: (muted) =>
     set((state) => {
       state.muted = muted;
       return { muted };
-    }),
-
-  setVolume: (volume) =>
-    set((state) => {
-      state.audio.volume = volume;
-      return { volume };
-    }),
-  togglePlay: () =>
-    set((state) => {
-      if (state.played) {
-        state.audio.pause();
-      } else {
-        state.audio.play();
-      }
-      return { played: !state.played };
     }),
   toggleMute: () =>
     set((state) => {
@@ -62,18 +42,22 @@ const useAudioStore = create<State & Actions>()((set) => ({
     }),
   setAudio: (newSource) =>
     set((state) => {
-      const audio = new Audio(newSource);
-      const volume = state.audio.volume;
-      const muted = state.audio.muted;
+      const audio = state.audio;
+      if (audio) {
+        audio.src = newSource;
+        audio.load();
+        const volume = getVolume();
+        const muted = state.audio.muted;
+        const played = getPlayed();
 
-      audio.volume = volume;
-      audio.muted = muted;
+        audio.volume = volume;
+        audio.muted = muted;
 
-      if (state.played) {
-        audio.play(); // если было воспроизведение, продолжаем
+        if (played) {
+          audio.play(); // если было воспроизведение, продолжаем
+        }
       }
-
-      return { audio, played: state.played };
+      return { audio };
     }),
 }));
 
@@ -81,27 +65,65 @@ const getMuted = () => {
   return useAudioStore.getState().muted;
 };
 
+const stop = () => {
+  const audio = useAudioStore.getState().audio;
+  if (audio) {
+    audio.pause();
+    setPlayed(false);
+  }
+};
+
+const play = () => {
+  const audio = useAudioStore.getState().audio;
+  if (audio) {
+    audio
+      .play()
+      .then(() => {
+        setPlayed(true);
+      })
+      .catch(() => {
+        setPlayed(false);
+      });
+  }
+};
+
+const changeVolume = (volume: number) => {
+  const audio = useAudioStore.getState().audio;
+  if (audio) {
+    setVolume(volume);
+    audio.volume = volume;
+  }
+};
+
+const applyNewAudioSrc = (src: string) => {
+  useAudioStore.getState().setAudio(src);
+};
+
 const preflight = () => {
   const audio = useAudioStore.getState().audio;
   if (audio) {
     audio.muted = true;
     useAudioStore.getState().muted = true;
-    useAudioStore.getState().setVolume(0.1);
+    const volume = getVolume();
+    const played = getPlayed();
+    audio.volume = volume;
     audio.oncanplay = () => {
       useAudioStore.getState().setLoading(false);
-      // audio
-      //   .play()
-      //   .then(() => {
-      //     useAudioStore.getState().setPlay(true);
-      //   })
-      //   .catch(() => {
-      //     useAudioStore.getState().setPlay(false);
-      //   });
+      if (played) {
+        audio
+          .play()
+          .then(() => {
+            setPlayed(true);
+          })
+          .catch(() => {
+            setPlayed(false);
+          });
+      }
     };
   }
 };
 
 preflight();
 
-export { getMuted };
+export { applyNewAudioSrc, changeVolume, getMuted, play, stop };
 export default useAudioStore;

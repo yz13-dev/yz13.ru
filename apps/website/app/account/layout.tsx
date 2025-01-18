@@ -1,3 +1,5 @@
+import Dock from "@/components/dock/dock";
+import PageDockFiller from "@/components/page-dock-filler";
 import PublicHeader from "@/components/public-header";
 import { auth } from "@/lib/auth";
 import { UserCircleIcon } from "lucide-react";
@@ -35,6 +37,8 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
           </div>
         </aside>
         <UserProvider user={user}>{children}</UserProvider>
+        <PageDockFiller />
+        <Dock />
       </div>
     </>
   );
