@@ -11,6 +11,7 @@ import useAudioStore, {
 import { useDebounceEffect } from "ahooks";
 import {
   ExternalLinkIcon,
+  ListIcon,
   Loader2Icon,
   PauseIcon,
   PlayIcon,
@@ -129,6 +130,11 @@ const RadioPlayer = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <Button size="icon" variant="ghost" className="rounded-full">
+        <Link href="/radio">
+          <ListIcon size={18} />
+        </Link>
+      </Button>
       {played && (
         <Button
           size="icon"

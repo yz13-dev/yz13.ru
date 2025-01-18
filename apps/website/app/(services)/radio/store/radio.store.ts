@@ -42,18 +42,21 @@ const useAudioStore = create<State & Actions>()((set) => ({
     }),
   setAudio: (newSource) =>
     set((state) => {
-      const audio = new Audio(newSource);
-      const volume = getVolume();
-      const muted = state.audio.muted;
-      const played = getPlayed();
+      const audio = state.audio;
+      if (audio) {
+        audio.src = newSource;
+        audio.load();
+        const volume = getVolume();
+        const muted = state.audio.muted;
+        const played = getPlayed();
 
-      audio.volume = volume;
-      audio.muted = muted;
+        audio.volume = volume;
+        audio.muted = muted;
 
-      if (played) {
-        audio.play(); // если было воспроизведение, продолжаем
+        if (played) {
+          audio.play(); // если было воспроизведение, продолжаем
+        }
       }
-
       return { audio };
     }),
 }));
@@ -92,6 +95,10 @@ const changeVolume = (volume: number) => {
   }
 };
 
+const applyNewAudioSrc = (src: string) => {
+  useAudioStore.getState().setAudio(src);
+};
+
 const preflight = () => {
   const audio = useAudioStore.getState().audio;
   if (audio) {
@@ -118,5 +125,5 @@ const preflight = () => {
 
 preflight();
 
-export { changeVolume, getMuted, play, stop };
+export { applyNewAudioSrc, changeVolume, getMuted, play, stop };
 export default useAudioStore;

@@ -5,6 +5,7 @@ import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useNetwork } from "ahooks";
 import {
   ChevronDownIcon,
+  HomeIcon,
   Loader2,
   SettingsIcon,
   WifiIcon,
@@ -55,6 +56,12 @@ const Items = ({
   const [unMuteReminder, setUnMuteReminder] = useState<boolean>(true);
   return (
     <>
+      <div className="flex flex-row items-center space-x-1 *:bg-background">
+        <div className="size-12 rounded-xl border flex relative items-center justify-center">
+          <Link href="/" className="absolute left-0 top-0 w-full h-full" />
+          <HomeIcon size={18} className="text-foreground" />
+        </div>
+      </div>
       <div className="flex flex-row items-center space-x-1 *:bg-background">
         <Tooltip delayDuration={100} open={unMuteReminder}>
           <TooltipTrigger asChild>

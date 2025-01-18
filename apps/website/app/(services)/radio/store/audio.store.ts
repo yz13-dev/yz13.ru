@@ -29,12 +29,14 @@ const useAudio = createStore<State & Actions>()(
   ),
 );
 
-const getVolume = () => useAudio.getState().volume;
 const setVolume = (volume: number) => useAudio.getState().setVolume(volume);
 const setPlayed = (played: boolean) => useAudio.getState().setPlayed(played);
+const setAudioSrc = (src: string) => {
+  useAudio.getState().setAudioSrc(src);
+};
 
+const getVolume = () => useAudio.getState().volume;
 const getAudioSrc = () => useAudio.getState().audioSrc;
-const setAudioSrc = (src: string) => useAudio.getState().setAudioSrc(src);
 const getPlayed = () => useAudio.getState().played;
 
 export { getAudioSrc, getPlayed, getVolume, setAudioSrc, setPlayed, setVolume };
