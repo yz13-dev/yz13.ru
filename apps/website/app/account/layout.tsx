@@ -1,14 +1,11 @@
 import Dock from "@/components/dock/dock";
 import PageDockFiller from "@/components/page-dock-filler";
 import PublicHeader from "@/components/public-header";
-import { auth } from "@/lib/auth";
 import { UserCircleIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
-import { UserProvider } from "./user.store";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
-  const user = await auth();
   return (
     <>
       <PublicHeader className="max-w-4xl mx-auto lg:!mt-24 mt-0" />
@@ -36,7 +33,7 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
             </Button> */}
           </div>
         </aside>
-        <UserProvider user={user}>{children}</UserProvider>
+        {children}
         <PageDockFiller />
         <Dock />
       </div>

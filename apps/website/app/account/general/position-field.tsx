@@ -9,7 +9,7 @@ import {
   FieldSelect,
   FieldTrigger,
 } from "../field";
-import { useUser } from "../user.store";
+import { useUserStore } from "../user.store";
 
 const positions = [
   {
@@ -43,7 +43,7 @@ const positions = [
 ];
 
 const PositionField = () => {
-  const user = useUser((state) => state.user);
+  const user = useUserStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
   const initialValue = user?.user_metadata?.position ?? "";
   const [position, setPosition] = useState(initialValue);

@@ -5,6 +5,7 @@ import { useInterval } from "ahooks";
 import { CircleCheckIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { useEffect, useMemo, useState } from "react";
+import { useUserStore } from "../account/user.store";
 import { isProd } from "../login/get-url";
 import useVisitorStore, {
   getVisitorId,
@@ -16,6 +17,8 @@ const SessionWatcher = () => {
   const [time, setTime] = useState(0);
   const canBeSaved = useMemo(() => time >= 3, [time]);
   const [visitorId, setVisitorId] = useState<string | null>(getVisitorId());
+  const user = useUserStore((state) => state.user);
+  const [userAgent] = useState(navigator.userAgent);
   useInterval(
     () => {
       setTime((t) => t + 1);
@@ -33,7 +36,13 @@ const SessionWatcher = () => {
       return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
   const postSession = async () => {
-    if (canBeSaved && visitorId) await postVisitorSession(visitorId, time);
+    if (canBeSaved && visitorId)
+      await postVisitorSession({
+        visitor_id: visitorId,
+        duration: time,
+        user_agent: userAgent ?? null,
+        user_id: user?.id ?? null,
+      });
   };
   useEffect(() => {
     useVisitorStore.subscribe(({ visitorId: newVisitorId }) => {
