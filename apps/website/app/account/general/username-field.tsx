@@ -3,16 +3,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "yz13/supabase/client";
 import {
-  Field,
-  FieldContent,
-  FieldInput,
-  FieldLabel,
-  FieldTrigger,
+    Field,
+    FieldContent,
+    FieldInput,
+    FieldLabel,
+    FieldTrigger,
 } from "../field";
-import { useUser } from "../user.store";
+import { useUserStore } from "../user.store";
 
 const UsernameField = () => {
-  const user = useUser((state) => state.user);
+  const user = useUserStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
   const initialValue = user?.user_metadata?.username ?? "";
   const [username, setUsername] = useState(initialValue);
