@@ -8,6 +8,7 @@ import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
+import { UserProvider } from "./account/user.store";
 const SessionObserver = dynamic(
   () => import("./visitor-session/session-observer"),
   {
@@ -108,8 +109,10 @@ export default function RootLayout({
         <TooltipProvider>
           <ThemeObserver />
           <SessionObserver />
-          {children}
-          {modal}
+          <UserProvider>
+            {children}
+            {modal}
+          </UserProvider>
         </TooltipProvider>
       </body>
     </html>

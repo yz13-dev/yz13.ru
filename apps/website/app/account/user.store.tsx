@@ -1,7 +1,8 @@
 "use client";
 import { User } from "@supabase/supabase-js";
-import { createContext, useContext, useState } from "react";
-import { createStore, StoreApi, useStore } from "zustand";
+import { useEffect } from "react";
+import { createClient } from "yz13/supabase/client";
+import { create } from "zustand";
 
 type Actions = {
   setUser: (user: User) => void;
@@ -10,34 +11,26 @@ type State = {
   user: User | null;
 };
 
-const UserContext = createContext<StoreApi<State & Actions>>(
-  {} as StoreApi<State & Actions>,
-);
+const useUserStore = create<State & Actions>()((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+}));
 
-const UserProvider = ({
-  children,
-  user,
-}: {
-  children: React.ReactNode;
-  user: User | null;
-}) => {
-  const [store] = useState(() =>
-    createStore<State & Actions>()((set) => ({
-      user,
-      setUser: (user) => set({ user }),
-    })),
-  );
-  return <UserContext.Provider value={store}>{children}</UserContext.Provider>;
+const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
+  useEffect(() => {
+    if (user) return;
+    const supabase = createClient();
+    supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser(session.user);
+      }
+    });
+  }, []);
+  return children;
 };
 
-const useUser = (selector: (state: State & Actions) => any) => {
-  const store = useContext(UserContext);
-  if (!store) throw new Error("useField must be used within a FieldProvider");
-  return useStore(store, selector);
-};
-
-// const useFieldStore = useField((state) => state);
-
-export { UserContext, UserProvider, useUser };
+export { UserProvider, useUserStore };
 
 // export default useFieldStore;
