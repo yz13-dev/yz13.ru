@@ -4,6 +4,7 @@ import User from "@/app/user";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useNetwork } from "ahooks";
 import {
+  BrushIcon,
   ChevronDownIcon,
   HomeIcon,
   Loader2,
@@ -61,6 +62,16 @@ const Items = ({
           <Link href="/" className="absolute left-0 top-0 w-full h-full" />
           <HomeIcon size={18} className="text-foreground" />
         </div>
+        {
+          isDev &&
+          <div className="size-12 rounded-xl border flex relative items-center justify-center">
+            <Link
+              href="/canvas"
+              className="absolute left-0 top-0 w-full h-full"
+            />
+            <BrushIcon size={18} className="text-foreground" />
+          </div>
+        }
       </div>
       <div className="flex flex-row items-center space-x-1 *:bg-background">
         <Tooltip delayDuration={100} open={unMuteReminder}>

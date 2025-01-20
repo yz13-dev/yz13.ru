@@ -8,6 +8,8 @@ export const visitor_session = new Hono();
 const sessionBodySchema = z.object({
   visitor_id: z.string(),
   duration: z.number(),
+  user_id: z.string().optional(),
+  user_agent: z.string().optional(),
 });
 
 visitor_session.post("/", async (c) => {
@@ -21,6 +23,8 @@ visitor_session.post("/", async (c) => {
       .insert({
         visitor_id: body.visitor_id,
         duration: body.duration,
+        user_id: body.user_id ?? null,
+        user_agent: body.user_agent ?? null,
       })
       .select();
     console.log(body, data, error);
