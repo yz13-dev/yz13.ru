@@ -68,19 +68,23 @@ const MONO = localFont({
 export const metadata: Metadata = {
   title: "YZ13",
   description: "Developer",
-  icons: [
+  authors: [
     {
-      rel: "icon",
-      type: "image/svg+xml",
-      media: "(prefers-color-scheme: light)",
-      url: "/yz-light.svg",
+      name: "YZ13",
+      url: "https://github.com/YZ13-ENV",
     },
-    {
-      rel: "icon",
-      type: "image/svg+xml",
-      media: "(prefers-color-scheme: dark)",
-      url: "/yz-dark.svg",
-    },
+  ],
+  keywords: [
+    "NextJS",
+    "TypeScript",
+    "React",
+    "TailwindCSS",
+    "YZ13",
+    "Developer",
+    "Personal",
+    "Frontend",
+    "Backend",
+    "Fullstack",
   ],
 };
 

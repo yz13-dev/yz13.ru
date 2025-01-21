@@ -23,9 +23,7 @@ const Hero = () => {
                 YZ13
               </span>
             </div>
-            <div className="flex items-center gap-4">
-              <LiveTime className="text-secondary text-xl font-medium" />
-            </div>
+            <div className="flex items-center gap-4"></div>
           </div>
           <div>
             <span className="text-secondary text-xl w-fit inline-block font-medium mr-2">

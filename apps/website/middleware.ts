@@ -1,8 +1,20 @@
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "yz13/supabase/server";
 import { isDev } from "./app/login/get-url";
+
+const admins = ["/workspace"];
+const users = [""];
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const cookieStore = cookies();
+  const client = createClient(cookieStore);
+  const {
+    data: { user },
+  } = await client.auth.getUser();
+  const userRole = user?.user_metadata?.role;
+  // now we can check user`s role`
   if (!isDev && pathname.startsWith("/workspace")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
