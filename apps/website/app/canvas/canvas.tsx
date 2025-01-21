@@ -121,14 +121,21 @@ const Canvas = () => {
     const isTouchpad =
       Math.abs(e.deltaY) < TOUCHPAD_FACTOR && e.deltaMode === 0;
     const isZooming = isTouchpad ? e.ctrlKey : true;
+    const canvasRect = e.currentTarget.getBoundingClientRect();
+    const cursorX = e.clientX - canvasRect.left;
+    const cursorY = e.clientY - canvasRect.top;
     if (isZooming) {
-      handleWheelZoom(e.deltaY);
+      handleWheelZoom(e.deltaY, cursorX, cursorY);
     } else {
       handlePan(e);
     }
   };
 
-  const handleWheelZoom = (deltaY: number) => {
+  const handleWheelZoom = (
+    deltaY: number,
+    cursorX: number,
+    cursorY: number,
+  ) => {
     const ZOOM_STEP = 0.05;
     const delta = deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
     const zoom = getZoom();
@@ -138,21 +145,14 @@ const Canvas = () => {
 
     const zoomFactor = newZoom / zoom;
 
-    // Учет DPR для корректировки координат курсора
-    const adjustedCursorX = 0;
-    const adjustedCursorY = 0;
-
     const { x: offsetX, y: offsetY } = calculateOffset(
-      adjustedCursorX,
-      adjustedCursorY,
+      cursorX,
+      cursorY,
       zoomFactor,
     );
 
-    let newX = offset.x + offsetX;
-    let newY = offset.y + offsetY;
-
-    setOffset({ x: newX, y: newY });
     setZoom(newZoom);
+    moveCanvas(offsetX, offsetY);
   };
 
   const calculateOffset = (

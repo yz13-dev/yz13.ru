@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 
@@ -13,9 +12,7 @@ interface HandwrittenStrikethroughProps {
   segments?: number;
 }
 
-export const HandwrittenStrikethrough: React.FC<
-  HandwrittenStrikethroughProps
-> = ({
+const HandwrittenStrikethrough = ({
   children,
   duration = 2000,
   lineWidth = 2,
@@ -23,7 +20,7 @@ export const HandwrittenStrikethrough: React.FC<
   className = "",
   textClassName = "",
   segments = 20,
-}) => {
+}: HandwrittenStrikethroughProps) => {
   const textRef = useRef<HTMLSpanElement>(null);
   const [path, setPath] = useState("");
   const [lineLength, setLineLength] = useState(0);
@@ -112,3 +109,5 @@ export const HandwrittenStrikethrough: React.FC<
     </span>
   );
 };
+
+export { HandwrittenStrikethrough };
