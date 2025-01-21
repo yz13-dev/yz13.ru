@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 import { createStore, StoreApi, useStore } from "zustand";
 
 export type FieldType = "input" | "select";
@@ -22,7 +22,7 @@ const FieldProvider = ({
   children,
   type = "input",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   type?: FieldType;
 }) => {
   const [store] = useState(() =>

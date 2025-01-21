@@ -30,7 +30,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 import UserCircle from "../user/user-circle";
@@ -62,8 +62,7 @@ const Items = ({
           <Link href="/" className="absolute left-0 top-0 w-full h-full" />
           <HomeIcon size={18} className="text-foreground" />
         </div>
-        {
-          isDev &&
+        {isDev && (
           <div className="size-12 rounded-xl border flex relative items-center justify-center">
             <Link
               href="/canvas"
@@ -71,7 +70,7 @@ const Items = ({
             />
             <BrushIcon size={18} className="text-foreground" />
           </div>
-        }
+        )}
       </div>
       <div className="flex flex-row items-center space-x-1 *:bg-background">
         <Tooltip delayDuration={100} open={unMuteReminder}>
@@ -94,7 +93,9 @@ const Items = ({
         </div>
         {isDev && (
           <div className="size-12 rounded-xl border flex items-center justify-center">
-            <User sideOffset={12} asSquare />
+            <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
+              <User sideOffset={12} asSquare />
+            </Suspense>
           </div>
         )}
       </div>

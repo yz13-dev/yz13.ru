@@ -3,7 +3,7 @@ import PageDockFiller from "@/components/page-dock-filler";
 import Footer from "./footer";
 import Hero from "./hero";
 import ReleasesList from "./releases-list";
-import TechList from "./teck-list";
+import TechList from "./tech-list";
 
 const page = () => {
   return (

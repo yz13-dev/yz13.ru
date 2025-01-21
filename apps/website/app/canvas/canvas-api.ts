@@ -34,7 +34,7 @@ export class canvasAPI {
     const offset = { ...getOffset() };
     const size = { ...getSize() };
 
-    const BASE_GRID_SIZE = 350;
+    const BASE_GRID_SIZE = 100;
 
     this.ctx.fillStyle = getComputedStyle(canvas).getPropertyValue(
       "--canvas-background",
