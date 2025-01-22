@@ -1,10 +1,15 @@
+import { getChannels, joinChannel } from "@/actions/ws/channels";
 import { ChevronLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
 import Canvas from "./canvas";
 import Overlay from "./overlay";
 
-const page = () => {
+const page = async () => {
+  const channels = await getChannels();
+  if (channels.length === 0) {
+    joinChannel("canvas");
+  }
   return (
     <div className="w-full h-dvh relative">
       <Overlay>

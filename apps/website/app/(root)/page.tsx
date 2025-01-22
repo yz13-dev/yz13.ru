@@ -5,7 +5,7 @@ import Hero from "./hero";
 import ReleasesList from "./releases-list";
 import TechList from "./tech-list";
 
-const page = () => {
+const page = async () => {
   return (
     <>
       <Dock />
