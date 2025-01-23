@@ -30,7 +30,6 @@ const Hero = () => {
                 text="Фронтенд разработчик,"
                 className="text-foreground inline mr-2 text-xl font-medium"
               />
-              {/* <span className="text-foreground">Фронтенд разработчик</span>, */}
               ничего серьезного.
             </span>
             <span className="text-secondary text-xl font-medium w-fit inline mr-2">

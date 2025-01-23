@@ -78,9 +78,9 @@ const HandwrittenStrikethrough = ({
 
   return (
     <span className="relative inline-block">
-      <span ref={textRef} className={cn("select-none", textClassName)}>
+      <noindex ref={textRef} className={cn("select-none", textClassName)}>
         {children}
-      </span>
+      </noindex>
       <svg
         className="absolute left-0 top-0 w-full h-full pointer-events-none"
         style={{ overflow: "visible" }}
