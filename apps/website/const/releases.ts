@@ -67,7 +67,7 @@ const puzzle: Release = {
 
 const calendar_widget: Release = {
   id: "calendar-widget",
-  stage: "in_progress",
+  stage: "in_review",
   name: "Календарь",
   type: "widget",
   description: "Виджет для отображения календаря",
@@ -78,6 +78,22 @@ const calendar_widget: Release = {
 export { calendar_widget, draft, finance, puzzle };
 
 export const releases: Release[] = [calendar_widget, puzzle, finance, draft];
+
+export const getRelease = (id: string) => {
+  return releases.find((release) => release.id === id);
+};
+
+export const getReleaseProgress = (id: string) => {
+  const release = getRelease(id);
+  if (!release) return 0;
+  return stageAsProgress[release.stage];
+};
+
+export const orderedReleases = releases.sort((a, b) => {
+  const aProgress = getReleaseProgress(a.id);
+  const bProgress = getReleaseProgress(b.id);
+  return bProgress - aProgress;
+});
 
 export const getStage: Record<ReleaseStage, string> = {
   in_plans: "In plans",
@@ -101,14 +117,4 @@ export const getGroups = () => {
   });
 
   return groups;
-};
-
-export const getReleaseProgress = (id: string) => {
-  const release = getRelease(id);
-  if (!release) return 0;
-  return stageAsProgress[release.stage];
-};
-
-export const getRelease = (id: string) => {
-  return releases.find((release) => release.id === id);
 };

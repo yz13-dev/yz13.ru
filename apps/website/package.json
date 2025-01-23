@@ -17,6 +17,7 @@
     "@xyflow/react": "^12.3.6",
     "ahooks": "^3.8.4",
     "autoprefixer": "^10.4.20",
+    "critters": "^0.0.25",
     "dayjs": "^1.11.13",
     "favicon-fetch": "^1.0.0",
     "latest": "^0.2.0",

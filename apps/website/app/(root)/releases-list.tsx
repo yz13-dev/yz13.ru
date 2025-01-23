@@ -1,33 +1,26 @@
 "use client";
-import { getReleaseProgress, Release, releases } from "@/const/releases";
+import { getReleaseProgress, orderedReleases, Release } from "@/const/releases";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { FolderIcon, FolderOpenIcon, LayoutGridIcon } from "lucide-react";
 import { AnimatePresence, easeInOut, motion } from "motion/react";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { cn } from "yz13/cn";
+
 dayjs.extend(relativeTime);
 
 const ReleasesList = () => {
   return (
     <ul className="space-y-2">
-      {releases
-        .sort((a, b) => {
-          const aProgress = getReleaseProgress(a.id);
-          const bProgress = getReleaseProgress(b.id);
-          return bProgress - aProgress;
-        })
-        .map((release, index) => {
-          return (
-            <ReleaseItem key={release.id + "-" + index} release={release} />
-          );
-        })}
+      {orderedReleases.map((release, index) => {
+        return <ReleaseItem key={release.id + "-" + index} release={release} />;
+      })}
     </ul>
   );
 };
 
-const ReleaseItem = ({ release }: { release: Release }) => {
+const ReleaseItem = memo(({ release }: { release: Release }) => {
   const startedAt = dayjs(release.created_at).locale("ru").fromNow();
   const percent = getReleaseProgress(release.id);
   const [open, setOpen] = useState<boolean>(false);
@@ -110,6 +103,6 @@ const ReleaseItem = ({ release }: { release: Release }) => {
       </div>
     </li>
   );
-};
+});
 
 export default ReleasesList;

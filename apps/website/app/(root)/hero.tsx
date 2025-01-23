@@ -17,10 +17,7 @@ const Hero = () => {
         <div className="flex flex-col gap-1 w-full">
           <div className="mb-2 gap-2 flex items-center w-full justify-between">
             <div className="flex items-center gap-2">
-              <Logo size={{ width: 32, height: 32 }} />
-              <span className="text-foreground text-xl font-pixel font-semibold">
-                YZ13
-              </span>
+              <Logo size={{ width: 80, height: 32 }} type="full" />
             </div>
             <div className="flex items-center gap-4"></div>
           </div>
