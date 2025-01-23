@@ -3,7 +3,7 @@ import { getReleaseProgress, Release, releases } from "@/const/releases";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { FolderIcon, FolderOpenIcon } from "lucide-react";
+import { FolderIcon, FolderOpenIcon, LayoutGridIcon } from "lucide-react";
 import { AnimatePresence, easeInOut, motion } from "motion/react";
 import { useState } from "react";
 import { cn } from "yz13/cn";
@@ -45,11 +45,15 @@ const ReleaseItem = ({ release }: { release: Release }) => {
                 "text-foreground/60 group-hover:text-foreground transition-colors",
               )}
             >
-              {open ? (
-                <FolderOpenIcon className="shrink-0 size-4 lg:!size-[18]" />
-              ) : (
-                <FolderIcon className="shrink-0 size-4 lg:!size-[18]" />
-              )}
+              {release.type === "app" ? (
+                open ? (
+                  <FolderOpenIcon className="shrink-0 size-4 lg:!size-[18]" />
+                ) : (
+                  <FolderIcon className="shrink-0 size-4 lg:!size-[18]" />
+                )
+              ) : release.type === "widget" ? (
+                <LayoutGridIcon className="shrink-0 size-4 lg:!size-[18]" />
+              ) : null}
               <span className="lg:!text-sm text-xs line-clamp-1">
                 {release.name}
               </span>

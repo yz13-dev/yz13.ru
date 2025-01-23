@@ -1,8 +1,11 @@
 import dayjs from "dayjs";
 
+type ReleaseType = "app" | "widget";
+
 export type Release = {
   id: string;
   stage: ReleaseStage;
+  type: ReleaseType;
   name: string;
   description: string;
   created_at: string;
@@ -32,6 +35,7 @@ const finance: Release = {
   id: "finance",
   stage: "in_progress",
   name: "Финансы",
+  type: "app",
   description: "Сервис для отслеживания и управления финансовыми расходами",
   created_at: dayjs("2024-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
@@ -45,6 +49,7 @@ const draft: Release = {
   id: "draft",
   stage: "in_progress",
   name: "Черновики",
+  type: "app",
   description: "Сервия для публикации черновиков ui-дизайнов",
   created_at: dayjs("2023-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
@@ -54,14 +59,25 @@ const puzzle: Release = {
   id: "puzzle-game",
   stage: "in_plans",
   name: "Пазл",
+  type: "app",
   description: "Игра по сброру пазлов",
   created_at: dayjs("2023-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
 };
 
-export { draft, finance, puzzle };
+const calendar_widget: Release = {
+  id: "calendar-widget",
+  stage: "in_progress",
+  name: "Календарь",
+  type: "widget",
+  description: "Виджет для отображения календаря",
+  created_at: dayjs("2025-01-23").toString(),
+  updated_at: dayjs("2025-01-23").toString(),
+};
 
-export const releases: Release[] = [puzzle, finance, draft];
+export { calendar_widget, draft, finance, puzzle };
+
+export const releases: Release[] = [calendar_widget, puzzle, finance, draft];
 
 export const getStage: Record<ReleaseStage, string> = {
   in_plans: "In plans",
