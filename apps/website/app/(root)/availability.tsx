@@ -4,7 +4,12 @@ const LiveTime = dynamic(() => import("@/components/live/live-time"), {
 import { get } from "@vercel/edge-config";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { PiGithubLogo, PiTelegramLogo, PiXLogo } from "react-icons/pi";
+import {
+  PiGithubLogo,
+  PiMailbox,
+  PiTelegramLogo,
+  PiXLogo,
+} from "react-icons/pi";
 import { cn } from "yz13/cn";
 
 type AvailabilityProps = {};
@@ -34,6 +39,12 @@ const Availability = async ({}: AvailabilityProps) => {
         </div>
       </div>
       <div className="flex items-center gap-2">
+        <Link target="_blank" href="mailto:YZTHECEO@yandex.ru">
+          <PiMailbox
+            size={16}
+            className="text-secondary hover:text-foreground transition-colors"
+          />
+        </Link>
         <Link target="_blank" href="https://github.com/yz13-env">
           <PiGithubLogo
             size={16}

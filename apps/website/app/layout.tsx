@@ -66,8 +66,8 @@ const MONO = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "YZ13",
-  description: "Developer",
+  title: "YZ13 - Фронтенд разработчик",
+  description: "На пути к фуллстеку",
   authors: [
     {
       name: "YZ13",
