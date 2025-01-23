@@ -10,6 +10,7 @@ const Availability = dynamic(() => import("./availability"), {
 const ConnectButton = dynamic(() => import("./connect-button"), {
   loading: () => <Skeleton className="w-28 h-7 rounded-lg inline-block" />,
 });
+
 const Hero = () => {
   return (
     <div className="w-full space-y-6">
@@ -17,7 +18,7 @@ const Hero = () => {
         <div className="flex flex-col gap-1 w-full">
           <div className="mb-2 gap-2 flex items-center w-full justify-between">
             <div className="flex items-center gap-2">
-              <Logo size={{ width: 80, height: 32 }} type="full" />
+              <Logo size={{ width: 80, height: 15 }} type="full" />
             </div>
             <div className="flex items-center gap-4"></div>
           </div>
