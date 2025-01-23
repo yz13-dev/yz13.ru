@@ -10,7 +10,6 @@ import TechList from "./tech-list";
 const page = async () => {
   return (
     <>
-      <Dock />
       <div className="w-full max-w-lg space-y-12 mx-auto mt-[15dvh] *:px-6">
         <Hero />
         <TechList />
@@ -19,6 +18,7 @@ const page = async () => {
         <Footer />
         <PageDockFiller />
       </div>
+      <Dock />
     </>
   );
 };

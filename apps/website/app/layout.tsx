@@ -54,11 +54,6 @@ const SANS = localFont({
   display: "swap",
   variable: "--font-yz-sans",
 });
-// localFont({
-//   src: "./fonts/geist/GeistVF.woff",
-//   fallback: ["Inter"],
-//   variable: "--font-yz-sans",
-// });
 
 const MONO = localFont({
   src: "./fonts/geist/GeistMonoVF.woff",
@@ -66,7 +61,7 @@ const MONO = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "YZ13 - Фронтенд разработчик",
+  title: "YZ13",
   description: "На пути к фуллстеку",
   authors: [
     {
@@ -86,6 +81,36 @@ export const metadata: Metadata = {
     "Backend",
     "Fullstack",
   ],
+  twitter: {
+    card: "summary_large_image",
+    site: "YZ13",
+    creator: "@YZ13_DEV",
+    description: "На пути к фуллстеку",
+    title: "YZ13",
+    images: [
+      {
+        width: 1090,
+        height: 714,
+        url: "/og/yz-light-window.png",
+      },
+    ],
+  },
+  openGraph: {
+    type: "website",
+    description: "На пути к фуллстеку",
+    title: "YZ13",
+    siteName: "YZ13",
+    url: "https://yz13.ru",
+    locale: "ru_RU",
+    emails: ["yztheceo@yandex.ru"],
+    images: [
+      {
+        url: "/og/yz-light-window.png",
+        width: 1090,
+        height: 714,
+      },
+    ],
+  },
 };
 
 export const viewport: Viewport = {
