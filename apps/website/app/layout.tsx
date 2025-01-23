@@ -82,7 +82,8 @@ export const metadata: Metadata = {
     "Fullstack",
   ],
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
+    site: "YZ13",
     creator: "@YZ13_DEV",
     description: "На пути к фуллстеку",
     title: "YZ13",
@@ -98,6 +99,7 @@ export const metadata: Metadata = {
     type: "website",
     description: "На пути к фуллстеку",
     title: "YZ13",
+    siteName: "YZ13",
     url: "https://yz13.ru",
     locale: "ru_RU",
     emails: ["yztheceo@yandex.ru"],
