@@ -1,8 +1,8 @@
 const UserAnalytics = () => {
   return (
     <div className="w-full divide-y">
-      <div className="w-full grid grid-cols-2 divide-x h-32">
-        <div className="w-full h-full p-4 flex flex-col gap-3">
+      <div className="w-full grid grid-cols-2 divide-x h-28">
+        <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">New Users</span>
             <div className="size-6 rounded-full bg-yz-neutral-200" />
@@ -17,7 +17,7 @@ const UserAnalytics = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-full p-4 flex flex-col gap-3">
+        <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">Unique Users</span>
             <div className="size-6 rounded-full bg-yz-neutral-200" />
@@ -33,8 +33,8 @@ const UserAnalytics = () => {
           </div>
         </div>
       </div>
-      <div className="w-full grid grid-cols-2 divide-x h-32">
-        <div className="w-full h-full p-4 flex flex-col gap-3">
+      <div className="w-full grid grid-cols-2 divide-x h-28">
+        <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">Week retention</span>
             <div className="size-6 rounded-full bg-yz-neutral-200" />
@@ -49,7 +49,7 @@ const UserAnalytics = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-full p-4 flex flex-col gap-3">
+        <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">Session</span>
             <div className="size-6 rounded-full bg-yz-neutral-200" />
@@ -65,7 +65,7 @@ const UserAnalytics = () => {
           </div>
         </div>
       </div>
-      <div className="w-full aspect-video p-4 flex flex-col gap-3">
+      <div className="w-full aspect-video p-4 flex flex-col gap-1.5">
         <div className="flex items-center gap-2 justify-between">
           <span className="text-base text-foreground">Views</span>
           <div className="w-36 h-6 rounded-md bg-yz-neutral-200" />
