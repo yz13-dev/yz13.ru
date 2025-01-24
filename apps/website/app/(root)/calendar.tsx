@@ -4,12 +4,11 @@ import { Separator } from "mono/components/separator";
 
 type TimeRange = [number, number];
 
-const Calendar = () => {
+const Calendar = ({ timeRange = [9, 16] }: { timeRange?: TimeRange }) => {
   const today = dayjs().locale("ru");
   const tomorrow = today.add(1, "day");
   const todayFormatted = today.format("dddd, DD MMMM");
   const tomorrowFormatted = tomorrow.format("DD MMMM");
-  const timeRange: TimeRange = [9, 16];
   const calculateRange = (range: TimeRange) => {
     const length = range[1] - range[0];
     const result: number[] = [];
@@ -19,11 +18,17 @@ const Calendar = () => {
     return result;
   };
   const range = calculateRange(timeRange);
+  const rangeLength = range.length;
   return (
-    <div className="w-full flex flex-row gap-4 *:w-1/2 *:flex *:flex-col *:gap-4">
+    <div className="w-full h-fit flex flex-row gap-4 *:w-1/2 *:flex *:flex-col *:gap-4">
       <div>
         <span className="uppercase text-sm">{todayFormatted}</span>
-        <div className="w-full relative *:w-full h-[304px]">
+        <div
+          style={{
+            height: rangeLength * 48,
+          }}
+          className="w-full relative *:w-full"
+        >
           <div className="absolute *:h-12 w-full top-0 left-0">
             {range.map((time, index) => {
               return (
@@ -40,7 +45,12 @@ const Calendar = () => {
       </div>
       <div>
         <span className="uppercase text-sm">завтра, {tomorrowFormatted}</span>
-        <div className="w-full relative *:w-full h-[304px]">
+        <div
+          style={{
+            height: rangeLength * 48,
+          }}
+          className="w-full relative *:w-full"
+        >
           <div className="absolute *:h-12 w-full top-0 left-0">
             {range.map((time, index) => {
               return (

@@ -1,8 +1,4 @@
-const LiveTime = dynamic(() => import("@/components/live/live-time"), {
-  ssr: false,
-});
 import { get } from "@vercel/edge-config";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   PiGithubLogo,
@@ -15,8 +11,8 @@ import { cn } from "yz13/cn";
 type AvailabilityProps = {};
 
 const Availability = async ({}: AvailabilityProps) => {
-  const busy = (await get("busy")) ?? false;
-  const status: "available" | "unavailable" = busy
+  const isBusy = await get<boolean>("busy");
+  const status: "available" | "unavailable" = isBusy
     ? "unavailable"
     : "available";
   return (

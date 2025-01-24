@@ -22,6 +22,7 @@ const Logo = ({
 }) => {
   const lightSrc = type === "only-icon" ? yz_light : yz_full_light;
   const darkSrc = type === "only-icon" ? yz_dark : yz_full_dark;
+  const isSizeToSmall = size && size.width < 40;
   if (size) {
     return (
       <div className={cn("relative", className)}>
@@ -29,7 +30,7 @@ const Logo = ({
           className={cn(imgClassName, "light-mode-image")}
           width={size.width}
           height={size.height}
-          placeholder="blur"
+          placeholder={isSizeToSmall ? undefined : "blur"}
           src={lightSrc}
           alt="YZ13-LOGO"
         />
@@ -37,7 +38,7 @@ const Logo = ({
           className={cn(imgClassName, "dark-mode-image")}
           width={size.width}
           height={size.height}
-          placeholder="blur"
+          placeholder={isSizeToSmall ? undefined : "blur"}
           src={darkSrc}
           alt="YZ13-LOGO"
         />

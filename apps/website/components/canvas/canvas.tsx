@@ -19,7 +19,17 @@ import useCanvasStore, {
 import { setCursorPosition } from "./cursor.store";
 import { onDown, onMove } from "./event-api";
 
-const Canvas = () => {
+type CanvasOptions = {
+  grid?: boolean;
+};
+
+type CanvasProps = {
+  onRender?: (ctx: CanvasRenderingContext2D) => void;
+  options?: CanvasOptions;
+};
+
+const Canvas = ({ onRender, options }: CanvasProps) => {
+  const { grid = false } = options || {};
   const ref = useRef<HTMLCanvasElement>(null);
   const offset = useCanvasStore((state) => state.offset);
   const setOffset = useCanvasStore((state) => state.setOffset);
@@ -45,7 +55,9 @@ const Canvas = () => {
 
     api.zoom();
     api.offset();
-    api.grid();
+    if (grid) api.grid();
+
+    if (onRender) onRender(ctx);
 
     ctx.restore();
   };

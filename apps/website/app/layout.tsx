@@ -61,8 +61,8 @@ const MONO = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "YZ13",
-  description: "На пути к фуллстеку",
+  title: "YZ13 – разработчик",
+  description: "Нужен разработчик?",
   authors: [
     {
       name: "YZ13",
@@ -75,39 +75,47 @@ export const metadata: Metadata = {
     "React",
     "TailwindCSS",
     "YZ13",
-    "Developer",
-    "Personal",
-    "Frontend",
-    "Backend",
-    "Fullstack",
+    "Web Development",
+    "Fullstack Developer",
+    "Frontend Development",
+    "Backend Development",
   ],
   twitter: {
     card: "summary_large_image",
-    site: "YZ13",
+    site: "@YZ13_DEV",
     creator: "@YZ13_DEV",
-    description: "На пути к фуллстеку",
     title: "YZ13",
+    description: "Полезные материалы по frontend и backend разработке.",
     images: [
       {
+        url: "/og/yz-light-window.png",
         width: 1090,
         height: 714,
-        url: "/og/yz-light-window.png",
+        alt: "YZ13 – разработчик",
       },
     ],
   },
   openGraph: {
     type: "website",
-    description: "На пути к фуллстеку",
     title: "YZ13",
+    description: "Нужен разработчик?",
     siteName: "YZ13",
     url: "https://yz13.ru",
     locale: "ru_RU",
+    determiner: "the",
     emails: ["yztheceo@yandex.ru"],
     images: [
       {
         url: "/og/yz-light-window.png",
         width: 1090,
         height: 714,
+        alt: "YZ13 – блог разработчика",
+      },
+      {
+        url: "/og/yz-dark-window.png",
+        width: 1090,
+        height: 714,
+        alt: "YZ13 – блог разработчика (темная тема)",
       },
     ],
   },

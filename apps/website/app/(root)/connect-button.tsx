@@ -4,8 +4,8 @@ import { get } from "@vercel/edge-config";
 import Link from "next/link";
 
 const ConnectButton = async () => {
-  const busy = (await get("busy")) ?? false;
-  if (busy)
+  const isBusy = await get<boolean>("busy");
+  if (isBusy)
     return (
       <HandwrittenStrikethrough
         segments={30}

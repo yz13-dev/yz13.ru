@@ -1,6 +1,3 @@
-import User from "@/app/user";
-import Dock from "@/components/dock/dock";
-import { Header } from "@/components/header";
 import { ChartColumnBigIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import {
@@ -13,24 +10,25 @@ import UserAnalytics from "./user-analytics";
 const page = () => {
   return (
     <>
-      <Header>
-        <Header.Left></Header.Left>
-        <Header.Center></Header.Center>
-        <Header.Right>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button size="icon" variant="ghost">
-                <ChartColumnBigIcon size={16} />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[460px] p-0 max-w-dvw rounded-xl">
-              <UserAnalytics />
-            </PopoverContent>
-          </Popover>
-          <User />
-        </Header.Right>
-      </Header>
-      <Dock />
+      <header className="w-full h-fit flex items-center justify-between">
+        <h1 className="text-2xl font-medium text-foreground">Аналитика</h1>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button size="icon" variant="ghost" className="ml-auto">
+              <ChartColumnBigIcon size={16} />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            className="w-[440px] p-0 rounded-xl"
+            sideOffset={10}
+            side="bottom"
+            align="end"
+            alignOffset={0}
+          >
+            <UserAnalytics />
+          </PopoverContent>
+        </Popover>
+      </header>
     </>
   );
 };
