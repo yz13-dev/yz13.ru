@@ -1,9 +1,9 @@
 import { getChannels, joinChannel } from "@/actions/ws/channels";
+import Canvas from "@/components/canvas/canvas";
+import Overlay from "@/components/canvas/overlay";
 import { ChevronLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
-import Canvas from "./canvas";
-import Overlay from "./overlay";
 
 const page = async () => {
   const channels = await getChannels();

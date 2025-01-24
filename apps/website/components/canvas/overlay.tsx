@@ -1,10 +1,9 @@
 "use client";
+import { isDev } from "@/app/login/get-url";
 import { ReactNode } from "react";
 import { cn } from "yz13/cn";
-import { isDev } from "../login/get-url";
 import useCanvasStore from "./canvas.store";
 import { useCursor } from "./cursor.store";
-import RoomUsers from "./room-users";
 
 const OffsetCoords = () => {
   const offset = useCanvasStore((state) => state.offset);
@@ -52,7 +51,6 @@ const Overlay = ({
   return (
     <div className={cn("w-full h-dvh absolute left-0 top-0", className)}>
       {children}
-      <RoomUsers />
       <InfoDock>
         <CursorPosition />
         <Zoom />

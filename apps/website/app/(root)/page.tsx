@@ -1,7 +1,6 @@
 import Dock from "@/components/dock/dock";
 import PageDockFiller from "@/components/page-dock-filler";
-import { showCalendar, showReleasesList } from "@/const/flags";
-import Calendar from "./calendar";
+import { showReleasesList } from "@/const/flags";
 import Footer from "./footer";
 import Hero from "./hero";
 import ReleasesList from "./releases-list";
@@ -13,7 +12,6 @@ const page = async () => {
       <div className="w-full max-w-lg space-y-12 mx-auto mt-[15dvh] *:px-6">
         <Hero />
         <TechList />
-        {(await showCalendar()) && <Calendar />}
         {(await showReleasesList()) && <ReleasesList />}
         <Footer />
         <PageDockFiller />
