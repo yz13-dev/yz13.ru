@@ -1,7 +1,7 @@
 const UserAnalytics = () => {
   return (
     <div className="w-full divide-y">
-      <div className="w-full grid grid-cols-2 divide-x h-28">
+      <div className="w-full grid grid-cols-2 divide-x h-fit">
         <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">New Users</span>
@@ -33,7 +33,7 @@ const UserAnalytics = () => {
           </div>
         </div>
       </div>
-      <div className="w-full grid grid-cols-2 divide-x h-28">
+      <div className="w-full grid grid-cols-2 divide-x h-fit">
         <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">Week retention</span>

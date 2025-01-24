@@ -9,14 +9,14 @@ import {
   SmileIcon,
 } from "lucide-react";
 import { cn } from "yz13/cn";
-import { Button, Icon, LinkButton, Text } from "./button";
+import { Icon, LinkButton, Text } from "./button";
 
 const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "w-12 h-dvh p-2 relative left-0 top-0 flex flex-col justify-between",
-        "2xl:!w-64 2xl:!p-6 2xl:!absolute",
+        "w-12 h-dvh px-2 py-6 sticky left-0 top-0 flex flex-col justify-between",
+        "2xl:!w-64 2xl:!px-6 2xl:!fixed",
       )}
     >
       <div className="w-full h-10">
@@ -32,34 +32,34 @@ const Sidebar = () => {
           </LinkButton>
         </div>
         <div>
-          <Button className="w-full">
+          <LinkButton href="/workspace/projects" className="w-full">
             <Icon>
               <CirclePlayIcon size={16} />
             </Icon>
             <Text>Проекты</Text>
-          </Button>
-          <Button className="w-full">
+          </LinkButton>
+          <LinkButton href="/workspace/customers" className="w-full">
             <Icon>
               <SmileIcon size={16} />
             </Icon>
             <Text>Заказчики</Text>
-          </Button>
+          </LinkButton>
         </div>
         <div>
-          <Button className="w-full">
+          <LinkButton href="/workspace/schedule" className="w-full">
             <Icon>
               <CalendarIcon size={16} />
             </Icon>
             <Text>Расписание</Text>
-          </Button>
+          </LinkButton>
         </div>
         <div>
-          <Button className="w-full">
+          <LinkButton href="/workspace/finances" className="w-full">
             <Icon>
               <DollarSignIcon size={16} />
             </Icon>
             <Text>Финансы</Text>
-          </Button>
+          </LinkButton>
           <LinkButton href="/workspace/analytics" className="w-full">
             <Icon>
               <ChartPieIcon size={16} />
