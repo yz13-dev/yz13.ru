@@ -1,12 +1,6 @@
 import { get } from "@vercel/edge-config";
-import Link from "next/link";
-import {
-  PiGithubLogo,
-  PiMailbox,
-  PiTelegramLogo,
-  PiXLogo,
-} from "react-icons/pi";
 import { cn } from "yz13/cn";
+import SocialLinks from "./social-links";
 
 type AvailabilityProps = {};
 
@@ -34,32 +28,7 @@ const Availability = async ({}: AvailabilityProps) => {
           </span>
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Link target="_blank" href="mailto:YZTHECEO@yandex.ru">
-          <PiMailbox
-            size={16}
-            className="text-secondary hover:text-foreground transition-colors"
-          />
-        </Link>
-        <Link target="_blank" href="https://github.com/yz13-env">
-          <PiGithubLogo
-            size={16}
-            className="text-secondary hover:text-foreground transition-colors"
-          />
-        </Link>
-        <Link target="_blank" href="https://x.com/YZ13_DEV">
-          <PiXLogo
-            size={16}
-            className="text-secondary hover:text-foreground transition-colors"
-          />
-        </Link>
-        <Link target="_blank" href="https://t.me/yz13_dev">
-          <PiTelegramLogo
-            size={16}
-            className="text-secondary hover:text-foreground transition-colors"
-          />
-        </Link>
-      </div>
+      <SocialLinks />
     </div>
   );
 };
