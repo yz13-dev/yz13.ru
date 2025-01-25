@@ -5,10 +5,9 @@ import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
 
 import { Suspense } from "react";
+import Availability from "./availability";
 import Banner from "./banner";
-const Availability = dynamic(() => import("./availability"), {
-  loading: () => <Skeleton className="h-5 w-full rounded-md" />,
-});
+
 const ConnectButton = dynamic(() => import("./connect-button"), {
   loading: () => (
     <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block ml-2" />
@@ -19,7 +18,7 @@ const Hero = () => {
   return (
     <div className="w-full space-y-6">
       <div className="flex items-start sm:!flex-row flex-col gap-6 w-full">
-        <Banner />
+        <Banner className="sm:!block hidden" />
         <div className="flex flex-col gap-4 w-full">
           <div className="gap-2 flex items-center w-full justify-between">
             <div className="flex items-center gap-2">
@@ -47,7 +46,7 @@ const Hero = () => {
             </p>
           </div>
           <div className="w-full">
-            <Suspense fallback={<Skeleton className="h-5 w-full rounded-md" />}>
+            <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
               <Availability />
             </Suspense>
           </div>
