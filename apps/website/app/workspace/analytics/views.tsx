@@ -1,5 +1,6 @@
 "use client";
 import { ViewsChartSession } from "@/types/session";
+import dayjs from "dayjs";
 import {
   ChartConfig,
   ChartContainer,
@@ -9,41 +10,36 @@ import {
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 const chartConfig = {
-  created_at: {
-    label: "Created at",
+  label: {
+    label: "Date",
     color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-const Views = ({ views = [] }: { views: ViewsChartSession[] }) => {
+const Views = ({ views }: { views: ViewsChartSession }) => {
   return (
     <ChartContainer config={chartConfig}>
-      <AreaChart
-        accessibilityLayer
-        data={views}
-        margin={{
-          left: 12,
-          right: 12,
-        }}
-      >
+      <AreaChart accessibilityLayer data={views.chart.data}>
         <CartesianGrid vertical={false} />
         <XAxis
-          dataKey="user_id"
+          dataKey="label"
           tickLine={false}
           axisLine={false}
           tickMargin={8}
-          tickFormatter={(value) => value.slice(0, 3)}
+          tickFormatter={(value) => {
+            return dayjs(value).format("DD-MM");
+          }}
         />
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent indicator="line" />}
         />
         <Area
-          dataKey="created_at"
+          dataKey="count"
           type="natural"
-          fill="var(--color-desktop)"
+          fill="var(--color-label)"
           fillOpacity={0.4}
-          stroke="var(--color-desktop)"
+          stroke="var(--color-label)"
         />
       </AreaChart>
     </ChartContainer>

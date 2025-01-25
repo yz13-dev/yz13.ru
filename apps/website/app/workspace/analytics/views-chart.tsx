@@ -18,9 +18,7 @@ const ViewsChart = async () => {
           </span>
         </div>
       </div>
-      <div className="w-full h-full">
-        <Views views={views} />
-      </div>
+      <div className="w-full h-full">{views && <Views views={views} />}</div>
     </div>
   );
 };

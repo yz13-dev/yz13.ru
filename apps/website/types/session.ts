@@ -1,12 +1,13 @@
-export type VisitorSession = {
-  id: string;
-  created_at: string;
-  visitor_id: string;
-  duration: number;
-};
+import { Tables } from "yz13/supabase/database";
+
+export type VisitorSession = Tables<"visitor-session">;
 
 export type ViewsChartSession = {
-  id: string;
-  created_at: string;
-  visitor_id: string;
+  range_start: string;
+  range_end: string;
+  error: null;
+  chart: {
+    data: any[];
+    labels: string[];
+  };
 };
