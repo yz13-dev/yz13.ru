@@ -32,7 +32,7 @@ const Logo = ({
           height={size.height}
           placeholder={isSizeToSmall ? undefined : "blur"}
           src={lightSrc}
-          alt="YZ13-LOGO"
+          alt="YZ13"
         />
         <Image
           className={cn(imgClassName, "dark-mode-image")}
@@ -40,7 +40,7 @@ const Logo = ({
           height={size.height}
           placeholder={isSizeToSmall ? undefined : "blur"}
           src={darkSrc}
-          alt="YZ13-LOGO"
+          alt="YZ13"
         />
       </div>
     );
