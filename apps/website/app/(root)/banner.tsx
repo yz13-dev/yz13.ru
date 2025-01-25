@@ -1,0 +1,38 @@
+import Image from "next/image";
+import window_dark from "public/og/yz-dark-window.png";
+import window_light from "public/og/yz-light-window.png";
+import { cn } from "yz13/cn";
+
+const Banner = ({ className = "" }: { className?: string }) => {
+  return (
+    <div
+      className={cn(
+        "relative w-full h-fit aspect-video rounded-xl border overflow-hidden",
+        className,
+      )}
+      itemScope
+      itemType="http://schema.org/ImageObject"
+    >
+      <Image
+        fill
+        draggable={false}
+        placeholder="blur"
+        itemProp="contentUrl"
+        src={window_dark}
+        className="dark-mode-image w-full"
+        alt="Нужен разработчик?"
+      />
+      <Image
+        fill
+        draggable={false}
+        placeholder="blur"
+        itemProp="contentUrl"
+        src={window_light}
+        className="light-mode-image w-full"
+        alt="Нужен разработчик?"
+      />
+    </div>
+  );
+};
+
+export default Banner;
