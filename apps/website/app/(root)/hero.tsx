@@ -8,7 +8,9 @@ const Availability = dynamic(() => import("./availability"), {
   loading: () => <Skeleton className="h-5 w-full rounded-md" />,
 });
 const ConnectButton = dynamic(() => import("./connect-button"), {
-  loading: () => <Skeleton className="w-28 h-7 rounded-lg inline-block" />,
+  loading: () => (
+    <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block ml-2" />
+  ),
 });
 
 const Hero = () => {
@@ -22,26 +24,24 @@ const Hero = () => {
             </div>
             <div className="flex items-center gap-4"></div>
           </div>
-          <div>
-            <span className="text-secondary text-xl w-fit inline-block font-medium mr-2">
-              <SparklesText
-                text="Фронтенд разработчик,"
-                className="text-foreground inline mr-2 text-xl font-medium"
-              />
-              ничего серьезного.
-            </span>
-            <span className="text-secondary text-xl font-medium w-fit inline mr-2">
-              На пути к{" "}
+          <div className="flex flex-row gap-x-2 flex-wrap w-full">
+            <SparklesText
+              tag="h1"
+              text="Фронтенд разработчик,"
+              className="text-foreground text-xl font-medium"
+            />
+            <p className="text-secondary text-xl w-fit font-medium">
+              ничего серьезного. На пути к{" "}
               <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
               фуллстеку.
-            </span>
-            <Suspense
-              fallback={
-                <Skeleton className="w-28 h-7 rounded-lg inline-block" />
-              }
-            >
-              <ConnectButton />
-            </Suspense>
+              <Suspense
+                fallback={
+                  <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block ml-2" />
+                }
+              >
+                <ConnectButton className="inline-block ml-2" />
+              </Suspense>
+            </p>
           </div>
         </div>
       </div>

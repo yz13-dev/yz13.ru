@@ -19,6 +19,7 @@ interface SparklesTextProps {
   className?: string;
   text: string;
   sparklesCount?: number;
+  tag?: "p" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   colors?: {
     first: string;
     second: string;
@@ -30,6 +31,7 @@ const SparklesText: React.FC<SparklesTextProps> = ({
   colors = { first: "#9E7AFF", second: "#FE8BBB" },
   className,
   sparklesCount = 20,
+  tag = "span",
   ...props
 }) => {
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
@@ -70,9 +72,10 @@ const SparklesText: React.FC<SparklesTextProps> = ({
     return () => cancelAnimationFrame(animationFrameId);
   }, [colors.first, colors.second, sparklesCount]);
 
+  const Tag = tag;
   return (
-    <div
-      className={cn("", className)}
+    <Tag
+      className={cn("relative inline-block", className)}
       {...props}
       style={
         {
@@ -81,13 +84,11 @@ const SparklesText: React.FC<SparklesTextProps> = ({
         } as CSSProperties
       }
     >
-      <span className="relative inline-block">
-        {sparkles.map((sparkle) => (
-          <Sparkle key={sparkle.id} {...sparkle} />
-        ))}
-        <span>{text}</span>
-      </span>
-    </div>
+      {sparkles.map((sparkle) => (
+        <Sparkle key={sparkle.id} {...sparkle} />
+      ))}
+      <span>{text}</span>
+    </Tag>
   );
 };
 
