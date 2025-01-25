@@ -3,10 +3,9 @@ import { Logo } from "@/components/logo";
 import { SparklesText } from "@/components/sparkle-text";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import window_dark from "public/og/yz-dark-window.png";
-import window_light from "public/og/yz-light-window.png";
+
 import { Suspense } from "react";
+import Banner from "./banner";
 const Availability = dynamic(() => import("./availability"), {
   loading: () => <Skeleton className="h-5 w-full rounded-md" />,
 });
@@ -19,9 +18,10 @@ const ConnectButton = dynamic(() => import("./connect-button"), {
 const Hero = () => {
   return (
     <div className="w-full space-y-6">
-      <div className="flex items-start gap-3 w-full">
-        <div className="flex flex-col gap-1 w-full">
-          <div className="mb-2 gap-2 flex items-center w-full justify-between">
+      <div className="flex items-start sm:!flex-row flex-col gap-6 w-full">
+        <Banner />
+        <div className="flex flex-col gap-4 w-full">
+          <div className="gap-2 flex items-center w-full justify-between">
             <div className="flex items-center gap-2">
               <Logo size={{ width: 80, height: 15 }} type="full" />
             </div>
@@ -46,36 +46,12 @@ const Hero = () => {
               </Suspense>
             </p>
           </div>
+          <div className="w-full">
+            <Suspense fallback={<Skeleton className="h-5 w-full rounded-md" />}>
+              <Availability />
+            </Suspense>
+          </div>
         </div>
-      </div>
-
-      <div className="w-full">
-        <Suspense fallback={<Skeleton className="h-5 w-full rounded-md" />}>
-          <Availability />
-        </Suspense>
-      </div>
-
-      <div
-        className="relative w-full h-fit aspect-video rounded-xl border overflow-hidden"
-        itemScope
-        itemType="http://schema.org/ImageObject"
-      >
-        <Image
-          fill
-          placeholder="blur"
-          itemProp="contentUrl"
-          src={window_dark}
-          className="dark-mode-image w-full"
-          alt="Нужен разработчик?"
-        />
-        <Image
-          fill
-          placeholder="blur"
-          itemProp="contentUrl"
-          src={window_light}
-          className="light-mode-image w-full"
-          alt="Нужен разработчик?"
-        />
       </div>
     </div>
   );

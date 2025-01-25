@@ -60,40 +60,37 @@ const list = [
 
 const TechList = () => {
   return (
-    <div className="w-full space-y-3">
-      <span className="text-secondary text-base font-medium">Мой стек:</span>
-      <ul className="flex w-fit flex-row p-1 rounded-xl bg-yz-neutral-100 gap-1 border border-yz-neutral-200">
-        {list.map(({ label, img, url }) => {
-          return (
-            <Tooltip delayDuration={100} key={label + "/" + url}>
-              <li className="group cursor-default size-10 flex items-center justify-center transition-colors rounded-lg bg-yz-neutral-200 hover:bg-yz-neutral-300">
-                <TooltipTrigger className="relative size-6">
-                  <Image
-                    src={img.light}
-                    alt={label}
-                    loading="lazy"
-                    placeholder="blur"
-                    fill
-                    className="light-mode-image"
-                  />
-                  <Image
-                    src={img.dark}
-                    alt={label}
-                    loading="lazy"
-                    placeholder="blur"
-                    fill
-                    className="dark-mode-image"
-                  />
-                </TooltipTrigger>
-              </li>
-              <TooltipContent side="bottom" className="border">
-                {label}
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
-      </ul>
-    </div>
+    <ul className="flex w-fit flex-row p-1 rounded-xl bg-yz-neutral-100 gap-1 border border-yz-neutral-200">
+      {list.map(({ label, img, url }) => {
+        return (
+          <Tooltip delayDuration={100} key={label + "/" + url}>
+            <li className="group cursor-default size-10 flex items-center justify-center transition-colors rounded-lg bg-yz-neutral-200 hover:bg-yz-neutral-300">
+              <TooltipTrigger className="relative size-6">
+                <Image
+                  src={img.light}
+                  alt={label}
+                  loading="lazy"
+                  placeholder="blur"
+                  fill
+                  className="light-mode-image"
+                />
+                <Image
+                  src={img.dark}
+                  alt={label}
+                  loading="lazy"
+                  placeholder="blur"
+                  fill
+                  className="dark-mode-image"
+                />
+              </TooltipTrigger>
+            </li>
+            <TooltipContent side="bottom" className="border">
+              {label}
+            </TooltipContent>
+          </Tooltip>
+        );
+      })}
+    </ul>
   );
 };
 
