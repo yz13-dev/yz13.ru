@@ -183,18 +183,24 @@ export type Database = {
           created_at: string;
           duration: number;
           id: string;
+          user_agent: string | null;
+          user_id: string | null;
           visitor_id: string;
         };
         Insert: {
           created_at?: string;
           duration: number;
           id?: string;
+          user_agent?: string | null;
+          user_id?: string | null;
           visitor_id: string;
         };
         Update: {
           created_at?: string;
           duration?: number;
           id?: string;
+          user_agent?: string | null;
+          user_id?: string | null;
           visitor_id?: string;
         };
         Relationships: [];
