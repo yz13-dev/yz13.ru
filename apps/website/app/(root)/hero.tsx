@@ -4,6 +4,8 @@ import { SparklesText } from "@/components/sparkle-text";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import window_dark from "public/og/yz-dark-window.png";
+import window_light from "public/og/yz-light-window.png";
 import { Suspense } from "react";
 const Availability = dynamic(() => import("./availability"), {
   loading: () => <Skeleton className="h-5 w-full rounded-md" />,
@@ -60,15 +62,17 @@ const Hero = () => {
       >
         <Image
           fill
+          placeholder="blur"
           itemProp="contentUrl"
-          src="/og/yz-dark-window.png"
+          src={window_dark}
           className="dark-mode-image w-full"
           alt="Нужен разработчик?"
         />
         <Image
           fill
+          placeholder="blur"
           itemProp="contentUrl"
-          src="/og/yz-light-window.png"
+          src={window_light}
           className="light-mode-image w-full"
           alt="Нужен разработчик?"
         />
