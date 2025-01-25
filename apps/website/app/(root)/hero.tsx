@@ -3,6 +3,7 @@ import { Logo } from "@/components/logo";
 import { SparklesText } from "@/components/sparkle-text";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { Suspense } from "react";
 const Availability = dynamic(() => import("./availability"), {
   loading: () => <Skeleton className="h-5 w-full rounded-md" />,
@@ -45,10 +46,32 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
       <div className="w-full">
         <Suspense fallback={<Skeleton className="h-5 w-full rounded-md" />}>
           <Availability />
         </Suspense>
+      </div>
+
+      <div
+        className="relative w-full h-fit aspect-video rounded-xl border overflow-hidden"
+        itemScope
+        itemType="http://schema.org/ImageObject"
+      >
+        <Image
+          fill
+          itemProp="contentUrl"
+          src="/og/yz-dark-window.png"
+          className="dark-mode-image w-full"
+          alt="Нужен разработчик?"
+        />
+        <Image
+          fill
+          itemProp="contentUrl"
+          src="/og/yz-light-window.png"
+          className="light-mode-image w-full"
+          alt="Нужен разработчик?"
+        />
       </div>
     </div>
   );

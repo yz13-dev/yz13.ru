@@ -50,3 +50,40 @@ charts.get("/views", async (c) => {
     error: null,
   });
 });
+
+charts.get("/sessions", async (c) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const current_date = dayjs();
+  const week_start = current_date.set("day", 1).format();
+  const week_end = current_date.set("day", 7).format();
+
+  const { data, error } = await supabase
+    .from("visitor-session")
+    .select()
+    .gte("created_at", week_start)
+    .lte("created_at", week_end);
+
+  if (error) return c.json({ data: null, error });
+
+  const avg_sessiong_time = Math.round(
+    data.reduce((acc, curr) => {
+      return acc + curr.duration;
+    }, 0) / data.length,
+  );
+
+  const only_durations = data.map((d) => d.duration);
+  const min_duration = Math.min(...only_durations);
+  const max_duration = Math.max(...only_durations);
+
+  return c.json({
+    range_start: week_start,
+    range_end: week_end,
+    chart: {
+      avg: avg_sessiong_time,
+      max: max_duration,
+      min: min_duration,
+    },
+    error: null,
+  });
+});
