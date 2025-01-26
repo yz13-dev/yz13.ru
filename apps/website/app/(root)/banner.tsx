@@ -7,7 +7,7 @@ const Banner = ({ className = "" }: { className?: string }) => {
   return (
     <div
       className={cn(
-        "relative w-full h-fit aspect-video rounded-xl border overflow-hidden",
+        "relative w-full h-fit aspect-video rounded-xl border-4 overflow-hidden",
         className,
       )}
       itemScope

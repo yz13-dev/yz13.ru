@@ -38,11 +38,12 @@ const Hero = () => {
               фуллстеку.
               <Suspense
                 fallback={
-                  <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block ml-2" />
+                  <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block mx-2" />
                 }
               >
-                <ConnectButton className="inline-block ml-2" />
+                <ConnectButton className="inline-block mx-2" />
               </Suspense>
+              Помогаю вам создать сайты и приложения.
             </p>
           </div>
           <div className="w-full">
