@@ -4,9 +4,9 @@ const pretendProduction = false
   ? false
   : process.env.NODE_ENV === "development";
 
-export const showCalendar = flag<boolean>({
-  key: "show-calendar-widget",
-  description: "Show calendar widget on the root page",
+export const showProcess = flag<boolean>({
+  key: "show-process",
+  description: "Show process widget on the root page",
   decide() {
     return pretendProduction;
   },
