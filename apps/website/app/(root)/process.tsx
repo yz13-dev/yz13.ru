@@ -29,7 +29,7 @@ const Process = () => {
     }
   }, 4000);
   return (
-    <section className="w-full space-y-6 py-12">
+    <section className="w-full space-y-6">
       <h2 className="text-secondary text-xl font-medium">
         Как проходит работа над проектом?
       </h2>
@@ -124,32 +124,36 @@ const Chat = ({ duration = 1000 }: { duration?: number }) => {
             transition={{ staggerChildren: 0.4 }}
             key={message.who + "-" + index}
             className={cn(
-              "flex flex-col p-1 w-fit rounded-xl border gap-2",
+              "flex flex-col p-2 w-fit rounded-xl border gap-2",
               isClient ? "" : "ml-auto",
             )}
           >
-            <div className="w-full flex flex-col gap-1">
-              <div
-                className={cn(
-                  "flex flex-row gap-1 items-center w-full px-1",
-                  isClient ? "justify-start" : "justify-end",
+            {message.text && (
+              <div className="w-full flex flex-col gap-1">
+                {false && (
+                  <div
+                    className={cn(
+                      "flex flex-row gap-1 items-center w-full",
+                      isClient ? "justify-start" : "justify-end",
+                    )}
+                  >
+                    <span className="text-secondary text-xs capitalize">
+                      {message.label}
+                    </span>
+                  </div>
                 )}
-              >
-                <span className="text-secondary text-xs capitalize">
-                  {message.label}
-                </span>
+                {message.text && (
+                  <span
+                    className={cn(
+                      "text-foreground/80 text-xs",
+                      isClient ? "text-left" : "text-right",
+                    )}
+                  >
+                    {message.text}
+                  </span>
+                )}
               </div>
-              {message.text && (
-                <span
-                  className={cn(
-                    "text-foreground/80 text-xs px-1",
-                    isClient ? "text-left" : "text-right",
-                  )}
-                >
-                  {message.text}
-                </span>
-              )}
-            </div>
+            )}
             {message.attachments && (
               <div
                 className={cn(

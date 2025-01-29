@@ -1,7 +1,6 @@
 "use server";
-
 import { API_URL } from "@/const/api";
-import { ViewsChartSession } from "@/types/session";
+import type { ViewsChartSession } from "types/session";
 
 export const viewsChart = async (): Promise<ViewsChartSession | null> => {
   try {

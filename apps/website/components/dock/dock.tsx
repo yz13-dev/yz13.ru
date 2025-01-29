@@ -1,5 +1,4 @@
 "use client";
-import { isDev } from "@/app/login/get-url";
 import User from "@/app/user";
 import { useNetwork } from "ahooks";
 import { HomeIcon, Loader2, WifiIcon, WifiOff } from "lucide-react";
@@ -15,6 +14,7 @@ import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import useDockMenuStore, { menu, Placeholder } from "./menus/menu.store";
+import CalendarPopover from "./popovers/calendar";
 const LiveTime = dynamic(() => import("../live/live-time"), {
   ssr: false,
   loading: () => (
@@ -63,16 +63,18 @@ const Items = () => {
         </Tooltip>
       </div>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
-        <div className="h-12 px-3 rounded-xl border flex items-center justify-center">
-          <LiveTime className="text-lg w-12 text-center font-medium select-none" />
-        </div>
+        <CalendarPopover>
+          <button className="h-12 px-3 rounded-xl border flex items-center justify-center">
+            <LiveTime className="text-lg w-12 text-center font-medium select-none" />
+          </button>
+        </CalendarPopover>
         {/* <button
           onClick={() => toggleMenu("dock")}
           className="size-12 px-3 rounded-xl border flex items-center justify-center"
         >
           <LayoutGridIcon size={18} />
         </button> */}
-        {isDev && (
+        {false && (
           <div className="size-12 rounded-xl border flex items-center justify-center">
             <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
               <User sideOffset={12} asSquare />
