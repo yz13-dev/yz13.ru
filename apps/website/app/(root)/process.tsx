@@ -7,50 +7,333 @@ import {
   CheckIcon,
   FileArchiveIcon,
   FileImageIcon,
+  GitCommitIcon,
   HistoryIcon,
   Loader2Icon,
+  LucideIcon,
   RouteIcon,
 } from "lucide-react";
+import { Button } from "mono/components/button";
+import { Separator } from "mono/components/separator";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
+import { create } from "zustand";
+
+type Step = {
+  step: number;
+  icon: LucideIcon;
+  title: string;
+  text: string;
+};
+
+const steps: Step[] = [
+  {
+    step: 1,
+    icon: BoxIcon,
+    title: "Интро",
+    text: "Связь с клиентом, обсуждение разработки, согласование и начало работы.",
+  },
+  {
+    step: 2,
+    icon: HistoryIcon,
+    title: "Начало работы",
+    text: "При разработке, можно в любой момент запросить прогресс, будет открыт доступ к репозиторию и коду.",
+  },
+  {
+    step: 3,
+    icon: GitCommitIcon,
+    title: "Итерация 1",
+    text: "Любые поправки(с лимитом), никаких кардинальных изменений, при внесении поправок увеличиться время и стоимость.",
+  },
+  {
+    step: 4,
+    icon: GitCommitIcon,
+    title: "Итерация 2",
+    text: "Небольшие поправки, сдвинуть кнопку, поменять цвет - ничего кардинального.",
+  },
+  {
+    step: 5,
+    icon: RouteIcon,
+    title: "Конец",
+    text: "Подготовка кода, упаковка в архив или отправка в репозиторий, как удобно.",
+  },
+];
+
+const minStep = 1;
+const maxStep = steps.length;
+
+type State = {
+  onManual: boolean;
+  open: boolean;
+  step: number;
+};
+
+type Actions = {
+  setOnManual: (onManual: boolean) => void;
+  setOpen: (open: boolean) => void;
+  setStep: (step: number) => void;
+};
+
+const useStepsStore = create<State & Actions>()((set) => ({
+  onManual: false,
+  open: false,
+  step: 1,
+  setStep: (step) => set({ step }),
+  setOpen: (open) => set({ open }),
+  setOnManual: (onManual) => set({ onManual }),
+}));
+
+const stepDuration = 4000;
 
 const Process = () => {
-  // https://vercel.com/frameworks/nextjs - partial rendering section
-  const minStep = 1;
-  const maxStep = 3;
-  const [step, setStep] = useState<number>(1);
-  useInterval(() => {
-    if (step < maxStep) {
-      setStep(step + 1);
-    }
-    if (step === maxStep) {
-      setStep(minStep);
-    }
-  }, 4000);
+  const onManual = useStepsStore((state) => state.onManual);
+  const setOnManual = useStepsStore((state) => state.setOnManual);
+  const step = useStepsStore((state) => state.step);
+  const setStep = useStepsStore((state) => state.setStep);
+  const open = useStepsStore((state) => state.open);
+  const canBeReturnToAuto = useMemo(() => onManual && !open, [open, onManual]);
+  useInterval(
+    () => {
+      if (step < maxStep) {
+        setStep(step + 1);
+      }
+      if (step === maxStep) {
+        setStep(minStep);
+      }
+    },
+    onManual ? undefined : stepDuration,
+  );
+  useTimeout(
+    () => {
+      setOnManual(false);
+    },
+    canBeReturnToAuto ? 1000 : undefined,
+  );
   return (
-    <section className="w-full space-y-6">
-      <h2 className="text-secondary text-xl font-medium">
-        Как проходит работа над проектом?
-      </h2>
-      <div className="w-full gap-6 flex md:!flex-row flex-col">
+    <section className="w-full space-y-12">
+      <div className="w-full space-y-6">
+        <h2 className="text-secondary text-xl font-medium">
+          Как проходит работа над проектом?
+        </h2>
         <ProcessDemo currentStep={step} />
-        <div className="md:!w-1/3 w-full py-2 flex flex-row gap-6 relative">
-          <ProcessList currentStep={step} />
+      </div>
+      <div className="w-full space-y-6">
+        <div className="w-full relative flex items-center justify-center">
+          <AnimatePresence>
+            {open && <ProcessDescription currentStep={step} />}
+          </AnimatePresence>
+          <Steps currentStep={step} />
+        </div>
+        <div className="w-full relative flex items-center justify-center">
+          <span className="text-secondary text-sm text-center">
+            Нажмите на шаг для просмотра описания
+          </span>
         </div>
       </div>
-      <Steps />
     </section>
   );
 };
 
-const Steps = () => {
-  const steps = Array.from({ length: 10 }, (_, i) => i + 1);
+const ProcessDescription = ({ currentStep }: { currentStep?: number }) => {
+  const setStep = useStepsStore((state) => state.setStep);
+  const setOpen = useStepsStore((state) => state.setOpen);
+  const stepData = steps.find(({ step }) => step === currentStep);
+  const handlePrev = () => {
+    if (!currentStep) return;
+    if (currentStep === 1) {
+      setOpen(false);
+    } else setStep(currentStep - 1);
+  };
+  const handleNext = () => {
+    if (!currentStep) return;
+    if (currentStep === steps.length) {
+      setOpen(false);
+    } else setStep(currentStep + 1);
+  };
+  if (!stepData) return null;
+  const isFirst = currentStep === 1;
+  const isLast = currentStep === steps.length;
+  const { text, icon: Icon, title } = stepData;
   return (
-    <div className="w-full flex flex-row gap-6 relative">
-      {steps.map((step, i) => (
-        <div key={i} className="size-10 rounded-full border" />
-      ))}
+    <motion.div
+      layoutId="step-description"
+      initial={{ y: 50, opacity: 0 }}
+      animate={{ height: "fit-content", y: 0, opacity: 1 }}
+      exit={{ y: 50, opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="max-w-sm z-20 bg-background/40 backdrop-blur-sm overflow-hidden absolute bottom-10 border rounded-3xl p-6 flex flex-col gap-12"
+    >
+      <div className="flex flex-col gap-3">
+        <Icon size={24} className="text-secondary mb-2" />
+        <span className="text-foreground text-xl font-medium">{title}</span>
+        <span className="text-foreground/60 text-base font-medium">{text}</span>
+      </div>
+      <div className="w-full flex items-center justify-between">
+        <Button
+          size="sm"
+          variant="secondary"
+          className="rounded-full"
+          onClick={handlePrev}
+        >
+          {isFirst ? "Закрыть" : "Предыдущий"}
+        </Button>
+        <Button
+          size="sm"
+          variant="secondary"
+          className="rounded-full"
+          onClick={handleNext}
+        >
+          {isLast ? "Закрыть" : "Следующий"}
+        </Button>
+      </div>
+    </motion.div>
+  );
+};
+
+const Steps = ({ currentStep }: { currentStep?: number }) => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const setOnManual = useStepsStore((state) => state.setOnManual);
+  const onManual = useStepsStore((state) => state.onManual);
+  const setStep = useStepsStore((state) => state.setStep);
+  const ref = useRef<HTMLDivElement>(null);
+  const ringSize = 40;
+  const [width, setWidth] = useState(0);
+  const lineWidth = useMemo(() => {
+    const ringCount = steps.length;
+    const totalRingsSize = ringSize * ringCount;
+    const widthWithoutRings = width - totalRingsSize;
+    return widthWithoutRings / (ringCount - 1);
+  }, [width, ringSize]);
+  const setOpen = useStepsStore((state) => state.setOpen);
+  useEffect(() => {
+    const div = ref.current;
+    if (div) {
+      const width = div.getBoundingClientRect().width;
+      setWidth(width);
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    }
+  }, []);
+  const DurationLine = () => {
+    const [progress, setProgress] = useState<number>(0);
+    const timeSteps = 10;
+    const subSteps = (stepDuration - 750) / timeSteps;
+    const progressStep = 100 / timeSteps;
+    const isCompleted = useMemo(() => progress === 100, [progress]);
+    useInterval(
+      () => {
+        setProgress((prev) => prev + progressStep);
+      },
+      isCompleted ? undefined : subSteps,
+    );
+    return (
+      <div
+        style={{ width: lineWidth }}
+        className="relative h-px bg-yz-neutral-300"
+      >
+        <motion.div
+          layoutId="duration-line"
+          initial={{ opacity: 0, width: 0 }}
+          animate={{ opacity: 1, width: progress + "%" }}
+          exit={{ opacity: 0, width: 0 }}
+          transition={{
+            duration: 0.5,
+            delayChildren: 0.5,
+            staggerChildren: 0.5,
+          }}
+          className="absolute left top-0 h-full bg-foreground"
+        />
+      </div>
+    );
+  };
+  return (
+    <div
+      className="w-full flex flex-row h-10 relative items-center justify-between"
+      ref={ref}
+    >
+      {loading && (
+        <div className="w-full z-50 h-10 bg-background-back rounded-lg absolute left-0 top-0" />
+      )}
+      {steps.map(({ step, icon: Icon, title }, i, arr) => {
+        const isLast = i === arr.length - 1;
+        const isDone = currentStep ? currentStep >= step : false;
+        const isCurrent = currentStep === step;
+        const needHighlight = isCurrent || isDone;
+        if (isLast)
+          return (
+            <div
+              key={`step-${i}`}
+              className="flex items-center justify-center relative"
+            >
+              {!loading && (
+                <span className="absolute -top-8 text-nowrap text-center text-xs font-medium text-secondary border px-2 py-1 rounded-full bg-background-back">
+                  {title}
+                </span>
+              )}
+              <button
+                onClick={() => {
+                  setOpen(true);
+                  setOnManual(true);
+                  setStep(step);
+                }}
+                style={{ width: ringSize, height: ringSize }}
+                className={cn(
+                  "size-10 rounded-full border-2 transition-all flex items-center justify-center",
+                  "text-secondary",
+                  needHighlight && "border-foreground text-foreground",
+                )}
+              >
+                <Icon size={20} />
+              </button>
+            </div>
+          );
+        return (
+          <div key={`step-${i}`} className="flex items-center">
+            <div className="flex items-center justify-center relative">
+              {!loading && (
+                <span className="absolute text-nowrap -top-8 text-center text-xs font-medium text-secondary border px-2 py-1 rounded-full bg-background-back">
+                  {title}
+                </span>
+              )}
+              <button
+                style={{ width: ringSize, height: ringSize }}
+                onClick={() => {
+                  setOpen(true);
+                  setOnManual(true);
+                  setStep(step);
+                }}
+                className={cn(
+                  "size-10 rounded-full border-2 transition-all flex items-center justify-center",
+                  "text-secondary",
+                  needHighlight && "border-foreground text-foreground",
+                )}
+              >
+                <Icon size={20} />
+              </button>
+            </div>
+            {isCurrent ? (
+              !onManual ? (
+                <DurationLine />
+              ) : (
+                <Separator
+                  style={{ width: lineWidth }}
+                  className={cn(
+                    "transition-all",
+                    isCurrent ? false : isDone && "bg-foreground",
+                  )}
+                />
+              )
+            ) : (
+              <Separator
+                style={{ width: lineWidth }}
+                className={cn("transition-all", isDone && "bg-foreground")}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };
@@ -289,67 +572,11 @@ const CodeSending = () => {
 
 const ProcessDemo = ({ currentStep }: { currentStep?: number }) => {
   return (
-    <div className="md:!w-2/3 w-full aspect-video relative border rounded-xl p-4">
+    <div className="w-full aspect-video relative border rounded-3xl p-4">
       {currentStep === 1 && <Chat />}
       {currentStep === 2 && <UpdateSection />}
       {currentStep === 3 && <CodeSending />}
     </div>
-  );
-};
-
-const ProcessList = ({ currentStep }: { currentStep?: number }) => {
-  const steps = [
-    {
-      step: 1,
-      icon: BoxIcon,
-      text: "Связь с клиентом, обсуждение разработки, согласование и начало работы.",
-    },
-    {
-      step: 2,
-      icon: HistoryIcon,
-      text: "Разработка, проверка кода, тестирование, внесение поправок (при необходимости).",
-    },
-    {
-      step: 3,
-      icon: RouteIcon,
-      text: "Внесение доп. поправок (при необходимости). Подготовка кода, проверка кода, тестирование, отправка кода клиенту.",
-    },
-  ];
-  return (
-    <ul className="flex md:!flex-col sm:!flex-row flex-col gap-6">
-      {steps.map((step, index) => {
-        const Icon = step.icon;
-        const isCurrent = currentStep === step.step;
-        return (
-          <li
-            key={index}
-            className={cn(
-              "w-full relative transition-all flex md:!flex-row sm:!flex-col flex-row gap-3",
-              isCurrent && "scale-105",
-            )}
-          >
-            <div
-              className={cn(
-                "size-8 shrink-0 rounded-full border flex items-center justify-center transition-colors",
-                isCurrent
-                  ? "border-foreground bg-foreground text-background"
-                  : "bg-background text-secondary",
-              )}
-            >
-              <Icon size={16} />
-            </div>
-            <span
-              className={cn(
-                "text-sm transition-all",
-                isCurrent ? "text-foreground" : "text-secondary",
-              )}
-            >
-              {step.text}
-            </span>
-          </li>
-        );
-      })}
-    </ul>
   );
 };
 
