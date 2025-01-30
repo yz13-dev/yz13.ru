@@ -1,3 +1,4 @@
+import { get } from "@vercel/edge-config";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "yz13/supabase/server";
@@ -6,6 +7,7 @@ const admins = ["/workspace"];
 const users = [""];
 
 export async function middleware(request: NextRequest) {
+  await get<boolean>("busy");
   const pathname = request.nextUrl.pathname;
   const cookieStore = cookies();
   const client = createClient(cookieStore);

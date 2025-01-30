@@ -39,7 +39,19 @@ const Process = () => {
           <ProcessList currentStep={step} />
         </div>
       </div>
+      <Steps />
     </section>
+  );
+};
+
+const Steps = () => {
+  const steps = Array.from({ length: 10 }, (_, i) => i + 1);
+  return (
+    <div className="w-full flex flex-row gap-6 relative">
+      {steps.map((step, i) => (
+        <div key={i} className="size-10 rounded-full border" />
+      ))}
+    </div>
   );
 };
 

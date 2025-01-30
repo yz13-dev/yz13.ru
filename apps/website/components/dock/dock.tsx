@@ -1,7 +1,7 @@
 "use client";
 import User from "@/app/user";
 import { useNetwork } from "ahooks";
-import { HomeIcon, Loader2, WifiIcon, WifiOff } from "lucide-react";
+import { FolderIcon, HomeIcon, Loader2, WifiIcon, WifiOff } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import {
   Tooltip,
@@ -33,10 +33,17 @@ const Items = () => {
   return (
     <>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
-        <div className="size-12 rounded-xl border flex relative items-center justify-center">
+        <button className="size-12 rounded-xl border flex relative items-center justify-center">
           <Link href="/" className="absolute left-0 top-0 w-full h-full" />
           <HomeIcon size={18} className="text-foreground" />
-        </div>
+        </button>
+        <button className="size-12 rounded-xl border flex relative items-center justify-center">
+          <Link
+            href="/services"
+            className="absolute left-0 top-0 w-full h-full"
+          />
+          <FolderIcon size={18} className="text-foreground" />
+        </button>
         {/* {isDev && (
           <div className="size-12 rounded-xl border flex relative items-center justify-center">
             <Link
