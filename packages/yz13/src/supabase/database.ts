@@ -63,6 +63,48 @@ export type Database = {
         };
         Relationships: [];
       };
+      drafts: {
+        Row: {
+          animated: boolean | null;
+          attachments: Json[];
+          by: string;
+          created_at: string;
+          description: string | null;
+          id: string;
+          published_at: string | null;
+          tags: string[];
+          thumbnail: string | null;
+          title: string;
+          updated_at: string | null;
+        };
+        Insert: {
+          animated?: boolean | null;
+          attachments?: Json[];
+          by?: string;
+          created_at?: string;
+          description?: string | null;
+          id?: string;
+          published_at?: string | null;
+          tags?: string[];
+          thumbnail?: string | null;
+          title: string;
+          updated_at?: string | null;
+        };
+        Update: {
+          animated?: boolean | null;
+          attachments?: Json[];
+          by?: string;
+          created_at?: string;
+          description?: string | null;
+          id?: string;
+          published_at?: string | null;
+          tags?: string[];
+          thumbnail?: string | null;
+          title?: string;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
       lists: {
         Row: {
           created_at: string;
