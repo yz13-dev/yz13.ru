@@ -1,7 +1,14 @@
 "use client";
 import User from "@/app/user";
 import { useNetwork } from "ahooks";
-import { FolderIcon, HomeIcon, Loader2, WifiIcon, WifiOff } from "lucide-react";
+import {
+  BriefcaseBusinessIcon,
+  FolderIcon,
+  HomeIcon,
+  Loader2,
+  WifiIcon,
+  WifiOff,
+} from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import {
   Tooltip,
@@ -39,20 +46,18 @@ const Items = () => {
         </button>
         <button className="size-12 rounded-xl border flex relative items-center justify-center">
           <Link
-            href="/services"
+            href="/projects"
             className="absolute left-0 top-0 w-full h-full"
           />
           <FolderIcon size={18} className="text-foreground" />
         </button>
-        {/* {isDev && (
-          <div className="size-12 rounded-xl border flex relative items-center justify-center">
-            <Link
-              href="/canvas"
-              className="absolute left-0 top-0 w-full h-full"
-            />
-            <BrushIcon size={18} className="text-foreground" />
-          </div>
-        )} */}
+        <button className="size-12 rounded-xl border flex relative items-center justify-center">
+          <Link
+            href="/services"
+            className="absolute left-0 top-0 w-full h-full"
+          />
+          <BriefcaseBusinessIcon size={18} className="text-foreground" />
+        </button>
       </div>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
         <Tooltip delayDuration={100} open={unMuteReminder}>

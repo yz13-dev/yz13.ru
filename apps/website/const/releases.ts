@@ -96,11 +96,11 @@ export const orderedReleases = releases.sort((a, b) => {
 });
 
 export const getStage: Record<ReleaseStage, string> = {
-  in_plans: "In plans",
-  in_progress: "In progress",
-  in_review: "In review",
-  in_testing: "In testing",
-  released: "Released",
+  in_plans: "В планах",
+  in_progress: "В разработке",
+  in_review: "На обзоре",
+  in_testing: "Тестируется",
+  released: "Выпущено",
 };
 
 export const getGroups = () => {

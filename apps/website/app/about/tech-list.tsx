@@ -14,6 +14,7 @@ import typescriptDark from "public/tech/typescript-dark.png";
 import typescript from "public/tech/typescript.png";
 import viteDark from "public/tech/vite-dark.png";
 import vite from "public/tech/vite.png";
+import { cn } from "yz13/cn";
 
 const list = [
   {
@@ -58,9 +59,14 @@ const list = [
   },
 ];
 
-const TechList = () => {
+const TechList = ({ className = "" }: { className?: string }) => {
   return (
-    <ul className="flex w-fit flex-row p-1 rounded-xl bg-yz-neutral-100 gap-1 border border-yz-neutral-200">
+    <ul
+      className={cn(
+        "flex w-fit flex-row p-1 rounded-xl bg-yz-neutral-100 gap-1 border border-yz-neutral-200",
+        className,
+      )}
+    >
       {list.map(({ label, img, url }) => {
         return (
           <Tooltip delayDuration={100} key={label + "/" + url}>

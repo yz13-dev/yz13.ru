@@ -162,7 +162,7 @@ const ProcessDescription = ({ currentStep }: { currentStep?: number }) => {
       animate={{ height: "fit-content", y: 0, opacity: 1 }}
       exit={{ y: 50, opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="max-w-sm z-20 bg-background/40 backdrop-blur-sm overflow-hidden absolute bottom-10 border rounded-3xl p-6 flex flex-col gap-12"
+      className="max-w-sm z-20 bg-background/40 backdrop-blur-sm overflow-hidden absolute bottom-20 border rounded-3xl p-6 flex flex-col gap-12"
     >
       <div className="flex flex-col gap-3">
         <Icon size={24} className="text-secondary mb-2" />
@@ -231,7 +231,7 @@ const Steps = ({ currentStep }: { currentStep?: number }) => {
     return (
       <div
         style={{ width: lineWidth }}
-        className="relative h-px bg-yz-neutral-300"
+        className="relative h-[2px] bg-yz-neutral-300"
       >
         <motion.div
           layoutId="duration-line"
@@ -282,7 +282,8 @@ const Steps = ({ currentStep }: { currentStep?: number }) => {
                 className={cn(
                   "size-10 rounded-full border-2 transition-all flex items-center justify-center",
                   "text-secondary",
-                  needHighlight && "border-foreground text-foreground",
+                  needHighlight &&
+                    "border-foreground text-background bg-foreground",
                 )}
               >
                 <Icon size={20} />
@@ -307,7 +308,8 @@ const Steps = ({ currentStep }: { currentStep?: number }) => {
                 className={cn(
                   "size-10 rounded-full border-2 transition-all flex items-center justify-center",
                   "text-secondary",
-                  needHighlight && "border-foreground text-foreground",
+                  needHighlight &&
+                    "border-foreground text-background bg-foreground",
                 )}
               >
                 <Icon size={20} />
@@ -320,7 +322,7 @@ const Steps = ({ currentStep }: { currentStep?: number }) => {
                 <Separator
                   style={{ width: lineWidth }}
                   className={cn(
-                    "transition-all",
+                    "transition-all h-[2px]",
                     isCurrent ? false : isDone && "bg-foreground",
                   )}
                 />
@@ -328,7 +330,10 @@ const Steps = ({ currentStep }: { currentStep?: number }) => {
             ) : (
               <Separator
                 style={{ width: lineWidth }}
-                className={cn("transition-all", isDone && "bg-foreground")}
+                className={cn(
+                  "transition-all h-[2px]",
+                  isDone && "bg-foreground",
+                )}
               />
             )}
           </div>
@@ -574,8 +579,8 @@ const ProcessDemo = ({ currentStep }: { currentStep?: number }) => {
   return (
     <div className="w-full aspect-video relative border rounded-3xl p-4">
       {currentStep === 1 && <Chat />}
-      {currentStep === 2 && <UpdateSection />}
-      {currentStep === 3 && <CodeSending />}
+      {currentStep === 3 && <UpdateSection />}
+      {currentStep === 5 && <CodeSending />}
     </div>
   );
 };
