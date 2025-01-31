@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["mono", "yz13"],
+  transpilePackages: ["mono", "yz13", "types"],
   compress: true,
   experimental: {
     optimizeCss: true,

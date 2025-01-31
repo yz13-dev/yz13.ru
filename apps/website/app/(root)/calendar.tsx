@@ -7,7 +7,7 @@ type TimeRange = [number, number];
 const Calendar = ({ timeRange = [9, 16] }: { timeRange?: TimeRange }) => {
   const today = dayjs().locale("ru");
   const tomorrow = today.add(1, "day");
-  const todayFormatted = today.format("dddd, DD MMMM");
+  const todayFormatted = today.format("DD MMMM");
   const tomorrowFormatted = tomorrow.format("DD MMMM");
   const calculateRange = (range: TimeRange) => {
     const length = range[1] - range[0];
@@ -22,7 +22,7 @@ const Calendar = ({ timeRange = [9, 16] }: { timeRange?: TimeRange }) => {
   return (
     <div className="w-full h-fit flex flex-row gap-4 *:w-1/2 *:flex *:flex-col *:gap-4">
       <div>
-        <span className="uppercase text-sm">{todayFormatted}</span>
+        <span className="uppercase text-sm">сегодня, {todayFormatted}</span>
         <div
           style={{
             height: rangeLength * 48,

@@ -13,6 +13,9 @@ const Banner = ({ className = "" }: { className?: string }) => {
       itemScope
       itemType="http://schema.org/ImageObject"
     >
+      <span className="sr-only" itemProp="name">
+        Нужен разработчик?
+      </span>
       <Image
         fill
         draggable={false}

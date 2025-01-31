@@ -10,13 +10,18 @@ import { cn } from "yz13/cn";
 
 dayjs.extend(relativeTime);
 
-const ReleasesList = () => {
+const ReleasesList = ({ title }: { title?: string }) => {
   return (
-    <ul className="space-y-2">
-      {orderedReleases.map((release, index) => {
-        return <ReleaseItem key={release.id + "-" + index} release={release} />;
-      })}
-    </ul>
+    <section className="w-full space-y-6">
+      <h2 className="text-secondary text-xl font-medium">{title}</h2>
+      <ul className="space-y-2">
+        {orderedReleases.map((release, index) => {
+          return (
+            <ReleaseItem key={release.id + "-" + index} release={release} />
+          );
+        })}
+      </ul>
+    </section>
   );
 };
 

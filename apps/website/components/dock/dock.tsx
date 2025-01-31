@@ -1,8 +1,14 @@
 "use client";
-import { isDev } from "@/app/login/get-url";
 import User from "@/app/user";
 import { useNetwork } from "ahooks";
-import { HomeIcon, Loader2, WifiIcon, WifiOff } from "lucide-react";
+import {
+  BriefcaseBusinessIcon,
+  FolderIcon,
+  HomeIcon,
+  Loader2,
+  WifiIcon,
+  WifiOff,
+} from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import {
   Tooltip,
@@ -15,6 +21,7 @@ import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import useDockMenuStore, { menu, Placeholder } from "./menus/menu.store";
+import CalendarPopover from "./popovers/calendar";
 const LiveTime = dynamic(() => import("../live/live-time"), {
   ssr: false,
   loading: () => (
@@ -33,19 +40,24 @@ const Items = () => {
   return (
     <>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
-        <div className="size-12 rounded-xl border flex relative items-center justify-center">
+        <button className="size-12 rounded-xl border flex relative items-center justify-center">
           <Link href="/" className="absolute left-0 top-0 w-full h-full" />
           <HomeIcon size={18} className="text-foreground" />
-        </div>
-        {/* {isDev && (
-          <div className="size-12 rounded-xl border flex relative items-center justify-center">
-            <Link
-              href="/canvas"
-              className="absolute left-0 top-0 w-full h-full"
-            />
-            <BrushIcon size={18} className="text-foreground" />
-          </div>
-        )} */}
+        </button>
+        <button className="size-12 rounded-xl border flex relative items-center justify-center">
+          <Link
+            href="/projects"
+            className="absolute left-0 top-0 w-full h-full"
+          />
+          <FolderIcon size={18} className="text-foreground" />
+        </button>
+        <button className="size-12 rounded-xl border flex relative items-center justify-center">
+          <Link
+            href="/services"
+            className="absolute left-0 top-0 w-full h-full"
+          />
+          <BriefcaseBusinessIcon size={18} className="text-foreground" />
+        </button>
       </div>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
         <Tooltip delayDuration={100} open={unMuteReminder}>
@@ -63,16 +75,18 @@ const Items = () => {
         </Tooltip>
       </div>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
-        <div className="h-12 px-3 rounded-xl border flex items-center justify-center">
-          <LiveTime className="text-lg w-12 text-center font-medium select-none" />
-        </div>
+        <CalendarPopover>
+          <button className="h-12 px-3 rounded-xl border flex items-center justify-center">
+            <LiveTime className="text-lg w-12 text-center font-medium select-none" />
+          </button>
+        </CalendarPopover>
         {/* <button
           onClick={() => toggleMenu("dock")}
           className="size-12 px-3 rounded-xl border flex items-center justify-center"
         >
           <LayoutGridIcon size={18} />
         </button> */}
-        {isDev && (
+        {false && (
           <div className="size-12 rounded-xl border flex items-center justify-center">
             <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
               <User sideOffset={12} asSquare />
