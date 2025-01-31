@@ -4,12 +4,13 @@ import { Button } from "mono/components/button";
 
 const WebApps = async () => {
   const sign = await get<string>("price-sign");
-  const price = await get<{ [key: string]: number }>("prices");
+  const priceObj = await get<{ [key: string]: number }>("prices");
+  const price = priceObj?.["web-app"] ?? 0;
   return (
     <>
       <span className="text-2xl font-medium">Веб приложения</span>
       <Button variant="secondary" className="gap-2" size="sm" disabled>
-        От {price?.["web-app"]}
+        От {price.toLocaleString()}
         {sign}
         <ArrowRightIcon size={16} />
       </Button>
