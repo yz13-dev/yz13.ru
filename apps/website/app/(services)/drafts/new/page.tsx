@@ -1,23 +1,31 @@
 import { Header } from "@/components/header";
+import NewDraftForm from "./new-draft-form";
 
 const page = () => {
   return (
     <>
       <Header>
-        <Header.Left className="gap-4" link="/drafts">
+        <Header.Left
+          className="gap-4"
+          title="Drafts"
+          logo={{
+            light: "/apps/yz-drafts-light.svg",
+            dark: "/apps/yz-drafts-dark.svg",
+          }}
+        >
           <nav className="flex gap-3 items-center *:text-sm *:text-secondary">
-            <span>Popular</span>
-            <span>Newest</span>
-            <span>Following</span>
+            <span>Популярные</span>
+            <span>Новые</span>
+            <span>Подписки</span>
           </nav>
         </Header.Left>
         <Header.Center></Header.Center>
         <Header.Right></Header.Right>
       </Header>
 
-      <div className="p-3 space-y-3">
-        <div className="w-full py-12 flex items-center justify-center flex-col gap-8">
-          <span className="text-2xl font-medium">Create a new draft</span>
+      <div className="p-6 min-h-[calc(100dvh-64px)] space-y-6">
+        <div className="w-full mx-auto max-w-lg border p-4 rounded-2xl">
+          <NewDraftForm />
         </div>
       </div>
     </>

@@ -16,6 +16,20 @@ drafts.get("/", async (c) => {
   } else return c.json(data);
 });
 
+drafts.get("/:id", async (c) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const id = c.req.param("id");
+  const { data, error } = await supabase
+    .from("drafts")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error) {
+    return c.json(error);
+  } else return c.json(data);
+});
+
 drafts.post("/", async (c) => {
   try {
     const cookieStore = cookies();
