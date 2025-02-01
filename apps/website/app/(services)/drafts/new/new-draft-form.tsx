@@ -1,3 +1,5 @@
+import { Button } from "mono/components/button";
+
 const NewDraftForm = () => {
   return (
     <div className="flex flex-col gap-4">
@@ -9,6 +11,9 @@ const NewDraftForm = () => {
         </div>
       </div>
       <div className="w-full aspect-[4/2.5] border-dashed rounded-xl border relative" />
+      <div className="flex flex-row items-center justify-end gap-2">
+        <Button size="sm">Запостить</Button>
+      </div>
     </div>
   );
 };
