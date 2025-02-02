@@ -14,9 +14,11 @@ const page = ({ searchParams }: PageProps) => {
   const lat = searchParams.lat ? parseFloat(searchParams.lat) : 57.152988;
   const lng = searchParams.lng ? parseFloat(searchParams.lng) : 65.541228;
   return (
-    <Overlay>
-      <Map lat={lat} lng={lng} />
-    </Overlay>
+    <div className="w-full h-dvh overflow-hidden relative">
+      <Overlay>
+        <Map lat={lat} lng={lng} />
+      </Overlay>
+    </div>
   );
 };
 

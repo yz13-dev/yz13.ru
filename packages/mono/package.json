@@ -213,6 +213,11 @@
       "import": "./dist/components/ui/tabs.js",
       "require": "./dist/components/ui/tabs.cjs"
     },
+    "./components/tags": {
+      "types": "./dist/components/ui/tags.d.ts",
+      "import": "./dist/components/ui/tags.js",
+      "require": "./dist/components/ui/tags.cjs"
+    },
     "./components/textarea": {
       "types": "./dist/components/ui/textarea.d.ts",
       "import": "./dist/components/ui/textarea.js",

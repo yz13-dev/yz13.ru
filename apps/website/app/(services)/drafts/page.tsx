@@ -4,6 +4,7 @@ import PageDockFiller from "@/components/page-dock-filler";
 import { UploadIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
+import Link from "next/link";
 import { Suspense } from "react";
 import DraftsGrid, { DraftsGridSkeleton } from "./grid";
 
@@ -27,9 +28,11 @@ const page = async () => {
         </Header.Left>
         <Header.Center></Header.Center>
         <Header.Right>
-          <Button rounded="full" className="gap-2">
-            <UploadIcon size={16} />
-            Опубликовать
+          <Button rounded="full" className="gap-2" asChild>
+            <Link href="/drafts/new">
+              <UploadIcon size={16} />
+              Опубликовать
+            </Link>
           </Button>
         </Header.Right>
       </Header>

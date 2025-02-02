@@ -2,6 +2,7 @@
 import { Map as MaplibreMap } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import useMapStore from "./map.store";
 
 type MapProps = {
@@ -17,6 +18,7 @@ const Map = ({
   zoom: providedZoom,
   disabled = false,
 }: MapProps) => {
+  const isDark = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
   const container = useRef<HTMLDivElement>(null);
   const lat = useMapStore((state) => state.lat);
   const lng = useMapStore((state) => state.lng);
@@ -31,7 +33,19 @@ const Map = ({
     if (map && providedLng && providedLat) {
       map.setCenter([providedLng, providedLat]);
     }
-  }, [providedLat, providedLng, zoom]);
+  }, [providedLat, providedLng]);
+  useEffect(() => {
+    if (map) {
+      if (isDark) {
+        map.setStyle(
+          `https://api.protomaps.com/styles/v4/dark/ru.json?key=${API_KEY}`,
+        );
+      } else
+        map.setStyle(
+          `https://api.protomaps.com/styles/v4/light/ru.json?key=${API_KEY}`,
+        );
+    }
+  }, [isDark, map]);
   useEffect(() => {
     const map = new MaplibreMap({
       container: "map",

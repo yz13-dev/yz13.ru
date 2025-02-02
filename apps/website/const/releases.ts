@@ -75,9 +75,25 @@ const calendar_widget: Release = {
   updated_at: dayjs("2025-01-23").toString(),
 };
 
-export { calendar_widget, draft, finance, puzzle };
+const maps: Release = {
+  id: "maps",
+  stage: "in_progress",
+  name: "Карта",
+  type: "app",
+  description: "Просто карта",
+  created_at: dayjs("2025-01-23").toString(),
+  updated_at: dayjs("2025-01-23").toString(),
+};
 
-export const releases: Release[] = [calendar_widget, puzzle, finance, draft];
+export { calendar_widget, draft, finance, maps, puzzle };
+
+export const releases: Release[] = [
+  calendar_widget,
+  puzzle,
+  finance,
+  draft,
+  maps,
+];
 
 export const getRelease = (id: string) => {
   return releases.find((release) => release.id === id);
