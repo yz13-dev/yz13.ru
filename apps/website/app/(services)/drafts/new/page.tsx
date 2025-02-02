@@ -24,9 +24,7 @@ const page = () => {
       </Header>
 
       <div className="p-6 min-h-[calc(100dvh-64px)] space-y-6">
-        <div className="w-full mx-auto max-w-lg border p-4 rounded-2xl">
-          <NewDraftForm />
-        </div>
+        <NewDraftForm />
       </div>
     </>
   );
