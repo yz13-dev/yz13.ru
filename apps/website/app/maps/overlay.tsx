@@ -1,30 +1,34 @@
 "use client";
-import { BookmarkIcon } from "lucide-react";
+import { BookmarkIcon, NavigationIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
 import { motion } from "motion/react";
-import { useRouter } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { setLat, setLng } from "./map.store";
 
 const Overlay = ({ children }: { children?: ReactNode }) => {
-  const router = useRouter();
+  // const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
-  const getUserCoords = () => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log(position.coords);
-        const { latitude, longitude } = position.coords;
-        router.push(`/maps?lat=${latitude}&lng=${longitude}`);
-        setLat(latitude);
-        setLng(longitude);
-      },
-      (err) => {
-        console.log(err);
-      },
-    );
-  };
+  const [coordsStream, setCoordsStream] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (coordsStream) {
+      navigator.geolocation.watchPosition(
+        (position) => {
+          // console.log(position.coords);
+          const { latitude, longitude } = position.coords;
+          // router.push(`/maps?lat=${latitude}&lng=${longitude}`);
+          setLat(latitude);
+          setLng(longitude);
+        },
+        (err) => {
+          console.log(err);
+          setCoordsStream(false);
+        },
+      );
+    }
+  }, [coordsStream]);
   return (
     <>
       {children}
@@ -49,6 +53,17 @@ const Overlay = ({ children }: { children?: ReactNode }) => {
           <Input placeholder="Поиск" className="w-full" />
           <Button variant="secondary" size="icon" className="shrink-0">
             <BookmarkIcon size={18} />
+          </Button>
+        </div>
+        <div className="flex flex-row overflow-x-auto items-center gap-2 w-full">
+          <Button
+            onClick={() => setCoordsStream(!coordsStream)}
+            variant={coordsStream ? "default" : "secondary"}
+            size={coordsStream ? "icon" : "default"}
+            className="gap-2"
+          >
+            <NavigationIcon size={16} />
+            {!coordsStream && "Мое местоположение"}
           </Button>
         </div>
         <Separator />
