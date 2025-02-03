@@ -20,12 +20,14 @@ const WebApps = async () => {
       <div className="absolute left-6 rounded-xl top-[40%] overflow-hidden border-2 w-[150%] aspect-video">
         <div className="w-full relative h-full rounded-xl">
           <Image
+            placeholder="blur"
             src={web_app_dark}
             alt="Обложка для услуги веб-приложений"
             className="object-cover dark-mode-image"
             fill
           />
           <Image
+            placeholder="blur"
             src={web_app}
             alt="Обложка для услуги веб-приложений"
             className="object-cover light-mode-image"

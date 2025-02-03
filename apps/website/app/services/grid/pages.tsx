@@ -20,12 +20,14 @@ const Pages = async () => {
       <div className="absolute left-0 right-0 mx-auto rounded-xl overflow-hidden top-1/4 border-2 w-[90%] aspect-[9/17]">
         <div className="w-full relative h-full rounded-xl">
           <Image
+            placeholder="blur"
             src={pages_dark}
             alt="Обложка для услуги страниц"
             className="object-cover dark-mode-image"
             fill
           />
           <Image
+            placeholder="blur"
             src={pages}
             alt="Обложка для услуги страниц"
             className="object-cover light-mode-image"

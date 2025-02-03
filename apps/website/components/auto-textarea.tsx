@@ -18,7 +18,7 @@ const AutoTextarea = ({ value, className, ...props }: TextAreaPros) => {
   return (
     <textarea
       className={cn(
-        "resize-none bg-transparent text-sm p-1 outline-none",
+        "resize-none bg-transparent text-sm p-1 outline-none placeholder:text-secondary",
         className,
       )}
       ref={ref}

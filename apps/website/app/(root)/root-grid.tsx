@@ -52,12 +52,14 @@ const RootGrid = () => {
         <div className="w-20 aspect-[9/17] transition-all border absolute -bottom-16 -left-0.5 group-hover:-bottom-14 rounded-lg bg-background">
           <div className="w-full relative h-full rounded-xl">
             <Image
+              placeholder="blur"
               src={pages_dark}
               alt="Обложка для услуги страниц"
               className="object-cover dark-mode-image"
               fill
             />
             <Image
+              placeholder="blur"
               src={pages}
               alt="Обложка для услуги страниц"
               className="object-cover light-mode-image"
@@ -68,12 +70,14 @@ const RootGrid = () => {
         <div className="h-20 aspect-[16/9] transition-all border absolute -bottom-1.5 group-hover:bottom-0 left-6 rounded-lg bg-background">
           <div className="w-full relative h-full rounded-xl">
             <Image
+              placeholder="blur"
               src={web_app_dark}
               alt="Обложка для услуги веб-приложений"
               className="object-cover dark-mode-image"
               fill
             />
             <Image
+              placeholder="blur"
               src={web_app}
               alt="Обложка для услуги веб-приложений"
               className="object-cover light-mode-image"
@@ -84,12 +88,14 @@ const RootGrid = () => {
         <div className="h-20 aspect-[16/9] transition-all border absolute group-hover:-bottom-4 -bottom-5 left-16 rounded-lg bg-background">
           {/* <div className="w-full relative h-full rounded-xl">
             <Image
+            placeholder="blur"
               src={website_dark}
               alt="Обложка для услуги сайта"
               className="object-cover dark-mode-image"
               fill
             />
             <Image
+            placeholder="blur"
               src={website}
               alt="Обложка для услуги сайта"
               className="object-cover light-mode-image"
@@ -115,12 +121,14 @@ const RootGrid = () => {
         </button>
         <div className="w-44 aspect-video border transition-all group-hover:rotate-3 overflow-hidden absolute rotate-6 -bottom-8 -right-6 rounded-lg bg-background">
           <Image
+            placeholder="blur"
             src={drafts_dark}
             alt="Проект черновики"
             className="object-cover dark-mode-image"
             fill
           />
           <Image
+            placeholder="blur"
             src={drafts}
             alt="Проект черновики"
             className="object-cover light-mode-image"
@@ -129,12 +137,14 @@ const RootGrid = () => {
         </div>
         <div className="w-44 aspect-video border transition-all group-hover:-rotate-3 overflow-hidden absolute -rotate-6 -bottom-12 -left-6 rounded-lg bg-background">
           <Image
+            placeholder="blur"
             src={maps_dark}
             alt="Проект карты"
             className="object-cover dark-mode-image"
             fill
           />
           <Image
+            placeholder="blur"
             src={maps}
             alt="Проект карты"
             className="object-cover light-mode-image"
