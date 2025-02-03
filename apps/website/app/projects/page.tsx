@@ -7,6 +7,8 @@ import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
 import type { Metadata } from "next";
 import Link from "next/link";
+import DndContextWrapper from "./dnd-context";
+import DraggableCard from "./draggable-card";
 import NewProjectModal from "./new-project-modal";
 import ProjectCard from "./project-card";
 import StageColumn from "./stage-column";
@@ -23,7 +25,8 @@ const page = async () => {
   const releases = await getProjects();
   const groups = getGroups(releases);
   const groupKeys = Object.keys(groups);
-  const showNewProjectModal = user && isAdmin;
+  const showNewProjectModal = (user && isAdmin) ?? false;
+  const isActive = showNewProjectModal;
   return (
     <>
       <header className="w-full h-14 flex items-center justify-between px-6 border-b">
@@ -32,29 +35,39 @@ const page = async () => {
         </Link>
         {showNewProjectModal && <NewProjectModal />}
       </header>
-      <div className="w-full flex gap-4 p-6 min-h-[calc(100dvh-3.5rem)] overflow-auto">
-        {groupKeys.map((group, index) => {
-          const groupData = groups[group as ReleaseStage];
-          const groupName = getStage[group as ReleaseStage];
-          const count = groupData.length;
-          return (
-            <StageColumn
-              key={`${index}/${groupName}`}
-              stage={group as ReleaseStage}
-              count={count}
-            >
-              {groupData.map((item, i) => {
-                return (
-                  <ProjectCard
-                    key={`${index}/${i}/${groupName}`}
-                    release={item}
-                  />
-                );
-              })}
-            </StageColumn>
-          );
-        })}
-      </div>
+      <DndContextWrapper>
+        <div className="w-full flex gap-4 p-6 min-h-[calc(100dvh-3.5rem)] overflow-auto">
+          {groupKeys.map((group, index) => {
+            const groupData = groups[group as ReleaseStage];
+            const groupName = getStage[group as ReleaseStage];
+            const count = groupData.length;
+            return (
+              <StageColumn
+                active={isActive}
+                key={`${index}/${groupName}`}
+                stage={group as ReleaseStage}
+                count={count}
+              >
+                {groupData.map((item, i) => {
+                  if (isActive)
+                    return (
+                      <DraggableCard
+                        key={`${index}/${i}/${groupName}`}
+                        release={item}
+                      />
+                    );
+                  return (
+                    <ProjectCard
+                      key={`${index}/${i}/${groupName}`}
+                      release={item}
+                    />
+                  );
+                })}
+              </StageColumn>
+            );
+          })}
+        </div>
+      </DndContextWrapper>
       <PageDockFiller />
       <Dock />
     </>
