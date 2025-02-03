@@ -250,27 +250,33 @@ export type Database = {
       works: {
         Row: {
           created_at: string;
-          href: string | null;
-          icon: string | null;
+          description: string;
+          icon: Json | null;
           id: string;
-          status: Database["public"]["Enums"]["works-status"];
-          title: string | null;
+          name: string;
+          stage: Database["public"]["Enums"]["works-status"];
+          type: string;
+          updated_at: string;
         };
         Insert: {
           created_at?: string;
-          href?: string | null;
-          icon?: string | null;
+          description?: string;
+          icon?: Json | null;
           id?: string;
-          status?: Database["public"]["Enums"]["works-status"];
-          title?: string | null;
+          name?: string;
+          stage?: Database["public"]["Enums"]["works-status"];
+          type?: string;
+          updated_at?: string;
         };
         Update: {
           created_at?: string;
-          href?: string | null;
-          icon?: string | null;
+          description?: string;
+          icon?: Json | null;
           id?: string;
-          status?: Database["public"]["Enums"]["works-status"];
-          title?: string | null;
+          name?: string;
+          stage?: Database["public"]["Enums"]["works-status"];
+          type?: string;
+          updated_at?: string;
         };
         Relationships: [];
       };
@@ -318,7 +324,12 @@ export type Database = {
         | "notes"
         | "calendar"
         | "links-folder";
-      "works-status": "plan" | "dev" | "approval" | "prod";
+      "works-status":
+        | "in_plans"
+        | "in_progress"
+        | "in_review"
+        | "in_testing"
+        | "released";
     };
     CompositeTypes: {
       [_ in never]: never;

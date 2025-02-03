@@ -16,6 +16,13 @@ export type Release = {
   };
 };
 
+export type NewRelease = {
+  name: string;
+  type: ReleaseType;
+  description: string;
+  stage: ReleaseStage;
+};
+
 export type ReleaseStage =
   | "in_plans"
   | "in_progress"
@@ -36,7 +43,7 @@ const finance: Release = {
   stage: "in_progress",
   name: "Финансы",
   type: "app",
-  description: "Сервис для отслеживания и управления финансовыми расходами",
+  description: "Сервис для отслеживания финансовых расходов",
   created_at: dayjs("2024-12-30").toString(),
   updated_at: dayjs("2024-12-30").toString(),
   icon: {
@@ -119,7 +126,7 @@ export const getStage: Record<ReleaseStage, string> = {
   released: "Выпущено",
 };
 
-export const getGroups = () => {
+export const getGroups = (releases: Release[]) => {
   const groups: Record<ReleaseStage, Release[]> = {
     in_plans: [],
     in_progress: [],

@@ -2,6 +2,7 @@ import ThemeObserver from "@/components/theme/theme-observer";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Toaster } from "mono/components/toaster";
 import { TooltipProvider } from "mono/components/tooltip";
 import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
@@ -143,6 +144,7 @@ export default function RootLayout({
       <body>
         <Analytics />
         <SpeedInsights />
+        <Toaster />
         <TooltipProvider>
           <ThemeObserver />
           <SessionObserver />
