@@ -1,3 +1,10 @@
 import { isDev } from "@/app/login/get-url";
 
-export const API_URL = isDev ? "http://localhost:3000" : "https://api.yz13.ru/";
+const asProd = true;
+const LOCAL_API_URL = "http://localhost:3000";
+const PROD_API_URL = "https://api.yz13.ru/";
+export const API_URL = !asProd
+  ? isDev
+    ? LOCAL_API_URL
+    : PROD_API_URL
+  : PROD_API_URL;

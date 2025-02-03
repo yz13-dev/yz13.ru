@@ -26,3 +26,22 @@ export const getDraft = async (id: string): Promise<Draft | null> => {
     return null;
   }
 };
+
+export const createDraft = async (draft: Draft): Promise<Draft | null> => {
+  try {
+    const url = new URL("/drafts", API_URL);
+    const headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    const res = await fetch(url.toString(), {
+      method: "POST",
+      headers,
+      body: JSON.stringify(draft),
+    });
+    if (!res.ok) throw new Error(res.statusText);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
