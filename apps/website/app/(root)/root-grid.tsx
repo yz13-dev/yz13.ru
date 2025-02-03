@@ -9,6 +9,15 @@ import { cn } from "yz13/cn";
 import Banner from "./banner";
 import root from "./root.module.css";
 
+import web_app_dark from "public/works/reservia/map-editor-page-dark.png";
+import web_app from "public/works/reservia/map-editor-page.png";
+
+// import website_dark from "public/og/yz-dark-window.png";
+// import website from "public/og/yz-light-window.png";
+
+import pages_dark from "public/works/yz13/yz13-page-dark.png";
+import pages from "public/works/yz13/yz13-page.png";
+
 const RootGrid = () => {
   return (
     <div className={cn("w-full", root["root-page-grid"])}>
@@ -40,10 +49,54 @@ const RootGrid = () => {
           <span className="text-xl font-medium">Услуги</span>
           <ArrowRightIcon size={20} />
         </button>
-        <div className="w-20 aspect-[9/16] transition-all group-hover:-rotate-6 border absolute -bottom-16 -left-3 -rotate-12 rounded-lg bg-background" />
-        <div className="w-20 aspect-[9/16] transition-all group-hover:rotate-6 border absolute -bottom-16 left-6 rotate-12 rounded-lg bg-background" />
-        <div className="w-20 aspect-[9/16] transition-all group-hover:rotate-6 border absolute -bottom-16 left-16 -rotate-12 rounded-lg bg-background" />
-        <div className="w-20 aspect-[9/16] transition-all group-hover:-rotate-6 border absolute -bottom-16 left-24 rotate-12 rounded-lg bg-background" />
+        <div className="w-20 aspect-[9/17] transition-all border absolute -bottom-16 -left-0.5 group-hover:-bottom-14 rounded-lg bg-background">
+          <div className="w-full relative h-full rounded-xl">
+            <Image
+              src={pages_dark}
+              alt="Обложка для услуги страниц"
+              className="object-cover dark-mode-image"
+              fill
+            />
+            <Image
+              src={pages}
+              alt="Обложка для услуги страниц"
+              className="object-cover light-mode-image"
+              fill
+            />
+          </div>
+        </div>
+        <div className="h-20 aspect-[16/9] transition-all border absolute -bottom-1.5 group-hover:bottom-0 left-6 rounded-lg bg-background">
+          <div className="w-full relative h-full rounded-xl">
+            <Image
+              src={web_app_dark}
+              alt="Обложка для услуги веб-приложений"
+              className="object-cover dark-mode-image"
+              fill
+            />
+            <Image
+              src={web_app}
+              alt="Обложка для услуги веб-приложений"
+              className="object-cover light-mode-image"
+              fill
+            />
+          </div>
+        </div>
+        <div className="h-20 aspect-[16/9] transition-all border absolute group-hover:-bottom-4 -bottom-5 left-16 rounded-lg bg-background">
+          {/* <div className="w-full relative h-full rounded-xl">
+            <Image
+              src={website_dark}
+              alt="Обложка для услуги сайта"
+              className="object-cover dark-mode-image"
+              fill
+            />
+            <Image
+              src={website}
+              alt="Обложка для услуги сайта"
+              className="object-cover light-mode-image"
+              fill
+            />
+          </div> */}
+        </div>
         <Link
           href="/services"
           className="w-full absolute h-full top-0 left-0"

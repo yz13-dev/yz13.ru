@@ -14,7 +14,7 @@ const Website = async () => {
         {sign}
         <ArrowRightIcon size={16} />
       </Button>
-      <div className="absolute left-0 right-0 mx-auto rounded-xl top-1/2 border-2 border-dashed w-3/4 aspect-square" />
+      <div className="absolute left-6 rounded-xl top-[40%] overflow-hidden border-2 w-[150%] aspect-video"></div>
     </>
   );
 };
