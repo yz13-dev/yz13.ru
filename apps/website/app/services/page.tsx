@@ -75,12 +75,6 @@ const page = async () => {
             </div>
           </div>
         </div>
-        {false && (
-          <div className="w-full grid h-96 md:!grid-cols-3 grid-cols-2 gap-3 !pt-3">
-            <div className="w-full h-full col-span-2 rounded-xl border" />
-            <div className="w-full h-full rounded-xl border" />
-          </div>
-        )}
         <div className="w-full">
           <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
             <Availability />

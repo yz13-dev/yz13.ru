@@ -1,9 +1,9 @@
 "use client";
 import { Map as MaplibreMap } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
-import useMapStore from "./map.store";
+import useMapStore, { setLocationStream } from "./map.store";
 
 type MapProps = {
   lat?: number;
@@ -12,12 +12,7 @@ type MapProps = {
   disabled?: boolean;
 };
 
-const Map = ({
-  lat: providedLat,
-  lng: providedLng,
-  zoom: providedZoom,
-  disabled = false,
-}: MapProps) => {
+const Map = ({ disabled = false }: MapProps) => {
   const isDark = useMediaQuery({ query: "(prefers-color-scheme: dark)" });
   const container = useRef<HTMLDivElement>(null);
   const lat = useMapStore((state) => state.lat);
@@ -27,13 +22,9 @@ const Map = ({
   const setLng = useMapStore((state) => state.setLng);
   const setZoom = useMapStore((state) => state.setZoom);
   const API_KEY = process.env.NEXT_PUBLIC_PROTON_MAP_API_KEY;
-  const [map, setMap] = useState<MaplibreMap | null>(null);
+  const map = useMapStore((state) => state.map);
+  const setMap = useMapStore((state) => state.setMap);
 
-  useEffect(() => {
-    if (map && providedLng && providedLat) {
-      map.setCenter([providedLng, providedLat]);
-    }
-  }, [providedLat, providedLng]);
   useEffect(() => {
     if (map) {
       if (isDark) {
@@ -60,6 +51,7 @@ const Map = ({
       // console.log(lng, lat);
       setLat(lat);
       setLng(lng);
+      setLocationStream(false);
     });
     map.on("zoom", (ev) => {
       const zoom = ev.target.getZoom();

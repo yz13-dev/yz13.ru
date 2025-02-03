@@ -58,6 +58,7 @@ const useDraftFormStore = create<State & Actions>()((set) => ({
 const NewDraftForm = () => {
   const drafts = useDraftFormStore((state) => state.drafts);
   const addDraft = useDraftFormStore((state) => state.addDraft);
+  const uploadDraft = () => {};
   const newDraft = () => {
     const lastDraftIndex = drafts.length - 1;
     const draft: DraftFormProps = {
@@ -69,7 +70,6 @@ const NewDraftForm = () => {
     };
     addDraft(draft);
   };
-  console.log(drafts);
   return (
     <div className="mx-auto max-w-lg w-full flex flex-col gap-4 items-center">
       <div className="w-full border p-4 rounded-2xl">
