@@ -3,6 +3,7 @@ import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
 import { showProcess } from "@/const/flags";
 import { Skeleton } from "mono/components/skeleton";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
@@ -12,6 +13,12 @@ import MVP from "./grid/mvp";
 import Pages from "./grid/pages";
 import WebApps from "./grid/web-apps";
 import Website from "./grid/website";
+
+export const metadata: Metadata = {
+  title: "Услуги по разработке",
+  description:
+    "Нужен разработчик? Здесь вы можете найти подходящие услуги для вас.",
+};
 
 const page = async () => {
   return (

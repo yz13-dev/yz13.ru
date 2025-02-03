@@ -5,10 +5,17 @@ import PageDockFiller from "@/components/page-dock-filler";
 import { getGroups, getStage, ReleaseStage } from "@/const/releases";
 import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
+import type { Metadata } from "next";
 import Link from "next/link";
 import NewProjectModal from "./new-project-modal";
 import ProjectCard from "./project-card";
 import StageColumn from "./stage-column";
+
+export const metadata: Metadata = {
+  title: "Персональные проекты",
+  description:
+    "Нужен разработчик? Мои проекты, которые я разработал, и которые могу быть полезны для вас.",
+};
 
 const page = async () => {
   const user = await auth();
