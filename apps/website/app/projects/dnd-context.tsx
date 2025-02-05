@@ -5,7 +5,7 @@ type DndContextProps = {
   children?: React.ReactNode;
 };
 const DndContextWrapper = ({ children }: DndContextProps) => {
-  return <DndContext>{children}</DndContext>;
+  return <DndContext onDragEnd={console.log}>{children}</DndContext>;
 };
 
 export default DndContextWrapper;

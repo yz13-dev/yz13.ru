@@ -6,6 +6,8 @@ import Image from "next/image";
 import { forwardRef } from "react";
 import { cn } from "yz13/cn";
 
+import "dayjs/locale/ru";
+
 export interface ProjectProps extends React.HTMLAttributes<HTMLDivElement> {
   release: Release;
 }
@@ -21,6 +23,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
         ref={ref}
         className={cn(
           "flex gap-2 h-fit rounded-xl flex-col border p-3 hover:border-foreground transition-colors",
+          "bg-background",
           className,
         )}
         {...props}

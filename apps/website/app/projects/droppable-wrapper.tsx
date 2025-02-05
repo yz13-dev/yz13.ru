@@ -12,11 +12,14 @@ const DroppableWrapper = ({
   children?: React.ReactNode;
   stage: ReleaseStage;
 }) => {
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: stage,
   });
   return (
-    <div ref={setNodeRef} className={cn("", className)}>
+    <div
+      ref={setNodeRef}
+      className={cn("", isOver && "h-full border-foreground", className)}
+    >
       {children}
     </div>
   );
