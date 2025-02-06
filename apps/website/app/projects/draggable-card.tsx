@@ -7,6 +7,7 @@ const DraggableCard = ({ release }: { release: Release }) => {
   const id = release.id;
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
+    data: release,
   });
 
   const style = transform

@@ -1,6 +1,7 @@
 import packageJson from "@/package.json";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
+import { auth } from "./auth";
 import { charts } from "./charts";
 import { drafts } from "./drafts";
 import { lists } from "./productivity";
@@ -22,6 +23,7 @@ app.route("/visitor-session", visitor_session);
 app.route("/charts", charts);
 app.route("/drafts", drafts);
 app.route("/works", works);
+app.route("/auth", auth);
 
 app.get("/version", (c) => {
   const version = packageJson.version;

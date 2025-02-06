@@ -86,13 +86,11 @@ const Items = () => {
         >
           <LayoutGridIcon size={18} />
         </button> */}
-        {false && (
-          <div className="size-12 rounded-xl border flex items-center justify-center">
-            <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
-              <User sideOffset={12} asSquare />
-            </Suspense>
-          </div>
-        )}
+        <div className="size-12 rounded-xl border flex items-center justify-center">
+          <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
+            <User sideOffset={12} asSquare />
+          </Suspense>
+        </div>
       </div>
     </>
   );

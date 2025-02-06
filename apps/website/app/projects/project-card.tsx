@@ -51,7 +51,9 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
           </div>
           <span className="text-base font-medium">{release.name}</span>
         </div>
-        <span className="text-secondary text-sm">{release.description}</span>
+        {release.description && (
+          <span className="text-secondary text-sm">{release.description}</span>
+        )}
         <Separator className="mt-2" />
         <div className="flex gap-2 items-center text-secondary">
           <CalendarIcon size={16} />

@@ -2,6 +2,11 @@ import dayjs from "dayjs";
 
 type ReleaseType = "app" | "widget";
 
+type ReleaseIcon = {
+  dark: string;
+  light: string;
+};
+
 export type Release = {
   id: string;
   stage: ReleaseStage;
@@ -10,10 +15,7 @@ export type Release = {
   description: string;
   created_at: string;
   updated_at: string;
-  icon?: {
-    dark: string;
-    light: string;
-  };
+  icon?: ReleaseIcon;
 };
 
 export type NewRelease = {
@@ -21,6 +23,7 @@ export type NewRelease = {
   type: ReleaseType;
   description: string;
   stage: ReleaseStage;
+  icon?: ReleaseIcon;
 };
 
 export type ReleaseStage =
