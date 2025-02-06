@@ -1,26 +1,18 @@
-import { cookies } from "next/headers";
+import { API_URL } from "@/const/api";
 import { NextResponse } from "next/server";
-import { createClient } from "yz13/supabase/server";
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
-  const code = searchParams.get("code");
-  // if "next" is in param, use it as the redirect URL
-  const next = searchParams.get("continue") || "/";
-  const nextIsExternalLink =
-    next.startsWith("http://") || next.startsWith("https://");
-
-  if (code) {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
-      if (nextIsExternalLink) {
-        return NextResponse.redirect(next);
-      } else return NextResponse.redirect(`${origin}${next}`);
-    }
+  try {
+    const url = new URL("/auth/callback", API_URL);
+    const res = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json({ error: "error while auth callback" });
   }
-
-  // return the user to an error page with instructions
-  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 }

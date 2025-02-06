@@ -2,10 +2,17 @@ import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
 import { Skeleton } from "mono/components/skeleton";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import Availability from "../(root)/availability";
 import TechList from "./tech-list";
+
+export const metadata: Metadata = {
+  title: "Немного о себе",
+  description:
+    "Если хотите узнать больше о разработчике YZ13, то посетите эту страницу.",
+};
 
 const page = () => {
   return (

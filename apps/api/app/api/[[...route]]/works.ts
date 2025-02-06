@@ -42,7 +42,6 @@ works.post("/", async (c) => {
       stage: body.stage || "in_plans",
     })
     .select();
-  console.log(data, error);
   if (error) {
     return c.json({ status: "error", error: error.message });
   } else return c.json(data);

@@ -2,21 +2,27 @@ import { getProjects } from "@/actions/projects/projects";
 import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
-import { getGroups, getStage, ReleaseStage } from "@/const/releases";
 import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
+import type { Metadata } from "next";
 import Link from "next/link";
+import DndContextWrapper from "./dnd-context";
 import NewProjectModal from "./new-project-modal";
-import ProjectCard from "./project-card";
-import StageColumn from "./stage-column";
+import ProjectsList from "./projects-list";
+
+export const metadata: Metadata = {
+  title: "Персональные проекты",
+  description:
+    "Нужен разработчик? Мои проекты, которые я разработал, и которые могу быть полезны для вас.",
+};
 
 const page = async () => {
   const user = await auth();
   const isAdmin = user?.user_metadata?.role === "admin";
   const releases = await getProjects();
-  const groups = getGroups(releases);
-  const groupKeys = Object.keys(groups);
-  const showNewProjectModal = user && isAdmin;
+  const showNewProjectModal = (user && isAdmin) ?? false;
+  const isActive = showNewProjectModal;
+  // console.log(releases);
   return (
     <>
       <header className="w-full h-14 flex items-center justify-between px-6 border-b">
@@ -25,29 +31,9 @@ const page = async () => {
         </Link>
         {showNewProjectModal && <NewProjectModal />}
       </header>
-      <div className="w-full flex gap-4 p-6 min-h-[calc(100dvh-3.5rem)] overflow-auto">
-        {groupKeys.map((group, index) => {
-          const groupData = groups[group as ReleaseStage];
-          const groupName = getStage[group as ReleaseStage];
-          const count = groupData.length;
-          return (
-            <StageColumn
-              key={`${index}/${groupName}`}
-              stage={group as ReleaseStage}
-              count={count}
-            >
-              {groupData.map((item, i) => {
-                return (
-                  <ProjectCard
-                    key={`${index}/${i}/${groupName}`}
-                    release={item}
-                  />
-                );
-              })}
-            </StageColumn>
-          );
-        })}
-      </div>
+      <DndContextWrapper>
+        <ProjectsList defaultProjects={releases} isActive={isActive} />
+      </DndContextWrapper>
       <PageDockFiller />
       <Dock />
     </>
