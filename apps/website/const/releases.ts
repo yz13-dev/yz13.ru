@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-type ReleaseType = "app" | "widget";
+export type ReleaseType = "app" | "widget";
 
 type ReleaseIcon = {
   dark: string;

@@ -1,6 +1,5 @@
 import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
-import PageDockFiller from "@/components/page-dock-filler";
 import { Skeleton } from "mono/components/skeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -17,29 +16,44 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <>
-      <div className="max-w-xl mx-auto px-6 py-12 flex flex-col gap-4 items-center">
-        <header className="size-20 rounded-full border-2 flex items-center justify-center">
-          <Link href="/">
-            <Logo size={{ width: 48, height: 48 }} type="only-icon" />
-          </Link>
-        </header>
-        <h1 className="text-3xl my-4 text-center inline-flex flex-col gap-1 font-medium">
-          <span>Привет!</span>
-          <span>Я YZ13, фронтенд-разработчик</span>
-        </h1>
-        <p className="text-secondary text-center text-xl font-medium">
-          Специализируюсь на фронтенде и веб-разработке. Увлекаюсь разработкой
-          интерфейсов для сайтов и приложений.
-        </p>
-        <TechList className="my-6" />
-        <div className="w-full">
-          <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
-            <Availability />
-          </Suspense>
+      <div className="border-x">
+        <div className="px-6 border-t">
+          <header className="w-full max-w-xl border-x mx-auto p-4 h-20 flex items-center gap-4">
+            <Link
+              href="/"
+              className="size-12 rounded-xl border flex items-center justify-center"
+            >
+              <Logo size={{ width: 32, height: 32 }} type="only-icon" />
+            </Link>
+            <TechList />
+          </header>
         </div>
+        <main className="w-full border-y px-6">
+          <div className="max-w-xl h-full border-x mx-auto p-6 space-y-6">
+            <h1 className="text-3xl inline-flex flex-col gap-1 font-medium">
+              <span>Привет!</span>
+              <span>Я YZ13, фронтенд-разработчик</span>
+            </h1>
+            <p className="text-secondary text-xl font-medium">
+              Специализируюсь на разработке сайтов, веб-приложений. Увлекаюсь
+              разработкой интерфейсов для сайтов и приложений. Стараюсь
+              расширить круг компетенций.
+            </p>
+            <div className="w-full">
+              <Suspense
+                fallback={<Skeleton className="h-4 w-full rounded-md" />}
+              >
+                <Availability />
+              </Suspense>
+            </div>
+          </div>
+        </main>
       </div>
-      <PageDockFiller />
-      <Dock />
+      <footer className="border-b px-6">
+        <div className="max-w-xl border-x w-full mx-auto p-6">
+          <Dock className="static" />
+        </div>
+      </footer>
     </>
   );
 };

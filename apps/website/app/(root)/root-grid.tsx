@@ -29,7 +29,7 @@ const RootGrid = () => {
         )}
       >
         <button className="flex items-center gap-2 text-foreground/80 p-6">
-          <ArrowLeftIcon size={20} />
+          <ArrowLeftIcon size={18} />
           <span className="text-xl font-medium">Обо мне</span>
         </button>
         <div className="h-full aspect-video relative left-14">
@@ -47,7 +47,7 @@ const RootGrid = () => {
       >
         <button className="flex items-center gap-2 text-foreground/80">
           <span className="text-xl font-medium">Услуги</span>
-          <ArrowRightIcon size={20} />
+          <ArrowRightIcon size={18} />
         </button>
         <div className="w-20 aspect-[9/17] transition-all border absolute -bottom-16 -left-0.5 group-hover:-bottom-14 rounded-lg bg-background">
           <div className="w-full relative h-full rounded-xl">
@@ -117,7 +117,7 @@ const RootGrid = () => {
       >
         <button className="flex items-center gap-2 text-foreground/80">
           <span className="text-xl font-medium">Проекты</span>
-          <ArrowRightIcon size={20} />
+          <ArrowRightIcon size={18} />
         </button>
         <div className="w-44 aspect-video border transition-all group-hover:rotate-3 overflow-hidden absolute rotate-6 -bottom-8 -right-6 rounded-lg bg-background">
           <Image
