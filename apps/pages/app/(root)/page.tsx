@@ -1,11 +1,13 @@
 import { parsePages } from "@/actions/parse-pages";
 import { Logo } from "@/components/logo";
 import { Typewriter } from "@/components/text-writter";
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "mono/components/button";
 import Link from "next/link";
 import PageCard from "./page.card";
 import PagesGrid from "./pages-grid";
 
-export default function Home() {
+const page = () => {
   const pages = parsePages();
   return (
     <>
@@ -14,6 +16,12 @@ export default function Home() {
           <Link href="/">
             <Logo size={{ width: 96, height: 18 }} type="full" />
           </Link>
+          <Button className="gap-2" asChild>
+            <Link href="https://yz13.ru">
+              <span>yz13.ru</span>
+              <ArrowRightIcon size={16} />
+            </Link>
+          </Button>
         </header>
       </div>
       <div className="container mx-auto w-full lg:!py-12 py-6 px-6 space-y-4">
@@ -39,4 +47,6 @@ export default function Home() {
       </div>
     </>
   );
-}
+};
+
+export default page;

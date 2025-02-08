@@ -1,7 +1,14 @@
 import { Logo } from "@/components/logo";
 import { Typewriter } from "@/components/text-writter";
 import { Button } from "mono/components/button";
+import { Metadata } from "next";
 import Link from "next/link";
+import config from "./page.config.json";
+
+export const metadata: Metadata = {
+  title: config.name,
+  description: config.description,
+};
 
 const page = async () => {
   return (
