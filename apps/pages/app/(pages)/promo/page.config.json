@@ -1,0 +1,12 @@
+{
+  "id": "promo",
+  "path": "/promo",
+  "name": "Промо",
+  "description": "Простая промо страница",
+  "type": "page",
+  "tags": ["промо", "страница"],
+  "thumbnail": null,
+  "animated": false,
+  "created_at": "2025-02-08T12:00:00.000Z",
+  "updated_at": "2025-02-08T12:00:00.000Z"
+}

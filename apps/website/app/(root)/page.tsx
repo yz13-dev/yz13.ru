@@ -18,7 +18,7 @@ const page = async () => {
       <main className={cn("w-full max-w-xl space-y-0 mx-auto *:p-6 ")}>
         <Hero />
       </main>
-      <div className="w-full max-w-xl mx-auto *:p-6">
+      <div className="w-full max-w-xl mx-auto *:px-6 space-y-3">
         <RootGrid />
       </div>
       <div className="w-full max-w-xl mx-auto *:p-6">

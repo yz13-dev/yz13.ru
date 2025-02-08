@@ -1,0 +1,35 @@
+{
+  "name": "pages",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "critters": "^0.0.25",
+    "dayjs": "^1.11.13",
+    "mono": "*",
+    "motion": "^11.14.4",
+    "next": "14",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "yz13": "*"
+  },
+  "devDependencies": {
+    "types": "*",
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.6",
+    "@eslint/eslintrc": "^3"
+  }
+}
