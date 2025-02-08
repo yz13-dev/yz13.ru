@@ -16,4 +16,5 @@ export type PageConfig = {
   created_at: string;
   updated_at: string;
   tags: string[];
+  public: boolean;
 };

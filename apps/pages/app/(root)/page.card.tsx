@@ -13,10 +13,11 @@ const PageCard = ({ page }: { page: PageConfig }) => {
   const hasThumbnail = !!page.thumbnail === true;
   return (
     <div className="w-full space-y-2 group" key={page.id}>
-      <div className="w-full relative group-hover:border-foreground transition-colors aspect-video overflow-hidden rounded-xl border px-4 pt-4 bg-background-back">
+      <div className="w-full flex justify-center items-start relative hover:border-foreground transition-colors aspect-video overflow-hidden rounded-2xl border bg-background-back">
         <div
           className={cn(
-            "w-full rounded-xl border relative bg-background transition-colors",
+            "w-[82.5%] group-hover:w-[95%] group-hover:top-2 transition-all rounded-2xl border relative top-6 bg-background",
+            "delay-100 ease-in-out duration-1000",
             hasThumbnail
               ? "h-fit"
               : "h-[125%] flex items-center justify-center",
@@ -26,13 +27,13 @@ const PageCard = ({ page }: { page: PageConfig }) => {
             <>
               <Image
                 src={page.thumbnail.light}
-                className="!static rounded-xl object-cover light-mode-image"
+                className="!static rounded-2xl object-cover light-mode-image"
                 fill
                 alt={page.name}
               />
               <Image
                 src={page.thumbnail.dark}
-                className="!static rounded-xl object-cover dark-mode-image"
+                className="!static rounded-2xl object-cover dark-mode-image"
                 fill
                 alt={page.name}
               />

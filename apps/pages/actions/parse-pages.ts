@@ -20,5 +20,6 @@ export const parsePages = (): PageConfig[] => {
     }
   });
 
-  return files;
+  if (process.env.NODE_ENV === "development") return files;
+  else return files.filter((file) => file.public === true);
 };

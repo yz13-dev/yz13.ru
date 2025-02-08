@@ -11,8 +11,8 @@ const page = () => {
   const pages = parsePages();
   return (
     <>
-      <div className="w-full h-16">
-        <header className="container mx-auto w-full h-full px-6 flex items-center justify-between">
+      <div className="w-full h-16 border-b">
+        <header className="container border-x mx-auto w-full h-full px-6 flex items-center justify-between">
           <Link href="/">
             <Logo size={{ width: 96, height: 18 }} type="full" />
           </Link>
@@ -24,25 +24,50 @@ const page = () => {
           </Button>
         </header>
       </div>
-      <div className="container mx-auto w-full lg:!py-12 py-6 px-6 space-y-4">
-        <Typewriter
-          text={["Страницы, компоненты.", "Pages"]}
-          speed={100}
-          loop={true}
-          tag="h1"
-          className="lg:!text-7xl md:!text-5xl text-3xl font-medium block"
-        />
-        <p className="lg:!text-7xl md:!text-5xl text-3xl font-medium text-secondary">
-          Небольшая библиотека, которая со временем будет только расти.
-        </p>
+      <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full lg:!py-12 py-6 px-6 space-y-4">
+          <Typewriter
+            text={["Страницы, компоненты.", "Pages"]}
+            speed={100}
+            loop={true}
+            tag="h1"
+            className="lg:!text-7xl md:!text-5xl text-3xl font-medium block"
+          />
+          <p className="lg:!text-5xl md:!text-3xl text-xl font-medium text-secondary">
+            Небольшая библиотека, которая со временем будет только расти.
+          </p>
+        </div>
       </div>
-      <div className="w-full">
-        <div className="container mx-auto w-full lg:!py-12 py-6 px-6">
+      <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full px-6 py-3">
+          <nav className="flex flex-row gap-4">
+            <Button variant="secondary">Все</Button>
+            <Button variant="ghost">Страницы</Button>
+            <Button variant="ghost">Компоненты</Button>
+          </nav>
+        </div>
+      </div>
+      <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full p-6">
           <PagesGrid>
-            {pages.map((page) => {
-              return <PageCard key={page.id} page={page} />;
-            })}
+            {pages.length === 0 ? (
+              <div className="w-full col-span-full h-full flex items-center justify-center">
+                <span className="text-secondary">Нет страниц</span>
+              </div>
+            ) : (
+              pages.map((page) => {
+                return <PageCard key={page.id} page={page} />;
+              })
+            )}
           </PagesGrid>
+        </div>
+      </div>
+      <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full px-6 py-3">
+          <footer className="flex flex-row gap-4 justify-between items-center">
+            <span className="text-xs text-secondary">© 2025 Pages</span>
+            <span className="text-xs text-secondary">YZ13/Pages</span>
+          </footer>
         </div>
       </div>
     </>
