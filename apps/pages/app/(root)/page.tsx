@@ -33,18 +33,41 @@ const page = () => {
             tag="h1"
             className="lg:!text-7xl md:!text-5xl text-3xl font-medium block"
           />
-          <p className="lg:!text-7xl md:!text-5xl text-3xl font-medium text-secondary">
+          <p className="lg:!text-5xl md:!text-3xl text-xl font-medium text-secondary">
             Небольшая библиотека, которая со временем будет только расти.
           </p>
         </div>
       </div>
       <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full px-6 py-3">
+          <nav className="flex flex-row gap-4">
+            <Button variant="secondary">Все</Button>
+            <Button variant="ghost">Страницы</Button>
+            <Button variant="ghost">Компоненты</Button>
+          </nav>
+        </div>
+      </div>
+      <div className="w-full h-fit border-b">
         <div className="container mx-auto border-x w-full p-6">
           <PagesGrid>
-            {pages.map((page) => {
-              return <PageCard key={page.id} page={page} />;
-            })}
+            {pages.length === 0 ? (
+              <div className="w-full col-span-full h-full flex items-center justify-center">
+                <span className="text-secondary">Нет страниц</span>
+              </div>
+            ) : (
+              pages.map((page) => {
+                return <PageCard key={page.id} page={page} />;
+              })
+            )}
           </PagesGrid>
+        </div>
+      </div>
+      <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full px-6 py-3">
+          <footer className="flex flex-row gap-4 justify-between items-center">
+            <span className="text-xs text-secondary">© 2025 Pages</span>
+            <span className="text-xs text-secondary">YZ13/Pages</span>
+          </footer>
         </div>
       </div>
     </>
