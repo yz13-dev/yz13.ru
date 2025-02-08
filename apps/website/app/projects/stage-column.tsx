@@ -37,7 +37,7 @@ const StageColumn = ({
           {stageLabel} ({count})
         </span>
       </div>
-      <div className={cn("flex flex-col gap-2")}>{children}</div>
+      {children && <ul className={cn("flex flex-col gap-2")}>{children}</ul>}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { forwardRef } from "react";
 import { cn } from "yz13/cn";
 
 import "dayjs/locale/ru";
+import ProjectTypeIcons from "./project-type-icons";
 
 export interface ProjectProps extends React.HTMLAttributes<HTMLDivElement> {
   release: Release;
@@ -18,19 +19,25 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
     const dateFormated = dayjs(release.created_at)
       .locale("ru")
       .format("MMM DD, YYYY");
+    const Icon = ProjectTypeIcons[release.type];
     return (
       <div
         ref={ref}
         className={cn(
           "flex gap-2 h-fit rounded-xl flex-col border p-3 hover:border-foreground transition-colors",
-          "bg-background",
+          "bg-background group",
           className,
         )}
         {...props}
       >
         <div className="flex h-fit items-center gap-2">
-          <div className="size-6 flex items-center justify-center relative border rounded-lg">
-            {icon && (
+          <div
+            className={cn(
+              "size-6 flex items-center justify-center relative border rounded-lg",
+              "group-hover:border-foreground transition-colors bg-background-back",
+            )}
+          >
+            {icon ? (
               <>
                 <Image
                   src={icon.light}
@@ -47,6 +54,11 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
                   alt={release.name}
                 />
               </>
+            ) : (
+              <Icon
+                size={14}
+                className="text-secondary group-hover:text-foreground transition-colors"
+              />
             )}
           </div>
           <span className="text-base font-medium">{release.name}</span>

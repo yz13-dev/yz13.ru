@@ -5,10 +5,11 @@ import ProjectCard from "./project-card";
 
 const DraggableCard = ({ release }: { release: Release }) => {
   const id = release.id;
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: id,
-    data: release,
-  });
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: id,
+      data: release,
+    });
 
   const style = transform
     ? {
@@ -21,6 +22,7 @@ const DraggableCard = ({ release }: { release: Release }) => {
       release={release}
       ref={setNodeRef}
       style={style}
+      className={isDragging ? "opacity-50" : ""}
       {...listeners}
       {...attributes}
     />

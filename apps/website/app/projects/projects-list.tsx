@@ -47,10 +47,9 @@ const ProjectsList = ({
                   />
                 );
               return (
-                <ProjectCard
-                  key={`${index}/${i}/${groupName}`}
-                  release={item}
-                />
+                <li key={`${index}/${i}/${groupName}`} className="list-none">
+                  <ProjectCard release={item} />
+                </li>
               );
             })}
           </StageColumn>

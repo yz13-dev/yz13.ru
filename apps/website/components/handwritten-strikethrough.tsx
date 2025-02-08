@@ -77,7 +77,7 @@ const HandwrittenStrikethrough = ({
   };
 
   return (
-    <span className="relative inline-block">
+    <span className="relative inline-block text-inherit">
       <noindex ref={textRef} className={cn("select-none", textClassName)}>
         {children}
       </noindex>

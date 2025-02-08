@@ -9,7 +9,12 @@ const CalendarPopover = ({ children }: { children?: React.ReactNode }) => {
   return (
     <Popover>
       <PopoverTrigger asChild={!!children}>{children}</PopoverTrigger>
-      <PopoverContent sideOffset={12} className="rounded-xl w-96 max-w-full">
+      <PopoverContent
+        sideOffset={12}
+        side="top"
+        align="center"
+        className="rounded-xl w-96 max-w-full"
+      >
         <Calendar />
       </PopoverContent>
     </Popover>

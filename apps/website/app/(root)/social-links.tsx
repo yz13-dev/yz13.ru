@@ -23,7 +23,7 @@ const SocialLinks = () => {
       </Link>
       <Link
         target="_blank"
-        href="https://github.com/yz13-env"
+        href="https://github.com/yz13-dev"
         className="group relative"
       >
         <PiGithubLogo
