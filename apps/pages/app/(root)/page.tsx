@@ -11,8 +11,8 @@ const page = () => {
   const pages = parsePages();
   return (
     <>
-      <div className="w-full h-16">
-        <header className="container mx-auto w-full h-full px-6 flex items-center justify-between">
+      <div className="w-full h-16 border-b">
+        <header className="container border-x mx-auto w-full h-full px-6 flex items-center justify-between">
           <Link href="/">
             <Logo size={{ width: 96, height: 18 }} type="full" />
           </Link>
@@ -24,20 +24,22 @@ const page = () => {
           </Button>
         </header>
       </div>
-      <div className="container mx-auto w-full lg:!py-12 py-6 px-6 space-y-4">
-        <Typewriter
-          text={["Страницы, компоненты.", "Pages"]}
-          speed={100}
-          loop={true}
-          tag="h1"
-          className="lg:!text-7xl md:!text-5xl text-3xl font-medium block"
-        />
-        <p className="lg:!text-7xl md:!text-5xl text-3xl font-medium text-secondary">
-          Небольшая библиотека, которая со временем будет только расти.
-        </p>
+      <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full lg:!py-12 py-6 px-6 space-y-4">
+          <Typewriter
+            text={["Страницы, компоненты.", "Pages"]}
+            speed={100}
+            loop={true}
+            tag="h1"
+            className="lg:!text-7xl md:!text-5xl text-3xl font-medium block"
+          />
+          <p className="lg:!text-7xl md:!text-5xl text-3xl font-medium text-secondary">
+            Небольшая библиотека, которая со временем будет только расти.
+          </p>
+        </div>
       </div>
-      <div className="w-full">
-        <div className="container mx-auto w-full lg:!py-12 py-6 px-6">
+      <div className="w-full h-fit border-b">
+        <div className="container mx-auto border-x w-full p-6">
           <PagesGrid>
             {pages.map((page) => {
               return <PageCard key={page.id} page={page} />;
