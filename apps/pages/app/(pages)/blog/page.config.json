@@ -4,8 +4,14 @@
   "name": "Личный блог",
   "description": "Страница с личным блогом",
   "type": "page",
-  "tags": ["блог", "страница"],
-  "thumbnail": null,
+  "tags": [
+    "блог",
+    "страница"
+  ],
+  "thumbnail": {
+    "light": "/pages/blog/blog-light.png",
+    "dark": "/pages/blog/blog-dark.png"
+  },
   "animated": false,
   "created_at": "2025-02-08T18:00:00.000Z",
   "updated_at": "2025-02-08T18:00:00.000Z",
