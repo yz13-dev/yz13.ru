@@ -1,9 +1,8 @@
 import { PageConfig } from "@/types/page.type";
-import { readdirSync, readFileSync } from "fs";
+import { readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 export const parsePages = (): PageConfig[] => {
-  const pagesPath = "/app/(pages)";
   const path = "./app/(pages)";
 
   const pages = readdirSync(path);
@@ -22,4 +21,28 @@ export const parsePages = (): PageConfig[] => {
 
   if (process.env.NODE_ENV === "development") return files;
   else return files.filter((file) => file.public === true);
+};
+
+export const parsePage = (id: string): PageConfig | null => {
+  try {
+    const path = `./app/(pages)/${id}`;
+    const pageConfigPath = join(path, "page.config.json");
+    const pageConfig = JSON.parse(readFileSync(pageConfigPath, "utf8"));
+    return pageConfig;
+  } catch (e) {
+    console.log("Error", e);
+    return null;
+  }
+};
+
+export const writePageConfig = (id: string, config: PageConfig) => {
+  try {
+    const path = `./app/(pages)/${id}/page.config.json`;
+    const pageConfig = JSON.stringify(config, null, 2);
+    writeFileSync(path, pageConfig);
+    return config;
+  } catch (e) {
+    console.log("Error", e);
+    return null;
+  }
 };

@@ -4,7 +4,10 @@
   "name": "Промо",
   "description": "Простая промо страница",
   "type": "page",
-  "tags": ["промо", "страница"],
+  "tags": [
+    "промо",
+    "страница"
+  ],
   "thumbnail": {
     "light": "/pages/promo/promo-light.png",
     "dark": "/pages/promo/promo-dark.png"

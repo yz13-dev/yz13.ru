@@ -3,9 +3,15 @@ import { Logo } from "@/components/logo";
 import { Typewriter } from "@/components/text-writter";
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { Metadata } from "next";
 import Link from "next/link";
 import PageCard from "./page.card";
 import PagesGrid from "./pages-grid";
+
+export const metadata: Metadata = {
+  title: "Pages - Библиотека страниц и компонентов",
+  description: "Страницы, компоненты.",
+};
 
 const page = () => {
   const pages = parsePages();
@@ -34,7 +40,7 @@ const page = () => {
             className="lg:!text-7xl md:!text-5xl text-3xl font-medium block"
           />
           <p className="lg:!text-5xl md:!text-3xl text-xl font-medium text-secondary">
-            Небольшая библиотека, которая со временем будет только расти.
+            Библиотека, которая со временем будет только расти.
           </p>
         </div>
       </div>

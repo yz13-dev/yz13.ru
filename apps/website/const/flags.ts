@@ -23,3 +23,12 @@ export const showReleasesList = flag<boolean>({
     return (await get<boolean>("show-releases-list")) ?? false;
   },
 });
+
+export const showPagesPromo = flag<boolean>({
+  key: "show-pages-promo",
+  description: "Show pages promo on the root page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>("show-pages-promo")) ?? false;
+  },
+});
