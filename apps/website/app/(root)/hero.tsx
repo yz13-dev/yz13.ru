@@ -28,11 +28,6 @@ const Hero = () => {
             className="text-foreground text-xl font-medium"
           />
         </div>
-        {/* <SparklesText
-          tag="h1"
-          text="Фронтенд разработчик,"
-          className="text-foreground text-xl font-medium"
-        /> */}
         <span className="text-secondary text-xl w-fit font-medium">
           На пути к <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
           фуллстеку.
