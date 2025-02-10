@@ -31,7 +31,7 @@ const page = async () => {
           <Logo size={{ width: 96, height: 18 }} type="full" />
         </Link>
       </header>
-      <main className={cn("w-full max-w-xl space-y-6 mx-auto *:px-6 ")}>
+      <main className={cn("w-full max-w-xl space-y-6 mx-auto *:px-6 py-6 ")}>
         <div className="flex flex-row gap-x-2 flex-wrap w-full">
           <div className="w-full">
             <Typewriter

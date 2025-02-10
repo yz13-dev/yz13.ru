@@ -13,8 +13,19 @@ export const metadata: Metadata = {
   description: "Страницы, компоненты.",
 };
 
-const page = () => {
-  const pages = parsePages();
+type PageProps = {
+  searchParams: {
+    type?: string;
+  };
+};
+
+const page = ({ searchParams }: PageProps) => {
+  const type = searchParams.type;
+  const pages = parsePages().filter((page) => {
+    if (!type) return true;
+    if (type === "all") return true;
+    else return page.type === type;
+  });
   return (
     <>
       <div className="w-full h-16 border-b">
@@ -47,9 +58,21 @@ const page = () => {
       <div className="w-full h-fit border-b">
         <div className="container mx-auto border-x w-full px-6 py-3">
           <nav className="flex flex-row gap-4">
-            <Button variant="secondary">Все</Button>
-            <Button variant="ghost">Страницы</Button>
-            <Button variant="ghost">Компоненты</Button>
+            <Button
+              variant={type === "all" || !type ? "secondary" : "ghost"}
+              asChild
+            >
+              <Link href="?type=all">Все</Link>
+            </Button>
+            <Button variant={type === "page" ? "secondary" : "ghost"} asChild>
+              <Link href="?type=page">Страницы</Link>
+            </Button>
+            <Button
+              variant={type === "component" ? "secondary" : "ghost"}
+              asChild
+            >
+              <Link href="?type=component">Компоненты</Link>
+            </Button>
           </nav>
         </div>
       </div>
