@@ -16,8 +16,8 @@ const PageCard = ({ page }: { page: PageConfig }) => {
       <div className="w-full flex justify-center items-start relative hover:border-foreground transition-colors aspect-video overflow-hidden rounded-2xl border bg-background-back">
         <div
           className={cn(
-            "w-[82.5%] group-hover:w-[95%] group-hover:top-2 transition-all rounded-2xl border relative top-6 bg-background",
-            "delay-100 ease-in-out duration-1000",
+            "w-[82.5%] rounded-2xl border relative top-6 bg-background",
+            "ease-in-out transition-colors",
             hasThumbnail
               ? "h-fit"
               : "h-[125%] flex items-center justify-center",
