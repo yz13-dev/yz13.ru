@@ -1,5 +1,4 @@
 import { get } from "@vercel/edge-config";
-import { cn } from "yz13/cn";
 import SocialLinks from "./social-links";
 
 type AvailabilityProps = {};
@@ -13,14 +12,9 @@ const Availability = async ({}: AvailabilityProps) => {
     <div className="w-full flex items-center justify-between gap-2">
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1">
-          <div
-            className={cn(
-              "size-1.5 rounded-full animate-pulse",
-              status === "available"
-                ? "bg-success-foreground"
-                : "bg-error-foreground",
-            )}
-          />
+          {/* <div
+            className={cn("size-2 rounded-full animate-pulse bg-neutral-400")}
+          /> */}
           <span className="text-sm text-secondary">
             {status === "available"
               ? "Открыт для заказов"

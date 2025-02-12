@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["mono", "yz13", "types"],
+  transpilePackages: ["mono", "yz13", "types", "tailwind-config"],
   compress: true,
   experimental: {
     optimizeCss: true,

@@ -6,7 +6,6 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { cn } from "yz13/cn";
 import Footer from "./footer";
-import root from "./root.module.css";
 
 const loading = () => {
   return (
@@ -44,26 +43,23 @@ const loading = () => {
         <div className="w-fit relative mx-auto flex items-center justify-center px-6 my-6">
           <Skeleton className="w-64 h-[22px] rounded-md" />
         </div>
-        <div className={cn("w-full", root["root-page-grid"])}>
+        <div className={cn("w-full root-page-grid")}>
           <Skeleton
             className={cn(
               "w-full h-full overflow-hidden col-span-2 row-span-2 flex flex-col items-center",
-              "relative group",
-              root["grid-item"],
+              "relative group grid-item",
             )}
           ></Skeleton>
           <Skeleton
             className={cn(
               "w-full h-full flex flex-col gap-y-3 px-6 py-4",
-              "relative group",
-              root["grid-item"],
+              "relative group grid-item",
             )}
           ></Skeleton>
           <Skeleton
             className={cn(
               "w-full h-full flex flex-col justify-between gap-y-3 p-6",
-              "relative group",
-              root["grid-item"],
+              "relative group grid-item",
             )}
           ></Skeleton>
         </div>

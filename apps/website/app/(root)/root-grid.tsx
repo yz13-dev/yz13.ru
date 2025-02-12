@@ -7,7 +7,6 @@ import maps_dark from "public/projects/maps/map-project-dark.png";
 import maps from "public/projects/maps/map-project.png";
 import { cn } from "yz13/cn";
 import Banner from "./banner";
-import root from "./root.module.css";
 
 import web_app_dark from "public/works/reservia/map-editor-page-dark.png";
 import web_app from "public/works/reservia/map-editor-page.png";
@@ -20,12 +19,11 @@ import pages from "public/works/yz13/yz13-page.png";
 
 const RootGrid = () => {
   return (
-    <div className={cn("w-full", root["root-page-grid"])}>
+    <div className={cn("w-full root-page-grid")}>
       <div
         className={cn(
           "w-full h-full overflow-hidden col-span-2 row-span-2 flex flex-col items-center",
-          "relative group",
-          root["grid-item"],
+          "relative group grid-item",
         )}
       >
         <button className="flex items-center gap-2 text-foreground/80 p-6">
@@ -41,8 +39,7 @@ const RootGrid = () => {
       <div
         className={cn(
           "w-full h-full flex flex-col gap-y-3 px-6 py-4",
-          "relative group",
-          root["grid-item"],
+          "relative group grid-item",
         )}
       >
         <button className="flex items-center gap-2 text-foreground/80">
@@ -111,8 +108,7 @@ const RootGrid = () => {
       <div
         className={cn(
           "w-full h-full flex flex-col justify-between gap-y-3 p-6",
-          "relative group",
-          root["grid-item"],
+          "relative group grid-item",
         )}
       >
         <button className="flex items-center gap-2 text-foreground/80">

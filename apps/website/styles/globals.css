@@ -1,6 +1,5 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import "tailwindcss";
+@import "mono/css/globals.css";
 
 :root {
   --canvas-grid-cells: #ccc;
@@ -13,8 +12,10 @@
   }
 }
 
-@layer components {
-  body {
-    @apply font-sans bg-background text-foreground;
-  }
+.root-page-grid {
+  grid-auto-rows: 9rem;
+  @apply grid md:!grid-cols-3 grid-cols-2 gap-3;
+}
+.grid-item {
+  @apply overflow-hidden hover:bg-neutral-100 rounded-3xl border-2 transition-colors;
 }
