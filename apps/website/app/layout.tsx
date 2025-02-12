@@ -4,12 +4,13 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "mono/components/toaster";
 import { TooltipProvider } from "mono/components/tooltip";
-import "mono/css/globals.css";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
 import localFont from "next/font/local";
+import "tailwind-config/dist/globals.css";
 import { cn } from "yz13/cn";
 import { UserProvider } from "./account/user.store";
+
 const SessionObserver = dynamic(
   () => import("./visitor-session/session-observer"),
   {

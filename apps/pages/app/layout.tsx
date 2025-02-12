@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import dayjs from "dayjs";
-import "mono/css/globals.css";
 import type { Viewport } from "next";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";

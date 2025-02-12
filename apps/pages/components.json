@@ -5,14 +5,14 @@
   "tsx": true,
   "tailwind": {
     "config": "",
-    "css": "@/styles/globals.css",
+    "css": "globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "mono/components",
-    "utils": "mono"
+    "components": "@/components",
+    "utils": "@/lib/utils"
   }
 }

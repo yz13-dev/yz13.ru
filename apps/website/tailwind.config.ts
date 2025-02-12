@@ -1,8 +1,8 @@
-import { config as mono } from "mono/config";
+import tailwindConfig from "tailwind-config/tailwind.config";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  presets: [mono],
+  presets: [tailwindConfig],
   darkMode: ["class"],
   content: ["./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
 };
