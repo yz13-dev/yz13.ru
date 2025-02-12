@@ -10,51 +10,51 @@
   --font-pixel: var(--font-yz-pixel);
 
   /* colors */
-  --color-background: hsl(var(--yz13-background));
-  --color-foreground: hsl(var(--yz13-foreground));
-  --color-secondary: hsl(var(--yz13-secondary));
+  --color-background: var(--yz13-background);
+  --color-foreground: var(--yz13-foreground);
+  --color-secondary: var(--yz13-secondary);
 
   /* border */
-  --color-border: hsl(var(--yz13-border));
+  --color-border: var(--yz13-border);
 
   /* neutral */
-  --color-neutral-50: hsl(var(--yz13-neutral-50));
-  --color-neutral-100: hsl(var(--yz13-neutral-100));
-  --color-neutral-200: hsl(var(--yz13-neutral-200));
-  --color-neutral-300: hsl(var(--yz13-neutral-300));
-  --color-neutral-400: hsl(var(--yz13-neutral-400));
-  --color-neutral-500: hsl(var(--yz13-neutral-500));
-  --color-neutral-600: hsl(var(--yz13-neutral-600));
-  --color-neutral-700: hsl(var(--yz13-neutral-700));
-  --color-neutral-800: hsl(var(--yz13-neutral-800));
-  --color-neutral-900: hsl(var(--yz13-neutral-900));
+  --color-neutral-50: var(--yz13-neutral-50);
+  --color-neutral-100: var(--yz13-neutral-100);
+  --color-neutral-200: var(--yz13-neutral-200);
+  --color-neutral-300: var(--yz13-neutral-300);
+  --color-neutral-400: var(--yz13-neutral-400);
+  --color-neutral-500: var(--yz13-neutral-500);
+  --color-neutral-600: var(--yz13-neutral-600);
+  --color-neutral-700: var(--yz13-neutral-700);
+  --color-neutral-800: var(--yz13-neutral-800);
+  --color-neutral-900: var(--yz13-neutral-900);
 
   /* green */
-  --color-green-100: hsl(var(--yz13-success-100));
-  --color-green-200: hsl(var(--yz13-success-200));
-  --color-green-300: hsl(var(--yz13-success-300));
-  --color-green-400: hsl(var(--yz13-success-400));
-  --color-green-foreground: hsl(var(--yz13-green-foreground));
-  --color-green-border: hsl(var(--yz13-green-border));
-  --color-green-background: hsl(var(--yz13-green-background));
+  --color-green-100: var(--yz13-success-100);
+  --color-green-200: var(--yz13-success-200);
+  --color-green-300: var(--yz13-success-300);
+  --color-green-400: var(--yz13-success-400);
+  --color-green-foreground: var(--yz13-green-foreground);
+  --color-green-border: var(--yz13-green-border);
+  --color-green-background: var(--yz13-green-background);
 
   /* red */
-  --color-red-100: hsl(var(--yz13-error-100));
-  --color-red-200: hsl(var(--yz13-error-200));
-  --color-red-300: hsl(var(--yz13-error-300));
-  --color-red-400: hsl(var(--yz13-error-400));
-  --color-red-foreground: hsl(var(--yz13-error-foreground));
-  --color-red-border: hsl(var(--yz13-error-border));
-  --color-red-background: hsl(var(--yz13-error-background));
+  --color-red-100: var(--yz13-error-100);
+  --color-red-200: var(--yz13-error-200);
+  --color-red-300: var(--yz13-error-300);
+  --color-red-400: var(--yz13-error-400);
+  --color-red-foreground: var(--yz13-error-foreground);
+  --color-red-border: var(--yz13-error-border);
+  --color-red-background: var(--yz13-error-background);
 
   /* yellow */
-  --color-yellow-100: hsl(var(--yz13-warning-100));
-  --color-yellow-200: hsl(var(--yz13-warning-200));
-  --color-yellow-300: hsl(var(--yz13-warning-300));
-  --color-yellow-400: hsl(var(--yz13-warning-400));
-  --color-yellow-foreground: hsl(var(--yz13-warning-foreground));
-  --color-yellow-border: hsl(var(--yz13-warning-border));
-  --color-yellow-background: hsl(var(--yz13-warning-background));
+  --color-yellow-100: var(--yz13-warning-100);
+  --color-yellow-200: var(--yz13-warning-200);
+  --color-yellow-300: var(--yz13-warning-300);
+  --color-yellow-400: var(--yz13-warning-400);
+  --color-yellow-foreground: var(--yz13-warning-foreground);
+  --color-yellow-border: var(--yz13-warning-border);
+  --color-yellow-background: var(--yz13-warning-background);
 
   /* radius */
   --radius-xs: calc(var(--radius-base) * 0.25);
@@ -67,11 +67,11 @@
   --radius-4xl: calc(var(--yz13-radius) * 2.25);
 
   /* shadcn */
-  --chart-1: hsl(var(--chart-1));
-  --chart-2: hsl(var(--chart-2));
-  --chart-3: hsl(var(--chart-3));
-  --chart-4: hsl(var(--chart-4));
-  --chart-5: hsl(var(--chart-5));
+  --chart-1: var(--chart-1);
+  --chart-2: var(--chart-2);
+  --chart-3: var(--chart-3);
+  --chart-4: var(--chart-4);
+  --chart-5: var(--chart-5);
 
   /* sidebar */
   --sidebar-background: var(--yz13-background);
