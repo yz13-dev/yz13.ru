@@ -1,3 +1,4 @@
+import Dock from "@/components/dock/dock";
 import { HandwrittenStrikethrough } from "@/components/handwritten-strikethrough";
 import { HeroPill, HeroPillIcon, HeroPillText } from "@/components/hero-pill";
 import { Logo } from "@/components/logo";
@@ -18,9 +19,6 @@ const ConnectButton = dynamic(() => import("./connect-button"), {
     <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block ml-2" />
   ),
 });
-
-const wait = async (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
 
 const page = async () => {
   return (
@@ -89,6 +87,7 @@ const page = async () => {
         <Footer />
         <PageDockFiller />
       </div>
+      <Dock />
     </>
   );
 };
