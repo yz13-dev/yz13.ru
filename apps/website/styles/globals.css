@@ -19,3 +19,46 @@
 .grid-item {
   @apply overflow-hidden hover:bg-neutral-100 rounded-3xl border-2 transition-colors;
 }
+
+.terminal {
+  --textarea-height: 20px;
+  --prompt-height: 20px;
+  --space-y: 4px;
+  --padding: 1.5rem;
+  --wrapper-space-y: 0.75rem;
+  --input-padding: 0.75rem;
+  --header-height: 2.25rem;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
+  padding-bottom: var(--padding);
+  @apply w-full min-h-dvh h-fit;
+
+  .terminal-header {
+    height: var(--header-height);
+    @apply w-full flex items-center justify-between;
+  }
+
+  .terninal-output {
+    min-height: calc(
+      100dvh - var(--wrapper-space-y) - var(--textarea-height) -
+        var(--header-height) - var(--input-padding) * 2 - var(--prompt-height) -
+        var(--space-y) - var(--padding)
+    );
+    @apply w-full space-y-2;
+  }
+
+  .terminal-input {
+    background-color: var(--color-background);
+    @apply sticky bottom-6 w-full mx-auto flex flex-col gap-1 rounded-xl p-3 border;
+  }
+
+  .terminal-prompt {
+    height: var(--prompt-height);
+    @apply flex items-center gap-2 *:font-mono;
+  }
+
+  .terminal-textarea {
+    height: var(--textarea-height);
+    @apply resize-none w-full bg-transparent overflow-hidden outline-none text-sm font-mono;
+  }
+}
