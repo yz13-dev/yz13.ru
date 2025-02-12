@@ -23,7 +23,6 @@ const wait = async (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
 const page = async () => {
-  await wait(2000);
   return (
     <>
       <header className="w-full h-16 flex items-center justify-center">

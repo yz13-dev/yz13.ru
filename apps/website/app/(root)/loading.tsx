@@ -1,4 +1,3 @@
-import Dock from "@/components/dock/dock";
 import { HandwrittenStrikethrough } from "@/components/handwritten-strikethrough";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
@@ -73,7 +72,6 @@ const loading = () => {
         <Footer />
         <PageDockFiller />
       </div>
-      <Dock />
     </>
   );
 };

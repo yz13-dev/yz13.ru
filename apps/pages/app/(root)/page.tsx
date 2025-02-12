@@ -21,11 +21,13 @@ type PageProps = {
 
 const page = ({ searchParams }: PageProps) => {
   const type = searchParams.type;
-  const pages = parsePages().filter((page) => {
-    if (!type) return true;
-    if (type === "all") return true;
-    else return page.type === type;
-  });
+  const pages = parsePages()
+    .filter((page) => {
+      if (!type) return true;
+      if (type === "all") return true;
+      else return page.type === type;
+    })
+    .slice(0, 8);
   return (
     <>
       <div className="w-full h-16 border-b">

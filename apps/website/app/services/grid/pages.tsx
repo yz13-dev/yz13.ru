@@ -12,7 +12,12 @@ const Pages = async () => {
   return (
     <>
       <span className="text-2xl font-medium">Страницы</span>
-      <Button variant="secondary" className="gap-2" size="sm" disabled>
+      <Button
+        variant="secondary"
+        className="gap-2 rounded-full"
+        size="sm"
+        disabled
+      >
         От {price.toLocaleString()}
         {sign}
         <ArrowRightIcon size={16} />

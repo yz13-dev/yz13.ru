@@ -2,11 +2,15 @@ import { parsePages } from "@/actions/parse-pages";
 import { Logo } from "@/components/logo";
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
 import PrepareList from "./prepare-list";
 
+export const dynamic = "force-dynamic";
+
 const page = () => {
+  unstable_noStore();
   const pages = parsePages();
   if (!(process.env.NODE_ENV === "development")) return permanentRedirect("/");
   return (
