@@ -66,7 +66,7 @@ const FieldInput = ({
   if (!isEditing) return <FieldValue>{value ?? placeholder}</FieldValue>;
   return (
     <Input
-      className="w-64 bg-yz-neutral-200"
+      className="w-64 bg-neutral-200"
       value={value}
       onChange={(e) => onValueChange && onValueChange(e.target.value)}
       placeholder={placeholder}
@@ -114,11 +114,11 @@ const FieldSelect = ({
 const FieldTrigger = ({
   children,
   onAction,
-  loading=false
+  loading = false,
 }: {
-  children?: React.ReactNode,
-  loading?: boolean,
-  onAction?: () => void
+  children?: React.ReactNode;
+  loading?: boolean;
+  onAction?: () => void;
 }) => {
   const setEditing = useField((state) => state.setEditing);
   const isEditing = useField((state) => state.isEditing);
@@ -127,8 +127,8 @@ const FieldTrigger = ({
       <button
         disabled={loading}
         onClick={() => {
-          setEditing(false)
-          onAction && onAction()
+          setEditing(false);
+          onAction && onAction();
         }}
         className={cn(
           "text-secondary text-sm hover:text-foreground",
@@ -163,5 +163,5 @@ export {
   FieldLabel,
   FieldSelect,
   FieldTrigger,
-  FieldValue
+  FieldValue,
 };

@@ -2,9 +2,9 @@
 
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import {
-  CheckIcon,
-  ChevronRightIcon,
-  DotFilledIcon,
+    CheckIcon,
+    ChevronRightIcon,
+    DotFilledIcon,
 } from "@radix-ui/react-icons"
 import * as React from "react"
 
@@ -31,7 +31,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
   <DropdownMenuPrimitive.SubTrigger
     ref={ref}
     className={cn(
-      "flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm outline-none focus:bg-yz-neutral-200/80 data-[state=open]:bg-yz-neutral-200/80",
+      "flex cursor-default select-none items-center rounded-lg px-2 py-1.5 text-sm outline-none focus:bg-neutral-200/80 data-[state=open]:bg-neutral-200/80",
       inset && "pl-8",
       className
     )}
@@ -88,7 +88,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus:bg-yz-neutral-200/80 focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-md px-2 py-1.5 text-sm outline-none transition-colors focus:bg-neutral-200/80 focus:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className
     )}
@@ -167,7 +167,7 @@ const DropdownMenuSeparator = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
-    className={cn("-mx-1 my-1 h-px bg-yz-neutral-300", className)}
+    className={cn("-mx-1 my-1 h-px bg-neutral-300", className)}
     {...props}
   />
 ))
@@ -187,9 +187,9 @@ const DropdownMenuShortcut = ({
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut"
 
 export {
-  DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator,
-  DropdownMenuShortcut, DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger, DropdownMenuTrigger
+    DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator,
+    DropdownMenuShortcut, DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger, DropdownMenuTrigger
 }
 

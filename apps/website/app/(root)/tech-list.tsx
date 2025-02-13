@@ -1,64 +1,77 @@
 import Image, { StaticImageData } from "next/image";
-import nextjsDark from "public/tech/nextjs-dark.png";
+import css from "public/tech/CSS3.png";
+import html from "public/tech/HTML5.png";
+import mongoDB from "public/tech/mongoDB.png";
 import nextjs from "public/tech/nextjs.png";
-import reactDark from "public/tech/react-dark.png";
+import nodejs from "public/tech/nodejs.png";
+import postgresSQL from "public/tech/postgresSQL.png";
 import react from "public/tech/react.png";
-import tailwindcssDark from "public/tech/tailwindcss-dark.png";
+import redis from "public/tech/redis.png";
 import tailwindcss from "public/tech/tailwindcss.png";
-import typescriptDark from "public/tech/typescript-dark.png";
 import typescript from "public/tech/typescript.png";
-import viteDark from "public/tech/vite-dark.png";
 import vite from "public/tech/vite.png";
 import { cn } from "yz13/cn";
 
 type TechItem = {
   label: string;
-  img: {
-    light: StaticImageData;
-    dark: StaticImageData;
-  };
+  img: StaticImageData;
   url: string;
 };
 
 const list: TechItem[] = [
   {
     label: "NextJS",
-    img: {
-      light: nextjs,
-      dark: nextjsDark,
-    },
+    img: nextjs,
     url: "https://nextjs.org/",
   },
   {
     label: "TypeScript",
-    img: {
-      light: typescript,
-      dark: typescriptDark,
-    },
+    img: typescript,
     url: "https://www.typescriptlang.org/",
   },
   {
+    label: "Redis",
+    img: redis,
+    url: "/",
+  },
+  {
+    label: "PostgresSQL",
+    img: postgresSQL,
+    url: "/",
+  },
+  {
+    label: "MongoDB",
+    img: mongoDB,
+    url: "/",
+  },
+  {
+    label: "NodeJS",
+    img: nodejs,
+    url: "/",
+  },
+  {
+    label: "HTML",
+    img: html,
+    url: "/",
+  },
+  {
+    label: "CSS",
+    img: css,
+    url: "/",
+  },
+  {
     label: "TailwindCSS",
-    img: {
-      light: tailwindcss,
-      dark: tailwindcssDark,
-    },
+    img: tailwindcss,
     url: "https://tailwindcss.com/",
   },
   {
     label: "React",
-    img: {
-      light: react,
-      dark: reactDark,
-    },
+    img: react,
     url: "https://reactjs.org/",
   },
   {
     label: "Vite",
-    img: {
-      light: vite,
-      dark: viteDark,
-    },
+    img: vite,
     url: "https://vitejs.dev/",
   },
 ];
@@ -101,20 +114,11 @@ const TechList = ({ className = "" }: { className?: string }) => {
                       <div className="relative size-16 p-2 bg-background border rounded-lg flex items-center justify-center">
                         <div className="relative w-full h-full">
                           <Image
-                            src={img.light}
+                            src={img}
                             alt={label}
                             loading="lazy"
                             placeholder="blur"
                             fill
-                            className="light-mode-image"
-                          />
-                          <Image
-                            src={img.dark}
-                            alt={label}
-                            loading="lazy"
-                            placeholder="blur"
-                            fill
-                            className="dark-mode-image"
                           />
                         </div>
                       </div>

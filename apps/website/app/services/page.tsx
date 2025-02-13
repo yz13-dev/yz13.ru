@@ -1,3 +1,5 @@
+import Process from "@/app/services/process";
+import Availability from "@/components/availability";
 import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
@@ -7,8 +9,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
-import Availability from "../(root)/availability";
-import Process from "../(root)/process";
 import MVP from "./grid/mvp";
 import Pages from "./grid/pages";
 import WebApps from "./grid/web-apps";

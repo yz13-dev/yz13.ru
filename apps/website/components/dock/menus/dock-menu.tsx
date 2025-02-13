@@ -55,7 +55,7 @@ const DockMenu = () => {
               Войти
             </Button>
           )}
-          {/* <div className="size-8 rounded-full bg-yz-neutral-200" /> */}
+          {/* <div className="size-8 rounded-full bg-neutral-200" /> */}
           {/* <span className="text-sm text-foreground">YZ13</span> */}
         </div>
         <div className="flex flex-row gap-2 w-fit items-center">

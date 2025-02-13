@@ -18,7 +18,7 @@ const ViewsChart = async () => {
       <div className="flex items-center gap-2 justify-between">
         <span className="text-base text-foreground">Просмотры</span>
         <span className="text-xs text-secondary">За неделю</span>
-        {/* <div className="w-36 h-6 rounded-md bg-yz-neutral-200" /> */}
+        {/* <div className="w-36 h-6 rounded-md bg-neutral-200" /> */}
       </div>
       <div className="flex items-center gap-4">
         <span className="text-3xl font-medium text-foreground">

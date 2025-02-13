@@ -231,7 +231,7 @@ const Steps = ({ currentStep }: { currentStep?: number }) => {
     return (
       <div
         style={{ width: lineWidth }}
-        className="relative h-[2px] bg-yz-neutral-300"
+        className="relative h-[2px] bg-neutral-300"
       >
         <motion.div
           layoutId="duration-line"
@@ -473,7 +473,7 @@ const Chat = ({ duration = 1000 }: { duration?: number }) => {
                         "-" +
                         index
                       }
-                      className="w-fit h-fit rounded-xl flex items-center gap-1 p-1 border bg-yz-neutral-100"
+                      className="w-fit h-fit rounded-xl flex items-center gap-1 p-1 border bg-neutral-100"
                     >
                       {attachment.type === "request" && (
                         <BadgeRussianRubleIcon

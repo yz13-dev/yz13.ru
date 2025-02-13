@@ -1,3 +1,4 @@
+import Banner from "@/components/banner";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,7 +7,6 @@ import drafts from "public/projects/maps/drafts-project.png";
 import maps_dark from "public/projects/maps/map-project-dark.png";
 import maps from "public/projects/maps/map-project.png";
 import { cn } from "yz13/cn";
-import Banner from "./banner";
 
 import web_app_dark from "public/works/reservia/map-editor-page-dark.png";
 import web_app from "public/works/reservia/map-editor-page.png";

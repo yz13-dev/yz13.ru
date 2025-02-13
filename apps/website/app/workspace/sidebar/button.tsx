@@ -15,8 +15,8 @@ const Icon = ({
         "size-8 rounded-full flex items-center justify-center transition-colors",
         "border border-transparent",
         "group-data-[variant=secondary]:bg-transparent",
-        "group-data-[variant=default]:bg-yz-neutral-200",
-        "group-hover:!bg-yz-neutral-200 group-hover:border-yz-neutral-200",
+        "group-data-[variant=default]:bg-neutral-200",
+        "group-hover:!bg-neutral-200 group-hover:border-yz-neutral-200",
         className,
       )}
     >
