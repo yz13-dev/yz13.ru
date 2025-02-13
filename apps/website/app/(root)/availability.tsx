@@ -1,25 +1,33 @@
+import { Typewriter } from "@/components/text-writter";
 import { get } from "@vercel/edge-config";
 import SocialLinks from "./social-links";
 
 type AvailabilityProps = {};
+
+const availableTexts = ["Открыт для заказов", "Закажите какой-нибудь проект"];
+const unavailableTexts = [
+  "Работаю над заказами",
+  "Есть пара заказов",
+  "Делаю вид что работаю",
+];
 
 const Availability = async ({}: AvailabilityProps) => {
   const isBusy = await get<boolean>("busy");
   const status: "available" | "unavailable" = isBusy
     ? "unavailable"
     : "available";
+
+  const text = status === "available" ? availableTexts : unavailableTexts;
   return (
     <div className="w-full flex items-center justify-between gap-2">
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1">
-          {/* <div
-            className={cn("size-2 rounded-full animate-pulse bg-neutral-400")}
-          /> */}
-          <span className="text-sm text-secondary">
-            {status === "available"
-              ? "Открыт для заказов"
-              : "Работаю над заказами"}
-          </span>
+          <Typewriter
+            text={text}
+            speed={100}
+            loop={true}
+            className="text-sm text-secondary"
+          />
         </div>
       </div>
       <SocialLinks />

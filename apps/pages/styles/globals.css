@@ -1,29 +1,2 @@
 @import "tailwindcss";
 @import "mono/css/globals.css";
-
-:root {
-  --pattern-fg: color-mix(in oklab, var(--color-black) 10%, transparent);
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --pattern-fg: color-mix(in oklab, var(--color-white) 10%, transparent);
-  }
-}
-
-.pattern-lines {
-  background-attachment: fixed;
-  background-size: 10px 10px;
-  background-image: repeating-linear-gradient(
-    315deg,
-    var(--pattern-fg) 0,
-    var(--pattern-fg) 1px,
-    transparent 0,
-    transparent 50%
-  );
-}
-
-.pattern-dots {
-  background-attachment: fixed;
-  background-size: 10px 10px;
-  background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
-}

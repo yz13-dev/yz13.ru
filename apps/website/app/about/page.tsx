@@ -1,10 +1,18 @@
 import Dock from "@/components/dock/dock";
+import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
+import { ArrowRightIcon } from "lucide-react";
+import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import Availability from "../(root)/availability";
+import Banner from "../(root)/banner";
+import MVP from "../services/grid/mvp";
+import Pages from "../services/grid/pages";
+import WebApps from "../services/grid/web-apps";
+import Website from "../services/grid/website";
 import TechList from "./tech-list";
 
 export const metadata: Metadata = {
@@ -16,44 +24,134 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <>
-      <div className="border-x">
-        <div className="px-6 border-t">
-          <header className="w-full max-w-xl border-x mx-auto p-4 h-20 flex items-center gap-4">
-            <Link
-              href="/"
-              className="size-12 rounded-xl border flex items-center justify-center"
-            >
-              <Logo size={{ width: 32, height: 32 }} type="only-icon" />
-            </Link>
-            <TechList />
-          </header>
+      <header className="w-full justify-between border-x py-4 px-6 h-20 flex items-center gap-4 border-b">
+        <Link href="/">
+          <Logo size={{ width: 128, height: 24 }} type="full" />
+        </Link>
+        <nav className="flex items-center gap-2">
+          <Button className="gap-2" variant="ghost">
+            Pages
+          </Button>
+          <Button className="gap-2" variant="secondary">
+            Проекты <ArrowRightIcon size={16} />
+          </Button>
+        </nav>
+      </header>
+      <div className="w-full divide-y border-b">
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-20 border-x p-6 space-y-6" />
+            <div className="w-12 h-full pattern-lines" />
+          </div>
         </div>
-        <main className="w-full border-y px-6">
-          <div className="max-w-xl h-full border-x mx-auto p-6 space-y-6">
-            <h1 className="text-3xl inline-flex flex-col gap-1 font-medium">
-              <span>Привет!</span>
-              <span>Я YZ13, фронтенд-разработчик</span>
-            </h1>
-            <p className="text-secondary text-xl font-medium">
-              Специализируюсь на разработке сайтов, веб-приложений. Увлекаюсь
-              разработкой интерфейсов для сайтов и приложений. Стараюсь
-              расширить круг компетенций.
-            </p>
-            <div className="w-full">
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <main className="h-fit border-x px-6 py-3 flex flex-col gap-6">
+              <h1 className="text-foreground text-5xl font-medium">
+                <span className="font-pixel">YZ13,</span>
+                Фронтенд-разработчик
+              </h1>
+              <p className="text-secondary text-2xl font-medium max-w-4xl text-balance">
+                Специализируюсь на разработке сайтов, веб-приложений. Увлекаюсь
+                разработкой интерфейсов для сайтов и приложений. Стараюсь
+                расширить круг компетенций.
+              </p>
+            </main>
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-6 border-x" />
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-fit border-x px-6 py-3">
               <Suspense
                 fallback={<Skeleton className="h-4 w-full rounded-md" />}
               >
                 <Availability />
               </Suspense>
             </div>
+            <div className="w-12 h-full pattern-lines" />
           </div>
-        </main>
-      </div>
-      <footer className="border-b px-6">
-        <div className="max-w-xl border-x w-full mx-auto p-6">
-          <Dock className="static" />
         </div>
-      </footer>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-6 border-x" />
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-fit flex items-center divide-x border-x grid lg:grid-cols-3 grid-cols-1 lg:grid-rows-1 grid-rows-3">
+              <div className="relative w-full h-full lg:col-span-2 col-span-1 p-3 bg-neutral-100">
+                <Banner imageClassName="!static object-cover" />
+              </div>
+              <div className="relative w-full space-y-3 p-3 h-full pattern-lines lg:row-span-1 row-span-2">
+                <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border">
+                  <Website noBanner />
+                </div>
+                <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border">
+                  <Pages noBanner />
+                </div>
+                <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border">
+                  <WebApps noBanner />
+                </div>
+                <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border">
+                  <MVP />
+                </div>
+              </div>
+            </div>
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-6 border-x p-6 space-y-6" />
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-fit border-x px-6 py-3 space-y-6 bg-neutral-100 pattern-dots">
+              <span className="text-secondary text-2xl block font-medium">
+                Доступные технологии для разработки
+              </span>
+              <TechList />
+            </div>
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-fit border-x p-6 space-y-6">
+              <Dock className="static" />
+            </div>
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-12 h-full pattern-lines" />
+            <div className="h-fit border-x p-6 space-y-6">
+              <Footer />
+            </div>
+            <div className="w-12 h-full pattern-lines" />
+          </div>
+        </div>
+      </div>
     </>
   );
 };

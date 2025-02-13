@@ -28,10 +28,29 @@
   width: calc(var(--spacing) * 3);
   background-color: var(--color-background);
 }
+
 body {
   font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-foreground);
+}
+
+.pattern-lines {
+  background-attachment: fixed;
+  background-size: 10px 10px;
+  background-image: repeating-linear-gradient(
+    315deg,
+    var(--pattern-fg) 0,
+    var(--pattern-fg) 1px,
+    transparent 0,
+    transparent 50%
+  );
+}
+
+.pattern-dots {
+  background-attachment: fixed;
+  background-size: 10px 10px;
+  background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
 }
 
 .light-mode-image {

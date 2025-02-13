@@ -1,9 +1,4 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "mono/components/tooltip";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import nextjsDark from "public/tech/nextjs-dark.png";
 import nextjs from "public/tech/nextjs.png";
 import reactDark from "public/tech/react-dark.png";
@@ -16,7 +11,16 @@ import viteDark from "public/tech/vite-dark.png";
 import vite from "public/tech/vite.png";
 import { cn } from "yz13/cn";
 
-const list = [
+type TechItem = {
+  label: string;
+  img: {
+    light: StaticImageData;
+    dark: StaticImageData;
+  };
+  url: string;
+};
+
+const list: TechItem[] = [
   {
     label: "NextJS",
     img: {
@@ -59,41 +63,62 @@ const list = [
   },
 ];
 
+const gropupByFirstLetter = (list: TechItem[]) => {
+  const result: Record<string, typeof list> = {};
+  list.forEach((item) => {
+    const firstLetter = item.label.charAt(0).toUpperCase();
+    if (!result[firstLetter]) {
+      result[firstLetter] = [];
+    }
+    result[firstLetter].push(item);
+  });
+  return result;
+};
+
 const TechList = ({ className = "" }: { className?: string }) => {
+  const groups = gropupByFirstLetter(list);
+  const keys = Object.keys(groups).sort();
   return (
-    <ul
-      className={cn(
-        "flex w-fit flex-row p-1 rounded-xl bg-yz-neutral-100 gap-1 border border-yz-neutral-200",
-        className,
-      )}
-    >
-      {list.map(({ label, img, url }) => {
+    <ul className={cn("w-full space-y-6", className)}>
+      {keys.map((key) => {
+        const items = groups[key];
         return (
-          <Tooltip delayDuration={100} key={label + "/" + url}>
-            <li className="group cursor-default size-10 flex items-center justify-center transition-colors rounded-lg bg-yz-neutral-200 hover:bg-yz-neutral-300">
-              <TooltipTrigger className="relative size-6">
-                <Image
-                  src={img.light}
-                  alt={label}
-                  loading="lazy"
-                  placeholder="blur"
-                  fill
-                  className="light-mode-image"
-                />
-                <Image
-                  src={img.dark}
-                  alt={label}
-                  loading="lazy"
-                  placeholder="blur"
-                  fill
-                  className="dark-mode-image"
-                />
-              </TooltipTrigger>
-            </li>
-            <TooltipContent side="bottom" className="border">
-              {label}
-            </TooltipContent>
-          </Tooltip>
+          <li className="flex flex-col gap-3 w-full" key={key}>
+            <span className="text-base font-medium">{key} </span>
+            <div className="flex flex-row gap-4 flex-wrap items-start">
+              {items &&
+                items.map(({ label, img, url }) => {
+                  return (
+                    <div
+                      key={key + "/" + label}
+                      className="flex flex-col gap-2 items-center"
+                    >
+                      <div className="relative size-16 p-2 bg-background border rounded-lg flex items-center justify-center">
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={img.light}
+                            alt={label}
+                            loading="lazy"
+                            placeholder="blur"
+                            fill
+                            className="light-mode-image"
+                          />
+                          <Image
+                            src={img.dark}
+                            alt={label}
+                            loading="lazy"
+                            placeholder="blur"
+                            fill
+                            className="dark-mode-image"
+                          />
+                        </div>
+                      </div>
+                      <div className="w-full text-center text-sm">{label}</div>
+                    </div>
+                  );
+                })}
+            </div>
+          </li>
         );
       })}
     </ul>

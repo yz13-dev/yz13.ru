@@ -4,12 +4,39 @@
 :root {
   --canvas-grid-cells: #ccc;
   --canvas-background: #f3f3f3;
+
+  --pattern-fg: color-mix(in oklab, var(--color-black) 10%, transparent);
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --canvas-background: #000;
     --canvas-grid-cells: #1e1e1e;
+
+    --pattern-fg: color-mix(in oklab, var(--color-white) 10%, transparent);
   }
+}
+
+.grid-template {
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  @apply grid;
+}
+
+.pattern-lines {
+  background-attachment: fixed;
+  background-size: 10px 10px;
+  background-image: repeating-linear-gradient(
+    315deg,
+    var(--pattern-fg) 0,
+    var(--pattern-fg) 1px,
+    transparent 0,
+    transparent 50%
+  );
+}
+
+.pattern-dots {
+  background-attachment: fixed;
+  background-size: 10px 10px;
+  background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
 }
 
 .root-page-grid {

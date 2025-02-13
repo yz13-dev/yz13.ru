@@ -31,7 +31,10 @@ const RootGrid = () => {
           <span className="text-xl font-medium">Обо мне</span>
         </button>
         <div className="h-full aspect-video relative left-14">
-          <Banner className="w-[120%] absolute left-0 top-0" />
+          <Banner
+            className="w-[120%] absolute left-0 top-0"
+            imageClassName="!static"
+          />
           <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-b from-transparent to-background group-hover:to-background-back transition-colors" />
         </div>
         <Link href="/about" className="w-full absolute h-full top-0 left-0" />
