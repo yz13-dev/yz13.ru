@@ -79,7 +79,12 @@ const TechList = ({ className = "" }: { className?: string }) => {
   const groups = gropupByFirstLetter(list);
   const keys = Object.keys(groups).sort();
   return (
-    <ul className={cn("w-full space-y-6", className)}>
+    <ul
+      className={cn(
+        "w-full space-y-6 grid lg:!grid-cols-3 md:!grid-cols-2 grid-cols-1",
+        className,
+      )}
+    >
       {keys.map((key) => {
         const items = groups[key];
         return (

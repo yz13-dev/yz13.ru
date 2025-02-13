@@ -33,7 +33,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "mono/components/tooltip";
-import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
@@ -101,76 +100,48 @@ const RadioPlayer = () => {
       open={!played ? false : showInfoTooltip}
       onOpenChange={setShowInfoTooltip}
     >
-      <TooltipTrigger asChild>
-        <div
-          className="h-full w-fit overflow-hidden flex flex-row items-center p-1 gap-2 rounded-xl"
-          onMouseLeave={() => setExpanded(false)}
-          onMouseEnter={() => setExpanded(true)}
-          onPointerDown={() => setExpanded(true)}
-        >
-          <Tooltip
-            delayDuration={100}
-            open={played ? false : openTooltip}
-            onOpenChange={setOpenTooltip}
+      <Popover open={showControls}>
+        <TooltipTrigger asChild>
+          <div
+            className="h-full w-fit overflow-hidden flex flex-row items-center p-1 gap-2 rounded-xl"
+            onMouseLeave={() => setExpanded(false)}
+            onMouseEnter={() => setExpanded(true)}
+            onPointerDown={() => setExpanded(true)}
           >
-            <TooltipTrigger asChild>
-              <div
-                className={cn(
-                  "h-full aspect-square rounded-lg border flex items-center justify-center bg-background-back",
-                  !played && "cursor-pointer",
-                )}
-                onClick={() => {
-                  if (!played) handlePlaySwitch();
-                }}
-              >
-                <RadioIcon
-                  size={18}
-                  className={cn(
-                    "",
-                    played ? "animate-pulse text-foreground" : "text-secondary",
-                  )}
-                />
-              </div>
-            </TooltipTrigger>
-            <TooltipContent className="border" side="top" sideOffset={12}>
-              Нажмите чтобы включить радио
-            </TooltipContent>
-          </Tooltip>
-          <AnimatePresence>
-            {showControls && (
-              <motion.div
-                className={cn("flex flex-row items-center gap-2")}
-                initial={{ opacity: 0, y: 50, width: 0 }}
-                animate={
-                  showControls
-                    ? { width: "fit-content", opacity: 1, y: 0 }
-                    : { width: 0, opacity: 0, y: 50 }
-                }
-                exit={{ opacity: 0, y: 50, width: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {/* {false && (
-                  <motion.div
-                    className={cn("flex flex-col shrink-0")}
-                    initial={{ opacity: 0, y: 50, width: 0 }}
-                    animate={
-                      played
-                        ? { width: "fit-content", opacity: 1, y: 0 }
-                        : { width: 0, opacity: 0, y: 50 }
-                    }
-                    exit={{ opacity: 0, y: 50, width: 0 }}
-                    transition={{ duration: 0.5 }}
+            <Tooltip
+              delayDuration={100}
+              open={played ? false : openTooltip}
+              onOpenChange={setOpenTooltip}
+            >
+              <PopoverTrigger asChild>
+                <TooltipTrigger asChild>
+                  <div
+                    className={cn(
+                      "h-full aspect-square rounded-lg border flex items-center justify-center bg-background-back",
+                      !played && "cursor-pointer",
+                    )}
+                    onClick={() => {
+                      if (!played) handlePlaySwitch();
+                    }}
                   >
-                    <span className="text-xs line-clamp-1">Радио: fluxfm</span>
-                    <Link
-                      href="https://www.fluxfm.de"
-                      className="text-xs flex gap-1 text-secondary hover:underline items-center"
-                    >
-                      Источник
-                      <ExternalLinkIcon size={10} />
-                    </Link>
-                  </motion.div>
-                )} */}
+                    <RadioIcon
+                      size={18}
+                      className={cn(
+                        "",
+                        played
+                          ? "animate-pulse text-foreground"
+                          : "text-secondary",
+                      )}
+                    />
+                  </div>
+                </TooltipTrigger>
+              </PopoverTrigger>
+              <TooltipContent className="border" side="top" sideOffset={12}>
+                Нажмите чтобы включить радио
+              </TooltipContent>
+            </Tooltip>
+            <PopoverContent className="rounded-full p-2 w-fit">
+              <div className={cn("w-full flex flex-row items-center gap-2")}>
                 <Button size="icon" variant="ghost" className="rounded-full">
                   <Link href="/radio">
                     <ListIcon size={18} />
@@ -233,11 +204,11 @@ const RadioPlayer = () => {
                     </span>
                   </PopoverContent>
                 </Popover>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </TooltipTrigger>
+              </div>
+            </PopoverContent>
+          </div>
+        </TooltipTrigger>
+      </Popover>
       <TooltipContent className="border" side="top" sideOffset={12}>
         Радио: {radio?.name}
       </TooltipContent>

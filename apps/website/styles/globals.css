@@ -21,6 +21,13 @@
   @apply grid;
 }
 
+@media (width < 64rem) {
+  .grid-template {
+    grid-template-columns: minmax(0, 1fr);
+    @apply grid;
+  }
+}
+
 .pattern-lines {
   background-attachment: fixed;
   background-size: 10px 10px;
