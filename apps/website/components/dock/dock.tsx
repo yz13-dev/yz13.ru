@@ -174,7 +174,7 @@ const Dock = ({ className = "" }: { className?: string }) => {
         className={cn(
           "fixed left-0 right-0 mx-auto bottom-3",
           "flex flex-row items-center justify-center gap-1",
-          "bg-background-back/60 backdrop-blur border rounded-2xl",
+          "bg-background backdrop-blur border rounded-2xl",
           "max-w-full h-fit w-fit p-1 max-w-dvw shrink-0 lg:!overflow-hidden overflow-x-auto z-20",
           className,
         )}

@@ -9,7 +9,6 @@ import {
   useTerminalStore,
 } from "./terminal";
 import { executeCommand, terminal } from "./terminal.api";
-import terminalCSS from "./terminal.module.css";
 
 type Props = {
   commandsOnStart?: string[];
@@ -52,16 +51,12 @@ const TerminalInput = ({ commandsOnStart = [] }: Props) => {
   return (
     <div
       className={cn(
-        terminalCSS["terminal-input"],
-        "transition-all",
+        "terminal-input transition-all",
         value.length < 200 ? "max-w-xl" : "max-w-4xl",
       )}
     >
       <div
-        className={cn(
-          "flex items-center gap-2 *:font-mono",
-          terminalCSS["terminal-prompt"],
-        )}
+        className={cn("flex items-center gap-2 *:font-mono terminal-prompt")}
       >
         <span className="text-sm text-secondary">{time.format("HH:mm")}</span>
         <span className="text-sm text-foreground">user@yz13.ru</span>
@@ -88,7 +83,7 @@ const TerminalInput = ({ commandsOnStart = [] }: Props) => {
           // @ts-expect-error
           "--textarea-height": `${height}px`,
         }}
-        className={terminalCSS["terminal-textarea"]}
+        className="terminal-textarea"
         placeholder="Type command here"
       />
     </div>

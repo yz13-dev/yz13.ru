@@ -1,4 +1,5 @@
 "use client";
+import { isDev } from "@/app/login/get-url";
 import { User } from "@supabase/supabase-js";
 import {
   FolderIcon,
@@ -34,6 +35,7 @@ const UserDropdown = ({
     router.refresh();
   };
   const positionOrEmail = user.user_metadata.position ?? user.email;
+  const isAdmin = user.user_metadata.role === "admin";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
@@ -54,19 +56,25 @@ const UserDropdown = ({
           Профиль
           <UserCircleIcon size={16} />
         </DropdownMenuItem>
-        <DropdownMenuItem className="justify-between" asChild>
-          <Link href="/account">
-            Настройки аккаунта
-            <SettingsIcon size={16} />
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="justify-between" asChild>
-          <Link href="/workspace">
-            Рабочее пространство
-            <FolderIcon size={16} />
-          </Link>
-        </DropdownMenuItem>
+        {isDev && (
+          <DropdownMenuItem className="justify-between" asChild>
+            <Link href="/account">
+              Настройки аккаунта
+              <SettingsIcon size={16} />
+            </Link>
+          </DropdownMenuItem>
+        )}
+        {isAdmin && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="justify-between" asChild>
+              <Link href="/workspace">
+                Рабочее пространство
+                <FolderIcon size={16} />
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
         {/* <DropdownMenuLabel className="flex flex-row items-center justify-between">
           <span className="text-sm font-normal">Тема</span>
           <ThemeSwitcher />

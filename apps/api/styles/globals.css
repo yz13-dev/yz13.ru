@@ -11,10 +11,10 @@
     @apply w-4 bg-background;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-yz-neutral-200 rounded-full;
+    @apply bg-neutral-200 rounded-full;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-yz-neutral-300;
+    @apply bg-neutral-300;
   }
   ::-webkit-scrollbar {
     @apply w-3 bg-background;

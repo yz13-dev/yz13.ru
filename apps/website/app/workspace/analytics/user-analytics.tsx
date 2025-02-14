@@ -7,7 +7,7 @@ const UserAnalytics = async () => {
         <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">Новых пользователей</span>
-            <div className="size-6 rounded-full bg-yz-neutral-200" />
+            <div className="size-6 rounded-full bg-neutral-200" />
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-2xl font-medium text-foreground">0 тыс.</span>
@@ -24,7 +24,7 @@ const UserAnalytics = async () => {
             <span className="text-sm text-foreground line-clamp-1">
               Уникальных пользователей
             </span>
-            <div className="size-6 shrink-0 rounded-full bg-yz-neutral-200" />
+            <div className="size-6 shrink-0 rounded-full bg-neutral-200" />
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-2xl font-medium text-foreground">0 тыс.</span>
@@ -41,7 +41,7 @@ const UserAnalytics = async () => {
         <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">Недельное удержание</span>
-            <div className="size-6 rounded-full bg-yz-neutral-200" />
+            <div className="size-6 rounded-full bg-neutral-200" />
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-2xl font-medium text-foreground">0 тыс.</span>
@@ -56,7 +56,7 @@ const UserAnalytics = async () => {
         <div className="w-full h-full p-4 flex flex-col gap-1.5">
           <div className="flex items-start gap-2 justify-between">
             <span className="text-sm text-foreground">Сессии</span>
-            <div className="size-6 rounded-full bg-yz-neutral-200" />
+            <div className="size-6 rounded-full bg-neutral-200" />
           </div>
           <div className="flex flex-col gap-2">
             <span className="text-2xl font-medium text-foreground">0 тыс.</span>

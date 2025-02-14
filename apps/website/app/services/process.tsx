@@ -86,7 +86,7 @@ const useStepsStore = create<State & Actions>()((set) => ({
 
 const stepDuration = 4000;
 
-const Process = () => {
+const Process = ({ className = "" }: { className?: string }) => {
   const onManual = useStepsStore((state) => state.onManual);
   const setOnManual = useStepsStore((state) => state.setOnManual);
   const step = useStepsStore((state) => state.step);
@@ -111,7 +111,7 @@ const Process = () => {
     canBeReturnToAuto ? 1000 : undefined,
   );
   return (
-    <section className="w-full space-y-12">
+    <section className={cn("w-full space-y-12", className)}>
       <div className="w-full space-y-6">
         <h2 className="text-secondary text-xl font-medium">
           Как проходит работа над проектом?
@@ -231,7 +231,7 @@ const Steps = ({ currentStep }: { currentStep?: number }) => {
     return (
       <div
         style={{ width: lineWidth }}
-        className="relative h-[2px] bg-yz-neutral-300"
+        className="relative h-[2px] bg-neutral-300"
       >
         <motion.div
           layoutId="duration-line"
@@ -473,7 +473,7 @@ const Chat = ({ duration = 1000 }: { duration?: number }) => {
                         "-" +
                         index
                       }
-                      className="w-fit h-fit rounded-xl flex items-center gap-1 p-1 border bg-yz-neutral-100"
+                      className="w-fit h-fit rounded-xl flex items-center gap-1 p-1 border bg-neutral-100"
                     >
                       {attachment.type === "request" && (
                         <BadgeRussianRubleIcon

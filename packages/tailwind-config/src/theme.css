@@ -1,0 +1,99 @@
+@import "./vars.css";
+
+/* @plugin "tailwindcss-animate"; */
+
+@theme {
+  --*: initial;
+
+  /* fonts */
+  --font-sans: var(--font-yz-sans);
+  --font-mono: var(--font-yz-mono);
+  --font-pixel: var(--font-yz-pixel);
+
+  /* colors */
+  --color-background: var(--yz13-background);
+  --color-foreground: var(--yz13-foreground);
+  --color-secondary: var(--yz13-secondary);
+
+  /* border */
+  --color-border: var(--yz13-border);
+
+  /* neutral */
+  --color-neutral-50: var(--yz13-neutral-50);
+  --color-neutral-100: var(--yz13-neutral-100);
+  --color-neutral-200: var(--yz13-neutral-200);
+  --color-neutral-300: var(--yz13-neutral-300);
+  --color-neutral-400: var(--yz13-neutral-400);
+  --color-neutral-500: var(--yz13-neutral-500);
+  --color-neutral-600: var(--yz13-neutral-600);
+  --color-neutral-700: var(--yz13-neutral-700);
+  --color-neutral-800: var(--yz13-neutral-800);
+  --color-neutral-900: var(--yz13-neutral-900);
+
+  /* green */
+  --color-green-100: var(--yz13-success-100);
+  --color-green-200: var(--yz13-success-200);
+  --color-green-300: var(--yz13-success-300);
+  --color-green-400: var(--yz13-success-400);
+  --color-green-foreground: var(--yz13-green-foreground);
+  --color-green-border: var(--yz13-green-border);
+  --color-green-background: var(--yz13-green-background);
+
+  /* red */
+  --color-red-100: var(--yz13-error-100);
+  --color-red-200: var(--yz13-error-200);
+  --color-red-300: var(--yz13-error-300);
+  --color-red-400: var(--yz13-error-400);
+  --color-red-foreground: var(--yz13-error-foreground);
+  --color-red-border: var(--yz13-error-border);
+  --color-red-background: var(--yz13-error-background);
+
+  /* yellow */
+  --color-yellow-100: var(--yz13-warning-100);
+  --color-yellow-200: var(--yz13-warning-200);
+  --color-yellow-300: var(--yz13-warning-300);
+  --color-yellow-400: var(--yz13-warning-400);
+  --color-yellow-foreground: var(--yz13-warning-foreground);
+  --color-yellow-border: var(--yz13-warning-border);
+  --color-yellow-background: var(--yz13-warning-background);
+
+  /* radius */
+  --radius-xs: calc(var(--radius-base) * 0.25);
+  --radius-sm: calc(var(--yz13-radius) * 0.5);
+  --radius-md: calc(var(--yz13-radius) * 1);
+  --radius-lg: calc(var(--yz13-radius) * 1.25);
+  --radius-xl: calc(var(--yz13-radius) * 1.5);
+  --radius-2xl: calc(var(--yz13-radius) * 1.75);
+  --radius-3xl: calc(var(--yz13-radius) * 2);
+  --radius-4xl: calc(var(--yz13-radius) * 2.25);
+
+  /* shadcn */
+  --chart-1: var(--chart-1);
+  --chart-2: var(--chart-2);
+  --chart-3: var(--chart-3);
+  --chart-4: var(--chart-4);
+  --chart-5: var(--chart-5);
+
+  /* sidebar */
+  --sidebar-background: var(--yz13-background);
+  --sidebar-foreground: var(--yz13-foreground);
+  --sidebar-border: var(--yz13-border);
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}

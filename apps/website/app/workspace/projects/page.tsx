@@ -8,7 +8,7 @@ const page = () => {
         <div className="w-80 flex flex-col gap-4">
           <div className="w-full h-fit flex flex-row gap-4">
             <span>Столбец</span>
-            <span className="text-xs text-secondary px-2 py-1 rounded-md bg-yz-neutral-100">
+            <span className="text-xs text-secondary px-2 py-1 rounded-md bg-neutral-100">
               10
             </span>
           </div>

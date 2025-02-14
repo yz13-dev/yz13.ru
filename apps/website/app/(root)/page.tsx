@@ -1,94 +1,98 @@
-import { HandwrittenStrikethrough } from "@/components/handwritten-strikethrough";
-import { HeroPill, HeroPillIcon, HeroPillText } from "@/components/hero-pill";
+import Availability from "@/components/availability";
+import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
-import { Typewriter } from "@/components/text-writter";
+import { PagesLogo } from "@/components/pages-logo";
 import { showPagesPromo } from "@/const/flags";
-import { ExternalLinkIcon, PackagePlusIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense } from "react";
-import { cn } from "yz13/cn";
-import Availability from "./availability";
-import Footer from "./footer";
-import RootGrid from "./root-grid";
-const ConnectButton = dynamic(() => import("./connect-button"), {
-  loading: () => (
-    <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block ml-2" />
-  ),
-});
-
-const wait = async (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+import Footer from "../old/footer";
+import Header from "./header";
+import Hero from "./hero";
+import Nav from "./nav";
+import Services from "./services";
+import TechList from "./tech-list";
 
 const page = async () => {
+  // unstable_noStore();
+  // await wait(2000);
   return (
     <>
-      <header className="w-full h-16 flex items-center justify-center">
+      <Header>
         <Link href="/">
-          <Logo size={{ width: 96, height: 18 }} type="full" />
+          <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
-      </header>
-      <main className={cn("w-full max-w-xl space-y-6 mx-auto *:px-6 py-6 ")}>
-        <div className="flex flex-row gap-x-2 flex-wrap w-full">
-          <div className="w-full">
-            <Typewriter
-              text={[
-                "Фронтенд разработчик.",
-                "Страницы, сайты и веб-приложения.",
-                "YZ13",
-              ]}
-              speed={100}
-              loop={true}
-              className="text-foreground text-xl font-medium"
-            />
+        <Nav>
+          {(await showPagesPromo()) && (
+            <div className="size-9 flex justify-center group relative items-center transition-colors">
+              <PagesLogo
+                size={{ width: 16, height: 16 }}
+                type="only-icon"
+                className="opacity-50 group-hover:opacity-100 transition-opacity"
+              />
+              <Link
+                href="https://pages.yz13.ru"
+                className="w-full h-full absolute inset-0"
+              />
+            </div>
+          )}
+        </Nav>
+      </Header>
+
+      <div className="w-full divide-y border-b">
+        <Hero />
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-full h-full pattern-lines" />
+            <div className="h-fit border-x px-6 py-3">
+              <Suspense
+                fallback={<Skeleton className="h-4 w-full rounded-md" />}
+              >
+                <Availability />
+              </Suspense>
+            </div>
+            <div className="w-full h-full pattern-lines" />
           </div>
-          <span className="text-secondary text-xl w-fit font-medium">
-            На пути к{" "}
-            <HandwrittenStrikethrough>отдыху</HandwrittenStrikethrough>{" "}
-            фуллстеку.
-            <Suspense
-              fallback={
-                <span className="w-28 h-7 rounded-lg bg-background-back animate-pulse inline-block mx-2" />
-              }
-            >
-              <ConnectButton className="inline-block mx-2" />
-            </Suspense>
-          </span>
         </div>
         <div className="w-full">
-          <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
-            <Availability />
-          </Suspense>
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-full h-full pattern-lines" />
+            <div className="h-6 border-x" />
+            <div className="w-full h-full pattern-lines" />
+          </div>
         </div>
-      </main>
-      {(await showPagesPromo()) && (
-        <div className="w-fit relative mx-auto flex items-center justify-center px-6 my-6">
-          <HeroPill>
-            <HeroPillIcon>
-              <PackagePlusIcon size={12} />
-            </HeroPillIcon>
-            <HeroPillText>
-              Pages - Библиотека страниц и компонентов
-            </HeroPillText>
-            <HeroPillIcon>
-              <ExternalLinkIcon size={12} />
-            </HeroPillIcon>
-          </HeroPill>
-          <Link
-            href="https://pages.yz13.ru"
-            className="absolute top-0 right-0 w-full h-full"
-          />
+        <Services />
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
+          </div>
         </div>
-      )}
-      <div className="w-full max-w-xl mx-auto *:px-6 space-y-3">
-        <RootGrid />
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-fit divide-y">
+              <div className="flex flex-col gap-2 bg-neutral-100 p-6">
+                <span className="text-secondary text-2xl block font-medium">
+                  Доступные технологии для разработки
+                </span>
+                <span className="text-secondary text-sm">
+                  Со временем список технологий будет расширяться
+                </span>
+              </div>
+              <TechList className="p-6 bg-neutral-100" />
+            </div>
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-fit p-6 space-y-6">
+              <Footer />
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="w-full max-w-xl mx-auto *:p-6">
-        <Footer />
-        <PageDockFiller />
-      </div>
+      <PageDockFiller className="pattern-lines max-w-screen-2xl w-full mx-auto border-x" />
+      <Dock />
     </>
   );
 };

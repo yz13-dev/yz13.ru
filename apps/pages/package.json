@@ -18,9 +18,11 @@
     "puppeteer": "^23.3.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "tailwind-config": "*",
     "yz13": "*"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.6",
     "types": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
@@ -29,7 +31,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^4.0.6",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "@eslint/eslintrc": "^3"

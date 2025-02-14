@@ -1,21 +1,2 @@
-/* @import url("mono/css/globals.css"); */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
-:root {
-  --canvas-grid-cells: #ccc;
-  --canvas-background: #f3f3f3;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --canvas-background: #000;
-    --canvas-grid-cells: #1e1e1e;
-  }
-}
-
-@layer components {
-  body {
-    @apply font-sans bg-background text-foreground;
-  }
-}
+@import "tailwindcss";
+@import "mono/css/globals.css";

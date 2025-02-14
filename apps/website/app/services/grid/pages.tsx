@@ -5,7 +5,7 @@ import Image from "next/image";
 import pages_dark from "public/works/yz13/yz13-page-dark.png";
 import pages from "public/works/yz13/yz13-page.png";
 
-const Pages = async () => {
+const Pages = async ({ noBanner = false }: { noBanner?: boolean }) => {
   const sign = await get<string>("price-sign");
   const priceObj = await get<{ [key: string]: number }>("prices");
   const price = priceObj?.["landing-page"] ?? 0;
@@ -22,24 +22,26 @@ const Pages = async () => {
         {sign}
         <ArrowRightIcon size={16} />
       </Button>
-      <div className="absolute left-0 right-0 mx-auto rounded-xl overflow-hidden top-1/4 border-2 w-[90%] aspect-[9/17]">
-        <div className="w-full relative h-full rounded-xl">
-          <Image
-            placeholder="blur"
-            src={pages_dark}
-            alt="Обложка для услуги страниц"
-            className="object-cover dark-mode-image"
-            fill
-          />
-          <Image
-            placeholder="blur"
-            src={pages}
-            alt="Обложка для услуги страниц"
-            className="object-cover light-mode-image"
-            fill
-          />
+      {!noBanner && (
+        <div className="absolute left-0 right-0 mx-auto rounded-xl overflow-hidden top-1/4 border-2 w-[90%] aspect-[9/17]">
+          <div className="w-full relative h-full rounded-xl">
+            <Image
+              placeholder="blur"
+              src={pages_dark}
+              alt="Обложка для услуги страниц"
+              className="object-cover dark-mode-image"
+              fill
+            />
+            <Image
+              placeholder="blur"
+              src={pages}
+              alt="Обложка для услуги страниц"
+              className="object-cover light-mode-image"
+              fill
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

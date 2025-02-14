@@ -39,7 +39,7 @@ const ReleaseItem = memo(({ release }: { release: Release }) => {
           <div className="w-1/3">
             <div
               className={cn(
-                "h-8 py-1 rounded-lg flex items-center shrink-0 gap-1.5 bg-yz-neutral-200/60 w-fit px-2",
+                "h-8 py-1 rounded-lg flex items-center shrink-0 gap-1.5 bg-neutral-200/60 w-fit px-2",
                 "text-foreground/60 group-hover:text-foreground transition-colors",
               )}
             >
@@ -57,7 +57,7 @@ const ReleaseItem = memo(({ release }: { release: Release }) => {
               </span>
             </div>
           </div>
-          <div className="w-1/3 h-2 rounded-md border bg-yz-neutral-200/30 relative">
+          <div className="w-1/3 h-2 rounded-md border bg-neutral-200/30 relative">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${percent}%` }}

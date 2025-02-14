@@ -2,7 +2,7 @@ import { get } from "@vercel/edge-config";
 import { ArrowRightIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 
-const Website = async () => {
+const Website = async ({ noBanner = false }: { noBanner?: boolean }) => {
   const sign = await get<string>("price-sign");
   const priceObj = await get<{ [key: string]: number }>("prices");
   const price = priceObj?.website ?? 0;
@@ -19,7 +19,9 @@ const Website = async () => {
         {sign}
         <ArrowRightIcon size={16} />
       </Button>
-      <div className="absolute left-6 rounded-xl top-[40%] overflow-hidden border-2 w-[150%] aspect-video"></div>
+      {!noBanner && (
+        <div className="absolute left-6 rounded-xl top-[40%] overflow-hidden border-2 w-[150%] aspect-video"></div>
+      )}
     </>
   );
 };
