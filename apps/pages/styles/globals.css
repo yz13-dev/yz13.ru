@@ -1,2 +1,16 @@
+@import "tailwind-config/dist/theme.css";
+@import "tailwind-config/dist/globals.css";
 @import "tailwindcss";
 @import "mono/css/globals.css";
+
+@source "../app";
+@source "../components";
+
+:root {
+  --pattern-fg: color-mix(in oklab, var(--color-black) 10%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pattern-fg: color-mix(in oklab, var(--color-white) 10%, transparent);
+  }
+}

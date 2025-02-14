@@ -21,7 +21,6 @@
     "critters": "^0.0.25",
     "dayjs": "^1.11.13",
     "favicon-fetch": "^1.0.0",
-    "latest": "^0.2.0",
     "lucide-react": "^0.452.0",
     "maplibre-gl": "^5.1.0",
     "mono": "*",
@@ -29,7 +28,6 @@
     "next": "14.2.6",
     "next-safe-action": "^7.9.9",
     "nuqs": "^2.2.3",
-    "postcss": "^8.4.49",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hotkeys-hook": "^4.6.1",
@@ -42,6 +40,7 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "postcss": "^8.4.49",
     "tailwind-config": "*",
     "@tailwindcss/postcss": "^4.0.6",
     "@repo/eslint-config": "*",
@@ -51,7 +50,7 @@
     "@types/react-dom": "^18",
     "tailwindcss": "^4.0.6",
     "types": "*",
-    "eslint": "^8.57.1",
+    "eslint": "^9",
     "eslint-config-next": "15.0.3",
     "typescript": "^5"
   }
