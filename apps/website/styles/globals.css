@@ -1,5 +1,10 @@
+@import "tailwind-config/dist/theme.css";
+@import "tailwind-config/dist/globals.css";
 @import "tailwindcss";
 @import "mono/css/globals.css";
+
+@source "../app";
+@source "../components";
 
 :root {
   --canvas-grid-cells: #ccc;
@@ -18,32 +23,14 @@
 
 .grid-template {
   grid-template-columns: 48px minmax(0, 1fr) 48px;
-  @apply grid;
+  display: grid;
 }
 
 @media (width < 64rem) {
   .grid-template {
+    display: grid;
     grid-template-columns: minmax(0, 1fr);
-    @apply grid;
   }
-}
-
-.pattern-lines {
-  background-attachment: fixed;
-  background-size: 10px 10px;
-  background-image: repeating-linear-gradient(
-    315deg,
-    var(--pattern-fg) 0,
-    var(--pattern-fg) 1px,
-    transparent 0,
-    transparent 50%
-  );
-}
-
-.pattern-dots {
-  background-attachment: fixed;
-  background-size: 10px 10px;
-  background-image: radial-gradient(var(--pattern-fg) 1px, transparent 0);
 }
 
 .root-page-grid {

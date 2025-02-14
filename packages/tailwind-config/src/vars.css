@@ -1,5 +1,3 @@
-@import "./vars.css";
-
 :root {
   --default-icon-color: var(--yz13-foreground);
   --icon-brand-color: var(--yz13-foreground);

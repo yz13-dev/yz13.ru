@@ -1,11 +1,13 @@
 import Banner from "@/components/banner";
+import { get } from "@vercel/edge-config";
 import { Button } from "mono/components/button";
 import MVP from "../services/grid/mvp";
 import Pages from "../services/grid/pages";
 import WebApps from "../services/grid/web-apps";
 import Website from "../services/grid/website";
 
-const Services = () => {
+const Services = async () => {
+  const isBusy = await get<boolean>("busy");
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x">
@@ -32,7 +34,7 @@ const Services = () => {
               <Button className="w-1/2" variant="default">
                 Все услуги
               </Button>
-              <Button className="w-1/2" variant="secondary">
+              <Button disabled={isBusy} className="w-1/2" variant="secondary">
                 Заказать услугу
               </Button>
             </div>
@@ -40,6 +42,6 @@ const Services = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 export default Services;

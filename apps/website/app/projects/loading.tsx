@@ -2,16 +2,21 @@ import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
+import Header from "../(root)/header";
+import Nav from "../(root)/nav";
 import StageColumn from "./stage-column";
 
 const loading = () => {
   return (
     <>
-      <header className="w-full h-14 flex items-center justify-between px-6 border-b">
+      <Header className="h-14">
         <Link href="/">
-          <Logo size={{ width: 96, height: 18 }} type="full" />
+          <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
-      </header>
+        <Nav>
+          <Skeleton className="size-9" />
+        </Nav>
+      </Header>
       <div className="w-full flex gap-4 p-6 min-h-[calc(100dvh-3.5rem)] overflow-auto">
         <StageColumn stage="in_plans" count={0}>
           <Skeleton className="W-full aspect-video rounded-xl" />

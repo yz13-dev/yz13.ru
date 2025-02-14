@@ -5,21 +5,14 @@ import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
 import { showPagesPromo } from "@/const/flags";
 import { Skeleton } from "mono/components/skeleton";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import Footer from "../../(old)/old/footer";
+import Footer from "../old/footer";
 import Header from "./header";
 import Hero from "./hero";
 import Nav from "./nav";
 import Services from "./services";
 import TechList from "./tech-list";
-
-export const metadata: Metadata = {
-  title: "Немного о себе",
-  description:
-    "Если хотите узнать больше о разработчике YZ13, то посетите эту страницу.",
-};
 
 const page = async () => {
   // unstable_noStore();
@@ -78,9 +71,12 @@ const page = async () => {
         <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-fit divide-y">
-              <div className="space-y-6 bg-neutral-100 p-6">
+              <div className="flex flex-col gap-2 bg-neutral-100 p-6">
                 <span className="text-secondary text-2xl block font-medium">
                   Доступные технологии для разработки
+                </span>
+                <span className="text-secondary text-sm">
+                  Со временем список технологий будет расширяться
                 </span>
               </div>
               <TechList className="p-6 bg-neutral-100" />

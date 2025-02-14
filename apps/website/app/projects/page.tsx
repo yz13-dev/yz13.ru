@@ -2,10 +2,14 @@ import { getProjects } from "@/actions/projects/projects";
 import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
+import { PagesLogo } from "@/components/pages-logo";
+import { showPagesPromo } from "@/const/flags";
 import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Header from "../(root)/header";
+import Nav from "../(root)/nav";
 import DndContextWrapper from "./dnd-context";
 import NewProjectModal from "./new-project-modal";
 import ProjectsList from "./projects-list";
@@ -22,15 +26,29 @@ const page = async () => {
   const releases = await getProjects();
   const showNewProjectModal = (user && isAdmin) ?? false;
   const isActive = showNewProjectModal;
-  // console.log(releases);
   return (
     <>
-      <header className="w-full h-14 flex items-center justify-between px-6 border-b">
+      <Header className="h-14">
         <Link href="/">
-          <Logo size={{ width: 96, height: 18 }} type="full" />
+          <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
-        {showNewProjectModal && <NewProjectModal />}
-      </header>
+        <Nav>
+          {(await showPagesPromo()) && (
+            <div className="size-9 flex justify-center group relative items-center transition-colors">
+              <PagesLogo
+                size={{ width: 16, height: 16 }}
+                type="only-icon"
+                className="opacity-50 group-hover:opacity-100 transition-opacity"
+              />
+              <Link
+                href="https://pages.yz13.ru"
+                className="w-full h-full absolute inset-0"
+              />
+            </div>
+          )}
+          {showNewProjectModal && <NewProjectModal />}
+        </Nav>
+      </Header>
       <DndContextWrapper>
         <ProjectsList defaultProjects={releases} isActive={isActive} />
       </DndContextWrapper>

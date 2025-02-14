@@ -1,9 +1,10 @@
-@import "tailwindcss";
 @import "./vars.css";
 
-@plugin "tailwindcss-animate";
+/* @plugin "tailwindcss-animate"; */
 
 @theme {
+  --*: initial;
+
   /* fonts */
   --font-sans: var(--font-yz-sans);
   --font-mono: var(--font-yz-mono);

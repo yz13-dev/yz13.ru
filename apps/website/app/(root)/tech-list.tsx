@@ -1,7 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import css from "public/tech/CSS3.png";
 import html from "public/tech/HTML5.png";
-import mongoDB from "public/tech/mongoDB.png";
 import nextjs from "public/tech/nextjs.png";
 import nodejs from "public/tech/nodejs.png";
 import postgresSQL from "public/tech/postgresSQL.png";
@@ -39,11 +38,11 @@ const list: TechItem[] = [
     img: postgresSQL,
     url: "/",
   },
-  {
-    label: "MongoDB",
-    img: mongoDB,
-    url: "/",
-  },
+  // {
+  //   label: "MongoDB",
+  //   img: mongoDB,
+  //   url: "/",
+  // },
   {
     label: "NodeJS",
     img: nodejs,
