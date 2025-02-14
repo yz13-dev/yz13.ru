@@ -1,9 +1,9 @@
+import Header from "@/components/header";
 import { Logo } from "@/components/logo";
+import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import Header from "../(root)/header";
-import Nav from "../(root)/nav";
 import StageColumn from "./stage-column";
 
 const loading = () => {

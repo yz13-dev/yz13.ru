@@ -104,7 +104,7 @@ const TechList = ({ className = "" }: { className?: string }) => {
             <span className="text-base font-medium">{key} </span>
             <div className="flex flex-row gap-4 flex-wrap items-start">
               {items &&
-                items.map(({ label, img, url }) => {
+                items.map(({ label, img }) => {
                   return (
                     <div
                       key={key + "/" + label}

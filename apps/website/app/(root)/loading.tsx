@@ -1,10 +1,10 @@
+import Header from "@/components/header";
 import { Logo } from "@/components/logo";
+import Nav from "@/components/nav";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import Header from "./header";
 import Hero from "./hero";
-import Nav from "./nav";
 
 const loading = () => {
   return (

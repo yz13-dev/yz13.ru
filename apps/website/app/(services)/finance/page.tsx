@@ -1,12 +1,35 @@
-import PublicHeader from "@/components/public-header";
+import Header from "@/components/header";
+import { Logo } from "@/components/logo";
+import Nav from "@/components/nav";
+import { PagesLogo } from "@/components/pages-logo";
+import { showPagesPromo } from "@/const/flags";
 import { ExternalLinkIcon, PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
 
-const page = () => {
+const page = async () => {
   return (
     <>
-      <PublicHeader />
+      <Header>
+        <Link href="/">
+          <Logo size={{ width: 110, height: 20 }} type="full" />
+        </Link>
+        <Nav>
+          {(await showPagesPromo()) && (
+            <div className="size-9 flex justify-center group relative items-center transition-colors">
+              <PagesLogo
+                size={{ width: 16, height: 16 }}
+                type="only-icon"
+                className="opacity-50 group-hover:opacity-100 transition-opacity"
+              />
+              <Link
+                href="https://pages.yz13.ru"
+                className="w-full h-full absolute inset-0"
+              />
+            </div>
+          )}
+        </Nav>
+      </Header>
       <div className="p-3 max-w-screen-2xl space-y-6 mx-auto">
         <div className="flex flex-row items-center gap-3 justify-between">
           <h1 className="text-3xl font-semibold">Ваши счета</h1>

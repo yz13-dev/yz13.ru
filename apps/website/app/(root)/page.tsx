@@ -1,6 +1,8 @@
 import Availability from "@/components/availability";
 import Dock from "@/components/dock/dock";
+import Header from "@/components/header";
 import { Logo } from "@/components/logo";
+import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
 import { showPagesPromo } from "@/const/flags";
@@ -8,9 +10,7 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 import Footer from "../old/footer";
-import Header from "./header";
 import Hero from "./hero";
-import Nav from "./nav";
 import Services from "./services";
 import TechList from "./tech-list";
 
