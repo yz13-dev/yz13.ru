@@ -51,8 +51,8 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
     }
   };
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+    <div className={cn("flex flex-col", className)} {...props}>
+      <Card className="rounded-none border-x-0 divide-y">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Добро пожаловать в YZ13</CardTitle>
           <CardDescription>
@@ -116,9 +116,12 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
                   Продолжить
                 </Button>
               </div>
-              <div className="text-center text-sm">
+              <div className="text-center text-xs text-secondary">
                 Уже есть аккаунт?{" "}
-                <Link href="/login" className="underline underline-offset-4">
+                <Link
+                  href="/login"
+                  className="underline text-foreground underline-offset-4"
+                >
                   Войти
                 </Link>
               </div>
@@ -126,10 +129,16 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
           </form>
         </CardContent>
       </Card>
-      <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
+      <div className="text-balance p-6 text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
         Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
-        <a href="#">Условиями использования</a> и{" "}
-        <a href="#">Политикой конфиденциальности</a>.
+        <Link href="#" className="text-foreground">
+          Условиями использования
+        </Link>{" "}
+        и{" "}
+        <Link href="#" className="text-foreground">
+          Политикой конфиденциальности
+        </Link>
+        .
       </div>
     </div>
   );

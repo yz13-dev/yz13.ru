@@ -15,6 +15,7 @@ const loading = () => {
         </Link>
         <Nav>
           <Skeleton className="size-9" />
+          <Skeleton className="h-9 w-[75px]" />
         </Nav>
       </Header>
       <div className="w-full divide-y border-b">
