@@ -22,16 +22,23 @@ const page = async (props: Props) => {
   const continueLink = searchParams.continue;
   if (user) return permanentRedirect(continueLink || "/");
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
-      <div className="flex w-full max-w-sm flex-col gap-6">
-        <Link
-          href="/"
-          className="flex items-center gap-2 self-center font-pixel"
-        >
-          <Logo className="size-8 relative" />
-          <span className="text-lg">YZ13</span>
-        </Link>
-        <LoginForm continueLink={continueLink} />
+    <div className="w-full h-dvh divide-y border-b flex flex-col items-center justify-center">
+      <div className="w-full h-fit">
+        <div className="grid-template max-w-md h-full w-full mx-auto border-x border-y">
+          <div className="w-full h-full pattern-lines" />
+          <div className="flex w-full my-auto border-x flex-col">
+            <div className="w-full p-6 flex justify-center items-center">
+              <Link
+                href="/"
+                className="flex items-center gap-2 self-center font-pixel"
+              >
+                <Logo size={{ width: 110, height: 20 }} type="full" />
+              </Link>
+            </div>
+            <LoginForm continueLink={continueLink} />
+          </div>
+          <div className="w-full h-full pattern-lines" />
+        </div>
       </div>
     </div>
   );

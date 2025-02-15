@@ -5,13 +5,12 @@ import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
 import { showPagesPromo, showProcess } from "@/const/flags";
-import { wait } from "@/helpers/wait";
 import { Skeleton } from "mono/components/skeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import Header from "../(root)/header";
-import Nav from "../(root)/nav";
+import Header from "../../components/header";
+import Nav from "../../components/nav";
 import Footer from "../old/footer";
 import Column from "./grid/column";
 import MVP from "./grid/mvp";
@@ -27,7 +26,6 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  await wait(1000);
   return (
     <>
       <Header>

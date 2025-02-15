@@ -58,7 +58,7 @@ const useDraftFormStore = create<State & Actions>()((set) => ({
 const NewDraftForm = () => {
   const drafts = useDraftFormStore((state) => state.drafts);
   const addDraft = useDraftFormStore((state) => state.addDraft);
-  const uploadDraft = () => {};
+  // const uploadDraft = () => {};
   const newDraft = () => {
     const lastDraftIndex = drafts.length - 1;
     const draft: DraftFormProps = {

@@ -1,10 +1,10 @@
+import Header from "@/components/header";
 import { Logo } from "@/components/logo";
+import Nav from "@/components/nav";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import Header from "./header";
 import Hero from "./hero";
-import Nav from "./nav";
 
 const loading = () => {
   return (
@@ -15,6 +15,7 @@ const loading = () => {
         </Link>
         <Nav>
           <Skeleton className="size-9" />
+          <Skeleton className="h-9 w-[75px]" />
         </Nav>
       </Header>
       <div className="w-full divide-y border-b">

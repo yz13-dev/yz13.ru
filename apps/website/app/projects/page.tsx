@@ -1,6 +1,8 @@
 import { getProjects } from "@/actions/projects/projects";
 import Dock from "@/components/dock/dock";
+import Header from "@/components/header";
 import { Logo } from "@/components/logo";
+import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
 import { showPagesPromo } from "@/const/flags";
@@ -8,8 +10,6 @@ import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "../(root)/header";
-import Nav from "../(root)/nav";
 import DndContextWrapper from "./dnd-context";
 import NewProjectModal from "./new-project-modal";
 import ProjectsList from "./projects-list";
