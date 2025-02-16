@@ -35,8 +35,17 @@ const Services = async () => {
               <Button className="w-1/2" variant="default" asChild>
                 <Link href="/services">Все услуги</Link>
               </Button>
-              <Button disabled={isBusy} className="w-1/2" variant="secondary">
-                Заказать услугу
+              <Button
+                disabled={isBusy}
+                className="w-1/2"
+                variant="secondary"
+                asChild={!isBusy}
+              >
+                {isBusy ? (
+                  "Заказать услугу"
+                ) : (
+                  <Link href="/contact-me">Заказать услугу</Link>
+                )}
               </Button>
             </div>
           </div>

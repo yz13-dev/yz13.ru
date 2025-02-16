@@ -1,10 +1,10 @@
 import ContactForm from "@/app/contact-me/contact-form";
-import ModalWrapper from "@/app/contact-me/modal-wrapper";
+import ModalWrapper from "@/components/modal-wrapper";
 
 const page = () => {
   return (
     <ModalWrapper>
-      <ContactForm />;
+      <ContactForm />
     </ModalWrapper>
   );
 };
