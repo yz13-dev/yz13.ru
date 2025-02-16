@@ -1,13 +1,7 @@
 "use client";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "mono/components/card";
+import { Card, CardContent } from "mono/components/card";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
 import Link from "next/link";
@@ -49,32 +43,10 @@ export function LoginForm({
   };
   return (
     <div className={cn("flex flex-col h-fit", className)} {...props}>
-      <Card className="rounded-none border-x-0 divide-y">
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">С возвращением</CardTitle>
-          <CardDescription>
-            Войдите в свою учетную запись чтобы продолжить
-            {/* with your Github or Google account */}
-          </CardDescription>
-        </CardHeader>
+      <Card className="rounded-none border-0 divide-y">
         <CardContent>
           <form>
             <div className="grid gap-6">
-              {/* <div className="flex flex-col gap-4">
-                <Button variant="outline" className="w-full gap-2">
-                  <PiGithubLogoBold size={18} />
-                  Login with Github
-                </Button>
-                <Button variant="outline" className="w-full gap-2">
-                  <PiGoogleLogoBold size={18} />
-                  Login with Google
-                </Button>
-              </div>
-              <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-                <span className="relative z-10 bg-background px-2 text-muted-foreground">
-                  Or continue with
-                </span>
-              </div> */}
               <div className="grid gap-6">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Почта</Label>
@@ -110,34 +82,35 @@ export function LoginForm({
                     Ошибка, проверьте правильно ли введены почта и/или пароль
                   </span>
                 )}
-                <Button
-                  onClick={signIn}
-                  type="submit"
-                  disabled={
-                    isLoading || email.length === 0 || password.length === 0
-                  }
-                  className="w-full gap-2"
-                >
-                  {isLoading && (
-                    <Loader2Icon className="animate-spin" size={18} />
-                  )}
-                  Продолжить
-                </Button>
-              </div>
-              <div className="text-center text-xs text-secondary">
-                Еще нет учетной записи?{" "}
-                <Link
-                  href="/signup"
-                  className="underline underline-offset-4 text-foreground"
-                >
-                  Зарегистрируйтесь
-                </Link>
+                <div className="flex flex-row items-center justify-end gap-2">
+                  <Button variant="ghost" className="w-fit gap-2" asChild>
+                    <Link
+                      href="/signup"
+                      className="underline-offset-4 text-foreground"
+                    >
+                      Создать аккаунт
+                    </Link>
+                  </Button>
+                  <Button
+                    onClick={signIn}
+                    type="submit"
+                    disabled={
+                      isLoading || email.length === 0 || password.length === 0
+                    }
+                    className="w-fit gap-2"
+                  >
+                    {isLoading && (
+                      <Loader2Icon className="animate-spin" size={18} />
+                    )}
+                    Продолжить
+                  </Button>
+                </div>
               </div>
             </div>
           </form>
         </CardContent>
       </Card>
-      <div className="text-balance p-6 text-center text-xs text-secondary [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
+      <div className="text-balance p-6 text-start text-xs text-secondary">
         Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
         <Link href="#" className="text-foreground">
           Условиями использования
