@@ -102,34 +102,30 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
                     Ошибка, проверьте правильно ли введены почта и/или пароль
                   </span>
                 )}
-                <Button
-                  onClick={signIn}
-                  type="submit"
-                  disabled={
-                    isLoading || email.length === 0 || password.length === 0
-                  }
-                  className="w-full gap-2"
-                >
-                  {isLoading && (
-                    <Loader2Icon className="animate-spin" size={18} />
-                  )}
-                  Продолжить
-                </Button>
-              </div>
-              <div className="text-center text-xs text-secondary">
-                Уже есть аккаунт?{" "}
-                <Link
-                  href="/login"
-                  className="underline text-foreground underline-offset-4"
-                >
-                  Войти
-                </Link>
+                <div className="flex flex-row items-center justify-end gap-2">
+                  <Button variant="ghost" className="w-fit gap-2" asChild>
+                    <Link href="/login">Уже есть аккаунт</Link>
+                  </Button>
+                  <Button
+                    onClick={signIn}
+                    type="submit"
+                    disabled={
+                      isLoading || email.length === 0 || password.length === 0
+                    }
+                    className="w-fit gap-2"
+                  >
+                    {isLoading && (
+                      <Loader2Icon className="animate-spin" size={18} />
+                    )}
+                    Продолжить
+                  </Button>
+                </div>
               </div>
             </div>
           </form>
         </CardContent>
       </Card>
-      <div className="text-balance p-6 text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
+      <div className="text-balance p-6 text-xs text-secondary">
         Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
         <Link href="#" className="text-foreground">
           Условиями использования
