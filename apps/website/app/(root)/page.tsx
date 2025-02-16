@@ -15,6 +15,7 @@ import { isDev } from "../login/get-url";
 import Footer from "../old/footer";
 import Hero from "./hero";
 import Services from "./services";
+import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
 const page = async () => {
@@ -90,6 +91,17 @@ const page = async () => {
               </div>
               <TechList className="p-6 bg-neutral-100" />
             </div>
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
+          </div>
+        </div>
+        <ServicesDetails />
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
           </div>
         </div>
         <div className="w-full">

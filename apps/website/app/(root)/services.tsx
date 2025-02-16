@@ -19,10 +19,10 @@ const Services = async () => {
           <div className="w-full flex flex-col h-full justify-between">
             <div className="relative w-full space-y-3 p-3 h-full pattern-lines">
               <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border justify-between">
-                <Website noBanner />
+                <Pages noBanner />
               </div>
               <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border justify-between">
-                <Pages noBanner />
+                <Website noBanner />
               </div>
               <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border justify-between">
                 <WebApps noBanner />
