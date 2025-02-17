@@ -2,7 +2,7 @@ import { viewsChart } from "@/actions/charts/views";
 import { ViewsChartSession } from "@/types/session";
 import Views from "./views";
 
-const getTotalViews = (views: ViewsChartSession | null) => {
+export const getTotalViews = (views: ViewsChartSession | null) => {
   if (!views) return 0;
   const total = views.chart.data.reduce((acc, curr) => acc + curr.count, 0);
   return total;
