@@ -9,7 +9,9 @@ const Header = ({ children, className = "" }: HeaderProps) => {
   return (
     <header
       className={cn(
-        "w-full justify-between border-x py-4 px-6 h-20 flex items-center gap-4 border-b",
+        "w-full justify-between border-x z-10 flex items-center gap-4",
+        "h-14 py-4 px-6",
+        "border-b bg-background",
         className,
       )}
     >

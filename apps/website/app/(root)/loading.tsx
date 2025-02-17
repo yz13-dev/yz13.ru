@@ -6,6 +6,36 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import Hero from "./hero";
 
+export const ServicesSkeleton = () => {
+  return (
+    <div className="w-full">
+      <div className="max-w-screen-2xl w-full mx-auto border-x">
+        <div className="h-fit flex items-center divide-x xl:!grid flex xl:!grid-cols-3 xl:!grid-rows-1 flex-col">
+          <div className="relative w-full h-full col-span-2 p-3 bg-neutral-100">
+            <Skeleton className="aspect-video" />
+          </div>
+          <div className="w-full flex flex-col h-full justify-between">
+            <div className="relative w-full space-y-3 p-3 h-full pattern-lines">
+              <Skeleton className="w-full h-[58px]" />
+              <Skeleton className="w-full h-[58px]" />
+              <Skeleton className="w-full h-[58px]" />
+              <Skeleton className="w-full h-[80px]" />
+            </div>
+            <div className="w-full flex items-center gap-3 p-3 bg-neutral-100 border-t">
+              <Button className="w-1/2" variant="default">
+                Все услуги
+              </Button>
+              <Button className="w-1/2" variant="secondary">
+                Заказать услугу
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const loading = () => {
   return (
     <>
@@ -36,31 +66,7 @@ const loading = () => {
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-fit flex items-center divide-x xl:!grid flex xl:!grid-cols-3 xl:!grid-rows-1 flex-col">
-              <div className="relative w-full h-full col-span-2 p-3 bg-neutral-100">
-                <Skeleton className="aspect-video" />
-              </div>
-              <div className="w-full flex flex-col h-full justify-between">
-                <div className="relative w-full space-y-3 p-3 h-full pattern-lines">
-                  <Skeleton className="w-full h-[58px]" />
-                  <Skeleton className="w-full h-[58px]" />
-                  <Skeleton className="w-full h-[58px]" />
-                  <Skeleton className="w-full h-[80px]" />
-                </div>
-                <div className="w-full flex items-center gap-3 p-3 bg-neutral-100 border-t">
-                  <Button className="w-1/2" variant="default">
-                    Все услуги
-                  </Button>
-                  <Button className="w-1/2" variant="secondary">
-                    Заказать услугу
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ServicesSkeleton />
       </div>
     </>
   );

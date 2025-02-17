@@ -54,7 +54,7 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
     }
   };
   return (
-    <div className="space-y-6 *:px-6 pb-6 h-fit max-w-lg mx-auto overflow-y-auto after:hidden rounded-t-2xl">
+    <div className="space-y-6 *:px-6 pb-6 h-fit max-w-lg left-0 right-0 mx-auto overflow-y-auto after:hidden rounded-t-2xl">
       <div className="gap-2 flex items-center w-full justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={{ width: 32, height: 32 }} />
@@ -158,7 +158,12 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
           </RadioGroup>
         </div>
         <div className="flex flex-row gap-2 !mt-12">
-          <Button variant="outline" size="icon" className="shrink-0" asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            className="shrink-0 size-9"
+            asChild
+          >
             <Link href="/">
               <ArrowLeftIcon size={16} />
             </Link>

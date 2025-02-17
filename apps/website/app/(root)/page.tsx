@@ -5,7 +5,8 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
-import { showPagesPromo } from "@/const/flags";
+import { showPagesPromo, showPriceDetails } from "@/const/flags";
+import { ArrowRightIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
@@ -13,13 +14,15 @@ import { Suspense } from "react";
 import { isDev } from "../login/get-url";
 import Footer from "../old/footer";
 import Hero from "./hero";
+import { ServicesSkeleton } from "./loading";
 import Services from "./services";
+import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
 const page = async () => {
   return (
     <>
-      <Header>
+      <Header className="sticky top-0">
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
@@ -37,14 +40,14 @@ const page = async () => {
               />
             </div>
           )}
-          {
-            isDev &&
+          {isDev && (
             <Button className="gap-2" asChild>
               <Link href="/login">
-              Войти
+                Войти
+                <ArrowRightIcon size={16} />
               </Link>
             </Button>
-          }
+          )}
         </Nav>
       </Header>
 
@@ -70,7 +73,9 @@ const page = async () => {
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        <Services />
+        <Suspense fallback={<ServicesSkeleton />}>
+          <Services />
+        </Suspense>
         <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-20" />
@@ -89,6 +94,17 @@ const page = async () => {
               </div>
               <TechList className="p-6 bg-neutral-100" />
             </div>
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
+          </div>
+        </div>
+        {(await showPriceDetails()) && <ServicesDetails />}
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
           </div>
         </div>
         <div className="w-full">

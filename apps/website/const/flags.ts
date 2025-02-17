@@ -32,3 +32,30 @@ export const showPagesPromo = flag<boolean>({
     return (await get<boolean>("show-pages-promo")) ?? false;
   },
 });
+
+export const showPriceDetails = flag<boolean>({
+  key: "show-price-details",
+  description: "Show price details on the root page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>("show-price-details")) ?? false;
+  },
+});
+
+export const showChart = flag<boolean>({
+  key: "show-chart",
+  description: "Show chart on the root page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>("show-chart")) ?? false;
+  },
+});
+
+export const showViews = flag<boolean>({
+  key: "show-views",
+  description: "Show views on the root page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>("show-views")) ?? false;
+  },
+});

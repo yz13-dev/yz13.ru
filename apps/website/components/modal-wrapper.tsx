@@ -4,12 +4,15 @@ import { useDebounceEffect } from "ahooks";
 import { Drawer, DrawerContent } from "mono/components/drawer";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { cn } from "yz13/cn";
 
 const ModalWrapper = ({
+  className = "",
   children,
   noRedirect = false,
 }: {
-  children: React.ReactNode;
+  className?: string;
+  children?: React.ReactNode;
   noRedirect?: boolean;
 }) => {
   const router = useRouter();
@@ -30,7 +33,13 @@ const ModalWrapper = ({
         if (!noRedirect) router.back();
       }}
     >
-      <DrawerContent className="space-y-6 *:px-6 pb-6 h-fit max-w-lg mx-auto overflow-y-auto after:hidden rounded-t-2xl">
+      <DrawerContent
+        className={cn(
+          "h-fit max-w-lg left-0 right-0 mx-auto overflow-y-auto after:hidden rounded-t-2xl",
+          "pt-6",
+          className,
+        )}
+      >
         {children}
       </DrawerContent>
     </Drawer>

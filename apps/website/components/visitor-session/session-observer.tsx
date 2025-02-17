@@ -1,12 +1,12 @@
 "use client";
 import postVisitorSession from "@/actions/post-visitor-session";
+import { useUserStore } from "@/app/account/user.store";
+import { isProd } from "@/app/login/get-url";
 import randomId from "@/lib/random-id";
 import { useInterval } from "ahooks";
 import { CircleCheckIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { useEffect, useMemo, useState } from "react";
-import { useUserStore } from "../account/user.store";
-import { isProd } from "../login/get-url";
 import useVisitorStore, {
   getVisitorId,
   setVisitorId as updateVisitorId,

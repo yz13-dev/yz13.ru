@@ -11,7 +11,7 @@ import { cn } from "yz13/cn";
 import { UserProvider } from "./account/user.store";
 
 const SessionObserver = dynamic(
-  () => import("./visitor-session/session-observer"),
+  () => import("../components/visitor-session/session-observer"),
   {
     ssr: false,
   },

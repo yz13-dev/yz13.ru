@@ -12,7 +12,7 @@ import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 const chartConfig = {
   label: {
     label: "Date",
-    color: "hsl(var(--chart-1))",
+    color: "var(--chart-1)",
   },
 } satisfies ChartConfig;
 
