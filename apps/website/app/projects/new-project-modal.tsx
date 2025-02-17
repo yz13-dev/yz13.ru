@@ -66,7 +66,7 @@ const NewProjectModal = () => {
           <PlusIcon size={16} /> Добавить
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-sm space-y-4 mx-auto bg-background border rounded-2xl p-6">
+      <DialogContent className="inset-0 my-auto w-full h-fit max-w-sm space-y-4 mx-auto bg-background border rounded-2xl p-6">
         <DialogHeader className="flex flex-row items-center justify-between">
           <DialogTitle>Новый проект</DialogTitle>
           <DialogClose disabled={loading}>

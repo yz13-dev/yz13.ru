@@ -5,9 +5,8 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
+import User from "@/components/user";
 import { showPagesPromo, showPriceDetails } from "@/const/flags";
-import { ArrowRightIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -40,14 +39,7 @@ const page = async () => {
               />
             </div>
           )}
-          {isDev && (
-            <Button className="gap-2" asChild>
-              <Link href="/login">
-                Войти
-                <ArrowRightIcon size={16} />
-              </Link>
-            </Button>
-          )}
+          {isDev && <User />}
         </Nav>
       </Header>
 

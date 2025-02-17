@@ -2,6 +2,7 @@
 
 import AutoTextarea from "@/components/auto-textarea";
 import { Logo } from "@/components/logo";
+import User from "@/components/user";
 import { ArrowLeftIcon, ExternalLinkIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
@@ -11,7 +12,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { isDev } from "../login/get-url";
-import User from "../user";
 
 const ContactForm = ({ userEmail }: { userEmail?: string }) => {
   const router = useRouter();

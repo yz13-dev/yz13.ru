@@ -5,11 +5,13 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
+import User from "@/components/user";
 import { showPagesPromo } from "@/const/flags";
 import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { isDev } from "../login/get-url";
 import DndContextWrapper from "./dnd-context";
 import NewProjectModal from "./new-project-modal";
 import ProjectsList from "./projects-list";
@@ -28,7 +30,7 @@ const page = async () => {
   const isActive = showNewProjectModal;
   return (
     <>
-      <Header className="h-14">
+      <Header>
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
@@ -47,6 +49,7 @@ const page = async () => {
             </div>
           )}
           {showNewProjectModal && <NewProjectModal />}
+          {isDev && <User />}
         </Nav>
       </Header>
       <DndContextWrapper>

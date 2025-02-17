@@ -10,7 +10,7 @@ import Wrapper from "./grid/wrapper";
 const loading = () => {
   return (
     <>
-      <Header className="h-[80px]">
+      <Header>
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
