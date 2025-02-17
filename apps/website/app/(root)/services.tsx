@@ -27,14 +27,7 @@ const Services = async () => {
             )}
           >
             {chart ? (
-              <>
-                <div className="absolute top-4 left-4 flex flex-col gap-1">
-                  <span className="text-secondary text-2xl block font-medium">
-                    Просмотры
-                  </span>
-                </div>
-                <Chart views={views} />
-              </>
+              <Chart views={views} chartViews={chartViews} />
             ) : (
               <Banner imageClassName="!static object-cover" />
             )}
