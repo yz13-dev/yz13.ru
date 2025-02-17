@@ -74,7 +74,7 @@ const Chart = ({
                   }}
                 />
                 <ChartTooltip
-                  animationDuration={750}
+                  animationDuration={250}
                   formatter={(value) => {
                     return `Посетители: ${value}`;
                   }}

@@ -26,20 +26,24 @@ const page = async () => {
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
         <Nav>
-          {(await showPagesPromo()) && (
-            <div className="size-9 flex justify-center group relative items-center transition-colors">
-              <PagesLogo
-                size={{ width: 16, height: 16 }}
-                type="only-icon"
-                className="opacity-50 group-hover:opacity-100 transition-opacity"
-              />
-              <Link
-                href="https://pages.yz13.ru"
-                className="w-full h-full absolute inset-0"
-              />
-            </div>
-          )}
-          {isDev && <User />}
+          <Suspense fallback={<Skeleton className="size-9" />}>
+            {(await showPagesPromo()) && (
+              <div className="size-9 flex justify-center group relative items-center transition-colors">
+                <PagesLogo
+                  size={{ width: 16, height: 16 }}
+                  type="only-icon"
+                  className="opacity-50 group-hover:opacity-100 transition-opacity"
+                />
+                <Link
+                  href="https://pages.yz13.ru"
+                  className="w-full h-full absolute inset-0"
+                />
+              </div>
+            )}
+          </Suspense>
+          <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
+            {isDev && <User />}
+          </Suspense>
         </Nav>
       </Header>
 
@@ -77,7 +81,7 @@ const page = async () => {
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-fit divide-y">
               <div className="flex flex-col gap-2 bg-neutral-100 p-6">
-                <span className="text-secondary text-2xl block font-medium">
+                <span className="text-foreground/80 text-2xl block font-medium">
                   Доступные технологии для разработки
                 </span>
                 <span className="text-secondary text-sm">
@@ -93,7 +97,11 @@ const page = async () => {
             <div className="h-20" />
           </div>
         </div>
-        {(await showPriceDetails()) && <ServicesDetails />}
+        <Suspense
+          fallback={<Skeleton className="h-[386px] w-full rounded-none" />}
+        >
+          {(await showPriceDetails()) && <ServicesDetails />}
+        </Suspense>
         <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-20" />

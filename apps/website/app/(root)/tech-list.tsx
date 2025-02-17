@@ -117,7 +117,8 @@ const TechList = ({ className = "" }: { className?: string }) => {
                             alt={label}
                             loading="lazy"
                             placeholder="blur"
-                            fill
+                            width={46}
+                            height={46}
                           />
                         </div>
                       </div>
