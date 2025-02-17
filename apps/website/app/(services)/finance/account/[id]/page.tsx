@@ -1,4 +1,4 @@
-import User from "@/app/user";
+import User from "@/components/user";
 import "@xyflow/react/dist/base.css";
 import Dock from "../../dock";
 import { Info, Nav, Status } from "../../header";
