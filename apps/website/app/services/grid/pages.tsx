@@ -16,7 +16,7 @@ const Pages = async ({ noBanner = false }: { noBanner?: boolean }) => {
         variant="secondary"
         className="gap-2 rounded-full"
         size="sm"
-        disabled
+        disabled={true}
       >
         От {price.toLocaleString()}
         {sign}

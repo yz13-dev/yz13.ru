@@ -12,7 +12,7 @@ import Website from "../services/grid/website";
 import Chart from "./chart";
 
 const Services = async () => {
-  const isBusy = await get<boolean>("busy");
+  const isBusy = (await get<boolean>("busy")) ?? true;
   const chart = await showChart();
   const chartViews = await showViews();
   const views = chartViews ? await viewsChart() : null;

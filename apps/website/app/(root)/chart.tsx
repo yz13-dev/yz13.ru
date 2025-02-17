@@ -58,7 +58,11 @@ const Chart = ({
                   right: 0,
                 }}
               >
-                <CartesianGrid vertical={false} horizontal={true} />
+                <CartesianGrid
+                  vertical={false}
+                  horizontal={true}
+                  stroke="var(--color-border)"
+                />
                 <XAxis
                   dataKey="label"
                   tickLine={false}
