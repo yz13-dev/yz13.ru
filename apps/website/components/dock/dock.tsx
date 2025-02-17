@@ -1,6 +1,6 @@
 "use client";
 import { isDev } from "@/app/login/get-url";
-import User from "@/app/user";
+import User from "@/components/dock/user";
 import { useNetwork } from "ahooks";
 import {
   BriefcaseBusinessIcon,

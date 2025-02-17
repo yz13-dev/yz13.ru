@@ -9,7 +9,7 @@ import StageColumn from "./stage-column";
 const loading = () => {
   return (
     <>
-      <Header className="h-14">
+      <Header>
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>

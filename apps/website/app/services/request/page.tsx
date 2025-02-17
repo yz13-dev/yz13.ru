@@ -1,21 +1,17 @@
+import { isDev } from "@/app/login/get-url";
+import Footer from "@/app/old/footer";
 import AutoTextarea from "@/components/auto-textarea";
+import Dock from "@/components/dock/dock";
+import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import {
-  ArrowRightIcon,
-  FileTextIcon,
-  MenuIcon,
-  ReceiptIcon,
-} from "lucide-react";
+import Nav from "@/components/nav";
+import PageDockFiller from "@/components/page-dock-filler";
+import { PagesLogo } from "@/components/pages-logo";
+import User from "@/components/user";
+import { showPagesPromo } from "@/const/flags";
+import { ArrowRightIcon, MenuIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "mono/components/select";
-import { Separator } from "mono/components/separator";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -27,97 +23,136 @@ export const metadata: Metadata = {
 
 const page = async () => {
   return (
-    <div className="w-full min-h-screen bg-background-back">
-      <header className="w-full flex items-center justify-between p-6">
-        <Link href="/">
-          <Logo size={{ width: 96, height: 18 }} type="full" />
+    <>
+      <Header className="sticky top-0">
+        <Link href="/" className="shrink-0">
+          <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
-        <span className="text-sm text-secondary">Новый заказ</span>
-      </header>
-      <section className="lg:!w-[75%] w-[90%] lg:!ml-[25%] ml-[10%] bg-background rounded-tl-xl border">
-        <div className="h-16 divide-x border-b flex items-center">
-          <div className="h-full aspect-square flex items-center justify-center">
-            <MenuIcon size={24} />
-          </div>
-          <div className="h-full flex items-center px-3">
-            <span className="text-2xl text-foreground font-medium">
-              Новый заказ
-            </span>
+        <Nav>
+          {(await showPagesPromo()) && (
+            <div className="size-9 flex justify-center group relative items-center transition-colors">
+              <PagesLogo
+                size={{ width: 16, height: 16 }}
+                type="only-icon"
+                className="opacity-50 group-hover:opacity-100 transition-opacity"
+              />
+              <Link
+                href="https://pages.yz13.ru"
+                className="w-full h-full absolute inset-0"
+              />
+            </div>
+          )}
+          {isDev && <User />}
+        </Nav>
+      </Header>
+      <div className="w-full divide-y border-b">
+        <div className="w-full">
+          <div className="grid-template max-w-screen-xl w-full mx-auto divide-x border-x">
+            <div className="w-full h-full pattern-lines" />
+            <div className="h-16 divide-x flex items-center">
+              <div className="h-full aspect-square flex items-center justify-center">
+                <MenuIcon size={24} />
+              </div>
+              <div className="h-full flex items-center px-3">
+                <span className="text-2xl text-foreground font-medium">
+                  Новый заказ
+                </span>
+              </div>
+            </div>
+            <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        <div className="md:!px-12 px-6 py-6 h-fit w-full overflow-x-auto flex items-center gap-3">
-          <button className="flex items-center shrink-0 gap-2 px-4 py-2 bg-background-back rounded-lg text-foreground">
-            <FileTextIcon size={20} className="shrink-0" />
-            <span className="md:!text-base text-sm font-medium shrink-0">
-              Детали заказа
-            </span>
-          </button>
-          <button className="flex items-center shrink-0 gap-2 px-4 py-2 bg-transparent rounded-lg text-foreground">
-            <ReceiptIcon size={20} className="shrink-0" />
-            <span className="md:!text-base text-sm font-medium shrink-0">
-              Оформление заказа
-            </span>
-          </button>
+
+        <div className="w-full">
+          <div className="grid-template max-w-screen-xl w-full mx-auto divide-x border-x">
+            <div className="w-full h-full pattern-lines" />
+            <div className="w-full grid md:!grid-cols-2 grid-cols-1 md:!grid-rows-1 grid-rows-2 h-fit">
+              <div className="md:!px-12 px-6 py-6 w-full h-full flex flex-col">
+                <div className="w-full flex flex-col gap-6 max-w-2xl">
+                  <div className="flex flex-col pt-0.5 gap-4 w-full">
+                    <span className="text-lg font-medium">
+                      Укажите почту для ответа
+                    </span>
+                    <Input placeholder="Введите почту" />
+                  </div>
+
+                  <div className="flex flex-col pt-0.5 gap-4 w-full">
+                    <span className="text-lg font-medium">
+                      Что нужно сделать?
+                    </span>
+                    <AutoTextarea
+                      className="w-full px-3 py-2 border rounded-lg"
+                      placeholder="Введите тех. задание"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="md:!px-12 px-6 py-6 w-full h-full gap-3 flex flex-col">
+                <div className="w-full h-fit gap-3 flex flex-col">
+                  <span className="text-sm text-secondary font-medium">
+                    Проект
+                  </span>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">Страницы</span>
+                  </div>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">Сайт</span>
+                  </div>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">Веб приложение</span>
+                  </div>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">MVP</span>
+                  </div>
+                </div>
+                <div className="w-full h-fit gap-3 flex flex-col">
+                  <span className="text-sm text-secondary font-medium">
+                    Дополнительные опции
+                  </span>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">Страницы</span>
+                  </div>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">Сайт</span>
+                  </div>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">Веб приложение</span>
+                  </div>
+                  <div className="w-full p-2 rounded-lg border">
+                    <span className="text-lg font-medium">MVP</span>
+                  </div>
+                </div>
+                <Button className="w-full gap-2 h-11">
+                  Продолжить
+                  <ArrowRightIcon size={16} />
+                </Button>
+                <span className="text-xs text-secondary">
+                  Нажимая на кнопку «Продолжить», вы соглашаетесь с{" "}
+                  <Link href="/terms">
+                    <span className="underline">условиями</span>
+                  </Link>{" "}
+                  и{" "}
+                  <Link href="/privacy">
+                    <span className="underline">политикой</span>
+                  </Link>{" "}
+                  приложения.
+                </span>
+              </div>
+            </div>
+            <div className="w-full h-full pattern-lines" />
+          </div>
         </div>
-        <main className="md:!px-12 px-6 py-6 w-full max-w-2xl h-fit flex flex-col">
-          <div className="w-full flex flex-col gap-6">
-            <div className="flex gap-4 h-fit w-full">
-              <div className="flex flex-col gap-4 h-full items-center">
-                <div className="flex items-center gap-4 shrink-0 justify-center size-10 border rounded-full">
-                  <span className="font-medium">1</span>
-                </div>
-                <Separator orientation="vertical" className="h-full" />
-              </div>
-              <div className="flex flex-col pt-0.5 gap-4 w-full">
-                <span className="text-lg font-medium">
-                  Укажите почту для ответа
-                </span>
-                <Input placeholder="Введите почту" />
-              </div>
-            </div>
-
-            <div className="flex gap-4 h-fit w-full">
-              <div className="flex flex-col gap-4 items-center h-full">
-                <div className="flex items-center gap-4 shrink-0 justify-center size-10 border rounded-full">
-                  <span className="font-medium">2</span>
-                </div>
-                <Separator orientation="vertical" className="h-full" />
-              </div>
-              <div className="flex flex-col pt-0.5 gap-4 w-full">
-                <span className="text-lg font-medium">
-                  Выберите тип работы и напишите тех. задание
-                </span>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Выберите тип работы" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pages">Страница(-ы)</SelectItem>
-                    <SelectItem value="website">Сайт</SelectItem>
-                    <SelectItem value="web-app">Веб-приложение</SelectItem>
-                    <SelectItem value="other">Другое</SelectItem>
-                  </SelectContent>
-                </Select>
-                <AutoTextarea
-                  className="w-full px-3 py-2 border rounded-lg"
-                  placeholder="Введите тех. задание"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 w-full">
-              <Button className="w-1/2" variant="secondary" asChild>
-                <Link href="/">Вернуться</Link>
-              </Button>
-              <Button className="w-1/2 gap-2">
-                Продолжить
-                <ArrowRightIcon size={16} />
-              </Button>
+        <div className="w-full">
+          <div className="max-w-screen-xl w-full mx-auto border-x">
+            <div className="h-fit p-6 space-y-6">
+              <Footer />
             </div>
           </div>
-        </main>
-      </section>
-    </div>
+        </div>
+      </div>
+      <PageDockFiller className="pattern-lines max-w-screen-xl w-full mx-auto border-x" />
+      <Dock />
+    </>
   );
 };
 

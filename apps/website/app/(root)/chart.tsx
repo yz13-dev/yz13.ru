@@ -58,7 +58,7 @@ const Chart = ({
                   right: 0,
                 }}
               >
-                <CartesianGrid vertical={true} horizontal={true} />
+                <CartesianGrid vertical={false} horizontal={true} />
                 <XAxis
                   dataKey="label"
                   tickLine={false}
@@ -70,8 +70,7 @@ const Chart = ({
                   }}
                 />
                 <ChartTooltip
-                  cursor={false}
-                  animationDuration={250}
+                  animationDuration={750}
                   formatter={(value) => {
                     return `Посетители: ${value}`;
                   }}
