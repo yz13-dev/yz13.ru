@@ -3,7 +3,9 @@ import Banner from "@/components/banner";
 import { showChart, showViews } from "@/const/flags";
 import { get } from "@vercel/edge-config";
 import { Button } from "mono/components/button";
+import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
+import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import MVP from "../services/grid/mvp";
 import Pages from "../services/grid/pages";
@@ -12,7 +14,7 @@ import Website from "../services/grid/website";
 import Chart from "./chart";
 
 const Services = async () => {
-  const isBusy = await get<boolean>("busy");
+  const isBusy = (await get<boolean>("busy")) ?? true;
   const chart = await showChart();
   const chartViews = await showViews();
   const views = chartViews ? await viewsChart() : null;
@@ -26,11 +28,14 @@ const Services = async () => {
               chart ? "p-0" : "p-3",
             )}
           >
+
+            <Suspense fallback={<Skeleton className="aspect-video rounded-none" />}>
             {chart ? (
               <Chart views={views} chartViews={chartViews} />
             ) : (
               <Banner imageClassName="!static object-cover" />
             )}
+            </Suspense>
           </div>
           <div className="w-full flex flex-col h-full justify-between">
             <div className="relative w-full space-y-3 p-3 h-full pattern-lines">

@@ -1,20 +1,31 @@
 import { get } from "@vercel/edge-config";
-import { CheckIcon, LucideIcon, PlusIcon } from "lucide-react";
+import {
+  AppWindowIcon,
+  CheckIcon,
+  GlobeIcon,
+  LucideIcon,
+  PanelTopIcon,
+  PlusIcon,
+  SparklesIcon,
+} from "lucide-react";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
 
 const Details = ({
   children,
   className = "",
+  active = false,
 }: {
   children?: React.ReactNode;
   className?: string;
+  active?: boolean;
 }) => {
   return (
     <div
       className={cn(
-        "w-80 shrink-0 space-y-3 p-4 hover:bg-neutral-100 transition-colors",
-        "last:border-r",
+        "w-80 shrink-0 relative space-y-3 p-4 hover:bg-neutral-100 transition-colors",
+        "last:border-r group",
+        active && "bg-neutral-100",
         className,
       )}
     >
@@ -24,17 +35,23 @@ const Details = ({
 };
 
 const DetailsHeader = ({
+  icon,
   title = "",
   price = "",
 }: {
+  icon?: React.ReactNode;
   title?: string;
   price?: string;
 }) => {
   return (
     <div className="flex flex-row justify-between items-center gap-2">
       <div className="flex flex-row items-center gap-2">
-        <div className="size-4 rounded-full bg-neutral-300" />
-        <span className="font-medium line-clamp-1">{title}</span>
+        {icon && (
+          <div className="size-6 flex items-center justify-center pb-1">
+            {icon}
+          </div>
+        )}
+        <span className="font-medium relative line-clamp-1">{title}</span>
       </div>
       <span className="text-foreground shrink-0 font-semibold">{price}</span>
     </div>
@@ -42,7 +59,7 @@ const DetailsHeader = ({
 };
 
 const DetailsDescription = ({ children }: { children?: React.ReactNode }) => {
-  return <span className="text-secondary text-sm">{children}</span>;
+  return <span className="text-secondary block text-sm">{children}</span>;
 };
 
 type ExtraSingleItem = {
@@ -74,20 +91,20 @@ const DetailsExtraList = async ({ list = [] }: { list?: DetailsExtra[] }) => {
           const { icon: Icon, label, price, type } = item;
           return (
             <li className="w-full" key={`${label}-${index}`}>
-              <div className="flex flex-row justify-between items-center gap-2">
-                <div className="w-fit text-secondary flex items-center justify-between gap-2">
+              <div className="flex flex-row justify-between items-center gap-2 text-secondary group-hover:text-foreground/80 hover:text-foreground">
+                <div className="w-fit flex items-center justify-between gap-2">
                   {Icon && <Icon size={16} className="shrink-0" />}
-                  <span className="text-secondary text-sm">{label}</span>
+                  <span className="text-sm">{label}</span>
                 </div>
                 {type === "single" && price && (
-                  <span className="text-secondary text-sm">
+                  <span className="text-sm">
                     +{(price ?? 0).toLocaleString()}
                     {sign}
                   </span>
                 )}
                 {type === "per-item" && item.price_per_item && (
-                  <span className="text-secondary text-sm">
-                    {(item.price_per_item ?? 0).toLocaleString()}
+                  <span className="text-sm">
+                    +{(item.price_per_item ?? 0).toLocaleString()}
                     {sign}/{item.per_item_label ?? "шт"}
                   </span>
                 )}
@@ -106,6 +123,7 @@ const PagesDetails = async () => {
   return (
     <Details>
       <DetailsHeader
+        icon={<PanelTopIcon size={18} />}
         title="Страницы"
         price={`${price.toLocaleString()}${sign}+`}
       />
@@ -155,7 +173,11 @@ const WebsiteDetails = async () => {
   const price = priceObj?.["website"] ?? 0;
   return (
     <Details>
-      <DetailsHeader title="Сайт" price={`${price.toLocaleString()}${sign}+`} />
+      <DetailsHeader
+        icon={<GlobeIcon size={18} />}
+        title="Сайт"
+        price={`${price.toLocaleString()}${sign}+`}
+      />
       <DetailsDescription>
         Идеальное решение, если нужен полностью готовый сайт. Разработаю проект
         с нуля, учту все пожелания и технические требования.
@@ -198,6 +220,7 @@ const WebAppDetails = async () => {
   return (
     <Details>
       <DetailsHeader
+        icon={<AppWindowIcon size={18} />}
         title="Веб приложение"
         price={`${price.toLocaleString()}${sign}+`}
       />
@@ -248,7 +271,11 @@ const MVPDetails = async () => {
   const price = priceObj?.["mvp"] ?? 0;
   return (
     <Details>
-      <DetailsHeader title="MVP" price={`${price.toLocaleString()}${sign}+`} />
+      <DetailsHeader
+        icon={<SparklesIcon size={18} />}
+        title="MVP"
+        price={`${price.toLocaleString()}${sign}+`}
+      />
       <DetailsDescription>
         Оптимальный выбор, если нужно быстро протестировать идею. Сделаю
         минимальную, но рабочую версию продукта для первых пользователей.

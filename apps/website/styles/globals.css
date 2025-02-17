@@ -1,10 +1,14 @@
-@import "tailwind-config/dist/theme.css";
-@import "tailwind-config/dist/globals.css";
+@layer base, theme, components;
+@import "tailwind-config/dist/theme.css" layer(theme);
+
 @import "tailwindcss";
-@import "mono/css/globals.css";
+
+@import "tailwind-config/dist/globals.css" layer(base);
+@import "mono/css/globals.css" layer(components);
 
 @source "../app";
 @source "../components";
+@source "../../../packages/mono/dist";
 
 :root {
   --canvas-grid-cells: #ccc;
