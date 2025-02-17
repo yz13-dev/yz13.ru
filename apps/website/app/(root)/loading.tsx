@@ -11,8 +11,8 @@ export const ServicesSkeleton = () => {
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x">
         <div className="h-fit flex items-center divide-x xl:!grid flex xl:!grid-cols-3 xl:!grid-rows-1 flex-col">
-          <div className="relative w-full h-full col-span-2 p-3 bg-neutral-100">
-            <Skeleton className="aspect-video" />
+          <div className="relative w-full h-full col-span-2 bg-neutral-100">
+            <Skeleton className="aspect-video rounded-none" />
           </div>
           <div className="w-full flex flex-col h-full justify-between">
             <div className="relative w-full space-y-3 p-3 h-full pattern-lines">

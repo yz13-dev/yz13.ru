@@ -13,7 +13,8 @@ const Details = ({
   return (
     <div
       className={cn(
-        "w-72 shrink-0 space-y-3 p-3 hover:bg-neutral-100 transition-colors",
+        "w-80 shrink-0 space-y-3 p-4 hover:bg-neutral-100 transition-colors",
+        "last:border-r",
         className,
       )}
     >
@@ -44,30 +45,56 @@ const DetailsDescription = ({ children }: { children?: React.ReactNode }) => {
   return <span className="text-secondary text-sm">{children}</span>;
 };
 
+type ExtraSingleItem = {
+  type: "single";
+};
+type ExtraPerItem = {
+  type: "per-item";
+  per_item_label?: string;
+  price_per_item?: number;
+};
+
 type DetailsExtra = {
   icon?: LucideIcon;
   label?: string;
-  price?: string;
-};
+  price?: number;
+} & (ExtraSingleItem | ExtraPerItem);
 
-const DetailsExtraList = ({ list = [] }: { list?: DetailsExtra[] }) => {
+const DetailsExtraList = async ({ list = [] }: { list?: DetailsExtra[] }) => {
+  const sign = await get<string>("price-sign");
   return (
     <ul className="w-full space-y-2">
-      {list.map(({ icon: Icon, label, price }, index) => {
-        return (
-          <li className="w-full" key={`${label}-${index}`}>
-            <div className="flex flex-row justify-between items-center gap-2">
-              <div className="w-fit text-secondary flex items-center justify-between gap-2">
-                {Icon && <Icon size={16} />}
-                <span className="text-secondary text-sm">{label}</span>
+      {list
+        .sort((a, b) => {
+          if (a.type === "single" && b.type === "per-item") return 1;
+          if (a.type === "per-item" && b.type === "single") return -1;
+          return 0;
+        })
+        .map((item, index) => {
+          const { icon: Icon, label, price, type } = item;
+          return (
+            <li className="w-full" key={`${label}-${index}`}>
+              <div className="flex flex-row justify-between items-center gap-2">
+                <div className="w-fit text-secondary flex items-center justify-between gap-2">
+                  {Icon && <Icon size={16} className="shrink-0" />}
+                  <span className="text-secondary text-sm">{label}</span>
+                </div>
+                {type === "single" && price && (
+                  <span className="text-secondary text-sm">
+                    +{(price ?? 0).toLocaleString()}
+                    {sign}
+                  </span>
+                )}
+                {type === "per-item" && item.price_per_item && (
+                  <span className="text-secondary text-sm">
+                    {(item.price_per_item ?? 0).toLocaleString()}
+                    {sign}/{item.per_item_label ?? "шт"}
+                  </span>
+                )}
               </div>
-              {price && (
-                <span className="text-secondary text-sm">+{price}</span>
-              )}
-            </div>
-          </li>
-        );
-      })}
+            </li>
+          );
+        })}
     </ul>
   );
 };
@@ -83,23 +110,37 @@ const PagesDetails = async () => {
         price={`${price.toLocaleString()}${sign}+`}
       />
       <DetailsDescription>
-        Хороший вариант для начальной стадии сотрудничества.
+        Хороший вариант для начальной стадии сотрудничества. Верстаю адаптивные
+        и быстрые страницы, готовые к интеграции в проект.
       </DetailsDescription>
       <Separator />
       <DetailsExtraList
         list={[
           {
-            label: "Доп. поправки",
+            type: "single",
+            label: "Разработка интерактивных элементов",
             icon: PlusIcon,
-            price: "0",
+            price: 2500,
           },
           {
+            type: "per-item",
             label: "Доп. страницы",
             icon: PlusIcon,
-            price: "0",
+            price_per_item: 1500,
           },
           {
+            type: "single",
             label: "Доступ к репозиторию с исходным кодом",
+            icon: CheckIcon,
+          },
+          {
+            type: "single",
+            label: "Настройка базового SEO",
+            icon: CheckIcon,
+          },
+          {
+            type: "single",
+            label: "Оптимизация под мобильные устройства",
             icon: CheckIcon,
           },
         ]}
@@ -116,23 +157,32 @@ const WebsiteDetails = async () => {
     <Details>
       <DetailsHeader title="Сайт" price={`${price.toLocaleString()}${sign}+`} />
       <DetailsDescription>
-        3+ страничный сайт на основе выбранных технологий.
+        Идеальное решение, если нужен полностью готовый сайт. Разработаю проект
+        с нуля, учту все пожелания и технические требования.
       </DetailsDescription>
       <Separator />
       <DetailsExtraList
         list={[
           {
-            label: "Доп. поправки",
-            icon: PlusIcon,
-            price: "0",
-          },
-          {
+            type: "per-item",
             label: "Доп. страницы",
             icon: PlusIcon,
-            price: "0",
+            price_per_item: 1500,
           },
           {
+            type: "single",
+            label: "Создание мультиязычного интерфейса",
+            icon: PlusIcon,
+            price: 6000,
+          },
+          {
+            type: "single",
             label: "Доступ к репозиторию с исходным кодом",
+            icon: CheckIcon,
+          },
+          {
+            type: "single",
+            label: "Настройка базового SEO",
             icon: CheckIcon,
           },
         ]}
@@ -151,17 +201,39 @@ const WebAppDetails = async () => {
         title="Веб приложение"
         price={`${price.toLocaleString()}${sign}+`}
       />
-      <DetailsDescription>"{"web-app-description"}"</DetailsDescription>
+      <DetailsDescription>
+        Для тех, кто хочет интерактивный сервис с продвинутой логикой. Подходит
+        для личных кабинетов, дашбордов, карт и других сложных решений.
+      </DetailsDescription>
       <Separator />
       <DetailsExtraList
         list={[
           {
-            label: "Доп. поправки",
+            type: "per-item",
+            label: "Доп. страницы/разделы",
             icon: PlusIcon,
-            price: "0",
+            price_per_item: 2000,
           },
           {
+            type: "single",
+            label: "Разработка real-time функционала",
+            icon: PlusIcon,
+            price: 10000,
+          },
+          {
+            type: "single",
+            label: "Разработка Progressive Web App (PWA) с оффлайн-режимом",
+            icon: PlusIcon,
+            price: 9000,
+          },
+          {
+            type: "single",
             label: "Доступ к репозиторию с исходным кодом",
+            icon: CheckIcon,
+          },
+          {
+            type: "single",
+            label: "Настройка базового SEO",
             icon: CheckIcon,
           },
         ]}
@@ -177,12 +249,37 @@ const MVPDetails = async () => {
   return (
     <Details>
       <DetailsHeader title="MVP" price={`${price.toLocaleString()}${sign}+`} />
-      <DetailsDescription>{"mvp-description"}</DetailsDescription>
+      <DetailsDescription>
+        Оптимальный выбор, если нужно быстро протестировать идею. Сделаю
+        минимальную, но рабочую версию продукта для первых пользователей.
+      </DetailsDescription>
       <Separator />
       <DetailsExtraList
         list={[
           {
+            type: "per-item",
+            label: "Доп. ключевые функции",
+            icon: PlusIcon,
+            price_per_item: 5000,
+          },
+          {
+            type: "single",
             label: "Доступ к репозиторию с исходным кодом",
+            icon: CheckIcon,
+          },
+          {
+            type: "single",
+            label: "Настройка базового SEO",
+            icon: CheckIcon,
+          },
+          {
+            type: "single",
+            label: "Интеграция API",
+            icon: CheckIcon,
+          },
+          {
+            type: "single",
+            label: "Документация по основным возможностям",
             icon: CheckIcon,
           },
         ]}
