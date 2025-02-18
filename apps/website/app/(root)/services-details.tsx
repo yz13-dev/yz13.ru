@@ -47,9 +47,7 @@ const DetailsHeader = ({
     <div className="flex flex-row justify-between items-center gap-2">
       <div className="flex flex-row items-center gap-2">
         {icon && (
-          <div className="size-6 flex items-center justify-center pb-1">
-            {icon}
-          </div>
+          <div className="size-6 flex items-center justify-center">{icon}</div>
         )}
         <span className="font-medium relative line-clamp-1">{title}</span>
       </div>

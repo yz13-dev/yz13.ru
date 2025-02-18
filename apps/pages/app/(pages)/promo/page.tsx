@@ -1,7 +1,10 @@
 import { Typewriter } from "@/components/text-writter";
+import { isDev } from "@/const/env";
 import { Separator } from "mono/components/separator";
 import { Metadata } from "next";
 import Image from "next/image";
+import Dock from "../dock";
+import { PageProps } from "../page-props";
 import config from "./page.config.json";
 import RecentBlog from "./recent-blog";
 import RecentProjects from "./recent-projects";
@@ -11,20 +14,10 @@ export const metadata: Metadata = {
   description: config.description,
 };
 
-const page = async () => {
+const page = async ({ searchParams }: PageProps) => {
+  const preview = searchParams.preview === "true";
   return (
     <>
-      {/* <div className="w-full h-16">
-        <header className="container mx-auto w-full h-full px-6 flex items-center justify-between">
-          <Link href="/">
-            <Logo size={{ width: 96, height: 18 }} type="full" />
-          </Link>
-          <Button className="rounded-xl gap-2">
-            Заказать работу
-            <ArrowRightIcon size={16} />
-          </Button>
-        </header>
-      </div> */}
       <div className="container mx-auto w-full py-12 lg:!mt-24 mt-12 px-6">
         <Typewriter
           text={[
@@ -162,6 +155,7 @@ const page = async () => {
       <div className="divide-y">
         <RecentBlog />
       </div>
+      {!preview && isDev && <Dock />}
     </>
   );
 };

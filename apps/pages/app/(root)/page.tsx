@@ -1,8 +1,8 @@
 import { parsePages } from "@/actions/parse-pages";
 import { Logo } from "@/components/logo";
-import { Typewriter } from "@/components/text-writter";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, HeartIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { Separator } from "mono/components/separator";
 import { Metadata } from "next";
 import Link from "next/link";
 import PageCard from "./page.card";
@@ -44,22 +44,12 @@ const page = ({ searchParams }: PageProps) => {
         </header>
       </div>
       <div className="w-full h-fit border-b">
-        <div className="container mx-auto border-x w-full lg:!py-12 py-6 px-6 space-y-4">
-          <Typewriter
-            text={["Страницы, компоненты.", "Pages"]}
-            speed={100}
-            loop={true}
-            tag="h1"
-            className="lg:!text-7xl md:!text-5xl text-3xl font-medium block"
-          />
-          <p className="lg:!text-5xl md:!text-3xl text-xl font-medium text-secondary">
-            Библиотека, которая со временем будет только расти.
-          </p>
-        </div>
-      </div>
-      <div className="w-full h-fit border-b">
         <div className="container mx-auto border-x w-full px-6 py-3">
-          <nav className="flex flex-row gap-4">
+          <nav className="flex flex-row items-center gap-4">
+            <Button variant="ghost" size="icon">
+              <HeartIcon size={16} />
+            </Button>
+            <Separator orientation="vertical" className="h-6" />
             <Button
               variant={type === "all" || !type ? "secondary" : "ghost"}
               asChild

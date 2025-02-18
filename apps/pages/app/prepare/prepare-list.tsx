@@ -2,10 +2,11 @@
 
 import { makePageThumbnail } from "@/actions/prepare-page";
 import { PageConfig } from "@/types/page.type";
-import { Loader2Icon } from "lucide-react";
+import { ArrowRightIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Checkbox } from "mono/components/checkbox";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -16,6 +17,7 @@ const PrepareList = ({ pages = [] }: { pages?: PageConfig[] }) => {
   const [queueIndex, setQueueIndex] = useState<number>(0);
   const [running, setRunning] = useState<boolean>(false);
   const [checked, setChecked] = useState<number[]>([]);
+
   const fullQueue = () => {
     const filtered = pages.filter((_, i) => checked.includes(i));
     setQueue(filtered);
@@ -141,6 +143,12 @@ const PrepareCard = ({
             <p className="text-4xl font-medium text-foreground">
               {page.description}
             </p>
+            <Button variant="secondary" className="w-fit gap-2 mt-4" asChild>
+              <Link href={`/${page.id}`}>
+                Перейти
+                <ArrowRightIcon size={16} />
+              </Link>
+            </Button>
           </div>
         </div>
         <div className="lg:!w-1/2 w-full flex flex-col gap-2">
