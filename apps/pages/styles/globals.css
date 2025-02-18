@@ -9,3 +9,8 @@
 @source "../app";
 @source "../components";
 @source "../../../packages/mono/dist";
+
+.grid-template {
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  display: grid;
+}
