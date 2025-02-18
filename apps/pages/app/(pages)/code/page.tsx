@@ -1,11 +1,15 @@
 import { Logo } from "@/components/logo";
+import { isDev } from "@/const/env";
 import { DownloadIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Image from "next/image";
 import Link from "next/link";
 import editorThumbnail from "public/pages/code/code_editor.png";
+import Dock from "../dock";
+import { PageProps } from "../page-props";
 
-const page = () => {
+const page = async ({ searchParams }: PageProps) => {
+  const preview = searchParams.preview === "true";
   return (
     <>
       <header className="w-full h-16 border-b">
@@ -54,6 +58,7 @@ const page = () => {
           />
         </div>
       </div>
+      {!preview && isDev && <Dock />}
     </>
   );
 };

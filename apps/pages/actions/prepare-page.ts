@@ -31,7 +31,7 @@ const makeScreenshot = async (id: string, theme: "dark" | "light") => {
 
     await page.setViewport(size);
 
-    await page.goto(`${URL}/${id}`);
+    await page.goto(`${URL}/${id}?preview=true`);
 
     await page.waitForNetworkIdle({
       idleTime: 1000,
@@ -59,7 +59,7 @@ export const makePageThumbnail = async (id: string) => {
     const lightThumbnail = await makeScreenshot(id, "light");
     const darkThumbnail = await makeScreenshot(id, "dark");
 
-    console.log(lightThumbnail, darkThumbnail);
+    // console.log(lightThumbnail, darkThumbnail);
 
     if (!lightThumbnail || !darkThumbnail) return null;
 
