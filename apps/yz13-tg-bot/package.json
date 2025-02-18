@@ -1,13 +1,14 @@
 {
   "name": "yz13-tg-bot",
   "scripts": {
-    "build": "bun scripts/build.ts",
-    "runtime": "bun-vercel ./scripts/webhook.ts"
+    "build": "next build && bun scripts/build.ts",
+    "start": "next start"
   },
   "dependencies": {
+    "hono": "^4.6.12",
     "grammy": "^1.19.2"
   },
   "devDependencies": {
-    "bun-vercel": "1.0.0-alpha.5"
+    "@repo/typescript-config": "*"
   }
 }
