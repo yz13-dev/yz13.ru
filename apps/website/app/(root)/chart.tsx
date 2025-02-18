@@ -8,7 +8,6 @@ import {
   ChartTooltipContent,
 } from "mono/components/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { getTotalViews } from "../workspace/analytics/views-chart";
 
 const chartData = [
   { label: "Сентябрь", count: 0 },
@@ -39,11 +38,6 @@ const Chart = ({
       <div className="absolute top-4 left-4 flex flex-col gap-1">
         <span className="text-foreground/80 text-2xl block font-medium">
           Просмотры
-        </span>
-        <span className="text-secondary text-base block">
-          {chartViews
-            ? `Всего ${(getTotalViews(views) ?? 0).toLocaleString()} просмотров`
-            : "Общее кол-во просмотров за 6 месяцев"}
         </span>
       </div>
       <div className="w-full h-full aspect-video">
