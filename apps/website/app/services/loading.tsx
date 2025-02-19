@@ -62,6 +62,17 @@ const loading = () => {
         </div>
         <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
+          </div>
+        </div>
+        <Skeleton className="h-[386px] w-full rounded-none" />
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-fit p-6 space-y-6">
               <Footer />
             </div>

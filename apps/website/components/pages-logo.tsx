@@ -1,8 +1,8 @@
 import Image from "next/image";
-import yz_full_dark from "public/pages/pages-full-logo-dark.png";
-import yz_full_light from "public/pages/pages-full-logo-light.png";
-import yz_dark from "public/pages/pages-logo-dark.png";
-import yz_light from "public/pages/pages-logo-light.png";
+import yz_dark from "public/pages/pages-dark.png";
+import yz_full_dark from "public/pages/pages-full-dark.png";
+import yz_full_light from "public/pages/pages-full-light.png";
+import yz_light from "public/pages/pages-light.png";
 import { cn } from "yz13/cn";
 
 type Size = {

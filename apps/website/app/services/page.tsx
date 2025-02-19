@@ -4,11 +4,12 @@ import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
-import { showPagesPromo, showProcess } from "@/const/flags";
+import { showPagesPromo, showPriceDetails, showProcess } from "@/const/flags";
 import { Skeleton } from "mono/components/skeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import ServicesDetails from "../(root)/services-details";
 import Header from "../../components/header";
 import Nav from "../../components/nav";
 import Footer from "../old/footer";
@@ -117,14 +118,29 @@ const page = async () => {
             </Wrapper>
             <div className="w-full h-full pattern-lines" />
           </div>
-          {(await showProcess()) && (
-            <div className="w-full">
-              <div className="max-w-screen-2xl p-6 w-full mx-auto border-x">
-                <Process className="w-full" />
-              </div>
-            </div>
-          )}
         </div>
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
+          </div>
+        </div>
+        <Suspense
+          fallback={<Skeleton className="h-[386px] w-full rounded-none" />}
+        >
+          {(await showPriceDetails()) && <ServicesDetails />}
+        </Suspense>
+        <div className="w-full">
+          <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="h-20" />
+          </div>
+        </div>
+        {(await showProcess()) && (
+          <div className="w-full">
+            <div className="max-w-screen-2xl p-6 w-full mx-auto border-x">
+              <Process className="w-full" />
+            </div>
+          </div>
+        )}
         <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-fit p-6 space-y-6">
