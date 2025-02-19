@@ -1,4 +1,4 @@
-import { viewsChart } from "@/actions/charts/views";
+import { halfYearViewsChart } from "@/actions/charts/views";
 import Banner from "@/components/banner";
 import { showChart, showViews } from "@/const/flags";
 import { get } from "@vercel/edge-config";
@@ -17,7 +17,7 @@ const Services = async () => {
   const isBusy = (await get<boolean>("busy")) ?? true;
   const chart = await showChart();
   const chartViews = await showViews();
-  const views = chartViews ? await viewsChart() : null;
+  const views = chartViews ? await halfYearViewsChart() : null;
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x">
@@ -28,13 +28,14 @@ const Services = async () => {
               chart ? "p-0" : "p-3",
             )}
           >
-
-            <Suspense fallback={<Skeleton className="aspect-video rounded-none" />}>
-            {chart ? (
-              <Chart views={views} chartViews={chartViews} />
-            ) : (
-              <Banner imageClassName="!static object-cover" />
-            )}
+            <Suspense
+              fallback={<Skeleton className="aspect-video rounded-none" />}
+            >
+              {chart ? (
+                <Chart views={views} chartViews={chartViews} />
+              ) : (
+                <Banner imageClassName="!static object-cover" />
+              )}
             </Suspense>
           </div>
           <div className="w-full flex flex-col h-full justify-between">
@@ -53,12 +54,12 @@ const Services = async () => {
               </div>
             </div>
             <div className="w-full flex items-center gap-3 p-3 bg-neutral-100 border-t">
-              <Button className="w-1/2" variant="default" asChild>
+              <Button className="w-1/2 h-10" variant="default" asChild>
                 <Link href="/services">Все услуги</Link>
               </Button>
               <Button
                 disabled={isBusy}
-                className="w-1/2"
+                className="w-1/2 h-10"
                 variant="secondary"
                 asChild={!isBusy}
               >

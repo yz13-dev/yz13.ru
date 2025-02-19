@@ -1,13 +1,7 @@
 "use client";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "mono/components/card";
+import { Card, CardContent } from "mono/components/card";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
 import Link from "next/link";
@@ -18,9 +12,15 @@ import { createClient } from "yz13/supabase/client";
 
 type FormProps = ComponentPropsWithoutRef<"div"> & {
   continueLink?: string;
+  back?: boolean;
 };
 
-export function SignupForm({ className, continueLink, ...props }: FormProps) {
+export function SignupForm({
+  className,
+  continueLink,
+  back = false,
+  ...props
+}: FormProps) {
   const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,7 +43,8 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
       });
       const user = data.user;
       if (error) setError(true);
-      if (user) router.push(continueLink || "/");
+      if (back) router.back();
+      else router.push(continueLink || "/");
     } catch (error) {
       setError(true);
     } finally {
@@ -52,13 +53,7 @@ export function SignupForm({ className, continueLink, ...props }: FormProps) {
   };
   return (
     <div className={cn("flex flex-col", className)} {...props}>
-      <Card className="rounded-none border-x-0 divide-y">
-        <CardHeader className="text-center">
-          <CardTitle className="text-xl">Добро пожаловать в YZ13</CardTitle>
-          <CardDescription>
-            Создайте свой аккаунт для продолжения
-          </CardDescription>
-        </CardHeader>
+      <Card className="rounded-none border-x-0 pt-6 divide-y">
         <CardContent>
           <form>
             <div className="grid gap-6">

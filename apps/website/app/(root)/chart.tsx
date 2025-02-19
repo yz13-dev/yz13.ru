@@ -1,5 +1,6 @@
 "use client";
 import { ViewsChartSession } from "@/types/session";
+import dayjs from "dayjs";
 import { Card, CardContent } from "mono/components/card";
 import {
   ChartConfig,
@@ -10,12 +11,12 @@ import {
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 const chartData = [
-  { label: "Сентябрь", count: 0 },
-  { label: "Октябрь", count: 25 },
-  { label: "Ноябрь", count: 150 },
-  { label: "Декабрь", count: 200 },
-  { label: "Январь", count: 235 },
-  { label: "Февраль", count: 155 },
+  { label: "2024-09", count: 0 },
+  { label: "2024-10", count: 25 },
+  { label: "2024-11", count: 150 },
+  { label: "2024-12", count: 200 },
+  { label: "2025-01", count: 235 },
+  { label: "2025-01", count: 155 },
 ];
 
 const chartConfig = {
@@ -24,6 +25,8 @@ const chartConfig = {
     color: "var(--chart-6)",
   },
 } satisfies ChartConfig;
+
+dayjs.locale("ru");
 
 const Chart = ({
   views = null,
@@ -64,7 +67,7 @@ const Chart = ({
                   tickMargin={4}
                   minTickGap={32}
                   tickFormatter={(value) => {
-                    return value.slice(0, 3);
+                    return dayjs(value, "YYYY-MM").format("MMM").toUpperCase();
                   }}
                 />
                 <ChartTooltip

@@ -12,11 +12,13 @@ import { createClient } from "yz13/supabase/client";
 
 type LoginFormProps = ComponentPropsWithoutRef<"div"> & {
   continueLink?: string;
+  back?: boolean;
 };
 
 export function LoginForm({
   className,
   continueLink,
+  back = false,
   ...props
 }: LoginFormProps) {
   const supabase = createClient();
@@ -34,7 +36,10 @@ export function LoginForm({
       });
       const user = data.user;
       if (error) setError(true);
-      if (user) router.push(continueLink || "/");
+      if (user) {
+        if (back) router.back();
+        else router.push(continueLink || "/");
+      }
     } catch (error) {
       setError(true);
     } finally {
@@ -43,7 +48,7 @@ export function LoginForm({
   };
   return (
     <div className={cn("flex flex-col h-fit", className)} {...props}>
-      <Card className="rounded-none border-0 divide-y">
+      <Card className="rounded-none border-x-0 pt-6 divide-y">
         <CardContent>
           <form>
             <div className="grid gap-6">

@@ -5,12 +5,16 @@ import { createClient } from "yz13/supabase/server";
 
 export const charts = new Hono();
 
-const groupViewsChartData = (chartData: any[]) => {
+type GroupOptions = {
+  format?: string;
+};
+const groupViewsChartData = (chartData: any[], options?: GroupOptions) => {
+  const { format = "YYYY-MM-DD" } = options || {};
   const data: any[] = [];
   const labels: string[] = [];
 
   chartData.forEach((d) => {
-    const date = dayjs(d.created_at).format("YYYY-MM-DD");
+    const date = dayjs(d.created_at).format(format);
     if (!labels.includes(date)) {
       labels.push(date);
     }
@@ -18,7 +22,7 @@ const groupViewsChartData = (chartData: any[]) => {
 
   labels.forEach((l) => {
     const count = chartData.filter(
-      (d) => dayjs(d.created_at).format("YYYY-MM-DD") === l,
+      (d) => dayjs(d.created_at).format(format) === l,
     ).length;
     data.push({ label: l, count });
   });
@@ -46,6 +50,36 @@ charts.get("/views", async (c) => {
   return c.json({
     range_start: week_start,
     range_end: week_end,
+    chart,
+    error: null,
+  });
+});
+
+charts.get("/views/half-year", async (c) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const current_date = dayjs();
+  const range_start = current_date
+    .subtract(6, "month")
+    .set("date", 1)
+    .format("YYYY-MM-DD");
+  const range_end = current_date
+    .set("date", current_date.daysInMonth())
+    .format();
+
+  const { data, error } = await supabase
+    .from("visitor-session")
+    .select()
+    .gte("created_at", range_start)
+    .lte("created_at", range_end);
+
+  if (error) return c.json({ data: null, error });
+
+  const chart = groupViewsChartData(data, { format: "YYYY-MM" });
+
+  return c.json({
+    range_start,
+    range_end,
     chart,
     error: null,
   });
