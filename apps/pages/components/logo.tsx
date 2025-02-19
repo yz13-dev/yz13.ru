@@ -1,8 +1,8 @@
 import Image from "next/image";
-import yz_dark from "public/yz-dark.png";
-import yz_full_dark from "public/yz-full-dark.png";
-import yz_full_light from "public/yz-full-light.png";
-import yz_light from "public/yz-light.png";
+import logo_dark from "public/pages-dark.png";
+import logo_full_dark from "public/pages-full-dark.png";
+import logo_full_light from "public/pages-full-light.png";
+import logo_light from "public/pages-light.png";
 import { cn } from "yz13/cn";
 
 type Size = {
@@ -20,8 +20,8 @@ const Logo = ({
   type?: "only-icon" | "full";
   size?: Size;
 }) => {
-  const lightSrc = type === "only-icon" ? yz_light : yz_full_light;
-  const darkSrc = type === "only-icon" ? yz_dark : yz_full_dark;
+  const lightSrc = type === "only-icon" ? logo_light : logo_full_light;
+  const darkSrc = type === "only-icon" ? logo_dark : logo_full_dark;
   const isSizeToSmall = size && size.width < 40;
   if (size) {
     return (
