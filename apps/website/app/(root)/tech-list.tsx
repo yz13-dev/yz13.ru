@@ -1,14 +1,14 @@
 import Image, { StaticImageData } from "next/image";
-import css from "public/tech/CSS3.png";
-import html from "public/tech/HTML5.png";
+import css from "public/tech/css3.png";
+import html from "public/tech/html5.png";
 import nextjs from "public/tech/nextjs.png";
 import nodejs from "public/tech/nodejs.png";
-import postgresSQL from "public/tech/postgresSQL.png";
-import react from "public/tech/react.png";
+import postgresSQL from "public/tech/postgresql.png";
+import react from "public/tech/reactjs.png";
 import redis from "public/tech/redis.png";
 import tailwindcss from "public/tech/tailwindcss.png";
 import typescript from "public/tech/typescript.png";
-import vite from "public/tech/vite.png";
+import vite from "public/tech/vitejs.png";
 import { cn } from "yz13/cn";
 
 type TechItem = {
