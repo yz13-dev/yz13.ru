@@ -11,6 +11,8 @@ import localFont from "next/font/local";
 import { cn } from "yz13/cn";
 import { UserProvider } from "./account/user.store";
 
+import "dayjs/locale/ru";
+
 const SessionObserver = dynamic(
   () => import("../components/visitor-session/session-observer"),
   {

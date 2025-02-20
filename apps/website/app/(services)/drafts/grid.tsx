@@ -1,7 +1,9 @@
 import { getDrafts } from "@/actions/drafts/drafts";
+import { getUserById } from "@/actions/user/user";
 import { HeartIcon, ImageIcon, UserIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const DraftsGridSkeleton = () => {
   const count = 10;
@@ -19,6 +21,19 @@ export const DraftsGridSkeleton = () => {
           </div>
         );
       })}
+    </div>
+  );
+};
+
+const DraftAuthor = async ({ author }: { author: string }) => {
+  const user = await getUserById(author);
+  const userName = user?.user_metadata?.username ?? "Пользователь";
+  return (
+    <div className="flex flex-row items-center gap-1">
+      <span className="text-xs text-secondary">От</span>
+      <Link href="/drafts" className="text-xs text-secondary underline">
+        {userName}
+      </Link>
     </div>
   );
 };
@@ -47,12 +62,9 @@ const DraftsGrid = async () => {
                 <span className="text-sm font-medium text-foreground/80">
                   {draft.title}
                 </span>
-                <div className="flex flex-row items-center gap-1">
-                  <span className="text-xs text-secondary">От</span>
-                  <span className="text-xs text-secondary underline">
-                    {draft.by.slice(0, 6)}
-                  </span>
-                </div>
+                <Suspense fallback={<Skeleton className="w-24 h-4" />}>
+                  <DraftAuthor author={draft.by} />
+                </Suspense>
               </div>
               <div className="flex flex-row items-center gap-2">
                 <button className="flex flex-row items-center gap-1 text-secondary">
