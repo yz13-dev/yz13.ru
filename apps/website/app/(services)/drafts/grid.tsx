@@ -1,7 +1,9 @@
 import { getDrafts } from "@/actions/drafts/drafts";
 import { getUserById } from "@/actions/user/user";
+import { cdn } from "@/lib/cdn";
 import { HeartIcon, ImageIcon, UserIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -31,7 +33,10 @@ const DraftAuthor = async ({ author }: { author: string }) => {
   return (
     <div className="flex flex-row items-center gap-1">
       <span className="text-xs text-secondary">От</span>
-      <Link href="/drafts" className="text-xs text-secondary underline">
+      <Link
+        href={`/drafts/by/${author}`}
+        className="text-xs text-secondary underline"
+      >
         {userName}
       </Link>
     </div>
@@ -46,7 +51,14 @@ const DraftsGrid = async () => {
         return (
           <div className="space-y-1.5 w-full group" key={draft.id}>
             <div className="w-full aspect-[4/2.5] transition-colors rounded-xl group-hover:border-foreground border relative">
-              {draft.thumbnail ? null : (
+              {draft.thumbnail ? (
+                <Image
+                  src={cdn(draft.thumbnail)}
+                  alt="thumbnail"
+                  fill
+                  className="rounded-xl object-cover"
+                />
+              ) : (
                 <div className="w-full h-full flex items-center justify-center flex-col gap-2">
                   <ImageIcon size={20} className="text-secondary" />
                   <span className="text-xs text-secondary">Нет обложки</span>

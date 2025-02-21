@@ -1,10 +1,10 @@
 import { Tables } from "yz13/supabase/database";
 
 export type Attachment = {
-  id: string;
+  id: number;
   url: string;
   size: number;
-  content_type: string;
+  type: string;
   created_at: string;
 };
 

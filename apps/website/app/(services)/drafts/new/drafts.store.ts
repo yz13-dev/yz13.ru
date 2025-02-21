@@ -1,3 +1,4 @@
+import { TablesInsert } from "yz13/supabase/database";
 import { create } from "zustand";
 
 export type DraftFormProps = TablesInsert<"drafts"> & {

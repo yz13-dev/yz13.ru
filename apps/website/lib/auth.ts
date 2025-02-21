@@ -15,3 +15,17 @@ export const auth = async () => {
     return user;
   }
 };
+
+export const authorized = async (): Promise<boolean> => {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error) {
+    return false;
+  } else {
+    return !!user;
+  }
+};

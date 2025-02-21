@@ -75,6 +75,7 @@ export const createDraft = async (
         thumbnail: body.thumbnail,
         by: body.by,
         animated: body.animated,
+        published_at: body.published_at,
       })
       .select()
       .limit(1)

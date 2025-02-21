@@ -11,6 +11,7 @@ import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
+import { authorized } from "@/lib/auth";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Skeleton } from "mono/components/skeleton";
@@ -26,9 +27,11 @@ const page = async () => {
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
         <div className="flex items-center gap-4">
-          <Button variant="secondary" asChild>
-            <Link href="/drafts/new">Опубликовать</Link>
-          </Button>
+          {(await authorized()) && (
+            <Button variant="secondary" asChild>
+              <Link href="/drafts/new">Опубликовать</Link>
+            </Button>
+          )}
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
