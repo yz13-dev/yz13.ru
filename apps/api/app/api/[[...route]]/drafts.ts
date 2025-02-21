@@ -10,7 +10,10 @@ export const drafts = new Hono();
 drafts.get("/", async (c) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const { data, error } = await supabase.from("drafts").select("*");
+  const { data, error } = await supabase
+    .from("drafts")
+    .select("*")
+    .not("published_at", "is", null);
   if (error) {
     return c.json(error);
   } else return c.json(data);
@@ -35,7 +38,7 @@ drafts.post("/", async (c) => {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const body = await c.req.json();
-    const published_at = dayjs().utc().toISOString();
+    const published_at = body.published_at ? body.published_at : null;
     const { data, error } = await supabase
       .from("drafts")
       .insert({

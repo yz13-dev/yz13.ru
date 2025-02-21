@@ -7,3 +7,7 @@ export default function randomId(length = 15) {
   }
   return id;
 }
+
+export function randomNumberId(length: number = 15): number {
+  return Math.floor(Math.random() * Math.pow(10, length));
+}

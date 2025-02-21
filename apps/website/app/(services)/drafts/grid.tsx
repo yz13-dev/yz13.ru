@@ -1,7 +1,11 @@
 import { getDrafts } from "@/actions/drafts/drafts";
+import { getUserById } from "@/actions/user/user";
+import { cdn } from "@/lib/cdn";
 import { HeartIcon, ImageIcon, UserIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
+import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const DraftsGridSkeleton = () => {
   const count = 10;
@@ -23,6 +27,22 @@ export const DraftsGridSkeleton = () => {
   );
 };
 
+const DraftAuthor = async ({ author }: { author: string }) => {
+  const user = await getUserById(author);
+  const userName = user?.user_metadata?.username ?? "Пользователь";
+  return (
+    <div className="flex flex-row items-center gap-1">
+      <span className="text-xs text-secondary">От</span>
+      <Link
+        href={`/drafts/by/${author}`}
+        className="text-xs text-secondary underline"
+      >
+        {userName}
+      </Link>
+    </div>
+  );
+};
+
 const DraftsGrid = async () => {
   const drafts = await getDrafts();
   return (
@@ -31,7 +51,14 @@ const DraftsGrid = async () => {
         return (
           <div className="space-y-1.5 w-full group" key={draft.id}>
             <div className="w-full aspect-[4/2.5] transition-colors rounded-xl group-hover:border-foreground border relative">
-              {draft.thumbnail ? null : (
+              {draft.thumbnail ? (
+                <Image
+                  src={cdn(draft.thumbnail)}
+                  alt="thumbnail"
+                  fill
+                  className="rounded-xl object-cover"
+                />
+              ) : (
                 <div className="w-full h-full flex items-center justify-center flex-col gap-2">
                   <ImageIcon size={20} className="text-secondary" />
                   <span className="text-xs text-secondary">Нет обложки</span>
@@ -47,12 +74,9 @@ const DraftsGrid = async () => {
                 <span className="text-sm font-medium text-foreground/80">
                   {draft.title}
                 </span>
-                <div className="flex flex-row items-center gap-1">
-                  <span className="text-xs text-secondary">От</span>
-                  <span className="text-xs text-secondary underline">
-                    {draft.by.slice(0, 6)}
-                  </span>
-                </div>
+                <Suspense fallback={<Skeleton className="w-24 h-4" />}>
+                  <DraftAuthor author={draft.by} />
+                </Suspense>
               </div>
               <div className="flex flex-row items-center gap-2">
                 <button className="flex flex-row items-center gap-1 text-secondary">

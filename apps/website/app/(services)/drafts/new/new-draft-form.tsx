@@ -1,64 +1,86 @@
 "use client";
+import { createDraft } from "@/actions/drafts/drafts";
 import AutoTextarea from "@/components/auto-textarea";
-import { Attachment } from "@/types/drafts";
-import { PlusIcon, XIcon } from "lucide-react";
+import {
+  CheckIcon,
+  Loader2Icon,
+  PlusIcon,
+  UserIcon,
+  XIcon,
+} from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { TagInput, Tags, TagsList } from "mono/components/tags";
-import { create } from "zustand";
+import { useEffect, useMemo, useState } from "react";
 
-type DraftFormProps = {
-  index: number;
-  title: string;
-  description: string;
-  tags: string[];
-  attachments: Attachment[];
+import { uploadFile } from "@/actions/files/files";
+import { randomNumberId } from "@/lib/random-id";
+import { Attachment } from "@/types/drafts";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import { useRouter } from "next/navigation";
+import { Json } from "yz13/supabase/database";
+import useDraftFormStore, { DraftFormProps } from "./drafts.store";
+import { FileUpload } from "./file-upload";
+import useFilesStore, { addFile, AttachmentFile } from "./files.store";
+
+dayjs.extend(utc);
+
+type FormProps = {
+  userName?: string;
+  avatarUrl?: string;
+  email?: string;
+  uid?: string;
 };
-
-type State = {
-  drafts: DraftFormProps[];
-};
-
-type Actions = {
-  addDraft: (draft: DraftFormProps) => void;
-  removeDraft: (index: number) => void;
-  updateDraft: (index: number, draft: DraftFormProps) => void;
-};
-
-const defaultDraft: DraftFormProps = {
-  index: 0,
-  title: "",
-  description: "",
-  tags: [],
-  attachments: [],
-};
-
-const useDraftFormStore = create<State & Actions>()((set) => ({
-  drafts: [defaultDraft],
-  addDraft: (draft) => {
-    set((state) => ({
-      drafts: [...state.drafts, draft],
-    }));
-  },
-  removeDraft: (index) => {
-    set((state) => ({
-      drafts: state.drafts.filter((_, i) => i !== index),
-    }));
-  },
-  updateDraft: (index, draft) => {
-    set((state) => ({
-      drafts: state.drafts.map((otherDraft, i) => {
-        if (i === index) return draft;
-        else return otherDraft;
-      }),
-    }));
-  },
-}));
-
-const NewDraftForm = () => {
+const NewDraftForm = ({ uid, avatarUrl, email, userName }: FormProps) => {
   const drafts = useDraftFormStore((state) => state.drafts);
   const addDraft = useDraftFormStore((state) => state.addDraft);
-  // const uploadDraft = () => {};
+  const clearDrafts = useDraftFormStore((state) => state.clearDrafts);
+  const files = useFilesStore((state) => state.files);
+
+  const [loading, setLoading] = useState<boolean>(false);
+  const [uploadIndex, setUploadIndex] = useState<number | null>(null);
+
+  const router = useRouter();
+
+  const disabled = useMemo(() => {
+    if (!uid) return true;
+    if (loading) return true;
+    if (drafts.length === 0) return true;
+    if (drafts.some((draft) => draft.title.length === 0)) return true;
+    else return false;
+  }, [drafts, loading, uid]);
+
+  const handlePublish = async () => {
+    const length = drafts.length;
+    if (length === 0) return;
+    for (let i = 0; i < length; i++) {
+      const draft = drafts[i];
+      if (!draft) return;
+      setUploadIndex(i);
+      setLoading(true);
+      const attachementsIds = (draft.attachments ?? []).map((attachment) => {
+        const json = attachment as { [key: string]: number };
+        return json.id as number;
+      });
+      attachementsIds.forEach(async (id) => {
+        const file = files.find((file) => file.id === id);
+        if (file) {
+          const fileExtension = file.file.name.split(".").pop();
+          const path = `/${uid}/${file.id}.${fileExtension}`;
+          await uploadFile("drafts", path, file.file);
+        }
+      });
+      const published_at = dayjs().utc().toISOString();
+      const newDraft = { ...draft, by: uid, published_at };
+      await createDraft(newDraft);
+    }
+    setLoading(false);
+    setUploadIndex(null);
+
+    router.push("/drafts");
+  };
+
   const newDraft = () => {
     const lastDraftIndex = drafts.length - 1;
     const draft: DraftFormProps = {
@@ -70,26 +92,72 @@ const NewDraftForm = () => {
     };
     addDraft(draft);
   };
+
+  useEffect(() => {
+    return () => {
+      setUploadIndex(null);
+      clearDrafts();
+    };
+  }, []);
+  if (!uid) return null;
   return (
     <div className="mx-auto max-w-lg w-full flex flex-col gap-4 items-center">
       <div className="w-full border p-4 rounded-2xl">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
           <div className="flex flex-row items-center gap-2">
-            <div className="size-10 rounded-full border" />
+            {avatarUrl ? (
+              <div className="size-10 rounded-full border" />
+            ) : (
+              <div className="size-10 rounded-full border flex items-center justify-center">
+                <UserIcon size={16} />
+              </div>
+            )}
             <div className="flex flex-col">
-              <span className="text-base font-medium">YZ13</span>
-              <span className="text-sm text-secondary underline">123456</span>
+              <span className="text-base font-medium">
+                {userName ?? "Пользователь"}
+              </span>
+              <span className="text-sm text-secondary underline">
+                {email ?? "example@yz13.ru"}
+              </span>
             </div>
           </div>
           <div className="flex flex-col divide-y">
             {drafts.map((draft, index) => {
+              if (uploadIndex !== null)
+                return (
+                  <div key={`draft/${index}`} className="w-full relative h-fit">
+                    {uploadIndex === index && loading && (
+                      <div className="absolute top-0 left-0 w-full h-full bg-background/80 flex items-center justify-center">
+                        <Loader2Icon size={24} className="animate-spin" />
+                      </div>
+                    )}
+                    {uploadIndex > index && loading && (
+                      <div className="absolute top-0 left-0 w-full h-full bg-background/80 flex items-center justify-center">
+                        <CheckIcon size={24} />
+                      </div>
+                    )}
+                    <DraftForm uid={uid} draft={draft} index={index} />
+                  </div>
+                );
               return (
-                <DraftForm key={`draft/${index}`} draft={draft} index={index} />
+                <DraftForm
+                  key={`draft/${index}`}
+                  uid={uid}
+                  draft={draft}
+                  index={index}
+                />
               );
             })}
           </div>
           <div className="flex flex-row items-center justify-end gap-2">
-            <Button size="sm">Запостить</Button>
+            <Button
+              disabled={disabled}
+              className="gap-2"
+              onClick={handlePublish}
+            >
+              {loading && <Loader2Icon size={16} className="animate-spin" />}
+              {loading ? "Постим..." : "Запостить"}
+            </Button>
           </div>
         </div>
       </div>
@@ -101,10 +169,13 @@ const NewDraftForm = () => {
 };
 
 type DraftProps = {
+  uid: string;
   draft: DraftFormProps;
   index: number;
 };
-const DraftForm = ({ draft, index }: DraftProps) => {
+const DraftForm = ({ draft, index, uid }: DraftProps) => {
+  const [file, setFile] = useState<File | null>(null);
+
   const removeDraft = useDraftFormStore((state) => state.removeDraft);
   const updateDraft = useDraftFormStore((state) => state.updateDraft);
   const handleUpdateTitle = (value: string) => {
@@ -128,6 +199,39 @@ const DraftForm = ({ draft, index }: DraftProps) => {
   const handleRemove = () => {
     removeDraft(index);
   };
+  const toAttachmentFile = (file: File) => {
+    return {
+      file,
+      id: randomNumberId(20),
+    };
+  };
+  const toAttachment = (attachment: AttachmentFile): Attachment => {
+    const { file, id } = attachment;
+    const date = dayjs(file.lastModified).format();
+    const fileExtension = file.name.split(".").pop();
+    const url = `/drafts/${uid}/${id}.${fileExtension}`;
+    return {
+      id,
+      created_at: date,
+      size: file.size,
+      type: file.type,
+      url,
+    };
+  };
+  const handleFile = (file: File | null) => {
+    setFile(file);
+    if (file) {
+      const attachmentFile = toAttachmentFile(file);
+      addFile(attachmentFile);
+      const attachment = toAttachment(attachmentFile);
+      const attachments = draft.attachments ?? [];
+      updateDraft(index, {
+        ...draft,
+        thumbnail: attachment.url,
+        attachments: [...attachments, attachment as unknown as Json],
+      });
+    }
+  };
   return (
     <div className="flex flex-col gap-2 py-2">
       <div className="flex flex-row gap-2">
@@ -139,7 +243,7 @@ const DraftForm = ({ draft, index }: DraftProps) => {
             className="w-full p-1 rounded-none !border-none !ring-0 !ring-offset-0 text-lg font-medium"
           />
           <AutoTextarea
-            value={draft.description}
+            value={draft.description ?? ""}
             onChange={(e) => handleUpdateDescription(e.target.value)}
             placeholder="Описание"
           />
@@ -157,7 +261,11 @@ const DraftForm = ({ draft, index }: DraftProps) => {
           )}
         </div>
       </div>
-      <div className="w-full aspect-[4/2.5] border-dashed rounded-xl border-2 relative" />
+      <FileUpload
+        className="w-full aspect-[4/2.5] relative"
+        file={file}
+        onFile={handleFile}
+      />
       <Tags
         className="max-w-sm"
         tags={draft.tags}
