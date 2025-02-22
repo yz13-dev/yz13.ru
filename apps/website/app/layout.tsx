@@ -1,3 +1,4 @@
+import { UserProvider } from "@/app/account/settings/user.store";
 import ThemeObserver from "@/components/theme/theme-observer";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -9,7 +10,6 @@ import dynamic from "next/dynamic";
 import { Inter, Pixelify_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
-import { UserProvider } from "./account/user.store";
 
 import "dayjs/locale/ru";
 

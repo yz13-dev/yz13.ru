@@ -4,13 +4,16 @@ import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
-import { PagesLogo } from "@/components/pages-logo";
 import User from "@/components/user";
-import { showPagesPromo } from "@/const/flags";
+import { showAppsLink } from "@/const/flags";
 import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
+import { LayoutGridIcon } from "lucide-react";
+import { Button } from "mono/components/button";
+import { Skeleton } from "mono/components/skeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { isDev } from "../login/get-url";
 import DndContextWrapper from "./dnd-context";
 import NewProjectModal from "./new-project-modal";
@@ -35,20 +38,16 @@ const page = async () => {
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
         <Nav>
-          {(await showPagesPromo()) && (
-            <div className="size-9 flex justify-center group relative items-center transition-colors">
-              <PagesLogo
-                size={{ width: 16, height: 16 }}
-                type="only-icon"
-                className="opacity-50 group-hover:opacity-100 transition-opacity"
-              />
-              <Link
-                href="https://pages.yz13.ru"
-                className="w-full h-full absolute inset-0"
-              />
-            </div>
-          )}
           {showNewProjectModal && <NewProjectModal />}
+          <Suspense fallback={<Skeleton className="size-9" />}>
+            {(await showAppsLink()) && (
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="/apps">
+                  <LayoutGridIcon size={16} />
+                </Link>
+              </Button>
+            )}
+          </Suspense>
           {isDev && <User />}
         </Nav>
       </Header>

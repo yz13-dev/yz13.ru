@@ -33,6 +33,15 @@ export const showPagesPromo = flag<boolean>({
   },
 });
 
+export const showAppsLink = flag<boolean>({
+  key: "show-apps-link",
+  description: "Show apps link on the root page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>("show-apps-link")) ?? false;
+  },
+});
+
 export const showPriceDetails = flag<boolean>({
   key: "show-price-details",
   description: "Show price details on the root page",
