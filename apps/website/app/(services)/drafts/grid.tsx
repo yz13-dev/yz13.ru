@@ -1,7 +1,7 @@
 import { getDrafts } from "@/actions/drafts/drafts";
 import { getUserById } from "@/actions/user/user";
 import { cdn } from "@/lib/cdn";
-import { HeartIcon, ImageIcon, UserIcon } from "lucide-react";
+import { ImageIcon, TagIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,7 +35,7 @@ const DraftAuthor = async ({ author }: { author: string }) => {
       <span className="text-xs text-secondary">От</span>
       <Link
         href={`/drafts/by/${author}`}
-        className="text-xs text-secondary underline"
+        className="text-xs text-secondary hover:text-foreground cursor-pointer underline"
       >
         {userName}
       </Link>
@@ -50,7 +50,7 @@ const DraftsGrid = async () => {
       {drafts.map((draft) => {
         return (
           <div className="space-y-1.5 w-full group" key={draft.id}>
-            <div className="w-full aspect-[4/2.5] transition-colors rounded-xl group-hover:border-foreground border relative">
+            <div className="w-full aspect-[4/2.5] transition-colors rounded-xl hover:border-foreground border relative">
               {draft.thumbnail ? (
                 <Image
                   src={cdn(draft.thumbnail)}
@@ -73,20 +73,35 @@ const DraftsGrid = async () => {
               <div className="flex flex-col">
                 <span className="text-sm font-medium text-foreground/80">
                   {draft.title}
+                  {draft.description && (
+                    <span className="text-secondary">
+                      {", "}
+                      {draft.description.slice(0, 100)}
+                    </span>
+                  )}
                 </span>
                 <Suspense fallback={<Skeleton className="w-24 h-4" />}>
                   <DraftAuthor author={draft.by} />
                 </Suspense>
               </div>
-              <div className="flex flex-row items-center gap-2">
-                <button className="flex flex-row items-center gap-1 text-secondary">
+              <div className="flex flex-row flex-wrap items-center gap-2">
+                {draft.tags.slice(0, 3).map((tag) => (
+                  <span
+                    className="flex flex-row rounded-full border px-2.5 py-1 items-center gap-1 text-secondary"
+                    key={tag}
+                  >
+                    <TagIcon size={14} />
+                    <span className="text-xs">{tag}</span>
+                  </span>
+                ))}
+                {/* <button className="flex flex-row items-center gap-1 text-secondary">
                   <HeartIcon size={14} />
                   <span className="text-xs">1.2k</span>
                 </button>
                 <div className="flex flex-row items-center gap-1 text-secondary">
                   <UserIcon size={14} />
                   <span className="text-xs">1.2k</span>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
