@@ -24,6 +24,8 @@ const DraftAuthor = async ({ author }: { author: string }) => {
 };
 
 const DraftCard = ({ draft }: { draft: Draft }) => {
+  const randomTagIndex = Math.floor(Math.random() * draft.tags.length);
+  const randomTag = draft.tags[randomTagIndex];
   return (
     <div className="space-y-1.5 w-full group">
       <div className="w-full aspect-[4/2.5] transition-colors rounded-xl hover:border-foreground border relative">
@@ -47,7 +49,7 @@ const DraftCard = ({ draft }: { draft: Draft }) => {
       </div>
       <div className="flex items-center justify-between px-2">
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-foreground/80">
+          <span className="text-sm font-medium text-foreground/80 line-clamp-1">
             {draft.title}
             {draft.description && (
               <span className="text-secondary">
@@ -60,25 +62,12 @@ const DraftCard = ({ draft }: { draft: Draft }) => {
             <DraftAuthor author={draft.by} />
           </Suspense>
         </div>
-        <div className="flex flex-row flex-wrap items-center gap-2">
-          {draft.tags.slice(0, 3).map((tag) => (
-            <span
-              className="flex flex-row rounded-full border px-2.5 py-1 items-center gap-1 text-secondary"
-              key={tag}
-            >
-              <TagIcon size={14} />
-              <span className="text-xs">{tag}</span>
-            </span>
-          ))}
-          {/* <button className="flex flex-row items-center gap-1 text-secondary">
-            <HeartIcon size={14} />
-            <span className="text-xs">1.2k</span>
-          </button>
-          <div className="flex flex-row items-center gap-1 text-secondary">
-            <UserIcon size={14} />
-            <span className="text-xs">1.2k</span>
-          </div> */}
-        </div>
+        {randomTag && (
+          <span className="flex flex-row rounded-full border px-2.5 py-1 items-center gap-1 text-secondary">
+            <TagIcon size={14} />
+            <span className="text-xs shrink-0">{randomTag}</span>
+          </span>
+        )}
       </div>
     </div>
   );
