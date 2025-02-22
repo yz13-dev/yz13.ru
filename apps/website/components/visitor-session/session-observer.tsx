@@ -1,6 +1,6 @@
 "use client";
 import postVisitorSession from "@/actions/post-visitor-session";
-import { useUserStore } from "@/app/account/user.store";
+import { useUserStore } from "@/app/account/settings/user.store";
 import { isProd } from "@/app/login/get-url";
 import randomId from "@/lib/random-id";
 import { useInterval } from "ahooks";

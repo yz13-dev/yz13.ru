@@ -4,9 +4,10 @@ import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
-import { PagesLogo } from "@/components/pages-logo";
 import User from "@/components/user";
-import { showPagesPromo, showPriceDetails } from "@/const/flags";
+import { showAppsLink, showPriceDetails } from "@/const/flags";
+import { LayoutGridIcon } from "lucide-react";
+import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -21,24 +22,18 @@ import TechList from "./tech-list";
 const page = async () => {
   return (
     <>
-      <Header className="sticky top-0">
+      <Header>
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
         <Nav>
           <Suspense fallback={<Skeleton className="size-9" />}>
-            {(await showPagesPromo()) && (
-              <div className="size-9 flex justify-center group relative items-center transition-colors">
-                <PagesLogo
-                  size={{ width: 16, height: 16 }}
-                  type="only-icon"
-                  className="opacity-50 group-hover:opacity-100 transition-opacity"
-                />
-                <Link
-                  href="https://pages.yz13.ru"
-                  className="w-full h-full absolute inset-0"
-                />
-              </div>
+            {(await showAppsLink()) && (
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="/apps">
+                  <LayoutGridIcon size={16} />
+                </Link>
+              </Button>
             )}
           </Suspense>
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>

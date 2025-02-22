@@ -52,13 +52,15 @@ const UserDropdown = ({
             {positionOrEmail}
           </span>
         </DropdownMenuLabel>
-        <DropdownMenuItem className="justify-between">
-          Профиль
-          <UserCircleIcon size={16} />
+        <DropdownMenuItem className="justify-between" asChild>
+          <Link href="/account">
+            Профиль
+            <UserCircleIcon size={16} />
+          </Link>
         </DropdownMenuItem>
         {isDev && (
           <DropdownMenuItem className="justify-between" asChild>
-            <Link href="/account">
+            <Link href="/account/settings">
               Настройки аккаунта
               <SettingsIcon size={16} />
             </Link>

@@ -3,8 +3,10 @@ import Availability from "@/components/availability";
 import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
-import { PagesLogo } from "@/components/pages-logo";
-import { showPagesPromo, showPriceDetails, showProcess } from "@/const/flags";
+import User from "@/components/user";
+import { showAppsLink, showPriceDetails, showProcess } from "@/const/flags";
+import { LayoutGridIcon } from "lucide-react";
+import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -12,6 +14,7 @@ import { Suspense } from "react";
 import ServicesDetails from "../(root)/services-details";
 import Header from "../../components/header";
 import Nav from "../../components/nav";
+import { isDev } from "../login/get-url";
 import Footer from "../old/footer";
 import Column from "./grid/column";
 import MVP from "./grid/mvp";
@@ -34,19 +37,18 @@ const page = async () => {
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>
         <Nav>
-          {(await showPagesPromo()) && (
-            <div className="size-9 flex justify-center group relative items-center transition-colors">
-              <PagesLogo
-                size={{ width: 16, height: 16 }}
-                type="only-icon"
-                className="opacity-50 group-hover:opacity-100 transition-opacity"
-              />
-              <Link
-                href="https://pages.yz13.ru"
-                className="w-full h-full absolute inset-0"
-              />
-            </div>
-          )}
+          <Suspense fallback={<Skeleton className="size-9" />}>
+            {(await showAppsLink()) && (
+              <Button variant="ghost" size="icon" asChild>
+                <Link href="/apps">
+                  <LayoutGridIcon size={16} />
+                </Link>
+              </Button>
+            )}
+          </Suspense>
+          <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
+            {isDev && <User />}
+          </Suspense>
         </Nav>
       </Header>
       <div className="w-full divide-y border-b">
