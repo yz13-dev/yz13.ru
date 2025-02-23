@@ -1,8 +1,8 @@
+import { redis } from "@/extensions/redis";
 import dayjs from "dayjs";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
-import { redis } from "./route";
 
 export const charts = new Hono();
 

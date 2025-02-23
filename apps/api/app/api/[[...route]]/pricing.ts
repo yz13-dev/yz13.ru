@@ -1,7 +1,7 @@
+import { redis } from "@/extensions/redis";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
-import { redis } from "./route";
 
 export const pricing = new Hono();
 
