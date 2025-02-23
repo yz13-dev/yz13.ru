@@ -1,5 +1,5 @@
 import Availability from "@/components/availability";
-import Dock from "@/components/dock/dock";
+import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
@@ -111,7 +111,9 @@ const page = async () => {
         </div>
       </div>
       <PageDockFiller className="pattern-lines max-w-screen-2xl w-full mx-auto border-x" />
-      <Dock />
+      <Suspense fallback={<DockSkeleton />}>
+        <Dock />
+      </Suspense>
     </>
   );
 };

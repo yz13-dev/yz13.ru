@@ -1,6 +1,7 @@
 "use client";
 import { ViewsChartSession } from "@/types/session";
 import dayjs from "dayjs";
+import "dayjs/locale/ru";
 import { Card, CardContent } from "mono/components/card";
 import {
   ChartConfig,
@@ -16,7 +17,7 @@ const chartData = [
   { label: "2024-11", count: 150 },
   { label: "2024-12", count: 200 },
   { label: "2025-01", count: 235 },
-  { label: "2025-01", count: 155 },
+  { label: "2025-02", count: 160 },
 ];
 
 const chartConfig = {
@@ -28,13 +29,7 @@ const chartConfig = {
 
 dayjs.locale("ru");
 
-const Chart = ({
-  views = null,
-  chartViews = false,
-}: {
-  chartViews?: boolean;
-  views?: ViewsChartSession | null;
-}) => {
+const Chart = ({ views = null }: { views?: ViewsChartSession | null }) => {
   const data = views && views.chart.data.length ? views.chart.data : chartData;
   return (
     <>
@@ -51,8 +46,8 @@ const Chart = ({
                 accessibilityLayer
                 data={data}
                 margin={{
-                  left: 0,
-                  right: 0,
+                  left: 16,
+                  right: 16,
                 }}
               >
                 <CartesianGrid
@@ -64,11 +59,14 @@ const Chart = ({
                   dataKey="label"
                   tickLine={false}
                   axisLine={false}
-                  tickMargin={4}
-                  minTickGap={32}
-                  tickFormatter={(value) => {
-                    return dayjs(value, "YYYY-MM").format("MMM").toUpperCase();
-                  }}
+                  tickMargin={5}
+                  minTickGap={16}
+                  tickFormatter={(value) =>
+                    dayjs(value, "YYYY-MM")
+                      .format("MMM")
+                      .slice(0, 3)
+                      .toUpperCase()
+                  }
                 />
                 <ChartTooltip
                   animationDuration={250}

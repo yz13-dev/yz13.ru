@@ -32,7 +32,7 @@ const Services = async () => {
               fallback={<Skeleton className="aspect-video rounded-none" />}
             >
               {chart ? (
-                <Chart views={views} chartViews={chartViews} />
+                <Chart views={views} />
               ) : (
                 <Banner imageClassName="!static object-cover" />
               )}
