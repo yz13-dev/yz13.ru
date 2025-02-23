@@ -105,118 +105,33 @@ export type Database = {
         };
         Relationships: [];
       };
-      lists: {
+      pricing: {
         Row: {
           created_at: string;
-          icon: string | null;
-          id: string;
-          name: string;
-          updated_at: string | null;
-          workspace: string;
-        };
-        Insert: {
-          created_at?: string;
-          icon?: string | null;
-          id?: string;
-          name?: string;
-          updated_at?: string | null;
-          workspace?: string;
-        };
-        Update: {
-          created_at?: string;
-          icon?: string | null;
-          id?: string;
-          name?: string;
-          updated_at?: string | null;
-          workspace?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "lists_workspace_fkey";
-            columns: ["workspace"];
-            isOneToOne: false;
-            referencedRelation: "workspaces";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      members: {
-        Row: {
-          created_at: string;
-          id: string;
-        };
-        Insert: {
-          created_at?: string;
-          id?: string;
-        };
-        Update: {
-          created_at?: string;
-          id?: string;
-        };
-        Relationships: [];
-      };
-      tasks: {
-        Row: {
-          checked: boolean;
-          checked_at: string | null;
-          checked_by: string | null;
-          created_at: string;
-          created_by: string;
-          id: string;
-          list_id: string;
-          updated_at: string;
-        };
-        Insert: {
-          checked?: boolean;
-          checked_at?: string | null;
-          checked_by?: string | null;
-          created_at?: string;
-          created_by?: string;
-          id?: string;
-          list_id?: string;
-          updated_at?: string;
-        };
-        Update: {
-          checked?: boolean;
-          checked_at?: string | null;
-          checked_by?: string | null;
-          created_at?: string;
-          created_by?: string;
-          id?: string;
-          list_id?: string;
-          updated_at?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "tasks_list_id_fkey";
-            columns: ["list_id"];
-            isOneToOne: false;
-            referencedRelation: "lists";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
-      teams: {
-        Row: {
-          created_at: string;
-          id: string;
-          members: string[];
+          description: string | null;
+          details: Json[];
+          id: number;
           name: string | null;
-          slug: string | null;
+          price: number;
+          type: string | null;
         };
         Insert: {
           created_at?: string;
-          id?: string;
-          members?: string[];
+          description?: string | null;
+          details?: Json[];
+          id?: number;
           name?: string | null;
-          slug?: string | null;
+          price?: number;
+          type?: string | null;
         };
         Update: {
           created_at?: string;
-          id?: string;
-          members?: string[];
+          description?: string | null;
+          details?: Json[];
+          id?: number;
           name?: string | null;
-          slug?: string | null;
+          price?: number;
+          type?: string | null;
         };
         Relationships: [];
       };
@@ -277,36 +192,6 @@ export type Database = {
           stage?: Database["public"]["Enums"]["works-status"];
           type?: string;
           updated_at?: string;
-        };
-        Relationships: [];
-      };
-      workspaces: {
-        Row: {
-          created_at: string;
-          description: string | null;
-          id: string;
-          name: string | null;
-          public: boolean;
-          updated_at: string | null;
-          user: string | null;
-        };
-        Insert: {
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          name?: string | null;
-          public?: boolean;
-          updated_at?: string | null;
-          user?: string | null;
-        };
-        Update: {
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          name?: string | null;
-          public?: boolean;
-          updated_at?: string | null;
-          user?: string | null;
         };
         Relationships: [];
       };

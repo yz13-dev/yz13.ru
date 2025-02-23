@@ -4,26 +4,22 @@ import { handle } from "hono/vercel";
 import { auth } from "./auth";
 import { charts } from "./charts";
 import { drafts } from "./drafts";
-import { lists } from "./productivity";
+import { pricing } from "./pricing";
 import { user } from "./user";
-import { user_workspace } from "./user-workspace";
 import { visitor_session } from "./visitor-session";
 import { works } from "./works";
-import { workspace } from "./workspace";
 
 export const runtime = "edge";
 
 const app = new Hono().basePath("/");
 
-app.route("/user/:uid/workspace", user_workspace);
-app.route("/workspace", workspace);
 app.route("/user", user);
-app.route("/lists", lists);
 app.route("/visitor-session", visitor_session);
 app.route("/charts", charts);
 app.route("/drafts", drafts);
 app.route("/works", works);
 app.route("/auth", auth);
+app.route("/pricing", pricing);
 
 app.get("/version", (c) => {
   const version = packageJson.version;

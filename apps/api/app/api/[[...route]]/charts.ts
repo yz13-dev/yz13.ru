@@ -1,3 +1,4 @@
+import { redis } from "@/extensions/redis";
 import dayjs from "dayjs";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
@@ -56,6 +57,10 @@ charts.get("/views", async (c) => {
 });
 
 charts.get("/views/half-year", async (c) => {
+  const cache = await redis.get("views/half-year");
+
+  if (cache) return c.json(cache);
+
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const current_date = dayjs();
@@ -76,6 +81,15 @@ charts.get("/views/half-year", async (c) => {
   if (error) return c.json({ data: null, error });
 
   const chart = groupViewsChartData(data, { format: "YYYY-MM" });
+
+  const chartData = {
+    range_start,
+    range_end,
+    chart,
+    error: null,
+  };
+
+  redis.set("views/half-year", JSON.stringify(chartData), { ex: 3600 * 24 });
 
   return c.json({
     range_start,
