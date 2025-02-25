@@ -7,6 +7,7 @@
   /* new */
   --yz13-foreground: hsl(0 0% 0%);
   --yz13-background: hsl(0 0% 100%);
+  --yz13-background-secondary: hsl(0 0% 97%);
   --yz13-selection: var(--yz13-foreground);
   --yz13-border: var(--yz13-neutral-300);
 
@@ -144,6 +145,7 @@
     /* new */
     --yz13-foreground: hsl(0 0% 100%);
     --yz13-background: hsl(0 0% 0%);
+    --yz13-background-secondary: hsl(0 0% 2%);
     --yz13-selection: hsl(var(--yz13-foreground));
     --yz13-border: var(--yz13-neutral-300);
 
@@ -259,6 +261,7 @@
     /* new */
     --yz13-foreground: hsl(0 0% 100%);
     --yz13-background: hsl(0 0% 0%);
+    --yz13-background-secondary: hsl(0 0% 2%);
     --yz13-selection: hsl(var(--yz13-foreground));
     --yz13-border: var(--yz13-neutral-300);
 

@@ -1,5 +1,5 @@
 import { PageConfig } from "@/types/page.type";
-import { readdirSync, readFileSync, writeFileSync } from "fs";
+import { lstatSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 const pagesPath =
@@ -15,6 +15,8 @@ export const parsePages = (): PageConfig[] => {
 
     pages.forEach((page) => {
       try {
+        const isDirectory = lstatSync(join(path, page)).isDirectory();
+        if (!isDirectory) return;
         const pageConfigPath = join(path, page, "page.config.json");
         const pageConfig = JSON.parse(readFileSync(pageConfigPath, "utf8"));
         files.push(pageConfig);
