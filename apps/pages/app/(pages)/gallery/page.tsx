@@ -5,7 +5,10 @@ import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import Link from "next/link";
 import Dock from "../dock";
+import { pageMetadata } from "../dynamic-metadata";
 import { PageProps } from "../page-props";
+
+export const metadata = pageMetadata("gallery");
 
 const page = async ({ searchParams }: PageProps) => {
   const preview = searchParams.preview === "true";

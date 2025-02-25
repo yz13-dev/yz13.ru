@@ -2,7 +2,7 @@
 
 import { useDebounceEffect } from "ahooks";
 import { Input } from "mono/components/input";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { cn } from "yz13/cn";
 
@@ -17,20 +17,23 @@ const SearchInput = ({
   defaultValue,
 }: InputProps) => {
   const [value, setValue] = useState<string>(defaultValue || "");
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const applyToSearchParams = (value: string) => {
+  const applyToSearchParams = (value?: string) => {
     if (!value) {
-      router.push("/");
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.delete("search");
+      router.replace(`?${newSearchParams.toString()}`);
     } else {
-      const searchParams = new URLSearchParams();
-      searchParams.set("search", value);
-      router.push(`?${searchParams.toString()}`);
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set("search", value);
+      router.push(`?${newSearchParams.toString()}`);
     }
   };
   useDebounceEffect(
     () => {
       if (value.length >= 2) applyToSearchParams(value);
-      if (value.length === 0) router.push("/");
+      if (value.length === 0) applyToSearchParams();
     },
     [value, setValue],
     { wait: 500 },

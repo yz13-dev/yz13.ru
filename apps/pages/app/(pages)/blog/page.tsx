@@ -4,7 +4,10 @@ import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
 import Dock from "../dock";
+import { pageMetadata } from "../dynamic-metadata";
 import { PageProps } from "../page-props";
+
+export const metadata = pageMetadata("blog");
 
 const page = async ({ searchParams }: PageProps) => {
   const preview = searchParams.preview === "true";

@@ -1,6 +1,5 @@
-import { halfYearViewsChart } from "@/actions/charts/views";
 import Banner from "@/components/banner";
-import { showChart, showViews } from "@/const/flags";
+import { showChart, showChartData } from "@/const/flags";
 import { get } from "@vercel/edge-config";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -11,13 +10,13 @@ import MVP from "../services/grid/mvp";
 import Pages from "../services/grid/pages";
 import WebApps from "../services/grid/web-apps";
 import Website from "../services/grid/website";
-import Chart from "./chart";
+import ChartsContent from "./charts/charts-content";
+import ChartSelector from "./charts/selector";
 
 const Services = async () => {
   const isBusy = (await get<boolean>("busy")) ?? true;
   const chart = await showChart();
-  const chartViews = await showViews();
-  const views = chartViews ? await halfYearViewsChart() : null;
+  const enableChartData = await showChartData();
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x">
@@ -32,7 +31,12 @@ const Services = async () => {
               fallback={<Skeleton className="aspect-video rounded-none" />}
             >
               {chart ? (
-                <Chart views={views} />
+                <>
+                  <ChartsContent useChartData={enableChartData} />
+                  <div className="absolute top-2 left-2">
+                    <ChartSelector />
+                  </div>
+                </>
               ) : (
                 <Banner imageClassName="!static object-cover" />
               )}

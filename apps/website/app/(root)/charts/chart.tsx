@@ -1,5 +1,4 @@
 "use client";
-import { ViewsChartSession } from "@/types/session";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import { Card, CardContent } from "mono/components/card";
@@ -10,35 +9,26 @@ import {
   ChartTooltipContent,
 } from "mono/components/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-
-const chartData = [
-  { label: "2024-09", count: 0 },
-  { label: "2024-10", count: 25 },
-  { label: "2024-11", count: 150 },
-  { label: "2024-12", count: 200 },
-  { label: "2025-01", count: 235 },
-  { label: "2025-02", count: 160 },
-];
+import { ChartData } from "./charts.store";
 
 const chartConfig = {
   visitors: {
-    label: "Посетители",
     color: "var(--chart-6)",
   },
 } satisfies ChartConfig;
 
 dayjs.locale("ru");
 
-const Chart = ({ views = null }: { views?: ViewsChartSession | null }) => {
-  const data = views && views.chart.data.length ? views.chart.data : chartData;
+type ChartProps = {
+  label?: string;
+  presset?: "monthly" | "yearly" | "weekly" | "daily";
+  data?: ChartData[];
+};
+
+const Chart = ({ label, data = [], presset = "monthly" }: ChartProps) => {
   return (
     <>
-      <div className="absolute top-4 left-4 flex flex-col gap-1">
-        <span className="text-foreground/80 text-2xl block font-medium">
-          Просмотры
-        </span>
-      </div>
-      <div className="w-full h-full aspect-video">
+      <div className="w-full h-full">
         <Card className="w-full h-full bg-transparent rounded-none border-none p-0">
           <CardContent className="p-0">
             <ChartContainer config={chartConfig}>
@@ -48,6 +38,7 @@ const Chart = ({ views = null }: { views?: ViewsChartSession | null }) => {
                 margin={{
                   left: 16,
                   right: 16,
+                  top: 16,
                 }}
               >
                 <CartesianGrid
@@ -71,11 +62,11 @@ const Chart = ({ views = null }: { views?: ViewsChartSession | null }) => {
                 <ChartTooltip
                   animationDuration={250}
                   formatter={(value) => {
-                    return `Посетители: ${value}`;
+                    return `${label}: ${value}`;
                   }}
                   content={
                     <ChartTooltipContent
-                      nameKey="visitors"
+                      nameKey="label"
                       className="w-48 gap-2 p-2 "
                     />
                   }
