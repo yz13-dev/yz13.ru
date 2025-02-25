@@ -45,13 +45,15 @@ const DetailsHeader = ({
 }) => {
   return (
     <div className="flex flex-row justify-between items-center gap-2">
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-1">
         {icon && (
           <div className="size-6 flex items-center justify-center">{icon}</div>
         )}
         <span className="font-medium relative line-clamp-1">{title}</span>
       </div>
-      <span className="text-foreground shrink-0 font-semibold">{price}</span>
+      <span className="text-foreground shrink-0 font-semibold px-2 py-0 bg-secondary/10 rounded-full border">
+        {price}
+      </span>
     </div>
   );
 };

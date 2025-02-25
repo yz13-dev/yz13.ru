@@ -17,6 +17,7 @@ import { Suspense } from "react";
 import { isDev } from "../login/get-url";
 import DndContextWrapper from "./dnd-context";
 import NewProjectModal from "./new-project-modal";
+import ProjectModal from "./project-modal/project-modal";
 import ProjectsList from "./projects-list";
 
 export const metadata: Metadata = {
@@ -25,7 +26,13 @@ export const metadata: Metadata = {
     "Нужен разработчик? Мои проекты, которые я разработал, и которые могу быть полезны для вас.",
 };
 
-const page = async () => {
+type PageProps = {
+  searchParams: {
+    project?: string;
+  };
+};
+const page = async ({ searchParams }: PageProps) => {
+  const project = searchParams.project;
   const user = await auth();
   const isAdmin = user?.user_metadata?.role === "admin";
   const releases = await getProjects();
@@ -33,6 +40,7 @@ const page = async () => {
   const isActive = showNewProjectModal;
   return (
     <>
+      {project && <ProjectModal projectId={project} />}
       <Header>
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />

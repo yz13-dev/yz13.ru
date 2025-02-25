@@ -12,6 +12,7 @@
 
   /* colors */
   --color-background: var(--yz13-background);
+  --color-background-secondary: var(--yz13-background-secondary);
   --color-foreground: var(--yz13-foreground);
   --color-secondary: var(--yz13-secondary);
 

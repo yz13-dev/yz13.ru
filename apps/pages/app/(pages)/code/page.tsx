@@ -24,7 +24,7 @@ const page = async ({ searchParams }: PageProps) => {
         </div>
       </header>
       <section className="w-full">
-        <div className="w-full max-w-xl mx-auto px-6 py-48 space-y-8">
+        <div className="w-full max-w-7xl border-x mx-auto px-6 py-48 space-y-8">
           <div className="flex flex-col gap-4">
             <h1 className="text-4xl font-bold text-center">
               Ещё один редактор кода
@@ -44,11 +44,31 @@ const page = async ({ searchParams }: PageProps) => {
           </div>
         </div>
       </section>
-      <div className="w-full flex flex-col gap-3">
-        <span className="text-secondary text-center text-sm">
-          *Рандомная картинка с редактором кода*
-        </span>
-        <div className="max-w-7xl mx-auto w-full h-full p-0 border-8 rounded-3xl border-secondary/20">
+      <div className="w-full flex flex-col gap-0 pattern-lines border-y">
+        <div className="max-w-7xl mx-auto w-full h-full p-0 border-8 bg-background border-secondary/20">
+          <div className="w-full grid sm:grid-cols-3 grid-cols-1 *:p-4">
+            <div className="flex flex-col gap-0">
+              <span className="text-base font-medium">Быстрый</span>
+              <span className="text-sm text-secondary">
+                Написано с нуля в Rust, чтобы эффективно использовать несколько
+                ядер ЦП и графический процессор.
+              </span>
+            </div>
+            <div className="flex flex-col gap-0">
+              <span className="text-base font-medium">Умный</span>
+              <span className="text-sm text-secondary">
+                Интегрируйте предстоящие LLMS в свой рабочий процесс, чтобы
+                генерировать, преобразовать и проанализировать код.
+              </span>
+            </div>
+            <div className="flex flex-col gap-0">
+              <span className="text-base font-medium">Коллаборативный</span>
+              <span className="text-sm text-secondary">
+                Общайтесь с товарищами по команде, пишите заметки вместе и
+                поделитесь своим экраном и проектом. Все включено.
+              </span>
+            </div>
+          </div>
           <Image
             src={editorThumbnail}
             placeholder="blur"

@@ -2,14 +2,9 @@
   "id": "code",
   "path": "/code",
   "name": "Редактор кода",
-  "description": "Редактор кода",
+  "description": "демонстративная страница для редактора кода",
   "type": "page",
-  "tags": [
-    "код",
-    "редактор",
-    "редактор кода",
-    "страница"
-  ],
+  "tags": ["код", "редактор", "редактор кода", "страница"],
   "thumbnail": {
     "light": "/pages/code/code-light.png",
     "dark": "/pages/code/code-dark.png"

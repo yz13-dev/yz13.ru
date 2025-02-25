@@ -23,6 +23,24 @@ export const getProjects = async (): Promise<Release[]> => {
   }
 };
 
+export const getProject = async (id: string): Promise<Release | null> => {
+  try {
+    const url = new URL(`/works/${id}`, API_URL);
+    const res = await fetch(url.toString(), {
+      next: {
+        revalidate: 3600,
+        tags: ["projects"],
+      },
+    });
+    if (!res.ok) throw new Error("Failed to fetch project");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 export const createProject = async (
   body: NewRelease,
 ): Promise<Release | null> => {
