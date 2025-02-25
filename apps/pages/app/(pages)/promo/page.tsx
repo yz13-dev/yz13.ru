@@ -1,18 +1,14 @@
 import { Typewriter } from "@/components/text-writter";
 import { isDev } from "@/const/env";
 import { Separator } from "mono/components/separator";
-import { Metadata } from "next";
 import Image from "next/image";
 import Dock from "../dock";
+import { pageMetadata } from "../dynamic-metadata";
 import { PageProps } from "../page-props";
-import config from "./page.config.json";
 import RecentBlog from "./recent-blog";
 import RecentProjects from "./recent-projects";
 
-export const metadata: Metadata = {
-  title: config.name,
-  description: config.description,
-};
+export const metadata = pageMetadata("promo");
 
 const page = async ({ searchParams }: PageProps) => {
   const preview = searchParams.preview === "true";

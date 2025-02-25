@@ -23,13 +23,6 @@ const Hero = () => {
           <div className="w-full h-full pattern-lines" />
         </div>
       </div>
-      <div className="w-full">
-        <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-          <div className="w-full h-full pattern-lines" />
-          <div className="h-6 border-x" />
-          <div className="w-full h-full pattern-lines" />
-        </div>
-      </div>
     </>
   );
 };

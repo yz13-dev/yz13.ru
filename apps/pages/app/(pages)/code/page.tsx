@@ -6,7 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import editorThumbnail from "public/pages/code/code_editor.png";
 import Dock from "../dock";
+import { pageMetadata } from "../dynamic-metadata";
 import { PageProps } from "../page-props";
+
+export const metadata = pageMetadata("code");
 
 const page = async ({ searchParams }: PageProps) => {
   const preview = searchParams.preview === "true";

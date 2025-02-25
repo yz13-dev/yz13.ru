@@ -11,7 +11,7 @@ export const showProcess = flag<boolean>({
   description: "Show process widget on the root page",
   async decide() {
     if (isDev) return pretendProduction;
-    return (await get<boolean>("show-process")) ?? false;
+    return (await get<boolean>(this.key)) ?? false;
   },
 });
 
@@ -20,7 +20,7 @@ export const showReleasesList = flag<boolean>({
   description: "Show releases list on the root page",
   async decide() {
     if (isDev) return pretendProduction;
-    return (await get<boolean>("show-releases-list")) ?? false;
+    return (await get<boolean>(this.key)) ?? false;
   },
 });
 
@@ -29,7 +29,7 @@ export const showPagesPromo = flag<boolean>({
   description: "Show pages promo on the root page",
   async decide() {
     if (isDev) return pretendProduction;
-    return (await get<boolean>("show-pages-promo")) ?? false;
+    return (await get<boolean>(this.key)) ?? false;
   },
 });
 
@@ -38,7 +38,7 @@ export const showAppsLink = flag<boolean>({
   description: "Show apps link on the root page",
   async decide() {
     if (isDev) return pretendProduction;
-    return (await get<boolean>("show-apps-link")) ?? false;
+    return (await get<boolean>(this.key)) ?? false;
   },
 });
 
@@ -47,7 +47,7 @@ export const showPriceDetails = flag<boolean>({
   description: "Show price details on the root page",
   async decide() {
     if (isDev) return pretendProduction;
-    return (await get<boolean>("show-price-details")) ?? false;
+    return (await get<boolean>(this.key)) ?? false;
   },
 });
 
@@ -56,15 +56,24 @@ export const showChart = flag<boolean>({
   description: "Show chart on the root page",
   async decide() {
     if (isDev) return pretendProduction;
-    return (await get<boolean>("show-chart")) ?? false;
+    return (await get<boolean>(this.key)) ?? false;
   },
 });
 
-export const showViews = flag<boolean>({
-  key: "show-views",
-  description: "Show views on the root page",
+export const showChartData = flag<boolean>({
+  key: "show-chart-data",
+  description: "Show chart data in charts",
   async decide() {
     if (isDev) return pretendProduction;
-    return (await get<boolean>("show-views")) ?? false;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
+
+export const showCallToAction = flag<boolean>({
+  key: "show-call-to-action",
+  description: "Show call to action on the root page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
   },
 });

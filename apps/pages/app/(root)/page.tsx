@@ -1,12 +1,13 @@
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
+import { isDev } from "@/const/env";
 import pagesJson from "@/pages.json";
 import { PageConfig } from "@/types/page.type";
-import { ExternalLinkIcon, HeartIcon } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
+import { ExternalLinkIcon } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import FiltersBar from "./filters-bar";
+import Footer from "./footer";
 import PageCard from "./page.card";
 import PagesGrid from "./pages-grid";
 import SearchInput from "./search-input";
@@ -29,7 +30,10 @@ const page = ({ searchParams }: PageProps) => {
     ? decodeURIComponent(searchParams.search)
     : "";
 
-  const publicPages = pagesJson.filter((page) => page.public);
+  const publicPages = pagesJson.filter((page) => {
+    if (isDev) return true;
+    else return page.public;
+  });
   const pages = publicPages.filter((page) => {
     if (!type) {
       if (!search) return true;
@@ -95,15 +99,11 @@ const page = ({ searchParams }: PageProps) => {
           </div>
         </div>
       </div>
-      <nav className="flex flex-row mt-32 gap-2 px-6 py-3 bg-background z-20 border-b sticky top-0">
-        <Button variant="outline" size="icon">
-          <HeartIcon size={16} />
-        </Button>
-        <Separator orientation="vertical" className="h-9" />
-        <Button variant="default">Все</Button>
-        <Button variant="ghost">Страницы</Button>
-        <Button variant="ghost">Компоненты</Button>
-      </nav>
+
+      <FiltersBar
+        type={type}
+        className="mt-32 bg-background border-b z-20 sticky top-0"
+      />
       <div className="min-h-[calc(100dvh-61px)] bg-background-secondary w-full">
         <PagesGrid className="w-full p-6 h-full">
           {pages.length === 0 ? (
@@ -117,6 +117,7 @@ const page = ({ searchParams }: PageProps) => {
           )}
         </PagesGrid>
       </div>
+      <Footer />
     </>
   );
 };

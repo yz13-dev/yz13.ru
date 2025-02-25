@@ -5,7 +5,11 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
-import { showAppsLink, showPriceDetails } from "@/const/flags";
+import {
+  showAppsLink,
+  showCallToAction,
+  showPriceDetails,
+} from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -13,6 +17,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { isDev } from "../login/get-url";
 import Footer from "../old/footer";
+import CallToAction from "./call-to-action";
 import Hero from "./hero";
 import { ServicesSkeleton } from "./loading";
 import Services from "./services";
@@ -44,6 +49,14 @@ const page = async () => {
 
       <div className="w-full divide-y border-b">
         <Hero />
+        {(await showCallToAction()) && <CallToAction />}
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-full h-full pattern-lines" />
+            <div className="h-6 border-x" />
+            <div className="w-full h-full pattern-lines" />
+          </div>
+        </div>
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
