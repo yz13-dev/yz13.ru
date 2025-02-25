@@ -3,7 +3,7 @@ import { lstatSync, readdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 const pagesPath =
-  process.env.NODE_ENV === "development" ? "./app/(pages)" : "./pages";
+  process.env.NODE_ENV === "development" ? "./app/(pages)" : "./app/(pages)";
 
 export const parsePages = (): PageConfig[] => {
   try {
@@ -25,8 +25,7 @@ export const parsePages = (): PageConfig[] => {
       }
     });
 
-    if (process.env.NODE_ENV === "development") return files;
-    else return files.filter((file) => file.public === true);
+    return files;
   } catch (e) {
     console.log("Error", e);
     return [];

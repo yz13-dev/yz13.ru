@@ -12,7 +12,7 @@ const PageCard = ({ page }: { page: PageConfig }) => {
   const createdAt = dayjs(page.created_at).format("dd, DD MMMM YYYY");
   const hasThumbnail = !!page.thumbnail === true;
   return (
-    <div className="w-full space-y-2 group" key={page.id}>
+    <div className="w-full h-fit space-y-2 group" key={page.id}>
       <div className="w-full flex justify-center items-start relative hover:border-foreground transition-colors aspect-video overflow-hidden rounded-2xl border-2 bg-secondary/5">
         <div
           className={cn(

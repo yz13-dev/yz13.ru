@@ -1,6 +1,7 @@
-import { parsePages } from "@/actions/parse-pages";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
+import pagesJson from "@/pages.json";
+import { PageConfig } from "@/types/page.type";
 import { ExternalLinkIcon, HeartIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
@@ -28,46 +29,44 @@ const page = ({ searchParams }: PageProps) => {
     ? decodeURIComponent(searchParams.search)
     : "";
 
-  const parsed = parsePages();
-  const pages = parsed
-    .filter((page) => {
-      if (!type) {
-        if (!search) return true;
-        else {
-          const isMatchInName = page.name
-            .toLowerCase()
-            .includes(search.toLowerCase());
-          const isMatchInDescription = page.description
-            ?.toLowerCase()
-            .includes(search.toLowerCase());
-          return isMatchInName || isMatchInDescription;
-        }
+  const publicPages = pagesJson.filter((page) => page.public);
+  const pages = publicPages.filter((page) => {
+    if (!type) {
+      if (!search) return true;
+      else {
+        const isMatchInName = page.name
+          .toLowerCase()
+          .includes(search.toLowerCase());
+        const isMatchInDescription = page.description
+          ?.toLowerCase()
+          .includes(search.toLowerCase());
+        return isMatchInName || isMatchInDescription;
       }
-      if (type === "all") {
-        if (!search) return true;
-        else {
-          const isMatchInName = page.name
-            .toLowerCase()
-            .includes(search.toLowerCase());
-          const isMatchInDescription = page.description
-            ?.toLowerCase()
-            .includes(search.toLowerCase());
-          return isMatchInName || isMatchInDescription;
-        }
-      } else {
-        if (!search) return page.type === type;
-        else if (page.type === type) {
-          const isMatchInName = page.name
-            .toLowerCase()
-            .includes(search.toLowerCase());
-          const isMatchInDescription = page.description
-            ?.toLowerCase()
-            .includes(search.toLowerCase());
-          return isMatchInName || isMatchInDescription;
-        } else return false;
+    }
+    if (type === "all") {
+      if (!search) return true;
+      else {
+        const isMatchInName = page.name
+          .toLowerCase()
+          .includes(search.toLowerCase());
+        const isMatchInDescription = page.description
+          ?.toLowerCase()
+          .includes(search.toLowerCase());
+        return isMatchInName || isMatchInDescription;
       }
-    })
-    .slice(0, 8);
+    } else {
+      if (!search) return page.type === type;
+      else if (page.type === type) {
+        const isMatchInName = page.name
+          .toLowerCase()
+          .includes(search.toLowerCase());
+        const isMatchInDescription = page.description
+          ?.toLowerCase()
+          .includes(search.toLowerCase());
+        return isMatchInName || isMatchInDescription;
+      } else return false;
+    }
+  }) as PageConfig[];
   return (
     <>
       <Header className="border-none"></Header>
@@ -82,7 +81,7 @@ const page = ({ searchParams }: PageProps) => {
             <SearchInput defaultValue={search} />
             <div className="flex items-center justify-between px-2">
               <span className="text-secondary text-xs">
-                Всего страниц: {parsed.length}
+                Всего страниц: {publicPages.length}
               </span>
               <Link
                 target="_blank"
@@ -105,17 +104,19 @@ const page = ({ searchParams }: PageProps) => {
         <Button variant="ghost">Страницы</Button>
         <Button variant="ghost">Компоненты</Button>
       </nav>
-      <PagesGrid className="w-full p-6 bg-background-secondary min-h-[calc(100dvh-61px)]">
-        {pages.length === 0 ? (
-          <div className="w-full col-span-full h-full flex items-center justify-center">
-            <span className="text-secondary">Нет страниц</span>
-          </div>
-        ) : (
-          pages.map((page) => {
-            return <PageCard key={page.id} page={page} />;
-          })
-        )}
-      </PagesGrid>
+      <div className="min-h-[calc(100dvh-61px)] bg-background-secondary w-full">
+        <PagesGrid className="w-full p-6 h-full">
+          {pages.length === 0 ? (
+            <div className="w-full col-span-full h-full flex items-center justify-center">
+              <span className="text-secondary">Нет страниц</span>
+            </div>
+          ) : (
+            pages.map((page) => {
+              return <PageCard key={page.id} page={page} />;
+            })
+          )}
+        </PagesGrid>
+      </div>
     </>
   );
 };
