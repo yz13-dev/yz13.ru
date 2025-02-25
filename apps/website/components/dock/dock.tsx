@@ -3,24 +3,24 @@ import { isDev } from "@/app/login/get-url";
 import User from "@/components/dock/user";
 import { useNetwork } from "ahooks";
 import {
-  BriefcaseBusinessIcon,
-  ChevronDownIcon,
-  FolderIcon,
-  HomeIcon,
-  Loader2,
-  WifiIcon,
-  WifiOff,
+    BriefcaseBusinessIcon,
+    ChevronDownIcon,
+    FolderIcon,
+    HomeIcon,
+    Loader2,
+    WifiIcon,
+    WifiOff,
 } from "lucide-react";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "mono/components/popover";
 import { Skeleton } from "mono/components/skeleton";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
 } from "mono/components/tooltip";
 import { AnimatePresence } from "motion/react";
 import dynamic from "next/dynamic";
@@ -28,6 +28,7 @@ import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import useDockMenuStore, { menu, Placeholder } from "./menus/menu.store";
+import Overlay from "./overlay";
 import CalendarPopover from "./popovers/calendar";
 const LiveTime = dynamic(() => import("../live/live-time"), {
   ssr: false,
@@ -169,12 +170,14 @@ export const DockSkeleton = () => {
 };
 
 const Dock = ({ className = "" }: { className?: string }) => {
+  const useOverlay = useDockMenuStore((state) => state.withOverlay);
   const menuId = useDockMenuStore((state) => state.menuId);
   const menuItem = menuId ? menu[menuId] : null;
   const Menu = menuId && menuItem ? menuItem : Placeholder;
   // Добавить враппер для второго слоя элементов, и вывести высоту враппера в переменную, которую надо будет добавлять в боди
   return (
     <>
+      {useOverlay && <Overlay />}
       <AnimatePresence>{menuId && <Menu />}</AnimatePresence>
       <div
         className={cn(

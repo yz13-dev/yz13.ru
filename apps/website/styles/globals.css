@@ -45,6 +45,10 @@
   @apply overflow-hidden hover:bg-neutral-100 rounded-3xl border-2 transition-colors;
 }
 
+.locked {
+  @apply overflow-hidden;
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

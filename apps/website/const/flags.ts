@@ -68,3 +68,12 @@ export const showChartData = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showCallToAction = flag<boolean>({
+  key: "show-call-to-action",
+  description: "Show call to action on the root page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
