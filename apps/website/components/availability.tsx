@@ -21,6 +21,10 @@ const Availability = async ({}: AvailabilityProps) => {
   return (
     <div className="w-full flex items-center justify-between gap-2">
       <div className="flex items-center gap-2">
+        <div className="size-2 relative">
+          <div className="absolute inset-0 size-2 animate-ping bg-red-foreground rounded-full" />
+          <div className="size-2 animate-pulse bg-red-foreground rounded-full" />
+        </div>
         <div className="flex items-center gap-1">
           <Typewriter
             text={text}
