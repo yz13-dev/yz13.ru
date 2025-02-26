@@ -8,6 +8,7 @@ import {
   PlusIcon,
   SparklesIcon,
 } from "lucide-react";
+import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
 
@@ -24,7 +25,7 @@ const Details = ({
     <div
       className={cn(
         "w-80 shrink-0 relative space-y-3 p-4 hover:bg-neutral-100 transition-colors",
-        "last:border-r group",
+        "last:border-r group flex flex-col justify-between",
         active && "bg-neutral-100",
         className,
       )}
@@ -116,10 +117,30 @@ const DetailsExtraList = async ({ list = [] }: { list?: DetailsExtra[] }) => {
   );
 };
 
+const DetailsFooter = ({
+  children,
+  className = "",
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div
+      className={cn(
+        "flex h-14 flex-row mt-auto justify-between items-end gap-2",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+
 const PagesDetails = async () => {
   const sign = await get<string>("price-sign");
   const priceObj = await get<{ [key: string]: number }>("prices");
   const price = priceObj?.["landing-page"] ?? 0;
+  const busy = (await get<boolean>("busy")) ?? false;
   return (
     <Details>
       <DetailsHeader
@@ -163,6 +184,11 @@ const PagesDetails = async () => {
           },
         ]}
       />
+      <DetailsFooter>
+        <Button disabled={busy} className="w-full rounded-full">
+          Заказать
+        </Button>
+      </DetailsFooter>
     </Details>
   );
 };
@@ -171,6 +197,7 @@ const WebsiteDetails = async () => {
   const sign = await get<string>("price-sign");
   const priceObj = await get<{ [key: string]: number }>("prices");
   const price = priceObj?.["website"] ?? 0;
+  const busy = (await get<boolean>("busy")) ?? false;
   return (
     <Details>
       <DetailsHeader
@@ -209,6 +236,15 @@ const WebsiteDetails = async () => {
           },
         ]}
       />
+      <DetailsFooter>
+        <Button
+          disabled={busy}
+          variant="secondary"
+          className="w-full rounded-full"
+        >
+          Связаться
+        </Button>
+      </DetailsFooter>
     </Details>
   );
 };
@@ -217,6 +253,7 @@ const WebAppDetails = async () => {
   const sign = await get<string>("price-sign");
   const priceObj = await get<{ [key: string]: number }>("prices");
   const price = priceObj?.["web-app"] ?? 0;
+  const busy = (await get<boolean>("busy")) ?? false;
   return (
     <Details>
       <DetailsHeader
@@ -261,6 +298,15 @@ const WebAppDetails = async () => {
           },
         ]}
       />
+      <DetailsFooter>
+        <Button
+          disabled={busy}
+          variant="secondary"
+          className="w-full rounded-full"
+        >
+          Связаться
+        </Button>
+      </DetailsFooter>
     </Details>
   );
 };
@@ -269,6 +315,7 @@ const MVPDetails = async () => {
   const sign = await get<string>("price-sign");
   const priceObj = await get<{ [key: string]: number }>("prices");
   const price = priceObj?.["mvp"] ?? 0;
+  const busy = (await get<boolean>("busy")) ?? false;
   return (
     <Details>
       <DetailsHeader
@@ -311,14 +358,20 @@ const MVPDetails = async () => {
           },
         ]}
       />
+      <DetailsFooter>
+        <Button
+          disabled={busy}
+          variant="secondary"
+          className="w-full rounded-full"
+        >
+          Связаться
+        </Button>
+      </DetailsFooter>
     </Details>
   );
 };
 
 const ServicesDetails = async () => {
-  const sign = await get<string>("price-sign");
-  const priceObj = await get<{ [key: string]: number }>("prices");
-  const price = priceObj?.["landing-page"] ?? 0;
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x flex flex-row divide-x overflow-x-auto">

@@ -1,3 +1,4 @@
+import { groupByFirstLetter } from "@/lib/group";
 import Image, { StaticImageData } from "next/image";
 import css from "public/tech/css3.png";
 import html from "public/tech/html5.png";
@@ -75,20 +76,8 @@ const list: TechItem[] = [
   },
 ];
 
-const gropupByFirstLetter = (list: TechItem[]) => {
-  const result: Record<string, typeof list> = {};
-  list.forEach((item) => {
-    const firstLetter = item.label.charAt(0).toUpperCase();
-    if (!result[firstLetter]) {
-      result[firstLetter] = [];
-    }
-    result[firstLetter].push(item);
-  });
-  return result;
-};
-
 const TechList = ({ className = "" }: { className?: string }) => {
-  const groups = gropupByFirstLetter(list);
+  const groups = groupByFirstLetter("label", list);
   const keys = Object.keys(groups).sort();
   return (
     <ul
@@ -117,6 +106,7 @@ const TechList = ({ className = "" }: { className?: string }) => {
                             alt={label}
                             loading="lazy"
                             placeholder="blur"
+                            draggable={false}
                             width={46}
                             height={46}
                           />
