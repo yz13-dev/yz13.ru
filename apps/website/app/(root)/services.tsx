@@ -43,18 +43,21 @@ const Services = async () => {
             </Suspense>
           </div>
           <div className="w-full flex flex-col h-full justify-between">
-            <div className="relative w-full space-y-3 p-3 h-full pattern-lines">
-              <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border justify-between">
-                <Pages noBanner />
-              </div>
-              <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border justify-between">
-                <Website noBanner />
-              </div>
-              <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border justify-between">
-                <WebApps noBanner />
-              </div>
-              <div className="w-full p-3 rounded-lg flex items-center gap-3 bg-background border justify-between">
-                <MVP />
+            <div className="relative w-full p-3 h-full pattern-lines">
+              <div className="w-full divide-y bg-background rounded-lg border">
+                <div className="w-full p-3 peer flex items-center gap-3 justify-between">
+                  <Pages noBanner />
+                </div>
+                <div className="w-full p-3 peer flex items-center gap-3 justify-between">
+                  <Website noBanner />
+                </div>
+                <div className="w-full p-3 peer flex items-center gap-3 justify-between">
+                  <WebApps noBanner />
+                </div>
+                <div className="w-full p-3 peer flex flex-col gap-1.5">
+                  <span className="text-2xl font-medium">MVP</span>
+                  <MVP />
+                </div>
               </div>
             </div>
             <div className="w-full flex items-center gap-3 p-3 bg-neutral-100 border-t">
