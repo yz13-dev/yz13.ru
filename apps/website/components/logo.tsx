@@ -10,11 +10,13 @@ type Size = {
   height: number;
 };
 const Logo = ({
+  label,
   className = "",
   type = "only-icon",
   imgClassName,
   size,
 }: {
+  label?: string;
   className?: string;
   imgClassName?: string;
   type?: "only-icon" | "full";
@@ -23,6 +25,11 @@ const Logo = ({
   const lightSrc = type === "only-icon" ? yz_light : yz_full_light;
   const darkSrc = type === "only-icon" ? yz_dark : yz_full_dark;
   const isSizeToSmall = size && size.width < 40;
+  const Label = () => (
+    <span className="text-xs text-secondary absolute -top-2 left-[105%]">
+      {label}
+    </span>
+  );
   if (size) {
     return (
       <div className={cn("relative", className)}>
@@ -42,6 +49,7 @@ const Logo = ({
           src={darkSrc}
           alt="YZ13"
         />
+        {label && <Label />}
       </div>
     );
   }
@@ -59,6 +67,7 @@ const Logo = ({
         src={darkSrc}
         alt="YZ13-LOGO"
       />
+      {label && <Label />}
     </div>
   );
 };

@@ -27,7 +27,7 @@ import TechList from "./tech-list";
 const page = async () => {
   return (
     <>
-      <Header>
+      <Header className="sticky top-0">
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />
         </Link>

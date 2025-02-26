@@ -45,6 +45,7 @@ const Map = ({ disabled = false }: MapProps) => {
       interactive: !disabled,
       center: [lng, lat],
       zoom: zoom,
+      clickTolerance: 6,
     });
     map.on("move", (ev) => {
       const { lng, lat } = ev.target.getCenter();
@@ -57,6 +58,10 @@ const Map = ({ disabled = false }: MapProps) => {
       const zoom = ev.target.getZoom();
       // console.log(zoom);
       setZoom(zoom);
+    });
+    map.on("click", (ev) => {
+      const { lng, lat } = ev.lngLat;
+      console.log(lng, lat);
     });
     setMap(map);
     return () => {

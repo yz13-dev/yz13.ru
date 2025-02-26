@@ -1,10 +1,13 @@
 "use client";
+import { Logo } from "@/components/logo";
+import User from "@/components/user";
 import { BookmarkIcon, NavigationIcon } from "lucide-react";
 import { Marker } from "maplibre-gl";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
 import { motion } from "motion/react";
+import Link from "next/link";
 import { ReactNode, useEffect, useState } from "react";
 import useMapStore, { setLat, setLng } from "./map.store";
 
@@ -54,9 +57,16 @@ const Overlay = ({ children }: { children?: ReactNode }) => {
   return (
     <>
       {children}
+      <div className="absolute left-0 top-0 w-fit p-4 flex items-center gap-2">
+        <div className="flex flex-row items-center gap-1 py-1 px-2 rounded-lg bg-background">
+          <Link href="/">
+            <Logo size={{ width: 36, height: 36 }} type="only-icon" />
+          </Link>
+        </div>
+      </div>
       <div className="absolute right-0 top-0 w-fit p-4 flex items-center gap-2">
         <div className="flex flex-row items-center gap-1 p-1 rounded-lg bg-background">
-          <div className="size-9 rounded-full border" />
+          <User />
         </div>
       </div>
       <motion.div
@@ -71,22 +81,17 @@ const Overlay = ({ children }: { children?: ReactNode }) => {
         layoutId="overlay-box"
         className="absolute left-0 right-0 flex max-w-full h-fit mx-auto flex-col z-20"
       >
-        <div className="p-4 flex items-center gap-4">
-          <div className="flex flex-row overflow-x-auto items-center gap-2 w-full">
-            <Button
-              onClick={() => setLocationStream(!locationStream)}
-              variant={locationStream ? "default" : "secondary"}
-              size={locationStream ? "icon" : "default"}
-              className="gap-2"
-            >
-              <NavigationIcon size={16} />
-              {!locationStream && "Мое местоположение"}
-            </Button>
-          </div>
-        </div>
         <div className="gap-4 flex-col flex p-4 rounded-t-3xl items-center bg-background">
           <div className="flex w-full flex-row items-center gap-2">
             <Input placeholder="Поиск" className="w-full" />
+            <Button
+              onClick={() => setLocationStream(!locationStream)}
+              variant={locationStream ? "default" : "secondary"}
+              className="shrink-0"
+              size="icon"
+            >
+              <NavigationIcon size={16} />
+            </Button>
             <Button variant="secondary" size="icon" className="shrink-0">
               <BookmarkIcon size={18} />
             </Button>

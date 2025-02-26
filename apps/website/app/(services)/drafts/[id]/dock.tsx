@@ -43,15 +43,7 @@ const DraftDock = ({ draft, user }: DraftDockProps) => {
   return (
     <motion.footer
       layoutId="draft-dock"
-      initial={{
-        bottom: "1.5rem",
-        width: "24rem",
-      }}
-      whileHover={{
-        bottom: "2rem",
-        width: "26rem",
-      }}
-      className="p-4 rounded-2xl border mx-auto fixed left-0 right-0 bottom-6 flex flex-col gap-4 group"
+      className="p-4 rounded-2xl border mx-auto max-w-xl flex flex-col gap-4 group"
     >
       {user && <Author user={user} />}
       <div className="w-full flex items-start justify-between">

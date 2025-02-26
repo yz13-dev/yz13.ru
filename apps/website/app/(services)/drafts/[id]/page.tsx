@@ -2,11 +2,9 @@ import { getDraft } from "@/actions/drafts/drafts";
 import { getUserById } from "@/actions/user/user";
 import { isDev } from "@/app/login/get-url";
 import Header from "@/components/header";
-import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
-import { authorized } from "@/lib/auth";
 import { cdn } from "@/lib/cdn";
-import { ArrowLeftIcon } from "lucide-react";
+import { XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import { unstable_noStore } from "next/cache";
@@ -29,19 +27,13 @@ const page = async ({ params }: PageProps) => {
   const user = await getUserById(draft.by);
   return (
     <>
-      <Header className="w-full h-14 flex items-center px-6">
-        <Button variant="ghost" className="flex items-center gap-2" asChild>
+      <Header className="w-full h-14 flex items-center px-3">
+        <Button variant="ghost" size="icon" asChild>
           <Link href="/drafts">
-            <ArrowLeftIcon size={16} />
-            Вернуться
+            <XIcon size={16} />
           </Link>
         </Button>
         <div className="flex items-center gap-4">
-          {(await authorized()) && (
-            <Button variant="secondary" asChild>
-              <Link href="/drafts/new">Опубликовать</Link>
-            </Button>
-          )}
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
@@ -54,13 +46,12 @@ const page = async ({ params }: PageProps) => {
               src={cdn(draft.thumbnail)}
               fill
               alt="thumbnail"
-              className="!static"
+              className="!static rounded-lg"
             />
           </div>
         )}
       </div>
       <DraftDock draft={draft} user={user} />
-      <PageDockFiller />
     </>
   );
 };
