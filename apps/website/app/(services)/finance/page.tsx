@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import { PagesLogo } from "@/components/pages-logo";
 import { showPagesPromo } from "@/const/flags";
 import { ExternalLinkIcon, PlusIcon } from "lucide-react";

@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import User from "@/components/user";
 import { showAppsLink } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";

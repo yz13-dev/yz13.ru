@@ -4,7 +4,7 @@ import AutoTextarea from "@/components/auto-textarea";
 import Dock from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
 import User from "@/components/user";
