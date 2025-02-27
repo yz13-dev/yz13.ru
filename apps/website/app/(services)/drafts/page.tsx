@@ -23,8 +23,8 @@ const page = async () => {
   return (
     <>
       <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
+        <Link href="/" className="flex items-center gap-0">
+          <Logo size={{ width: 44, height: 44 }} type="only-icon" />
         </Link>
         <div className="flex items-center gap-4">
           {(await authorized()) && (
@@ -50,10 +50,12 @@ const page = async () => {
             <span className="text-3xl font-medium max-w-md text-center">
               Откройте для себя коллекцию черновиков
             </span>
-            <Input
-              placeholder="Поиск по черновикам"
-              className="max-w-md rounded-full"
-            />
+            {false && (
+              <Input
+                placeholder="Поиск по черновикам"
+                className="max-w-md rounded-full"
+              />
+            )}
           </div>
         </div>
         <Suspense fallback={<DraftsGridSkeleton />}>

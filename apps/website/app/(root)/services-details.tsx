@@ -52,7 +52,7 @@ const DetailsHeader = ({
         )}
         <span className="font-medium relative line-clamp-1">{title}</span>
       </div>
-      <span className="text-foreground shrink-0 font-semibold px-2 py-0 bg-secondary/10 rounded-full border">
+      <span className="text-foreground shrink-0 font-semibold px-2 py-0 rounded-full bg-secondary/10 border">
         {price}
       </span>
     </div>
@@ -185,7 +185,7 @@ const PagesDetails = async () => {
         ]}
       />
       <DetailsFooter>
-        <Button disabled={busy} className="w-full rounded-full">
+        <Button disabled={busy} className="w-full">
           Заказать
         </Button>
       </DetailsFooter>
@@ -237,11 +237,7 @@ const WebsiteDetails = async () => {
         ]}
       />
       <DetailsFooter>
-        <Button
-          disabled={busy}
-          variant="secondary"
-          className="w-full rounded-full"
-        >
+        <Button disabled={busy} variant="secondary" className="w-full">
           Связаться
         </Button>
       </DetailsFooter>
@@ -299,11 +295,7 @@ const WebAppDetails = async () => {
         ]}
       />
       <DetailsFooter>
-        <Button
-          disabled={busy}
-          variant="secondary"
-          className="w-full rounded-full"
-        >
+        <Button disabled={busy} variant="secondary" className="w-full">
           Связаться
         </Button>
       </DetailsFooter>
@@ -359,11 +351,7 @@ const MVPDetails = async () => {
         ]}
       />
       <DetailsFooter>
-        <Button
-          disabled={busy}
-          variant="secondary"
-          className="w-full rounded-full"
-        >
+        <Button disabled={busy} variant="secondary" className="w-full">
           Связаться
         </Button>
       </DetailsFooter>

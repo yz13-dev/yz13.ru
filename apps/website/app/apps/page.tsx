@@ -1,7 +1,7 @@
 import { getProjects } from "@/actions/projects/projects";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import User from "@/components/user";
 import { showAppsLink } from "@/const/flags";
 import { getGroups } from "@/const/releases";
@@ -22,11 +22,13 @@ const page = async () => {
   const keys = Object.keys(abc).sort();
   return (
     <>
-      <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
+      <Header className="sticky top-0">
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
+        </Nav>
+        <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>
@@ -39,7 +41,7 @@ const page = async () => {
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
-        </Nav>
+        </div>
       </Header>
       <div className="w-full">
         <div className="max-w-screen-2xl w-full mx-auto border-x">

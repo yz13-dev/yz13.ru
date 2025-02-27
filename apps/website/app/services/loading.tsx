@@ -1,6 +1,6 @@
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import Footer from "../old/footer";
@@ -10,13 +10,16 @@ import Wrapper from "./grid/wrapper";
 const loading = () => {
   return (
     <>
-      <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
-          <Skeleton className="size-9" />
+      <Header className="sticky top-0">
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
         </Nav>
+        <div className="flex items-center gap-2">
+          <Skeleton className="size-9" />
+          <Skeleton className="h-9 w-[75px]" />
+        </div>
       </Header>
       <div className="w-full divide-y border-b">
         <div className="w-full">

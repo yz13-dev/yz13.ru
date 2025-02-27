@@ -2,7 +2,7 @@ import { isDev } from "@/app/login/get-url";
 import Dock from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
 import { showAppsLink } from "@/const/flags";

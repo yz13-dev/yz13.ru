@@ -2,12 +2,12 @@ import Availability from "@/components/availability";
 import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
-import PageDockFiller from "@/components/page-dock-filler";
+import Nav from "@/components/nav/nav";
 import User from "@/components/user";
 import {
   showAppsLink,
   showCallToAction,
+  showLogoUnderFooter,
   showPriceDetails,
 } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
@@ -19,19 +19,19 @@ import { isDev } from "../login/get-url";
 import Footer from "../old/footer";
 import CallToAction from "./call-to-action";
 import Hero from "./hero";
-import { ServicesSkeleton } from "./loading";
-import Services from "./services";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
 const page = async () => {
   return (
     <>
-      <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
+      <Header className="sticky top-0">
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
+        </Nav>
+        <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>
@@ -44,12 +44,11 @@ const page = async () => {
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
-        </Nav>
+        </div>
       </Header>
-
       <div className="w-full divide-y border-b">
         <Hero />
-        {(await showCallToAction()) && <CallToAction />}
+        {(await showCallToAction()) && <CallToAction hideSearch={!isDev} />}
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
@@ -77,14 +76,11 @@ const page = async () => {
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        <Suspense fallback={<ServicesSkeleton />}>
-          <Services />
-        </Suspense>
-        <div className="w-full">
+        {/* <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-20" />
           </div>
-        </div>
+        </div> */}
         {false && (
           <div className="w-full">
             <div className="max-w-screen-2xl w-full mx-auto border-x">
@@ -112,7 +108,7 @@ const page = async () => {
             <div className="h-20" />
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full relative">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-fit p-6 space-y-6">
               <Footer />
@@ -120,10 +116,26 @@ const page = async () => {
           </div>
         </div>
       </div>
-      <PageDockFiller className="pattern-lines max-w-screen-2xl w-full mx-auto border-x" />
+      {/* <PageDockFiller /> */}
       <Suspense fallback={<DockSkeleton />}>
         <Dock />
       </Suspense>
+      {(await showLogoUnderFooter()) && (
+        <div className="w-full 2xl:h-[450px] lg:h-[300px] md:h-[150px] h-[125px] overflow-hidden flex items-start justify-center">
+          <span
+            style={{
+              fontSize: "46dvw",
+              lineHeight: "0.7",
+            }}
+            className="font-semibold divide-x text-center block text-secondary/5 select-none *:transition-colors *:duration-500"
+          >
+            <span className="hover:text-foreground">Y</span>
+            <span className="hover:text-foreground">Z</span>
+            <span className="hover:text-foreground">1</span>
+            <span className="hover:text-foreground">3</span>
+          </span>
+        </div>
+      )}
     </>
   );
 };
