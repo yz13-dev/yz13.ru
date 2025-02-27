@@ -2,7 +2,7 @@ import Availability from "@/components/availability";
 import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import User from "@/components/user";
 import {
   showAppsLink,
@@ -19,8 +19,6 @@ import { isDev } from "../login/get-url";
 import Footer from "../old/footer";
 import CallToAction from "./call-to-action";
 import Hero from "./hero";
-import { ServicesSkeleton } from "./loading";
-import Services from "./services";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
@@ -28,10 +26,12 @@ const page = async () => {
   return (
     <>
       <Header className="sticky top-0">
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
+        </Nav>
+        <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>
@@ -44,11 +44,11 @@ const page = async () => {
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
-        </Nav>
+        </div>
       </Header>
       <div className="w-full divide-y border-b">
         <Hero />
-        {(await showCallToAction()) && <CallToAction />}
+        {(await showCallToAction()) && <CallToAction hideSearch={!isDev} />}
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
@@ -76,14 +76,11 @@ const page = async () => {
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        <Suspense fallback={<ServicesSkeleton />}>
-          <Services />
-        </Suspense>
-        <div className="w-full">
+        {/* <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-20" />
           </div>
-        </div>
+        </div> */}
         {false && (
           <div className="w-full">
             <div className="max-w-screen-2xl w-full mx-auto border-x">

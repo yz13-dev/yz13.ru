@@ -2,6 +2,7 @@ import Process from "@/app/services/process";
 import Availability from "@/components/availability";
 import Dock from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
+import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
 import { showAppsLink, showPriceDetails, showProcess } from "@/const/flags";
@@ -13,7 +14,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import ServicesDetails from "../(root)/services-details";
 import Header from "../../components/header";
-import Nav from "../../components/nav";
 import { isDev } from "../login/get-url";
 import Footer from "../old/footer";
 import Column from "./grid/column";
@@ -32,11 +32,13 @@ export const metadata: Metadata = {
 const page = async () => {
   return (
     <>
-      <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
+      <Header className="sticky top-0">
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
+        </Nav>
+        <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>
@@ -49,7 +51,7 @@ const page = async () => {
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
-        </Nav>
+        </div>
       </Header>
       <div className="w-full divide-y border-b">
         <div className="w-full">

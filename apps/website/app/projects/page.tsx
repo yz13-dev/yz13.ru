@@ -2,7 +2,7 @@ import { getProjects } from "@/actions/projects/projects";
 import Dock from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
-import Nav from "@/components/nav";
+import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
 import { showAppsLink } from "@/const/flags";
@@ -16,7 +16,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { isDev } from "../login/get-url";
 import DndContextWrapper from "./dnd-context";
-import NewProjectModal from "./new-project-modal";
 import ProjectModal from "./project-modal/project-modal";
 import ProjectsList from "./projects-list";
 
@@ -41,12 +40,13 @@ const page = async ({ searchParams }: PageProps) => {
   return (
     <>
       {project && <ProjectModal projectId={project} />}
-      <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
-          {showNewProjectModal && <NewProjectModal />}
+      <Header className="sticky top-0">
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
+        </Nav>
+        <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>
@@ -56,8 +56,10 @@ const page = async ({ searchParams }: PageProps) => {
               </Button>
             )}
           </Suspense>
-          {isDev && <User />}
-        </Nav>
+          <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
+            {isDev && <User />}
+          </Suspense>
+        </div>
       </Header>
       <DndContextWrapper>
         <ProjectsList defaultProjects={releases} isActive={isActive} />

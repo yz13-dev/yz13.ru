@@ -5,8 +5,12 @@ import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import Link from "next/link";
 import { useHotkeys } from "react-hotkeys-hook";
+import { cn } from "yz13/cn";
 
-const CallToAction = () => {
+type Props = {
+  hideSearch?: boolean;
+};
+const CallToAction = ({ hideSearch = false }: Props) => {
   useHotkeys(
     "ctrl+k, command+k",
     () => {
@@ -31,7 +35,10 @@ const CallToAction = () => {
           <div className="h-fit border-x px-6 flex items-center flex-row">
             <Button
               variant="secondary"
-              className="gap-2 rounded-l-full rounded-r-none pr-2.5"
+              className={cn(
+                "gap-2 rounded-l-full pr-2.5",
+                hideSearch ? "rounded-full" : "rounded-r-none",
+              )}
               asChild
             >
               <Link href="/contact-me">
@@ -39,10 +46,16 @@ const CallToAction = () => {
                 Связаться
               </Link>
             </Button>
-            <Separator orientation="vertical" className="h-9" />
+            <Separator
+              orientation="vertical"
+              className={cn("h-9", hideSearch && "hidden")}
+            />
             <Button
               variant="secondary"
-              className="max-w-xs w-full justify-between *:text-sm pl-2.5 relative rounded-r-full rounded-l-none"
+              className={cn(
+                "max-w-xs w-full justify-between *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
+                hideSearch && "hidden",
+              )}
               onClick={() => setMenuId("quick-search", true)}
             >
               <span>Быстрый поиск</span>
