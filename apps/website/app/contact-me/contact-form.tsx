@@ -3,7 +3,12 @@
 import AutoTextarea from "@/components/auto-textarea";
 import { Logo } from "@/components/logo";
 import User from "@/components/user";
-import { ArrowLeftIcon, ExternalLinkIcon, Loader2Icon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  ExternalLinkIcon,
+  Loader2Icon,
+  UserIcon,
+} from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
@@ -11,6 +16,7 @@ import { RadioGroup, RadioGroupItem } from "mono/components/radio-group";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { cn } from "yz13/cn";
 import { isDev } from "../login/get-url";
 
 const ContactForm = ({ userEmail }: { userEmail?: string }) => {
@@ -54,31 +60,32 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
     }
   };
   return (
-    <div className="space-y-6 *:px-6 pb-6 h-fit max-w-lg left-0 right-0 mx-auto overflow-y-auto after:hidden rounded-t-2xl">
-      <div className="gap-2 flex items-center w-full justify-between">
+    <div className="space-y-6 *:px-6 pb-6 h-fit max-w-lg w-full left-0 right-0 mx-auto overflow-y-auto after:hidden rounded-t-2xl">
+      <div className="gap-2 flex items-center w-full justify-between h-10">
         <Link href="/" className="flex items-center gap-2">
-          <Logo size={{ width: 32, height: 32 }} />
-          <span className="text-foreground text-xl font-pixel font-semibold">
-            YZ13
-          </span>
+          <Logo size={{ width: 96, height: 18 }} type="full" />
         </Link>
         {isDev && <User />}
       </div>
+      <div className="space-y-1">
+        <h3 className="text-lg font-medium">Готовы начать сотрудничать?</h3>
 
-      <p className="text-base font-medium">Готовы начать сотрудничать?</p>
-
-      <p className="text-sm text-secondary">
-        Напишите на почту или в телеграм сообщение о предложении или задании.
-      </p>
-      <div className="w-full flex items-center gap-4 *:text-secondary *:text-sm">
+        <p className="text-sm text-secondary">
+          Напишите на почту или в телеграм сообщение.
+        </p>
+      </div>
+      <div className="w-full flex items-center gap-4 *:text-secondary *:text-sm *:transition-colors">
         <Link
           href="mailto:YZTHECEO@yandex.ru"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 hover:text-foreground"
         >
           Mail
           <ExternalLinkIcon size={13} />
         </Link>
-        <Link href="https://t.me/yz13_dev" className="flex items-center gap-2">
+        <Link
+          href="https://t.me/yz13_dev"
+          className="flex items-center gap-2 hover:text-foreground"
+        >
           Telegram
           <ExternalLinkIcon size={13} />
         </Link>
@@ -95,6 +102,7 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
       <div className="w-full space-y-4">
         <Input
           placeholder="Ваш email"
+          className="h-10"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -108,8 +116,8 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
         <AutoTextarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="Ваше предложение"
-          className="p-2 max-h-48 h-fit shrink-0 rounded-lg border w-full"
+          placeholder="Ваше сообщение"
+          className="py-2 px-3 max-h-48 h-fit shrink-0 rounded-lg border w-full"
         />
 
         <div className="flex flex-col gap-2">
@@ -122,14 +130,23 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
             onValueChange={setRadioValue}
           >
             <div className="w-full flex items-center gap-3 p-2 rounded-lg border relative">
-              <div className="w-24 aspect-video relative rounded-lg border flex items-center justify-center flex-row">
-                <div className="size-9  bg-background rounded-full border" />
+              <Label
+                htmlFor="r-solo"
+                className="absolute left-0 top-0 w-full h-full"
+              />
+              <div
+                className={cn(
+                  "w-24 aspect-video relative rounded-lg border flex items-center justify-center flex-row",
+                  "*:flex *:items-center *:justify-center",
+                )}
+              >
+                <div className="size-9 bg-background rounded-full border">
+                  <UserIcon size={14} />
+                </div>
               </div>
               <div className="flex h-full py-1.5 space-y-1 flex-col">
-                <Label htmlFor="r-solo" className="text-sm">
-                  Один
-                </Label>
-                <span className="text-xs text-secondary">Просто один</span>
+                <span className="text-sm">Один</span>
+                <span className="text-xs text-secondary">Работаю один</span>
               </div>
               <RadioGroupItem
                 value="solo"
@@ -138,16 +155,31 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
               />
             </div>
             <div className="w-full flex items-center gap-3 p-2 rounded-lg border relative">
-              <div className="w-24 aspect-video relative rounded-lg border flex items-center justify-center flex-row">
-                <div className="size-9 absolute bottom-1.5 left-2 rounded-full border" />
-                <div className="size-9 absolute bottom-1.5 right-2 rounded-full border" />
-                <div className="size-9 z-10 absolute top-1 bg-background rounded-full border" />
+              <Label
+                htmlFor="r-team"
+                className="absolute left-0 top-0 w-full h-full"
+              />
+              <div
+                className={cn(
+                  "w-24 aspect-video relative rounded-lg border flex items-center justify-center flex-row",
+                  "*:flex *:items-center *:justify-center",
+                )}
+              >
+                <div className="size-9 absolute bottom-1.5 left-2 rounded-full border">
+                  <UserIcon size={14} />
+                </div>
+                <div className="size-9 absolute bottom-1.5 right-2 rounded-full border">
+                  <UserIcon size={14} />
+                </div>
+                <div className="size-9 z-10 absolute top-1 bg-background rounded-full border">
+                  <UserIcon size={14} />
+                </div>
               </div>
               <div className="flex h-full py-1.5 space-y-1 flex-col">
-                <Label htmlFor="r-team" className="text-sm">
-                  Команда
-                </Label>
-                <span className="text-xs text-secondary">Есть команда</span>
+                <span className="text-sm">Команда</span>
+                <span className="text-xs text-secondary">
+                  Работаю с командой
+                </span>
               </div>
               <RadioGroupItem
                 value="team"

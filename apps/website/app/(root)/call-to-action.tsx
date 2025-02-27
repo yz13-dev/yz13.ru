@@ -3,6 +3,7 @@ import { setMenuId, toggleMenu } from "@/components/dock/menus/menu.store";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
+import Link from "next/link";
 import { useHotkeys } from "react-hotkeys-hook";
 
 const CallToAction = () => {
@@ -31,9 +32,12 @@ const CallToAction = () => {
             <Button
               variant="secondary"
               className="gap-2 rounded-l-full rounded-r-none pr-2.5"
+              asChild
             >
-              <ArrowLeftIcon size={16} />
-              Связаться
+              <Link href="/contact-me">
+                <ArrowLeftIcon size={16} />
+                Связаться
+              </Link>
             </Button>
             <Separator orientation="vertical" className="h-9" />
             <Button

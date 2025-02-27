@@ -3,11 +3,11 @@ import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav";
-import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
 import {
   showAppsLink,
   showCallToAction,
+  showLogoUnderFooter,
   showPriceDetails,
 } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
@@ -46,7 +46,6 @@ const page = async () => {
           </Suspense>
         </Nav>
       </Header>
-
       <div className="w-full divide-y border-b">
         <Hero />
         {(await showCallToAction()) && <CallToAction />}
@@ -112,7 +111,7 @@ const page = async () => {
             <div className="h-20" />
           </div>
         </div>
-        <div className="w-full">
+        <div className="w-full relative">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-fit p-6 space-y-6">
               <Footer />
@@ -120,10 +119,26 @@ const page = async () => {
           </div>
         </div>
       </div>
-      <PageDockFiller className="pattern-lines max-w-screen-2xl w-full mx-auto border-x" />
+      {/* <PageDockFiller /> */}
       <Suspense fallback={<DockSkeleton />}>
         <Dock />
       </Suspense>
+      {(await showLogoUnderFooter()) && (
+        <div className="w-full 2xl:h-[450px] lg:h-[300px] md:h-[150px] h-[125px] overflow-hidden flex items-start justify-center">
+          <span
+            style={{
+              fontSize: "46dvw",
+              lineHeight: "0.7",
+            }}
+            className="font-semibold divide-x text-center block text-secondary/5 select-none *:transition-colors *:duration-500"
+          >
+            <span className="hover:text-foreground">Y</span>
+            <span className="hover:text-foreground">Z</span>
+            <span className="hover:text-foreground">1</span>
+            <span className="hover:text-foreground">3</span>
+          </span>
+        </div>
+      )}
     </>
   );
 };

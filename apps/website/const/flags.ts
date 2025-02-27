@@ -77,3 +77,12 @@ export const showCallToAction = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showLogoUnderFooter = flag<boolean>({
+  key: "show-logo-under-footer",
+  description: "Show logo under footer",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
