@@ -1,25 +1,29 @@
 "use client";
 
 import AutoTextarea from "@/components/auto-textarea";
-import { Logo } from "@/components/logo";
-import User from "@/components/user";
-import {
-  ArrowLeftIcon,
-  ExternalLinkIcon,
-  Loader2Icon,
-  UserIcon,
-} from "lucide-react";
+import { ExternalLinkIcon, Loader2Icon, UserIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
 import { RadioGroup, RadioGroupItem } from "mono/components/radio-group";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "yz13/cn";
-import { isDev } from "../login/get-url";
 
-const ContactForm = ({ userEmail }: { userEmail?: string }) => {
+const validateEmail = (email: string) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
+const ContactForm = ({
+  userEmail,
+  className = "",
+}: {
+  userEmail?: string;
+  className?: string;
+}) => {
   const router = useRouter();
   const [email, setEmail] = useState<string>(userEmail ?? "");
   const [text, setText] = useState("");
@@ -27,11 +31,10 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
   const [loading, setLoading] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [emailError, setEmailError] = useState(false);
-  const validateEmail = (email: string) => {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  };
+  const disabled = useMemo(
+    () => loading || !validateEmail(email),
+    [loading, email],
+  );
   const sendEmail = async () => {
     setLoading(true);
     try {
@@ -60,13 +63,18 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
     }
   };
   return (
-    <div className="space-y-6 *:px-6 pb-6 h-fit max-w-lg w-full left-0 right-0 mx-auto overflow-y-auto after:hidden rounded-t-2xl">
-      <div className="gap-2 flex items-center w-full justify-between h-10">
+    <div
+      className={cn(
+        "space-y-6 *:px-6 pb-6 h-fit max-w-lg w-full left-0 right-0 mx-auto overflow-y-auto after:hidden rounded-t-2xl",
+        className,
+      )}
+    >
+      {/* <div className="gap-2 flex items-center w-full justify-between h-10">
         <Link href="/" className="flex items-center gap-2">
           <Logo size={{ width: 96, height: 18 }} type="full" />
         </Link>
         {isDev && <User />}
-      </div>
+      </div> */}
       <div className="space-y-1">
         <h3 className="text-lg font-medium">Готовы начать сотрудничать?</h3>
 
@@ -189,21 +197,11 @@ const ContactForm = ({ userEmail }: { userEmail?: string }) => {
             </div>
           </RadioGroup>
         </div>
-        <div className="flex flex-row gap-2 !mt-12">
-          <Button
-            variant="outline"
-            size="icon"
-            className="shrink-0 size-9"
-            asChild
-          >
-            <Link href="/">
-              <ArrowLeftIcon size={16} />
-            </Link>
-          </Button>
+        <div className="!mt-12">
           <Button
             onClick={sendEmail}
-            className="w-full gap-2"
-            disabled={loading}
+            className="w-full h-10 gap-2"
+            disabled={disabled}
           >
             {loading && <Loader2Icon size={16} className="animate-spin" />}
             {loading ? "Отправляем..." : "Отправить"}
