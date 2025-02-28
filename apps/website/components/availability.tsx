@@ -1,5 +1,5 @@
+import { isAvailable } from "@/actions/availability-status";
 import { Typewriter } from "@/components/text-writter";
-import { get } from "@vercel/edge-config";
 import SocialLinks from "./social-links";
 
 type AvailabilityProps = {};
@@ -12,7 +12,7 @@ const unavailableTexts = [
 ];
 
 const Availability = async ({}: AvailabilityProps) => {
-  const isBusy = await get<boolean>("busy");
+  const isBusy = await isAvailable();
   const status: "available" | "unavailable" = isBusy
     ? "unavailable"
     : "available";

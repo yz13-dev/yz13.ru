@@ -1,32 +1,109 @@
-import { Bot, InlineKeyboard, InlineQueryResultBuilder } from "grammy";
+import { hydrate, HydrateFlavor } from "@grammyjs/hydrate";
+import { Menu } from "@grammyjs/menu";
+import { Bot, Context, InlineKeyboard, InlineQueryResultBuilder } from "grammy";
+import { getPricing } from "./actions/pricing";
 
+type BotContext = HydrateFlavor<Context>;
 const BOT_TOKEN = process.env.BOT_TOKEN ?? "";
 
-// Set your token in the vercel environment variable
-export const bot = new Bot(BOT_TOKEN);
+export const bot = new Bot<BotContext>(BOT_TOKEN);
 
-// attach all middleware
-bot.on("message:text", async (ctx) => {
-  const { from } = ctx.message;
-  await ctx.reply(`Привет, ${from.first_name}!`);
-  const button = new InlineKeyboard().url("Открыть", "https://yz13.ru/");
-  await ctx.reply(
-    "Я сейчас нахожусь в тестовом режиме. Посетите сайт разработчика, возможно там найдется полезная информация.",
+const menu = new Menu("services-menu").text("Все услуги").row();
+
+bot.use(hydrate());
+bot.use(menu);
+
+bot.command("start", async (ctx) => {
+  await bot.api.setMyCommands([
     {
-      reply_markup: button,
+      command: "services",
+      description: "Показать список услуг",
     },
-  );
+  ]);
+
+  const inlineKeyboard = new InlineKeyboard().text("Услуги", "click-services");
+
+  await ctx.reply("Привет! Чем могу помочь?", {
+    reply_markup: inlineKeyboard,
+  });
 });
 
-// Return empty result list for other queries.
+bot.callbackQuery("click-services", async (ctx) => {
+  const statusMessage = await ctx.reply("Получаем список...");
+
+  try {
+    const services = await fetchServices();
+
+    if (services.length === 0) {
+      await statusMessage.editText("Нет доступных услуг");
+    } else {
+      const list = services.map((service) => {
+        return `${service.name} - ${service.description}`;
+      });
+
+      const inlineKeyboard = new InlineKeyboard().url(
+        "Все услуги",
+        "https://yz13.ru/services",
+      );
+
+      await statusMessage.editText(list.join("\n \n"), {
+        reply_markup: inlineKeyboard,
+      });
+    }
+
+    setTimeout(() => statusMessage.delete().catch(() => {}), 3000);
+  } catch (error) {
+    console.error(error);
+    await statusMessage.delete();
+  }
+});
+
+const fetchServices = async () => {
+  try {
+    const services = await getPricing();
+    return services;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+bot.command("services", async (ctx) => {
+  const statusMessage = await ctx.reply("Получаем список...");
+
+  try {
+    const services = await fetchServices();
+
+    if (services.length === 0) {
+      await statusMessage.editText("Нет доступных услуг");
+    } else {
+      const list = services.map((service) => {
+        return `${service.name} - ${service.description}`;
+      });
+
+      const inlineKeyboard = new InlineKeyboard().url(
+        "Все услуги",
+        "https://yz13.ru/services",
+      );
+
+      await statusMessage.editText(list.join("\n \n"), {
+        reply_markup: inlineKeyboard,
+      });
+    }
+
+    setTimeout(() => statusMessage.delete().catch(() => {}), 3000);
+  } catch (error) {
+    console.error(error);
+    await statusMessage.delete();
+  }
+});
+
+bot.command("user", async (ctx) => {});
+
 bot.inlineQuery("website", async (ctx) => {
   const result = InlineQueryResultBuilder.article("id:website", "Сайт", {
     reply_markup: new InlineKeyboard().url("YZ13 Website", "https://yz13.ru/"),
   }).text(`<b>YZ13</b> - Фронтенд разработчик`, { parse_mode: "HTML" });
 
-  // Answer the inline query.
-  await ctx.answerInlineQuery(
-    [result], // answer with result list
-    { cache_time: 24 * 3600 }, // 30 days in seconds
-  );
+  await ctx.answerInlineQuery([result], { cache_time: 24 * 3600 });
 });
