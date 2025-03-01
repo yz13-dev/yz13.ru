@@ -1,13 +1,22 @@
 "use client";
+import { deleteDraft } from "@/actions/drafts/drafts";
+import { useUser } from "@/lib/use-auth";
 import { Draft } from "@/types/drafts";
 import { User } from "@supabase/supabase-js";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { ArrowRightIcon, ChevronDownIcon, TagIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  ChevronDownIcon,
+  Loader2Icon,
+  TagIcon,
+  TrashIcon,
+} from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { AnimatePresence, motion } from "motion/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { cn } from "yz13/cn";
 
@@ -15,7 +24,7 @@ dayjs.extend(relativeTime);
 
 type DraftDockProps = {
   draft: Draft;
-  user: User | null;
+  author: User | null;
 };
 
 const Author = ({ user }: { user: User }) => {
@@ -37,15 +46,30 @@ const Author = ({ user }: { user: User }) => {
   );
 };
 
-const DraftDock = ({ draft, user }: DraftDockProps) => {
+const DraftDock = ({ draft, author }: DraftDockProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const published_at = dayjs(draft.published_at).locale("ru").fromNow();
+  const [user] = useUser();
+  const isUserIsAuthor = user?.id === draft.by;
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const removeDraft = async () => {
+    setLoading(true);
+    try {
+      deleteDraft(draft.id);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+      router.push("/drafts");
+    }
+  };
   return (
     <motion.footer
       layoutId="draft-dock"
       className="p-4 rounded-2xl border mx-auto max-w-xl flex flex-col gap-4 group"
     >
-      {user && <Author user={user} />}
+      {author && <Author user={author} />}
       <div className="w-full flex items-start justify-between">
         <div className="flex flex-col gap-1">
           <span className="text-lg font-medium">{draft.title}</span>
@@ -54,6 +78,23 @@ const DraftDock = ({ draft, user }: DraftDockProps) => {
           </span>
         </div>
         <div className="flex flex-row items-center h-8 gap-2">
+          {isUserIsAuthor && (
+            <>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="group-hover:flex hidden"
+                onClick={removeDraft}
+                disabled={loading}
+              >
+                {loading ? (
+                  <Loader2Icon size={16} className="animate-spin" />
+                ) : (
+                  <TrashIcon size={16} />
+                )}
+              </Button>
+            </>
+          )}
           <Button
             onClick={() => setExpanded(!expanded)}
             size="icon"

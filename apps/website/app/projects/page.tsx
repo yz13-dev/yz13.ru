@@ -16,7 +16,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { isDev } from "../login/get-url";
 import DndContextWrapper from "./dnd-context";
-import ProjectModal from "./project-modal/project-modal";
+import NewProjectModal from "./new-project-modal";
 import ProjectsList from "./projects-list";
 
 export const metadata: Metadata = {
@@ -34,12 +34,11 @@ const page = async ({ searchParams }: PageProps) => {
   const project = searchParams.project;
   const user = await auth();
   const isAdmin = user?.user_metadata?.role === "admin";
-  const releases = await getProjects();
   const showNewProjectModal = (user && isAdmin) ?? false;
+  const releases = await getProjects();
   const isActive = showNewProjectModal;
   return (
     <>
-      {project && <ProjectModal projectId={project} />}
       <Header className="sticky top-0">
         <Nav side="left">
           <Link href="/">
@@ -47,6 +46,7 @@ const page = async ({ searchParams }: PageProps) => {
           </Link>
         </Nav>
         <div className="flex items-center gap-2">
+          {showNewProjectModal && <NewProjectModal />}
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>

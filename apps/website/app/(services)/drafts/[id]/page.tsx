@@ -7,7 +7,6 @@ import { cdn } from "@/lib/cdn";
 import { XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
-import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -20,11 +19,10 @@ type PageProps = {
   };
 };
 const page = async ({ params }: PageProps) => {
-  unstable_noStore();
   const id = params.id;
   const draft = await getDraft(id);
   if (!draft) return notFound();
-  const user = await getUserById(draft.by);
+  const author = await getUserById(draft.by);
   return (
     <>
       <Header className="w-full h-14 flex items-center px-3">
@@ -51,7 +49,7 @@ const page = async ({ params }: PageProps) => {
           </div>
         )}
       </div>
-      <DraftDock draft={draft} user={user} />
+      <DraftDock draft={draft} author={author} />
     </>
   );
 };

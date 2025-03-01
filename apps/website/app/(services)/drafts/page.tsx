@@ -40,11 +40,11 @@ const page = async () => {
       <div className="p-3 space-y-3">
         <div className="w-full py-24">
           <div className="relative max-w-xl mx-auto flex items-center justify-center flex-col gap-8">
-            <Cursor className="absolute top-12 -right-6">
+            <Cursor className="absolute top-20 -right-6">
               <CursorPointer className="text-foreground" />
               <CursorBody className="bg-foreground text-background">
                 <CursorName>@yz13</CursorName>
-                <CursorMessage>Вполне удобно</CursorMessage>
+                <CursorMessage>Храните свои черновики</CursorMessage>
               </CursorBody>
             </Cursor>
             <span className="text-3xl font-medium max-w-md text-center">

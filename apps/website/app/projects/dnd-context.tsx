@@ -1,7 +1,14 @@
 "use client";
 import { updateProject } from "@/actions/projects/projects";
 import { Release, ReleaseStage } from "@/const/releases";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { startTransition, useState } from "react";
 import useProjectsStore from "./projects.store";
 
@@ -60,7 +67,20 @@ const DndContextWrapper = ({ children }: DndContextProps) => {
       });
     }
   };
-  return <DndContext onDragEnd={onDragEnd}>{children}</DndContext>;
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 10,
+        tolerance: 25,
+      },
+    }),
+    useSensor(KeyboardSensor),
+  );
+  return (
+    <DndContext sensors={sensors} onDragEnd={onDragEnd}>
+      {children}
+    </DndContext>
+  );
 };
 
 export default DndContextWrapper;
