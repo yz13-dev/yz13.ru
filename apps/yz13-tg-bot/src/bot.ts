@@ -1,7 +1,8 @@
 import { hydrate, HydrateFlavor } from "@grammyjs/hydrate";
 import { Menu } from "@grammyjs/menu";
 import { Bot, Context, InlineKeyboard, InlineQueryResultBuilder } from "grammy";
-import { getPricing } from "./actions/pricing";
+import { API_URL } from "./const/api";
+import { Pricing } from "./types/pricing";
 
 type BotContext = HydrateFlavor<Context>;
 const BOT_TOKEN = process.env.BOT_TOKEN ?? "";
@@ -58,10 +59,18 @@ bot.callbackQuery("click-services", async (ctx) => {
   }
 });
 
-const fetchServices = async () => {
+const fetchServices = async (): Promise<Pricing[]> => {
   try {
-    const services = await getPricing();
-    return services;
+    const url = new URL("/pricing", API_URL);
+    const res = await fetch(url.toString(), {
+      next: {
+        revalidate: 3600,
+        tags: ["pricing"],
+      },
+    });
+    if (!res.ok) throw new Error("Failed to fetch projects");
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error(error);
     return [];
