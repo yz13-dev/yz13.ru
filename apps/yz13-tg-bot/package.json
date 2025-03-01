@@ -1,7 +1,8 @@
 {
   "name": "yz13-tg-bot",
   "scripts": {
-    "build": "next build && bun scripts/build.ts",
+    "build": "next build",
+    "bot:start": "bun scripts/build.ts",
     "start": "next start"
   },
   "dependencies": {
