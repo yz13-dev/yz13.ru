@@ -79,7 +79,34 @@ export const updateProject = async (
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("works")
-      .update(body)
+      .update({
+        description: body.description,
+        icon: body.icon,
+        name: body.name,
+        stage: body.stage || "in_plans",
+        type: body.type || "app",
+      })
+      .eq("id", id)
+      .select()
+      .single();
+    if (error) {
+      return null;
+    } else return data as Release | null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  } finally {
+    revalidateTag("projects");
+  }
+};
+
+export const deleteProject = async (id: string): Promise<Release | null> => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("works")
+      .delete()
       .eq("id", id)
       .select()
       .single();

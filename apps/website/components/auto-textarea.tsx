@@ -22,6 +22,7 @@ const AutoTextarea = ({ value, className, ...props }: TextAreaPros) => {
         className,
       )}
       ref={ref}
+      value={value}
       {...props}
     />
   );

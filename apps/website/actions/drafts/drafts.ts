@@ -90,3 +90,19 @@ export const createDraft = async (
     revalidateTag("drafts");
   }
 };
+
+export const deleteDraft = async (id: string) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { error, data } = await supabase.from("drafts").delete().eq("id", id);
+    if (error) {
+      return null;
+    } else return data as Draft | null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  } finally {
+    revalidateTag("drafts");
+  }
+};

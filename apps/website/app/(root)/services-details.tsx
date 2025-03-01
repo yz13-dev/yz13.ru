@@ -77,13 +77,18 @@ const isPaid = (item: DetailsExtra) => {
   else return item.price_per_item !== undefined;
 };
 
+const getPricing = (item: DetailsExtra) => {
+  if (item.type === "single") return item.price ?? 0;
+  else return item.price_per_item ?? 0;
+};
+
 const DetailsExtraList = async ({ list = [] }: { list?: DetailsExtra[] }) => {
   const sign = await get<string>("price-sign");
   return (
     <ul className="w-full space-y-2">
       {list
         .sort((a, b) => {
-          if (isPaid(a) && isPaid(b)) return 0;
+          if (isPaid(a) && isPaid(b)) return getPricing(b) - getPricing(a);
           if (isPaid(a)) return -1;
           if (isPaid(b)) return 1;
           return 0;

@@ -72,7 +72,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
             asChild
             className="group-hover:opacity-100 opacity-0"
           >
-            <Link href={`/projects?project=${release.id}`}>
+            <Link href={`/projects/${release.id}`}>
               <ArrowRightIcon size={16} />
             </Link>
           </Button>
