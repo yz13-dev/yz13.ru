@@ -6,7 +6,6 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import Footer from "../old/footer";
 import Hero from "./hero";
-import TechList from "./tech-list";
 
 export const ServicesSkeleton = () => {
   return (
@@ -58,7 +57,7 @@ const loading = () => {
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
             <div className="h-fit border-x px-6 py-3">
-              <Skeleton className="h-5 w-full rounded-md" />
+              <Skeleton className="h-4 w-full rounded-md" />
             </div>
             <div className="w-full h-full pattern-lines" />
           </div>
@@ -70,28 +69,7 @@ const loading = () => {
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        <ServicesSkeleton />
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-fit divide-y">
-              <div className="flex flex-col gap-2 bg-neutral-100 p-6">
-                <span className="text-foreground/80 text-2xl block font-medium">
-                  Доступные технологии для разработки
-                </span>
-                <span className="text-secondary text-sm">
-                  Со временем список технологий будет расширяться
-                </span>
-              </div>
-              <TechList className="p-6 bg-neutral-100" />
-            </div>
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-20" />
-          </div>
-        </div>
-        <Skeleton className="h-[386px] w-full rounded-none" />
+        <Skeleton className="h-[475px] w-full rounded-none" />
         <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-20" />

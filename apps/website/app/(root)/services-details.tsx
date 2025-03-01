@@ -1,13 +1,7 @@
+import { isAvailable } from "@/actions/availability-status";
+import { getFullPricing } from "@/actions/pricing/pricing";
 import { get } from "@vercel/edge-config";
-import {
-  AppWindowIcon,
-  CheckIcon,
-  GlobeIcon,
-  LucideIcon,
-  PanelTopIcon,
-  PlusIcon,
-  SparklesIcon,
-} from "lucide-react";
+import { CheckIcon, LucideIcon, PlusIcon, SparklesIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
@@ -78,23 +72,34 @@ type DetailsExtra = {
   price?: number;
 } & (ExtraSingleItem | ExtraPerItem);
 
+const isPaid = (item: DetailsExtra) => {
+  if (item.type === "single") return item.price !== undefined;
+  else return item.price_per_item !== undefined;
+};
+
 const DetailsExtraList = async ({ list = [] }: { list?: DetailsExtra[] }) => {
   const sign = await get<string>("price-sign");
   return (
     <ul className="w-full space-y-2">
       {list
         .sort((a, b) => {
-          if (a.type === "single" && b.type === "per-item") return 1;
-          if (a.type === "per-item" && b.type === "single") return -1;
+          if (isPaid(a) && isPaid(b)) return 0;
+          if (isPaid(a)) return -1;
+          if (isPaid(b)) return 1;
           return 0;
         })
         .map((item, index) => {
-          const { icon: Icon, label, price, type } = item;
+          const { label, price, type } = item;
+          const paid = isPaid(item);
           return (
             <li className="w-full" key={`${label}-${index}`}>
               <div className="flex flex-row justify-between items-center gap-2 text-secondary group-hover:text-foreground/80 hover:text-foreground">
                 <div className="w-fit flex items-center justify-between gap-2">
-                  {Icon && <Icon size={16} className="shrink-0" />}
+                  {paid ? (
+                    <PlusIcon size={16} className="shrink-0" />
+                  ) : (
+                    <CheckIcon size={16} className="shrink-0" />
+                  )}
                   <span className="text-sm">{label}</span>
                 </div>
                 {type === "single" && price && (
@@ -136,237 +141,41 @@ const DetailsFooter = ({
   );
 };
 
-const PagesDetails = async () => {
-  const sign = await get<string>("price-sign");
-  const priceObj = await get<{ [key: string]: number }>("prices");
-  const price = priceObj?.["landing-page"] ?? 0;
-  const busy = (await get<boolean>("busy")) ?? false;
-  return (
-    <Details>
-      <DetailsHeader
-        icon={<PanelTopIcon size={18} />}
-        title="Страницы"
-        price={`${price.toLocaleString()}${sign}+`}
-      />
-      <DetailsDescription>
-        Хороший вариант для начальной стадии сотрудничества. Верстаю адаптивные
-        и быстрые страницы, готовые к интеграции в проект.
-      </DetailsDescription>
-      <Separator />
-      <DetailsExtraList
-        list={[
-          {
-            type: "single",
-            label: "Разработка интерактивных элементов",
-            icon: PlusIcon,
-            price: 2500,
-          },
-          {
-            type: "per-item",
-            label: "Доп. страницы",
-            icon: PlusIcon,
-            price_per_item: 1500,
-          },
-          {
-            type: "single",
-            label: "Доступ к репозиторию с исходным кодом",
-            icon: CheckIcon,
-          },
-          {
-            type: "single",
-            label: "Настройка базового SEO",
-            icon: CheckIcon,
-          },
-          {
-            type: "single",
-            label: "Оптимизация под мобильные устройства",
-            icon: CheckIcon,
-          },
-        ]}
-      />
-      <DetailsFooter>
-        <Button disabled={busy} className="w-full">
-          Заказать
-        </Button>
-      </DetailsFooter>
-    </Details>
-  );
-};
-
-const WebsiteDetails = async () => {
-  const sign = await get<string>("price-sign");
-  const priceObj = await get<{ [key: string]: number }>("prices");
-  const price = priceObj?.["website"] ?? 0;
-  const busy = (await get<boolean>("busy")) ?? false;
-  return (
-    <Details>
-      <DetailsHeader
-        icon={<GlobeIcon size={18} />}
-        title="Сайт"
-        price={`${price.toLocaleString()}${sign}+`}
-      />
-      <DetailsDescription>
-        Идеальное решение, если нужен полностью готовый сайт. Разработаю проект
-        с нуля, учту все пожелания и технические требования.
-      </DetailsDescription>
-      <Separator />
-      <DetailsExtraList
-        list={[
-          {
-            type: "per-item",
-            label: "Доп. страницы",
-            icon: PlusIcon,
-            price_per_item: 1500,
-          },
-          {
-            type: "single",
-            label: "Создание мультиязычного интерфейса",
-            icon: PlusIcon,
-            price: 6000,
-          },
-          {
-            type: "single",
-            label: "Доступ к репозиторию с исходным кодом",
-            icon: CheckIcon,
-          },
-          {
-            type: "single",
-            label: "Настройка базового SEO",
-            icon: CheckIcon,
-          },
-        ]}
-      />
-      <DetailsFooter>
-        <Button disabled={busy} variant="secondary" className="w-full">
-          Связаться
-        </Button>
-      </DetailsFooter>
-    </Details>
-  );
-};
-
-const WebAppDetails = async () => {
-  const sign = await get<string>("price-sign");
-  const priceObj = await get<{ [key: string]: number }>("prices");
-  const price = priceObj?.["web-app"] ?? 0;
-  const busy = (await get<boolean>("busy")) ?? false;
-  return (
-    <Details>
-      <DetailsHeader
-        icon={<AppWindowIcon size={18} />}
-        title="Веб приложение"
-        price={`${price.toLocaleString()}${sign}+`}
-      />
-      <DetailsDescription>
-        Для тех, кто хочет интерактивный сервис с продвинутой логикой. Подходит
-        для личных кабинетов, дашбордов, карт и других сложных решений.
-      </DetailsDescription>
-      <Separator />
-      <DetailsExtraList
-        list={[
-          {
-            type: "per-item",
-            label: "Доп. страницы/разделы",
-            icon: PlusIcon,
-            price_per_item: 2000,
-          },
-          {
-            type: "single",
-            label: "Разработка real-time функционала",
-            icon: PlusIcon,
-            price: 10000,
-          },
-          {
-            type: "single",
-            label: "Разработка Progressive Web App (PWA) с оффлайн-режимом",
-            icon: PlusIcon,
-            price: 9000,
-          },
-          {
-            type: "single",
-            label: "Доступ к репозиторию с исходным кодом",
-            icon: CheckIcon,
-          },
-          {
-            type: "single",
-            label: "Настройка базового SEO",
-            icon: CheckIcon,
-          },
-        ]}
-      />
-      <DetailsFooter>
-        <Button disabled={busy} variant="secondary" className="w-full">
-          Связаться
-        </Button>
-      </DetailsFooter>
-    </Details>
-  );
-};
-
-const MVPDetails = async () => {
-  const sign = await get<string>("price-sign");
-  const priceObj = await get<{ [key: string]: number }>("prices");
-  const price = priceObj?.["mvp"] ?? 0;
-  const busy = (await get<boolean>("busy")) ?? false;
-  return (
-    <Details>
-      <DetailsHeader
-        icon={<SparklesIcon size={18} />}
-        title="MVP"
-        price={`${price.toLocaleString()}${sign}+`}
-      />
-      <DetailsDescription>
-        Оптимальный выбор, если нужно быстро протестировать идею. Сделаю
-        минимальную, но рабочую версию продукта для первых пользователей.
-      </DetailsDescription>
-      <Separator />
-      <DetailsExtraList
-        list={[
-          {
-            type: "per-item",
-            label: "Доп. ключевые функции",
-            icon: PlusIcon,
-            price_per_item: 5000,
-          },
-          {
-            type: "single",
-            label: "Доступ к репозиторию с исходным кодом",
-            icon: CheckIcon,
-          },
-          {
-            type: "single",
-            label: "Настройка базового SEO",
-            icon: CheckIcon,
-          },
-          {
-            type: "single",
-            label: "Интеграция API",
-            icon: CheckIcon,
-          },
-          {
-            type: "single",
-            label: "Документация по основным возможностям",
-            icon: CheckIcon,
-          },
-        ]}
-      />
-      <DetailsFooter>
-        <Button disabled={busy} variant="secondary" className="w-full">
-          Связаться
-        </Button>
-      </DetailsFooter>
-    </Details>
-  );
-};
-
 const ServicesDetails = async () => {
+  const services = await getFullPricing();
+  const sign = await get<string>("price-sign");
+  const busy = await isAvailable();
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x flex flex-row divide-x overflow-x-auto">
-        <PagesDetails />
-        <WebsiteDetails />
-        <WebAppDetails />
-        <MVPDetails />
+        {services
+          .sort((a, b) => a.price - b.price)
+          .map((service, index) => {
+            const price = service.price;
+            return (
+              <Details key={`${service.id}-${index}`}>
+                <DetailsHeader
+                  icon={<SparklesIcon size={18} />}
+                  title={service.name ?? "Неизвестно"}
+                  price={`${price.toLocaleString()}${sign}+`}
+                />
+                <DetailsDescription>{service.description}</DetailsDescription>
+                <Separator />
+                <DetailsExtraList
+                  list={service.details as unknown as DetailsExtra[]}
+                />
+                <DetailsFooter>
+                  <Button
+                    disabled={busy}
+                    variant="secondary"
+                    className="w-full"
+                  >
+                    Связаться
+                  </Button>
+                </DetailsFooter>
+              </Details>
+            );
+          })}
       </div>
     </div>
   );

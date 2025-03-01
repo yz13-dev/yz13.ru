@@ -99,7 +99,7 @@ const page = async () => {
           </div>
         )}
         <Suspense
-          fallback={<Skeleton className="h-[386px] w-full rounded-none" />}
+          fallback={<Skeleton className="h-[475px] w-full rounded-none" />}
         >
           {(await showPriceDetails()) && <ServicesDetails />}
         </Suspense>
