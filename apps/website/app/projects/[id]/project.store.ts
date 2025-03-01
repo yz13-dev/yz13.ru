@@ -22,10 +22,9 @@ const getRelease = useReleaseStore.getState().release;
 const setRelease = (release: Release | null) =>
   useReleaseStore.getState().setRelease(release);
 
-const getEdit = () => useReleaseStore.getState().edit);
+const getEdit = () => useReleaseStore.getState().edit;
 const swithEdit = () => useReleaseStore.getState().setEdit(!getEdit());
-const setEdit = (edit: boolean) =>
-  useReleaseStore.getState().setEdit(edit);
+const setEdit = (edit: boolean) => useReleaseStore.getState().setEdit(edit);
 
-export { getRelease, setRelease, getEdit, swithEdit, setEdit };
+export { getEdit, getRelease, setEdit, setRelease, swithEdit };
 export default useReleaseStore;
