@@ -32,7 +32,7 @@ bot.callbackQuery("click-services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await fetchServices();
+    const services = await getPricing();
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");
@@ -58,21 +58,11 @@ bot.callbackQuery("click-services", async (ctx) => {
   }
 });
 
-const fetchServices = async () => {
-  try {
-    const services = await getPricing();
-    return services;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
 bot.command("services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await fetchServices();
+    const services = await getPricing();
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");

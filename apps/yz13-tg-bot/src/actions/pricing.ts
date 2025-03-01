@@ -1,29 +1,37 @@
 "use server";
-import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
+import { API_URL } from "../const/api";
+import { Pricing, PricingShort } from "../types/pricing";
 
-export const getPricing = async () => {
+export const getPricing = async (): Promise<Pricing[]> => {
   try {
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase.from("pricing").select("*");
-    if (error) return [];
-    else return data;
+    const url = new URL("/pricing", API_URL);
+    const res = await fetch(url.toString(), {
+      next: {
+        revalidate: 3600,
+        tags: ["pricing"],
+      },
+    });
+    if (!res.ok) throw new Error("Failed to fetch projects");
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error(error);
     return [];
   }
 };
 
-export const getShortPricing = async () => {
+export const getShortPricing = async (): Promise<PricingShort[]> => {
   try {
-    const cookieStore = cookies()
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("pricing")
-      .select("id, price, created_at, name, description, type");
-    if (error) return [];
-    else return data;
+    const url = new URL("/pricing/short", API_URL);
+    const res = await fetch(url.toString(), {
+      next: {
+        revalidate: 3600,
+        tags: ["pricing"],
+      },
+    });
+    if (!res.ok) throw new Error("Failed to fetch projects");
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error(error);
     return [];
