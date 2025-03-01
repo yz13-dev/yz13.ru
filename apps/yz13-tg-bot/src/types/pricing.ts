@@ -7,6 +7,7 @@ export type Pricing = {
   price: number;
   type: string | null;
 };
+export type PricingShort = Omit<Pricing, "details">;
 
 type ExtraSingleItem = {
   type: "single";

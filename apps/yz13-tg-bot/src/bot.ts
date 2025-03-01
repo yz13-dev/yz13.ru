@@ -1,8 +1,7 @@
 import { hydrate, HydrateFlavor } from "@grammyjs/hydrate";
 import { Menu } from "@grammyjs/menu";
 import { Bot, Context, InlineKeyboard, InlineQueryResultBuilder } from "grammy";
-import { API_URL } from "./const/api";
-import { Pricing } from "./types/pricing";
+import { getPricing } from "./actions/pricing";
 
 type BotContext = HydrateFlavor<Context>;
 const BOT_TOKEN = process.env.BOT_TOKEN ?? "";
@@ -33,7 +32,7 @@ bot.callbackQuery("click-services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await fetchServices();
+    const services = await getPricing();
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");
@@ -59,29 +58,11 @@ bot.callbackQuery("click-services", async (ctx) => {
   }
 });
 
-const fetchServices = async (): Promise<Pricing[]> => {
-  try {
-    const url = new URL("/pricing", API_URL);
-    const res = await fetch(url.toString(), {
-      next: {
-        revalidate: 3600,
-        tags: ["pricing"],
-      },
-    });
-    if (!res.ok) throw new Error("Failed to fetch projects");
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
 bot.command("services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await fetchServices();
+    const services = await getPricing();
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");
