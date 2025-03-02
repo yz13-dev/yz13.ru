@@ -31,6 +31,11 @@ export type ReleaseStage =
   | "in_testing"
   | "released";
 
+export const getType: Record<ReleaseType, string> = {
+  app: "Приложение",
+  widget: "Виджет",
+};
+
 const stageAsProgress: Record<ReleaseStage, number> = {
   in_plans: 0,
   in_progress: 25,

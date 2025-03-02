@@ -1,6 +1,7 @@
 import { getProject } from "@/actions/projects/projects";
-import { getStage } from "@/const/releases";
-import { auth } from "@/lib/auth";
+import User from "@/components/user";
+import { getStage, getType } from "@/const/releases";
+import { auth, authorized } from "@/lib/auth";
 import { ArrowLeftIcon, ChevronDownIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
@@ -28,61 +29,77 @@ const page = async ({ params }: PageProps) => {
   const icon = release.icon;
   const Icon = ProjectTypeIcons[release.type];
   return (
-    <div className="max-w-lg w-full p-6 space-y-4">
-      <div className="flex p-1 w-fit bg-background-secondary h-12 rounded-lg border items-center gap-1">
-        <Button variant="secondary" size="icon" asChild>
-          <Link href={`/projects`}>
-            <ArrowLeftIcon size={16} />
-          </Link>
-        </Button>
-        <div className="bg-neutral-200 w-56 flex items-center justify-between h-full rounded-lg p-2 flex items-center">
-          <div className="flex w-full items-center gap-1">
-            <div className="size-6 flex items-center justify-center relative">
-              {icon ? (
-                <>
-                  <Image
-                    src={icon.light}
-                    className="light-mode-image"
-                    width={18}
-                    height={18}
-                    alt={release.name}
-                  />
-                  <Image
-                    src={icon.dark}
-                    className="dark-mode-image"
-                    width={18}
-                    height={18}
-                    alt={release.name}
-                  />
-                </>
-              ) : (
-                <Icon size={18} />
-              )}
+    <div className="w-full lg:p-6 p-3 space-y-4">
+      <header className="w-full flex gap-2 items-center justify-between">
+        <div className="flex p-1 w-fit bg-background-secondary h-12 rounded-lg border items-center gap-1">
+          <Button variant="secondary" size="icon" asChild>
+            <Link href={`/projects`}>
+              <ArrowLeftIcon size={16} />
+            </Link>
+          </Button>
+          <div className="bg-neutral-200 lg:w-56 w-40 flex items-center justify-between h-full rounded-lg p-2 flex items-center">
+            <div className="flex w-full items-center gap-1">
+              <div className="size-6 flex items-center justify-center relative">
+                {icon ? (
+                  <>
+                    <Image
+                      src={icon.light}
+                      className="light-mode-image"
+                      width={18}
+                      height={18}
+                      alt={release.name}
+                    />
+                    <Image
+                      src={icon.dark}
+                      className="dark-mode-image"
+                      width={18}
+                      height={18}
+                      alt={release.name}
+                    />
+                  </>
+                ) : (
+                  <Icon size={18} />
+                )}
+              </div>
+              <span className="line-clamp-1 font-medium">{release?.name}</span>
             </div>
-            <span className="line-clamp-1 font-medium">{release?.name}</span>
+            {showControls && (
+              <div className="flex items-center gap-1">
+                <Separator orientation="vertical" className="h-6" />
+                <Button variant="ghost" size="icon">
+                  <ChevronDownIcon size={16} />
+                </Button>
+              </div>
+            )}
           </div>
           {showControls && (
-            <div className="flex items-center gap-1">
-              <Separator orientation="vertical" className="h-6" />
-              <Button variant="ghost" size="icon">
-                <ChevronDownIcon size={16} />
-              </Button>
-            </div>
+            <ProjectControls id={release.id} initialRelease={release} />
           )}
         </div>
-        {showControls && (
-          <ProjectControls id={release.id} initialRelease={release} />
-        )}
-      </div>
-      <div>
-        {release?.stage && (
-          <div className="mb-3">
-            <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background-secondary">
-              {getStage[release?.stage]}
-            </span>
+        <div className="flex items-center gap-2">
+          {(await authorized()) && <User />}
+        </div>
+      </header>
+      <div className="flex flex-row gap-3">
+        <div>
+          <div className="flex flex-row gap-2">
+            {release?.stage && (
+              <div className="mb-3">
+                <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background-secondary">
+                  {getStage[release?.stage]}
+                </span>
+              </div>
+            )}
+            {release?.type && (
+              <div className="mb-3">
+                <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background-secondary">
+                  {getType[release?.type]}
+                </span>
+              </div>
+            )}
           </div>
-        )}
-        <Form initial={release} />
+          <Form initial={release} />
+        </div>
       </div>
     </div>
   );

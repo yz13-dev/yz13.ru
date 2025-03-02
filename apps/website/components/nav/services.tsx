@@ -20,6 +20,7 @@ type ServicesProps = {
   services?: ShortPricing[];
   sign?: string;
 };
+
 const Services = ({
   sign = "$",
   busy = false,
@@ -32,29 +33,33 @@ const Services = ({
       </NavigationMenuTrigger>
       <NavigationMenuContent>
         <div className="w-[600px] grid grid-cols-2 gap-4 p-4">
-          {services.map((service) => {
-            return (
-              <div key={service.id} className="flex flex-col gap-1">
-                <div className="flex items-center justify-between gap-1">
-                  <div className="flex items-center gap-2">
-                    {service.type === "pages" && <PanelTopIcon size={18} />}
-                    {service.type === "website" && <GlobeIcon size={18} />}
-                    {service.type === "web-app" && <AppWindowIcon size={18} />}
-                    {service.type === "mvp" && <SparklesIcon size={18} />}
-                    <span className="font-medium relative line-clamp-1">
-                      {service.name}
+          {services
+            .sort((a, b) => a.price - b.price)
+            .map((service) => {
+              return (
+                <div key={service.id} className="flex flex-col gap-1">
+                  <div className="flex items-center justify-between gap-1">
+                    <div className="flex items-center gap-2">
+                      {service.type === "pages" && <PanelTopIcon size={18} />}
+                      {service.type === "website" && <GlobeIcon size={18} />}
+                      {service.type === "web-app" && (
+                        <AppWindowIcon size={18} />
+                      )}
+                      {service.type === "mvp" && <SparklesIcon size={18} />}
+                      <span className="font-medium relative line-clamp-1">
+                        {service.name}
+                      </span>
+                    </div>
+                    <span className="text-foreground shrink-0 font-semibold px-2 py-0 rounded-full bg-secondary/10 border">
+                      {service.price.toLocaleString()} {sign}+
                     </span>
                   </div>
-                  <span className="text-foreground shrink-0 font-semibold px-2 py-0 rounded-full bg-secondary/10 border">
-                    {service.price.toLocaleString()} {sign}+
+                  <span className="text-secondary block text-sm">
+                    {service.description}
                   </span>
                 </div>
-                <span className="text-secondary block text-sm">
-                  {service.description}
-                </span>
-              </div>
-            );
-          })}
+              );
+            })}
           <div>
             <Button className="w-full h-10" variant="default" asChild>
               <Link href="/services">Все услуги</Link>

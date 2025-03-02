@@ -1,5 +1,6 @@
 import { isAvailable } from "@/actions/availability-status";
 import { getFullPricing } from "@/actions/pricing/pricing";
+import { getPricing, isPaid } from "@/lib/pricing";
 import { get } from "@vercel/edge-config";
 import { CheckIcon, LucideIcon, PlusIcon, SparklesIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -66,21 +67,11 @@ type ExtraPerItem = {
   price_per_item?: number;
 };
 
-type DetailsExtra = {
+export type DetailsExtra = {
   icon?: LucideIcon;
   label?: string;
   price?: number;
 } & (ExtraSingleItem | ExtraPerItem);
-
-const isPaid = (item: DetailsExtra) => {
-  if (item.type === "single") return item.price !== undefined;
-  else return item.price_per_item !== undefined;
-};
-
-const getPricing = (item: DetailsExtra) => {
-  if (item.type === "single") return item.price ?? 0;
-  else return item.price_per_item ?? 0;
-};
 
 const DetailsExtraList = async ({ list = [] }: { list?: DetailsExtra[] }) => {
   const sign = await get<string>("price-sign");

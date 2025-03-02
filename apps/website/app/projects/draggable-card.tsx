@@ -19,6 +19,7 @@ const DraggableCard = ({ release }: { release: Release }) => {
 
   return (
     <ProjectCard
+      isActive
       release={release}
       ref={setNodeRef}
       style={style}
