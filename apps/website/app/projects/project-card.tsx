@@ -1,4 +1,4 @@
-import { Release } from "@/const/releases";
+import { getType, Release } from "@/const/releases";
 import dayjs from "dayjs";
 import { ArrowRightIcon, CalendarIcon } from "lucide-react";
 import { Separator } from "mono/components/separator";
@@ -13,10 +13,14 @@ import ProjectTypeIcons from "./project-type-icons";
 
 export interface ProjectProps extends React.HTMLAttributes<HTMLDivElement> {
   release: Release;
+  isActive?: boolean;
 }
 
 const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
-  ({ release, className = "", ...props }: ProjectProps, ref) => {
+  (
+    { release, className = "", isActive = false, ...props }: ProjectProps,
+    ref,
+  ) => {
     const icon = release.icon;
     const dateFormated = dayjs(release.created_at)
       .locale("ru")
@@ -64,21 +68,30 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
                 />
               )}
             </div>
-            <span className="text-base font-medium">{release.name}</span>
+            <div className="flex flex-col">
+              <span className="text-base font-medium">{release.name}</span>
+              <span className="text-xs text-secondary">
+                {getType[release.type]}
+              </span>
+            </div>
           </div>
-          <Button
-            size="icon"
-            variant="ghost"
-            asChild
-            className="group-hover:opacity-100 opacity-0"
-          >
-            <Link href={`/projects/${release.id}`}>
-              <ArrowRightIcon size={16} />
-            </Link>
-          </Button>
+          {isActive && (
+            <Button
+              size="icon"
+              variant="ghost"
+              asChild
+              className="group-hover:opacity-100 opacity-0"
+            >
+              <Link href={`/projects/${release.id}`}>
+                <ArrowRightIcon size={16} />
+              </Link>
+            </Button>
+          )}
         </div>
         {release.description && (
-          <span className="text-secondary text-sm">{release.description}</span>
+          <span className="text-secondary text-sm line-clamp-2">
+            {release.description}
+          </span>
         )}
         <Separator className="mt-2" />
         <div className="flex gap-2 items-center text-secondary">
