@@ -56,6 +56,29 @@ const loading = () => {
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
+            <div className="h-6 border-x" />
+            <div className="w-full h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-full h-full pattern-lines" />
+            <div className="h-fit border-x px-6">
+              <Skeleton className="h-9 w-[400px] rounded-full" />
+            </div>
+            <div className="w-full h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-full h-full pattern-lines" />
+            <div className="h-6 border-x" />
+            <div className="w-full h-full pattern-lines" />
+          </div>
+        </div>
+        <div className="w-full">
+          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+            <div className="w-full h-full pattern-lines" />
             <div className="h-fit border-x px-6 py-3">
               <Skeleton className="h-4 w-full rounded-md" />
             </div>

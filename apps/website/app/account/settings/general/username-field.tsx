@@ -3,11 +3,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createClient } from "yz13/supabase/client";
 import {
-    Field,
-    FieldContent,
-    FieldInput,
-    FieldLabel,
-    FieldTrigger,
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldInput,
+  FieldLabel,
 } from "../field";
 import { useUserStore } from "../user.store";
 
@@ -34,19 +34,17 @@ const UsernameField = () => {
   };
   return (
     <Field>
-      <FieldLabel>Username</FieldLabel>
+      <FieldLabel>Никнейм</FieldLabel>
+      <FieldDescription>
+        Никнейм будет отображаться в списке пользователей и в ссылках на профиль
+        и комментарии
+      </FieldDescription>
       <FieldContent>
         <FieldInput
           placeholder="YZ13"
           value={username}
           onValueChange={(value) => setUsername(value)}
         />
-        <FieldTrigger
-          loading={loading}
-          onAction={() => handleUsername(username)}
-        >
-          Edit
-        </FieldTrigger>
       </FieldContent>
     </Field>
   );

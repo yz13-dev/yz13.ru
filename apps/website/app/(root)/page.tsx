@@ -1,3 +1,4 @@
+import { isAvailable } from "@/actions/availability-status";
 import Availability from "@/components/availability";
 import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
@@ -10,6 +11,7 @@ import {
   showLogoUnderFooter,
   showPriceDetails,
 } from "@/const/flags";
+import { wait } from "@/helpers/wait";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -23,6 +25,7 @@ import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
 const page = async () => {
+  await wait(2000);
   return (
     <>
       <Header className="sticky top-0">
@@ -48,7 +51,9 @@ const page = async () => {
       </Header>
       <div className="w-full divide-y border-b">
         <Hero />
-        {(await showCallToAction()) && <CallToAction hideSearch={!isDev} />}
+        {(await showCallToAction()) && (
+          <CallToAction hideSearch={!isDev} busy={await isAvailable()} />
+        )}
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />

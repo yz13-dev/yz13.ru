@@ -93,7 +93,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
             {release.description}
           </span>
         )}
-        <Separator className="mt-2" />
+        <Separator className="mt-1" />
         <div className="flex gap-2 items-center text-secondary">
           <CalendarIcon size={16} />
           <span className="text-xs capitalize">{dateFormated}</span>

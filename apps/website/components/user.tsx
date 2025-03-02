@@ -12,7 +12,7 @@ const User = ({ sideOffset }: UserProps) => {
     <UserWrapper
       authorized={(user) => (
         <UserDropdown user={user} sideOffset={sideOffset}>
-          <UserCircle user={user} />
+          <UserCircle user={user} className="bg-background" />
         </UserDropdown>
       )}
       unauthorized={<SignInButton href="/login" variant="default" />}

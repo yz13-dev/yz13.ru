@@ -6,20 +6,24 @@ import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
 import { showAppsLink } from "@/const/flags";
-import { LayoutGridIcon, UserCircleIcon } from "lucide-react";
+import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
+import Sidebar from "./sidebar";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
+      <Header className="sticky top-0">
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
+        </Nav>
+        <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>
@@ -32,35 +36,19 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
-        </Nav>
+        </div>
       </Header>
-      <div className="max-w-screen-2xl mx-auto p-3 flex sm:!flex-row flex-col gap-6">
-        <aside className="flex flex-col gap-2 w-72">
-          <span className="text-sm text-secondary pl-4">User settings</span>
-          <div className="w-full space-y-1 *:!justify-start">
-            <Button variant="ghost" className="w-full gap-2" asChild>
-              <Link href="/account/settings/general">
-                <UserCircleIcon size={16} />
-                Profile
-              </Link>
-            </Button>
-            {/* <Button variant="ghost" className="w-full gap-2" asChild>
-              <Link href="/account/settings/password">
-                <LockIcon size={16} />
-                Password
-              </Link>
-            </Button> */}
-            {/* <Button variant="ghost" className="w-full gap-2" asChild>
-              <Link href="/account/settings/danger-zone">
-                <SkullIcon size={16} />
-                Danger zone
-              </Link>
-            </Button> */}
-          </div>
-        </aside>
-        <div className="w-full flex flex-col gap-6">{children}</div>
+      <div className="bg-background-secondary min-h-[calc(100dvh-64px)]">
+        <div className="max-w-screen-xl mx-auto px-3 py-6">
+          <h1 className="text-2xl font-semibold">Настройки</h1>
+        </div>
+        <Separator />
+        <div className="flex sm:!flex-row flex-col p-3 gap-6 max-w-screen-xl mx-auto">
+          <Sidebar className="md:flex hidden" />
+          <div className="w-full flex flex-col gap-6">{children}</div>
+        </div>
+        <PageDockFiller />
       </div>
-      <PageDockFiller />
       <Dock />
     </>
   );

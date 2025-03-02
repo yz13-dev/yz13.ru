@@ -22,15 +22,17 @@ type FieldProps = {
 const Field = ({ type = "input", children }: FieldProps) => {
   return (
     <FieldProvider type={type}>
-      <div className="flex flex-row items-center gap-6 min-h-10">
-        {children}
-      </div>
+      <div className="space-y-2 min-h-10">{children}</div>
     </FieldProvider>
   );
 };
 
 const FieldLabel = ({ children }: { children?: React.ReactNode }) => {
-  return <div className="text-sm font-medium w-1/4">{children}</div>;
+  return <div className="text-xs text-secondary w-1/2">{children}</div>;
+};
+
+const FieldDescription = ({ children }: { children?: React.ReactNode }) => {
+  return <div className="text-sm text-foreground w-1/2">{children}</div>;
 };
 
 const FieldContent = ({
@@ -63,10 +65,10 @@ const FieldInput = ({
   onValueChange?: (value: string) => void;
 }) => {
   const isEditing = useField((state) => state.isEditing);
-  if (!isEditing) return <FieldValue>{value ?? placeholder}</FieldValue>;
+  // if (!isEditing) return <FieldValue>{value ?? placeholder}</FieldValue>;
   return (
     <Input
-      className="w-64 bg-neutral-200"
+      className="w-full max-w-64"
       value={value}
       onChange={(e) => onValueChange && onValueChange(e.target.value)}
       placeholder={placeholder}
@@ -92,11 +94,11 @@ const FieldSelect = ({
 }) => {
   const id = randomId();
   const isEditing = useField((state) => state.isEditing);
-  if (!isEditing) return <FieldValue>{value ?? placeholder}</FieldValue>;
+  // if (!isEditing) return <FieldValue>{value ?? placeholder}</FieldValue>;
   return (
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="w-64">
-        <SelectValue placeholder={placeholder ?? "Select..."} />
+        <SelectValue placeholder={placeholder ?? "Ваша позиция..."} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -155,10 +157,12 @@ FieldContent.displayName = "FieldContent";
 FieldValue.displayName = "FieldValue";
 FieldInput.displayName = "FieldInput";
 FieldTrigger.displayName = "FieldTrigger";
+FieldDescription.displayName = "FieldDescription";
 
 export {
   Field,
   FieldContent,
+  FieldDescription,
   FieldInput,
   FieldLabel,
   FieldSelect,
