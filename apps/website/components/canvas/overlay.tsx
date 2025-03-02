@@ -2,11 +2,10 @@
 import { isDev } from "@/app/login/get-url";
 import { ReactNode } from "react";
 import { cn } from "yz13/cn";
-import useCanvasStore from "./canvas.store";
-import { useCursor } from "./cursor.store";
+import { useMapApi } from "./api-provider";
 
 const OffsetCoords = () => {
-  const offset = useCanvasStore((state) => state.offset);
+  const offset = useMapApi((state) => state.offset);
   return (
     <span className="px-2 py-0.5 border rounded-full bg-background">
       x:{offset.x.toFixed(2)} y:{offset.y.toFixed(2)}
@@ -15,7 +14,7 @@ const OffsetCoords = () => {
 };
 
 const Zoom = () => {
-  const zoom = useCanvasStore((state) => state.zoom);
+  const zoom = useMapApi((state) => state.zoom);
   return (
     <span className="px-2 py-0.5 border rounded-full bg-background">
       {zoom.toFixed(2)}
@@ -24,10 +23,10 @@ const Zoom = () => {
 };
 
 const CursorPosition = () => {
-  const cursorPosition = useCursor((state) => state.cursor);
+  const cursor = useMapApi((state) => state.cursor);
   return (
     <span className="px-2 py-0.5 border rounded-full bg-background">
-      x:{cursorPosition.x.toFixed(2)} y:{cursorPosition.y.toFixed(2)}
+      x:{cursor.x.toFixed(2)} y:{cursor.y.toFixed(2)}
     </span>
   );
 };
@@ -52,9 +51,13 @@ const Overlay = ({
     <div className={cn("w-full h-dvh absolute left-0 top-0", className)}>
       {children}
       <InfoDock>
-        <CursorPosition />
-        <Zoom />
-        <OffsetCoords />
+        {false && (
+          <>
+            <CursorPosition />
+            <Zoom />
+            <OffsetCoords />
+          </>
+        )}
       </InfoDock>
     </div>
   );

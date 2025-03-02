@@ -8,16 +8,20 @@ import {
   useState,
   WheelEvent,
 } from "react";
-import { canvasAPI } from "./canvas-api";
-import useCanvasStateStore, { setIsMovingCanvas } from "./canvas-state.stote";
-import useCanvasStore, {
+import {
   Coordinate,
   getZoom,
+  setCtx,
+  setCursor,
+  setOffset,
+  setSize,
   setZoom,
   Size,
-} from "./canvas.store";
-import { setCursorPosition } from "./cursor.store";
-import { onDown, onMove } from "./event-api";
+} from "./api";
+import { useMapApi } from "./api-provider";
+import { canvasAPI } from "./canvas-api";
+import useCanvasEventStore, { setEvent } from "./canvas.event";
+import { onMouseDown, onMouseMove } from "./event-api";
 
 type CanvasOptions = {
   grid?: boolean;
@@ -31,17 +35,14 @@ type CanvasProps = {
 const Canvas = ({ onRender, options }: CanvasProps) => {
   const { grid = false } = options || {};
   const ref = useRef<HTMLCanvasElement>(null);
-  const offset = useCanvasStore((state) => state.offset);
-  const setOffset = useCanvasStore((state) => state.setOffset);
-  const size = useCanvasStore((state) => state.size);
-  const setSize = useCanvasStore((state) => state.setSize);
-  const dpr = useCanvasStore((state) => state.dpr);
-  const ctx = useCanvasStore((state) => state.ctx);
-  const setCtx = useCanvasStore((state) => state.setCtx);
-  const isMovingCanvas = useCanvasStateStore((state) => state.isMovingCanvas);
+  const offset = useMapApi((state) => state.offset);
+  const size = useMapApi((state) => state.canvas);
+  const dpr = useMapApi((state) => state.dpr);
+  const ctx = useMapApi((state) => state.canvas.ctx);
   const [dragStart, setDragStart] = useState<Coordinate>({ x: 0, y: 0 });
   // wheel event time
   const [lastWheelEventTime, setLastWheelEventTime] = useState<number>(0);
+  const event = useCanvasEventStore((state) => state.event);
 
   const render = (
     ctx: CanvasRenderingContext2D,
@@ -89,21 +90,20 @@ const Canvas = ({ onRender, options }: CanvasProps) => {
 
   const handleDown = (e: PointerEvent<HTMLCanvasElement>) => {
     if (!ctx) return;
-    const { x, y } = onDown(ctx, e);
+    const { x, y } = onMouseDown(e);
 
-    setIsMovingCanvas(true);
+    setEvent("move");
     setDragStart({ x: e.clientX, y: e.clientY });
   };
   const handleMove = (e: PointerEvent<HTMLCanvasElement>) => {
-    if (!ctx) return;
     const { clientX, clientY } = e;
     const { x: startX, y: startY } = dragStart;
-    const { x, y } = onMove(ctx, e);
-    setCursorPosition(x, y);
+    const { x, y } = onMouseMove(e);
+    setCursor({ x, y });
 
     const dx = clientX - startX;
     const dy = clientY - startY;
-    if (isMovingCanvas) {
+    if (event === "move") {
       moveCanvas(dx, dy);
       setDragStart({ x: clientX, y: clientY });
     }
@@ -120,7 +120,7 @@ const Canvas = ({ onRender, options }: CanvasProps) => {
     setOffset({ x: newX, y: newY });
   };
   const handleUp = (e: PointerEvent<HTMLCanvasElement>) => {
-    if (isMovingCanvas) setIsMovingCanvas(false);
+    if (event === "move") setEvent(null);
   };
 
   const onWheel = (e: WheelEvent<HTMLCanvasElement>) => {

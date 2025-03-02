@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import { Logo } from "@/components/logo";
+import YZ13Logo from "@/components/yz13-logo";
 import { isDev } from "@/const/env";
 import pagesJson from "@/pages.json";
 import { PageConfig } from "@/types/page.type";
@@ -77,8 +77,9 @@ const page = ({ searchParams }: PageProps) => {
       <div className="max-w-xl w-full flex flex-col justify-end mx-auto md:h-80 h-72">
         <div className="w-full space-y-6 px-6">
           <div className="flex items-center justify-center">
-            <Link href="/">
-              <Logo size={{ width: 150, height: 32.5 }} type="full" />
+            <Link href="/" className="flex items-center gap-2">
+              <YZ13Logo size={{ width: 48, height: 48 }} type="only-icon" />
+              <span className="font-pixel text-4xl font-medium">Pages</span>
             </Link>
           </div>
           <div className="w-full flex flex-col gap-1.5">
