@@ -29,9 +29,9 @@ const page = async ({ params }: PageProps) => {
   const icon = release.icon;
   const Icon = ProjectTypeIcons[release.type];
   return (
-    <div className="w-full lg:p-6 p-3 space-y-4">
+    <div className="w-full lg:p-6 p-3 space-y-4 min-h-dvh bg-background-secondary">
       <header className="w-full flex gap-2 items-center justify-between">
-        <div className="flex p-1 w-fit bg-background-secondary h-12 rounded-lg border items-center gap-1">
+        <div className="flex p-1 w-fit bg-background h-12 rounded-lg border items-center gap-1">
           <Button variant="secondary" size="icon" asChild>
             <Link href={`/projects`}>
               <ArrowLeftIcon size={16} />
@@ -85,14 +85,14 @@ const page = async ({ params }: PageProps) => {
           <div className="flex flex-row gap-2">
             {release?.stage && (
               <div className="mb-3">
-                <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background-secondary">
+                <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background">
                   {getStage[release?.stage]}
                 </span>
               </div>
             )}
             {release?.type && (
               <div className="mb-3">
-                <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background-secondary">
+                <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background">
                   {getType[release?.type]}
                 </span>
               </div>

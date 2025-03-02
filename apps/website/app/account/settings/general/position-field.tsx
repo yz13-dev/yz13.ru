@@ -5,9 +5,9 @@ import { createClient } from "yz13/supabase/client";
 import {
   Field,
   FieldContent,
+  FieldDescription,
   FieldLabel,
   FieldSelect,
-  FieldTrigger,
 } from "../field";
 import { useUserStore } from "../user.store";
 
@@ -68,20 +68,18 @@ const PositionField = () => {
   return (
     <>
       <Field>
-        <FieldLabel>Position</FieldLabel>
+        <FieldLabel>Профессия</FieldLabel>
+        <FieldDescription>
+          Необезательно, но она отображается вместо почты в списке
+          пользователей.
+        </FieldDescription>
         <FieldContent>
           <FieldSelect
             value={position}
             onValueChange={(value) => setPosition(value)}
-            placeholder="Select..."
+            placeholder="Ваша позиция..."
             options={positions}
           />
-          <FieldTrigger
-            loading={loading}
-            onAction={() => handlePosition(position)}
-          >
-            Edit
-          </FieldTrigger>
         </FieldContent>
       </Field>
     </>

@@ -61,10 +61,12 @@ const page = async ({ searchParams }: PageProps) => {
           </Suspense>
         </div>
       </Header>
-      <DndContextWrapper>
-        <ProjectsList defaultProjects={releases} isActive={isActive} />
-      </DndContextWrapper>
-      <PageDockFiller />
+      <div className="w-full bg-background-secondary">
+        <DndContextWrapper>
+          <ProjectsList defaultProjects={releases} isActive={isActive} />
+        </DndContextWrapper>
+        <PageDockFiller />
+      </div>
       <Dock />
     </>
   );
