@@ -2,7 +2,15 @@ import { isAvailable } from "@/actions/availability-status";
 import { getFullPricing } from "@/actions/pricing/pricing";
 import { getPricing, isPaid } from "@/lib/pricing";
 import { get } from "@vercel/edge-config";
-import { CheckIcon, LucideIcon, PlusIcon, SparklesIcon } from "lucide-react";
+import {
+  AppWindowIcon,
+  CheckIcon,
+  GlobeIcon,
+  LucideIcon,
+  PanelTopIcon,
+  PlusIcon,
+  SparklesIcon,
+} from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
@@ -151,7 +159,16 @@ const ServicesDetails = async () => {
             return (
               <Details key={`${service.id}-${index}`}>
                 <DetailsHeader
-                  icon={<SparklesIcon size={18} />}
+                  icon={
+                    <>
+                      {service.type === "pages" && <PanelTopIcon size={18} />}
+                      {service.type === "website" && <GlobeIcon size={18} />}
+                      {service.type === "web-app" && (
+                        <AppWindowIcon size={18} />
+                      )}
+                      {service.type === "mvp" && <SparklesIcon size={18} />}
+                    </>
+                  }
                   title={service.name ?? "Неизвестно"}
                   price={`${price.toLocaleString()}${sign}+`}
                 />

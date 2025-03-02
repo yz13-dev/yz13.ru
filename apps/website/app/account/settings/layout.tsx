@@ -17,11 +17,13 @@ import Sidebar from "./sidebar";
 const layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Header>
-        <Link href="/">
-          <Logo size={{ width: 110, height: 20 }} type="full" />
-        </Link>
-        <Nav>
+      <Header className="sticky top-0">
+        <Nav side="left">
+          <Link href="/">
+            <Logo size={{ width: 110, height: 20 }} type="full" />
+          </Link>
+        </Nav>
+        <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
             {(await showAppsLink()) && (
               <Button variant="ghost" size="icon" asChild>
@@ -34,7 +36,7 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}
           </Suspense>
-        </Nav>
+        </div>
       </Header>
       <div className="bg-background-secondary min-h-[calc(100dvh-64px)]">
         <div className="max-w-screen-xl mx-auto px-3 py-6">
