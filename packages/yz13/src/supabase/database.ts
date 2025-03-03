@@ -135,6 +135,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      rooms: {
+        Row: {
+          created_at: string;
+          id: string;
+          max_members: number | null;
+          name: string | null;
+          owner: string;
+          public: boolean | null;
+          udpated_at: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          max_members?: number | null;
+          name?: string | null;
+          owner?: string;
+          public?: boolean | null;
+          udpated_at?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          max_members?: number | null;
+          name?: string | null;
+          owner?: string;
+          public?: boolean | null;
+          udpated_at?: string | null;
+        };
+        Relationships: [];
+      };
       "visitor-session": {
         Row: {
           created_at: string;

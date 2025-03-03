@@ -5,6 +5,7 @@ import { auth } from "./auth";
 import { charts } from "./charts";
 import { drafts } from "./drafts";
 import { pricing } from "./pricing";
+import { rooms } from "./rooms";
 import { user } from "./user";
 import { visitor_session } from "./visitor-session";
 import { works } from "./works";
@@ -20,6 +21,7 @@ app.route("/drafts", drafts);
 app.route("/works", works);
 app.route("/auth", auth);
 app.route("/pricing", pricing);
+app.route("/rooms", rooms);
 
 app.get("/version", (c) => {
   const version = packageJson.version;

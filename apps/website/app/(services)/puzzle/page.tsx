@@ -7,12 +7,11 @@ import { showAppsLink } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
-import { Label } from "mono/components/label";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { Switch } from "mono/components/switch";
 import Link from "next/link";
 import { Suspense } from "react";
+import NewRoomForm from "./new-room-form";
 
 const page = async () => {
   return (
@@ -51,21 +50,7 @@ const page = async () => {
             </span>
             <Separator className="w-1/2 shrink" />
           </div>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <Input
-                placeholder="Название комнаты"
-                className="h-10 text-base"
-              />
-              <Button variant="secondary">Создать</Button>
-            </div>
-            <div className="flex flex-row gap-2">
-              <Switch id="public-room" />
-              <Label htmlFor="public-room" className="text-sm text-secondary">
-                Публичная комната
-              </Label>
-            </div>
-          </div>
+          <NewRoomForm prefix="/puzzle/room/" />
         </div>
       </div>
     </>
