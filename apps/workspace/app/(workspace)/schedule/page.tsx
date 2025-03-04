@@ -1,4 +1,4 @@
-import Calendar from "@/app/old/calendar";
+import Calendar from "@/components/calendar";
 
 const page = () => {
   return (

@@ -1,5 +1,4 @@
 import {
-  ArrowLeftIcon,
   CalendarIcon,
   ChartPieIcon,
   CirclePlayIcon,
@@ -22,7 +21,7 @@ const Sidebar = () => {
     >
       <nav className="w-full space-y-2 *:space-y-2">
         <div className="*:justify-center *:aspect-square">
-          <LinkButton href="/workspace/" className="w-full" variant="secondary">
+          <LinkButton href="/" className="w-full" variant="secondary">
             <Icon>
               <HomeIcon size={20} />
             </Icon>
@@ -31,13 +30,13 @@ const Sidebar = () => {
         </div>
         <Separator />
         <div className="*:justify-center *:aspect-square">
-          <LinkButton href="/workspace/projects" className="w-full">
+          <LinkButton href="/projects" className="w-full">
             <Icon>
               <CirclePlayIcon size={20} />
             </Icon>
             <Text>Проекты</Text>
           </LinkButton>
-          <LinkButton href="/workspace/customers" className="w-full">
+          <LinkButton href="/customers" className="w-full">
             <Icon>
               <SmileIcon size={20} />
             </Icon>
@@ -46,7 +45,7 @@ const Sidebar = () => {
         </div>
         <Separator />
         <div className="*:justify-center *:aspect-square">
-          <LinkButton href="/workspace/schedule" className="w-full">
+          <LinkButton href="/schedule" className="w-full">
             <Icon>
               <CalendarIcon size={20} />
             </Icon>
@@ -55,13 +54,13 @@ const Sidebar = () => {
         </div>
         <Separator />
         <div className="*:justify-center *:aspect-square">
-          <LinkButton href="/workspace/finances" className="w-full">
+          <LinkButton href="/finances" className="w-full">
             <Icon>
               <DollarSignIcon size={20} />
             </Icon>
             <Text>Финансы</Text>
           </LinkButton>
-          <LinkButton href="/workspace/analytics" className="w-full">
+          <LinkButton href="/analytics" className="w-full">
             <Icon>
               <ChartPieIcon size={20} />
             </Icon>
@@ -69,14 +68,7 @@ const Sidebar = () => {
           </LinkButton>
         </div>
       </nav>
-      <div className="*:justify-center *:aspect-square">
-        <LinkButton href="/">
-          <Icon>
-            <ArrowLeftIcon size={20} />
-          </Icon>
-          <Text>Назад</Text>
-        </LinkButton>
-      </div>
+      <div className="*:justify-center *:aspect-square"></div>
     </aside>
   );
 };

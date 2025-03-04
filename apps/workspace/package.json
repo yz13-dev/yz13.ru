@@ -9,11 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mono": "*",
+    "next": "14.2.6",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "mono": "*",
-    "yz13": "*",
-    "next": "14.2.6"
+    "recharts": "^2.15.1",
+    "yz13": "*"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
@@ -26,7 +27,7 @@
     "@tailwindcss/postcss": "^4",
     "tailwindcss": "^4",
     "eslint": "^9",
-    "eslint-config-next": "15.2.1",
+    "eslint-config-next": "15.0.3",
     "@eslint/eslintrc": "^3"
   }
 }
