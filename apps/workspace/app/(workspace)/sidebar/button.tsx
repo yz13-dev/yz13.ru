@@ -45,7 +45,7 @@ const Text = ({
       side="right"
       className={cn(
         "text-sm 2xl:!inline-block hidden border",
-        "text-foreground",
+        "text-foreground bg-background",
         className,
       )}
     >
