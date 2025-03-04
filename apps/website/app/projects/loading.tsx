@@ -20,7 +20,7 @@ const loading = () => {
           <Skeleton className="h-9 w-[75px]" />
         </div>
       </Header>
-      <div className="w-full flex gap-4 p-6 min-h-[calc(100dvh-3.5rem)] overflow-auto">
+      <div className="w-full flex gap-4 p-6 min-h-[calc(100dvh-3.5rem)] bg-background-secondary overflow-auto">
         <StageColumn stage="in_plans" count={0}>
           <Skeleton className="W-full aspect-video rounded-xl" />
           <Skeleton className="W-full aspect-video rounded-xl" />

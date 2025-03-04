@@ -11,7 +11,6 @@ import {
   showLogoUnderFooter,
   showPriceDetails,
 } from "@/const/flags";
-import { wait } from "@/helpers/wait";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -25,7 +24,6 @@ import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
 const page = async () => {
-  await wait(2000);
   return (
     <>
       <Header className="sticky top-0">
@@ -52,7 +50,7 @@ const page = async () => {
       <div className="w-full divide-y border-b">
         <Hero />
         {(await showCallToAction()) && (
-          <CallToAction hideSearch={!isDev} busy={await isAvailable()} />
+          <CallToAction busy={await isAvailable()} />
         )}
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
@@ -132,7 +130,7 @@ const page = async () => {
               fontSize: "46dvw",
               lineHeight: "0.7",
             }}
-            className="font-semibold divide-x text-center block text-secondary/5 select-none *:transition-colors *:duration-500"
+            className="font-semibold divide-x text-center *:w-1/4 *:overflow-hidden block text-secondary/5 select-none *:transition-colors *:duration-500"
           >
             <span className="hover:text-foreground">Y</span>
             <span className="hover:text-foreground">Z</span>

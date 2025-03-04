@@ -1,4 +1,4 @@
-import { getDpr, getOffset, getSize, getZoom } from "./canvas.store";
+import { getDpr, getOffset, getSize, getZoom } from "./api";
 
 export class canvasAPI {
   ctx: CanvasRenderingContext2D | null = null;
