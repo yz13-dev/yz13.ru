@@ -19,11 +19,6 @@
       "import": "./dist/lib/env.js",
       "require": "./dist/lib/env.cjs"
     },
-    "./rest/endpoints/rooms": {
-      "types": "./dist/rest/endpoints/rooms.d.ts",
-      "import": "./dist/rest/endpoints/rooms.js",
-      "require": "./dist/rest/endpoints/rooms.cjs"
-    },
     "./get-url": {
       "types": "./dist/lib/get-url.d.ts",
       "import": "./dist/lib/get-url.js",
