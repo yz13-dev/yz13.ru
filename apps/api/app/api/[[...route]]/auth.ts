@@ -1,5 +1,6 @@
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
+import { isDev } from "yz13/env";
 import { createClient } from "yz13/supabase/server";
 
 export const auth = new Hono();
@@ -11,10 +12,7 @@ auth.get("/callback", async (c) => {
     next.startsWith("http://") || next.startsWith("https://");
 
   const cookieStore = cookies();
-  const origin =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3001"
-      : "https://yz13.ru";
+  const origin = isDev ? "http://localhost:3001" : "https://yz13.ru";
 
   console.log(code, next, origin);
 

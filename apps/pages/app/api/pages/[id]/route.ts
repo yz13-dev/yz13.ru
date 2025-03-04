@@ -1,4 +1,5 @@
-import { parsePages } from "@/actions/parse-pages";
+import { isDev } from "@/const/env";
+import pagesJson from "@/pages.json";
 
 type RouteProps = {
   params: {
@@ -7,8 +8,11 @@ type RouteProps = {
 };
 export function GET(request: Request, { params }: RouteProps) {
   try {
-    const pages = parsePages();
-    const page = pages.find((page) => page.id === params.id);
+    const publicPages = pagesJson.filter((page) => {
+      if (isDev) return true;
+      else return page.public;
+    });
+    const page = publicPages.find((page) => page.id === params.id);
     if (!page) return Response.json(null);
     else return Response.json(page);
   } catch (error) {

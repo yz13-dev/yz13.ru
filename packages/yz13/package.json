@@ -14,6 +14,11 @@
       "import": "./dist/lib/cn.js",
       "require": "./dist/lib/cn.cjs"
     },
+    "./env": {
+      "types": "./dist/lib/env.d.ts",
+      "import": "./dist/lib/env.js",
+      "require": "./dist/lib/env.cjs"
+    },
     "./get-url": {
       "types": "./dist/lib/get-url.d.ts",
       "import": "./dist/lib/get-url.js",

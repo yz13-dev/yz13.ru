@@ -1,9 +1,12 @@
 import packageJson from "@/package.json";
 import { Hono } from "hono";
+import { languageDetector } from "hono/language";
+import { requestId } from "hono/request-id";
 import { handle } from "hono/vercel";
 import { auth } from "./auth";
 import { charts } from "./charts";
 import { drafts } from "./drafts";
+import { pages } from "./pages";
 import { pricing } from "./pricing";
 import { rooms } from "./rooms";
 import { user } from "./user";
@@ -14,6 +17,17 @@ export const runtime = "edge";
 
 const app = new Hono().basePath("/");
 
+app.use(
+  languageDetector({
+    supportedLanguages: ["ru", "en"], // Must include fallback
+    fallbackLanguage: "ru", // Required
+  }),
+);
+
+// won't work with `runtime = "edge"`
+// app.use(compress());
+app.use("*", requestId());
+
 app.route("/user", user);
 app.route("/visitor-session", visitor_session);
 app.route("/charts", charts);
@@ -22,6 +36,7 @@ app.route("/works", works);
 app.route("/auth", auth);
 app.route("/pricing", pricing);
 app.route("/rooms", rooms);
+app.route("/pages", pages);
 
 app.get("/version", (c) => {
   const version = packageJson.version;
