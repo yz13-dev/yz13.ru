@@ -20,3 +20,30 @@ rooms.get("/:id", async (c) => {
 
   return c.json(data);
 });
+
+rooms.post("/new", async (c) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+
+    const body = await c.req.json();
+
+    const { data, error } = await supabase
+      .from("rooms")
+      .insert({
+        max_members: body.max_members,
+        name: body.name,
+        public: body.public,
+        owner: body.owner,
+      })
+      .select()
+      .limit(1)
+      .single();
+    if (error) {
+      return c.json(null);
+    } else return c.json(data);
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+});
