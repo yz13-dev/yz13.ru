@@ -15,37 +15,62 @@ const page = async ({ searchParams }: PageProps) => {
     <>
       <div
         className={cn(
-          "w-full min-h-dvh flex md:!flex-row flex-col",
-          "md:!divide-x divide-x-0 md:!divide-y-0 divide-y",
+          "w-full min-h-dvh flex lg:!flex-row flex-col",
+          "lg:!divide-x divide-x-0 lg:!divide-y-0 divide-y",
         )}
       >
-        <section className="md:!w-1/2 w-full h-dvh flex flex-col justify-center items-center pattern-dots">
+        <section
+          className={cn(
+            "lg:!w-1/2 w-full lg:!h-dvh h-fit flex flex-col justify-center items-center",
+            "bg-gradient-to-l from-background-secondary to-background p-6 lg:!sticky static top-0",
+          )}
+        >
           <div className="w-full max-w-lg p-6 bg-background rounded-2xl border space-y-6">
             <div className="flex flex-col gap-2">
-              <h1 className="text-4xl font-bold">Блог</h1>
+              <h1 className="text-4xl font-semibold">Блог</h1>
               <p className="text-base text-secondary">
                 Подпишитесь на нашу рассылку и получайте новости о проекте.
               </p>
             </div>
-            <div className="flex flex-ros gap-2">
+            <div className="flex flex-row gap-2">
               <Input placeholder="example@domain.com" />
               <Button variant="secondary">Подписаться</Button>
             </div>
           </div>
         </section>
-        <div className="md:!w-1/2 w-full min-h-dvh">
-          <section className="w-full max-w-2xl mt-12 lg:!px-12 px-6 space-y-6">
-            <h2 className="text-4xl font-bold">Новая страница, "Блог"</h2>
-            <p className="text-base text-secondary">
-              Рад представить вам новую страницу блог, эта страница идеально
-              подходит для создания блога, здесь также есть небольшая форма для
-              подписки на рассылку.
-            </p>
-            <div className="w-full aspect-[4/2.5] rounded-2xl border" />
-            <Separator />
-            <time className="text-secondary block">
-              13:00 Вторник, 11 февраля 2025{" "}
-            </time>
+        <div className="lg:!w-1/2 w-full lg:!min-h-dvh min-h-fit">
+          <section className="w-full h-fit max-w-2xl mt-12 pb-12 space-y-24">
+            <div className="w-full lg:!px-12 px-6 space-y-5 relative">
+              <div className="flex items-center gap-2 absolute -left-[90px] top-6">
+                <span className="text-xs text-secondary">12.09.2025</span>
+                <Separator className="w-4" />
+              </div>
+              <div className="w-full aspect-video rounded-2xl border" />
+              <div className="w-full space-y-3">
+                <h2 className="text-lg font-semibold">
+                  Новая страница, "Блог"
+                </h2>
+                <p className="text-sm text-secondary">
+                  Рад представить вам новую страницу блог, эта страница идеально
+                  подходит для создания блога, здесь также есть небольшая форма
+                  для подписки на рассылку.
+                </p>
+              </div>
+            </div>
+            <div className="w-full lg:!px-12 px-6 space-y-5 relative">
+              <div className="flex items-center gap-2 absolute -left-[90px] top-6">
+                <span className="text-xs text-secondary">09.09.2025</span>
+                <Separator className="w-4" />
+              </div>
+              <div className="w-full aspect-video rounded-2xl border" />
+              <div className="w-full space-y-3">
+                <h2 className="text-lg font-semibold">Анонс блога</h2>
+                <p className="text-sm text-secondary">
+                  Скоро появится новая страница блога, в ней вы сможете
+                  подписаться на рассылку и получать новости о проекте.
+                </p>
+              </div>
+            </div>
           </section>
         </div>
       </div>

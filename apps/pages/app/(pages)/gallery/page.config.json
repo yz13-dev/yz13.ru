@@ -4,7 +4,10 @@
   "name": "Галерея",
   "description": "библиотека для разных картинок, фотографий и видео",
   "type": "page",
-  "tags": ["галерея", "страница"],
+  "tags": [
+    "галерея",
+    "страница"
+  ],
   "thumbnail": {
     "light": "/pages/gallery/gallery-light.png",
     "dark": "/pages/gallery/gallery-dark.png"
