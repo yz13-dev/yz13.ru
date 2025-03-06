@@ -1,16 +1,12 @@
-import Header from "@/components/header";
-import { Logo } from "@/components/logo";
 import { isDev } from "@/const/env";
 import pagesJson from "@/pages.json";
 import { PageConfig } from "@/types/page.type";
-import { ExternalLinkIcon } from "lucide-react";
 import { Metadata } from "next";
-import Link from "next/link";
 import FiltersBar from "./filters-bar";
 import Footer from "./footer";
 import PageCard from "./page.card";
 import PagesGrid from "./pages-grid";
-import SearchInput from "./search-input";
+import SearchSection from "./search-section";
 
 export const metadata: Metadata = {
   title: "Pages - Библиотека страниц и компонентов",
@@ -73,33 +69,8 @@ const page = ({ searchParams }: PageProps) => {
   }) as PageConfig[];
   return (
     <>
-      <Header className="border-none"></Header>
-      <div className="max-w-xl w-full flex flex-col justify-end mx-auto md:h-80 h-72">
-        <div className="w-full space-y-6 px-6">
-          <div className="flex items-center justify-center">
-            <Link href="/" className="flex items-center gap-2">
-              <Logo size={{ width: 156, height: 36 }} type="full" />
-            </Link>
-          </div>
-          <div className="w-full flex flex-col gap-1.5">
-            <SearchInput defaultValue={search} />
-            <div className="flex items-center justify-between px-2">
-              <span className="text-secondary text-xs">
-                Всего страниц: {publicPages.length}
-              </span>
-              <Link
-                target="_blank"
-                href="https://yz13.ru"
-                className="text-secondary hover:underline text-xs flex items-center gap-1"
-              >
-                yz13.ru
-                <ExternalLinkIcon size={12} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      {/* <Header className="border-none"></Header> */}
+      <SearchSection count={pages.length} search={search} />
       <FiltersBar
         type={type}
         className="mt-32 bg-background border-b z-20 sticky top-0"

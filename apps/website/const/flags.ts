@@ -86,3 +86,12 @@ export const showLogoUnderFooter = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showFAQ = flag<boolean>({
+  key: "show-faq",
+  description: "Show FAQ on the services page",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
