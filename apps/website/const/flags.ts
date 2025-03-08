@@ -95,3 +95,12 @@ export const showFAQ = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showBlog = flag<boolean>({
+  key: "show-blog",
+  description: "Show blog button in nav",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
