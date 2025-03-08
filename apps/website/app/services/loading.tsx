@@ -4,8 +4,6 @@ import Nav from "@/components/nav/nav";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import Footer from "../old/footer";
-import Column from "./grid/column";
-import Wrapper from "./grid/wrapper";
 
 const loading = () => {
   return (
@@ -29,43 +27,6 @@ const loading = () => {
               <Skeleton className="h-5 w-full rounded-md" />
             </div>
             <div className="w-full h-full pattern-lines" />
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-            <div className="w-full h-full pattern-lines" />
-            <Wrapper>
-              <Column className="divide-y *:overflow-hidden">
-                <div className="w-full h-2/3 aspect-[9/12] hover:bg-background-back flex flex-col items-center p-6 relative">
-                  <Skeleton className="w-full h-full absolute left-0 top-0 rounded-none" />
-                </div>
-                <div className="w-full h-1/3 p-6 hover:bg-background-back space-x-3">
-                  <span className="text-xl font-medium">
-                    Проекты с открытым кодом.
-                  </span>
-                  <span className="text-xl font-medium text-secondary">
-                    Скоро.
-                  </span>
-                </div>
-              </Column>
-              <Column className="gap-3 p-6">
-                <Skeleton className="w-full h-full absolute left-0 top-0 rounded-none" />
-              </Column>
-              <Column className="divide-y *:overflow-hidden">
-                <div className="w-full h-1/3 p-6 hover:bg-background-back space-x-3 relative">
-                  <Skeleton className="w-full h-full absolute left-0 top-0 rounded-none" />
-                </div>
-                <div className="w-full h-2/3 aspect-[9/10] gap-3 hover:bg-background-back flex flex-col items-center p-6 relative">
-                  <Skeleton className="w-full h-full absolute left-0 top-0 rounded-none" />
-                </div>
-              </Column>
-            </Wrapper>
-            <div className="w-full h-full pattern-lines" />
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-20" />
           </div>
         </div>
         <Skeleton className="h-[386px] w-full rounded-none" />
