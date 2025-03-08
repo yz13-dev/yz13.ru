@@ -4,7 +4,10 @@
   "name": "Личный блог",
   "description": "нестандартная страница для личного блога, с возможностью подписки на рассылку новых постов.",
   "type": "page",
-  "tags": ["блог", "страница"],
+  "tags": [
+    "блог",
+    "страница"
+  ],
   "thumbnail": {
     "light": "/pages/blog/blog-light.png",
     "dark": "/pages/blog/blog-dark.png"

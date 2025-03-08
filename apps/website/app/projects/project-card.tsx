@@ -30,7 +30,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
       <div
         ref={ref}
         className={cn(
-          "flex gap-2 h-fit rounded-xl flex-col border p-3 hover:border-foreground transition-colors",
+          "flex gap-2 h-fit rounded-lg flex-col border p-3 hover:border-foreground transition-colors",
           "bg-background group",
           className,
         )}

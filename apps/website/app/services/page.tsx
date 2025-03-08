@@ -4,7 +4,7 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
-import { showAppsLink, showPriceDetails } from "@/const/flags";
+import { showAppsLink, showFAQ, showPriceDetails } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -72,12 +72,16 @@ const page = async () => {
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-20 pattern-lines" />
-          </div>
-        </div>
-        <FAQ />
+        {(await showFAQ()) && (
+          <>
+            <div className="w-full">
+              <div className="max-w-screen-2xl w-full mx-auto border-x">
+                <div className="h-20 pattern-lines" />
+              </div>
+            </div>
+            <FAQ />
+          </>
+        )}
         <div className="w-full">
           <div className="max-w-screen-2xl w-full mx-auto border-x">
             <div className="h-20" />

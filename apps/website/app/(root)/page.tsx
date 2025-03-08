@@ -23,6 +23,11 @@ import Hero from "./hero";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
+// export const runtime = "edge";
+export const fetchCache = "default-cache";
+export const revalidate = 600;
+// export const dynamic = ""
+
 const page = async () => {
   return (
     <>

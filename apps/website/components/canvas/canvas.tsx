@@ -68,9 +68,7 @@ const Canvas = ({ onRender, options }: CanvasProps) => {
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d", {
-      willReadFrequently: true,
       alpha: true,
-      desynchronized: true,
     });
     if (!ctx) return;
 
