@@ -145,6 +145,19 @@ const DetailsFooter = ({
   );
 };
 
+const ServiceBlank = () => {
+  return (
+    <Details className="justify-center items-center">
+      <div className="size-10 rounded-lg border flex items-center justify-center">
+        <PlusIcon size={20} className="text-secondary" />
+      </div>
+      <span className="text-center text-xl font-medium text-secondary">
+        Новые услуги, скоро...
+      </span>
+    </Details>
+  );
+};
+
 const ServicesDetails = async () => {
   const services = await getFullPricing();
   const sign = await get<string>("price-sign");
@@ -189,6 +202,7 @@ const ServicesDetails = async () => {
               </Details>
             );
           })}
+        <ServiceBlank />
       </div>
     </div>
   );

@@ -1,15 +1,11 @@
 "use client";
 import { isDev } from "@/app/login/get-url";
 import User from "@/components/dock/user";
-import { useNetwork } from "ahooks";
 import {
   BriefcaseBusinessIcon,
   ChevronDownIcon,
   FolderIcon,
   HomeIcon,
-  Loader2,
-  WifiIcon,
-  WifiOff,
 } from "lucide-react";
 import {
   Popover,
@@ -25,8 +21,9 @@ import {
 import { AnimatePresence } from "motion/react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { cn } from "yz13/cn";
+import DockWrapper, { DockWidgets } from "./dock-wrapper";
 import useDockMenuStore, { menu, Placeholder } from "./menus/menu.store";
 import Overlay from "./overlay";
 import CalendarPopover from "./popovers/calendar";
@@ -38,9 +35,9 @@ const LiveTime = dynamic(() => import("../live/live-time"), {
     </span>
   ),
 });
-const RadioPlayer = dynamic(() => import("@/components/radio-player"), {
+const RadioPlayer = dynamic(() => import("./components/radio-player"), {
   ssr: false,
-  loading: () => <Skeleton className="size-12 rounded-xl" />,
+  loading: () => <Skeleton className="h-[26px] w-[100px] rounded-full" />,
 });
 
 const ItemsGroup = ({ className = "" }: { className?: string }) => {
@@ -114,21 +111,6 @@ const Items = () => {
         </button>
       </div>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
-        <Tooltip delayDuration={100} open={unMuteReminder}>
-          <TooltipTrigger asChild>
-            <div
-              className="h-12 rounded-xl border transition-all w-fit"
-              onMouseEnter={() => setUnMuteReminder(false)}
-            >
-              <RadioPlayer />
-            </div>
-          </TooltipTrigger>
-          <TooltipContent side="top" sideOffset={12} className="border">
-            По умолчанию у радио выключен звук.
-          </TooltipContent>
-        </Tooltip>
-      </div>
-      <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
         <CalendarPopover>
           <button className="h-12 px-3 rounded-xl border flex items-center justify-center">
             <LiveTime className="text-lg w-12 text-center font-medium select-none" />
@@ -152,17 +134,6 @@ const Items = () => {
   );
 };
 
-export const ConnectionStatus = ({ size = 16 }: { size?: number }) => {
-  const networkState = useNetwork();
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    setReady(true);
-  }, []);
-  if (!ready) return <Loader2 size={size} className="animate-spin" />;
-  if (networkState.online) return <WifiIcon size={size} />;
-  else return <WifiOff size={size} />;
-};
-
 export const DockSkeleton = () => {
   return (
     <Skeleton className="h-[58px] w-64 border rounded-2xl fixed left-0 right-0 mx-auto bottom-3 z-20" />
@@ -179,17 +150,12 @@ const Dock = ({ className = "" }: { className?: string }) => {
     <>
       {useOverlay && <Overlay />}
       <AnimatePresence>{menuId && <Menu />}</AnimatePresence>
-      <div
-        className={cn(
-          "fixed left-0 right-0 mx-auto bottom-3",
-          "flex flex-row items-center justify-center gap-1",
-          "bg-background backdrop-blur border rounded-2xl",
-          "h-fit w-fit p-1 max-w-dvw shrink-0 lg:!overflow-hidden overflow-x-auto z-20",
-          className,
-        )}
-      >
+      <DockWrapper>
+        <DockWidgets>
+          <RadioPlayer />
+        </DockWidgets>
         <Items />
-      </div>
+      </DockWrapper>
     </>
   );
 };
