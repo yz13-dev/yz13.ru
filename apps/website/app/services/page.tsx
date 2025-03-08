@@ -5,6 +5,7 @@ import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
 import { showAppsLink, showFAQ, showPriceDetails } from "@/const/flags";
+import { wait } from "@/helpers/wait";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
+  await wait(2000);
   return (
     <>
       <Header className="sticky top-0">

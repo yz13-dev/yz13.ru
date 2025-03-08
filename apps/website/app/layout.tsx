@@ -157,7 +157,7 @@ export default function RootLayout({
       lang="en"
       className={cn(SANS.variable, MONO.variable, PIXEL.variable)}
     >
-      <body id="root">
+      <body id="root" className="antialiased">
         <Analytics />
         <SpeedInsights />
         <Toaster />

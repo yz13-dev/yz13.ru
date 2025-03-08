@@ -25,6 +25,34 @@
   }
 }
 
+:root {
+  --sidebar-width: 320px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --sidebar-width: 52px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --sidebar-width: 280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-width: 280px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --sidebar-width: 280px;
+  }
+}
+
 .grid-template {
   grid-template-columns: 48px minmax(0, 1fr) 48px;
   display: grid;
