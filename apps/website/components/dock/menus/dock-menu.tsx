@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createClient } from "yz13/supabase/client";
-import { ConnectionStatus } from "../dock";
+import ConntectionStatus from "../components/connection-status";
 import MenuWrapper from "./menu-wrapper";
 import { setMenuId } from "./menu.store";
 
@@ -68,7 +68,7 @@ const DockMenu = () => {
             <ChevronDownIcon size={18} />
           </Button>
           <Button size="icon" variant="ghost" className="p-1 size-7">
-            <ConnectionStatus size={18} />
+            <ConntectionStatus size={18} />
           </Button>
           <Button size="icon" variant="ghost" className="p-1 size-7" asChild>
             <Link href="/settings">
