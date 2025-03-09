@@ -28,8 +28,8 @@ const SANS = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Workspace",
-  description: "YZ13 Workspace",
+  title: "News",
+  description: "YZ13 News",
 };
 
 export default function RootLayout({
