@@ -38,7 +38,7 @@ app.route("/auth", auth);
 app.route("/pricing", pricing);
 app.route("/rooms", rooms);
 app.route("/pages", pages);
-app.route("/journal", news);
+app.route("/news", news);
 
 app.get("/version", (c) => {
   const version = packageJson.version;

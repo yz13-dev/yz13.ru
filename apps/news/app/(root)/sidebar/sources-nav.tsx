@@ -1,25 +1,38 @@
+import { getNewsSources } from "@/actions/sources/sources";
+import { ArrowUpRightIcon, NotebookTabsIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "mono/components/sidebar";
+import Link from "next/link";
 
-const SourcesNav = () => {
+const SourcesNav = async () => {
+  const sources = await getNewsSources("RU");
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Источники</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {([] as any[]).map((item, index) => {
+          {sources.map((item, index) => {
             return (
-              <SidebarMenuItem key={`${item.id}/${index}`}>
-                <SidebarMenuButton>
-                  {item.icon}
-                  <span>{item.name}</span>
+              <SidebarMenuItem
+                key={`${item.id}/${index}`}
+                className="text-secondary hover:text-foreground transition-colors"
+              >
+                <SidebarMenuButton asChild>
+                  <Link href={item.url} target="_blank">
+                    <NotebookTabsIcon />
+                    <span>{item.name}</span>
+                  </Link>
                 </SidebarMenuButton>
+                <SidebarMenuAction>
+                  <ArrowUpRightIcon className="text-inherit" />
+                </SidebarMenuAction>
               </SidebarMenuItem>
             );
           })}

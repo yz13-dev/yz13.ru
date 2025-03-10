@@ -23,6 +23,21 @@ news.get("/news-sources", async (c) => {
     } else return c.json(data);
   }
 });
+news.get("/news-sources/:source_id", async (c) => {
+  const source_id = c.req.param("source_id");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("news_sources")
+    .select()
+    .eq("id", source_id)
+    .limit(1)
+    .maybeSingle();
+  if (error) {
+    return c.json(null);
+  } else return c.json(data);
+});
+
 news.get("/parse-rules/:source_id", async (c) => {
   const source_id = c.req.param("source_id");
   const cookieStore = cookies();
@@ -48,4 +63,19 @@ news.get("/articles/:source_id", async (c) => {
   if (error) {
     return c.json([]);
   } else return c.json(data);
+});
+
+news.get("/codes", async (c) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("news_sources")
+    .select("country_code");
+  if (error) {
+    return c.json([]);
+  } else {
+    const codes = data.map(({ country_code }) => country_code);
+    const unique = [...new Set(codes)];
+    return c.json(unique);
+  }
 });

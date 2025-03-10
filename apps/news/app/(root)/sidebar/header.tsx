@@ -11,7 +11,7 @@ const Header = () => {
       <SidebarMenuItem>
         <SidebarMenuButton>
           <FlagIcon />
-          <span>Новости / Россия</span>
+          <span>Новости</span>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
