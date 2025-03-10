@@ -6,6 +6,7 @@ import { handle } from "hono/vercel";
 import { auth } from "./auth";
 import { charts } from "./charts";
 import { drafts } from "./drafts";
+import { news } from "./news";
 import { pages } from "./pages";
 import { pricing } from "./pricing";
 import { rooms } from "./rooms";
@@ -37,6 +38,7 @@ app.route("/auth", auth);
 app.route("/pricing", pricing);
 app.route("/rooms", rooms);
 app.route("/pages", pages);
+app.route("/journal", news);
 
 app.get("/version", (c) => {
   const version = packageJson.version;
