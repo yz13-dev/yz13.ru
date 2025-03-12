@@ -4,7 +4,7 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import User from "@/components/user";
 import { showAppsLink } from "@/const/flags";
-import { getGroups } from "@/const/releases";
+import { getGroups, ReleaseType } from "@/const/releases";
 import { groupByFirstLetter } from "@/lib/group";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -66,8 +66,11 @@ const page = async () => {
                     </span>
                     <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-2 *:h-24">
                       {items.map((item) => {
-                        const icon = item.icon;
-                        const Icon = ProjectTypeIcons[item.type];
+                        const icon = item.icon as {
+                          light: string;
+                          dark: string;
+                        };
+                        const Icon = ProjectTypeIcons[item.type as ReleaseType];
                         return (
                           <div
                             key={`${key}/${item.id}`}
