@@ -5,21 +5,41 @@ import { Tables } from "yz13/supabase/database";
 export type NewsSource = Tables<"news_sources"> & {
   parse_rules: Tables<"parse_rules">;
 };
+export type News = {
+  title: string;
+  url: string;
+  published_at: string;
+  source: string;
+  author: string;
+  description: string;
+  tags: string[];
+  img: {
+    url: string;
+    type: string;
+    length: string;
+  };
+};
 
 async function fetchRSS(source: NewsSource) {
   if (!source.rss) return [];
-  const parser = new Parser();
-  const feed = await parser.parseURL(source.rss);
-  return feed.items.map((item) => ({
-    title: item.title,
-    url: item.link,
-    published_at: item.pubDate,
-    source: source.id,
-    author: item.author,
-    description: item.description,
-    tags: item.categories,
-    img: item.enclosure,
-  }));
+  try {
+    const parser = new Parser();
+    const feed = await parser.parseURL(source.rss);
+    // console.log(source.id, feed);
+    return feed.items.map((item) => ({
+      title: item.title,
+      url: item.link,
+      published_at: item.pubDate,
+      source: source.id,
+      author: item.author,
+      description: item.description,
+      tags: item.categories,
+      img: item.enclosure,
+    }));
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }
 
 async function fetchHTML(source: NewsSource) {
@@ -49,6 +69,7 @@ async function fetchHTML(source: NewsSource) {
     .get();
 }
 
-export async function parseNews(source: NewsSource) {
+export async function parseNews(source: NewsSource): Promise<News[]> {
+  // @ts-expect-error
   return source.rss ? await fetchRSS(source) : await fetchHTML(source);
 }
