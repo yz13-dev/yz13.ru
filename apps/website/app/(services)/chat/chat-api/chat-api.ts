@@ -40,6 +40,11 @@ export const setChat = (chatRoom: ChatRoom | null) => {
   }
 };
 
+export const pushMessage = (message: ChatMessage) =>
+  chat.setState((state) => ({
+    messages: [...state.messages, message],
+  }));
+
 export const setMessages = (messages: ChatMessage[]) =>
   chat.setState(() => ({ messages }));
 export const setChats = (chatRooms: ChatRoom[]) =>

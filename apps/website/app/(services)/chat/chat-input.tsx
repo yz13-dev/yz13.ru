@@ -70,7 +70,6 @@ const ChatInput = ({
         message: value,
       });
       if (newMessage) {
-        router.refresh();
         setValue("");
       }
     }
@@ -83,59 +82,63 @@ const ChatInput = ({
       style={{
         bottom: `${bottomOffset}px`,
       }}
-      className={cn(
-        "flex items-center max-w-xl h-fit p-2 rounded-3xl bg-background-secondary border w-full justify-center absolute left-0 right-0 mx-auto",
-        className,
-      )}
+      className="absolute left-0 right-0 w-full max-w-xl mx-auto px-2 w-fit"
     >
-      <div className="w-full flex flex-col gap-2">
-        <AutoTextarea
-          onKeyDown={(e) => {
-            const isSendAction = e.key === "Enter" && !e.ctrlKey;
-            const isShiftEnter = e.key === "Enter" && e.shiftKey;
-            if (isShiftEnter) {
-              setValue(value + "\n");
-            }
-            if (isSendAction) {
-              e.preventDefault();
-              handleSend();
-            }
-          }}
-          placeholder="Пишите здесь"
-          className="font-medium text-base"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <div className="w-full flex items-center justify-between">
-          <div className="flex items-center gap-1">
+      <div
+        className={cn(
+          "flex items-center h-fit p-2 rounded-3xl bg-background-secondary border w-full justify-center",
+          className,
+        )}
+      >
+        <div className="w-full flex flex-col gap-2">
+          <AutoTextarea
+            onKeyDown={(e) => {
+              const isSendAction = e.key === "Enter" && !e.ctrlKey;
+              const isShiftEnter = e.key === "Enter" && e.shiftKey;
+              if (isShiftEnter) {
+                setValue(value + "\n");
+              }
+              if (isSendAction) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+            placeholder="Пишите здесь"
+            className="font-medium text-base"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="rounded-full text-secondary size-7"
+              >
+                <PaperclipIcon size={16} />
+              </Button>
+              <Button
+                variant="ghost"
+                className="rounded-full px-2 gap-1.5 h-7 text-secondary"
+                disabled={!typeLabel}
+              >
+                <BriefcaseBusinessIcon size={16} />
+                {typeLabel && <span className="text-sm">{typeLabel.name}</span>}
+              </Button>
+            </div>
             <Button
+              onClick={handleSend}
               size="icon"
-              variant="ghost"
-              className="rounded-full text-secondary size-7"
+              className="rounded-full size-7"
+              disabled={disabled}
             >
-              <PaperclipIcon size={16} />
-            </Button>
-            <Button
-              variant="ghost"
-              className="rounded-full px-2 gap-1.5 h-7 text-secondary"
-              disabled={!typeLabel}
-            >
-              <BriefcaseBusinessIcon size={16} />
-              {typeLabel && <span className="text-sm">{typeLabel.name}</span>}
+              {loading ? (
+                <Loader2Icon size={16} className="animate-spin" />
+              ) : (
+                <ArrowUpIcon size={16} />
+              )}
             </Button>
           </div>
-          <Button
-            onClick={handleSend}
-            size="icon"
-            className="rounded-full size-7"
-            disabled={disabled}
-          >
-            {loading ? (
-              <Loader2Icon size={16} className="animate-spin" />
-            ) : (
-              <ArrowUpIcon size={16} />
-            )}
-          </Button>
         </div>
       </div>
     </footer>

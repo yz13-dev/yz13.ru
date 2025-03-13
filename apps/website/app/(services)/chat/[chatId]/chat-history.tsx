@@ -1,15 +1,14 @@
 "use client";
-import { ChatMessage, ChatRoom } from "@/types/chat";
+import { ChatMessage } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { useEffect } from "react";
 import { cn } from "yz13/cn";
-import { setChat } from "../chat-api/chat-api";
+import { useChatApi } from "../chat-api/chat-provider";
 dayjs.extend(customParseFormat);
 
 const bubbleVariants = cva(
-  "max-w-md text-sm px-2.5 py-1.5 rounded-3xl w-fit flex",
+  "max-w-md text-sm px-3 py-1.5 rounded-3xl w-fit flex",
   {
     variants: {
       variant: {
@@ -78,10 +77,7 @@ const ChatBubbleGroup = ({ date, children }: ChatBubbleGroupProps) => {
   );
 };
 
-type ChatHistoryProps = {
-  messages: ChatMessage[];
-  chat: ChatRoom;
-};
+type ChatHistoryProps = {};
 
 const groupChatMessages = (messages: ChatMessage[]) => {
   const groups: Record<string, ChatMessage[]> = {};
@@ -95,31 +91,35 @@ const groupChatMessages = (messages: ChatMessage[]) => {
   return groups;
 };
 
-const ChatHistory = ({ chat, messages = [] }: ChatHistoryProps) => {
+const ChatHistory = ({}: ChatHistoryProps) => {
+  const messages = useChatApi((state) => state.messages);
   const groupedMessages = groupChatMessages(messages);
   const groupKeys = Object.keys(groupedMessages);
-  useEffect(() => {
-    if (chat) setChat(chat);
-  }, [chat]);
   return (
     <div className="w-full flex flex-col-reverse h-full">
       {groupKeys.map((key) => {
         const messages = groupedMessages[key] ?? [];
         return (
           <ChatBubbleGroup key={key} date={key}>
-            {messages.map((message) => {
-              const messageDate = dayjs(message.created_at).format("HH:mm");
-              return (
-                <ChatBubble
-                  key={`${key}/${message.id}`}
-                  side="right"
-                  variant="secondary"
-                  date={messageDate}
-                >
-                  {message.message}
-                </ChatBubble>
-              );
-            })}
+            {messages
+              .sort((a, b) => {
+                const dateA = dayjs(a.created_at);
+                const dateB = dayjs(b.created_at);
+                return dateB.unix() - dateA.unix();
+              })
+              .map((message) => {
+                const messageDate = dayjs(message.created_at).format("HH:mm");
+                return (
+                  <ChatBubble
+                    key={`${key}/${message.id}`}
+                    side="right"
+                    variant="secondary"
+                    date={messageDate}
+                  >
+                    {message.message}
+                  </ChatBubble>
+                );
+              })}
           </ChatBubbleGroup>
         );
       })}
