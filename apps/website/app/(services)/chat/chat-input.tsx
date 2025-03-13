@@ -1,11 +1,15 @@
 "use client";
+import { createChat, createMessageInChat } from "@/actions/chats/chats";
 import AutoTextarea from "@/components/auto-textarea";
+import { useUser } from "@/lib/use-auth";
 import {
   ArrowUpIcon,
   BriefcaseBusinessIcon,
+  Loader2Icon,
   PaperclipIcon,
 } from "lucide-react";
 import { Button } from "mono/components/button";
+import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 import { useChatApi } from "./chat-api/chat-provider";
@@ -13,19 +17,65 @@ import { useChatApi } from "./chat-api/chat-provider";
 type ChatInputProps = {
   className?: string;
   bottomOffset?: number;
+  chatId?: string;
 };
 
-const ChatInput = ({ className = "", bottomOffset = 8 }: ChatInputProps) => {
+const ChatInput = ({
+  chatId,
+  className = "",
+  bottomOffset = 8,
+}: ChatInputProps) => {
+  const [user, userLoading] = useUser();
   const ref = useRef<HTMLElement>(null);
   const [value, setValue] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const type = useChatApi((state) => state.type);
   const services = useChatApi((state) => state.services);
+  const inputType = chatId ? "reply" : "new";
   const typeLabel = useMemo(() => {
     return services.find((service) => service.type === type);
   }, [services, type]);
   const disabled = useMemo(() => {
-    return !type || !value;
-  }, [value, type]);
+    return !type || !value || loading || !user || userLoading;
+  }, [value, type, loading, userLoading, user]);
+  const router = useRouter();
+  const handleSend = async () => {
+    if (disabled) return;
+    if (!user) return;
+    setLoading(true);
+    console.log("send", value);
+    if (inputType === "new") {
+      console.log("need to create new chat");
+      const newChat = await createChat({
+        from_id: user.id,
+        service_type: type,
+      });
+      if (newChat) {
+        const newMessage = await createMessageInChat({
+          chat_id: newChat.id,
+          from_id: user.id,
+          message: value,
+        });
+        if (newMessage) {
+          router.push(`/chat/${newChat.id}`);
+          setValue("");
+        }
+      }
+      console.log("new chat", newChat);
+    } else {
+      console.log("need to reply to chat");
+      const newMessage = await createMessageInChat({
+        chat_id: chatId,
+        from_id: user.id,
+        message: value,
+      });
+      if (newMessage) {
+        router.refresh();
+        setValue("");
+      }
+    }
+    setLoading(false);
+  };
   return (
     <footer
       ref={ref}
@@ -40,6 +90,17 @@ const ChatInput = ({ className = "", bottomOffset = 8 }: ChatInputProps) => {
     >
       <div className="w-full flex flex-col gap-2">
         <AutoTextarea
+          onKeyDown={(e) => {
+            const isSendAction = e.key === "Enter" && !e.ctrlKey;
+            const isShiftEnter = e.key === "Enter" && e.shiftKey;
+            if (isShiftEnter) {
+              setValue(value + "\n");
+            }
+            if (isSendAction) {
+              e.preventDefault();
+              handleSend();
+            }
+          }}
           placeholder="Пишите здесь"
           className="font-medium text-base"
           value={value}
@@ -64,11 +125,16 @@ const ChatInput = ({ className = "", bottomOffset = 8 }: ChatInputProps) => {
             </Button>
           </div>
           <Button
+            onClick={handleSend}
             size="icon"
             className="rounded-full size-7"
             disabled={disabled}
           >
-            <ArrowUpIcon size={16} />
+            {loading ? (
+              <Loader2Icon size={16} className="animate-spin" />
+            ) : (
+              <ArrowUpIcon size={16} />
+            )}
           </Button>
         </div>
       </div>

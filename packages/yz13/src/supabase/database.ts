@@ -9,6 +9,74 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      chats: {
+        Row: {
+          created_at: string;
+          from_id: string;
+          id: string;
+          name: string | null;
+          request_type: string;
+          service_type: string | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          from_id?: string;
+          id?: string;
+          name?: string | null;
+          request_type?: string;
+          service_type?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          from_id?: string;
+          id?: string;
+          name?: string | null;
+          request_type?: string;
+          service_type?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
+      "chats-messages": {
+        Row: {
+          chat_id: string;
+          created_at: string;
+          edited_at: string | null;
+          from_id: string;
+          id: string;
+          message: string;
+          reply_to: string | null;
+        };
+        Insert: {
+          chat_id?: string;
+          created_at?: string;
+          edited_at?: string | null;
+          from_id?: string;
+          id?: string;
+          message?: string;
+          reply_to?: string | null;
+        };
+        Update: {
+          chat_id?: string;
+          created_at?: string;
+          edited_at?: string | null;
+          from_id?: string;
+          id?: string;
+          message?: string;
+          reply_to?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "chats-messages_chat_id_fkey";
+            columns: ["chat_id"];
+            isOneToOne: false;
+            referencedRelation: "chats";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       customers: {
         Row: {
           created_at: string;
@@ -107,6 +175,7 @@ export type Database = {
       };
       news: {
         Row: {
+          category: string | null;
           content: string | null;
           created_at: string | null;
           id: string;
@@ -117,6 +186,7 @@ export type Database = {
           url: string;
         };
         Insert: {
+          category?: string | null;
           content?: string | null;
           created_at?: string | null;
           id?: string;
@@ -127,6 +197,7 @@ export type Database = {
           url: string;
         };
         Update: {
+          category?: string | null;
           content?: string | null;
           created_at?: string | null;
           id?: string;
