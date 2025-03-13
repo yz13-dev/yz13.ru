@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "yz13/cn";
-import { setChatType } from "./chat-api";
-import { useChatApi } from "./chat-provider";
+import { setChatType } from "./chat-api/chat-api";
+import { useChatApi } from "./chat-api/chat-provider";
 
 const ChatTypeButton = ({
   type,

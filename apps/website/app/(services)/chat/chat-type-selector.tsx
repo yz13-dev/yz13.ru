@@ -1,7 +1,9 @@
-import { Pricing } from "@/types/pricing";
+"use client";
+import { useChatApi } from "./chat-api/chat-provider";
 import ChatTypeButton from "./chat-type-button";
 
-const ChatTypeSelector = ({ services = [] }: { services?: Pricing[] }) => {
+const ChatTypeSelector = () => {
+  const services = useChatApi((state) => state.services);
   return (
     <div className="flex items-start gap-1 flex-wrap">
       {services.map((service) => {

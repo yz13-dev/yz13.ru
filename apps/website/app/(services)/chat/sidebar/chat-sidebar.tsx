@@ -4,6 +4,7 @@ import {
   SidebarHeader,
 } from "mono/components/sidebar";
 import ChatHistoryNav from "./chat-history-nav";
+import ChatSidebarActions from "./chat-sidebar-actions";
 import Header from "./header";
 
 const ChatSidebar = () => {
@@ -13,6 +14,7 @@ const ChatSidebar = () => {
         <Header />
       </SidebarHeader>
       <SidebarContent>
+        <ChatSidebarActions />
         <ChatHistoryNav />
       </SidebarContent>
     </Sidebar>

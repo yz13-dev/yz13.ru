@@ -6,10 +6,17 @@ import {
   PaperclipIcon,
 } from "lucide-react";
 import { Button } from "mono/components/button";
-import { useMemo, useState } from "react";
-import { useChatApi } from "./chat-provider";
+import { useMemo, useRef, useState } from "react";
+import { cn } from "yz13/cn";
+import { useChatApi } from "./chat-api/chat-provider";
 
-const ChatInput = () => {
+type ChatInputProps = {
+  className?: string;
+  bottomOffset?: number;
+};
+
+const ChatInput = ({ className = "", bottomOffset = 8 }: ChatInputProps) => {
+  const ref = useRef<HTMLElement>(null);
   const [value, setValue] = useState<string>("");
   const type = useChatApi((state) => state.type);
   const services = useChatApi((state) => state.services);
@@ -19,9 +26,18 @@ const ChatInput = () => {
   const disabled = useMemo(() => {
     return !type || !value;
   }, [value, type]);
-
   return (
-    <footer className="flex items-center max-w-xl h-fit p-2 rounded-3xl bg-background-secondary border w-full justify-center absolute bottom-8 left-0 right-0 mx-auto">
+    <footer
+      ref={ref}
+      id="chat-input"
+      style={{
+        bottom: `${bottomOffset}px`,
+      }}
+      className={cn(
+        "flex items-center max-w-xl h-fit p-2 rounded-3xl bg-background-secondary border w-full justify-center absolute left-0 right-0 mx-auto",
+        className,
+      )}
+    >
       <div className="w-full flex flex-col gap-2">
         <AutoTextarea
           placeholder="Пишите здесь"
