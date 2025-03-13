@@ -9,6 +9,74 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      chats: {
+        Row: {
+          created_at: string;
+          from_id: string;
+          id: string;
+          name: string | null;
+          request_type: string;
+          service_type: string | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          from_id?: string;
+          id?: string;
+          name?: string | null;
+          request_type?: string;
+          service_type?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          from_id?: string;
+          id?: string;
+          name?: string | null;
+          request_type?: string;
+          service_type?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
+      "chats-messages": {
+        Row: {
+          chat_id: string;
+          created_at: string;
+          edited_at: string | null;
+          from_id: string;
+          id: string;
+          message: string;
+          reply_to: string | null;
+        };
+        Insert: {
+          chat_id?: string;
+          created_at?: string;
+          edited_at?: string | null;
+          from_id?: string;
+          id?: string;
+          message?: string;
+          reply_to?: string | null;
+        };
+        Update: {
+          chat_id?: string;
+          created_at?: string;
+          edited_at?: string | null;
+          from_id?: string;
+          id?: string;
+          message?: string;
+          reply_to?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "chats-messages_chat_id_fkey";
+            columns: ["chat_id"];
+            isOneToOne: false;
+            referencedRelation: "chats";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       customers: {
         Row: {
           created_at: string;
@@ -105,6 +173,118 @@ export type Database = {
         };
         Relationships: [];
       };
+      news: {
+        Row: {
+          category: string | null;
+          content: string | null;
+          created_at: string | null;
+          id: string;
+          method: string;
+          published_at: string;
+          source_id: string | null;
+          title: string;
+          url: string;
+        };
+        Insert: {
+          category?: string | null;
+          content?: string | null;
+          created_at?: string | null;
+          id?: string;
+          method: string;
+          published_at: string;
+          source_id?: string | null;
+          title: string;
+          url: string;
+        };
+        Update: {
+          category?: string | null;
+          content?: string | null;
+          created_at?: string | null;
+          id?: string;
+          method?: string;
+          published_at?: string;
+          source_id?: string | null;
+          title?: string;
+          url?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "news_source_id_fkey";
+            columns: ["source_id"];
+            isOneToOne: false;
+            referencedRelation: "news_sources";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      news_sources: {
+        Row: {
+          country_code: string;
+          created_at: string | null;
+          id: string;
+          name: string;
+          rss: string | null;
+          url: string;
+        };
+        Insert: {
+          country_code: string;
+          created_at?: string | null;
+          id?: string;
+          name: string;
+          rss?: string | null;
+          url: string;
+        };
+        Update: {
+          country_code?: string;
+          created_at?: string | null;
+          id?: string;
+          name?: string;
+          rss?: string | null;
+          url?: string;
+        };
+        Relationships: [];
+      };
+      parse_rules: {
+        Row: {
+          article_selector: string;
+          content_selector: string;
+          date_format: string;
+          date_selector: string;
+          id: string;
+          link_selector: string;
+          source_id: string | null;
+          title_selector: string;
+        };
+        Insert: {
+          article_selector: string;
+          content_selector: string;
+          date_format: string;
+          date_selector: string;
+          id?: string;
+          link_selector: string;
+          source_id?: string | null;
+          title_selector: string;
+        };
+        Update: {
+          article_selector?: string;
+          content_selector?: string;
+          date_format?: string;
+          date_selector?: string;
+          id?: string;
+          link_selector?: string;
+          source_id?: string | null;
+          title_selector?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "parse_rules_source_id_fkey";
+            columns: ["source_id"];
+            isOneToOne: false;
+            referencedRelation: "news_sources";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       pricing: {
         Row: {
           created_at: string;
@@ -199,6 +379,7 @@ export type Database = {
           icon: Json | null;
           id: string;
           name: string;
+          public_url: string | null;
           stage: Database["public"]["Enums"]["works-status"];
           type: string;
           updated_at: string;
@@ -209,6 +390,7 @@ export type Database = {
           icon?: Json | null;
           id?: string;
           name?: string;
+          public_url?: string | null;
           stage?: Database["public"]["Enums"]["works-status"];
           type?: string;
           updated_at?: string;
@@ -219,6 +401,7 @@ export type Database = {
           icon?: Json | null;
           id?: string;
           name?: string;
+          public_url?: string | null;
           stage?: Database["public"]["Enums"]["works-status"];
           type?: string;
           updated_at?: string;

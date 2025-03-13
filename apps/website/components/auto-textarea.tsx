@@ -4,17 +4,25 @@ import { useEffect, useRef } from "react";
 import { cn } from "yz13/cn";
 
 interface TextAreaPros
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
-const AutoTextarea = ({ value, className, ...props }: TextAreaPros) => {
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+  onHeight?: (height: number) => void;
+}
+const AutoTextarea = ({
+  value,
+  className,
+  onHeight,
+  ...props
+}: TextAreaPros) => {
   const ref = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     const textarea = ref.current;
     if (textarea) {
       textarea.style.height = "auto";
       const newHeight = textarea.scrollHeight;
+      if (onHeight) onHeight(newHeight);
       textarea.style.height = `${newHeight}px`;
     }
-  }, [value, ref]);
+  }, [value, ref, onHeight]);
   return (
     <textarea
       className={cn(

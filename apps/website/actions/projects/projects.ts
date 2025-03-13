@@ -61,7 +61,7 @@ export const createProject = async (
       .single();
     if (error) {
       return null;
-    } else return data as Release | null;
+    } else return data;
   } catch (error) {
     console.error(error);
     return null;

@@ -1,4 +1,4 @@
-import { getType, Release } from "@/const/releases";
+import { getType, Release, ReleaseType } from "@/const/releases";
 import dayjs from "dayjs";
 import { ArrowRightIcon, CalendarIcon } from "lucide-react";
 import { Separator } from "mono/components/separator";
@@ -21,11 +21,11 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
     { release, className = "", isActive = false, ...props }: ProjectProps,
     ref,
   ) => {
-    const icon = release.icon;
+    const icon = release.icon as { light: string; dark: string };
     const dateFormated = dayjs(release.created_at)
       .locale("ru")
       .format("MMM DD, YYYY");
-    const Icon = ProjectTypeIcons[release.type];
+    const Icon = ProjectTypeIcons[release.type as ReleaseType];
     return (
       <div
         ref={ref}
@@ -71,7 +71,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
             <div className="flex flex-col">
               <span className="text-base font-medium">{release.name}</span>
               <span className="text-xs text-secondary">
-                {getType[release.type]}
+                {getType[release.type as ReleaseType]}
               </span>
             </div>
           </div>

@@ -1,3 +1,5 @@
+import { Tables, TablesInsert } from "yz13/supabase/database";
+
 export type ReleaseType = "app" | "widget";
 
 type ReleaseIcon = {
@@ -5,24 +7,9 @@ type ReleaseIcon = {
   light: string;
 };
 
-export type Release = {
-  id: string;
-  stage: ReleaseStage;
-  type: ReleaseType;
-  name: string;
-  description: string;
-  created_at: string;
-  updated_at: string;
-  icon?: ReleaseIcon;
-};
+export type Release = Tables<"works">;
 
-export type NewRelease = {
-  name: string;
-  type: ReleaseType;
-  description: string;
-  stage: ReleaseStage;
-  icon?: ReleaseIcon;
-};
+export type NewRelease = TablesInsert<"works">;
 
 export type ReleaseStage =
   | "in_plans"

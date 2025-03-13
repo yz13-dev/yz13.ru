@@ -1,6 +1,6 @@
 import { getProject } from "@/actions/projects/projects";
 import User from "@/components/user";
-import { getStage, getType } from "@/const/releases";
+import { getStage, getType, ReleaseType } from "@/const/releases";
 import { auth, authorized } from "@/lib/auth";
 import { ArrowLeftIcon, ChevronDownIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -26,8 +26,8 @@ const page = async ({ params }: PageProps) => {
   const showControls = (user && isAdmin) ?? false;
   if (!release) return redirect("/projects");
   if (!isAdmin) return redirect("/projects");
-  const icon = release.icon;
-  const Icon = ProjectTypeIcons[release.type];
+  const icon = release.icon as { light: string; dark: string };
+  const Icon = ProjectTypeIcons[release.type as ReleaseType];
   return (
     <div className="w-full lg:p-6 p-3 space-y-4 min-h-dvh bg-background-secondary">
       <header className="w-full flex gap-2 items-center justify-between">
@@ -37,7 +37,7 @@ const page = async ({ params }: PageProps) => {
               <ArrowLeftIcon size={16} />
             </Link>
           </Button>
-          <div className="bg-neutral-200 lg:w-56 w-40 flex items-center justify-between h-full rounded-lg p-2 flex items-center">
+          <div className="bg-neutral-200 lg:w-56 w-40 flex items-center justify-between h-full rounded-lg p-2">
             <div className="flex w-full items-center gap-1">
               <div className="size-6 flex items-center justify-center relative">
                 {icon ? (
@@ -93,7 +93,7 @@ const page = async ({ params }: PageProps) => {
             {release?.type && (
               <div className="mb-3">
                 <span className="text-foreground/80 text-sm px-2 py-1 rounded-full border bg-background">
-                  {getType[release?.type]}
+                  {getType[release?.type as ReleaseType]}
                 </span>
               </div>
             )}
