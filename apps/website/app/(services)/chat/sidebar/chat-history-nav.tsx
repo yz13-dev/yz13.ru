@@ -51,7 +51,7 @@ const ChatHistoryNav = () => {
                     <SidebarMenuItem key={chat.id}>
                       <div className="w-full relative flex flex-col gap-1.5 cursor-pointer py-1 px-2 rounded-lg hover:bg-foreground/10 transition-colors">
                         <span className="font-medium block text-start">
-                          Заголовок
+                          {chat.name || "Без названия"}
                         </span>
                         <div className="flex w-full items-center justify-between text-xs text-secondary">
                           <span className="font-medium">

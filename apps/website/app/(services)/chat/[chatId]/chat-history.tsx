@@ -3,8 +3,10 @@ import { ChatMessage } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 import { useChatApi } from "../chat-api/chat-provider";
+import MessageCtxMenu from "../message-ctx-menu";
 dayjs.extend(customParseFormat);
 
 const bubbleVariants = cva(
@@ -19,14 +21,9 @@ const bubbleVariants = cva(
         ghost: "hover:bg-neutral-200 hover:text-foreground",
         link: "text-foreground underline-offset-4 hover:underline",
       },
-      side: {
-        left: "text-end",
-        right: "text-start",
-      },
     },
     defaultVariants: {
       variant: "default",
-      side: "left",
     },
   },
 );
@@ -36,26 +33,44 @@ type ChatBubbleProps = {
   variant?: "default" | "secondary" | "outline" | "ghost" | "link";
   children?: React.ReactNode;
   date?: string;
+  isShortMessage?: boolean;
 } & VariantProps<typeof bubbleVariants>;
 
 const ChatBubble = ({
   side = "right",
-  variant = "default",
+  variant = "secondary",
   date,
+  isShortMessage = false,
   children,
 }: ChatBubbleProps) => {
+  const [isCtxMenuOpen, setIsCtxMenuOpen] = useState<boolean>(false);
+  const bubbleVariant = isCtxMenuOpen ? "default" : variant;
   return (
-    <div
+    <MessageCtxMenu
+      onOpenChange={setIsCtxMenuOpen}
       className={cn(
-        "w-full flex flex-col px-6",
-        side === "left" ? "items-start" : "items-end",
+        "w-full px-6",
+        isShortMessage
+          ? side === "left"
+            ? "flex flex-row justify-start items-center"
+            : "flex flex-row-reverse items-center justify-start"
+          : side === "left"
+            ? "flex flex-col items-start"
+            : "flex flex-col items-end",
       )}
     >
-      <span className={cn(bubbleVariants({ side, variant }))}>{children}</span>
+      <span
+        className={cn(
+          "text-pretty break-words",
+          bubbleVariants({ variant: bubbleVariant }),
+        )}
+      >
+        {children}
+      </span>
       {date && (
         <span className="text-xs px-1.5 py-1 text-secondary">{date}</span>
       )}
-    </div>
+    </MessageCtxMenu>
   );
 };
 
@@ -95,9 +110,23 @@ const ChatHistory = ({}: ChatHistoryProps) => {
   const messages = useChatApi((state) => state.messages);
   const groupedMessages = groupChatMessages(messages);
   const groupKeys = Object.keys(groupedMessages);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [enableAutoScroll, setEnableAutoScroll] = useState<boolean>(true);
+  const handleScroll = () => {
+    if (ref.current) {
+      ref.current.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  };
+  useEffect(() => {
+    if (enableAutoScroll) handleScroll();
+  }, [messages, enableAutoScroll]);
   return (
-    <div className="w-full flex flex-col-reverse h-full">
-      {groupKeys.map((key) => {
+    <div ref={ref} className="w-full flex flex-col h-full overflow-y-auto">
+      {groupKeys.reverse().map((key) => {
         const messages = groupedMessages[key] ?? [];
         return (
           <ChatBubbleGroup key={key} date={key}>
@@ -109,12 +138,14 @@ const ChatHistory = ({}: ChatHistoryProps) => {
               })
               .map((message) => {
                 const messageDate = dayjs(message.created_at).format("HH:mm");
+                const isShortMessage = message.message.length <= 10;
                 return (
                   <ChatBubble
                     key={`${key}/${message.id}`}
                     side="right"
                     variant="secondary"
                     date={messageDate}
+                    isShortMessage={isShortMessage}
                   >
                     {message.message}
                   </ChatBubble>

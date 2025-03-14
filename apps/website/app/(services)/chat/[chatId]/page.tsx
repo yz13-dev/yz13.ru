@@ -1,7 +1,7 @@
 import { getChat, getChatMessages } from "@/actions/chats/chats";
 import { redirect } from "next/navigation";
 import ChatInput from "../chat-input";
-import ChatSidebarTrigger from "../chat-sidebar-trigger";
+import Header from "../header";
 import ChatHistory from "./chat-history";
 import ChatProvider from "./chat-provider";
 
@@ -17,12 +17,10 @@ const page = async ({ params }: PageProps) => {
   if (!chat) return redirect("/chat");
   return (
     <ChatProvider chat={chat} messages={messages}>
-      <div className="pt-6 px-6 absolute top-0 left-0 flex items-center gap-2">
-        <ChatSidebarTrigger />
-      </div>
+      <Header />
       <div
         id="chat-history-wrapper"
-        className="max-w-xl mx-auto w-full h-[87.5dvh]"
+        className="max-w-xl mx-auto w-full h-[calc(87.5dvh-56px)]"
       >
         <ChatHistory />
       </div>
