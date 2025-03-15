@@ -82,11 +82,11 @@ const ChatInput = ({
       style={{
         bottom: `${bottomOffset}px`,
       }}
-      className="absolute left-0 right-0 w-full max-w-xl mx-auto px-2 w-fit"
+      className="sticky z-10 left-0 right-0 max-w-xl mx-auto px-2 w-full"
     >
       <div
         className={cn(
-          "flex items-center h-fit p-2 rounded-3xl bg-background-secondary border w-full justify-center",
+          "flex items-center h-fit p-2 rounded-3xl bg-background-secondary/60 backdrop-blur-md border w-full justify-center",
           className,
         )}
       >
@@ -104,7 +104,7 @@ const ChatInput = ({
               }
             }}
             placeholder="Пишите здесь"
-            className="font-medium text-base"
+            className="font-medium text-base text-foreground/80"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />

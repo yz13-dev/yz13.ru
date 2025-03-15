@@ -1,6 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
-import { TablesInsert } from "yz13/supabase/database";
+import { TablesInsert, TablesUpdate } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
 
 export const getChat = async (id: string) => {
@@ -98,5 +98,46 @@ export const getChatMessages = async (id: string) => {
   } catch (error) {
     console.log(error);
     return [];
+  }
+};
+
+export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats")
+      .update(body)
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
+    console.log(data, error);
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteMessageFromChat = async (id: string) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-messages")
+      .delete()
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };

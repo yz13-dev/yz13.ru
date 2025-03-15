@@ -2,11 +2,17 @@
 
 import useTimeStore from "@/components/live/time.store";
 import { useUser } from "@/lib/use-auth";
+import { useSidebar } from "mono/components/sidebar";
 import { Skeleton } from "mono/components/skeleton";
+import { useEffect } from "react";
 
 const Header = () => {
+  const { setOpen } = useSidebar();
   const [user, loading] = useUser();
   const time = useTimeStore((state) => state.time);
+  useEffect(() => {
+    if (!loading && !user) setOpen(false);
+  }, [user, loading]);
   return (
     <div className="w-full px-2">
       <div className="flex items-center justify-between">

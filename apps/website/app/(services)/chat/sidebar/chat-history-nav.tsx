@@ -1,6 +1,7 @@
 "use client";
 import { ChatRoom } from "@/types/chat";
 import dayjs from "dayjs";
+import "dayjs/locale/ru";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {
@@ -12,6 +13,7 @@ import {
 } from "mono/components/sidebar";
 import Link from "next/link";
 import { useChatApi } from "../chat-api/chat-provider";
+
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
 
@@ -37,7 +39,7 @@ const ChatHistoryNav = () => {
       {groupKeys.map((key) => {
         const chats = groupedChats[key] ?? [];
         const date = dayjs(key, "YYYY-MM-DD").locale("ru");
-        const isToday = dayjs().isSame(date, "day");
+        const isToday = dayjs().locale("ru").isSame(date, "day");
         return (
           <SidebarGroup key={key}>
             <SidebarGroupLabel>
@@ -46,15 +48,15 @@ const ChatHistoryNav = () => {
             <SidebarGroupContent>
               <SidebarMenu>
                 {chats.map((chat) => {
-                  const date = dayjs(chat.created_at);
+                  const date = dayjs(chat.created_at).locale("ru");
                   return (
                     <SidebarMenuItem key={chat.id}>
                       <div className="w-full relative flex flex-col gap-1.5 cursor-pointer py-1 px-2 rounded-lg hover:bg-foreground/10 transition-colors">
                         <span className="font-medium block text-start">
-                          Заголовок
+                          {chat.name || "Без названия"}
                         </span>
                         <div className="flex w-full items-center justify-between text-xs text-secondary">
-                          <span className="font-medium">
+                          <span className="font-medium capitalize">
                             {date.format("MMM DD, YYYY")}
                           </span>
                           <span className="font-medium">

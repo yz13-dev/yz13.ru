@@ -1,22 +1,24 @@
-import { Loader2Icon } from "lucide-react";
+import { getAuthorizedUser } from "@/actions/user/user";
+import { revalidateTag } from "next/cache";
 import { Suspense } from "react";
 import ChatInput from "./chat-input";
-import ChatRequestSelector from "./chat-request-selector";
-import ChatSidebarTrigger from "./chat-sidebar-trigger";
-import ChatTypeSelector from "./chat-type-selector";
+import ChatTypeSelector, {
+  ChatTypeSelectorSkeleton,
+} from "./chat-type-selector";
+import Header from "./header";
 
 const page = async () => {
+  revalidateTag("user");
+  const current = await getAuthorizedUser();
+  console.log(current);
   return (
     <>
-      <div className="pt-6 px-6 absolute top-0 left-0 flex items-center gap-2">
-        <ChatSidebarTrigger />
-        <ChatRequestSelector />
-      </div>
-      <div className="w-full h-dvh flex flex-col gap-5 items-center justify-center">
+      <Header />
+      <div className="w-full h-[calc(100dvh-56px)] flex flex-col gap-5 items-center justify-center">
         <span className="text-center text-2xl font-medium text-foreground/60">
           Выберите услугу для заказа
         </span>
-        <Suspense fallback={<Loader2Icon size={16} />}>
+        <Suspense fallback={<ChatTypeSelectorSkeleton />}>
           <ChatTypeSelector />
         </Suspense>
       </div>

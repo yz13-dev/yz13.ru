@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 3001",
+    "dev": "next dev --turbo --port 3001 --experimental-https",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -24,6 +24,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "favicon-fetch": "^1.0.0",
+    "jose": "^6.0.10",
     "lodash": "^4.17.21",
     "lucide-react": "^0.452.0",
     "maplibre-gl": "^5.1.0",

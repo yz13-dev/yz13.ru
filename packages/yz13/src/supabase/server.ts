@@ -5,7 +5,7 @@ import { cookieOptions } from "./cookies";
 import { Database } from "./database";
 
 export const createClient = (
-  cookieStore: ReturnType<typeof cookies>
+  cookieStore: ReturnType<typeof cookies>,
 ): SupabaseClient<Database> => {
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -23,13 +23,13 @@ export const createClient = (
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
+              cookieStore.set(name, value, options),
             );
           } catch (error) {
-            console.error("Error setting cookies:", error);
+            console.error("Error setting cookies on server client");
           }
         },
       },
-    }
+    },
   );
 };
