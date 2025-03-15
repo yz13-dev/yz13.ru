@@ -1,3 +1,4 @@
+import { deleteMessageFromChat } from "@/actions/chats/chats";
 import {
   CheckCircleIcon,
   CopyIcon,
@@ -15,16 +16,30 @@ import {
   ContextMenuTrigger,
 } from "mono/components/context-menu";
 import { Input } from "mono/components/input";
+import { deleteMessage } from "./chat-api/chat-api";
 
 const MessageCtxMenu = ({
   children,
+  messageId,
   className = "",
+  message,
   onOpenChange,
 }: {
+  message?: string;
+  messageId?: string;
   onOpenChange?: (open: boolean) => void;
   className?: string;
   children: React.ReactNode;
 }) => {
+  const handleDelete = async () => {
+    if (!messageId) return;
+    const res = await deleteMessageFromChat(messageId);
+    if (res) deleteMessage(res.id);
+  };
+  const handleCopyText = async () => {
+    if (!message) return;
+    await navigator.clipboard.writeText(message);
+  };
   return (
     <ContextMenu onOpenChange={onOpenChange}>
       <ContextMenuTrigger className={className}>{children}</ContextMenuTrigger>
@@ -48,12 +63,12 @@ const MessageCtxMenu = ({
           <span>Закрепить</span>
         </ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem>
+        <ContextMenuItem disabled={!message} onClick={handleCopyText}>
           <CopyIcon size={16} />
           <span>Копировать текст</span>
         </ContextMenuItem>
         <ContextMenuSeparator />
-        <ContextMenuItem>
+        <ContextMenuItem disabled={!messageId} onClick={handleDelete}>
           <TrashIcon size={16} />
           <span>Удалить</span>
         </ContextMenuItem>

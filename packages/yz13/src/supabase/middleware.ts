@@ -5,7 +5,7 @@ import { cookieOptions } from "./cookies";
 import { Database } from "./database";
 
 export const createClient = (
-  request: NextRequest
+  request: NextRequest,
 ): {
   supabase: SupabaseClient<Database>;
   response: NextResponse<unknown>;
@@ -16,7 +16,6 @@ export const createClient = (
       headers: request.headers,
     },
   });
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -29,7 +28,7 @@ export const createClient = (
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              request.cookies.set(name, value)
+              request.cookies.set(name, value),
             );
           } catch {
             // The `setAll` method was called from a Server Component.
@@ -38,7 +37,7 @@ export const createClient = (
           }
         },
       },
-    }
+    },
   );
 
   return { supabase, response };

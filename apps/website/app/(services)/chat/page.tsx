@@ -1,10 +1,16 @@
-import { Loader2Icon } from "lucide-react";
+import { getAuthorizedUser } from "@/actions/user/user";
+import { revalidateTag } from "next/cache";
 import { Suspense } from "react";
 import ChatInput from "./chat-input";
-import ChatTypeSelector from "./chat-type-selector";
+import ChatTypeSelector, {
+  ChatTypeSelectorSkeleton,
+} from "./chat-type-selector";
 import Header from "./header";
 
 const page = async () => {
+  revalidateTag("user");
+  const current = await getAuthorizedUser();
+  console.log(current);
   return (
     <>
       <Header />
@@ -12,7 +18,7 @@ const page = async () => {
         <span className="text-center text-2xl font-medium text-foreground/60">
           Выберите услугу для заказа
         </span>
-        <Suspense fallback={<Loader2Icon size={16} />}>
+        <Suspense fallback={<ChatTypeSelectorSkeleton />}>
           <ChatTypeSelector />
         </Suspense>
       </div>

@@ -3,9 +3,14 @@ import {
   SidebarContent,
   SidebarHeader,
 } from "mono/components/sidebar";
+import { Skeleton } from "mono/components/skeleton";
+import dynamic from "next/dynamic";
 import ChatHistoryNav from "./chat-history-nav";
 import ChatSidebarActions from "./chat-sidebar-actions";
-import Header from "./header";
+const Header = dynamic(() => import("./header"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full h-14" />,
+});
 
 const ChatSidebar = () => {
   return (

@@ -1,24 +1,24 @@
-import { getChats } from "@/actions/chats/chats";
-import { getFullPricing } from "@/actions/pricing/pricing";
-import { auth } from "@/lib/auth";
 import { SidebarProvider } from "mono/components/sidebar";
-import { StoreProvider } from "./chat-api/chat-provider";
+import { Suspense } from "react";
+import Loading from "./loading";
+import ServerWrapper from "./server-wrapper";
 import ChatSidebar from "./sidebar/chat-sidebar";
+import { SidebarSkeleton } from "./sidebar/sidebar-skeleton";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
-const layout = async ({ children }: LayoutProps) => {
-  const services = await getFullPricing();
-  const user = await auth();
-  const id = user?.id;
-  const chats = id ? await getChats(id) : [];
+const layout = ({ children }: LayoutProps) => {
   return (
     <SidebarProvider>
-      <StoreProvider services={services} chats={chats}>
-        <ChatSidebar />
-        <div className="min-h-dvh w-full relative">{children}</div>
-      </StoreProvider>
+      <Suspense fallback={<Loading />}>
+        <ServerWrapper>
+          <Suspense fallback={<SidebarSkeleton />}>
+            <ChatSidebar />
+          </Suspense>
+          <div className="min-h-dvh w-full relative">{children}</div>
+        </ServerWrapper>
+      </Suspense>
     </SidebarProvider>
   );
 };

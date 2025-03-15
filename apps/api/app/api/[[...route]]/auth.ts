@@ -1,4 +1,5 @@
 import { Hono } from "hono/quick";
+import { decodeJwt } from "jose/jwt/decode";
 import { cookies } from "next/headers";
 import { isDev } from "yz13/env";
 import { createClient } from "yz13/supabase/server";
@@ -27,4 +28,32 @@ auth.get("/callback", async (c) => {
   }
 
   return c.redirect(`${origin}/auth/auth-code-error`);
+});
+
+auth.get("/current", async (c) => {
+  try {
+    const cookieStore = cookies();
+    // const cookie = getCookie(c);
+    const supabase = createClient(cookieStore);
+    const auth = supabase.auth;
+    // console.log(cookieStore.getAll(), cookie);
+    const {
+      data: { user },
+      error,
+    } = await auth.getUser();
+    if (error) {
+      // console.log(error);
+      return c.json(null);
+    } else return c.json(user);
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+});
+
+auth.post("/login", async (c) => {
+  const token = await c.req.text();
+  const decoded = decodeJwt(token);
+  console.log(decoded);
+  return c.json(null);
 });

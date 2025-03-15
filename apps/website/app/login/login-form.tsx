@@ -98,7 +98,6 @@ export function LoginForm({
                   </Button>
                   <Button
                     onClick={signIn}
-                    type="submit"
                     disabled={
                       isLoading || email.length === 0 || password.length === 0
                     }

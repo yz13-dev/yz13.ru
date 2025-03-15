@@ -44,6 +44,10 @@ export const pushMessage = (message: ChatMessage) =>
   chat.setState((state) => ({
     messages: [...state.messages, message],
   }));
+export const deleteMessage = (id: string) =>
+  chat.setState((state) => ({
+    messages: state.messages.filter((message) => message.id !== id),
+  }));
 
 export const setMessages = (messages: ChatMessage[]) =>
   chat.setState(() => ({ messages }));
