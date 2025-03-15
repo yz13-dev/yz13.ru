@@ -1,13 +1,11 @@
 import { getChat, getChatMessages } from "@/actions/chats/chats";
 import User from "@/components/user";
-import { wait } from "@/helpers/wait";
-import { AlbumIcon, ListTodoIcon, SettingsIcon, TagIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import ChatInput from "../chat-input";
 import ChatSidebarTrigger from "../chat-sidebar-trigger";
+import ChatToolbar from "../chat-toolbar/chat-toolbar";
 import ChatHistory from "./chat-history";
 import ChatProvider from "./chat-provider";
 import EditChatName from "./edit-chat-name";
@@ -21,7 +19,6 @@ const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
   const chat = await getChat(chatId);
   const messages = await getChatMessages(chatId);
-  await wait(2000);
   if (!chat) return redirect("/chat");
   const chatName = chat.name;
   return (
@@ -43,18 +40,7 @@ const page = async ({ params }: PageProps) => {
           <ChatHistory />
         </div>
         <div className="w-fit md:px-6 px-2 h-fit sticky right-0 top-1/3 flex flex-col items-center justify-center gap-2">
-          <Button size="icon" variant="secondary">
-            <ListTodoIcon size={16} />
-          </Button>
-          <Button size="icon" variant="secondary">
-            <AlbumIcon size={16} />
-          </Button>
-          <Button size="icon" variant="secondary">
-            <TagIcon size={16} />
-          </Button>
-          <Button size="icon" variant="secondary">
-            <SettingsIcon size={16} />
-          </Button>
+          <ChatToolbar />
         </div>
       </div>
       <ChatInput chatId={chatId} />

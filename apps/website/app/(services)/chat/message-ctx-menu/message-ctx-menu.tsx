@@ -15,8 +15,8 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "mono/components/context-menu";
-import { Input } from "mono/components/input";
-import { deleteMessage } from "./chat-api/chat-api";
+import { deleteMessage } from "../chat-api/chat-api";
+import TagInput from "./tag-input";
 
 const MessageCtxMenu = ({
   children,
@@ -40,15 +40,13 @@ const MessageCtxMenu = ({
     if (!message) return;
     await navigator.clipboard.writeText(message);
   };
+
   return (
     <ContextMenu onOpenChange={onOpenChange}>
       <ContextMenuTrigger className={className}>{children}</ContextMenuTrigger>
       <ContextMenuContent className="w-64 *:gap-2">
         <ContextMenuLabel>
-          <Input
-            className="h-8 rounded-md text-xs"
-            placeholder="Тэг для сообщения"
-          />
+          <TagInput />
         </ContextMenuLabel>
         <ContextMenuItem>
           <ReplyIcon size={16} />

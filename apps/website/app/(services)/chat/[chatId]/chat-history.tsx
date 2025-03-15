@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { useChatApi } from "../chat-api/chat-provider";
-import MessageCtxMenu from "../message-ctx-menu";
+import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 dayjs.extend(customParseFormat);
 
 const bubbleVariants = cva(
