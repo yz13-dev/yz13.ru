@@ -1,3 +1,4 @@
+"use server";
 import { API_URL } from "@/const/api";
 import { User } from "@supabase/supabase-js";
 import dayjs from "dayjs";

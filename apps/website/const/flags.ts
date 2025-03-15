@@ -104,3 +104,11 @@ export const showBlog = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+export const enableChat = flag<boolean>({
+  key: "enable-chat",
+  description: "Make chat available",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
