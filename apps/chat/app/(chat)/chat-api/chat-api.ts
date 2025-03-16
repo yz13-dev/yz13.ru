@@ -1,4 +1,4 @@
-import { ChatMessage, ChatRoom } from "@/types/chat";
+import { ChatMessage, ChatRoom, ChatTask } from "@/types/chat";
 import { Pricing } from "@/types/pricing";
 import { createStore } from "zustand";
 
@@ -7,6 +7,7 @@ export type Store = {
   chat: ChatRoom | null;
   messages: ChatMessage[];
   chats: ChatRoom[];
+  tasks: ChatTask[];
 };
 
 const initialState: Store = {
@@ -14,6 +15,7 @@ const initialState: Store = {
   chat: null,
   messages: [],
   chats: [],
+  tasks: [],
 };
 
 export const createChatApi = (initState: Partial<Store> = initialState) => {
@@ -24,6 +26,8 @@ export const createChatApi = (initState: Partial<Store> = initialState) => {
 };
 
 export const chat = createChatApi();
+
+export const setTasks = (tasks: ChatTask[]) => chat.setState(() => ({ tasks }));
 
 export const setServices = (services: Pricing[]) =>
   chat.setState(() => ({ services }));
@@ -47,6 +51,22 @@ export const updateChatInList = (chatRoom: ChatRoom) => {
     chat.setState(() => ({ chats: updated }));
   }
 };
+
+export const pushTask = (task: ChatTask) =>
+  chat.setState((state) => ({
+    tasks: [...state.tasks, task],
+  }));
+export const updateTask = (task: ChatTask) =>
+  chat.setState((state) => ({
+    tasks: state.tasks.map((msg) => {
+      if (msg.id === task.id) return task;
+      else return msg;
+    }),
+  }));
+export const deleteTask = (id: string) =>
+  chat.setState((state) => ({
+    tasks: state.tasks.filter((task) => task.id !== id),
+  }));
 
 export const pushMessage = (message: ChatMessage) =>
   chat.setState((state) => ({

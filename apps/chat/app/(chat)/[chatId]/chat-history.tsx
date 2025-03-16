@@ -63,7 +63,12 @@ const BubbleTag = ({
     }
   };
   return (
-    <span className="px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-full border">
+    <span
+      className={cn(
+        "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-full border",
+        "bg-background-secondary",
+      )}
+    >
       <HashIcon
         size={14}
         className={messageId ? "group-hover/tag:hidden flex" : ""}

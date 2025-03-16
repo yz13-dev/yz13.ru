@@ -16,7 +16,8 @@ export type Database = {
           id: string;
           name: string | null;
           "pinned-message": string | null;
-          tags: Json[];
+          tags: Json[] | null;
+          task_lists: Json[] | null;
           updated_at: string | null;
         };
         Insert: {
@@ -25,7 +26,8 @@ export type Database = {
           id?: string;
           name?: string | null;
           "pinned-message"?: string | null;
-          tags?: Json[];
+          tags?: Json[] | null;
+          task_lists?: Json[] | null;
           updated_at?: string | null;
         };
         Update: {
@@ -34,7 +36,8 @@ export type Database = {
           id?: string;
           name?: string | null;
           "pinned-message"?: string | null;
-          tags?: Json[];
+          tags?: Json[] | null;
+          task_lists?: Json[] | null;
           updated_at?: string | null;
         };
         Relationships: [
@@ -81,6 +84,44 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "chats-messages_chat_id_fkey";
+            columns: ["chat_id"];
+            isOneToOne: false;
+            referencedRelation: "chats";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      "chats-tasks": {
+        Row: {
+          chat_id: string;
+          checked: boolean | null;
+          created_at: string;
+          from_id: string;
+          id: string;
+          note: string | null;
+          title: string | null;
+        };
+        Insert: {
+          chat_id: string;
+          checked?: boolean | null;
+          created_at?: string;
+          from_id: string;
+          id?: string;
+          note?: string | null;
+          title?: string | null;
+        };
+        Update: {
+          chat_id?: string;
+          checked?: boolean | null;
+          created_at?: string;
+          from_id?: string;
+          id?: string;
+          note?: string | null;
+          title?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "chats-tasks_chat_id_fkey";
             columns: ["chat_id"];
             isOneToOne: false;
             referencedRelation: "chats";

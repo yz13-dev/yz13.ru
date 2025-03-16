@@ -1,11 +1,4 @@
-import {
-  AlbumIcon,
-  CalendarIcon,
-  ListTodoIcon,
-  MessageCircleIcon,
-  SettingsIcon,
-  TagIcon,
-} from "lucide-react";
+import { ListTodoIcon, MessageCircleIcon, SettingsIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
 
@@ -16,23 +9,14 @@ const ChatToolbar = ({ chatId }: ChatToolbarProps) => {
   return (
     <>
       <Button size="icon" variant="secondary" asChild>
-        <Link href={`/chat/${chatId}`}>
+        <Link href={`/${chatId}`}>
           <MessageCircleIcon size={16} />
         </Link>
       </Button>
       <Button size="icon" variant="secondary" asChild>
-        <Link href={`/chat/${chatId}/tasks`}>
+        <Link href={`/${chatId}/tasks`}>
           <ListTodoIcon size={16} />
         </Link>
-      </Button>
-      <Button size="icon" variant="secondary">
-        <CalendarIcon size={16} />
-      </Button>
-      <Button size="icon" variant="secondary">
-        <AlbumIcon size={16} />
-      </Button>
-      <Button size="icon" variant="secondary">
-        <TagIcon size={16} />
       </Button>
       <Button size="icon" variant="secondary">
         <SettingsIcon size={16} />

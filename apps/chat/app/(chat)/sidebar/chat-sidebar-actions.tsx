@@ -1,4 +1,4 @@
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, SettingsIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -18,17 +18,17 @@ const ChatSidebarActions = () => {
             <SidebarMenuButton asChild>
               <Link href="/">
                 <PlusIcon />
-                <span>Личный чат</span>
-              </Link>
-            </SidebarMenuButton>
-            <SidebarMenuButton asChild>
-              <Link href="/">
-                <PlusIcon />
-                <span>Групповой чат</span>
+                <span>Новый чат</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarSeparator />
+          <SidebarMenuButton asChild>
+            <Link href="/settings">
+              <SettingsIcon />
+              <span>Настройки</span>
+            </Link>
+          </SidebarMenuButton>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
