@@ -19,6 +19,10 @@
   scrollbar-width: none;
 }
 
+.text-content {
+  unicode-bidi: plaintext;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   width: 0px;
   height: 0px;

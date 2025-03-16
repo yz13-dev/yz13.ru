@@ -10,7 +10,7 @@ const PageWrapper = ({
   return (
     <div
       className={cn(
-        "w-full md:max-w-[calc(100dvw-68px)] max-w-[calc(100dvw-52px)]",
+        "w-full md:max-w-[calc(100%-68px)] max-w-[calc(100%-52px)] min-h-[calc(100dvh-56px-126px)]",
         className,
       )}
     >

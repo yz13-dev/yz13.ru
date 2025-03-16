@@ -15,8 +15,7 @@ export type Database = {
           from_id: string;
           id: string;
           name: string | null;
-          request_type: string;
-          service_type: string | null;
+          "pinned-message": string | null;
           tags: Json[];
           updated_at: string | null;
         };
@@ -25,8 +24,7 @@ export type Database = {
           from_id?: string;
           id?: string;
           name?: string | null;
-          request_type?: string;
-          service_type?: string | null;
+          "pinned-message"?: string | null;
           tags?: Json[];
           updated_at?: string | null;
         };
@@ -35,12 +33,19 @@ export type Database = {
           from_id?: string;
           id?: string;
           name?: string | null;
-          request_type?: string;
-          service_type?: string | null;
+          "pinned-message"?: string | null;
           tags?: Json[];
           updated_at?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "chats_pinned-message_fkey";
+            columns: ["pinned-message"];
+            isOneToOne: false;
+            referencedRelation: "chats-messages";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       "chats-messages": {
         Row: {

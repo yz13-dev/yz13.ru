@@ -43,7 +43,9 @@ const MessageCtxMenu = ({
 
   return (
     <ContextMenu onOpenChange={onOpenChange}>
-      <ContextMenuTrigger className={className}>{children}</ContextMenuTrigger>
+      <ContextMenuTrigger className={className} asChild>
+        {children}
+      </ContextMenuTrigger>
       <ContextMenuContent className="w-64 *:gap-2">
         <ContextMenuLabel>
           <TagInput messageId={messageId} />

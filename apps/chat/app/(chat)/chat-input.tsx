@@ -2,19 +2,14 @@
 import { createChat, createMessageInChat } from "@/actions/chats/chats";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
-import {
-  ArrowUpIcon,
-  BriefcaseBusinessIcon,
-  Loader2Icon,
-  PaperclipIcon,
-} from "lucide-react";
+import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
-import { useChatApi } from "./chat-api/chat-provider";
 
 type ChatInputProps = {
+  containerClassName?: string;
   className?: string;
   bottomOffset?: number;
   chatId?: string;
@@ -22,6 +17,7 @@ type ChatInputProps = {
 
 const ChatInput = ({
   chatId,
+  containerClassName = "",
   className = "",
   bottomOffset = 8,
 }: ChatInputProps) => {
@@ -29,15 +25,10 @@ const ChatInput = ({
   const ref = useRef<HTMLElement>(null);
   const [value, setValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const type = useChatApi((state) => state.type);
-  const services = useChatApi((state) => state.services);
   const inputType = chatId ? "reply" : "new";
-  const typeLabel = useMemo(() => {
-    return services.find((service) => service.type === type);
-  }, [services, type]);
   const disabled = useMemo(() => {
-    return !type || !value || loading || !user || userLoading;
-  }, [value, type, loading, userLoading, user]);
+    return !value || loading || !user || userLoading;
+  }, [value, loading, userLoading, user]);
   const router = useRouter();
   const handleSend = async () => {
     if (disabled) return;
@@ -48,7 +39,6 @@ const ChatInput = ({
       console.log("need to create new chat");
       const newChat = await createChat({
         from_id: user.id,
-        service_type: type,
       });
       if (newChat) {
         const newMessage = await createMessageInChat({
@@ -57,7 +47,7 @@ const ChatInput = ({
           message: value,
         });
         if (newMessage) {
-          router.push(`/chat/${newChat.id}`);
+          router.push(`/${newChat.id}`);
           setValue("");
         }
       }
@@ -82,7 +72,10 @@ const ChatInput = ({
       style={{
         bottom: `${bottomOffset}px`,
       }}
-      className="fixed z-10 left-0 right-0 max-w-xl mx-auto px-2 w-full"
+      className={cn(
+        "fixed z-10 left-0 right-0 bottom-6 max-w-xl mx-auto px-2 w-full",
+        containerClassName,
+      )}
     >
       <div
         className={cn(
@@ -109,23 +102,7 @@ const ChatInput = ({
             onChange={(e) => setValue(e.target.value)}
           />
           <div className="w-full flex items-center justify-between">
-            <div className="flex items-center gap-1">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="rounded-full text-secondary size-7"
-              >
-                <PaperclipIcon size={16} />
-              </Button>
-              <Button
-                variant="ghost"
-                className="rounded-full px-2 gap-1.5 h-7 text-secondary"
-                disabled={!typeLabel}
-              >
-                <BriefcaseBusinessIcon size={16} />
-                {typeLabel && <span className="text-sm">{typeLabel.name}</span>}
-              </Button>
-            </div>
+            <div className="flex items-center gap-1"></div>
             <Button
               onClick={handleSend}
               size="icon"

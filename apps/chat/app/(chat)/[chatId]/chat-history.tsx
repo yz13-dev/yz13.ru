@@ -16,7 +16,7 @@ import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 dayjs.extend(customParseFormat);
 
 const bubbleVariants = cva(
-  "max-w-md text-sm px-3 py-1.5 rounded-3xl w-fit flex border border-transparent",
+  "max-w-md text-sm px-3 py-1.5 rounded-3xl w-fit border border-transparent",
   {
     variants: {
       variant: {
@@ -82,6 +82,23 @@ const BubbleTag = ({
   );
 };
 
+const parseText = (text: string) => {
+  const parts = text.split(/(".*?")/g); // Разделяем текст по кавычкам, включая кавычки
+
+  return parts.map((part, index) => {
+    if (part.startsWith('"') && part.endsWith('"')) {
+      return (
+        <code
+          key={index}
+          className="px-1.5 rounded-sm whitespace-pre-wrap py-0.5 bg-neutral-300"
+        >
+          {part.replaceAll(/"/g, "")}
+        </code>
+      );
+    } else return part;
+  });
+};
+
 const ChatBubble = ({
   side = "right",
   variant = "secondary",
@@ -94,32 +111,33 @@ const ChatBubble = ({
   const [isCtxMenuOpen, setIsCtxMenuOpen] = useState<boolean>(false);
   const bubbleVariant = isCtxMenuOpen ? "outline" : variant;
   return (
-    <motion.div
-      className="overflow-hidden w-full h-fit"
-      exit={{ opacity: 0, height: 0 }}
+    <MessageCtxMenu
+      message={children as string}
+      messageId={messageId}
+      onOpenChange={setIsCtxMenuOpen}
+      className={cn(
+        "w-full gap-1 px-6 h-fit",
+        isShortMessage
+          ? side === "left"
+            ? "flex flex-row justify-start items-center"
+            : "flex flex-row-reverse items-center justify-start"
+          : side === "left"
+            ? "flex flex-col items-start"
+            : "flex flex-col items-end",
+      )}
     >
-      <MessageCtxMenu
-        message={children as string}
-        messageId={messageId}
-        onOpenChange={setIsCtxMenuOpen}
-        className={cn(
-          "w-full gap-1 px-6",
-          isShortMessage
-            ? side === "left"
-              ? "flex flex-row justify-start items-center"
-              : "flex flex-row-reverse items-center justify-start"
-            : side === "left"
-              ? "flex flex-col items-start"
-              : "flex flex-col items-end",
-        )}
+      <motion.div
+        className="overflow-hidden w-full h-fit"
+        exit={{ opacity: 0, height: 0 }}
       >
         <span
           className={cn(
-            "text-pretty break-words select-none",
+            "w-full *:select-none inline-block overflow-clip text-content *:inline",
+            "whitespace-pre-wrap break-words relative",
             bubbleVariants({ variant: bubbleVariant }),
           )}
         >
-          {children}
+          {parseText(children as string)}
         </span>
         <div className="flex items-center gap-2">
           {tags.length !== 0 && (
@@ -137,8 +155,8 @@ const ChatBubble = ({
             </span>
           )}
         </div>
-      </MessageCtxMenu>
-    </motion.div>
+      </motion.div>
+    </MessageCtxMenu>
   );
 };
 
@@ -192,7 +210,7 @@ const ChatHistory = ({}: ChatHistoryProps) => {
 
   const [enableAutoScroll, setEnableAutoScroll] = useState<boolean>(true);
   const handleScroll = () => {
-    const wrapper = document.getElementById("root");
+    const wrapper = document.getElementById("chat-wrapper");
     // console.log(enableAutoScroll, !!wrapper);
     if (wrapper) {
       console.log("height", wrapper.scrollHeight);

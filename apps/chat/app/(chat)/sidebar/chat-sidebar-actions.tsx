@@ -5,6 +5,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
 } from "mono/components/sidebar";
 import Link from "next/link";
 
@@ -15,18 +16,19 @@ const ChatSidebarActions = () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href="/chat">
+              <Link href="/">
                 <PlusIcon />
-                <span>Новый личный чат</span>
+                <span>Личный чат</span>
               </Link>
             </SidebarMenuButton>
             <SidebarMenuButton asChild>
-              <Link href="/chat">
+              <Link href="/">
                 <PlusIcon />
-                <span>Новый групповой чат</span>
+                <span>Групповой чат</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
+          <SidebarSeparator />
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

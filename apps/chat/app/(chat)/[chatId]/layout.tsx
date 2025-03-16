@@ -7,6 +7,7 @@ import ChatSidebarTrigger from "../chat-sidebar-trigger";
 import ChatToolbar from "../chat-toolbar/chat-toolbar";
 import ChatProvider from "./chat-provider";
 import EditChatName from "./edit-chat-name";
+import PageWrapper from "./page-wrapper";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -36,7 +37,7 @@ const layout = async ({ children, params }: LayoutProps) => {
         id="chat-history-wrapper"
         className="w-full min-h-[calc(100dvh-56px)] overflow-y-visible flex pb-6"
       >
-        {children}
+        <PageWrapper>{children}</PageWrapper>
         <div className="w-fit md:px-4 shrink-0 px-2 h-fit sticky right-0 top-1/3 flex flex-col items-center justify-center gap-2">
           <ChatToolbar chatId={chatId} />
         </div>
