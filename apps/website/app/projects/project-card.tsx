@@ -40,7 +40,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
           <div className="flex items-center gap-2">
             <div
               className={cn(
-                "size-9 flex items-center justify-center relative border rounded-lg",
+                "size-9 shrink-0 flex items-center justify-center relative border rounded-lg",
                 "group-hover:border-foreground transition-colors bg-background-back",
               )}
             >
@@ -69,7 +69,9 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectProps>(
               )}
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-medium">{release.name}</span>
+              <span className="text-base font-medium line-clamp-1">
+                {release.name}
+              </span>
               <span className="text-xs text-secondary">
                 {getType[release.type as ReleaseType]}
               </span>

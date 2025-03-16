@@ -77,14 +77,30 @@ const TaskInput = ({ chatId }: { chatId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [user] = useUser();
   const handleCreateTask = async () => {
-    if (!open) return;
-    if (!user) return;
-    setLoading(true);
+    if (!open) {
+      setOpen(false);
+      return;
+    }
+    if (!user) {
+      setOpen(false);
+      return;
+    }
     const task = useTaskMenu.getState().task;
-    await createTask(chatId, { ...task, from_id: user.id });
-    setLoading(false);
-    setOpen(false);
-    clearTask();
+    if (!task.title) {
+      setOpen(false);
+      return;
+    }
+    setLoading(true);
+    try {
+      await createTask(chatId, { ...task, from_id: user.id });
+      setLoading(false);
+      setOpen(false);
+      clearTask();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <footer className="sticky z-10 left-0 right-0 bottom-6 max-w-md mx-auto px-2 w-full">
@@ -99,11 +115,13 @@ const TaskInput = ({ chatId }: { chatId: string }) => {
           className="flex items-center h-fit p-2 rounded-3xl bg-background-secondary/60 backdrop-blur-md border w-full justify-between"
         >
           <div className="flex items-center gap-2">
-            {loading ? (
-              <Loader2Icon size={16} className="animate-spin" />
-            ) : (
-              <PlusIcon size={16} />
-            )}
+            <div className="size-6 flex items-center justify-center">
+              {loading ? (
+                <Loader2Icon size={16} className="animate-spin" />
+              ) : (
+                <PlusIcon size={16} />
+              )}
+            </div>
             <span className="text-sm">Создать задачу</span>
           </div>
           <kbd className="text-xs inline-flex gap-1 items-center *:h-6 *:px-2 *:rounded-full *:bg-neutral-300 *:flex *:items-center  *:justify-center">

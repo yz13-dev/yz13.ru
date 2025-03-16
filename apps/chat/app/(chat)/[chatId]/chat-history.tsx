@@ -144,7 +144,7 @@ const ChatBubble = ({
         >
           {parseText(children as string)}
         </span>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           {tags.length !== 0 && (
             <div className="w-full flex flex-wrap gap-1 items-start">
               {tags.map((tag) => {

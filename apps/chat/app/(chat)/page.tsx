@@ -1,7 +1,9 @@
+import { getAuthorizedUser } from "@/actions/user/user";
 import ChatInput from "./chat-input";
 import Header from "./header";
 
-const page = () => {
+const page = async () => {
+  console.log(await getAuthorizedUser());
   return (
     <>
       <Header />

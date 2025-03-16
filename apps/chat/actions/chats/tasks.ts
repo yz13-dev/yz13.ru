@@ -1,6 +1,6 @@
 "use server";
 
-import { ChatTask, NewChatTask } from "@/types/chat";
+import { ChatTask, NewChatTask, UpdatedTask } from "@/types/chat";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 
@@ -29,6 +29,45 @@ export const createTask = async (chatId: string, task: NewChatTask) => {
       ...task,
       chat_id: chatId,
     });
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+export const updateTask = async (taskId: string, task: UpdatedTask) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-tasks")
+      .update(task)
+      .eq("id", taskId)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteTask = async (taskId: string) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-tasks")
+      .delete()
+      .eq("id", taskId)
+      .select("*")
+      .maybeSingle();
     if (error) {
       console.log(error);
       return null;
