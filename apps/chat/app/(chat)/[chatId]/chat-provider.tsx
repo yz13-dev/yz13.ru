@@ -1,21 +1,25 @@
 "use client";
 
-import { ChatMessage, ChatRoom } from "@/types/chat";
+import { ChatMessage, ChatRoom, ChatTask } from "@/types/chat";
 import { useEffect } from "react";
 import { createClient } from "yz13/supabase/client";
 import {
   deleteMessage,
+  deleteTask,
   pushMessage,
+  pushTask,
   setChat,
   setMessages,
   updateChatInList,
   updateMessage,
+  updateTask,
 } from "../chat-api/chat-api";
 
 type ChatProviderProps = {
   children?: React.ReactNode;
   chat: ChatRoom;
   messages?: ChatMessage[];
+  tasks?: ChatTask[];
 };
 const ChatProvider = ({ children, chat, messages = [] }: ChatProviderProps) => {
   useEffect(() => {
@@ -47,6 +51,43 @@ const ChatProvider = ({ children, chat, messages = [] }: ChatProviderProps) => {
             updateChatInList(newChat);
           }
           if (isDelete) {
+          }
+        },
+      )
+      .subscribe();
+    return () => {
+      channel.unsubscribe();
+    };
+  }, [chat]);
+  useEffect(() => {
+    const client = createClient();
+    const channel = client.channel(`chat:${chat.id}:tasks`);
+    channel
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "chats-tasks",
+          filter: `chat_id=eq.${chat.id}`,
+        },
+        (payload) => {
+          console.log("payload", payload);
+          const event = payload.eventType;
+          const isInsert = event === "INSERT";
+          const isUpdate = event === "UPDATE";
+          const isDelete = event === "DELETE";
+          if (isInsert) {
+            const newTask = payload.new as ChatTask;
+            pushTask(newTask);
+          }
+          if (isUpdate) {
+            const updatedTask = payload.new as ChatTask;
+            updateTask(updatedTask);
+          }
+          if (isDelete) {
+            const deletedTask = payload.old as ChatTask;
+            deleteTask(deletedTask.id);
           }
         },
       )

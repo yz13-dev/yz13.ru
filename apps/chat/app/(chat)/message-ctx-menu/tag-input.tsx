@@ -60,7 +60,7 @@ const TagInput = ({ messageId }: TagInputProps) => {
         id: randomNumberId(10),
         tag,
       };
-      const tags = [...chat.tags, newTag] as ChatTag[];
+      const tags = [...(chat.tags as ChatTag[]), newTag] as ChatTag[];
       const updatedChat = await updateChat(chatId, { tags });
       if (updatedChat) {
         setChat(updatedChat);
