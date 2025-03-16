@@ -2,20 +2,29 @@
 import { cookies } from "next/headers";
 import { TablesInsert, TablesUpdate } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
+import { redis } from "../redis";
 
 export const getChat = async (id: string) => {
+  const key = `chat:${id}`;
   try {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("chats")
-      .select("*")
-      .eq("id", id)
-      .maybeSingle();
-    if (error) {
-      console.log(error);
-      return null;
-    } else return data;
+    const cached = await redis.get(key);
+    if (cached) return cached;
+    else {
+      const cookieStore = cookies();
+      const supabase = createClient(cookieStore);
+      const { data, error } = await supabase
+        .from("chats")
+        .select("*")
+        .eq("id", id)
+        .maybeSingle();
+      if (error) {
+        console.log(error);
+        return null;
+      } else {
+        await redis.set(key, JSON.stringify(data), { ex: 3600 });
+        return data;
+      }
+    }
   } catch (error) {
     console.log(error);
     return null;
@@ -24,6 +33,7 @@ export const getChat = async (id: string) => {
 
 export const getChats = async (uid: string) => {
   try {
+    const key = `chats:${uid}`;
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
@@ -35,7 +45,10 @@ export const getChats = async (uid: string) => {
     if (error) {
       console.log(error);
       return [];
-    } else return data;
+    } else {
+      await redis.set(key, JSON.stringify(data), { ex: 3600 });
+      return data;
+    }
   } catch (error) {
     console.log(error);
     return [];
@@ -43,6 +56,7 @@ export const getChats = async (uid: string) => {
 };
 
 export const createChat = async (body: TablesInsert<"chats">) => {
+  const key = `chats:${body.from_id}`;
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -54,7 +68,10 @@ export const createChat = async (body: TablesInsert<"chats">) => {
     if (error) {
       console.log(error);
       return null;
-    } else return data;
+    } else {
+      if (body.from_id) await redis.del(key);
+      return data;
+    }
   } catch (error) {
     console.log(error);
     return null;
@@ -103,6 +120,7 @@ export const getChatMessages = async (id: string) => {
 
 export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
   try {
+    const key = `chat:${id}`;
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
@@ -114,7 +132,11 @@ export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
     if (error) {
       console.log(error);
       return null;
-    } else return data;
+    } else {
+      await redis.del(key);
+      if (data?.from_id) await redis.del(`chats:${data.from_id}`);
+      return data;
+    }
   } catch (error) {
     console.log(error);
     return null;

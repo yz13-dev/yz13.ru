@@ -20,7 +20,7 @@ const layout = async ({ children, params }: LayoutProps) => {
   const chatId = params.chatId;
   const chat = await getChat(chatId);
   const messages = await getChatMessages(chatId);
-  if (!chat) return redirect("/chat");
+  if (!chat) return redirect("/");
   const chatName = chat.name;
   return (
     <ChatProvider chat={chat} messages={messages}>
