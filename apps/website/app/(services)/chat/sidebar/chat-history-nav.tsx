@@ -12,6 +12,7 @@ import {
   SidebarMenuItem,
 } from "mono/components/sidebar";
 import Link from "next/link";
+import { useMemo } from "react";
 import { useChatApi } from "../chat-api/chat-provider";
 
 dayjs.extend(customParseFormat);
@@ -32,8 +33,8 @@ const groupChatsByDate = (chats: ChatRoom[]) => {
 
 const ChatHistoryNav = () => {
   const chats = useChatApi((chat) => chat.chats);
-  const groupedChats = groupChatsByDate(chats);
-  const groupKeys = Object.keys(groupedChats);
+  const groupedChats = useMemo(() => groupChatsByDate(chats), [chats]);
+  const groupKeys = useMemo(() => Object.keys(groupedChats), [groupedChats]);
   return (
     <>
       {groupKeys.map((key) => {

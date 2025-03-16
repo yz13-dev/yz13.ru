@@ -82,7 +82,7 @@ const ChatInput = ({
       style={{
         bottom: `${bottomOffset}px`,
       }}
-      className="sticky z-10 left-0 right-0 max-w-xl mx-auto px-2 w-full"
+      className="fixed z-10 left-0 right-0 max-w-xl mx-auto px-2 w-full"
     >
       <div
         className={cn(

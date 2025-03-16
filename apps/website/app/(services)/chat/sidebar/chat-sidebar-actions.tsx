@@ -1,4 +1,4 @@
-import { HistoryIcon, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -17,15 +17,13 @@ const ChatSidebarActions = () => {
             <SidebarMenuButton asChild>
               <Link href="/chat">
                 <PlusIcon />
-                <span>Новый чат</span>
+                <span>Новый личный чат</span>
               </Link>
             </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="/chat">
-                <HistoryIcon />
-                <span>История</span>
+                <PlusIcon />
+                <span>Новый групповой чат</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

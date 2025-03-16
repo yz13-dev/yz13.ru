@@ -4,6 +4,7 @@ import { PencilLineIcon, SaveIcon, XIcon } from "lucide-react";
 import { Input } from "mono/components/input";
 import { useState } from "react";
 import { cn } from "yz13/cn";
+import { updateChatInList } from "../chat-api/chat-api";
 
 type Props = {
   id: string;
@@ -19,8 +20,10 @@ const EditChatName = ({ id, name = "Без названия" }: Props) => {
     setEditMode(false);
     try {
       const updatedChat = await updateChat(id, { name: roomName });
-      console.log(updatedChat);
-      if (updatedChat) setRoomName(updatedChat.name || "Без названия");
+      if (updatedChat) {
+        setRoomName(updatedChat.name || "Без названия");
+        updateChatInList(updatedChat);
+      }
     } catch (error) {
       console.log(error);
     }

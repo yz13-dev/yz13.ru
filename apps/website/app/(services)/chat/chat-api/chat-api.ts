@@ -39,10 +39,33 @@ export const setChat = (chatRoom: ChatRoom | null) => {
     setChatType(chatRoom.service_type);
   }
 };
+export const getMessage = (id: string) => {
+  const messages = chat.getState().messages;
+  return messages.find((message) => message.id === id);
+};
+
+export const updateChatInList = (chatRoom: ChatRoom) => {
+  const chats = chat.getState().chats;
+  const index = chats.findIndex((chat) => chat.id === chatRoom.id);
+  if (index !== -1) {
+    const updated = chats.map((chat, chatIndex) => {
+      if (chatIndex === index) return chatRoom;
+      else return chat;
+    });
+    chat.setState(() => ({ chats: updated }));
+  }
+};
 
 export const pushMessage = (message: ChatMessage) =>
   chat.setState((state) => ({
     messages: [...state.messages, message],
+  }));
+export const updateMessage = (message: ChatMessage) =>
+  chat.setState((state) => ({
+    messages: state.messages.map((msg) => {
+      if (msg.id === message.id) return message;
+      else return msg;
+    }),
   }));
 export const deleteMessage = (id: string) =>
   chat.setState((state) => ({

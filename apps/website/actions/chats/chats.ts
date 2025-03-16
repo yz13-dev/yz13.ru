@@ -111,7 +111,6 @@ export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
       .eq("id", id)
       .select("*")
       .maybeSingle();
-    console.log(data, error);
     if (error) {
       console.log(error);
       return null;
@@ -129,6 +128,29 @@ export const deleteMessageFromChat = async (id: string) => {
     const { data, error } = await supabase
       .from("chats-messages")
       .delete()
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const updateChatMessage = async (
+  id: string,
+  body: TablesUpdate<"chats-messages">,
+) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-messages")
+      .update(body)
       .eq("id", id)
       .select("*")
       .maybeSingle();
