@@ -263,7 +263,7 @@
     --yz13-background: hsl(0 0% 0%);
     --yz13-background-secondary: hsl(0 0% 2%);
     --yz13-selection: hsl(var(--yz13-foreground));
-    --yz13-border: var(--yz13-neutral-400);
+    --yz13-border: var(--yz13-neutral-300);
 
     /* accent */
     --yz13-accent: #456990;

@@ -21,6 +21,10 @@ export const createClient = (
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookieOptions,
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+      },
       cookies: {
         getAll() {
           return request.cookies.getAll();
