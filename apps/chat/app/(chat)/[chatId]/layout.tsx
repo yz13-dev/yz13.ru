@@ -1,4 +1,4 @@
-import { getChat, getChatMessages } from "@/actions/chats/chats";
+import { getChat } from "@/actions/chats/chats";
 import User from "@/components/user";
 import { Skeleton } from "mono/components/skeleton";
 import { redirect } from "next/navigation";
@@ -19,11 +19,10 @@ type LayoutProps = {
 const layout = async ({ children, params }: LayoutProps) => {
   const chatId = params.chatId;
   const chat = await getChat(chatId);
-  const messages = await getChatMessages(chatId);
   if (!chat) return redirect("/");
   const chatName = chat.name;
   return (
-    <ChatProvider chat={chat} messages={messages}>
+    <ChatProvider chat={chat}>
       <header className="w-full sticky top-0 z-10 bg-background h-14 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <ChatSidebarTrigger />
