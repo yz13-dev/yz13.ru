@@ -211,7 +211,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
   const chat = useChatApi((state) => state.chat);
   const chatTags = useMemo(() => (chat ? chat.tags : []) as ChatTag[], [chat]);
   const messages = useChatApi((state) => state.messages);
-  const [user] = useUser();
+  const [user, loading] = useUser();
   const groupedMessages = groupChatMessages(messages);
   const groupKeys = Object.keys(groupedMessages).sort((a, b) => {
     const dateA = dayjs(a, "DD-MM-YYYY");
@@ -245,7 +245,10 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
     if (providedMessages) setMessages(providedMessages);
   }, [providedMessages]);
   return (
-    <div className="w-full space-y-12 h-full" onWheel={handleManualScroll}>
+    <div
+      className={cn("w-full space-y-12 h-full", loading && "opacity-0")}
+      onWheel={handleManualScroll}
+    >
       {groupKeys.reverse().map((key) => {
         const messages = groupedMessages[key] ?? [];
         return (

@@ -1,3 +1,4 @@
+import LiveTimeProvider from "@/components/live/live-provider";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Pixelify_Sans } from "next/font/google";
@@ -42,7 +43,9 @@ export default function RootLayout({
       lang="en"
       className={`${SANS.variable} ${PIXEL.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        <LiveTimeProvider>{children}</LiveTimeProvider>
+      </body>
     </html>
   );
 }

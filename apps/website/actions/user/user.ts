@@ -82,3 +82,24 @@ export const signInWithPassword = async (email: string, password: string) => {
     return null;
   }
 };
+
+export const signUpwithPassword = async (email: string, password: string) => {
+  try {
+    const token = await makeSignInToken(email, password);
+    if (!token) throw new Error("Failed to make sign in token");
+    const url = new URL("/auth/signup", API_URL);
+    const headers = new Headers();
+    headers.set("Content-Type", "text/plain");
+    const res = await fetch(url.toString(), {
+      method: "POST",
+      headers,
+      body: token,
+    });
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
