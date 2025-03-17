@@ -1,3 +1,4 @@
+import { getChatMessages } from "@/actions/chats/chats";
 import { cn } from "yz13/cn";
 import ChatInput from "../chat-input";
 import ChatHistory from "./chat-history";
@@ -9,6 +10,7 @@ type PageProps = {
 };
 const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
+  const messages = await getChatMessages(chatId);
   return (
     <>
       <div
@@ -17,7 +19,7 @@ const page = async ({ params }: PageProps) => {
           "pb-[110px]",
         )}
       >
-        <ChatHistory />
+        <ChatHistory messages={messages} />
       </div>
       <ChatInput chatId={chatId} containerClassName="sticky" />
     </>

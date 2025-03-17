@@ -11,33 +11,42 @@ export type Database = {
     Tables: {
       chats: {
         Row: {
+          chat_participants: string[] | null;
           created_at: string;
+          favorite: boolean | null;
           from_id: string;
           id: string;
           name: string | null;
           "pinned-message": string | null;
           tags: Json[] | null;
           task_lists: Json[] | null;
+          type: Database["public"]["Enums"]["chat-type"] | null;
           updated_at: string | null;
         };
         Insert: {
+          chat_participants?: string[] | null;
           created_at?: string;
+          favorite?: boolean | null;
           from_id?: string;
           id?: string;
           name?: string | null;
           "pinned-message"?: string | null;
           tags?: Json[] | null;
           task_lists?: Json[] | null;
+          type?: Database["public"]["Enums"]["chat-type"] | null;
           updated_at?: string | null;
         };
         Update: {
+          chat_participants?: string[] | null;
           created_at?: string;
+          favorite?: boolean | null;
           from_id?: string;
           id?: string;
           name?: string | null;
           "pinned-message"?: string | null;
           tags?: Json[] | null;
           task_lists?: Json[] | null;
+          type?: Database["public"]["Enums"]["chat-type"] | null;
           updated_at?: string | null;
         };
         Relationships: [
@@ -99,6 +108,7 @@ export type Database = {
           from_id: string;
           id: string;
           note: string | null;
+          task_list: number | null;
           title: string | null;
         };
         Insert: {
@@ -108,6 +118,7 @@ export type Database = {
           from_id: string;
           id?: string;
           note?: string | null;
+          task_list?: number | null;
           title?: string | null;
         };
         Update: {
@@ -117,6 +128,7 @@ export type Database = {
           from_id?: string;
           id?: string;
           note?: string | null;
+          task_list?: number | null;
           title?: string | null;
         };
         Relationships: [
@@ -468,6 +480,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
+      "chat-type": "personal" | "group";
       "widget-type":
         | "clock"
         | "quick-link"

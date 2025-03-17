@@ -1,9 +1,10 @@
 import { getTasks } from "@/actions/chats/tasks";
-import { PlusIcon } from "lucide-react";
-import { Button } from "mono/components/button";
+import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
+import TasksListInput from "./list-input";
 import TaskInput from "./task-input";
 import TaskList from "./task-list";
+import TaskLists from "./task-lists";
 
 type PageProps = {
   params: {
@@ -22,12 +23,9 @@ const page = async ({ params }: PageProps) => {
         )}
       >
         <div className="p-4 flex items-center gap-2">
-          <Button variant="secondary" size="sm">
-            Все
-          </Button>
-          <Button variant="ghost" size="icon">
-            <PlusIcon size={16} />
-          </Button>
+          <TasksListInput chatId={chatId} />
+          <Separator orientation="vertical" className="h-6" />
+          <TaskLists />
         </div>
         <TaskList tasks={tasks} />
       </div>

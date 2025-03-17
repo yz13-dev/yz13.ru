@@ -9,7 +9,6 @@ import {
   pushMessage,
   pushTask,
   setChat,
-  setMessages,
   updateChatInList,
   updateMessage,
   updateTask,
@@ -18,13 +17,8 @@ import {
 type ChatProviderProps = {
   children?: React.ReactNode;
   chat: ChatRoom;
-  messages?: ChatMessage[];
-  tasks?: ChatTask[];
 };
-const ChatProvider = ({ children, chat, messages = [] }: ChatProviderProps) => {
-  useEffect(() => {
-    if (messages) setMessages(messages);
-  }, [messages]);
+const ChatProvider = ({ children, chat }: ChatProviderProps) => {
   useEffect(() => {
     if (chat) setChat(chat);
   }, [chat]);
