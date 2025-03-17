@@ -1,6 +1,6 @@
 "use client";
 import { deleteTask, updateTask } from "@/actions/chats/tasks";
-import { ChatTask } from "@/types/chat";
+import { ChatList, ChatTask } from "@/types/chat";
 import { EllipsisVerticalIcon, TrashIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Checkbox } from "mono/components/checkbox";
@@ -10,10 +10,29 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "mono/components/dropdown-menu";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 import { deleteTask as removeTask, setTasks } from "../../chat-api/chat-api";
 import { useChatApi } from "../../chat-api/chat-provider";
+
+const TaskListTag = ({ task }: { task: ChatTask }) => {
+  const chat = useChatApi((state) => state.chat);
+  const task_lists = useMemo(
+    () => (chat ? chat.task_lists : []) as ChatList[],
+    [chat],
+  );
+  const task_list = useMemo(
+    () => task_lists.find((list) => list.id === task.task_list),
+    [task_lists, task.task_list],
+  );
+  if (!task_list) return null;
+  else
+    return (
+      <span className="text-xs px-1.5 rounded-sm bg-background-secondary py-0.5 text-secondary">
+        {task_list?.name}
+      </span>
+    );
+};
 
 const Task = ({ task }: { task: ChatTask }) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,7 +52,7 @@ const Task = ({ task }: { task: ChatTask }) => {
     <div
       aria-checked={task.checked ?? false}
       data-state={task.checked ?? false}
-      className="w-full group min-h-11 flex items-center justify-start rounded-xl border gap-2 p-2"
+      className="w-full group flex items-center justify-start rounded-xl border gap-2 p-2"
     >
       <div className="flex items-start gap-2">
         <Checkbox
@@ -46,14 +65,17 @@ const Task = ({ task }: { task: ChatTask }) => {
           onClick={handleCheckboxChange}
         />
         <div className="w-full flex flex-col gap-1">
-          <span
-            className={cn(
-              task.checked ? "text-secondary line-through" : "",
-              task.note?.length !== 0 && "text-sm",
-            )}
-          >
-            {task.title}
-          </span>
+          <div className="flex items-center gap-2">
+            <span
+              className={cn(
+                task.checked ? "text-secondary line-through" : "",
+                task.note?.length !== 0 && "text-sm",
+              )}
+            >
+              {task.title}
+            </span>
+            {typeof task.task_list === "number" && <TaskListTag task={task} />}
+          </div>
           {!!task.note && task.note.length !== 0 && (
             <span
               className={cn(
@@ -68,7 +90,7 @@ const Task = ({ task }: { task: ChatTask }) => {
       </div>
       <div className="flex items-center shrink-0 ml-auto gap-2">
         <TaskDropdown id={task.id}>
-          <Button variant="ghost" size="icon" className="size-8">
+          <Button variant="ghost" size="icon" className="size-6">
             <EllipsisVerticalIcon size={16} />
           </Button>
         </TaskDropdown>
@@ -112,13 +134,15 @@ const TaskList = ({ tasks: providedTasks }: { tasks: ChatTask[] }) => {
     if (providedTasks.length === 0) return;
     setTasks(providedTasks);
   }, [providedTasks]);
+  const list = tasks.filter((task) => !task.checked);
   return (
     <div className="w-full space-y-3 px-4">
-      {tasks
-        .sort((a, b) => Number(b.checked) - Number(a.checked))
-        .map((task, index) => {
-          return <Task key={task.id} task={task} />;
-        })}
+      {list.length === 0 && (
+        <div className="text-center text-sm text-secondary">Нет задач</div>
+      )}
+      {list.map((task, index) => {
+        return <Task key={task.id} task={task} />;
+      })}
     </div>
   );
 };

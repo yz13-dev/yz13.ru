@@ -24,7 +24,7 @@ const layout = async ({ children, params }: LayoutProps) => {
   const chatName = chat.name;
   return (
     <ChatProvider chat={chat} messages={messages}>
-      <header className="w-full sticky top-0 z-10 h-14 flex items-center justify-between px-4">
+      <header className="w-full sticky top-0 z-10 bg-background h-14 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <ChatSidebarTrigger />
           <EditChatName id={chatId} name={chatName ?? undefined} />

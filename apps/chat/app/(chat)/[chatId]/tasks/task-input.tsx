@@ -2,7 +2,7 @@
 import { createTask } from "@/actions/chats/tasks";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
-import { NewChatTask } from "@/types/chat";
+import { ChatList, NewChatTask } from "@/types/chat";
 import { Loader2Icon, PlusIcon } from "lucide-react";
 import { Checkbox } from "mono/components/checkbox";
 import { Input } from "mono/components/input";
@@ -11,8 +11,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "mono/components/popover";
-import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "mono/components/select";
+import { useMemo, useState } from "react";
 import { create } from "zustand";
+import { useChatApi } from "../../chat-api/chat-provider";
 
 type State = {
   open: boolean;
@@ -21,6 +29,7 @@ type State = {
 const useTaskMenu = create<State>((set) => ({
   open: false,
   task: {
+    task_list: null,
     title: "",
     chat_id: "",
     from_id: "",
@@ -30,7 +39,13 @@ const useTaskMenu = create<State>((set) => ({
 }));
 const clearTask = () =>
   useTaskMenu.setState((state) => ({
-    task: { ...state.task, title: "", note: "", checked: false },
+    task: {
+      ...state.task,
+      title: "",
+      note: "",
+      checked: false,
+      task_list: null,
+    },
   }));
 const setChecked = (checked: boolean) =>
   useTaskMenu.setState((state) => ({ task: { ...state.task, checked } }));
@@ -39,11 +54,21 @@ const setTitle = (title: string) =>
 const setNote = (note: string) =>
   useTaskMenu.setState((state) => ({ task: { ...state.task, note } }));
 const setOpen = (open: boolean) => useTaskMenu.setState((state) => ({ open }));
+const setList = (list: number | null) =>
+  useTaskMenu.setState((state) => ({
+    task: { ...state.task, task_list: list },
+  }));
 
 const TaskMenu = () => {
   const checked = useTaskMenu((state) => state.task.checked);
   const title = useTaskMenu((state) => state.task.title);
   const note = useTaskMenu((state) => state.task.note);
+  const chat = useChatApi((state) => state.chat);
+  const list = useTaskMenu((state) => state.task.task_list);
+  const task_lists = useMemo(
+    () => (chat ? chat.task_lists : []) as ChatList[],
+    [chat],
+  );
   return (
     <PopoverContent
       className="rounded-3xl max-w-full space-y-2 p-2 w-[calc(var(--container-md)-10px)]"
@@ -62,6 +87,23 @@ const TaskMenu = () => {
           value={title ?? ""}
           onChange={(e) => setTitle(e.target.value)}
         />
+      </div>
+      <div className="w-full flex items-center gap-2">
+        <Select
+          value={list ? String(list) : undefined}
+          onValueChange={(value) => setList(Number(value))}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Без списка" />
+          </SelectTrigger>
+          <SelectContent>
+            {task_lists.map((list) => (
+              <SelectItem key={list.id} value={String(list.id)}>
+                {list.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       <AutoTextarea
         placeholder="Описание задачи"

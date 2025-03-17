@@ -1,13 +1,14 @@
 "use server";
+import { ChatRoom } from "@/types/chat";
 import { cookies } from "next/headers";
 import { TablesInsert, TablesUpdate } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
 import { redis } from "../redis";
 
-export const getChat = async (id: string) => {
+export const getChat = async (id: string): Promise<ChatRoom | null> => {
   const key = `chat:${id}`;
   try {
-    const cached = await redis.get(key);
+    const cached = await redis.get<ChatRoom>(key);
     if (cached) return cached;
     else {
       const cookieStore = cookies();
@@ -39,9 +40,9 @@ export const getChats = async (uid: string) => {
     const { data, error } = await supabase
       .from("chats")
       .select("*")
-      .eq("from_id", uid)
+      .contains("chat_participants", [uid])
       .order("created_at", { ascending: false })
-      .limit(10);
+      .limit(5);
     if (error) {
       console.log(error);
       return [];
@@ -70,6 +71,7 @@ export const createChat = async (body: TablesInsert<"chats">) => {
       return null;
     } else {
       if (body.from_id) await redis.del(key);
+      if (data) await redis.set(key, JSON.stringify(data), { ex: 3600 });
       return data;
     }
   } catch (error) {

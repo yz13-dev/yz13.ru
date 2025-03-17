@@ -1,22 +1,24 @@
 "use client";
 import { updateChatMessage } from "@/actions/chats/chats";
+import { useUser } from "@/hooks/use-user";
 import { ChatMessage, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { HashIcon, XIcon } from "lucide-react";
+import { HashIcon, MouseIcon, XIcon } from "lucide-react";
+import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
-import { getMessage } from "../chat-api/chat-api";
+import { getMessage, setMessages } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 
 dayjs.extend(customParseFormat);
 
 const bubbleVariants = cva(
-  "max-w-md text-sm px-3 py-1.5 rounded-3xl w-fit border border-transparent",
+  "max-w-md text-sm px-3 transition-colors py-1.5 rounded-3xl w-fit border border-transparent",
   {
     variants: {
       variant: {
@@ -24,7 +26,8 @@ const bubbleVariants = cva(
         outline:
           "border border-border bg-background hover:bg-neutral-200 hover:text-foreground",
         secondary: "bg-neutral-200 text-foreground/70 hover:bg-neutral-200/80",
-        ghost: "hover:bg-neutral-200 hover:text-foreground",
+        ghost:
+          "hover:bg-neutral-50 text-foreground/70 hover:text-foreground/90",
         link: "text-foreground underline-offset-4 hover:underline",
       },
     },
@@ -188,7 +191,9 @@ const ChatBubbleGroup = ({ date, children }: ChatBubbleGroupProps) => {
   );
 };
 
-type ChatHistoryProps = {};
+type ChatHistoryProps = {
+  messages?: ChatMessage[];
+};
 
 const groupChatMessages = (messages: ChatMessage[]) => {
   const groups: Record<string, ChatMessage[]> = {};
@@ -202,10 +207,11 @@ const groupChatMessages = (messages: ChatMessage[]) => {
   return groups;
 };
 
-const ChatHistory = ({}: ChatHistoryProps) => {
+const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
   const chat = useChatApi((state) => state.chat);
   const chatTags = useMemo(() => (chat ? chat.tags : []) as ChatTag[], [chat]);
   const messages = useChatApi((state) => state.messages);
+  const [user] = useUser();
   const groupedMessages = groupChatMessages(messages);
   const groupKeys = Object.keys(groupedMessages).sort((a, b) => {
     const dateA = dayjs(a, "DD-MM-YYYY");
@@ -214,6 +220,13 @@ const ChatHistory = ({}: ChatHistoryProps) => {
   });
 
   const [enableAutoScroll, setEnableAutoScroll] = useState<boolean>(true);
+  const handleManualScroll = () => {
+    setEnableAutoScroll(false);
+  };
+  const handleEnableAutoScroll = () => {
+    setEnableAutoScroll(true);
+    handleScroll();
+  };
   const handleScroll = () => {
     const wrapper = document.getElementById("chat-wrapper");
     // console.log(enableAutoScroll, !!wrapper);
@@ -228,8 +241,11 @@ const ChatHistory = ({}: ChatHistoryProps) => {
   useEffect(() => {
     if (enableAutoScroll) handleScroll();
   }, [messages, enableAutoScroll]);
+  useEffect(() => {
+    if (providedMessages) setMessages(providedMessages);
+  }, [providedMessages]);
   return (
-    <div className="w-full space-y-12 h-full">
+    <div className="w-full space-y-12 h-full" onWheel={handleManualScroll}>
       {groupKeys.reverse().map((key) => {
         const messages = groupedMessages[key] ?? [];
         return (
@@ -250,12 +266,13 @@ const ChatHistory = ({}: ChatHistoryProps) => {
                       return tag;
                     })
                     .filter((tag) => !!tag);
+                  const isMe = message.from_id === user?.id;
                   return (
                     <ChatBubble
                       messageId={message.id}
                       key={`${key}/${message.id}`}
-                      side="right"
-                      variant="secondary"
+                      side={isMe ? "right" : "left"}
+                      variant={isMe ? "secondary" : "ghost"}
                       date={messageDate}
                       isShortMessage={isShortMessage}
                       tags={tags}
@@ -268,6 +285,19 @@ const ChatHistory = ({}: ChatHistoryProps) => {
           </ChatBubbleGroup>
         );
       })}
+      {!enableAutoScroll && (
+        <div className="w-full flex items-center justify-center sticky mx-auto bottom-32">
+          <Button
+            variant="secondary"
+            className="rounded-full gap-1 text-xs"
+            size="sm"
+            onClick={handleEnableAutoScroll}
+          >
+            <MouseIcon size={14} />
+            Включить автопрокрутку
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

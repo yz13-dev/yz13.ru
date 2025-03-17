@@ -39,8 +39,10 @@ const ChatInput = ({
       console.log("need to create new chat");
       const newChat = await createChat({
         from_id: user.id,
+        type: "personal",
       });
       if (newChat) {
+        router.prefetch(`/${newChat.id}`);
         const newMessage = await createMessageInChat({
           chat_id: newChat.id,
           from_id: user.id,

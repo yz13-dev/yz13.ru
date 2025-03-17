@@ -9,3 +9,7 @@ export type ChatTag = {
 export type ChatTask = Tables<"chats-tasks">;
 export type NewChatTask = TablesInsert<"chats-tasks">;
 export type UpdatedTask = TablesUpdate<"chats-tasks">;
+export type ChatList = {
+  id: number;
+  name: string;
+};
