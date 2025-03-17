@@ -1,6 +1,7 @@
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { createAdminClient } from "yz13/supabase/admin";
+import { makeUserObj } from "./auth";
 
 export const user = new Hono();
 
@@ -13,5 +14,6 @@ user.get("/:uid", async (c) => {
     error,
   } = await supabase.auth.admin.getUserById(uid);
   if (error) return c.json(error, 404);
-  return c.json(user);
+  if (!user) return c.json(null);
+  else return c.json(makeUserObj(user));
 });

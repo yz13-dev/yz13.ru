@@ -1,4 +1,5 @@
 "use client";
+import { signInWithPassword } from "@/actions/user/user";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Card, CardContent } from "mono/components/card";
@@ -30,11 +31,13 @@ export function LoginForm({
   const signIn = async () => {
     try {
       setIsLoading(true);
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-      });
+      const data = await signInWithPassword(email, password);
+      // const { data, error } = await supabase.auth.signInWithPassword({
+      //   email: email,
+      //   password: password,
+      // });
       const user = data.user;
+      const error = data.error;
       if (error) setError(true);
       if (user) {
         if (back) router.back();
@@ -56,6 +59,7 @@ export function LoginForm({
                 <div className="grid gap-2">
                   <Label htmlFor="email">Почта</Label>
                   <Input
+                    autoComplete="email"
                     id="email"
                     type="email"
                     placeholder="m@example.com"
@@ -75,6 +79,7 @@ export function LoginForm({
                     </a>
                   </div>
                   <Input
+                    autoComplete="current-password"
                     id="password"
                     type="password"
                     required

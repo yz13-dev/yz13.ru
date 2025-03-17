@@ -1,4 +1,5 @@
 import { isAvailable } from "@/actions/availability-status";
+import { getAuthorizedUser } from "@/actions/user/user";
 import Availability from "@/components/availability";
 import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
@@ -14,6 +15,7 @@ import {
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 import { isDev } from "../login/get-url";
@@ -23,12 +25,9 @@ import Hero from "./hero";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
-// export const runtime = "edge";
-export const fetchCache = "default-cache";
-export const revalidate = 600;
-// export const dynamic = ""
-
 const page = async () => {
+  unstable_noStore();
+  console.log(await getAuthorizedUser());
   return (
     <>
       <Header className="sticky top-0">

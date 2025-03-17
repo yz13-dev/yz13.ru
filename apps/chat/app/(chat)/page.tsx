@@ -11,7 +11,7 @@ const page = async () => {
           Для создания чата, отправьте сообщение
         </span>
         <span className="text-center text-2xl font-medium text-foreground/60">
-          Или
+          или
         </span>
         <Link
           href="/group"

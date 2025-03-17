@@ -42,7 +42,7 @@ export const getChats = async (uid: string) => {
       .select("*")
       .contains("chat_participants", [uid])
       .order("created_at", { ascending: false })
-      .limit(5);
+      .limit(10);
     if (error) {
       console.log(error);
       return [];
