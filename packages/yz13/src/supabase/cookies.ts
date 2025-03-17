@@ -6,4 +6,5 @@ export const cookieOptions: Options = {
   domain: isDev ? undefined : ".yz13.ru",
   sameSite: "none",
   secure: true,
+  httpOnly: false,
 };

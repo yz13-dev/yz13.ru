@@ -1,5 +1,4 @@
 "use client";
-import { signInWithPassword } from "@/actions/user/user";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Card, CardContent } from "mono/components/card";
@@ -31,13 +30,11 @@ export function LoginForm({
   const signIn = async () => {
     try {
       setIsLoading(true);
-      const data = await signInWithPassword(email, password);
-      // const { data, error } = await supabase.auth.signInWithPassword({
-      //   email: email,
-      //   password: password,
-      // });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
       const user = data.user;
-      const error = data.error;
       if (error) setError(true);
       if (user) {
         if (back) router.back();
