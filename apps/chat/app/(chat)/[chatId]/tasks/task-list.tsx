@@ -12,7 +12,11 @@ import {
 } from "mono/components/dropdown-menu";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
-import { deleteTask as removeTask, setTasks } from "../../chat-api/chat-api";
+import {
+  deleteTask as removeTask,
+  setTasks,
+  updateTask as updateTaskInStore,
+} from "../../chat-api/chat-api";
 import { useChatApi } from "../../chat-api/chat-provider";
 
 const TaskListTag = ({ task }: { task: ChatTask }) => {
@@ -39,11 +43,16 @@ const Task = ({ task }: { task: ChatTask }) => {
   const handleCheckboxChange = async () => {
     setLoading(true);
     try {
-      await updateTask(task.id, {
+      const positiveTaskUpdate: ChatTask = {
+        ...task,
         checked: !task.checked,
-      });
+      };
+      updateTaskInStore(positiveTaskUpdate);
+      const res = await updateTask(task.id, positiveTaskUpdate);
+      if (!res) updateTaskInStore(task);
     } catch (error) {
       console.error(error);
+      updateTaskInStore(task);
     } finally {
       setLoading(false);
     }
@@ -128,13 +137,25 @@ const TaskDropdown = ({
   );
 };
 
+// tasks_filter_list === null - all
+// tasks_filter_list === -1 - completed
+// tasks_filter_list >= 0 - created task list
+const applyFilter = (tasks: ChatTask[], tasks_filter_list: number | null) => {
+  if (tasks_filter_list === null) return tasks;
+  else if (tasks_filter_list === -1)
+    return tasks.filter((task) => task.checked);
+  else if (tasks_filter_list === -2)
+    return tasks.filter((task) => !task.checked);
+  else return tasks.filter((task) => task.task_list === tasks_filter_list);
+};
 const TaskList = ({ tasks: providedTasks }: { tasks: ChatTask[] }) => {
   const tasks = useChatApi((state) => state.tasks);
+  const tasks_filter_list = useChatApi((state) => state.tasks_filter_list);
   useEffect(() => {
     if (providedTasks.length === 0) return;
     setTasks(providedTasks);
   }, [providedTasks]);
-  const list = tasks.filter((task) => !task.checked);
+  const list = applyFilter(tasks, tasks_filter_list);
   return (
     <div className="w-full space-y-3 px-4">
       {list.length === 0 && (

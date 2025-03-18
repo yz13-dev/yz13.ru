@@ -19,6 +19,7 @@
     "yz13": "*"
   },
   "devDependencies": {
+    "types": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "tailwind-config": "*",

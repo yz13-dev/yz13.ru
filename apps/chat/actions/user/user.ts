@@ -1,13 +1,13 @@
 "use server";
 import { API_URL } from "@/const/api";
-import { User } from "@supabase/supabase-js";
 import dayjs from "dayjs";
 import { SignJWT } from "jose";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
+import { UserObject } from "types/user";
 import { createClient } from "yz13/supabase/server";
 
-export const getUserById = async (id: string): Promise<User | null> => {
+export const getUserById = async (id: string): Promise<UserObject | null> => {
   try {
     const url = new URL(`/user/${id}`, API_URL);
     const res = await fetch(url.toString(), {
@@ -22,7 +22,7 @@ export const getUserById = async (id: string): Promise<User | null> => {
   }
 };
 
-export const getAuthorizedUser = async (): Promise<User | null> => {
+export const getAuthorizedUser = async (): Promise<UserObject | null> => {
   try {
     const url = new URL("/auth/current", API_URL);
     const res = await fetch(url.toString(), {

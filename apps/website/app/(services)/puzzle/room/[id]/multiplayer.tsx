@@ -1,6 +1,4 @@
 "use client";
-
-import { getUserById } from "@/actions/user/user";
 import { useUser } from "@/lib/use-auth";
 import dayjs from "dayjs";
 import { useEffect } from "react";
@@ -22,7 +20,7 @@ const Multiplayer = ({ prefix = "room", roomId }: MultiplayerProps) => {
   const handleUser = async (userId: string) => {
     const usr = getUser(userId);
     if (usr) return;
-    const retrievedUser = await getUserById(userId);
+    const retrievedUser = null;
     if (retrievedUser) setUser(retrievedUser);
   };
   useEffect(() => {

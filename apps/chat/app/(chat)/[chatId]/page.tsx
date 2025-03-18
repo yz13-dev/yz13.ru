@@ -15,8 +15,8 @@ const page = async ({ params }: PageProps) => {
     <>
       <div
         className={cn(
-          "mx-auto min-h-[80dvh] md:max-w-[calc(var(--breakpoint-xl)-68px)] max-w-[calc(var(--breakpoint-xl)-52px)]",
-          "pb-[110px]",
+          "mx-auto min-h-[80dvh] md:max-w-[calc(var(--breakpoint-lg)-68px)] max-w-[calc(var(--breakpoint-lg)-52px)]",
+          "md:pb-[110px] pb-12",
         )}
       >
         <ChatHistory messages={messages} />

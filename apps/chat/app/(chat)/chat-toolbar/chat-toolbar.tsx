@@ -35,8 +35,10 @@ const ChatToolbar = ({ chatId }: ChatToolbarProps) => {
           </Link>
         </Button>
       )}
-      <Button size="icon" variant="secondary">
-        <SettingsIcon size={16} />
+      <Button size="icon" variant="secondary" asChild>
+        <Link href={`/${chatId}/settings`}>
+          <SettingsIcon size={16} />
+        </Link>
       </Button>
     </>
   );
