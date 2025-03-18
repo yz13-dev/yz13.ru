@@ -8,4 +8,5 @@ export type UserObject = {
   last_signin_at: string | undefined;
   role: string;
   username: string;
+  avatar_url: string | null;
 };

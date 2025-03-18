@@ -1,13 +1,15 @@
 import { User } from "@supabase/supabase-js";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
+import { UserObject } from "types/user";
 import { createClient } from "yz13/supabase/server";
 
 export const auth = new Hono();
 
-export const makeUserObj = (user: User) => {
+export const makeUserObj = (user: User): UserObject => {
   const role = user.user_metadata.role as string;
   const username = user.user_metadata.username as string;
+  const avatar_url = (user.user_metadata.avatar_url as string) || null;
   return {
     id: user.id,
     email: user.email,
@@ -18,12 +20,12 @@ export const makeUserObj = (user: User) => {
     last_signin_at: user.last_sign_in_at,
     role,
     username,
+    avatar_url,
   };
 };
 auth.get("/current", async (c) => {
   try {
     const cookieStore = cookies();
-    console.log(cookieStore.toString());
     // const cookie = getCookie(c);
     const supabase = createClient(cookieStore);
     const auth = supabase.auth;

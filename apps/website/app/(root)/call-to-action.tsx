@@ -1,9 +1,11 @@
 "use client";
+import { getCallToAction } from "@/actions/call-to-action";
 import { toggleMenu } from "@/components/dock/menus/menu.store";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { cn } from "yz13/cn";
 
@@ -12,6 +14,8 @@ type Props = {
   busy?: boolean;
 };
 const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
+  const [label, setLabel] = useState<string>("Подождите...");
+  const [href, setHref] = useState<string | null>(null);
   useHotkeys(
     "ctrl+k, command+k",
     () => {
@@ -21,6 +25,14 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
       preventDefault: true,
     },
   );
+  useEffect(() => {
+    getCallToAction().then((action) => {
+      if (action) {
+        setLabel(action.label);
+        if (action.href) setHref(action.href);
+      }
+    });
+  }, []);
   return (
     <>
       <div className="w-full">
@@ -67,15 +79,30 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
                 orientation="vertical"
                 className={cn("h-9", hideSearch && "hidden")}
               />
-              <Button
-                variant="secondary"
-                className={cn(
-                  "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
-                  hideSearch && "hidden",
-                )}
-              >
-                <span>Новые обновления, скоро...</span>
-              </Button>
+              {href ? (
+                <Button
+                  variant="secondary"
+                  className={cn(
+                    "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
+                    hideSearch && "hidden",
+                  )}
+                  asChild
+                >
+                  <Link href={href}>
+                    <span>{label}</span>
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  variant="secondary"
+                  className={cn(
+                    "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
+                    hideSearch && "hidden",
+                  )}
+                >
+                  <span>{label}</span>
+                </Button>
+              )}
             </div>
           </div>
           <div className="w-full h-full pattern-lines" />

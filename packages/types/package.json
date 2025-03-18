@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "description": "Package with types for current monorepo",
   "exports": {
-    "./src/drafts": "./src/drafts.ts",
-    "./src/finance": "./src/finance.ts",
-    "./src/session": "./src/session.ts",
-    "./src/page-config": "./src/page-config.ts"
+    "./drafts": "./src/drafts.ts",
+    "./finance": "./src/finance.ts",
+    "./session": "./src/session.ts",
+    "./page-config": "./src/page-config.ts",
+    "./chat": "./src/chat.ts",
+    "./pricing": "./src/pricing.ts",
+    "./user": "./src/user.ts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

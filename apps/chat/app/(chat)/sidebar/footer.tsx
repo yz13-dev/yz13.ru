@@ -1,4 +1,4 @@
-import { FlagIcon } from "lucide-react";
+import { FlagIcon, SettingsIcon } from "lucide-react";
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -9,6 +9,14 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton asChild>
+          <Link href="/settings">
+            <SettingsIcon />
+            <span>Настройки</span>
+          </Link>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
       <SidebarMenuItem>
         <SidebarMenuButton asChild>
           <Link href="/feedback">

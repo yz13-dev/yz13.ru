@@ -2,7 +2,6 @@
 import { updateChat } from "@/actions/chats/chats";
 import { getUserById } from "@/actions/user/user";
 import { ChatRoom } from "@/types/chat";
-import { User } from "@supabase/supabase-js";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -18,6 +17,7 @@ import {
 } from "mono/components/sidebar";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { UserObject } from "types/user";
 import { cn } from "yz13/cn";
 import { updateChatInList } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
@@ -32,9 +32,9 @@ const ChatParticipants = ({
   uids: string[];
   className?: string;
 }) => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserObject[]>([]);
   const handleAddUser = useCallback(
-    (user: User) => {
+    (user: UserObject) => {
       const isAlreadyAdded = users.some((usr) => usr.id === user.id);
       if (isAlreadyAdded) return;
       setUsers((users) => {
@@ -63,9 +63,9 @@ const ChatParticipants = ({
             key={user.id}
             className="size-5 rounded-full border bg-background-secondary"
           >
-            <AvatarImage src={user.user_metadata.avatar_url} />
+            <AvatarImage src={user.avatar_url ?? undefined} />
             <AvatarFallback className="uppercase">
-              {(user.user_metadata.username || user.id).slice(0, 2)}
+              {(user.username || user.id).slice(0, 2)}
             </AvatarFallback>
           </Avatar>
         );

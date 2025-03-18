@@ -7,7 +7,6 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { HashIcon, MouseIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
@@ -179,12 +178,10 @@ const ChatBubbleGroup = ({ date, children }: ChatBubbleGroupProps) => {
   const isToday = dayjs().isSame(dayjs(date, "DD-MM-YYYY"), "day");
   return (
     <div className="space-y-12">
-      <div className="flex items-center gap-2 justify-center">
-        <Separator className="shrink" />
-        <span className="text-sm text-secondary shrink-0 capitalize">
+      <div className="flex sticky top-16 z-10 items-center gap-2 justify-center">
+        <span className="text-sm text-secondary bg-background px-2 py-1 rounded-md shrink-0 capitalize">
           {isToday ? "Сегодня" : groupDate}
         </span>
-        <Separator className="shrink" />
       </div>
       <div className="w-full flex flex-col-reverse gap-3">{children}</div>
     </div>
@@ -221,7 +218,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
 
   const [enableAutoScroll, setEnableAutoScroll] = useState<boolean>(true);
   const handleManualScroll = () => {
-    setEnableAutoScroll(false);
+    if (enableAutoScroll) setEnableAutoScroll(false);
   };
   const handleEnableAutoScroll = () => {
     setEnableAutoScroll(true);
@@ -248,6 +245,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
     <div
       className={cn("w-full space-y-12 h-full", loading && "opacity-0")}
       onWheel={handleManualScroll}
+      onTouchMove={handleManualScroll}
     >
       {groupKeys.reverse().map((key) => {
         const messages = groupedMessages[key] ?? [];
@@ -289,7 +287,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
         );
       })}
       {!enableAutoScroll && (
-        <div className="w-full flex items-center justify-center sticky mx-auto bottom-32">
+        <div className="w-full flex z-30 items-center justify-center sticky mx-auto bottom-32">
           <Button
             variant="secondary"
             className="rounded-full gap-1 text-xs"

@@ -8,6 +8,7 @@ export type Store = {
   messages: ChatMessage[];
   chats: ChatRoom[];
   tasks: ChatTask[];
+  tasks_filter_list: number | null;
 };
 
 const initialState: Store = {
@@ -16,6 +17,7 @@ const initialState: Store = {
   messages: [],
   chats: [],
   tasks: [],
+  tasks_filter_list: -2,
 };
 
 export const createChatApi = (initState: Partial<Store> = initialState) => {
@@ -51,6 +53,9 @@ export const updateChatInList = (chatRoom: ChatRoom) => {
     chat.setState(() => ({ chats: updated }));
   }
 };
+
+export const setTasksFilterList = (tasks_filter_list: number | null) =>
+  chat.setState(() => ({ tasks_filter_list }));
 
 export const pushTask = (task: ChatTask) =>
   chat.setState((state) => ({
