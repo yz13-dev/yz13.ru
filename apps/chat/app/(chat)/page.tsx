@@ -1,13 +1,10 @@
-import {
-  ListTodoIcon,
-  MessageCircleIcon,
-  TagIcon,
-  UsersIcon,
-} from "lucide-react";
+import { Separator } from "mono/components/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
+import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import ChatInput from "./chat-input";
 import Header from "./header";
+import LastChatList, { LastChatListSkeleton } from "./last-chat-list";
 
 const page = async () => {
   return (
@@ -15,8 +12,8 @@ const page = async () => {
       <Header />
       <div
         className={cn(
-          "w-full h-[calc(100dvh-56px)] flex flex-col justify-center",
-          "*:max-w-screen-lg *:mx-auto *:w-full *:px-6 gap-12",
+          "w-full min-h-[calc(100dvh-56px)] flex flex-col justify-center",
+          "*:max-w-xl *:mx-auto *:w-full *:px-6 py-12 gap-12",
         )}
       >
         <div className="*:block space-y-3">
@@ -26,36 +23,7 @@ const page = async () => {
             и списки, рабочее пространство в виде групп и чатов.
           </p>
         </div>
-        <div className="w-full px-6">
-          <div className="grid *:w-full *:h-full gap-3 *:p-4 md:grid-cols-4 grid-cols-2 md:h-[192px] h-[calc(192px*2)]">
-            <div className="rounded-xl flex flex-col border">
-              <span className="font-medium">Личный чат</span>
-              <MessageCircleIcon size={20} className="mt-auto" />
-            </div>
-            <div className="rounded-xl flex flex-col border">
-              <span className="font-medium">Групповой чат</span>
-              <UsersIcon size={20} className="mt-auto" />
-            </div>
-            <div className="rounded-xl flex flex-col border">
-              <span className="font-medium">Тэги для сообщений</span>
-              <TagIcon size={20} className="mt-auto" />
-            </div>
-            <div className="rounded-xl flex flex-col border">
-              <span className="font-medium">Задачи и списки</span>
-              <ListTodoIcon size={20} className="mt-auto" />
-            </div>
-          </div>
-        </div>
-        {/* <span className="text-2xl font-medium text-foreground/60">
-          Для создания чата, отправьте сообщение
-        </span>
-        <span className="text-2xl font-medium text-foreground/60">или</span>
-        <Link
-          href="/group"
-          className="text-2xl font-medium text-foreground hover:underline"
-        >
-          Создайте групповой чат
-        </Link> */}
+
         <Tabs defaultValue="personal" className="space-y-3">
           <div className="px-3">
             <TabsList>
@@ -76,10 +44,11 @@ const page = async () => {
             />
           </TabsContent>
         </Tabs>
+        <Separator />
+        <Suspense fallback={<LastChatListSkeleton />}>
+          <LastChatList />
+        </Suspense>
       </div>
-      <span className="text-xs text-secondary absolute bottom-1 left-0 right-0 mx-auto">
-        {/* Обратите внимание, данный сервис не использует искусственный интеллект */}
-      </span>
     </>
   );
 };

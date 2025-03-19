@@ -2,12 +2,13 @@
 import { createChat, createMessageInChat } from "@/actions/chats/chats";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
-import { ChatRoom } from "@/types/chat";
-import { ArrowUpIcon, Loader2Icon } from "lucide-react";
+import { ChatRoom, ChatTag } from "@/types/chat";
+import { ArrowUpIcon, HashIcon, Loader2Icon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
+import { useChatApi } from "./chat-api/chat-provider";
 
 type ChatInputProps = {
   containerClassName?: string;
@@ -33,6 +34,16 @@ const ChatInput = ({
     return !value || loading || !user || userLoading;
   }, [value, loading, userLoading, user]);
   const router = useRouter();
+  const [showTags, setShowTags] = useState<boolean>(false);
+  const tags = useChatApi((state) => state.chat?.tags);
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const handleSelectTag = (tagId: number) => {
+    if (selectedTags.includes(tagId)) {
+      setSelectedTags(selectedTags.filter((id) => id !== tagId));
+    } else {
+      setSelectedTags([...selectedTags, tagId]);
+    }
+  };
   const handleSend = async () => {
     if (disabled) return;
     if (!user) return;
@@ -64,9 +75,12 @@ const ChatInput = ({
         chat_id: chatId,
         from_id: user.id,
         message: value,
+        tags: selectedTags,
       });
       if (newMessage) {
+        setSelectedTags([]);
         setValue("");
+        setShowTags(false);
       }
     }
     setLoading(false);
@@ -90,6 +104,27 @@ const ChatInput = ({
         )}
       >
         <div className="w-full flex flex-col gap-2">
+          {showTags && (
+            <div className="w-full flex items-start gap-1 flex-wrap">
+              {((tags ?? []) as ChatTag[]).map((tag) => {
+                const selected = selectedTags.includes(tag.id);
+                return (
+                  <span
+                    onClick={() => handleSelectTag(tag.id)}
+                    key={tag.id}
+                    className={cn(
+                      "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-full border",
+                      selected
+                        ? "!border-foreground bg-background-secondary"
+                        : "bg-background-secondary",
+                    )}
+                  >
+                    {tag.tag}
+                  </span>
+                );
+              })}
+            </div>
+          )}
           <AutoTextarea
             onKeyDown={(e) => {
               const isSendAction = e.key === "Enter" && !e.ctrlKey;
@@ -108,7 +143,21 @@ const ChatInput = ({
             onChange={(e) => setValue(e.target.value)}
           />
           <div className="w-full flex items-center justify-between">
-            <div className="flex items-center gap-1"></div>
+            <div className="flex items-center gap-1">
+              {chatId && (
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => setShowTags(!showTags)}
+                  className="gap-1 px-2 h-6"
+                >
+                  {showTags ? <XIcon size={14} /> : <HashIcon size={14} />}
+                  <span className="text-sm">
+                    {showTags ? "Скрыть тэги" : "Тэг"}
+                  </span>
+                </Button>
+              )}
+            </div>
             <Button
               onClick={handleSend}
               size="icon"
