@@ -23,7 +23,7 @@ const page = async () => {
           <h1 className="text-4xl font-semibold">Чат от YZ13</h1>
           <p className="text-base max-w-xl text-secondary">
             Создайте свой чат, сортируйте сообщения по тэгам, создавайте задачи
-            и списки, и все это будет доступно для всех пользователей.
+            и списки, рабочее пространство в виде групп и чатов.
           </p>
         </div>
         <div className="w-full px-6">

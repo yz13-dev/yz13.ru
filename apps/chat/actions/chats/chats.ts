@@ -187,3 +187,28 @@ export const updateChatMessage = async (
     return null;
   }
 };
+
+export const deleteChat = async (id: string) => {
+  try {
+    const key = `chat:${id}`;
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats")
+      .delete()
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    } else {
+      await redis.del(key);
+      if (data?.from_id) await redis.del(`chats:${data.from_id}`);
+      return data;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

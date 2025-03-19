@@ -43,6 +43,7 @@ const ChatInput = ({
       const newChat = await createChat({
         from_id: user.id,
         type,
+        chat_participants: [user.id],
       });
       if (newChat) {
         router.prefetch(`/${newChat.id}`);
