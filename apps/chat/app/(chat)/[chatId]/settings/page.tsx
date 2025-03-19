@@ -1,9 +1,14 @@
-import { TrashIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
+import DeleteChatButton from "./delete-chat-button";
 
-const page = () => {
+type PageProps = {
+  params: {
+    chatId: string;
+  };
+};
+const page = ({ params }: PageProps) => {
+  const chatId = params.chatId;
   return (
     <>
       <div
@@ -27,9 +32,7 @@ const page = () => {
             <div className="w-full"></div>
           </div>
           <Separator />
-          <Button variant="secondary" className="gap-2">
-            <TrashIcon size={16} /> Удалить чат
-          </Button>
+          <DeleteChatButton chatId={chatId} />
         </div>
       </div>
     </>

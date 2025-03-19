@@ -10,7 +10,7 @@ type LayoutProps = {
 };
 const layout = ({ children }: LayoutProps) => {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <Suspense fallback={<Loading />}>
         <ServerWrapper>
           <Suspense fallback={<SidebarSkeleton />}>

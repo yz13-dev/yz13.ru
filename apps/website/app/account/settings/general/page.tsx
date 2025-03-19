@@ -34,7 +34,7 @@ const page = () => {
           <PositionField />
           <div className="flex flex-row gap-2 items-center justify-between">
             <span className="text-sm text-secondary">
-              Изменения примкнятся сразу после сохранения
+              Изменения применятся сразу после сохранения
             </span>
             <Button>Сохранить</Button>
           </div>
