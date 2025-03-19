@@ -27,7 +27,7 @@ const Details = ({
   return (
     <div
       className={cn(
-        "w-80 shrink-0 relative space-y-3 p-4 hover:bg-neutral-100 transition-colors",
+        "w-80 shrink-0 relative space-y-3 p-4 hover:bg-background-secondary transition-colors",
         "last:border-r group flex flex-col justify-between",
         active && "bg-neutral-100",
         className,
@@ -202,7 +202,7 @@ const ServicesDetails = async () => {
               </Details>
             );
           })}
-        <ServiceBlank />
+        {false && <ServiceBlank />}
       </div>
     </div>
   );

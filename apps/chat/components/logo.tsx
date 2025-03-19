@@ -1,8 +1,8 @@
 import Image from "next/image";
-import yz_dark from "public/yz-dark.png";
+import yz_dark from "public/chat-dark.png";
+import yz_light from "public/chat-light.png";
 import yz_full_dark from "public/yz-full-dark.png";
 import yz_full_light from "public/yz-full-light.png";
-import yz_light from "public/yz-light.png";
 import { cn } from "yz13/cn";
 
 type Size = {

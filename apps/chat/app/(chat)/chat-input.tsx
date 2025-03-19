@@ -2,6 +2,7 @@
 import { createChat, createMessageInChat } from "@/actions/chats/chats";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
+import { ChatRoom } from "@/types/chat";
 import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";
@@ -13,12 +14,14 @@ type ChatInputProps = {
   className?: string;
   bottomOffset?: number;
   chatId?: string;
+  type?: ChatRoom["type"];
 };
 
 const ChatInput = ({
   chatId,
   containerClassName = "",
   className = "",
+  type = "personal",
   bottomOffset = 8,
 }: ChatInputProps) => {
   const [user, userLoading] = useUser();
@@ -39,7 +42,7 @@ const ChatInput = ({
       console.log("need to create new chat");
       const newChat = await createChat({
         from_id: user.id,
-        type: "personal",
+        type,
       });
       if (newChat) {
         router.prefetch(`/${newChat.id}`);
