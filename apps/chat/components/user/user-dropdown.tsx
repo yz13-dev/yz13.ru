@@ -26,6 +26,7 @@ const UserDropdown = ({
   const handleSignOut = () => {
     const supabase = createClient();
     supabase.auth.signOut();
+    router.refresh();
   };
   const positionOrEmail = user.user_metadata.position ?? user.email;
   const isAdmin = user.user_metadata.role === "admin";
