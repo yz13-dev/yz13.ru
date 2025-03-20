@@ -1,6 +1,9 @@
 import { getTasks } from "@/actions/chats/tasks";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
+import ChatToolbar from "../../chat-toolbar/chat-toolbar";
+import Topbar from "../../top-bar";
+import PageWrapper from "../page-wrapper";
 import TasksListInput from "./list-input";
 import TaskInput from "./task-input";
 import TaskList from "./task-list";
@@ -16,18 +19,26 @@ const page = async ({ params }: PageProps) => {
   const tasks = await getTasks(chatId);
   return (
     <>
+      <Topbar>
+        <TasksListInput chatId={chatId} />
+        <Separator orientation="vertical" className="h-6" />
+        <TaskLists />
+      </Topbar>
       <div
-        className={cn(
-          "mx-auto min-h-[87.5dvh] md:max-w-[calc(var(--breakpoint-md)-68px)] max-w-[calc(var(--breakpoint-md)-52px)]",
-          "pb-16",
-        )}
+        id="chat-history-wrapper"
+        className="w-full min-h-[calc(100dvh-56px)] overflow-y-visible flex pb-2"
       >
-        <div className="p-4 flex items-center gap-2">
-          <TasksListInput chatId={chatId} />
-          <Separator orientation="vertical" className="h-6" />
-          <TaskLists />
-        </div>
-        <TaskList tasks={tasks} />
+        <PageWrapper>
+          <div
+            className={cn(
+              "mx-auto md:max-w-[calc(var(--breakpoint-md)-68px)] max-w-[calc(var(--breakpoint-md)-52px)]",
+              "pb-4",
+            )}
+          >
+            <TaskList tasks={tasks} />
+          </div>
+        </PageWrapper>
+        <ChatToolbar chatId={chatId} />
       </div>
       <TaskInput chatId={chatId} />
     </>

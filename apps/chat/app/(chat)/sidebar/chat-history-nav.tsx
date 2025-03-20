@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { ArrowRightIcon, StarIcon } from "lucide-react";
+import { StarIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import {
   SidebarGroup,
@@ -25,12 +25,14 @@ import { useChatApi } from "../chat-api/chat-provider";
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
 
-const ChatParticipants = ({
+export const ChatParticipants = ({
   uids,
   className = "",
+  avatarClassName = "",
 }: {
   uids: string[];
   className?: string;
+  avatarClassName?: string;
 }) => {
   const [users, setUsers] = useState<UserObject[]>([]);
   const handleAddUser = useCallback(
@@ -56,12 +58,15 @@ const ChatParticipants = ({
     };
   }, [uids]);
   return (
-    <div className={cn("h-5 -space-x-2.5 *:inline-block", className)}>
+    <div className={cn("h-fit -space-x-2.5 *:inline-block", className)}>
       {users.map((user) => {
         return (
           <Avatar
             key={user.id}
-            className="size-5 rounded-full border bg-background-secondary"
+            className={cn(
+              "size-5 rounded-full border bg-background-secondary",
+              avatarClassName,
+            )}
           >
             <AvatarImage src={user.avatar_url ?? undefined} />
             <AvatarFallback className="uppercase">
@@ -95,10 +100,6 @@ const HistoryItem = ({ chat }: { chat: ChatRoom }) => {
           className="font-medium inline-flex group/link items-center gap-1 text-start"
         >
           {chat.name || "Без названия"}
-          <ArrowRightIcon
-            size={16}
-            className="relative group-hover/link:translate-x-1 transition-all"
-          />
         </Link>
         <button
           onClick={handleFavoriteChat}

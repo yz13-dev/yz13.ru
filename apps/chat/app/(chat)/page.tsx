@@ -1,4 +1,5 @@
 import { Separator } from "mono/components/separator";
+import { Skeleton } from "mono/components/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
@@ -9,7 +10,9 @@ import LastChatList, { LastChatListSkeleton } from "./last-chat-list";
 const page = async () => {
   return (
     <>
-      <Header />
+      <Suspense fallback={<Skeleton className="w-full h-14" />}>
+        <Header />
+      </Suspense>
       <div
         className={cn(
           "w-full min-h-[calc(100dvh-56px)] flex flex-col justify-center",

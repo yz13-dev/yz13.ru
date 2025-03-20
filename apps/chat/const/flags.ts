@@ -6,7 +6,7 @@ const pretendProduction = false
   ? false
   : process.env.NODE_ENV === "development";
 
-export const showUsabe = flag<boolean>({
+export const showUsage = flag<boolean>({
   key: "show-usage",
   description: "Show usage in sidebar",
   async decide() {

@@ -3,7 +3,13 @@ import { createChat, createMessageInChat } from "@/actions/chats/chats";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
 import { ChatRoom, ChatTag } from "@/types/chat";
-import { ArrowUpIcon, HashIcon, Loader2Icon, XIcon } from "lucide-react";
+import {
+  ArrowUpIcon,
+  HashIcon,
+  Loader2Icon,
+  PaperclipIcon,
+  XIcon,
+} from "lucide-react";
 import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
@@ -48,29 +54,21 @@ const ChatInput = ({
     if (disabled) return;
     if (!user) return;
     setLoading(true);
-    console.log("send", value);
     if (inputType === "new") {
       console.log("need to create new chat");
       const newChat = await createChat({
         from_id: user.id,
+        name: value,
         type,
         chat_participants: [user.id],
       });
       if (newChat) {
         router.prefetch(`/${newChat.id}`);
-        const newMessage = await createMessageInChat({
-          chat_id: newChat.id,
-          from_id: user.id,
-          message: value,
-        });
-        if (newMessage) {
-          router.push(`/${newChat.id}`);
-          setValue("");
-        }
+        router.push(`/${newChat.id}`);
+        setValue("");
       }
       console.log("new chat", newChat);
     } else {
-      console.log("need to reply to chat");
       const newMessage = await createMessageInChat({
         chat_id: chatId,
         from_id: user.id,
@@ -93,13 +91,14 @@ const ChatInput = ({
         bottom: `${bottomOffset}px`,
       }}
       className={cn(
-        "fixed z-10 left-0 right-0 bottom-6 max-w-xl mx-auto px-2 w-full",
+        "fixed z-10 left-0 right-0 bottom-6 lg:max-w-xl sm:max-w-md max-w-dvw mx-auto px-2 w-full",
         containerClassName,
       )}
     >
       <div
         className={cn(
-          "flex items-center h-fit p-2 rounded-3xl bg-background-secondary/60 backdrop-blur-md border w-full justify-center",
+          "flex items-center h-fit p-2 rounded-3xl bg-background-secondary/60 backdrop-blur-md w-full justify-center",
+          "border-1 focus-within:border-foreground ring-4 ring-transparent focus-within:ring-foreground/20",
           className,
         )}
       >
@@ -137,7 +136,9 @@ const ChatInput = ({
                 handleSend();
               }
             }}
-            placeholder="Пишите здесь"
+            placeholder={
+              inputType === "new" ? "Напишите название чата" : "Пишите здесь"
+            }
             className="font-medium text-base text-foreground/80"
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -155,6 +156,11 @@ const ChatInput = ({
                   <span className="text-sm">
                     {showTags ? "Скрыть тэги" : "Тэг"}
                   </span>
+                </Button>
+              )}
+              {chatId && (
+                <Button variant="secondary" size="sm" className="size-6 p-0.5">
+                  <PaperclipIcon size={14} />
                 </Button>
               )}
             </div>

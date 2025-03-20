@@ -4,10 +4,8 @@ import { Skeleton } from "mono/components/skeleton";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import ChatSidebarTrigger from "../chat-sidebar-trigger";
-import ChatToolbar from "../chat-toolbar/chat-toolbar";
 import ChatProvider from "./chat-provider";
 import EditChatName from "./edit-chat-name";
-import PageWrapper from "./page-wrapper";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -23,7 +21,7 @@ const layout = async ({ children, params }: LayoutProps) => {
   const chatName = chat.name;
   return (
     <ChatProvider chat={chat}>
-      <header className="w-full sticky top-0 z-20 bg-background h-14 flex items-center justify-between px-4">
+      <header className="w-full bg-background z-20 h-12 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <ChatSidebarTrigger />
           <EditChatName id={chatId} name={chatName ?? undefined} />
@@ -32,15 +30,7 @@ const layout = async ({ children, params }: LayoutProps) => {
           <User />
         </Suspense>
       </header>
-      <div
-        id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-56px)] overflow-y-visible flex pb-6"
-      >
-        <PageWrapper>{children}</PageWrapper>
-        <div className="w-fit md:px-4 shrink-0 px-2 h-fit sticky right-0 top-1/3 flex flex-col items-center justify-center gap-2">
-          <ChatToolbar chatId={chatId} />
-        </div>
-      </div>
+      {children}
     </ChatProvider>
   );
 };

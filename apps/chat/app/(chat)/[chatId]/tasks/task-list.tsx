@@ -61,7 +61,7 @@ const Task = ({ task }: { task: ChatTask }) => {
     <div
       aria-checked={task.checked ?? false}
       data-state={task.checked ?? false}
-      className="w-full group flex items-center justify-start rounded-xl border gap-2 p-2"
+      className="w-full group bg-background flex items-center justify-start rounded-xl border gap-2 p-2"
     >
       <div className="flex items-start gap-2">
         <Checkbox

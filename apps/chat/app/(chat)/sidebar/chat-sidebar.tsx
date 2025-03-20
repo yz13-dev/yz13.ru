@@ -1,3 +1,4 @@
+import { showUsage } from "@/const/flags";
 import {
   Sidebar,
   SidebarContent,
@@ -15,7 +16,7 @@ const Header = dynamic(() => import("./header"), {
   loading: () => <Skeleton className="w-full h-[40px]" />,
 });
 
-const ChatSidebar = () => {
+const ChatSidebar = async () => {
   return (
     <Sidebar collapsible="offcanvas" className="py-2">
       <SidebarHeader>
@@ -23,7 +24,7 @@ const ChatSidebar = () => {
       </SidebarHeader>
       <SidebarContent>
         <ChatSidebarActions />
-        <ChatSidebarUsage />
+        {(await showUsage()) && <ChatSidebarUsage />}
         <ChatHistoryNav />
       </SidebarContent>
       <SidebarFooter>
