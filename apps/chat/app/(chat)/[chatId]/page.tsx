@@ -23,7 +23,7 @@ const page = async ({ params }: PageProps) => {
     <>
       <Topbar>
         <div className="w-full overflow-x-auto flex items-center gap-2">
-          <Button variant="secondary" className="gap-2">
+          <Button variant="secondary" className="gap-2" disabled>
             <SearchIcon size={16} />
             <span>Поиск</span>
           </Button>
@@ -35,7 +35,7 @@ const page = async ({ params }: PageProps) => {
       </Topbar>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-56px-56px)] overflow-y-visible flex pb-4"
+        className="w-full min-h-[calc(100dvh-48px-48px)] overflow-y-visible flex pb-4"
       >
         <PageWrapper>
           <div

@@ -6,13 +6,20 @@ import { Button } from "mono/components/button";
 import { Checkbox } from "mono/components/checkbox";
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "mono/components/dropdown-menu";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 import {
+  getChatTaskLists,
+  getTask,
   deleteTask as removeTask,
   setTasks,
   updateTask as updateTaskInStore,
@@ -98,7 +105,7 @@ const Task = ({ task }: { task: ChatTask }) => {
         </div>
       </div>
       <div className="flex items-center shrink-0 ml-auto gap-2">
-        <TaskDropdown id={task.id}>
+        <TaskDropdown id={task.id} taskListId={task.task_list ?? undefined}>
           <Button variant="ghost" size="icon" className="size-6">
             <EllipsisVerticalIcon size={16} />
           </Button>
@@ -111,10 +118,17 @@ const Task = ({ task }: { task: ChatTask }) => {
 const TaskDropdown = ({
   id,
   children,
+  taskListId,
 }: {
+  taskListId?: number;
   children: React.ReactNode;
   id: string;
 }) => {
+  const taskLists = getChatTaskLists();
+  const currentTaskList = taskLists.find(
+    (taskList) => taskList.id === taskListId,
+  );
+  const [open, setOpen] = useState<boolean>(false);
   const handleDeleteTask = async () => {
     if (!id) return;
     try {
@@ -124,14 +138,55 @@ const TaskDropdown = ({
       console.error(error);
     }
   };
+  const handleSetTaskList = async (taskListId: number | null) => {
+    const task = getTask(id);
+    if (!task) return;
+    if (!id) return;
+    try {
+      const res = await updateTask(id, {
+        task_list: taskListId,
+      });
+      if (res) updateTaskInStore(res);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setOpen(false);
+    }
+  };
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem className="gap-2" onClick={handleDeleteTask}>
           <TrashIcon size={16} />
           <span>Удалить задачу</span>
         </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Список задач</DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuCheckboxItem
+                checked={!currentTaskList?.id}
+                onClick={() => {
+                  handleSetTaskList(null);
+                }}
+              >
+                Без списка
+              </DropdownMenuCheckboxItem>
+              {taskLists.map((taskList) => (
+                <DropdownMenuCheckboxItem
+                  key={taskList.id}
+                  checked={taskList.id === currentTaskList?.id}
+                  onClick={() => {
+                    handleSetTaskList(taskList.id);
+                  }}
+                >
+                  {taskList.name}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
       </DropdownMenuContent>
     </DropdownMenu>
   );

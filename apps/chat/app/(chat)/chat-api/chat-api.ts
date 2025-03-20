@@ -1,4 +1,10 @@
-import { ChatMessage, ChatRoom, ChatTag, ChatTask } from "@/types/chat";
+import {
+  ChatList,
+  ChatMessage,
+  ChatRoom,
+  ChatTag,
+  ChatTask,
+} from "@/types/chat";
 import { Pricing } from "@/types/pricing";
 import { createStore } from "zustand";
 
@@ -34,6 +40,11 @@ export const getChatTags = () => {
   return (chatState?.tags ?? []) as ChatTag[];
 };
 
+export const getChatTaskLists = () => {
+  const chatState = chat.getState().chat;
+  return (chatState?.task_lists ?? []) as ChatList[];
+};
+
 export const setTasks = (tasks: ChatTask[]) => chat.setState(() => ({ tasks }));
 
 export const setServices = (services: Pricing[]) =>
@@ -61,6 +72,11 @@ export const updateChatInList = (chatRoom: ChatRoom) => {
 
 export const setTasksFilterList = (tasks_filter_list: number | null) =>
   chat.setState(() => ({ tasks_filter_list }));
+
+export const getTask = (id: string) => {
+  const tasks = chat.getState().tasks;
+  return tasks.find((task) => task.id === id);
+};
 
 export const pushTask = (task: ChatTask) =>
   chat.setState((state) => ({

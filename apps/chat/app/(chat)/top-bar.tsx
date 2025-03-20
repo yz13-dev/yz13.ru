@@ -9,25 +9,34 @@ type TopbarProps = {
 };
 const Topbar = ({ className = "", children }: TopbarProps) => {
   const [showSidebarTrigger, setShowSidebarTrigger] = useState<boolean>(false);
-  useEffect(() => {
-    const handleScroll = (e: Event) => {
+  const handleScroll = (e: Event) => {
+    const scrollTop = window.scrollY;
+    if (scrollTop >= 48) {
+      setShowSidebarTrigger(true);
+    } else {
+      setShowSidebarTrigger(false);
+    }
+  };
+  const handleInitialScroll = () => {
+    if (typeof window !== "undefined") {
       const scrollTop = window.scrollY;
-      if (scrollTop > 48) {
+      if (scrollTop >= 48) {
         setShowSidebarTrigger(true);
-      } else {
-        setShowSidebarTrigger(false);
       }
-    };
+    }
+  };
+  useEffect(() => {
+    handleInitialScroll();
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
   return (
-    <div className="top-0 z-20 h-14 bg-background border-b w-full sticky mb-6">
+    <div className="top-0 z-20 h-12 shrink-0 bg-background border-b w-full sticky mb-6">
       <div
         className={cn(
-          "px-4 py-2 flex items-center md:mx-0 mx-auto gap-2 h-full",
+          "px-4 py-1 flex items-center md:mx-0 mx-auto gap-2 h-full",
           className,
         )}
       >
