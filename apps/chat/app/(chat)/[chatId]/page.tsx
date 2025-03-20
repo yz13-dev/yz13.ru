@@ -1,7 +1,6 @@
 import { getChatMessages } from "@/actions/chats/chats";
-import { Loader2Icon, SearchIcon, UserPlusIcon } from "lucide-react";
+import { Loader2Icon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import ChatInput from "../chat-input";
@@ -31,10 +30,6 @@ const page = async ({ params }: PageProps) => {
           <PinnedMessage />
         </div>
         <div className="w-fit flex items-center gap-2 shrink-0">
-          <Button variant="secondary" size="icon">
-            <UserPlusIcon size={16} />
-          </Button>
-          <Separator orientation="vertical" className="h-7" />
           <GroupChatParticipants />
         </div>
       </Topbar>
