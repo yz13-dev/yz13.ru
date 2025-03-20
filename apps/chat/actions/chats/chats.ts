@@ -120,6 +120,26 @@ export const getChatMessages = async (id: string) => {
   }
 };
 
+export const getChatMessage = async (id: string, messageId: string) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-messages")
+      .select("*")
+      .eq("chat_id", id)
+      .eq("id", messageId)
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
   try {
     const key = `chat:${id}`;

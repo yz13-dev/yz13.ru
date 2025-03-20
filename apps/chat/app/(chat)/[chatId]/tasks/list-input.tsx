@@ -62,7 +62,7 @@ const TasksListInput = ({ chatId }: TasksListInputProps) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="shrink-0">
           {open ? <XIcon size={16} /> : <PlusIcon size={16} />}
         </Button>
       </PopoverTrigger>

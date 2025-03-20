@@ -17,7 +17,7 @@ const ChatToolbar = ({ chatId }: ChatToolbarProps) => {
   const chat = useChatApi((state) => state.chat);
   const isGroupChat = useMemo(() => chat?.type === "group", [chat]);
   return (
-    <>
+    <div className="w-fit md:px-4 shrink-0 px-2 h-fit sticky right-0 top-1/3 flex flex-col items-center justify-center gap-2">
       <Button size="icon" variant="secondary" asChild>
         <Link href={`/${chatId}`}>
           <MessageCircleIcon size={16} />
@@ -40,7 +40,7 @@ const ChatToolbar = ({ chatId }: ChatToolbarProps) => {
           <SettingsIcon size={16} />
         </Link>
       </Button>
-    </>
+    </div>
   );
 };
 

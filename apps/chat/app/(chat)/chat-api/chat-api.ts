@@ -1,4 +1,4 @@
-import { ChatMessage, ChatRoom, ChatTask } from "@/types/chat";
+import { ChatMessage, ChatRoom, ChatTag, ChatTask } from "@/types/chat";
 import { Pricing } from "@/types/pricing";
 import { createStore } from "zustand";
 
@@ -28,6 +28,11 @@ export const createChatApi = (initState: Partial<Store> = initialState) => {
 };
 
 export const chat = createChatApi();
+
+export const getChatTags = () => {
+  const chatState = chat.getState().chat;
+  return (chatState?.tags ?? []) as ChatTag[];
+};
 
 export const setTasks = (tasks: ChatTask[]) => chat.setState(() => ({ tasks }));
 
