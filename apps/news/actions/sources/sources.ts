@@ -20,6 +20,7 @@ export const getNewsSources = async (
     const data = await response.json();
     return data;
   } catch (error) {
+    console.log(error);
     return [];
   }
 };
@@ -39,6 +40,7 @@ export const getNewsSource = async (
     const data = await response.json();
     return data;
   } catch (error) {
+    console.log(error);
     return null;
   }
 };

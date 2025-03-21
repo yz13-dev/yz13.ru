@@ -79,3 +79,9 @@ news.get("/codes", async (c) => {
     return c.json(unique);
   }
 });
+
+news.post("/articles/new", async (c) => {
+  const article = await c.req.json();
+  console.log(article);
+  return c.json(article);
+});

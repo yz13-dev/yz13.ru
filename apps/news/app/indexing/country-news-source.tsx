@@ -1,5 +1,4 @@
 import { getNewsSources } from "@/actions/sources/sources";
-import { wait } from "@/lib/wait";
 import { ArrowUpRightIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
@@ -50,7 +49,6 @@ export const CountryNewsSourceSkeleton = () => {
 };
 
 const CountryNewsSource = async ({ code }: { code: string }) => {
-  await wait(2000);
   const sources = await getNewsSources(code);
   return (
     <div className="w-full grid xl:grid-cols-2 grid-col-2 gap-1.5">
@@ -66,6 +64,11 @@ const CountryNewsSource = async ({ code }: { code: string }) => {
                 <ArrowUpRightIcon size={20} />
               </Link>
             </div>
+            {source.rss && (
+              <div className="flex items-center gap-2">
+                <Link href={source.rss}>source.rss</Link>
+              </div>
+            )}
             <Suspense fallback={<NewsSkeleton />}>
               <News sourceId={source.id} />
             </Suspense>

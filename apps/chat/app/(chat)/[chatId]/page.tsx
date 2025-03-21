@@ -35,12 +35,12 @@ const page = async ({ params }: PageProps) => {
       </Topbar>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-48px-48px)] overflow-y-visible flex pb-4"
+        className="w-full min-h-[calc(100dvh-48px-48px-126px)] pt-6 overflow-y-visible flex pb-4"
       >
         <PageWrapper>
           <div
             className={cn(
-              "mx-auto min-h-[80dvh] md:max-w-[calc(var(--breakpoint-lg)-68px)] max-w-[calc(var(--breakpoint-lg)-52px)]",
+              "mx-auto min-h-[70dvh] md:max-w-[calc(var(--breakpoint-lg)-68px)] max-w-[calc(var(--breakpoint-lg)-52px)]",
               "pb-2",
             )}
           >
@@ -53,7 +53,7 @@ const page = async ({ params }: PageProps) => {
       </div>
       <ChatInput
         chatId={chatId}
-        containerClassName="sticky md:w-full w-dvw"
+        containerClassName="py-2 sticky !bottom-0 md:w-full w-dvw"
         className="w-full"
       />
     </>
