@@ -3,7 +3,7 @@ import { Skeleton } from "mono/components/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
-import ChatInput from "./chat-input";
+import ChatInput from "./chat-input/input";
 import Header from "./header";
 import LastChatList, { LastChatListSkeleton } from "./last-chat-list";
 

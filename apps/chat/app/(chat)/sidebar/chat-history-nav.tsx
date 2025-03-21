@@ -16,7 +16,7 @@ import {
   SidebarMenuItem,
 } from "mono/components/sidebar";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { UserObject } from "types/user";
 import { cn } from "yz13/cn";
 import { updateChatInList } from "../chat-api/chat-api";
@@ -25,6 +25,54 @@ import { useChatApi } from "../chat-api/chat-provider";
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
 
+const Participant = ({
+  uid,
+  className = "",
+}: {
+  uid: string;
+  className?: string;
+}) => {
+  const [user, setUser] = useState<UserObject | null>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const handleUser = async (uid: string) => {
+    const user = await getUserById(uid);
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+    setUser(user);
+    setLoading(false);
+  };
+  useEffect(() => {
+    handleUser(uid);
+    () => {
+      setUser(null);
+    };
+  }, [uid]);
+  if (!user || loading)
+    return (
+      <div
+        className={cn(
+          "size-5 rounded-full border bg-background-secondary",
+          className,
+        )}
+      />
+    );
+  else
+    return (
+      <Avatar
+        className={cn(
+          "size-5 rounded-full border bg-background-secondary",
+          className,
+        )}
+      >
+        <AvatarImage src={user.avatar_url ?? undefined} />
+        <AvatarFallback className="uppercase">
+          {(user.username || user.id).slice(0, 2)}
+        </AvatarFallback>
+      </Avatar>
+    );
+};
 export const ChatParticipants = ({
   uids,
   className = "",
@@ -34,47 +82,11 @@ export const ChatParticipants = ({
   className?: string;
   avatarClassName?: string;
 }) => {
-  const [users, setUsers] = useState<UserObject[]>([]);
-  const handleAddUser = useCallback(
-    (user: UserObject) => {
-      const isAlreadyAdded = users.some((usr) => usr.id === user.id);
-      if (isAlreadyAdded) return;
-      setUsers((users) => {
-        const hasUser = users.some((usr) => usr.id === user.id);
-        if (hasUser) return users;
-        else return [...users, user];
-      });
-    },
-    [users],
-  );
-  useEffect(() => {
-    uids.forEach(async (uid) => {
-      const user = await getUserById(uid);
-      if (!user) return;
-      handleAddUser(user);
-    });
-    () => {
-      setUsers([]);
-    };
-  }, [uids]);
   return (
     <div className={cn("h-fit -space-x-2.5 *:inline-block", className)}>
-      {users.map((user) => {
-        return (
-          <Avatar
-            key={user.id}
-            className={cn(
-              "size-5 rounded-full border bg-background-secondary",
-              avatarClassName,
-            )}
-          >
-            <AvatarImage src={user.avatar_url ?? undefined} />
-            <AvatarFallback className="uppercase">
-              {(user.username || user.id).slice(0, 2)}
-            </AvatarFallback>
-          </Avatar>
-        );
-      })}
+      {uids.map((uid) => (
+        <Participant key={uid} uid={uid} className={avatarClassName} />
+      ))}
     </div>
   );
 };

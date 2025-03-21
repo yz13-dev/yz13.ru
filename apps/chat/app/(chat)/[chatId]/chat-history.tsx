@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@/hooks/use-user";
-import { ChatMessage, ChatTag } from "@/types/chat";
+import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { HashIcon, Loader2Icon, MouseIcon, XIcon } from "lucide-react";
@@ -66,7 +66,7 @@ const ChatBubbleGroup = ({
   const isToday = dayjs().isSame(dayjs(date, "DD-MM-YYYY"), "day");
   return (
     <div className={cn("space-y-12", className)}>
-      <div className="flex sticky top-32 z-10 items-center gap-2 justify-center">
+      <div className="flex sticky top-16 z-10 items-center gap-2 justify-center">
         <span className="text-sm text-secondary bg-background-secondary/60 backdrop-blur-sm px-2 py-1 rounded-md shrink-0 capitalize">
           {isToday ? "Сегодня" : groupDate}
         </span>
@@ -119,6 +119,10 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
     () => chat?.["pinned-message"] ?? null,
     [chat],
   );
+  const chatAttachments = useMemo(
+    () => (chat?.attachments ?? []) as ChatAttachment[],
+    [chat],
+  );
   const messages = useChatApi((state) => state.messages);
   const [user, loading] = useUser();
   const groupedMessages = groupChatMessages(messages);
@@ -140,7 +144,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
     const wrapper = document.getElementById("chat-wrapper");
     // console.log(enableAutoScroll, !!wrapper);
     if (wrapper) {
-      console.log("height", wrapper.scrollHeight);
+      // console.log("height", wrapper.scrollHeight);
       window.scrollTo({
         top: wrapper.scrollHeight,
         behavior: "smooth",
@@ -155,6 +159,9 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
   }, [providedMessages]);
   return (
     <div
+      onLoad={() => {
+        if (enableAutoScroll) handleScroll();
+      }}
       className={cn("w-full space-y-12 h-full")}
       onWheel={(e) => {
         if (e.deltaY < 0) handleManualScroll();
@@ -190,6 +197,14 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
               const tags = getTags(message.tags);
               const isMe = message.from_id === user?.id;
               const pinned = message.id === chatPinnedMessageId;
+              const attachments = (message.attachments ?? [])
+                .map((attachement) => {
+                  const attachment = chatAttachments.find(
+                    (item) => item.id === attachement,
+                  );
+                  return attachment;
+                })
+                .filter((attachment) => !!attachment);
               return (
                 <ChatBubble
                   key={`${key}/message/${message.id}`}
@@ -200,6 +215,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
                   pinned={pinned}
                   isShortMessage={isShortMessage}
                   tags={tags}
+                  attachments={attachments}
                   messageActions={[
                     <PinMessageButton
                       key={`${key}/message/${message.id}/pin`}

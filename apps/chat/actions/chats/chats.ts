@@ -89,7 +89,8 @@ export const createMessageInChat = async (
     const { data, error } = await supabase
       .from("chats-messages")
       .insert(body)
-      .select("*");
+      .select("*")
+      .maybeSingle();
     if (error) {
       console.log(error);
       return null;

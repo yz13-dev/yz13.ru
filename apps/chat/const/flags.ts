@@ -14,3 +14,12 @@ export const showUsage = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showTaskPageButton = flag<boolean>({
+  key: "show-task-page-button",
+  description: "Show task page button in sidebar",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});

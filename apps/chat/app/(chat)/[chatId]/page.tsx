@@ -3,7 +3,7 @@ import { Loader2Icon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
-import ChatInput from "../chat-input";
+import ChatInput from "../chat-input/input";
 import ChatToolbar from "../chat-toolbar/chat-toolbar";
 import Topbar from "../top-bar";
 import ChatHistory from "./chat-history";
@@ -23,7 +23,7 @@ const page = async ({ params }: PageProps) => {
     <>
       <Topbar>
         <div className="w-full overflow-x-auto flex items-center gap-2">
-          <Button variant="secondary" className="gap-2">
+          <Button variant="secondary" className="gap-2" disabled>
             <SearchIcon size={16} />
             <span>Поиск</span>
           </Button>
@@ -35,7 +35,7 @@ const page = async ({ params }: PageProps) => {
       </Topbar>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-56px-56px)] overflow-y-visible flex pb-4"
+        className="w-full min-h-[calc(100dvh-48px-48px)] overflow-y-visible flex pb-4"
       >
         <PageWrapper>
           <div

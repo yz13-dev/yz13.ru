@@ -1,4 +1,11 @@
-import { ChatMessage, ChatRoom, ChatTag, ChatTask } from "@/types/chat";
+import {
+  ChatAttachment,
+  ChatList,
+  ChatMessage,
+  ChatRoom,
+  ChatTag,
+  ChatTask,
+} from "@/types/chat";
 import { Pricing } from "@/types/pricing";
 import { createStore } from "zustand";
 
@@ -34,11 +41,31 @@ export const getChatTags = () => {
   return (chatState?.tags ?? []) as ChatTag[];
 };
 
+export const getChatTaskLists = () => {
+  const chatState = chat.getState().chat;
+  return (chatState?.task_lists ?? []) as ChatList[];
+};
+export const getChatAttachments = () => {
+  const chatState = chat.getState().chat;
+  return (chatState?.attachments ?? []) as ChatAttachment[];
+};
+
+export const getChatAttachmentsById = (ids: string[]) => {
+  const state = getChatAttachments();
+  return state
+    .map((attachment) => {
+      if (ids.includes(attachment.id)) return attachment;
+      else return null;
+    })
+    .filter((attachment) => !!attachment);
+};
+
 export const setTasks = (tasks: ChatTask[]) => chat.setState(() => ({ tasks }));
 
 export const setServices = (services: Pricing[]) =>
   chat.setState(() => ({ services }));
 
+export const getChat = () => chat.getState().chat;
 export const setChat = (chatRoom: ChatRoom | null) => {
   chat.setState(() => ({ chat: chatRoom }));
 };
@@ -61,6 +88,11 @@ export const updateChatInList = (chatRoom: ChatRoom) => {
 
 export const setTasksFilterList = (tasks_filter_list: number | null) =>
   chat.setState(() => ({ tasks_filter_list }));
+
+export const getTask = (id: string) => {
+  const tasks = chat.getState().tasks;
+  return tasks.find((task) => task.id === id);
+};
 
 export const pushTask = (task: ChatTask) =>
   chat.setState((state) => ({
