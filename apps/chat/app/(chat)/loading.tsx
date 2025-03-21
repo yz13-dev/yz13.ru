@@ -8,7 +8,7 @@ const loading = () => {
   return (
     <div className="w-full h-dvh flex flex-row">
       {sidebarState && <SidebarSkeleton />}
-      <div className="w-full h-full"></div>
+      <div className="w-full h-full bg-background-secondary" />
     </div>
   );
 };

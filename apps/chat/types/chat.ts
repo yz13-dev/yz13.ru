@@ -13,3 +13,11 @@ export type ChatList = {
   id: number;
   name: string;
 };
+export type ChatAttachment = {
+  id: string;
+  name: string;
+  type: string;
+  path: string;
+  size: number;
+  created_at: number;
+};

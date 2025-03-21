@@ -3,7 +3,7 @@ import { Loader2Icon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
-import ChatInput from "../chat-input";
+import ChatInput from "../chat-input/input";
 import ChatToolbar from "../chat-toolbar/chat-toolbar";
 import Topbar from "../top-bar";
 import ChatHistory from "./chat-history";

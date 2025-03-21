@@ -1,20 +1,25 @@
 "use client";
-import { createChat, createMessageInChat } from "@/actions/chats/chats";
+import { uploadAttachments } from "@/actions/chats/attachments";
+import {
+  createChat,
+  createMessageInChat,
+  updateChat,
+  updateChatMessage,
+} from "@/actions/chats/chats";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
-import { ChatRoom, ChatTag } from "@/types/chat";
-import {
-  ArrowUpIcon,
-  HashIcon,
-  Loader2Icon,
-  PaperclipIcon,
-  XIcon,
-} from "lucide-react";
+import { ChatRoom } from "@/types/chat";
+import { ArrowUpIcon, HashIcon, Loader2Icon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { AnimatePresence } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
-import { useChatApi } from "./chat-api/chat-provider";
+import { getChatAttachments, setChat } from "../chat-api/chat-api";
+import AttachedFiles from "./attached-files";
+import { FileHandler } from "./file-handler";
+import useChatInput, { setFiles, setTags } from "./input-store";
+import TagsSelector from "./tags-selector";
 
 type ChatInputProps = {
   containerClassName?: string;
@@ -33,23 +38,18 @@ const ChatInput = ({
 }: ChatInputProps) => {
   const [user, userLoading] = useUser();
   const ref = useRef<HTMLElement>(null);
-  const [value, setValue] = useState<string>("");
+  const value = useChatInput((state) => state.value);
+  const setValue = useChatInput((state) => state.setValue);
   const [loading, setLoading] = useState<boolean>(false);
   const inputType = chatId ? "reply" : "new";
+  const files = useChatInput((state) => state.files);
   const disabled = useMemo(() => {
-    return !value || loading || !user || userLoading;
-  }, [value, loading, userLoading, user]);
+    const cantBeSend = files.length !== 0 ? false : !value;
+    return cantBeSend || loading || !user || userLoading;
+  }, [value, loading, userLoading, user, files]);
   const router = useRouter();
   const [showTags, setShowTags] = useState<boolean>(false);
-  const tags = useChatApi((state) => state.chat?.tags);
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const handleSelectTag = (tagId: number) => {
-    if (selectedTags.includes(tagId)) {
-      setSelectedTags(selectedTags.filter((id) => id !== tagId));
-    } else {
-      setSelectedTags([...selectedTags, tagId]);
-    }
-  };
+  const selectedTags = useChatInput((state) => state.tags);
   const handleSend = async () => {
     if (disabled) return;
     if (!user) return;
@@ -75,10 +75,26 @@ const ChatInput = ({
         message: value,
         tags: selectedTags,
       });
+      if (files.length > 0 && chatId) {
+        const result = await uploadAttachments(chatId, files);
+        const onlySuccessfull = result.filter((file) => file !== null);
+        if (onlySuccessfull.length > 0) {
+          if (newMessage) {
+            const ids = onlySuccessfull.map((file) => file.id);
+            await updateChatMessage(newMessage.id, { attachments: ids });
+          }
+          const currentAttachments = getChatAttachments();
+          const attachments = [...currentAttachments, ...onlySuccessfull];
+          const updatedChat = await updateChat(chatId, { attachments });
+          if (updatedChat) setChat(updatedChat);
+        }
+        console.log("result", result);
+      }
       if (newMessage) {
-        setSelectedTags([]);
+        setTags([]);
         setValue("");
         setShowTags(false);
+        setFiles([]);
       }
     }
     setLoading(false);
@@ -97,33 +113,17 @@ const ChatInput = ({
     >
       <div
         className={cn(
-          "flex items-center h-fit p-2 rounded-3xl bg-background-secondary/60 backdrop-blur-md w-full justify-center",
+          "flex items-center h-fit p-2 rounded-3xl bg-background/60 backdrop-blur-md w-full justify-center",
           "border-1 focus-within:border-foreground ring-4 ring-transparent focus-within:ring-foreground/20",
+          "hover:border-foreground",
           className,
         )}
       >
         <div className="w-full flex flex-col gap-2">
-          {showTags && (
-            <div className="w-full flex items-start gap-1 flex-wrap">
-              {((tags ?? []) as ChatTag[]).map((tag) => {
-                const selected = selectedTags.includes(tag.id);
-                return (
-                  <span
-                    onClick={() => handleSelectTag(tag.id)}
-                    key={tag.id}
-                    className={cn(
-                      "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-full border",
-                      selected
-                        ? "!border-foreground bg-background-secondary"
-                        : "bg-background-secondary",
-                    )}
-                  >
-                    {tag.tag}
-                  </span>
-                );
-              })}
-            </div>
-          )}
+          <AnimatePresence>
+            {files.length !== 0 && <AttachedFiles />}
+          </AnimatePresence>
+          <AnimatePresence>{showTags && <TagsSelector />}</AnimatePresence>
           <AutoTextarea
             onKeyDown={(e) => {
               const isSendAction = e.key === "Enter" && !e.ctrlKey;
@@ -158,11 +158,7 @@ const ChatInput = ({
                   </span>
                 </Button>
               )}
-              {chatId && (
-                <Button variant="secondary" size="sm" className="size-6 p-0.5">
-                  <PaperclipIcon size={14} />
-                </Button>
-              )}
+              {chatId && <FileHandler watchId="chat-input" />}
             </div>
             <Button
               onClick={handleSend}

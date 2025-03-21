@@ -1,4 +1,5 @@
-import { deleteMessageFromChat } from "@/actions/chats/chats";
+import { removeAttachments } from "@/actions/chats/attachments";
+import { deleteMessageFromChat, updateChat } from "@/actions/chats/chats";
 import {
   CheckCircleIcon,
   CopyIcon,
@@ -15,7 +16,12 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "mono/components/context-menu";
-import { deleteMessage } from "../chat-api/chat-api";
+import {
+  deleteMessage,
+  getChatAttachments,
+  getChatAttachmentsById,
+  setChat,
+} from "../chat-api/chat-api";
 import TagInput from "./tag-input";
 
 const MessageCtxMenu = ({
@@ -34,7 +40,26 @@ const MessageCtxMenu = ({
   const handleDelete = async () => {
     if (!messageId) return;
     const res = await deleteMessageFromChat(messageId);
-    if (res) deleteMessage(res.id);
+    if (res) {
+      deleteMessage(res.id);
+      const hasAttachments = res.attachments && res.attachments.length !== 0;
+      if (hasAttachments) {
+        const attachments = getChatAttachmentsById(res.attachments ?? []);
+        const paths = attachments.map((attachment) => attachment.path);
+        const deleted = await removeAttachments(paths);
+        if (deleted) {
+          const deletedIds = deleted.map((attachment) => attachment.id);
+          const chatAttachments = getChatAttachments();
+          const updatedChatAttachments = chatAttachments.filter(
+            (attachment) => !deletedIds.includes(attachment.id),
+          );
+          const updatedChat = await updateChat(res.chat_id, {
+            attachments: updatedChatAttachments,
+          });
+          if (updatedChat) setChat(updatedChat);
+        }
+      }
+    }
   };
   const handleCopyText = async () => {
     if (!message) return;

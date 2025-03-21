@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       chats: {
         Row: {
+          attachments: Json[] | null;
           chat_participants: string[] | null;
           created_at: string;
           favorite: boolean | null;
@@ -24,6 +25,7 @@ export type Database = {
           updated_at: string | null;
         };
         Insert: {
+          attachments?: Json[] | null;
           chat_participants?: string[] | null;
           created_at?: string;
           favorite?: boolean | null;
@@ -37,6 +39,7 @@ export type Database = {
           updated_at?: string | null;
         };
         Update: {
+          attachments?: Json[] | null;
           chat_participants?: string[] | null;
           created_at?: string;
           favorite?: boolean | null;
@@ -61,6 +64,7 @@ export type Database = {
       };
       "chats-messages": {
         Row: {
+          attachments: string[] | null;
           chat_id: string;
           created_at: string;
           edited_at: string | null;
@@ -71,6 +75,7 @@ export type Database = {
           tags: number[];
         };
         Insert: {
+          attachments?: string[] | null;
           chat_id?: string;
           created_at?: string;
           edited_at?: string | null;
@@ -81,6 +86,7 @@ export type Database = {
           tags?: number[];
         };
         Update: {
+          attachments?: string[] | null;
           chat_id?: string;
           created_at?: string;
           edited_at?: string | null;

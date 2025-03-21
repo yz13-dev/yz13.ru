@@ -1,9 +1,11 @@
 "use client";
 import { updateChat, updateChatMessage } from "@/actions/chats/chats";
-import { ChatTag } from "@/types/chat";
+import { cdn } from "@/lib/cdn";
+import { ChatAttachment, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import { CheckIcon, CopyIcon, Loader2Icon, PinIcon } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 import { getMessage, setChat } from "../chat-api/chat-api";
@@ -12,7 +14,7 @@ import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 import { BubbleTag } from "./chat-history";
 
 export const bubbleVariants = cva(
-  "max-w-md text-sm px-3 transition-colors py-1.5 rounded-3xl w-fit border border-transparent",
+  "max-w-md text-sm transition-colors rounded-3xl w-fit border border-transparent",
   {
     variants: {
       variant: {
@@ -57,6 +59,7 @@ export type ChatBubbleProps = {
   tags?: ChatTag[];
   pinned?: boolean;
   messageActions?: React.ReactNode;
+  attachments?: ChatAttachment[];
 } & VariantProps<typeof bubbleVariants>;
 
 const handleDeleteTag = async (messageId: string | null, tagId: number) => {
@@ -71,6 +74,36 @@ const handleDeleteTag = async (messageId: string | null, tagId: number) => {
   }
 };
 
+const ImagePreview = ({ attachment }: { attachment: ChatAttachment }) => {
+  const url = cdn(`/chats/${attachment.path}`);
+  return (
+    <Image
+      src={url}
+      fill
+      className="!static block rounded-xl"
+      alt={attachment.name}
+    />
+  );
+};
+
+const AttachmentsPreviews = ({
+  attachments,
+  withNoText = false,
+}: {
+  withNoText?: boolean;
+  attachments: ChatAttachment[];
+}) => {
+  return (
+    <div className={cn("w-full", withNoText ? "p-1.5" : " pt-1.5 px-1.5")}>
+      {attachments.map((attachment) => {
+        if (attachment.type.startsWith("image")) {
+          return <ImagePreview key={attachment.id} attachment={attachment} />;
+        } else return null;
+      })}
+    </div>
+  );
+};
+
 const ChatBubble = ({
   side = "right",
   variant = "secondary",
@@ -81,9 +114,11 @@ const ChatBubble = ({
   tags = [],
   messageActions,
   children,
+  attachments = [],
 }: ChatBubbleProps) => {
   const [isCtxMenuOpen, setIsCtxMenuOpen] = useState<boolean>(false);
   const bubbleVariant = isCtxMenuOpen ? "outline" : variant;
+  const showAsShortMessage = attachments.length !== 0 ? false : isShortMessage;
   return (
     <MessageCtxMenu
       message={children as string}
@@ -91,7 +126,7 @@ const ChatBubble = ({
       onOpenChange={setIsCtxMenuOpen}
       className={cn(
         "w-full gap-1 group/bubble md:px-6 px-2 h-fit",
-        isShortMessage
+        showAsShortMessage
           ? side === "left"
             ? "flex flex-row justify-start items-center"
             : "flex flex-row-reverse items-center justify-start"
@@ -104,15 +139,29 @@ const ChatBubble = ({
         className="overflow-hidden w-full h-fit"
         exit={{ opacity: 0, height: 0 }}
       >
-        <span
+        <div
           className={cn(
-            "w-full *:select-none inline-block overflow-clip text-content *:inline",
-            "whitespace-pre-wrap break-words relative",
+            "w-full h-fit flex flex-col",
             bubbleVariants({ variant: bubbleVariant }),
           )}
         >
-          {parseText(children as string)}
-        </span>
+          {attachments.length !== 0 && (
+            <AttachmentsPreviews
+              attachments={attachments}
+              withNoText={!children}
+            />
+          )}
+          {children && (
+            <span
+              className={cn(
+                "w-full shrink-0 *:select-none block overflow-clip text-content *:inline",
+                "whitespace-pre-wrap break-words relative px-3 py-1.5",
+              )}
+            >
+              {parseText(children as string)}
+            </span>
+          )}
+        </div>
         <div
           className={cn(
             "flex w-full items-center gap-2",

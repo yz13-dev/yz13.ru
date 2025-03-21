@@ -44,7 +44,7 @@ const LastChatList = async () => {
           return (
             <div
               key={chat.id}
-              className="flex flex-col gap-2 rounded-lg border p-3"
+              className="flex flex-col gap-2 rounded-lg bg-background border p-3"
             >
               <div className="flex gap-2 items-center">
                 {isGroupChat ? (

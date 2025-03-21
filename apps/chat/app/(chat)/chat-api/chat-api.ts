@@ -1,4 +1,5 @@
 import {
+  ChatAttachment,
   ChatList,
   ChatMessage,
   ChatRoom,
@@ -44,12 +45,27 @@ export const getChatTaskLists = () => {
   const chatState = chat.getState().chat;
   return (chatState?.task_lists ?? []) as ChatList[];
 };
+export const getChatAttachments = () => {
+  const chatState = chat.getState().chat;
+  return (chatState?.attachments ?? []) as ChatAttachment[];
+};
+
+export const getChatAttachmentsById = (ids: string[]) => {
+  const state = getChatAttachments();
+  return state
+    .map((attachment) => {
+      if (ids.includes(attachment.id)) return attachment;
+      else return null;
+    })
+    .filter((attachment) => !!attachment);
+};
 
 export const setTasks = (tasks: ChatTask[]) => chat.setState(() => ({ tasks }));
 
 export const setServices = (services: Pricing[]) =>
   chat.setState(() => ({ services }));
 
+export const getChat = () => chat.getState().chat;
 export const setChat = (chatRoom: ChatRoom | null) => {
   chat.setState(() => ({ chat: chatRoom }));
 };
