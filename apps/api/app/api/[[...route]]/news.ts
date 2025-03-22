@@ -91,7 +91,17 @@ news.post("/articles/new", async (c) => {
       return c.json({ error: "Unauthorized" }, 401);
     } else {
       const article = await c.req.json();
-      return c.json(article);
+      const cookieStore = cookies();
+      const supabase = createClient(cookieStore);
+      const { data, error } = await supabase
+        .from("news")
+        .insert(article)
+        .select()
+        .maybeSingle();
+      if (error) {
+        return c.json(null);
+      }
+      return c.json(data);
     }
   }
 });
