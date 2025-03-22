@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 3001",
+    "dev": "next dev --turbo --port 3001 --experimental-https --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@upstash/workflow": "^0.2.12",
     "cheerio": "^1.0.0",
     "mono": "*",
     "next": "14.2.6",

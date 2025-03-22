@@ -79,3 +79,19 @@ news.get("/codes", async (c) => {
     return c.json(unique);
   }
 });
+
+news.post("/articles/new", async (c) => {
+  const token = c.req.header("Authorization");
+  if (!token) {
+    return c.json({ error: "Unauthorized" }, 401);
+  } else {
+    const NEWS_API_TOKEN = process.env.NEWS_API_TOKEN;
+    const tokenValid = token.replace("Bearer ", "") === NEWS_API_TOKEN;
+    if (!tokenValid) {
+      return c.json({ error: "Unauthorized" }, 401);
+    } else {
+      const article = await c.req.json();
+      return c.json(article);
+    }
+  }
+});

@@ -65,7 +65,7 @@ const ChatBubbleGroup = ({
     .format("dddd, DD MMMM");
   const isToday = dayjs().isSame(dayjs(date, "DD-MM-YYYY"), "day");
   return (
-    <div className={cn("space-y-12", className)}>
+    <div className={cn("space-y-6", className)}>
       <div className="flex sticky top-16 z-10 items-center gap-2 justify-center">
         <span className="text-sm text-secondary bg-background-secondary/60 backdrop-blur-sm px-2 py-1 rounded-md shrink-0 capitalize">
           {isToday ? "Сегодня" : groupDate}

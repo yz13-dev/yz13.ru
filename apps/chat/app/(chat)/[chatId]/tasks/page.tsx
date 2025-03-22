@@ -26,7 +26,7 @@ const page = async ({ params }: PageProps) => {
       </Topbar>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-48px-48px)] overflow-y-visible flex pb-2"
+        className="w-full min-h-[calc(100dvh-48px-48px)] pt-6 overflow-y-visible flex pb-2"
       >
         <PageWrapper>
           <div

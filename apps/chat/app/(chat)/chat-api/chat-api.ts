@@ -105,6 +105,7 @@ export const updateTask = (task: ChatTask) =>
       else return msg;
     }),
   }));
+
 export const deleteTask = (id: string) =>
   chat.setState((state) => ({
     tasks: state.tasks.filter((task) => task.id !== id),

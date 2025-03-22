@@ -1,7 +1,7 @@
 "use client";
 
 import { ChatMessage, ChatRoom, ChatTask } from "@/types/chat";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { createClient } from "yz13/supabase/client";
 import {
   deleteMessage,
@@ -19,12 +19,13 @@ type ChatProviderProps = {
   chat: ChatRoom;
 };
 const ChatProvider = ({ children, chat }: ChatProviderProps) => {
+  const client = useMemo(() => createClient(), []);
   useEffect(() => {
     if (chat) setChat(chat);
   }, [chat]);
   useEffect(() => {
-    const client = createClient();
     const channel = client.channel(`chat:${chat.id}`);
+    const filter = `id=eq.${chat.id}`;
     channel
       .on(
         "postgres_changes",
@@ -32,10 +33,10 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
           event: "*",
           schema: "public",
           table: "chats",
-          filter: `id=eq.${chat.id}`,
+          filter,
         },
         (payload) => {
-          console.log("payload", payload);
+          console.log("chats/payload", payload);
           const event = payload.eventType;
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
@@ -54,8 +55,8 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
     };
   }, [chat]);
   useEffect(() => {
-    const client = createClient();
-    const channel = client.channel(`chat:${chat.id}:tasks`);
+    const channel = client.channel(`chat:${chat.id}/tasks`);
+    const filter = `chat_id=eq.${chat.id}`;
     channel
       .on(
         "postgres_changes",
@@ -63,10 +64,10 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
           event: "*",
           schema: "public",
           table: "chats-tasks",
-          filter: `chat_id=eq.${chat.id}`,
+          filter,
         },
         (payload) => {
-          console.log("payload", payload);
+          console.log("chats-tasks/payload", payload);
           const event = payload.eventType;
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";
@@ -91,8 +92,8 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
     };
   }, [chat]);
   useEffect(() => {
-    const client = createClient();
-    const channel = client.channel(`chat:${chat.id}:messages`);
+    const channel = client.channel(`chat:${chat.id}/messages`);
+    const filter = `chat_id=eq.${chat.id}`;
     channel
       .on(
         "postgres_changes",
@@ -100,10 +101,10 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
           event: "*",
           schema: "public",
           table: "chats-messages",
-          filter: `chat_id=eq.${chat.id}`,
+          filter,
         },
         (payload) => {
-          console.log("payload", payload);
+          console.log("chats-messages/payload", payload);
           const event = payload.eventType;
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";

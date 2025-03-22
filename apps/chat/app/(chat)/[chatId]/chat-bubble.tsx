@@ -4,7 +4,7 @@ import { cdn } from "@/lib/cdn";
 import { ChatAttachment, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import { CheckIcon, CopyIcon, Loader2Icon, PinIcon } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { cn } from "yz13/cn";
@@ -76,13 +76,20 @@ const handleDeleteTag = async (messageId: string | null, tagId: number) => {
 
 const ImagePreview = ({ attachment }: { attachment: ChatAttachment }) => {
   const url = cdn(`/chats/${attachment.path}`);
+  const [loading, setLoading] = useState<boolean>(true);
   return (
-    <Image
-      src={url}
-      fill
-      className="!static block rounded-xl"
-      alt={attachment.name}
-    />
+    <div className="w-full relative min-w-[200px] min-h-[100px]">
+      {loading && (
+        <div className="w-full h-full absolute top-0 left-0 rounded-xl bg-neutral-200" />
+      )}
+      <Image
+        src={url}
+        fill
+        onLoad={() => setLoading(false)}
+        className={cn("!static block rounded-xl", loading && "opacity-0")}
+        alt={attachment.name}
+      />
+    </div>
   );
 };
 
@@ -95,11 +102,13 @@ const AttachmentsPreviews = ({
 }) => {
   return (
     <div className={cn("w-full", withNoText ? "p-1.5" : " pt-1.5 px-1.5")}>
-      {attachments.map((attachment) => {
-        if (attachment.type.startsWith("image")) {
-          return <ImagePreview key={attachment.id} attachment={attachment} />;
-        } else return null;
-      })}
+      <AnimatePresence>
+        {attachments.map((attachment) => {
+          if (attachment.type.startsWith("image")) {
+            return <ImagePreview key={attachment.id} attachment={attachment} />;
+          } else return null;
+        })}
+      </AnimatePresence>
     </div>
   );
 };
