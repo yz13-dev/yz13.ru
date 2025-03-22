@@ -93,15 +93,31 @@ news.post("/articles/new", async (c) => {
       const article = await c.req.json();
       const cookieStore = cookies();
       const supabase = createClient(cookieStore);
-      const { data, error } = await supabase
+
+      const title = article.title;
+      const source_id = article.source_id;
+
+      const { data: similarArticles } = await supabase
         .from("news")
-        .insert(article)
         .select()
-        .maybeSingle();
-      if (error) {
-        return c.json(null);
+        .eq("title", title)
+        .eq("source_id", source_id);
+
+      if (similarArticles && similarArticles.length > 0) {
+        console.log("article already exists", title);
+        return c.json(similarArticles);
+      } else {
+        const { data, error } = await supabase
+          .from("news")
+          .insert(article)
+          .select()
+          .maybeSingle();
+        console.log(data, error);
+        if (error) {
+          return c.json(null);
+        }
+        return c.json(data);
       }
-      return c.json(data);
     }
   }
 });

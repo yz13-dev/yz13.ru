@@ -1,5 +1,5 @@
 "use server";
-import { ChatRoom } from "@/types/chat";
+import { ChatMessage, ChatRoom } from "@/types/chat";
 import { cookies } from "next/headers";
 import { TablesInsert, TablesUpdate } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
@@ -82,7 +82,7 @@ export const createChat = async (body: TablesInsert<"chats">) => {
 
 export const createMessageInChat = async (
   body: TablesInsert<"chats-messages">,
-) => {
+): Promise<ChatMessage | null> => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);

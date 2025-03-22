@@ -1,11 +1,12 @@
+import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "yz13/supabase/middleware";
+import { createClient } from "yz13/supabase/server";
 
 const auth = ["/login", "/signup"];
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const { supabase } = createClient(request);
+  const supabase = createClient(cookies());
   const {
     data: { user },
   } = await supabase.auth.getUser();
