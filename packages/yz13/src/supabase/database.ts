@@ -245,35 +245,41 @@ export type Database = {
       };
       news: {
         Row: {
-          category: string | null;
-          content: string | null;
-          created_at: string | null;
+          author: string | null;
+          description: string | null;
           id: string;
+          img: Json | null;
           method: string;
           published_at: string;
+          source: string | null;
           source_id: string | null;
+          tags: string[] | null;
           title: string;
           url: string;
         };
         Insert: {
-          category?: string | null;
-          content?: string | null;
-          created_at?: string | null;
+          author?: string | null;
+          description?: string | null;
           id?: string;
+          img?: Json | null;
           method: string;
           published_at: string;
+          source?: string | null;
           source_id?: string | null;
+          tags?: string[] | null;
           title: string;
           url: string;
         };
         Update: {
-          category?: string | null;
-          content?: string | null;
-          created_at?: string | null;
+          author?: string | null;
+          description?: string | null;
           id?: string;
+          img?: Json | null;
           method?: string;
           published_at?: string;
+          source?: string | null;
           source_id?: string | null;
+          tags?: string[] | null;
           title?: string;
           url?: string;
         };
