@@ -1,7 +1,7 @@
+import { makeUserObj } from "@/lib/make-user-obj";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { createAdminClient } from "yz13/supabase/admin";
-import { makeUserObj } from "./auth";
 
 export const user = new Hono();
 

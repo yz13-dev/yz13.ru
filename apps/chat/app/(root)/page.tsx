@@ -1,11 +1,12 @@
+import LastChatList, {
+  LastChatListSkeleton,
+} from "@/app/(chat)/last-chat-list";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
-import ChatInput from "./chat-input/input";
 import Header from "./header";
-import LastChatList, { LastChatListSkeleton } from "./last-chat-list";
+import NewChatForm from "./new-chat-form";
 
 const page = async () => {
   return (
@@ -27,26 +28,7 @@ const page = async () => {
           </p>
         </div>
 
-        <Tabs defaultValue="personal" className="space-y-3">
-          <div className="px-3">
-            <TabsList>
-              <TabsTrigger value="personal">Личный чат</TabsTrigger>
-              <TabsTrigger value="group">Групповой чат</TabsTrigger>
-            </TabsList>
-          </div>
-          <TabsContent value="personal">
-            <ChatInput
-              type="personal"
-              containerClassName="static max-w-full w-full px-0"
-            />
-          </TabsContent>
-          <TabsContent value="group">
-            <ChatInput
-              type="group"
-              containerClassName="static max-w-full w-full px-0"
-            />
-          </TabsContent>
-        </Tabs>
+        <NewChatForm />
         <Separator />
         <Suspense fallback={<LastChatListSkeleton />}>
           <LastChatList />

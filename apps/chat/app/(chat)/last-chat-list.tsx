@@ -44,7 +44,7 @@ const LastChatList = async () => {
           return (
             <div
               key={chat.id}
-              className="flex flex-col gap-2 rounded-lg bg-background border p-3"
+              className="flex flex-col group/chat gap-2 hover:bg-background-secondary hover:border-foreground transition-colors rounded-lg bg-background border p-3"
             >
               <div className="flex gap-2 items-center">
                 {isGroupChat ? (
@@ -57,17 +57,20 @@ const LastChatList = async () => {
                   className="w-full flex items-center justify-between"
                 >
                   <span className="text-sm font-medium">{chat.name}</span>
-                  <ArrowRightIcon size={16} />
+                  <ArrowRightIcon
+                    size={16}
+                    className="group-hover/chat:-rotate-45 transition-transform"
+                  />
                 </Link>
               </div>
-              <div className="flex gap-2 items-center">
-                <div className="flex gap-1 px-1.5 py-0.5 rounded-full border text-secondary items-center">
+              <div className="flex gap-2 items-center *:pl-1.5 *:pr-2">
+                <div className="flex gap-1 py-0.5 rounded-full border text-secondary items-center">
                   <HashIcon size={14} />
                   <span className="text-xs">
                     {chat.tags?.length ?? 0} Тэгов
                   </span>
                 </div>
-                <div className="flex gap-1 px-1.5 py-0.5 rounded-full border text-secondary items-center">
+                <div className="flex gap-1 py-0.5 rounded-full border text-secondary items-center">
                   <ListTodoIcon size={14} />
                   <span className="text-xs">
                     {chat.task_lists?.length ?? 0} Списков задач
