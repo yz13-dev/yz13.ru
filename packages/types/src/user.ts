@@ -1,3 +1,4 @@
+import { User as SupabaseUser } from "@supabase/supabase-js";
 export type UserObject = {
   id: string;
   email: string | undefined;
@@ -10,3 +11,4 @@ export type UserObject = {
   username: string;
   avatar_url: string | null;
 };
+export type User = SupabaseUser;
