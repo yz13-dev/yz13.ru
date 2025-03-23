@@ -1,8 +1,22 @@
+import { sourcesWithObjectTags } from "@/const/sources-rules";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 
 export const news = new Hono();
+
+const parseObjTags = (tags: string[]): string[] => {
+  const other = tags
+    .filter((tag) => tag !== null)
+    .filter((tag) => !tag.startsWith("{") && !tag.endsWith("}"));
+  const obj = tags
+    .filter((tag) => tag !== null)
+    .filter((tag) => tag.startsWith("{") && tag.endsWith("}"))
+    .map((tag) => JSON.parse(tag))
+    .map((tag) => tag._);
+  const union = [...new Set(obj.concat(other))];
+  return union;
+};
 
 news.get("/news-sources", async (c) => {
   const country_code = c.req.query("country_code");
@@ -65,6 +79,27 @@ news.get("/articles/:source_id", async (c) => {
   } else return c.json(data);
 });
 
+news.get("/article/:article_id", async (c) => {
+  const article_id = c.req.param("article_id");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("news")
+    .select()
+    .eq("id", article_id)
+    .maybeSingle();
+  if (error) {
+    return c.json(null);
+  } else {
+    const tags: string[] = data ? data.tags || [] : [];
+    const parsedTags = parseObjTags(tags);
+    return c.json({
+      ...data,
+      tags: parsedTags,
+    });
+  }
+});
+
 news.get("/codes", async (c) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
@@ -78,6 +113,51 @@ news.get("/codes", async (c) => {
     const unique = [...new Set(codes)];
     return c.json(unique);
   }
+});
+
+news.get("/categories", async (c) => {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase.from("news").select("tags");
+  if (error) {
+    return c.json([]);
+  } else {
+    const tags = data
+      .map(({ tags }) => tags)
+      .flat()
+      .filter((tag) => tag !== null);
+    const parsedTags = parseObjTags(tags);
+    return c.json(parsedTags);
+  }
+});
+
+news.patch("/repatch", async (c) => {
+  return c.json({ status: "ok" });
+  // const cookieStore = cookies();
+  // const supabase = createClient(cookieStore);
+  // const { data, error } = await supabase
+  //   .from("news")
+  //   .select()
+  //   .in("source_id", sourcesWithObjectTags);
+  // if (error) {
+  //   return c.json(null);
+  // } else {
+  //   const repatched = data.map((article) => {
+  //     const tags: string[] = (article.tags || []).filter(
+  //       (tag: string | null) => tag !== null,
+  //     );
+  //     const isSourceWithObjectTags = article.source_id
+  //       ? sourcesWithObjectTags.includes(article.source_id)
+  //       : false;
+  //     const articleTags = isSourceWithObjectTags ? parseObjTags(tags) : tags;
+  //     return {
+  //       ...article,
+  //       tags: articleTags,
+  //     };
+  //   });
+  //   await supabase.from("news").upsert(repatched);
+  // return c.json(repatched);
+  // }
 });
 
 news.post("/articles/new", async (c) => {
@@ -107,9 +187,15 @@ news.post("/articles/new", async (c) => {
         console.log("article already exists", title);
         return c.json(similarArticles);
       } else {
+        const tags: string[] = article.tags.filter(
+          (tag: string | null) => tag !== null,
+        );
+        const isSourceWithObjectTags =
+          sourcesWithObjectTags.includes(source_id);
+        const articleTags = isSourceWithObjectTags ? parseObjTags(tags) : tags;
         const { data, error } = await supabase
           .from("news")
-          .insert(article)
+          .insert({ ...article, tags: articleTags })
           .select()
           .maybeSingle();
         console.log(data, error);
