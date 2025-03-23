@@ -22,3 +22,21 @@ export const uploadArticle = async (article: NewArticle) => {
     return null;
   }
 };
+
+export const getArticlesForCountry = async (country_code: string) => {
+  try {
+    const url = new URL(`/news/country/${country_code}/articles`, API_URL);
+    const response = await fetch(url, {
+      method: "GET",
+      next: {
+        revalidate: 60 * 60 * 24,
+        tags: ["articles", country_code],
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

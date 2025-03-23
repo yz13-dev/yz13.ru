@@ -1,7 +1,7 @@
 "use client";
 import { updateChat, updateChatMessage } from "@/actions/chats/chats";
 import { cdn } from "@/lib/cdn";
-import { ChatAttachment, ChatTag } from "@/types/chat";
+import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import { CheckIcon, CopyIcon, Loader2Icon, PinIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -10,6 +10,7 @@ import { useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 import { getMessage, setChat } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
+import ReplyTo from "../chat-input/reply-to";
 import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 import { BubbleTag } from "./chat-history";
 
@@ -57,7 +58,9 @@ export type ChatBubbleProps = {
   isShortMessage?: boolean;
   messageId?: string;
   tags?: ChatTag[];
+  chatId: string;
   pinned?: boolean;
+  replyTo?: ChatMessage["reply_to"];
   messageActions?: React.ReactNode;
   attachments?: ChatAttachment[];
 } & VariantProps<typeof bubbleVariants>;
@@ -122,6 +125,8 @@ const ChatBubble = ({
   pinned = false,
   tags = [],
   messageActions,
+  chatId,
+  replyTo,
   children,
   attachments = [],
 }: ChatBubbleProps) => {
@@ -154,6 +159,11 @@ const ChatBubble = ({
             bubbleVariants({ variant: bubbleVariant }),
           )}
         >
+          {replyTo && (
+            <div className="px-1.5 pt-1.5">
+              <ReplyTo replyTo={replyTo} chatId={chatId} />
+            </div>
+          )}
           {attachments.length !== 0 && (
             <AttachmentsPreviews
               attachments={attachments}

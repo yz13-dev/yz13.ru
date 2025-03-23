@@ -7,7 +7,8 @@ import { cn } from "yz13/cn";
 import AttachedFiles from "./attached-files";
 import InputActions from "./input-actions";
 import InputSendButton, { sendMessage } from "./input-send-button";
-import useChatInput from "./input-store";
+import useChatInput, { setLoading } from "./input-store";
+import ReplyTo from "./reply-to";
 import TagsSelector from "./tags-selector";
 
 type ChatInputProps = {
@@ -22,7 +23,6 @@ const ChatInput = ({
   chatId,
   containerClassName = "",
   className = "",
-  type = "personal",
   bottomOffset = 8,
 }: ChatInputProps) => {
   const ref = useRef<HTMLElement>(null);
@@ -31,6 +31,7 @@ const ChatInput = ({
   const files = useChatInput((state) => state.files);
   const showTags = useChatInput((state) => state.showTags);
   const loading = useChatInput((state) => state.loading);
+  const reply_to = useChatInput((state) => state.reply_to);
   return (
     <footer
       ref={ref}
@@ -53,6 +54,9 @@ const ChatInput = ({
       >
         <div className="w-full flex flex-col gap-2">
           <AnimatePresence>
+            {reply_to && <ReplyTo chatId={chatId} replyTo={reply_to} />}
+          </AnimatePresence>
+          <AnimatePresence>
             {files.length !== 0 && <AttachedFiles />}
           </AnimatePresence>
           <AnimatePresence>{showTags && <TagsSelector />}</AnimatePresence>
@@ -67,7 +71,10 @@ const ChatInput = ({
               }
               if (isSendAction) {
                 e.preventDefault();
-                if (chatId) sendMessage(chatId);
+                if (chatId) {
+                  setLoading(true);
+                  sendMessage(chatId);
+                }
               }
             }}
             placeholder="Пишите здесь"

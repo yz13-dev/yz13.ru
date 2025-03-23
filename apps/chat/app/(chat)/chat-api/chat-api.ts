@@ -69,9 +69,10 @@ export const getChat = () => chat.getState().chat;
 export const setChat = (chatRoom: ChatRoom | null) => {
   chat.setState(() => ({ chat: chatRoom }));
 };
-export const getMessage = (id: string) => {
+export const getMessage = (id: string): ChatMessage | null => {
   const messages = chat.getState().messages;
-  return messages.find((message) => message.id === id);
+  const message = messages.find((message) => message.id === id);
+  return message ? message : null;
 };
 
 export const updateChatInList = (chatRoom: ChatRoom) => {

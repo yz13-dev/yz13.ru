@@ -52,6 +52,19 @@ news.get("/news-sources/:source_id", async (c) => {
   } else return c.json(data);
 });
 
+news.get("/country/:code/sources", async (c) => {
+  const code = c.req.param("code");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("news_sources")
+    .select()
+    .eq("country_code", code);
+  if (error) {
+    return c.json([]);
+  } else return c.json(data);
+});
+
 news.get("/parse-rules/:source_id", async (c) => {
   const source_id = c.req.param("source_id");
   const cookieStore = cookies();
@@ -74,6 +87,19 @@ news.get("/articles/:source_id", async (c) => {
     .from("news")
     .select()
     .eq("source_id", source_id);
+  if (error) {
+    return c.json([]);
+  } else return c.json(data);
+});
+
+news.get("/country/:code/articles", async (c) => {
+  const code = c.req.param("code");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("news")
+    .select()
+    .eq("country_code", code);
   if (error) {
     return c.json([]);
   } else return c.json(data);

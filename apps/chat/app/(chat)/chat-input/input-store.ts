@@ -10,6 +10,7 @@ type State = {
   showTags: boolean;
   files: FileWithId[];
   loading: boolean;
+  reply_to: string | null;
 };
 
 type Actions = {
@@ -18,6 +19,7 @@ type Actions = {
 
 export const useChatInput = create<State & Actions>((set) => ({
   value: "",
+  reply_to: null,
   showTags: false,
   tags: [],
   files: [],
@@ -25,6 +27,9 @@ export const useChatInput = create<State & Actions>((set) => ({
   loading: false,
 }));
 
+export const setReplyTo = (reply_to: string | null) =>
+  useChatInput.setState({ reply_to });
+export const getReplyTo = () => useChatInput.getState().reply_to;
 export const setLoading = (loading: boolean) =>
   useChatInput.setState({ loading });
 export const setShowTags = (showTags: boolean) =>
