@@ -63,20 +63,21 @@ const ReplyTo = ({ chatId, replyTo }: { replyTo: string; chatId?: string }) => {
   }, [replyTo]);
   if (!message) return null;
   return (
-    <div className="w-full flex items-center border gap-1.5 h-fit p-1 rounded-xl bg-background-secondary">
-      {attachments.length === 0 ? (
-        <div className="size-10 rounded-lg bg-neutral-200" />
-      ) : (
+    <div className="w-full flex items-center border h-fit p-1 rounded-xl bg-background-secondary">
+      {attachments.length === 0 ? null : (
         <AttachmentsPreviews
           attachments={attachments}
+          className="shrink-0"
           previewClassName="bg-neutral-200/80 rounded-lg border"
         />
       )}
-      <div className="flex flex-col">
+      <div className="flex flex-col px-2">
         <span className="text-sm font-medium text-foreground/60">
           {user?.username || "Пользователь"}
         </span>
-        <span className="text-xs text-secondary">{replyMessageLabel}</span>
+        <span className="text-xs text-secondary line-clamp-1">
+          {replyMessageLabel}
+        </span>
       </div>
     </div>
   );

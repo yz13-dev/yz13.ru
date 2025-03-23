@@ -23,8 +23,11 @@ const page = async ({ params }: PageProps) => {
     <>
       <Topbar>
         <div className="w-full overflow-x-auto flex items-center gap-2">
-          <Button variant="secondary" className="gap-2" disabled>
-            <SearchIcon size={16} />
+          <Button
+            variant="ghost"
+            className="gap-2 h-8 rounded-md text-xs py-0.5 px-3"
+          >
+            <SearchIcon size={14} />
             <span>Поиск</span>
           </Button>
           <PinnedMessage />
@@ -53,7 +56,7 @@ const page = async ({ params }: PageProps) => {
       </div>
       <ChatInput
         chatId={chatId}
-        containerClassName="pt-2 pb-6 sticky !bottom-0 md:w-full w-dvw"
+        containerClassName="pt-2 pb-4 sticky !bottom-0 md:w-full w-dvw"
         className="w-full"
       />
     </>
