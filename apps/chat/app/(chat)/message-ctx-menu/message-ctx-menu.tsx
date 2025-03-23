@@ -22,6 +22,7 @@ import {
   getChatAttachmentsById,
   setChat,
 } from "../chat-api/chat-api";
+import { setReplyTo } from "../chat-input/input-store";
 import TagInput from "./tag-input";
 
 const MessageCtxMenu = ({
@@ -65,7 +66,9 @@ const MessageCtxMenu = ({
     if (!message) return;
     await navigator.clipboard.writeText(message);
   };
-
+  const handleReply = (messageId: string) => {
+    setReplyTo(messageId);
+  };
   return (
     <ContextMenu onOpenChange={onOpenChange}>
       <ContextMenuTrigger className={className} asChild>
@@ -75,7 +78,10 @@ const MessageCtxMenu = ({
         <ContextMenuLabel>
           <TagInput messageId={messageId} />
         </ContextMenuLabel>
-        <ContextMenuItem>
+        <ContextMenuItem
+          disabled={!messageId}
+          onClick={() => messageId && handleReply(messageId)}
+        >
           <ReplyIcon size={16} />
           <span>Ответить</span>
         </ContextMenuItem>

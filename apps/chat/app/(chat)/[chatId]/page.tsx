@@ -53,7 +53,7 @@ const page = async ({ params }: PageProps) => {
       </div>
       <ChatInput
         chatId={chatId}
-        containerClassName="py-2 sticky !bottom-0 md:w-full w-dvw"
+        containerClassName="pt-2 pb-6 sticky !bottom-0 md:w-full w-dvw"
         className="w-full"
       />
     </>

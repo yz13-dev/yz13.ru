@@ -15,10 +15,12 @@ import { cn } from "yz13/cn";
 import { getChatAttachments, setChat } from "../chat-api/chat-api";
 import useChatInput, {
   getFiles,
+  getReplyTo,
   getTags,
   getValue,
   setFiles,
   setLoading,
+  setReplyTo,
   setShowTags,
   setTags,
   setValue,
@@ -36,11 +38,13 @@ export const sendMessage = async (
   setLoading(true);
   const value = getValue();
   const tags = getTags();
+  const reply_to = getReplyTo();
   try {
     const newMessage = await createMessageInChat({
       chat_id: chatId,
       from_id: user.id,
       message: value,
+      reply_to,
       tags,
     });
     if (newMessage) {
@@ -56,6 +60,7 @@ export const sendMessage = async (
     setValue("");
     setShowTags(false);
     setFiles([]);
+    setReplyTo(null);
   }
 };
 
@@ -81,7 +86,6 @@ const InputSendButton = ({ chatId }: InputSendButtonProps) => {
   const value = useChatInput((state) => state.value);
   const loading = useChatInput((state) => state.loading);
   const files = useChatInput((state) => state.files);
-  const tags = useChatInput((state) => state.tags);
   const disabled = useMemo(() => {
     const cantBeSend = files.length !== 0 ? false : !value;
     return cantBeSend || loading || !user || userLoading;
@@ -90,6 +94,7 @@ const InputSendButton = ({ chatId }: InputSendButtonProps) => {
     if (disabled) return;
     if (!user) return;
     if (!chatId) return;
+    setLoading(true);
     await sendMessage(chatId);
   };
   return (

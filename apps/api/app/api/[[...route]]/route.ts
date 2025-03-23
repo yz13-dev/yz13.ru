@@ -22,6 +22,17 @@ const app = new Hono().basePath("/");
 app.use("*", requestId());
 app.use(
   languageDetector({
+    lookupCookie: "language",
+    lookupQueryString: "lang",
+    order: ["cookie", "querystring"],
+    cookieOptions: {
+      sameSite: "None",
+      secure: true,
+      domain: process.env.NODE_ENV === "production" ? ".yz13.ru" : "localhost",
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    },
     supportedLanguages: ["ru", "en"], // Must include fallback
     fallbackLanguage: "ru", // Required
   }),

@@ -208,11 +208,13 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
               return (
                 <ChatBubble
                   key={`${key}/message/${message.id}`}
+                  chatId={message.chat_id}
                   messageId={message.id}
                   side={isMe ? "right" : "left"}
                   variant={isMe ? "secondary" : "ghost"}
                   date={messageDate}
                   pinned={pinned}
+                  replyTo={message.reply_to}
                   isShortMessage={isShortMessage}
                   tags={tags}
                   attachments={attachments}
