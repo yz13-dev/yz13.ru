@@ -1,40 +1,64 @@
 "use client";
-
-import useTimeStore from "@/components/live/time.store";
+import UserDropdown from "@/components/user/user-dropdown";
 import { useUser } from "@/hooks/use-user";
+import { ChevronDownIcon, UserIcon } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import { useSidebar } from "mono/components/sidebar";
 import { Skeleton } from "mono/components/skeleton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { cn } from "yz13/cn";
 
 const Header = () => {
   const { setOpen } = useSidebar();
   const [user, loading] = useUser();
-  const time = useTimeStore((state) => state.time);
+  const [open, setOpenDropdown] = useState<boolean>(false);
   useEffect(() => {
     if (!loading && !user) setOpen(false);
   }, [user, loading]);
-  return (
-    <div className="w-full px-2">
-      <div className="flex items-center justify-between">
-        <div className="flex flex-col gap-1">
-          {loading ? (
-            <Skeleton className="h-5 w-full" />
-          ) : (
-            <span className="text-sm font-medium text-foreground">
-              Привет, {user?.user_metadata?.username}
-            </span>
-          )}
-          <span className="text-xs capitalize text-secondary">
-            {time.format("dddd, DD MMMM")}
-          </span>
-        </div>
+  const UserInfo = () => {
+    return (
+      <div
+        className={cn(
+          "w-full p-2 flex items-center rounded-2xl border justify-between gap-2",
+          open && "bg-background-secondary",
+        )}
+      >
         <div className="flex items-center gap-2">
-          <div className="h-10 rounded-md flex items-center justify-center text-secondary">
-            <span className="font-medium text-xs">{time.format("HH:mm")}</span>
-          </div>
+          <Avatar className="size-10 rounded-full border bg-background">
+            <AvatarImage src={user?.avatar_url ?? undefined} />
+            <AvatarFallback className="p-0.5">
+              <UserIcon />
+            </AvatarFallback>
+          </Avatar>
+          {loading ? (
+            <Skeleton className="w-1/2 h-9" />
+          ) : (
+            <div className="flex flex-col">
+              <span className="text-sm text-start font-medium">
+                {user?.username}
+              </span>
+              <span className="text-xs text-secondary">{user?.email}</span>
+            </div>
+          )}
         </div>
+        <ChevronDownIcon
+          size={16}
+          className={cn("mx-2", open ? "rotate-180" : "")}
+        />
       </div>
-    </div>
+    );
+  };
+  if (!user) return <UserInfo />;
+  return (
+    <UserDropdown
+      user={user}
+      sideOffset={12}
+      open={open}
+      onOpenChange={setOpenDropdown}
+      className="var(--radix-dropdown-menu-trigger)"
+    >
+      <UserInfo />
+    </UserDropdown>
   );
 };
 export default Header;

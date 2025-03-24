@@ -1,9 +1,10 @@
-import { User } from "@supabase/supabase-js";
+import { makeUserObj } from "@/lib/make-user-obj";
 import { useEffect, useState } from "react";
+import { UserObject } from "types/user";
 import { createClient } from "yz13/supabase/client";
 
-export const useUser = (): [User | null, boolean] => {
-  const [user, setUser] = useState<User | null>(null);
+export const useUser = (): [UserObject | null, boolean] => {
+  const [user, setUser] = useState<UserObject | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,7 +13,7 @@ export const useUser = (): [User | null, boolean] => {
       const {
         data: { user },
       } = await client.auth.getUser();
-      setUser(user);
+      if (user) setUser(makeUserObj(user));
       setLoading(false);
     };
     fetchUser();

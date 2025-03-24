@@ -1,5 +1,6 @@
 "use client";
 
+import { UserIcon, UsersIcon } from "lucide-react";
 import { Label } from "mono/components/label";
 import { Switch } from "mono/components/switch";
 import { useState } from "react";
@@ -14,10 +15,11 @@ const NewChatForm = () => {
         <Label
           htmlFor="group-chat-switch"
           className={cn(
-            "text-base transition-colors",
+            "text-base inline-flex items-center gap-1.5 transition-colors",
             checked ? "text-secondary" : "text-foreground",
           )}
         >
+          <UserIcon size={16} />
           Личный чат
         </Label>
         <Switch
@@ -28,10 +30,11 @@ const NewChatForm = () => {
         <Label
           htmlFor="group-chat-switch"
           className={cn(
-            "text-base transition-colors",
+            "text-base inline-flex items-center gap-1.5 transition-colors",
             checked ? "text-foreground" : "text-secondary",
           )}
         >
+          <UsersIcon size={16} />
           Групповой чат
         </Label>
       </div>

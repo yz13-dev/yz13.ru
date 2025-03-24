@@ -73,14 +73,14 @@ const PinnedMessage = () => {
           </Button>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="rounded-2xl space-y-2">
+      <PopoverContent className="rounded-2xl p-3 space-y-2">
         <span className="text-xs text-secondary block">
           Закрепленное сообщение
         </span>
         <span
           className={cn(
             "w-full *:select-none inline-block overflow-clip text-content *:inline",
-            "whitespace-pre-wrap break-words relative text-sm",
+            "whitespace-pre-wrap break-words relative text-xs",
           )}
         >
           {parseText(message.message)}

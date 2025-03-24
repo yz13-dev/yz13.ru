@@ -1,5 +1,6 @@
 import LiveTimeProvider from "@/components/live/live-provider";
 import "@/styles/globals.css";
+import { TooltipProvider } from "mono/components/tooltip";
 import type { Metadata, Viewport } from "next";
 import { Inter, Pixelify_Sans } from "next/font/google";
 
@@ -58,7 +59,9 @@ export default function RootLayout({
       className={`${SANS.variable} ${PIXEL.variable} antialiased`}
     >
       <body>
-        <LiveTimeProvider>{children}</LiveTimeProvider>
+        <TooltipProvider>
+          <LiveTimeProvider>{children}</LiveTimeProvider>
+        </TooltipProvider>
       </body>
     </html>
   );

@@ -1,5 +1,4 @@
 "use client";
-import { User } from "@supabase/supabase-js";
 import { LogOutIcon, SettingsIcon, UserCircleIcon } from "lucide-react";
 import {
   DropdownMenu,
@@ -11,14 +10,22 @@ import {
 } from "mono/components/dropdown-menu";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { UserObject } from "types/user";
+import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 
 const UserDropdown = ({
+  open,
+  onOpenChange,
   user,
   children,
   sideOffset = 4,
+  className = "",
 }: {
-  user: User;
+  className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  user: UserObject;
   sideOffset?: number;
   children: React.ReactNode;
 }) => {
@@ -28,19 +35,19 @@ const UserDropdown = ({
     supabase.auth.signOut();
     router.refresh();
   };
-  const positionOrEmail = user.user_metadata.position ?? user.email;
-  const isAdmin = user.user_metadata.role === "admin";
+  const positionOrEmail = user.email;
+  const isAdmin = user.role === "admin";
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
+    <DropdownMenu open={open} onOpenChange={onOpenChange}>
+      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-56 rounded-xl"
+        className={cn("w-56 rounded-xl", className)}
         sideOffset={sideOffset}
       >
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-sm font-medium">
-            {user.user_metadata.username ?? "Username"}
+            {user.username || "Пользователь"}
           </span>
           <span className="text-xs text-secondary font-normal">
             {positionOrEmail}
