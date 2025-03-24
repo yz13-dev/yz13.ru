@@ -54,7 +54,9 @@ const ChatInput = ({
       >
         <div className="w-full flex flex-col gap-2">
           <AnimatePresence>
-            {reply_to && <ReplyTo chatId={chatId} replyTo={reply_to} />}
+            {reply_to && (
+              <ReplyTo showClose chatId={chatId} replyTo={reply_to} />
+            )}
           </AnimatePresence>
           <AnimatePresence>
             {files.length !== 0 && <AttachedFiles />}

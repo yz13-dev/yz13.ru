@@ -106,7 +106,9 @@ const InputSendButton = ({ chatId }: InputSendButtonProps) => {
       )}
       disabled={disabled}
     >
-      {!disabled && value.length !== 0 && <span>Отправить</span>}
+      {!disabled && value.length !== 0 && (
+        <span className="pl-1.5">Отправить</span>
+      )}
       {loading ? (
         <Loader2Icon size={16} className="animate-spin" />
       ) : (

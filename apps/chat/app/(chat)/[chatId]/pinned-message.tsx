@@ -8,7 +8,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "mono/components/popover";
-import { Separator } from "mono/components/separator";
 import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 import { setChat } from "../chat-api/chat-api";
@@ -48,15 +47,17 @@ const PinnedMessage = () => {
     <Popover>
       <PopoverTrigger>
         <div className="flex items-center">
-          <Button variant="secondary" className="gap-2 max-w-48 rounded-r-none">
-            <PinIcon size={16} className="shrink-0" />
+          <Button
+            variant="outline"
+            className="gap-2 max-w-48 h-8 text-xs rounded-r-none"
+          >
+            <PinIcon size={14} className="shrink-0" />
             <span className="line-clamp-1">{message.message}</span>
           </Button>
-          <Separator orientation="vertical" className="h-9" />
           <Button
-            variant="secondary"
+            variant="outline"
             size="icon"
-            className="rounded-l-none"
+            className="rounded-l-none h-8 text-xs"
             disabled={loading}
             onClick={(e) => {
               e.preventDefault();
@@ -65,9 +66,9 @@ const PinnedMessage = () => {
             }}
           >
             {loading ? (
-              <Loader2Icon size={16} className="shrink-0 animate-spin" />
+              <Loader2Icon size={14} className="shrink-0 animate-spin" />
             ) : (
-              <XIcon size={16} className="shrink-0" />
+              <XIcon size={14} className="shrink-0" />
             )}
           </Button>
         </div>

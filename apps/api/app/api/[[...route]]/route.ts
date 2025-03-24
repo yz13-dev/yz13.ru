@@ -25,6 +25,7 @@ app.use(
     lookupCookie: "language",
     lookupQueryString: "lang",
     order: ["cookie", "querystring"],
+    caches: ["cookie"],
     cookieOptions: {
       sameSite: "None",
       secure: true,

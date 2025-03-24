@@ -10,7 +10,11 @@ import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 import { getChatTags, setMessages } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
-import ChatBubble, { CopyMessageButton, PinMessageButton } from "./chat-bubble";
+import ChatBubble, {
+  CopyMessageButton,
+  PinMessageButton,
+  ReplyMessageButton,
+} from "./chat-bubble";
 
 dayjs.extend(customParseFormat);
 
@@ -162,6 +166,9 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
       onLoad={() => {
         if (enableAutoScroll) handleScroll();
       }}
+      onCanPlay={() => {
+        if (enableAutoScroll) handleScroll();
+      }}
       className={cn("w-full space-y-12 h-full")}
       onWheel={(e) => {
         if (e.deltaY < 0) handleManualScroll();
@@ -226,6 +233,10 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
                     <CopyMessageButton
                       key={`${key}/message/${message.id}/copy`}
                       message={message.message}
+                    />,
+                    <ReplyMessageButton
+                      key={`${key}/message/${message.id}/reply`}
+                      messageId={message.id}
                     />,
                   ]}
                 >

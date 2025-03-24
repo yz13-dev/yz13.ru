@@ -3,13 +3,21 @@ import { updateChat, updateChatMessage } from "@/actions/chats/chats";
 import { cdn } from "@/lib/cdn";
 import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
-import { CheckIcon, CopyIcon, Loader2Icon, PinIcon } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import {
+    CheckIcon,
+    CopyIcon,
+    Loader2Icon,
+    PinIcon,
+    ReplyIcon,
+    XIcon,
+} from "lucide-react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 import { getMessage, setChat } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
+import useChatInput, { setReplyTo } from "../chat-input/input-store";
 import ReplyTo from "../chat-input/reply-to";
 import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 import { BubbleTag } from "./chat-history";
@@ -96,6 +104,43 @@ const ImagePreview = ({ attachment }: { attachment: ChatAttachment }) => {
   );
 };
 
+const VideoPreview = ({ attachment }: { attachment: ChatAttachment }) => {
+  const url = cdn(`/chats/${attachment.path}`);
+  const ref = useRef<HTMLVideoElement>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [playing, setPlaying] = useState<boolean>(false);
+  const isInView = useInView(ref);
+  useEffect(() => {
+    const video = ref.current;
+    if (isInView) {
+      if (video) video.play();
+    } else {
+      if (video) video.pause();
+    }
+  }, [isInView]);
+  return (
+    <div className="w-full relative min-w-[200px] min-h-[100px]">
+      {loading && (
+        <div className="w-full h-full absolute top-0 left-0 rounded-xl bg-neutral-200" />
+      )}
+      <video
+      ref={ref}
+      onPlay={() => setPlaying(true)}
+      onPause={() => setPlaying(false)}
+        autoPlay
+        loop
+        muted
+        controls={false}
+        playsInline
+        src={url}
+        onCanPlay={() => setLoading(false)}
+        onLoad={() => setLoading(false)}
+        className={cn("!static block rounded-xl", loading && "opacity-0")}
+      />
+    </div>
+  );
+};
+
 const AttachmentsPreviews = ({
   attachments,
   withNoText = false,
@@ -109,7 +154,11 @@ const AttachmentsPreviews = ({
         {attachments.map((attachment) => {
           if (attachment.type.startsWith("image")) {
             return <ImagePreview key={attachment.id} attachment={attachment} />;
-          } else return null;
+          }
+          if (attachment.type.startsWith("video")) {
+            return <VideoPreview key={attachment.id} attachment={attachment} />;
+          }
+          return null;
         })}
       </AnimatePresence>
     </div>
@@ -290,5 +339,23 @@ const PinMessageButton = ({ messageId }: { messageId: string }) => {
   );
 };
 export { PinMessageButton };
+const ReplyMessageButton = ({ messageId }: { messageId: string }) => {
+  const replyTo = useChatInput((state) => state.reply_to);
+  const isSelected = useMemo(() => replyTo === messageId, [replyTo, messageId]);
+  const handleReply = async () => {
+    if (!messageId) return;
+    if (isSelected) return setReplyTo(null);
+    else setReplyTo(messageId);
+  };
+  return (
+    <button
+      className="text-secondary size-6 flex items-center justify-center"
+      onClick={handleReply}
+    >
+      {isSelected ? <XIcon size={14} /> : <ReplyIcon size={14} />}
+    </button>
+  );
+};
+export { ReplyMessageButton };
 
 export default ChatBubble;

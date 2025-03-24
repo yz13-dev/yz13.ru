@@ -19,9 +19,13 @@ const GroupChatParticipants = () => {
   if (!isGroupChat) return <></>;
   else
     return (
-      <div className="flex w-fit items-center h-9 gap-2">
-        <Button variant="secondary" size="icon">
-          <UserPlusIcon size={16} />
+      <div className="flex w-fit items-center h-8 gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="gap-2 h-8 rounded-md text-xs"
+        >
+          <UserPlusIcon size={14} />
         </Button>
         <Separator orientation="vertical" className="h-7" />
         <ChatParticipants

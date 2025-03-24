@@ -1,15 +1,25 @@
 "use client";
-
 import { getChatMessage } from "@/actions/chats/chats";
 import { getUserById } from "@/actions/user/user";
 import { ChatAttachment, ChatMessage } from "@/types/chat";
+import { XIcon } from "lucide-react";
+import { Button } from "mono/components/button";
 import { useEffect, useMemo, useState } from "react";
 import { UserObject } from "types/user";
 import { getMessage } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import { AttachmentsPreviews } from "./attachments-preview-row";
+import { setReplyTo } from "./input-store";
 
-const ReplyTo = ({ chatId, replyTo }: { replyTo: string; chatId?: string }) => {
+const ReplyTo = ({
+  chatId,
+  replyTo,
+  showClose = false,
+}: {
+  replyTo: string;
+  chatId?: string;
+  showClose?: boolean;
+}) => {
   const [user, setUser] = useState<UserObject | null>(null);
   const [message, setMessage] = useState<ChatMessage | null>(null);
   const handleReplyMessage = async (id: string) => {
@@ -63,21 +73,29 @@ const ReplyTo = ({ chatId, replyTo }: { replyTo: string; chatId?: string }) => {
   }, [replyTo]);
   if (!message) return null;
   return (
-    <div className="w-full flex items-center border gap-1.5 h-fit p-1 rounded-xl bg-background-secondary">
-      {attachments.length === 0 ? (
-        <div className="size-10 rounded-lg bg-neutral-200" />
-      ) : (
-        <AttachmentsPreviews
-          attachments={attachments}
-          previewClassName="bg-neutral-200/80 rounded-lg border"
-        />
-      )}
-      <div className="flex flex-col">
-        <span className="text-sm font-medium text-foreground/60">
-          {user?.username || "Пользователь"}
-        </span>
-        <span className="text-xs text-secondary">{replyMessageLabel}</span>
+    <div className="w-full flex justify-between items-center gap-2 border h-fit p-1 rounded-xl bg-background-secondary">
+      <div className="w-fit flex items-center">
+        {attachments.length === 0 ? null : (
+          <AttachmentsPreviews
+            attachments={attachments}
+            className="shrink-0"
+            previewClassName="bg-neutral-200/80 rounded-lg border"
+          />
+        )}
+        <div className="flex flex-col px-2">
+          <span className="text-sm font-medium text-foreground/60">
+            {user?.username || "Пользователь"}
+          </span>
+          <span className="text-xs text-secondary line-clamp-1">
+            {replyMessageLabel}
+          </span>
+        </div>
       </div>
+      {showClose && (
+        <Button size="icon" variant="ghost" onClick={() => setReplyTo(null)}>
+          <XIcon size={16} />
+        </Button>
+      )}
     </div>
   );
 };
