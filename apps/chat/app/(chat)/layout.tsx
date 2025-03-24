@@ -10,7 +10,14 @@ type LayoutProps = {
 };
 const layout = ({ children }: LayoutProps) => {
   return (
-    <SidebarProvider defaultOpen={false}>
+    <SidebarProvider
+      defaultOpen={false}
+      style={{
+        // @ts-expect-error
+        "--sidebar-width": "25rem",
+        "--sidebar-width-mobile": "25rem",
+      }}
+    >
       <Suspense fallback={<Loading />}>
         <ServerWrapper>
           <Suspense fallback={<SidebarSkeleton />}>

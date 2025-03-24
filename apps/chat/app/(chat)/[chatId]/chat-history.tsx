@@ -166,6 +166,9 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
       onLoad={() => {
         if (enableAutoScroll) handleScroll();
       }}
+      onCanPlay={() => {
+        if (enableAutoScroll) handleScroll();
+      }}
       className={cn("w-full space-y-12 h-full")}
       onWheel={(e) => {
         if (e.deltaY < 0) handleManualScroll();

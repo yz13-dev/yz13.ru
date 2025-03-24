@@ -29,6 +29,7 @@ const AutoTextarea = ({
         "resize-none bg-transparent text-sm p-1 outline-none placeholder:text-secondary",
         className,
       )}
+      rows={1}
       ref={ref}
       value={value}
       {...props}

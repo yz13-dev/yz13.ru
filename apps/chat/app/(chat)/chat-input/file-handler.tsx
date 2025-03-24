@@ -23,7 +23,6 @@ export function FileHandler({ className = "", watchId }: FileHandlerProps) {
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("handle file - change");
     if (e.target.files) {
       const file = e.target.files[0];
       if (file) handleFile(file);
@@ -52,6 +51,9 @@ export function FileHandler({ className = "", watchId }: FileHandlerProps) {
         for (let i = 0; i < files.length; i++) {
           const file = files[i];
           if (file && file.type.startsWith("image")) {
+            collectedFiles.push(file);
+          }
+          if (file && file.type.startsWith("video")) {
             collectedFiles.push(file);
           }
         }

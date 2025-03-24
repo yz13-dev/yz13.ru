@@ -16,7 +16,7 @@ const ImagePreview = ({
   const url = cdn(`/chats/${attachment.path}`);
   const [loading, setLoading] = useState<boolean>(true);
   return (
-    <div className={cn("w-full relative inline-block size-10", className)}>
+    <div className={cn("relative inline-block size-10", className)}>
       {loading && (
         <div className="w-full h-full absolute top-0 left-0 rounded-lg bg-neutral-200" />
       )}
@@ -24,8 +24,39 @@ const ImagePreview = ({
         src={url}
         fill
         onLoad={() => setLoading(false)}
-        className={cn("!static block rounded-lg", loading && "opacity-0")}
+        className={cn(
+          "!static inline-block rounded-lg",
+          loading && "opacity-0",
+        )}
         alt={attachment.name}
+      />
+    </div>
+  );
+};
+const VideoPreview = ({
+  attachment,
+  className,
+}: {
+  attachment: ChatAttachment;
+  className?: string;
+}) => {
+  const url = cdn(`/chats/${attachment.path}`);
+  const [loading, setLoading] = useState<boolean>(true);
+  return (
+    <div className={cn("w-fit min-w-10 relative inline-block h-10", className)}>
+      {loading && (
+        <div className="w-full h-full absolute top-0 left-0 rounded-lg bg-neutral-200" />
+      )}
+      <video
+        muted
+        controls={false}
+        src={url}
+        onCanPlay={() => setLoading(false)}
+        onLoad={() => setLoading(false)}
+        className={cn(
+          "!static inline-block w-fit h-full rounded-lg",
+          loading && "opacity-0",
+        )}
       />
     </div>
   );
@@ -52,7 +83,17 @@ const AttachmentsPreviews = ({
                 className={previewClassName}
               />
             );
-          } else return null;
+          }
+          if (attachment.type.startsWith("video")) {
+            return (
+              <VideoPreview
+                key={attachment.id}
+                attachment={attachment}
+                className={previewClassName}
+              />
+            );
+          }
+          return null;
         })}
       </AnimatePresence>
     </div>
