@@ -4,12 +4,13 @@ import { cdn } from "@/lib/cdn";
 import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import {
-  CheckIcon,
-  CopyIcon,
-  Loader2Icon,
-  PinIcon,
-  ReplyIcon,
-  XIcon,
+    CheckIcon,
+    ClockIcon,
+    CopyIcon,
+    Loader2Icon,
+    PinIcon,
+    ReplyIcon,
+    XIcon,
 } from "lucide-react";
 import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
@@ -64,6 +65,7 @@ export type ChatBubbleProps = {
   children?: React.ReactNode;
   date?: string;
   isShortMessage?: boolean;
+  delivered?: boolean;
   messageId?: string;
   tags?: ChatTag[];
   chatId: string;
@@ -175,6 +177,7 @@ const ChatBubble = ({
   tags = [],
   messageActions,
   chatId,
+  delivered = false,
   replyTo,
   children,
   attachments = [],
@@ -269,6 +272,11 @@ const ChatBubble = ({
                   {date}
                 </span>
               )}
+              {
+                delivered
+                ? <CheckIcon size={14} className="text-secondary" />
+                : <ClockIcon size={14} className="text-secondary" />
+              }
             </div>
           </div>
         </div>

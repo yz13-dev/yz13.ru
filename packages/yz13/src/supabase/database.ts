@@ -67,6 +67,7 @@ export type Database = {
           attachments: string[] | null;
           chat_id: string;
           created_at: string;
+          delivered_at: string | null;
           edited_at: string | null;
           from_id: string;
           id: string;
@@ -78,6 +79,7 @@ export type Database = {
           attachments?: string[] | null;
           chat_id?: string;
           created_at?: string;
+          delivered_at?: string | null;
           edited_at?: string | null;
           from_id?: string;
           id?: string;
@@ -89,6 +91,7 @@ export type Database = {
           attachments?: string[] | null;
           chat_id?: string;
           created_at?: string;
+          delivered_at?: string | null;
           edited_at?: string | null;
           from_id?: string;
           id?: string;
@@ -102,6 +105,13 @@ export type Database = {
             columns: ["chat_id"];
             isOneToOne: false;
             referencedRelation: "chats";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "chats-messages_reply_to_fkey";
+            columns: ["reply_to"];
+            isOneToOne: false;
+            referencedRelation: "chats-messages";
             referencedColumns: ["id"];
           },
         ];

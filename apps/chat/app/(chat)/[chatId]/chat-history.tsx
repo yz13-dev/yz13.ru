@@ -86,7 +86,7 @@ type ChatHistoryProps = {
   messages?: ChatMessage[];
 };
 
-const groupChatMessages = (messages: ChatMessage[]) => {
+export const groupChatMessages = (messages: ChatMessage[]) => {
   const groups: Record<string, ChatMessage[]> = {};
   messages.forEach((message) => {
     const date = dayjs(message.created_at).locale("ru").format("DD-MM-YYYY");
@@ -127,9 +127,8 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
     () => (chat?.attachments ?? []) as ChatAttachment[],
     [chat],
   );
-  const messages = useChatApi((state) => state.messages);
   const [user, loading] = useUser();
-  const groupedMessages = groupChatMessages(messages);
+  const groupedMessages = useChatApi((state) => state.grouped_messages);
   const groupKeys = Object.keys(groupedMessages).sort((a, b) => {
     const dateA = dayjs(a, "DD-MM-YYYY");
     const dateB = dayjs(b, "DD-MM-YYYY");
@@ -157,7 +156,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
   };
   useEffect(() => {
     if (enableAutoScroll) handleScroll();
-  }, [messages, enableAutoScroll]);
+  }, [groupedMessages, enableAutoScroll]);
   useEffect(() => {
     if (providedMessages) setMessages(providedMessages);
   }, [providedMessages]);
@@ -183,7 +182,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
           </span>
         </div>
       )}
-      {!loading && messages.length === 0 && (
+      {!loading && groupKeys.length === 0 && (
         <div className="w-full h-full flex items-center justify-center">
           <span className="text-center text-sm text-secondary">
             Нет сообщений
@@ -199,7 +198,6 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
             className={loading ? "opacity-0" : ""}
           >
             {messages.map((message) => {
-              const messageDate = dayjs(message.created_at).format("HH:mm");
               const isShortMessage = message.message.length <= 10;
               const tags = getTags(message.tags);
               const isMe = message.from_id === user?.id;
@@ -212,9 +210,14 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
                   return attachment;
                 })
                 .filter((attachment) => !!attachment);
+              const isDelivered = !!message.delivered_at;
+              const messageDate = isDelivered
+                ? dayjs(message.delivered_at).format("HH:mm")
+                : dayjs(message.created_at).format("HH:mm");
               return (
                 <ChatBubble
                   key={`${key}/message/${message.id}`}
+                  delivered={isDelivered}
                   chatId={message.chat_id}
                   messageId={message.id}
                   side={isMe ? "right" : "left"}
