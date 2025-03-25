@@ -66,7 +66,7 @@ const Topbar = ({ className = "", children }: TopbarProps) => {
               <ChatSidebarTrigger />
               <motion.span
                 layoutId="chat-name"
-                className="md:text-lg text-base pr-1.5 font-semibold line-clamp-1 shrink-0"
+                className="md:text-lg text-base px-1.5 md:max-w-48 max-w-20 font-semibold line-clamp-1 shrink-0"
               >
                 {chat?.name ?? "Без названия"}
               </motion.span>

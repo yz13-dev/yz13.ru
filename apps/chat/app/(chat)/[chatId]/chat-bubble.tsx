@@ -4,12 +4,12 @@ import { cdn } from "@/lib/cdn";
 import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import {
-    CheckIcon,
-    CopyIcon,
-    Loader2Icon,
-    PinIcon,
-    ReplyIcon,
-    XIcon,
+  CheckIcon,
+  CopyIcon,
+  Loader2Icon,
+  PinIcon,
+  ReplyIcon,
+  XIcon,
 } from "lucide-react";
 import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
@@ -124,9 +124,9 @@ const VideoPreview = ({ attachment }: { attachment: ChatAttachment }) => {
         <div className="w-full h-full absolute top-0 left-0 rounded-xl bg-neutral-200" />
       )}
       <video
-      ref={ref}
-      onPlay={() => setPlaying(true)}
-      onPause={() => setPlaying(false)}
+        ref={ref}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
         autoPlay
         loop
         muted
@@ -188,7 +188,8 @@ const ChatBubble = ({
       messageId={messageId}
       onOpenChange={setIsCtxMenuOpen}
       className={cn(
-        "w-full gap-1 group/bubble md:px-6 px-2 h-fit",
+        "w-full gap-1 group/bubble  h-fit",
+        "md:pl-6 md:pr-6 pl-4 pr-2",
         showAsShortMessage
           ? side === "left"
             ? "flex flex-row justify-start items-center"

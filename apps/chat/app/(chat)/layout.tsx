@@ -1,4 +1,6 @@
+import { authorized } from "@/lib/auth";
 import { SidebarProvider } from "mono/components/sidebar";
+import { cookies } from "next/headers";
 import { Suspense } from "react";
 import Loading from "./loading";
 import ServerWrapper from "./server-wrapper";
@@ -8,14 +10,18 @@ import { SidebarSkeleton } from "./sidebar/sidebar-skeleton";
 type LayoutProps = {
   children: React.ReactNode;
 };
-const layout = ({ children }: LayoutProps) => {
+const layout = async ({ children }: LayoutProps) => {
+  const isAuthorized = await authorized();
+  const cookieStore = cookies();
+  const sidebarState = cookieStore.get("sidebar_state")?.value ?? "false";
+  const defaultOpen = isAuthorized ? sidebarState === "true" : false;
   return (
     <SidebarProvider
-      defaultOpen={false}
+      defaultOpen={defaultOpen}
       style={{
         // @ts-expect-error
-        "--sidebar-width": "25rem",
-        "--sidebar-width-mobile": "25rem",
+        "--sidebar-width": "20rem",
+        "--sidebar-width-mobile": "20rem",
       }}
     >
       <Suspense fallback={<Loading />}>

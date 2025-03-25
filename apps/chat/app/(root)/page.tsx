@@ -1,11 +1,9 @@
-import LastChatList, {
-  LastChatListSkeleton,
-} from "@/app/(chat)/last-chat-list";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import Header from "./header";
+import LastChatList, { LastChatListSkeleton } from "./last-chat-list";
 import NewChatForm from "./new-chat-form";
 
 const page = async () => {

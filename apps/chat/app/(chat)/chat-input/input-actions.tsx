@@ -9,20 +9,18 @@ type InputActionsProps = {
 };
 const InputActions = ({ chatId }: InputActionsProps) => {
   const showTags = useChatInput((state) => state.showTags);
+  if (!chatId) return null;
   return (
     <div className="flex items-center gap-1">
-      {chatId && (
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => setShowTags(!showTags)}
-          className="gap-1 has-[svg]:pl-1.5 pl-2 pr-2 h-6"
-        >
-          {showTags ? <XIcon size={14} /> : <HashIcon size={14} />}
-          <span className="text-sm">{showTags ? "Скрыть тэги" : "Тэг"}</span>
-        </Button>
-      )}
-      {chatId && <FileHandler watchId="chat-input" />}
+      <FileHandler watchId="chat-input" />
+      <Button
+        onClick={() => setShowTags(!showTags)}
+        variant="secondary"
+        size="sm"
+        className="size-6 p-0.5"
+      >
+        {showTags ? <XIcon size={14} /> : <HashIcon size={14} />}
+      </Button>
     </div>
   );
 };

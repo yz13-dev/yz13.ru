@@ -1,4 +1,5 @@
 import { getChatMessages } from "@/actions/chats/chats";
+import { showChatTopics } from "@/const/flags";
 import { Loader2Icon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Suspense } from "react";
@@ -19,6 +20,7 @@ type PageProps = {
 const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
   const messages = await getChatMessages(chatId);
+  const showTopics = await showChatTopics();
   return (
     <>
       <Topbar>
@@ -28,7 +30,7 @@ const page = async ({ params }: PageProps) => {
             className="gap-2 h-8 rounded-md text-xs py-0.5 px-3"
           >
             <SearchIcon size={14} />
-            <span>Поиск</span>
+            <span className="h-[14px]">Поиск</span>
           </Button>
           <PinnedMessage />
         </div>
@@ -43,7 +45,7 @@ const page = async ({ params }: PageProps) => {
         <PageWrapper>
           <div
             className={cn(
-              "mx-auto min-h-[70dvh] md:max-w-[calc(var(--breakpoint-lg)-68px)] max-w-[calc(var(--breakpoint-lg)-52px)]",
+              "mx-auto min-h-[70dvh] md:max-w-[calc(var(--breakpoint-2xl)-68px)] max-w-[calc(var(--breakpoint-2xl)-52px)]",
               "pb-2",
             )}
           >
@@ -52,11 +54,11 @@ const page = async ({ params }: PageProps) => {
             </Suspense>
           </div>
         </PageWrapper>
-        <ChatToolbar chatId={chatId} />
+        <ChatToolbar chatId={chatId} showTopics={showTopics} />
       </div>
       <ChatInput
         chatId={chatId}
-        containerClassName="pt-2 pb-4 sticky !bottom-0 md:w-full w-dvw"
+        containerClassName="pt-2 pb-4 px-4 sticky !bottom-0 md:w-full w-dvw"
         className="w-full"
       />
     </>

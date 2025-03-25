@@ -13,7 +13,7 @@ import ChatSidebarUsage from "./chat-sidebar-usage";
 import Footer from "./footer";
 const Header = dynamic(() => import("./header"), {
   ssr: false,
-  loading: () => <Skeleton className="w-full h-[40px]" />,
+  loading: () => <Skeleton className="w-full h-[58px]" />,
 });
 
 const ChatSidebar = async () => {

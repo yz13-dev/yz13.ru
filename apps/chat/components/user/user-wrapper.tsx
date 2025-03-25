@@ -1,6 +1,7 @@
 "use client";
-import { User } from "@supabase/supabase-js";
+import { makeUserObj } from "@/lib/make-user-obj";
 import { ReactElement, useEffect, useState } from "react";
+import { UserObject } from "types/user";
 import { createClient } from "yz13/supabase/client";
 import SignInButton from "./sign-in-button";
 import UserCircle from "./user-circle";
@@ -8,7 +9,7 @@ import UserDropdown from "./user-dropdown";
 
 type WrapperProps = {
   authorized?: (
-    user: User,
+    user: UserObject,
   ) =>
     | ReactElement<typeof UserCircle>
     | ReactElement<typeof SignInButton>
@@ -16,16 +17,18 @@ type WrapperProps = {
   unauthorized?: ReactElement<typeof SignInButton>;
 };
 const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserObject | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) {
-        setUser(session.user);
-      } else {
+      if (!session) {
         setUser(null);
+        return;
       }
+      const { user } = session;
+      if (user) setUser(makeUserObj(user));
+      if (!user) setUser(null);
     });
     setLoading(false);
   }, []);

@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { HashIcon, Loader2Icon, MouseIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 import { getChatTags, setMessages } from "../chat-api/chat-api";
@@ -169,11 +169,11 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
       onCanPlay={() => {
         if (enableAutoScroll) handleScroll();
       }}
-      className={cn("w-full space-y-12 h-full")}
       onWheel={(e) => {
         if (e.deltaY < 0) handleManualScroll();
       }}
       onTouchMove={handleManualScroll}
+      className={cn("w-full space-y-12 h-full")}
     >
       {loading && (
         <div className="absolute top-0 left-0 w-full h-full flex gap-2 items-center justify-center">
@@ -247,19 +247,24 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
           </ChatBubbleGroup>
         );
       })}
-      {!enableAutoScroll && (
-        <div className="w-full flex z-30 items-center justify-center sticky mx-auto bottom-32">
-          <Button
-            variant="secondary"
-            className="rounded-full gap-1 text-xs"
-            size="sm"
-            onClick={handleEnableAutoScroll}
+      <AnimatePresence>
+        {!enableAutoScroll && (
+          <motion.div
+            className="w-full overflow-hidden flex z-30 items-center justify-center sticky mx-auto bottom-32"
+            exit={{ opacity: 0, height: 0 }}
           >
-            <MouseIcon size={14} />
-            Включить автопрокрутку
-          </Button>
-        </div>
-      )}
+            <Button
+              variant="secondary"
+              className="rounded-full gap-1 text-xs"
+              size="sm"
+              onClick={handleEnableAutoScroll}
+            >
+              <MouseIcon size={14} />
+              Включить автопрокрутку
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

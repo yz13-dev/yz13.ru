@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import "dayjs/locale/ru";
 import type { Metadata } from "next";
 import { Inter, Pixelify_Sans } from "next/font/google";
 

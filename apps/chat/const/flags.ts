@@ -23,3 +23,12 @@ export const showTaskPageButton = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showChatTopics = flag<boolean>({
+  key: "show-chat-topics",
+  description: "Show chat topics in toolbar",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
