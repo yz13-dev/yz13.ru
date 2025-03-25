@@ -19,9 +19,11 @@ export type Store = {
   chats: ChatRoom[];
   tasks: ChatTask[];
   tasks_filter_list: number | null;
+  attachmentPreview: ChatAttachment | null;
 };
 
 const initialState: Store = {
+  attachmentPreview: null,
   services: [],
   chat: null,
   messages: [],
@@ -161,3 +163,6 @@ export const setMessages = (messages: ChatMessage[]) => {
 };
 export const setChats = (chatRooms: ChatRoom[]) =>
   chat.setState({ chats: chatRooms });
+
+export const setAttachmentPreview = (attachment: ChatAttachment | null) =>
+  chat.setState({ attachmentPreview: attachment });

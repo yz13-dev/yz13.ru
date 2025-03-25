@@ -1,12 +1,15 @@
 import { getChatMessages } from "@/actions/chats/chats";
+import { getAuthorizedUser } from "@/actions/user/user";
 import { showChatTopics } from "@/const/flags";
 import { Loader2Icon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import ChatInput from "../chat-input/input";
 import ChatToolbar from "../chat-toolbar/chat-toolbar";
 import Topbar from "../top-bar";
+import AttachmentPreview from "./attachment-preview";
 import ChatHistory from "./chat-history";
 import GroupChatParticipants from "./group-chat-participants";
 import PageWrapper from "./page-wrapper";
@@ -21,6 +24,8 @@ const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
   const messages = await getChatMessages(chatId);
   const showTopics = await showChatTopics();
+  const user = await getAuthorizedUser();
+  if (!user) return redirect("/");
   return (
     <>
       <Topbar>
@@ -50,7 +55,7 @@ const page = async ({ params }: PageProps) => {
             )}
           >
             <Suspense fallback={<Loader2Icon className="animate-spin" />}>
-              <ChatHistory messages={messages} />
+              <ChatHistory messages={messages} user={user} />
             </Suspense>
           </div>
         </PageWrapper>
@@ -61,6 +66,7 @@ const page = async ({ params }: PageProps) => {
         containerClassName="pt-2 pb-4 px-4 sticky !bottom-0 md:w-full w-dvw"
         className="w-full"
       />
+      <AttachmentPreview />
     </>
   );
 };

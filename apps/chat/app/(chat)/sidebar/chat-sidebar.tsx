@@ -1,9 +1,10 @@
+import { getAuthorizedUser } from "@/actions/user/user";
 import { showUsage } from "@/const/flags";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
+    Sidebar,
+    SidebarContent,
+    SidebarFooter,
+    SidebarHeader,
 } from "mono/components/sidebar";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
@@ -17,10 +18,15 @@ const Header = dynamic(() => import("./header"), {
 });
 
 const ChatSidebar = async () => {
+  const user = await getAuthorizedUser()
   return (
     <Sidebar collapsible="offcanvas" className="py-2">
       <SidebarHeader>
-        <Header />
+        {
+          user
+          ? <Header user={user} />
+          : <Skeleton className="w-full h-[58px]" />
+        }
       </SidebarHeader>
       <SidebarContent>
         <ChatSidebarActions />

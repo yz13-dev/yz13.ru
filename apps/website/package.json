@@ -29,7 +29,7 @@
     "maplibre-gl": "^5.1.0",
     "mono": "*",
     "motion": "^11.14.4",
-    "next": "14.2.6",
+    "next": "14.2.26",
     "next-safe-action": "^7.9.9",
     "nuqs": "^2.2.3",
     "react": "18.3.1",

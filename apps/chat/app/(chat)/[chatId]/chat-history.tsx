@@ -1,5 +1,4 @@
 "use client";
-import { useUser } from "@/hooks/use-user";
 import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -7,13 +6,14 @@ import { HashIcon, Loader2Icon, MouseIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
+import { UserObject } from "types/user";
 import { cn } from "yz13/cn";
 import { getChatTags, setMessages } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import ChatBubble, {
-  CopyMessageButton,
-  PinMessageButton,
-  ReplyMessageButton,
+    CopyMessageButton,
+    PinMessageButton,
+    ReplyMessageButton,
 } from "./chat-bubble";
 
 dayjs.extend(customParseFormat);
@@ -84,6 +84,7 @@ const ChatBubbleGroup = ({
 
 type ChatHistoryProps = {
   messages?: ChatMessage[];
+  user: UserObject
 };
 
 export const groupChatMessages = (messages: ChatMessage[]) => {
@@ -116,7 +117,7 @@ const sortMessages = (messages: ChatMessage[]) => {
   });
 };
 
-const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
+const ChatHistory = ({ messages: providedMessages, user }: ChatHistoryProps) => {
   const chat = useChatApi((state) => state.chat);
   // const chatTags = useMemo(() => (chat ? chat.tags : []) as ChatTag[], [chat]);
   const chatPinnedMessageId = useMemo(
@@ -127,7 +128,6 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
     () => (chat?.attachments ?? []) as ChatAttachment[],
     [chat],
   );
-  const [user, loading] = useUser();
   const groupedMessages = useChatApi((state) => state.grouped_messages);
   const groupKeys = Object.keys(groupedMessages).sort((a, b) => {
     const dateA = dayjs(a, "DD-MM-YYYY");
@@ -174,7 +174,8 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
       onTouchMove={handleManualScroll}
       className={cn("w-full space-y-12 h-full")}
     >
-      {loading && (
+
+      {false && (
         <div className="absolute top-0 left-0 w-full h-full flex gap-2 items-center justify-center">
           <Loader2Icon size={16} className="animate-spin text-secondary" />
           <span className="text-center text-sm text-secondary">
@@ -182,7 +183,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
           </span>
         </div>
       )}
-      {!loading && groupKeys.length === 0 && (
+      {groupKeys.length === 0 && (
         <div className="w-full h-full flex items-center justify-center">
           <span className="text-center text-sm text-secondary">
             Нет сообщений
@@ -195,7 +196,6 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
           <ChatBubbleGroup
             key={key}
             date={key}
-            className={loading ? "opacity-0" : ""}
           >
             {messages.map((message) => {
               const isShortMessage = message.message.length <= 10;
