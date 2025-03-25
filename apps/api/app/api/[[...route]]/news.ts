@@ -93,16 +93,26 @@ news.get("/articles/:source_id", async (c) => {
 });
 
 news.get("/country/:code/articles", async (c) => {
+  const offset = parseInt(c.req.query("offset") || "0");
+  const limit = parseInt(c.req.query("limit") || "30");
   const code = c.req.param("code");
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
+    .from("news_sources")
+    .select("id")
+    .eq("country_code", code);
+  const sources = (data ?? []).map(({ id }) => id);
+  const { data: articles, error: articlesError } = await supabase
     .from("news")
     .select()
-    .eq("country_code", code);
-  if (error) {
+    .in("source_id", sources)
+    .order("published_at", { ascending: false })
+    .range(offset, offset + limit);
+
+  if (articlesError) {
     return c.json([]);
-  } else return c.json(data);
+  } else return c.json(articles);
 });
 
 news.get("/article/:article_id", async (c) => {

@@ -53,6 +53,11 @@
       "types": "./dist/supabase/storage.d.ts",
       "import": "./dist/supabase/storage.js",
       "require": "./dist/supabase/storage.cjs"
+    },
+    "./supabase/cookies": {
+      "types": "./dist/supabase/cookies.d.ts",
+      "import": "./dist/supabase/cookies.js",
+      "require": "./dist/supabase/cookies.cjs"
     }
   },
   "files": [

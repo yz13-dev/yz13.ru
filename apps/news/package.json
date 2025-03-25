@@ -12,6 +12,7 @@
     "@upstash/workflow": "^0.2.12",
     "cheerio": "^1.0.0",
     "mono": "*",
+    "negotiator": "^1.0.0",
     "next": "14.2.6",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -20,17 +21,18 @@
     "yz13": "*"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "tailwind-config": "*",
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4",
+    "@types/negotiator": "^0.6.3",
     "@types/node": "^20.17.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4.0.6",
     "eslint": "^9",
     "eslint-config-next": "15.0.3",
-    "@eslint/eslintrc": "^3"
+    "tailwind-config": "*",
+    "tailwindcss": "^4.0.6",
+    "typescript": "^5"
   }
 }

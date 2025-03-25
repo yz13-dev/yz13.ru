@@ -1,7 +1,7 @@
 "use server";
 
 import { API_URL } from "@/const/api";
-import { NewArticle } from "@/types/news";
+import { Article, NewArticle } from "@/types/news";
 
 export const uploadArticle = async (article: NewArticle) => {
   try {
@@ -23,20 +23,24 @@ export const uploadArticle = async (article: NewArticle) => {
   }
 };
 
-export const getArticlesForCountry = async (country_code: string) => {
+export const getArticlesForCountry = async (
+  country_code: string,
+  offset: number = 0,
+): Promise<Article[]> => {
   try {
     const url = new URL(`/news/country/${country_code}/articles`, API_URL);
-    const response = await fetch(url, {
+    const searchParams = url.searchParams;
+    if (typeof offset !== "undefined")
+      searchParams.append("offset", offset.toString());
+    else searchParams.append("offset", "0");
+    console.log(url.toString());
+    const response = await fetch(url.toString(), {
       method: "GET",
-      next: {
-        revalidate: 60 * 60 * 24,
-        tags: ["articles", country_code],
-      },
     });
     const data = await response.json();
     return data;
   } catch (error) {
     console.log(error);
-    return null;
+    return [];
   }
 };
