@@ -11,9 +11,9 @@ import { cn } from "yz13/cn";
 import { getChatTags, setMessages } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import ChatBubble, {
-    CopyMessageButton,
-    PinMessageButton,
-    ReplyMessageButton,
+  CopyMessageButton,
+  PinMessageButton,
+  ReplyMessageButton,
 } from "./chat-bubble";
 
 dayjs.extend(customParseFormat);
@@ -84,7 +84,7 @@ const ChatBubbleGroup = ({
 
 type ChatHistoryProps = {
   messages?: ChatMessage[];
-  user: UserObject
+  user: UserObject;
 };
 
 export const groupChatMessages = (messages: ChatMessage[]) => {
@@ -117,7 +117,10 @@ const sortMessages = (messages: ChatMessage[]) => {
   });
 };
 
-const ChatHistory = ({ messages: providedMessages, user }: ChatHistoryProps) => {
+const ChatHistory = ({
+  messages: providedMessages,
+  user,
+}: ChatHistoryProps) => {
   const chat = useChatApi((state) => state.chat);
   // const chatTags = useMemo(() => (chat ? chat.tags : []) as ChatTag[], [chat]);
   const chatPinnedMessageId = useMemo(
@@ -172,9 +175,8 @@ const ChatHistory = ({ messages: providedMessages, user }: ChatHistoryProps) => 
         if (e.deltaY < 0) handleManualScroll();
       }}
       onTouchMove={handleManualScroll}
-      className={cn("w-full space-y-12 h-full")}
+      className={cn("w-full *:py-6 h-full")}
     >
-
       {false && (
         <div className="absolute top-0 left-0 w-full h-full flex gap-2 items-center justify-center">
           <Loader2Icon size={16} className="animate-spin text-secondary" />
@@ -193,10 +195,7 @@ const ChatHistory = ({ messages: providedMessages, user }: ChatHistoryProps) => 
       {groupKeys.reverse().map((key) => {
         const messages = sortMessages(groupedMessages[key] ?? []);
         return (
-          <ChatBubbleGroup
-            key={key}
-            date={key}
-          >
+          <ChatBubbleGroup key={key} date={key}>
             {messages.map((message) => {
               const isShortMessage = message.message.length <= 10;
               const tags = getTags(message.tags);
@@ -253,7 +252,7 @@ const ChatHistory = ({ messages: providedMessages, user }: ChatHistoryProps) => 
       <AnimatePresence>
         {!enableAutoScroll && (
           <motion.div
-            className="w-full overflow-hidden flex z-30 items-center justify-center sticky mx-auto bottom-32"
+            className="w-full overflow-hidden !p-0 flex z-30 items-center justify-center sticky mx-auto bottom-32"
             exit={{ opacity: 0, height: 0 }}
           >
             <Button

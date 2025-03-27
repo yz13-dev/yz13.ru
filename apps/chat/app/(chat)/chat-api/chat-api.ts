@@ -10,6 +10,7 @@ import {
 import { Pricing } from "@/types/pricing";
 import { createStore } from "zustand";
 import { groupChatMessages } from "../[chatId]/chat-history";
+import { FileWithId } from "../chat-input/input-store";
 
 export type Store = {
   services: Pricing[];
@@ -19,11 +20,13 @@ export type Store = {
   chats: ChatRoom[];
   tasks: ChatTask[];
   tasks_filter_list: number | null;
+  localAttachements: FileWithId[]; // Attachements that uploaded by user, so the can be show immediately and not wait for sync with storage and db
   attachmentPreview: ChatAttachment | null;
 };
 
 const initialState: Store = {
   attachmentPreview: null,
+  localAttachements: [],
   services: [],
   chat: null,
   messages: [],

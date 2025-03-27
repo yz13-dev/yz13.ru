@@ -126,7 +126,7 @@ export const VideoPreview = ({ attachment, onClick }: PreviewProps) => {
   useEffect(() => {
     const video = ref.current;
     if (isInView) {
-      if (video) video.play();
+      if (video) video.play().catch(() => setPlaying(false));
     } else {
       if (video) video.pause();
     }

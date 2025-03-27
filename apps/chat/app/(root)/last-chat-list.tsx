@@ -18,13 +18,13 @@ export const LastChatListSkeleton = () => {
       <span className="text-base block font-medium text-secondary">
         Последние чаты
       </span>
-      <div className="w-full grid sm:grid-cols-2 grid-cols-1 gap-2">
-        <Skeleton className="w-full h-[76px]" />
-        <Skeleton className="w-full h-[76px]" />
-        <Skeleton className="w-full h-[76px]" />
-        <Skeleton className="w-full h-[76px]" />
-        <Skeleton className="w-full h-[76px]" />
-        <Skeleton className="w-full h-[76px]" />
+      <div className="w-full grid sm:grid-cols-2 *:h-[105px] grid-cols-1 gap-2">
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
       </div>
     </div>
   );

@@ -11,15 +11,6 @@ const UserCircle = ({
   className?: string;
 }) => {
   const avatarUrl = user.avatar_url;
-  if (!user)
-    return (
-      <div
-        className={cn(
-          "size-9 flex items-center justify-center rounded-full border relative",
-          className,
-        )}
-      ></div>
-    );
   return (
     <div
       className={cn(

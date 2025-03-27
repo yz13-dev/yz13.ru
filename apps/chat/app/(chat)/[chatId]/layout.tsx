@@ -1,9 +1,6 @@
 import { getChat } from "@/actions/chats/chats";
-import User from "@/components/user";
-import { Skeleton } from "mono/components/skeleton";
 import { AnimatePresence } from "motion/react";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
 import ChatSidebarTrigger from "../chat-sidebar-trigger";
 import ChatProvider from "./chat-provider";
 import EditChatName from "./edit-chat-name";
@@ -22,16 +19,13 @@ const layout = async ({ children, params }: LayoutProps) => {
   const chatName = chat.name;
   return (
     <ChatProvider chat={chat}>
-      <header className="w-full bg-background z-20 h-12 flex items-center justify-between px-4">
+      <header className="w-full bg-background z-20 h-12 flex items-center justify-start px-4">
         <AnimatePresence>
           <div className="flex items-center gap-1">
             <ChatSidebarTrigger />
             <EditChatName id={chatId} name={chatName ?? undefined} />
           </div>
         </AnimatePresence>
-        <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-          <User />
-        </Suspense>
       </header>
       {children}
     </ChatProvider>
