@@ -47,22 +47,29 @@ const sendOfflineMessage = async (chatId: string, userId: string) => {
     tags,
   });
   pushMessage(offlineMessage);
+  clearInput();
   return offlineMessage;
+};
+const clearInput = () => {
+  setLoading(false);
+  setTags([]);
+  setValue("");
+  setShowTags(false);
+  setFiles([]);
+  setReplyTo(null);
 };
 export const sendMessage = async (
   chatId: string,
   userId: string,
 ): Promise<ChatMessage | null> => {
   const offlineMessage = await sendOfflineMessage(chatId, userId);
-  setLoading(true);
-  const value = getValue();
-  const tags = getTags();
-  const reply_to = getReplyTo();
+  const tags = offlineMessage.tags;
+  const reply_to = offlineMessage.reply_to;
   try {
     const newMessage = await createMessageInChat({
       chat_id: chatId,
       from_id: userId,
-      message: value,
+      message: offlineMessage.message,
       reply_to,
       tags,
     });
@@ -74,13 +81,6 @@ export const sendMessage = async (
   } catch (error) {
     console.error(error);
     return null;
-  } finally {
-    setLoading(false);
-    setTags([]);
-    setValue("");
-    setShowTags(false);
-    setFiles([]);
-    setReplyTo(null);
   }
 };
 

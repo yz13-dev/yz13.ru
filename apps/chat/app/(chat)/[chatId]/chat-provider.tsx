@@ -7,6 +7,7 @@ import { createClient } from "yz13/supabase/client";
 import {
   deleteMessage,
   deleteTask,
+  getMessage,
   pushMessage,
   pushTask,
   setChat,
@@ -113,7 +114,9 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
           const user = await getAuthorizedUser();
           if (isInsert) {
             const newMessage = payload.new as ChatMessage;
+            const messageExist = getMessage(newMessage.id);
             if (user && user.id !== newMessage.from_id) pushMessage(newMessage);
+            else if (!messageExist) pushMessage(newMessage);
           }
           if (isUpdate) {
             const updatedMessage = payload.new as ChatMessage;
