@@ -78,6 +78,7 @@ const MessageCtxMenu = ({
         <ContextMenuLabel>
           <TagInput messageId={messageId} />
         </ContextMenuLabel>
+        <ContextMenuSeparator />
         <ContextMenuItem
           disabled={!messageId}
           onClick={() => messageId && handleReply(messageId)}

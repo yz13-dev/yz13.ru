@@ -20,7 +20,7 @@ export const getUserById = async (id: string): Promise<UserObject | null> => {
   }
 };
 
-export const getAurhorizedUser = async (): Promise<UserObject | null> => {
+export const getAuthorizedUser = async (): Promise<UserObject | null> => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);

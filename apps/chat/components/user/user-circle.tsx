@@ -11,7 +11,6 @@ const UserCircle = ({
   className?: string;
 }) => {
   const avatarUrl = user.avatar_url;
-  if (!user) return;
   return (
     <div
       className={cn(

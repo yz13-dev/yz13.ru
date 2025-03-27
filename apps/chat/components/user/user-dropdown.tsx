@@ -39,7 +39,7 @@ const UserDropdown = ({
   const isAdmin = user.role === "admin";
   return (
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
-      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
+      <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
         className={cn("w-56 rounded-xl", className)}

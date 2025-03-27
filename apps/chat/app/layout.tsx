@@ -58,7 +58,7 @@ export default function RootLayout({
       lang="en"
       className={`${SANS.variable} ${PIXEL.variable} antialiased`}
     >
-      <body>
+      <body id="root">
         <TooltipProvider>
           <LiveTimeProvider>{children}</LiveTimeProvider>
         </TooltipProvider>

@@ -17,9 +17,9 @@ const InputActions = ({ chatId }: InputActionsProps) => {
         onClick={() => setShowTags(!showTags)}
         variant="secondary"
         size="sm"
-        className="size-6 p-0.5"
+        className="size-7 p-0.5"
       >
-        {showTags ? <XIcon size={14} /> : <HashIcon size={14} />}
+        {showTags ? <XIcon size={16} /> : <HashIcon size={16} />}
       </Button>
     </div>
   );

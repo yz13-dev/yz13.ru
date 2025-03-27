@@ -5,14 +5,19 @@ import {
   updateChat,
   updateChatMessage,
 } from "@/actions/chats/chats";
-import { getAurhorizedUser } from "@/actions/user/user";
 import { useUser } from "@/hooks/use-user";
+import { makeOfflineMessage } from "@/lib/offline-messages";
 import { ChatMessage } from "@/types/chat";
 import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useMemo } from "react";
 import { cn } from "yz13/cn";
-import { getChatAttachments, setChat } from "../chat-api/chat-api";
+import {
+  getChatAttachments,
+  pushMessage,
+  replaceMessage,
+  setChat,
+} from "../chat-api/chat-api";
 import useChatInput, {
   getFiles,
   getReplyTo,
@@ -30,11 +35,25 @@ type InputSendButtonProps = {
   chatId?: string;
 };
 
+const sendOfflineMessage = async (chatId: string, userId: string) => {
+  const value = getValue();
+  const tags = getTags();
+  const reply_to = getReplyTo();
+  const offlineMessage = makeOfflineMessage({
+    chat_id: chatId,
+    from_id: userId,
+    message: value,
+    reply_to,
+    tags,
+  });
+  pushMessage(offlineMessage);
+  return offlineMessage;
+};
 export const sendMessage = async (
   chatId: string,
+  userId: string,
 ): Promise<ChatMessage | null> => {
-  const user = await getAurhorizedUser();
-  if (!user) return null;
+  const offlineMessage = await sendOfflineMessage(chatId, userId);
   setLoading(true);
   const value = getValue();
   const tags = getTags();
@@ -42,13 +61,14 @@ export const sendMessage = async (
   try {
     const newMessage = await createMessageInChat({
       chat_id: chatId,
-      from_id: user.id,
+      from_id: userId,
       message: value,
       reply_to,
       tags,
     });
     if (newMessage) {
       await uploadMessageAttachments(newMessage);
+      replaceMessage(offlineMessage.id, newMessage);
       return newMessage;
     } else return null;
   } catch (error) {
@@ -94,8 +114,9 @@ const InputSendButton = ({ chatId }: InputSendButtonProps) => {
     if (disabled) return;
     if (!user) return;
     if (!chatId) return;
+    console.log(chatId, user.id);
     setLoading(true);
-    await sendMessage(chatId);
+    await sendMessage(chatId, user.id);
   };
   return (
     <Button

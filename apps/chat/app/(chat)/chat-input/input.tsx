@@ -1,5 +1,6 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
+import { useUser } from "@/hooks/use-user";
 import { ChatRoom } from "@/types/chat";
 import { AnimatePresence } from "motion/react";
 import { useRef } from "react";
@@ -25,6 +26,7 @@ const ChatInput = ({
   className = "",
   bottomOffset = 8,
 }: ChatInputProps) => {
+  const [user] = useUser();
   const ref = useRef<HTMLElement>(null);
   const value = useChatInput((state) => state.value);
   const setValue = useChatInput((state) => state.setValue);
@@ -73,9 +75,9 @@ const ChatInput = ({
               }
               if (isSendAction) {
                 e.preventDefault();
-                if (chatId) {
+                if (chatId && user && user.id) {
                   setLoading(true);
-                  sendMessage(chatId);
+                  sendMessage(chatId, user.id);
                 }
               }
             }}

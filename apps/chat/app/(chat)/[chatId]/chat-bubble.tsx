@@ -5,6 +5,7 @@ import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import { cva, VariantProps } from "class-variance-authority";
 import {
   CheckIcon,
+  ClockIcon,
   CopyIcon,
   Loader2Icon,
   PinIcon,
@@ -15,7 +16,11 @@ import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
-import { getMessage, setChat } from "../chat-api/chat-api";
+import {
+  getMessage,
+  setAttachmentPreview,
+  setChat,
+} from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import useChatInput, { setReplyTo } from "../chat-input/input-store";
 import ReplyTo from "../chat-input/reply-to";
@@ -64,6 +69,7 @@ export type ChatBubbleProps = {
   children?: React.ReactNode;
   date?: string;
   isShortMessage?: boolean;
+  delivered?: boolean;
   messageId?: string;
   tags?: ChatTag[];
   chatId: string;
@@ -85,11 +91,18 @@ const handleDeleteTag = async (messageId: string | null, tagId: number) => {
   }
 };
 
-const ImagePreview = ({ attachment }: { attachment: ChatAttachment }) => {
+type PreviewProps = {
+  attachment: ChatAttachment;
+  onClick?: (attachment: ChatAttachment) => void;
+};
+export const ImagePreview = ({ onClick, attachment }: PreviewProps) => {
   const url = cdn(`/chats/${attachment.path}`);
   const [loading, setLoading] = useState<boolean>(true);
   return (
-    <div className="w-full relative min-w-[200px] min-h-[100px]">
+    <div
+      onClick={() => onClick && onClick(attachment)}
+      className="w-full relative min-w-[200px] min-h-[100px]"
+    >
       {loading && (
         <div className="w-full h-full absolute top-0 left-0 rounded-xl bg-neutral-200" />
       )}
@@ -104,7 +117,7 @@ const ImagePreview = ({ attachment }: { attachment: ChatAttachment }) => {
   );
 };
 
-const VideoPreview = ({ attachment }: { attachment: ChatAttachment }) => {
+export const VideoPreview = ({ attachment, onClick }: PreviewProps) => {
   const url = cdn(`/chats/${attachment.path}`);
   const ref = useRef<HTMLVideoElement>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -113,13 +126,16 @@ const VideoPreview = ({ attachment }: { attachment: ChatAttachment }) => {
   useEffect(() => {
     const video = ref.current;
     if (isInView) {
-      if (video) video.play();
+      if (video) video.play().catch(() => setPlaying(false));
     } else {
       if (video) video.pause();
     }
   }, [isInView]);
   return (
-    <div className="w-full relative min-w-[200px] min-h-[100px]">
+    <div
+      onClick={() => onClick && onClick(attachment)}
+      className="w-full relative min-w-[200px] min-h-[100px]"
+    >
       {loading && (
         <div className="w-full h-full absolute top-0 left-0 rounded-xl bg-neutral-200" />
       )}
@@ -153,10 +169,22 @@ const AttachmentsPreviews = ({
       <AnimatePresence>
         {attachments.map((attachment) => {
           if (attachment.type.startsWith("image")) {
-            return <ImagePreview key={attachment.id} attachment={attachment} />;
+            return (
+              <ImagePreview
+                key={attachment.id}
+                onClick={(attachment) => setAttachmentPreview(attachment)}
+                attachment={attachment}
+              />
+            );
           }
           if (attachment.type.startsWith("video")) {
-            return <VideoPreview key={attachment.id} attachment={attachment} />;
+            return (
+              <VideoPreview
+                key={attachment.id}
+                onClick={(attachment) => setAttachmentPreview(attachment)}
+                attachment={attachment}
+              />
+            );
           }
           return null;
         })}
@@ -175,6 +203,7 @@ const ChatBubble = ({
   tags = [],
   messageActions,
   chatId,
+  delivered = false,
   replyTo,
   children,
   attachments = [],
@@ -268,6 +297,11 @@ const ChatBubble = ({
                 <span className="text-xs shrink-0 px-1.5 py-1 select-none text-secondary">
                   {date}
                 </span>
+              )}
+              {delivered ? (
+                <CheckIcon size={14} className="text-secondary" />
+              ) : (
+                <ClockIcon size={14} className="text-secondary" />
               )}
             </div>
           </div>

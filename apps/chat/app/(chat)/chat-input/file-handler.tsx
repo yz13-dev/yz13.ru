@@ -77,10 +77,10 @@ export function FileHandler({ className = "", watchId }: FileHandlerProps) {
     };
   }, [watchId]);
   return (
-    <div className={cn("relative size-6 overflow-hidden", className)}>
-      <Button variant="secondary" size="sm" className="size-6 p-0.5" asChild>
+    <div className={cn("relative size-7 overflow-hidden", className)}>
+      <Button variant="secondary" size="sm" className="size-7 p-0.5" asChild>
         <label htmlFor="file-upload">
-          <PaperclipIcon size={14} />
+          <PaperclipIcon size={16} />
         </label>
       </Button>
       <input

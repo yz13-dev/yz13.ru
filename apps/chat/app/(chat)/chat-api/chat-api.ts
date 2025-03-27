@@ -5,23 +5,32 @@ import {
   ChatRoom,
   ChatTag,
   ChatTask,
+  GroupedChatMessages,
 } from "@/types/chat";
 import { Pricing } from "@/types/pricing";
 import { createStore } from "zustand";
+import { groupChatMessages } from "../[chatId]/chat-history";
+import { FileWithId } from "../chat-input/input-store";
 
 export type Store = {
   services: Pricing[];
   chat: ChatRoom | null;
   messages: ChatMessage[];
+  grouped_messages: GroupedChatMessages;
   chats: ChatRoom[];
   tasks: ChatTask[];
   tasks_filter_list: number | null;
+  localAttachements: FileWithId[]; // Attachements that uploaded by user, so the can be show immediately and not wait for sync with storage and db
+  attachmentPreview: ChatAttachment | null;
 };
 
 const initialState: Store = {
+  attachmentPreview: null,
+  localAttachements: [],
   services: [],
   chat: null,
   messages: [],
+  grouped_messages: {},
   chats: [],
   tasks: [],
   tasks_filter_list: -2,
@@ -35,6 +44,13 @@ export const createChatApi = (initState: Partial<Store> = initialState) => {
 };
 
 export const chat = createChatApi();
+
+export const syncMessages = () => {
+  const messages = chat.getState().messages;
+  chat.setState(() => ({
+    grouped_messages: groupChatMessages(messages),
+  }));
+};
 
 export const getChatTags = () => {
   const chatState = chat.getState().chat;
@@ -112,23 +128,44 @@ export const deleteTask = (id: string) =>
     tasks: state.tasks.filter((task) => task.id !== id),
   }));
 
-export const pushMessage = (message: ChatMessage) =>
+export const pushMessage = (message: ChatMessage) => {
   chat.setState((state) => ({
     messages: [...state.messages, message],
   }));
-export const updateMessage = (message: ChatMessage) =>
+  syncMessages();
+};
+export const updateMessage = (message: ChatMessage) => {
   chat.setState((state) => ({
     messages: state.messages.map((msg) => {
       if (msg.id === message.id) return message;
       else return msg;
     }),
   }));
-export const deleteMessage = (id: string) =>
+  syncMessages();
+};
+
+export const replaceMessage = (id: string, message: ChatMessage) => {
+  chat.setState((state) => ({
+    messages: state.messages.map((msg) => {
+      if (msg.id === id) return message;
+      else return msg;
+    }),
+  }));
+  syncMessages();
+};
+export const deleteMessage = (id: string) => {
   chat.setState((state) => ({
     messages: state.messages.filter((message) => message.id !== id),
   }));
+  syncMessages();
+};
 
-export const setMessages = (messages: ChatMessage[]) =>
+export const setMessages = (messages: ChatMessage[]) => {
   chat.setState(() => ({ messages }));
+  syncMessages();
+};
 export const setChats = (chatRooms: ChatRoom[]) =>
   chat.setState({ chats: chatRooms });
+
+export const setAttachmentPreview = (attachment: ChatAttachment | null) =>
+  chat.setState({ attachmentPreview: attachment });

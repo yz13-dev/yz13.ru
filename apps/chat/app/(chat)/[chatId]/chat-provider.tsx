@@ -1,5 +1,6 @@
 "use client";
 
+import { getAuthorizedUser } from "@/actions/user/user";
 import { ChatMessage, ChatRoom, ChatTask } from "@/types/chat";
 import { useEffect, useMemo } from "react";
 import { createClient } from "yz13/supabase/client";
@@ -103,15 +104,16 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
           table: "chats-messages",
           filter,
         },
-        (payload) => {
+        async (payload) => {
           console.log("chats-messages/payload", payload);
           const event = payload.eventType;
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
+          const user = await getAuthorizedUser();
           if (isInsert) {
             const newMessage = payload.new as ChatMessage;
-            pushMessage(newMessage);
+            if (user && user.id !== newMessage.from_id) pushMessage(newMessage);
           }
           if (isUpdate) {
             const updatedMessage = payload.new as ChatMessage;

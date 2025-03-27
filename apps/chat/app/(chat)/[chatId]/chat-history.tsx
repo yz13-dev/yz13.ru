@@ -1,5 +1,4 @@
 "use client";
-import { useUser } from "@/hooks/use-user";
 import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -7,6 +6,7 @@ import { HashIcon, Loader2Icon, MouseIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
+import { UserObject } from "types/user";
 import { cn } from "yz13/cn";
 import { getChatTags, setMessages } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
@@ -84,9 +84,10 @@ const ChatBubbleGroup = ({
 
 type ChatHistoryProps = {
   messages?: ChatMessage[];
+  user: UserObject;
 };
 
-const groupChatMessages = (messages: ChatMessage[]) => {
+export const groupChatMessages = (messages: ChatMessage[]) => {
   const groups: Record<string, ChatMessage[]> = {};
   messages.forEach((message) => {
     const date = dayjs(message.created_at).locale("ru").format("DD-MM-YYYY");
@@ -116,7 +117,10 @@ const sortMessages = (messages: ChatMessage[]) => {
   });
 };
 
-const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
+const ChatHistory = ({
+  messages: providedMessages,
+  user,
+}: ChatHistoryProps) => {
   const chat = useChatApi((state) => state.chat);
   // const chatTags = useMemo(() => (chat ? chat.tags : []) as ChatTag[], [chat]);
   const chatPinnedMessageId = useMemo(
@@ -127,9 +131,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
     () => (chat?.attachments ?? []) as ChatAttachment[],
     [chat],
   );
-  const messages = useChatApi((state) => state.messages);
-  const [user, loading] = useUser();
-  const groupedMessages = groupChatMessages(messages);
+  const groupedMessages = useChatApi((state) => state.grouped_messages);
   const groupKeys = Object.keys(groupedMessages).sort((a, b) => {
     const dateA = dayjs(a, "DD-MM-YYYY");
     const dateB = dayjs(b, "DD-MM-YYYY");
@@ -157,7 +159,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
   };
   useEffect(() => {
     if (enableAutoScroll) handleScroll();
-  }, [messages, enableAutoScroll]);
+  }, [groupedMessages, enableAutoScroll]);
   useEffect(() => {
     if (providedMessages) setMessages(providedMessages);
   }, [providedMessages]);
@@ -173,9 +175,9 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
         if (e.deltaY < 0) handleManualScroll();
       }}
       onTouchMove={handleManualScroll}
-      className={cn("w-full space-y-12 h-full")}
+      className={cn("w-full *:py-6 h-full")}
     >
-      {loading && (
+      {false && (
         <div className="absolute top-0 left-0 w-full h-full flex gap-2 items-center justify-center">
           <Loader2Icon size={16} className="animate-spin text-secondary" />
           <span className="text-center text-sm text-secondary">
@@ -183,7 +185,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
           </span>
         </div>
       )}
-      {!loading && messages.length === 0 && (
+      {groupKeys.length === 0 && (
         <div className="w-full h-full flex items-center justify-center">
           <span className="text-center text-sm text-secondary">
             Нет сообщений
@@ -193,13 +195,8 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
       {groupKeys.reverse().map((key) => {
         const messages = sortMessages(groupedMessages[key] ?? []);
         return (
-          <ChatBubbleGroup
-            key={key}
-            date={key}
-            className={loading ? "opacity-0" : ""}
-          >
+          <ChatBubbleGroup key={key} date={key}>
             {messages.map((message) => {
-              const messageDate = dayjs(message.created_at).format("HH:mm");
               const isShortMessage = message.message.length <= 10;
               const tags = getTags(message.tags);
               const isMe = message.from_id === user?.id;
@@ -212,9 +209,14 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
                   return attachment;
                 })
                 .filter((attachment) => !!attachment);
+              const isDelivered = !!message.delivered_at;
+              const messageDate = isDelivered
+                ? dayjs(message.delivered_at).format("HH:mm")
+                : dayjs(message.created_at).format("HH:mm");
               return (
                 <ChatBubble
                   key={`${key}/message/${message.id}`}
+                  delivered={isDelivered}
                   chatId={message.chat_id}
                   messageId={message.id}
                   side={isMe ? "right" : "left"}
@@ -250,7 +252,7 @@ const ChatHistory = ({ messages: providedMessages }: ChatHistoryProps) => {
       <AnimatePresence>
         {!enableAutoScroll && (
           <motion.div
-            className="w-full overflow-hidden flex z-30 items-center justify-center sticky mx-auto bottom-32"
+            className="w-full overflow-hidden !p-0 flex z-30 items-center justify-center sticky mx-auto bottom-32"
             exit={{ opacity: 0, height: 0 }}
           >
             <Button

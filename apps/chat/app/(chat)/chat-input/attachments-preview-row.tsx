@@ -7,13 +7,14 @@ import { useState } from "react";
 import { cn } from "yz13/cn";
 
 const ImagePreview = ({
-  attachment,
+  url,
   className,
+  alt = "image-preview",
 }: {
-  attachment: ChatAttachment;
+  url: string;
+  alt?: string;
   className?: string;
 }) => {
-  const url = cdn(`/chats/${attachment.path}`);
   const [loading, setLoading] = useState<boolean>(true);
   return (
     <div className={cn("relative inline-block size-10", className)}>
@@ -28,19 +29,20 @@ const ImagePreview = ({
           "!static inline-block rounded-lg",
           loading && "opacity-0",
         )}
-        alt={attachment.name}
+        alt={alt}
       />
     </div>
   );
 };
-const VideoPreview = ({
-  attachment,
+export const VideoPreview = ({
+  url,
+  autoPlay = false,
   className,
 }: {
-  attachment: ChatAttachment;
+  url: string;
+  autoPlay?: boolean;
   className?: string;
 }) => {
-  const url = cdn(`/chats/${attachment.path}`);
   const [loading, setLoading] = useState<boolean>(true);
   return (
     <div className={cn("w-fit min-w-10 relative inline-block h-10", className)}>
@@ -49,6 +51,7 @@ const VideoPreview = ({
       )}
       <video
         muted
+        autoPlay={autoPlay}
         controls={false}
         src={url}
         onCanPlay={() => setLoading(false)}
@@ -75,11 +78,12 @@ const AttachmentsPreviews = ({
     <div className={cn("w-fit h-10 -space-x-5", className)}>
       <AnimatePresence>
         {attachments.map((attachment) => {
+          const url = cdn(`/chats/${attachment.path}`);
           if (attachment.type.startsWith("image")) {
             return (
               <ImagePreview
                 key={attachment.id}
-                attachment={attachment}
+                url={url}
                 className={previewClassName}
               />
             );
@@ -88,7 +92,7 @@ const AttachmentsPreviews = ({
             return (
               <VideoPreview
                 key={attachment.id}
-                attachment={attachment}
+                url={url}
                 className={previewClassName}
               />
             );
