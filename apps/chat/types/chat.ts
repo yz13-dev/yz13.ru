@@ -8,6 +8,10 @@ export type ChatTag = {
   id: number;
   tag: string;
 };
+export type SelectedChatMessage = {
+  id: ChatMessage["id"];
+  from_id: ChatMessage["from_id"];
+};
 export type ChatTask = Tables<"chats-tasks">;
 export type NewChatTask = TablesInsert<"chats-tasks">;
 export type UpdatedTask = TablesUpdate<"chats-tasks">;

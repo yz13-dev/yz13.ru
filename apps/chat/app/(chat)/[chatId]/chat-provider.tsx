@@ -7,6 +7,7 @@ import { createClient } from "yz13/supabase/client";
 import {
   deleteMessage,
   deleteTask,
+  getMessage,
   pushMessage,
   pushTask,
   setChat,
@@ -18,8 +19,13 @@ import {
 type ChatProviderProps = {
   children?: React.ReactNode;
   chat: ChatRoom;
+  className?: string;
 };
-const ChatProvider = ({ children, chat }: ChatProviderProps) => {
+const ChatProvider = ({
+  children,
+  chat,
+  className = "",
+}: ChatProviderProps) => {
   const client = useMemo(() => createClient(), []);
   useEffect(() => {
     if (chat) setChat(chat);
@@ -113,7 +119,9 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
           const user = await getAuthorizedUser();
           if (isInsert) {
             const newMessage = payload.new as ChatMessage;
+            const messageExist = getMessage(newMessage.id);
             if (user && user.id !== newMessage.from_id) pushMessage(newMessage);
+            else if (!messageExist) pushMessage(newMessage);
           }
           if (isUpdate) {
             const updatedMessage = payload.new as ChatMessage;
@@ -130,7 +138,7 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
       channel.unsubscribe();
     };
   }, [chat]);
-  return <>{children}</>;
+  return <div className={className}>{children}</div>;
 };
 
 export default ChatProvider;

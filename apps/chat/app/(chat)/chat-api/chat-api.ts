@@ -6,6 +6,7 @@ import {
   ChatTag,
   ChatTask,
   GroupedChatMessages,
+  SelectedChatMessage,
 } from "@/types/chat";
 import { Pricing } from "@/types/pricing";
 import { createStore } from "zustand";
@@ -19,6 +20,7 @@ export type Store = {
   grouped_messages: GroupedChatMessages;
   chats: ChatRoom[];
   tasks: ChatTask[];
+  selectedMessages: SelectedChatMessage[];
   tasks_filter_list: number | null;
   localAttachements: FileWithId[]; // Attachements that uploaded by user, so the can be show immediately and not wait for sync with storage and db
   attachmentPreview: ChatAttachment | null;
@@ -26,6 +28,7 @@ export type Store = {
 
 const initialState: Store = {
   attachmentPreview: null,
+  selectedMessages: [],
   localAttachements: [],
   services: [],
   chat: null,
@@ -169,3 +172,17 @@ export const setChats = (chatRooms: ChatRoom[]) =>
 
 export const setAttachmentPreview = (attachment: ChatAttachment | null) =>
   chat.setState({ attachmentPreview: attachment });
+
+export const setSelectedMessages = (messages: SelectedChatMessage[]) =>
+  chat.setState({ selectedMessages: messages });
+export const addSelectedMessage = (message: SelectedChatMessage) =>
+  chat.setState((state) => ({
+    selectedMessages: [...state.selectedMessages, message],
+  }));
+export const removeSelectedMessage = (id: string) =>
+  chat.setState((state) => ({
+    selectedMessages: state.selectedMessages.filter((m) => m.id !== id),
+  }));
+export const clearSelectedMessages = () =>
+  chat.setState({ selectedMessages: [] });
+export const getSelectedMessages = () => chat.getState().selectedMessages;

@@ -17,7 +17,9 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 import {
+  addSelectedMessage,
   getMessage,
+  removeSelectedMessage,
   setAttachmentPreview,
   setChat,
 } from "../chat-api/chat-api";
@@ -26,6 +28,7 @@ import useChatInput, { setReplyTo } from "../chat-input/input-store";
 import ReplyTo from "../chat-input/reply-to";
 import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 import { BubbleTag } from "./chat-history";
+import { Checkbox } from "mono/components/checkbox";
 
 export const bubbleVariants = cva(
   "max-w-md text-sm transition-colors rounded-3xl w-fit border border-transparent",
@@ -68,9 +71,11 @@ export type ChatBubbleProps = {
   variant?: "default" | "secondary" | "outline" | "ghost" | "link";
   children?: React.ReactNode;
   date?: string;
+  from_id: string;
   isShortMessage?: boolean;
   delivered?: boolean;
   messageId?: string;
+  selected?: boolean;
   tags?: ChatTag[];
   chatId: string;
   pinned?: boolean;
@@ -202,8 +207,10 @@ const ChatBubble = ({
   pinned = false,
   tags = [],
   messageActions,
+  from_id,
   chatId,
   delivered = false,
+  selected = false,
   replyTo,
   children,
   attachments = [],
@@ -215,10 +222,13 @@ const ChatBubble = ({
     <MessageCtxMenu
       message={children as string}
       messageId={messageId}
+      from_id={from_id}
+      selected={selected}
       onOpenChange={setIsCtxMenuOpen}
       className={cn(
-        "w-full gap-1 group/bubble  h-fit",
-        "md:pl-6 md:pr-6 pl-4 pr-2",
+        "w-full gap-1 group/bubble h-fit",
+        "md:pl-6 md:pr-6 pl-4 pr-2 py-3",
+        selected && "bg-neutral-200 first:rounded-b-lg last:rounded-t-lg",
         showAsShortMessage
           ? side === "left"
             ? "flex flex-row justify-start items-center"
@@ -262,47 +272,63 @@ const ChatBubble = ({
         </div>
         <div
           className={cn(
-            "flex w-full items-center gap-2",
-            side === "left"
-              ? "justify-end flex-row-reverse"
-              : "justify-end flex-row",
+            "flex w-full items-center justify-between gap-2",
+            side === "left" ? "flex-row-reverse" : "flex-row",
           )}
         >
-          <div
-            className={cn(
-              "flex items-center gap-1 group-hover/bubble:opacity-100 opacity-0",
-              side === "left" ? "flex-row" : "flex-row-reverse",
-            )}
-          >
-            {messageActions}
-          </div>
           <div className="flex items-center gap-1">
-            {tags.length !== 0 && (
-              <div className="w-full flex flex-wrap gap-1 items-start">
-                {tags.map((tag) => {
-                  return (
-                    <BubbleTag
-                      key={tag.id}
-                      tag={tag}
-                      messageId={messageId}
-                      onClick={handleDeleteTag}
-                    />
-                  );
-                })}
-              </div>
-            )}
+            <Checkbox
+              checked={selected}
+              onClick={() => {
+                if (!messageId) return;
+                if (selected) removeSelectedMessage(messageId);
+                else addSelectedMessage({ id: messageId, from_id });
+              }}
+              className={cn(
+                !selected
+                  ? "group-hover/bubble:opacity-100 opacity-0"
+                  : "opacity-100",
+                "",
+              )}
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <div
+              className={cn(
+                "flex items-center gap-1 group-hover/bubble:opacity-100 opacity-0",
+                side === "left" ? "flex-row" : "flex-row-reverse",
+              )}
+            >
+              {messageActions}
+            </div>
             <div className="flex items-center gap-1">
-              {pinned && <PinIcon size={14} className="text-secondary" />}
-              {date && (
-                <span className="text-xs shrink-0 px-1.5 py-1 select-none text-secondary">
-                  {date}
-                </span>
+              {tags.length !== 0 && (
+                <div className="w-full flex flex-wrap gap-1 items-start">
+                  {tags.map((tag) => {
+                    return (
+                      <BubbleTag
+                        key={tag.id}
+                        tag={tag}
+                        messageId={messageId}
+                        onClick={handleDeleteTag}
+                      />
+                    );
+                  })}
+                </div>
               )}
-              {delivered ? (
-                <CheckIcon size={14} className="text-secondary" />
-              ) : (
-                <ClockIcon size={14} className="text-secondary" />
-              )}
+              <div className="flex items-center gap-1">
+                {pinned && <PinIcon size={14} className="text-secondary" />}
+                {date && (
+                  <span className="text-xs shrink-0 px-1.5 py-1 select-none text-secondary">
+                    {date}
+                  </span>
+                )}
+                {delivered ? (
+                  <CheckIcon size={14} className="text-secondary" />
+                ) : (
+                  <ClockIcon size={14} className="text-secondary" />
+                )}
+              </div>
             </div>
           </div>
         </div>

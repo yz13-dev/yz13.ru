@@ -75,9 +75,9 @@ const ChatBubbleGroup = ({
           {isToday ? "Сегодня" : groupDate}
         </span>
       </div>
-      <div className="w-full flex flex-col-reverse gap-3">
-        <AnimatePresence>{children}</AnimatePresence>
-      </div>
+      <AnimatePresence>
+        <div className="w-full flex flex-col-reverse">{children}</div>
+      </AnimatePresence>
     </div>
   );
 };
@@ -137,7 +137,7 @@ const ChatHistory = ({
     const dateB = dayjs(b, "DD-MM-YYYY");
     return dateB.unix() - dateA.unix();
   });
-
+  const selectedMessages = useChatApi((state) => state.selectedMessages);
   const [enableAutoScroll, setEnableAutoScroll] = useState<boolean>(true);
   const handleManualScroll = () => {
     if (enableAutoScroll) setEnableAutoScroll(false);
@@ -213,6 +213,9 @@ const ChatHistory = ({
               const messageDate = isDelivered
                 ? dayjs(message.delivered_at).format("HH:mm")
                 : dayjs(message.created_at).format("HH:mm");
+              const selected = !!selectedMessages.find(
+                (msg) => msg.id === message.id,
+              );
               return (
                 <ChatBubble
                   key={`${key}/message/${message.id}`}
@@ -223,9 +226,11 @@ const ChatHistory = ({
                   variant={isMe ? "secondary" : "ghost"}
                   date={messageDate}
                   pinned={pinned}
+                  selected={selected}
                   replyTo={message.reply_to}
                   isShortMessage={isShortMessage}
                   tags={tags}
+                  from_id={user.id}
                   attachments={attachments}
                   messageActions={[
                     <PinMessageButton

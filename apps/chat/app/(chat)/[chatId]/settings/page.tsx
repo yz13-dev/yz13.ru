@@ -17,43 +17,31 @@ const page = ({ params }: PageProps) => {
     <>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-48px-48px)] overflow-y-visible flex pb-2"
+        className="w-full min-h-[calc(100dvh-96px-126px-24px)] p-6 overflow-y-visible flex"
       >
-        <PageWrapper>
-          <div
-            className={cn(
-              "mx-auto md:max-w-[calc(var(--breakpoint-md)-68px)] max-w-[calc(var(--breakpoint-md)-52px)]",
-              "py-12",
-            )}
-          >
-            <div className="space-y-6">
-              <span className="text-2xl block font-semibold">Настройки</span>
-              <div className="w-full flex flex-col gap-2">
-                <span className="text-base font-medium block">Тэги</span>
-                <span className="text-sm text-secondary block">
-                  При удалении тэга, у сообщений будет удален тэг
-                </span>
-                <div className="w-full mt-3">
-                  <Tags />
-                </div>
-              </div>
-              <div className="w-full flex flex-col gap-2">
-                <span className="text-base font-medium block">
-                  Списки задач
-                </span>
-                <span className="text-sm text-secondary block">
-                  При удалении списка, задачи будет перемещены в основной список
-                </span>
-                <div className="w-full mt-3">
-                  <TaskLists />
-                </div>
-              </div>
-              <Separator />
-              <DeleteChatButton chatId={chatId} />
+        <div className="space-y-6">
+          <span className="text-2xl block font-semibold">Настройки</span>
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-base font-medium block">Тэги</span>
+            <span className="text-sm text-secondary block">
+              При удалении тэга, у сообщений будет удален тэг
+            </span>
+            <div className="w-full mt-3">
+              <Tags />
             </div>
           </div>
-        </PageWrapper>
-        <ChatToolbar chatId={chatId} />
+          <div className="w-full flex flex-col gap-2">
+            <span className="text-base font-medium block">Списки задач</span>
+            <span className="text-sm text-secondary block">
+              При удалении списка, задачи будет перемещены в основной список
+            </span>
+            <div className="w-full mt-3">
+              <TaskLists />
+            </div>
+          </div>
+          <Separator />
+          <DeleteChatButton chatId={chatId} />
+        </div>
       </div>
     </>
   );
