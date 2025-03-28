@@ -1,9 +1,19 @@
 import { getChat } from "@/actions/chats/chats";
 import { AnimatePresence } from "motion/react";
 import { redirect } from "next/navigation";
-import ChatSidebarTrigger from "../chat-sidebar-trigger";
+import ChatSidebarTrigger from "../sidebar-trigger";
 import ChatProvider from "./chat-provider";
 import EditChatName from "./edit-chat-name";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "mono/components/breadcrumb";
+import { showChatCode, showChatTopics } from "@/const/flags";
+import ChatToolbar from "../chat-toolbar/chat-toolbar";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -15,20 +25,23 @@ type LayoutProps = {
 const layout = async ({ children, params }: LayoutProps) => {
   const chatId = params.chatId;
   const chat = await getChat(chatId);
+  const showTopics = await showChatTopics();
+  const showCode = await showChatCode();
   if (!chat) return redirect("/");
-  const chatName = chat.name;
   return (
-    <ChatProvider chat={chat}>
-      <header className="w-full bg-background z-20 h-12 flex items-center justify-start px-4">
-        <AnimatePresence>
-          <div className="flex items-center gap-1">
-            <ChatSidebarTrigger />
-            <EditChatName id={chatId} name={chatName ?? undefined} />
-          </div>
-        </AnimatePresence>
-      </header>
-      {children}
-    </ChatProvider>
+    <div className="w-full flex min-h-full">
+      <ChatProvider
+        chat={chat}
+        className="w-[calc(100%-48px)] bg-background-secondary"
+      >
+        {children}
+      </ChatProvider>
+      <ChatToolbar
+        chatId={chatId}
+        showTopics={showTopics}
+        showCode={showCode}
+      />
+    </div>
   );
 };
 

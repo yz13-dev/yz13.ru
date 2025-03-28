@@ -73,7 +73,7 @@ const ChatInput = ({
               if (isShiftEnter) {
                 setValue(value + "\n");
               }
-              if (isSendAction) {
+              if (isSendAction && value.length > 0) {
                 e.preventDefault();
                 if (chatId && user && user.id) {
                   setLoading(true);

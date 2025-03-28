@@ -84,7 +84,9 @@ const Task = ({ task }: { task: ChatTask }) => {
           <div className="flex items-center gap-2">
             <span
               className={cn(
-                task.checked ? "text-secondary line-through" : "",
+                task.checked
+                  ? "text-secondary line-through"
+                  : "text-foreground/80",
                 task.note?.length !== 0 && "text-sm",
               )}
             >

@@ -1,7 +1,10 @@
 "use client";
 import {
+  Code2Icon,
+  CodeIcon,
   ListTodoIcon,
   MessageCircleIcon,
+  PlusIcon,
   SettingsIcon,
   UsersIcon,
 } from "lucide-react";
@@ -16,14 +19,17 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { cn } from "yz13/cn";
 import { useChatApi } from "../chat-api/chat-provider";
+import { showChatCode } from "@/const/flags";
 
 type ChatToolbarProps = {
   showTopics?: boolean;
+  showCode?: boolean;
   chatId?: string;
   className?: string;
 };
 const ChatToolbar = ({
   showTopics = false,
+  showCode = false,
   chatId,
   className = "",
 }: ChatToolbarProps) => {
@@ -32,12 +38,17 @@ const ChatToolbar = ({
   return (
     <div
       className={cn(
-        "w-fit pr-4 shrink-0 h-full sticky right-0 md:top-1/3 top-2/3 flex flex-col items-center md:justify-center justify-end gap-2",
+        "w-12 shrink-0 h-dvh sticky border-l top-0 pb-[116px] flex flex-col items-center md:justify-center justify-end gap-2",
         className,
       )}
     >
       {showTopics && (
         <>
+          <Button size="icon" variant="secondary" asChild>
+            <Link href={`/${chatId}/works`}>
+              <PlusIcon size={16} />
+            </Link>
+          </Button>
           <Separator />
         </>
       )}
@@ -53,6 +64,20 @@ const ChatToolbar = ({
           <span>Чат</span>
         </TooltipContent>
       </Tooltip>
+      {showCode && (
+        <Tooltip delayDuration={10}>
+          <TooltipTrigger asChild>
+            <Button size="icon" variant="secondary" asChild>
+              <Link href={`/${chatId}/code`}>
+                <Code2Icon size={16} />
+              </Link>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="left">
+            <span>Код</span>
+          </TooltipContent>
+        </Tooltip>
+      )}
       <Tooltip delayDuration={10}>
         <TooltipTrigger asChild>
           <Button size="icon" variant="secondary" asChild>

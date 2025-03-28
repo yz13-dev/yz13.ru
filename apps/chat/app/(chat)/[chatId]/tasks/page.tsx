@@ -8,6 +8,8 @@ import TasksListInput from "./list-input";
 import TaskInput from "./task-input";
 import TaskList from "./task-list";
 import TaskLists from "./task-lists";
+import { Suspense } from "react";
+import { Loader2Icon } from "lucide-react";
 
 type PageProps = {
   params: {
@@ -26,19 +28,11 @@ const page = async ({ params }: PageProps) => {
       </Topbar>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-48px-48px)] pt-6 overflow-y-visible flex pb-2"
+        className="w-full min-h-[calc(100dvh-96px-126px-24px)] max-w-2xl mx-auto pt-6 overflow-y-visible flex pb-4"
       >
-        <PageWrapper>
-          <div
-            className={cn(
-              "mx-auto md:max-w-[calc(var(--breakpoint-md)-68px)] max-w-[calc(var(--breakpoint-md)-52px)]",
-              "pb-4",
-            )}
-          >
-            <TaskList tasks={tasks} />
-          </div>
-        </PageWrapper>
-        <ChatToolbar chatId={chatId} />
+        <Suspense fallback={<Loader2Icon className="animate-spin" />}>
+          <TaskList tasks={tasks} />
+        </Suspense>
       </div>
       <TaskInput chatId={chatId} />
     </>

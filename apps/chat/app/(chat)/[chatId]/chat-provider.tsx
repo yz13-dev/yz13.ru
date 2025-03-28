@@ -19,8 +19,13 @@ import {
 type ChatProviderProps = {
   children?: React.ReactNode;
   chat: ChatRoom;
+  className?: string;
 };
-const ChatProvider = ({ children, chat }: ChatProviderProps) => {
+const ChatProvider = ({
+  children,
+  chat,
+  className = "",
+}: ChatProviderProps) => {
   const client = useMemo(() => createClient(), []);
   useEffect(() => {
     if (chat) setChat(chat);
@@ -133,7 +138,7 @@ const ChatProvider = ({ children, chat }: ChatProviderProps) => {
       channel.unsubscribe();
     };
   }, [chat]);
-  return <>{children}</>;
+  return <div className={className}>{children}</div>;
 };
 
 export default ChatProvider;

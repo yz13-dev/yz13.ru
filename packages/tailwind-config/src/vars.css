@@ -126,7 +126,7 @@
   --chart-5: hsl(27 87% 67%);
 
   /* sidebar */
-  --sidebar-background: var(--yz13-background);
+  --sidebar-background: var(--yz13-background-secondary);
   --sidebar-foreground: var(--yz13-foreground);
   --sidebar-primary: var(--yz13-background);
   --sidebar-primary-foreground: var(--yz13-foreground);
@@ -241,7 +241,7 @@
     --chart-4: hsl(280 65% 60%);
     --chart-2: hsl(340 75% 55%);
 
-    --sidebar-background: var(--yz13-background);
+    --sidebar-background: var(--yz13-background-secondary);
     --sidebar-foreground: var(--yz13-foreground);
     --sidebar-primary: var(--yz13-background);
     --sidebar-primary-foreground: var(--yz13-foreground);
@@ -357,7 +357,7 @@
     --chart-4: hsl(280 65% 60%);
     --chart-2: hsl(340 75% 55%);
 
-    --sidebar-background: var(--yz13-background);
+    --sidebar-background: var(--yz13-background-secondary);
     --sidebar-foreground: var(--yz13-foreground);
     --sidebar-primary: var(--yz13-background);
     --sidebar-primary-foreground: var(--yz13-foreground);

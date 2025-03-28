@@ -29,10 +29,7 @@ const layout = async ({ children }: LayoutProps) => {
           <Suspense fallback={<SidebarSkeleton />}>
             <ChatSidebar />
           </Suspense>
-          <div
-            id="chat-wrapper"
-            className="min-h-dvh bg-background-secondary w-full relative"
-          >
+          <div id="chat-wrapper" className="min-h-dvh relative w-full">
             {children}
           </div>
         </ServerWrapper>

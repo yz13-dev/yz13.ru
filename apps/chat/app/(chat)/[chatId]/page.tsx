@@ -8,12 +8,20 @@ import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import ChatInput from "../chat-input/input";
 import ChatToolbar from "../chat-toolbar/chat-toolbar";
-import Topbar from "../top-bar";
+import Topbar, { TopBarBreadcrumbs } from "../top-bar";
 import AttachmentPreview from "./attachment-preview";
 import ChatHistory from "./chat-history";
 import GroupChatParticipants from "./group-chat-participants";
 import PageWrapper from "./page-wrapper";
 import PinnedMessage from "./pinned-message";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "mono/components/breadcrumb";
 
 type PageProps = {
   params: {
@@ -29,7 +37,7 @@ const page = async ({ params }: PageProps) => {
   return (
     <>
       <Topbar>
-        <div className="w-full overflow-x-auto flex items-center gap-2">
+        <div className="w-fit flex items-center justify-between gap-2">
           <Button
             variant="ghost"
             className="gap-2 h-8 rounded-md text-xs py-0.5 px-3"
@@ -45,21 +53,11 @@ const page = async ({ params }: PageProps) => {
       </Topbar>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-48px-48px-126px)] pt-6 overflow-y-visible flex pb-4"
+        className="w-full min-h-[calc(100dvh-96px-126px-24px)] pt-6 overflow-y-visible flex pb-4"
       >
-        <PageWrapper>
-          <div
-            className={cn(
-              "mx-auto min-h-[70dvh] md:max-w-[calc(var(--breakpoint-2xl)-68px)] max-w-[calc(var(--breakpoint-2xl)-52px)]",
-              "pb-2",
-            )}
-          >
-            <Suspense fallback={<Loader2Icon className="animate-spin" />}>
-              <ChatHistory messages={messages} user={user} />
-            </Suspense>
-          </div>
-        </PageWrapper>
-        <ChatToolbar chatId={chatId} showTopics={showTopics} />
+        <Suspense fallback={<Loader2Icon className="animate-spin" />}>
+          <ChatHistory messages={messages} user={user} />
+        </Suspense>
       </div>
       <ChatInput
         chatId={chatId}
