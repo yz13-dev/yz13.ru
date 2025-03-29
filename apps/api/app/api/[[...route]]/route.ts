@@ -14,10 +14,13 @@ import { rooms } from "./rooms";
 import { user } from "./user";
 import { visitor_session } from "./visitor-session";
 import { works } from "./works";
+import { cors } from "hono/cors";
 
 export const runtime = "edge";
 
 const app = new Hono().basePath("/");
+
+const isDev = process.env.NODE_ENV === "development";
 
 app.use("*", requestId());
 app.use(
@@ -29,13 +32,24 @@ app.use(
     cookieOptions: {
       sameSite: "None",
       secure: true,
-      domain: process.env.NODE_ENV === "production" ? ".yz13.ru" : "localhost",
+      domain: !isDev ? ".yz13.ru" : "localhost",
       httpOnly: true,
       path: "/",
       maxAge: 60 * 60 * 24 * 30, // 30 days
     },
     supportedLanguages: ["ru", "en"], // Must include fallback
     fallbackLanguage: "ru", // Required
+  }),
+);
+app.use(
+  "*",
+  cors({
+    origin: (origin) => {
+      if (isDev) {
+        return origin;
+      } else return origin.endsWith(".yz13.com") ? origin : "https://yz13.ru";
+    },
+    credentials: true,
   }),
 );
 // won't work with `runtime = "edge"`

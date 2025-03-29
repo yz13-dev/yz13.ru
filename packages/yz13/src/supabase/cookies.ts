@@ -5,7 +5,7 @@ export const cookieOptions: Options = {
   path: "/",
   domain: isDev ? "localhost" : ".yz13.ru",
   sameSite: "none",
-  secure: true,
+  secure: !isDev,
   httpOnly: false,
   hostOnly: false,
 };
