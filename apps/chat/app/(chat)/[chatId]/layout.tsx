@@ -26,7 +26,6 @@ const layout = async ({ children, params }: LayoutProps) => {
   const chatId = params.chatId;
   const chat = await getChat(chatId);
   const showTopics = await showChatTopics();
-  const showCode = await showChatCode();
   if (!chat) return redirect("/");
   return (
     <div className="w-full flex min-h-full">
@@ -36,11 +35,7 @@ const layout = async ({ children, params }: LayoutProps) => {
       >
         {children}
       </ChatProvider>
-      <ChatToolbar
-        chatId={chatId}
-        showTopics={showTopics}
-        showCode={showCode}
-      />
+      <ChatToolbar chatId={chatId} showTopics={showTopics} />
     </div>
   );
 };

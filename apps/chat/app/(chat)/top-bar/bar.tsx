@@ -1,11 +1,4 @@
 "use client";
-import { Separator } from "mono/components/separator";
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect } from "react";
-import { cn } from "yz13/cn";
-import { create } from "zustand";
-import { useChatApi } from "./chat-api/chat-provider";
-import ChatSidebarTrigger from "./sidebar-trigger";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,10 +7,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "mono/components/breadcrumb";
+import { useEffect } from "react";
+import { cn } from "yz13/cn";
+import { create } from "zustand";
+import { useChatApi } from "../chat-api/chat-provider";
+import ChatSidebarTrigger from "../sidebar-trigger";
 
 type TopbarProps = {
   className?: string;
   children?: React.ReactNode;
+  hideBreadcrumbs?: boolean;
 };
 
 type State = {
@@ -34,7 +33,11 @@ export const useTopbar = create<State & Actions>((set) => ({
 export const setOverscrolled = (overscrolled: boolean) =>
   useTopbar.setState({ overscrolled });
 
-const Topbar = ({ className = "", children }: TopbarProps) => {
+const Topbar = ({
+  className = "",
+  children,
+  hideBreadcrumbs = false,
+}: TopbarProps) => {
   const overscrolled = useTopbar((state) => state.overscrolled);
   const chat = useChatApi((state) => state.chat);
   const handleScroll = (e: Event) => {
@@ -61,15 +64,22 @@ const Topbar = ({ className = "", children }: TopbarProps) => {
     };
   }, []);
   return (
-    <header className="top-0 z-20 h-12 shrink-0 bg-background border-b w-full sticky">
+    <header
+      className={cn(
+        "top-0 z-20 h-14 shrink-0 w-full sticky p-2 transition-colors duration-700",
+        overscrolled ? "bg-transparent" : "bg-background",
+      )}
+    >
       <div
         className={cn(
-          "px-4 flex items-center md:mx-0 mx-auto gap-2 h-full",
+          "px-2 flex items-center bg-background/80 backdrop-blur-sm rounded-lg justify-center gap-2 h-full",
+          "mx-auto transition-all",
+          overscrolled ? "max-w-4xl" : "max-w-full",
           className,
         )}
       >
         <ChatSidebarTrigger />
-        <TopBarBreadcrumbs />
+        {!hideBreadcrumbs && <TopBarBreadcrumbs />}
         {children}
       </div>
     </header>

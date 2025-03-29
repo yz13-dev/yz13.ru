@@ -3,7 +3,7 @@ import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
 import { ChatRoom } from "@/types/chat";
 import { AnimatePresence } from "motion/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { cn } from "yz13/cn";
 import AttachedFiles from "./attached-files";
 import InputActions from "./input-actions";
@@ -11,6 +11,7 @@ import InputSendButton, { sendMessage } from "./input-send-button";
 import useChatInput, { setLoading } from "./input-store";
 import ReplyTo from "./reply-to";
 import TagsSelector from "./tags-selector";
+import { addFiles } from "./file-handler";
 
 type ChatInputProps = {
   containerClassName?: string;
@@ -34,6 +35,11 @@ const ChatInput = ({
   const showTags = useChatInput((state) => state.showTags);
   const loading = useChatInput((state) => state.loading);
   const reply_to = useChatInput((state) => state.reply_to);
+  const [isOver, setIsOver] = useState<boolean>(false);
+  const collectFiles = (list: FileList) => {
+    const files = Array.from(list);
+    return files;
+  };
   return (
     <footer
       ref={ref}
@@ -47,13 +53,24 @@ const ChatInput = ({
       )}
     >
       <div
+        onDragOver={() => setIsOver(true)}
+        onDragLeave={() => setIsOver(false)}
+        onDrop={() => setIsOver(false)}
         className={cn(
           "flex items-center h-fit p-2 rounded-3xl bg-background/60 backdrop-blur-md w-full justify-center",
           "border-1 focus-within:border-foreground ring-4 ring-transparent focus-within:ring-foreground/20",
-          "hover:border-foreground",
+          "relative hover:border-foreground",
+          isOver && "border-foreground border-2 border-dashed",
           className,
         )}
       >
+        {isOver && (
+          <div className="w-full h-full z-10 flex items-center justify-center rounded-3xl bg-background p-4 absolute top-0 left-0">
+            <span className="text-sm text-secondary text-center">
+              Бросайте файлы сюда
+            </span>
+          </div>
+        )}
         <div className="w-full flex flex-col gap-2">
           <AnimatePresence>
             {reply_to && (
@@ -66,6 +83,11 @@ const ChatInput = ({
           <AnimatePresence>{showTags && <TagsSelector />}</AnimatePresence>
           <AutoTextarea
             autoFocus
+            onPaste={(e) => {
+              const list = e.clipboardData?.files;
+              const files = collectFiles(list);
+              if (files.length > 0) addFiles(files);
+            }}
             disabled={loading}
             onKeyDown={(e) => {
               const isSendAction = e.key === "Enter" && !e.ctrlKey;

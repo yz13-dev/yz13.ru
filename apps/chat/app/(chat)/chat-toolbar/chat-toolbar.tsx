@@ -1,5 +1,6 @@
 "use client";
 import {
+  ArrowRightIcon,
   Code2Icon,
   CodeIcon,
   ListTodoIcon,
@@ -20,16 +21,20 @@ import { useMemo } from "react";
 import { cn } from "yz13/cn";
 import { useChatApi } from "../chat-api/chat-provider";
 import { showChatCode } from "@/const/flags";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "mono/components/popover";
+import { Input } from "mono/components/input";
 
 type ChatToolbarProps = {
   showTopics?: boolean;
-  showCode?: boolean;
   chatId?: string;
   className?: string;
 };
 const ChatToolbar = ({
   showTopics = false,
-  showCode = false,
   chatId,
   className = "",
 }: ChatToolbarProps) => {
@@ -44,11 +49,26 @@ const ChatToolbar = ({
     >
       {showTopics && (
         <>
-          <Button size="icon" variant="secondary" asChild>
-            <Link href={`/${chatId}/works`}>
-              <PlusIcon size={16} />
-            </Link>
-          </Button>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="icon" variant="secondary">
+                <PlusIcon size={16} />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent
+              side="left"
+              align="center"
+              className="p-3 space-y-3 rounded-xl"
+            >
+              <span className="text-sm font-medium block">Новая работа</span>
+              <div className="flex items-center gap-2">
+                <Input placeholder="Название работы" className="w-full" />
+                <Button variant="secondary" size="icon" className="shrink-0">
+                  <ArrowRightIcon size={16} />
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
           <Separator />
         </>
       )}
@@ -64,20 +84,6 @@ const ChatToolbar = ({
           <span>Чат</span>
         </TooltipContent>
       </Tooltip>
-      {showCode && (
-        <Tooltip delayDuration={10}>
-          <TooltipTrigger asChild>
-            <Button size="icon" variant="secondary" asChild>
-              <Link href={`/${chatId}/code`}>
-                <Code2Icon size={16} />
-              </Link>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="left">
-            <span>Код</span>
-          </TooltipContent>
-        </Tooltip>
-      )}
       <Tooltip delayDuration={10}>
         <TooltipTrigger asChild>
           <Button size="icon" variant="secondary" asChild>

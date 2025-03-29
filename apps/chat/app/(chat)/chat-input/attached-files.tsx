@@ -8,9 +8,6 @@ import { useEffect, useMemo, useState } from "react";
 
 const AttachedFiles = () => {
   const files = useChatInput((state) => state.files);
-  const handleDetachFile = (index: number) => {
-    detachFile(index);
-  };
   return (
     <motion.div
       id="attached-files"
@@ -35,7 +32,6 @@ const AttachedFile = ({ file, index = 0 }: { file: File; index?: number }) => {
     const nameArr = file.name.split(".");
     const name = nameArr.slice(0, nameArr.length - 1).join("-");
     const ext = nameArr[nameArr.length - 1];
-
     return (
       <span>
         {name}

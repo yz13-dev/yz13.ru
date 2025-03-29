@@ -43,8 +43,8 @@ const ChatProvider = ({
           filter,
         },
         (payload) => {
-          console.log("chats/payload", payload);
           const event = payload.eventType;
+          console.log("chats/payload", event, payload);
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
           if (isUpdate) {
@@ -74,8 +74,8 @@ const ChatProvider = ({
           filter,
         },
         (payload) => {
-          console.log("chats-tasks/payload", payload);
           const event = payload.eventType;
+          console.log("chats-tasks/payload", event, payload);
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
@@ -111,17 +111,15 @@ const ChatProvider = ({
           filter,
         },
         async (payload) => {
-          console.log("chats-messages/payload", payload);
           const event = payload.eventType;
+          console.log("chats-messages/payload", event, payload);
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
           const user = await getAuthorizedUser();
           if (isInsert) {
             const newMessage = payload.new as ChatMessage;
-            const messageExist = getMessage(newMessage.id);
             if (user && user.id !== newMessage.from_id) pushMessage(newMessage);
-            else if (!messageExist) pushMessage(newMessage);
           }
           if (isUpdate) {
             const updatedMessage = payload.new as ChatMessage;

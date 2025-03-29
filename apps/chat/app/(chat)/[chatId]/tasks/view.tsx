@@ -1,27 +1,30 @@
-import { getTasks } from "@/actions/chats/tasks";
 import { Separator } from "mono/components/separator";
-import { cn } from "yz13/cn";
-import ChatToolbar from "../../chat-toolbar/chat-toolbar";
-import PageWrapper from "../page-wrapper";
-import TasksListInput from "./list-input";
-import TaskInput from "./task-input";
-import TaskList from "./task-list";
-import TaskLists from "./task-lists";
+import { Button } from "mono/components/button";
 import { Suspense } from "react";
+import { getChatMessages } from "@/actions/chats/chats";
+import { getAuthorizedUser } from "@/actions/user/user";
+import { redirect } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
+import { getTasks } from "@/actions/chats/tasks";
+import TasksListInput from "./list-input";
+import TaskLists from "./task-lists";
+import TaskList from "./task-list";
+import TaskInput from "./task-input";
 import Topbar from "../../top-bar/bar";
 
-type PageProps = {
+export type TasksViewProps = {
   params: {
     chatId: string;
   };
 };
-const page = async ({ params }: PageProps) => {
+const View = async ({ params }: TasksViewProps) => {
   const chatId = params.chatId;
   const tasks = await getTasks(chatId);
+  const user = await getAuthorizedUser();
+  if (!user) return redirect("/");
   return (
     <>
-      <Topbar>
+      <Topbar hideBreadcrumbs>
         <TasksListInput chatId={chatId} />
         <Separator orientation="vertical" className="h-6" />
         <TaskLists />
@@ -39,4 +42,4 @@ const page = async ({ params }: PageProps) => {
   );
 };
 
-export default page;
+export default View;
