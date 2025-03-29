@@ -67,8 +67,11 @@ const TagInput = ({ messageId }: TagInputProps) => {
         if (messageId) {
           const message = await getMessage(messageId);
           if (message) {
+            const isTagExists = message.tags.includes(newTag.id);
+            if (isTagExists) return;
+            const messageTags = [...message.tags, newTag.id];
             await updateChatMessage(messageId, {
-              tags: tags.map((tag) => tag.id),
+              tags: messageTags,
             });
           }
         }

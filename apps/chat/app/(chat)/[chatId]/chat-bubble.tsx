@@ -9,6 +9,7 @@ import {
   CopyIcon,
   Loader2Icon,
   PinIcon,
+  PinOffIcon,
   ReplyIcon,
   XIcon,
 } from "lucide-react";
@@ -292,7 +293,12 @@ const ChatBubble = ({
               )}
             />
           </div>
-          <div className="flex items-center gap-2">
+          <div
+            className={cn(
+              "flex items-center gap-2",
+              side === "left" ? "flex-row-reverse" : "flex-row",
+            )}
+          >
             <div
               className={cn(
                 "flex items-center gap-1 group-hover/bubble:opacity-100 opacity-0",
@@ -392,7 +398,7 @@ const PinMessageButton = ({ messageId }: { messageId: string }) => {
       {loading ? (
         <Loader2Icon size={14} className="animate-spin" />
       ) : pinned ? (
-        <CheckIcon size={14} />
+        <PinOffIcon size={14} />
       ) : (
         <PinIcon size={14} />
       )}

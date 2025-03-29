@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo --port 3001 --experimental-https --hostname 0.0.0.0",
+    "dev": "next dev --turbo --port 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -17,6 +17,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "recharts": "^2.15.1",
+    "sharp": "^0.33.5",
     "yz13": "*"
   },
   "devDependencies": {

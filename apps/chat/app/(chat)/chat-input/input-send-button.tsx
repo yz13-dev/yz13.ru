@@ -19,6 +19,7 @@ import {
   setChat,
 } from "../chat-api/chat-api";
 import useChatInput, {
+  FileWithId,
   getFiles,
   getReplyTo,
   getTags,
@@ -46,9 +47,10 @@ const sendOfflineMessage = async (chatId: string, userId: string) => {
     reply_to,
     tags,
   });
+  const files = getFiles();
   pushMessage(offlineMessage);
   clearInput();
-  return offlineMessage;
+  return { offlineMessage, files };
 };
 const clearInput = () => {
   setLoading(false);
@@ -62,7 +64,7 @@ export const sendMessage = async (
   chatId: string,
   userId: string,
 ): Promise<ChatMessage | null> => {
-  const offlineMessage = await sendOfflineMessage(chatId, userId);
+  const { offlineMessage, files } = await sendOfflineMessage(chatId, userId);
   const tags = offlineMessage.tags;
   const reply_to = offlineMessage.reply_to;
   try {
@@ -74,7 +76,7 @@ export const sendMessage = async (
       tags,
     });
     if (newMessage) {
-      await uploadMessageAttachments(newMessage);
+      await uploadMessageAttachments(newMessage, files);
       replaceMessage(offlineMessage.id, newMessage);
       return newMessage;
     } else return null;
@@ -84,8 +86,10 @@ export const sendMessage = async (
   }
 };
 
-const uploadMessageAttachments = async (message: ChatMessage) => {
-  const files = getFiles();
+const uploadMessageAttachments = async (
+  message: ChatMessage,
+  files: FileWithId[] = [],
+) => {
   if (files.length === 0) return;
   const result = await uploadAttachments(message.chat_id, files);
   const onlySuccessfull = result.filter((file) => file !== null);

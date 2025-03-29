@@ -11,13 +11,17 @@ type FileHandlerProps = {
   className?: string;
   watchId?: string;
 };
+
+export const addFile = (file: File) => {
+  const currentFiles = getFiles();
+  const fileWithId = file as FileWithId;
+  fileWithId.id = randomId(10);
+  setFiles([...currentFiles, fileWithId]);
+};
+export const addFiles = (files: File[]) => {
+  files.forEach((file) => addFile(file));
+};
 export function FileHandler({ className = "", watchId }: FileHandlerProps) {
-  const addFile = (file: File) => {
-    const currentFiles = getFiles();
-    const fileWithId = file as FileWithId;
-    fileWithId.id = randomId(10);
-    setFiles([...currentFiles, fileWithId]);
-  };
   const addFiles = (files: File[]) => {
     files.forEach((file) => addFile(file));
   };
