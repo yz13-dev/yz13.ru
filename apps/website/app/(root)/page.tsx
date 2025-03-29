@@ -26,8 +26,6 @@ import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
 const page = async () => {
-  unstable_noStore();
-  console.log(await getAuthorizedUser());
   return (
     <>
       <Header className="sticky top-0">
