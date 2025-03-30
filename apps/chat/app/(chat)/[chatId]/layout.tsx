@@ -23,7 +23,7 @@ type LayoutProps = {
 
 const layout = async ({ children, params }: LayoutProps) => {
   const chatId = params.chatId;
-  const chat = await getChat(chatId);
+  const { data: chat } = await getChat(chatId);
   const showTopics = await showChatTopics();
   if (!chat) return redirect("/");
   return (

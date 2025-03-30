@@ -15,6 +15,7 @@ import { user } from "./user";
 import { visitor_session } from "./visitor-session";
 import { works } from "./works";
 import { cors } from "hono/cors";
+import { chats } from "./chats";
 
 export const runtime = "edge";
 
@@ -66,6 +67,7 @@ app.route("/pricing", pricing);
 app.route("/rooms", rooms);
 app.route("/pages", pages);
 app.route("/news", news);
+app.route("/chats", chats);
 
 app.get("/version", (c) => {
   const version = packageJson.version;

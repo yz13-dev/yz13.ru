@@ -1,5 +1,5 @@
 import packageJson from "@/package.json";
-import { bot } from "@/src/bot";
+import { bot } from "@/app/bot";
 import { webhookCallback } from "grammy";
 import { Hono } from "hono";
 import { handle } from "hono/vercel";

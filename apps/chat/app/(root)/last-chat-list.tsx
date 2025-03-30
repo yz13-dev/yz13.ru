@@ -33,7 +33,9 @@ export const LastChatListSkeleton = () => {
 const LastChatList = async () => {
   const user = await auth();
   const id = user?.id;
-  const chats = id ? await getChats(id) : [];
+  if (!id) return null;
+  const { data } = await getChats(id);
+  const chats = data ?? [];
   if (!user) return null;
   return (
     <div className="w-full space-y-3">

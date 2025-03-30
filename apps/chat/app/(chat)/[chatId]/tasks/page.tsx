@@ -1,8 +1,5 @@
 import { getTasks } from "rest-api/tasks";
 import { Separator } from "mono/components/separator";
-import { cn } from "yz13/cn";
-import ChatToolbar from "../../chat-toolbar/chat-toolbar";
-import PageWrapper from "../page-wrapper";
 import TasksListInput from "./list-input";
 import TaskInput from "./task-input";
 import TaskList from "./task-list";
@@ -18,7 +15,8 @@ type PageProps = {
 };
 const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
-  const tasks = await getTasks(chatId);
+  const { data } = await getTasks(chatId);
+  const tasks = data ?? [];
   return (
     <>
       <Topbar>

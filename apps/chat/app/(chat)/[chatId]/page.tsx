@@ -20,7 +20,8 @@ type PageProps = {
 };
 const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
-  const messages = await getChatMessages(chatId);
+  const { data } = await getChatMessages(chatId);
+  const messages = data ?? [];
   const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (
