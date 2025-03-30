@@ -1,6 +1,6 @@
 "use server";
 
-import { ChatTask, NewChatTask, UpdatedTask } from "@/types/chat";
+import { ChatTask, NewChatTask, UpdatedTask } from "rest-api/types/chats";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 

@@ -1,4 +1,4 @@
-import { getRoom } from "@/actions/rooms/rooms";
+import { getRoom } from "rest-api/rooms";
 import { StoreProvider } from "@/components/canvas/api-provider";
 import Canvas from "@/components/canvas/canvas";
 import Overlay from "@/components/canvas/overlay";

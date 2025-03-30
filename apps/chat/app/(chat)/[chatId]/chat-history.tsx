@@ -1,12 +1,13 @@
 "use client";
-import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
+import { ChatMessage, ChatTag } from "rest-api/types/chats";
+import { ChatAttachment } from "rest-api/types/attachments";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { HashIcon, Loader2Icon, MouseIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 import { getChatTags, setMessages } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";

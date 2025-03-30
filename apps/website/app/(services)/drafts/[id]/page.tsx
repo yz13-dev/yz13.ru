@@ -1,5 +1,5 @@
-import { getDraft } from "@/actions/drafts/drafts";
-import { getUserById } from "@/actions/user/user";
+import { getDraft } from "rest-api/drafts";
+import { getUserById } from "rest-api/user";
 import { isDev } from "@/app/login/get-url";
 import Header from "@/components/header";
 import User from "@/components/user";

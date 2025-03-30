@@ -1,8 +1,8 @@
-import { uploadArticle } from "@/actions/articles/articles";
-import { getCountryCodes } from "@/actions/codes/codes";
-import { parseNewsFromSource } from "@/actions/parse-news/parse-news";
-import { getNewsSources } from "@/actions/sources/sources";
-import { NewsSource } from "@/types/news";
+import { uploadArticle } from "rest-api/articles";
+import { getCountryCodes } from "rest-api/codes";
+import { parseNewsFromSource } from "@/lib/parse-news";
+import { getNewsSources } from "rest-api/sources";
+import { NewsSource } from "rest-api/types/articles";
 import { serve } from "@upstash/workflow/nextjs";
 
 export const { POST } = serve(async (context) => {

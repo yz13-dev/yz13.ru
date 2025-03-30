@@ -1,6 +1,6 @@
 "use server";
 import { API_URL } from "@/const/api";
-import { Pricing, ShortPricing } from "@/types/pricing";
+import { Pricing, ShortPricing } from "rest-api/types/pricing";
 
 export const getFullPricing = async (): Promise<Pricing[]> => {
   try {

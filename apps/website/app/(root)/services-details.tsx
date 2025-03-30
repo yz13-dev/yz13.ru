@@ -1,5 +1,4 @@
-import { isAvailable } from "@/actions/availability-status";
-import { getFullPricing } from "@/actions/pricing/pricing";
+import { getFullPricing } from "rest-api/pricing";
 import { getPricing, isPaid } from "@/lib/pricing";
 import { get } from "@vercel/edge-config";
 import {
@@ -14,6 +13,7 @@ import {
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
+import { availableForWork } from "@/const/flags";
 
 const Details = ({
   children,
@@ -161,7 +161,7 @@ const ServiceBlank = () => {
 const ServicesDetails = async () => {
   const services = await getFullPricing();
   const sign = await get<string>("price-sign");
-  const busy = await isAvailable();
+  const busy = await availableForWork();
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x flex flex-row divide-x overflow-x-auto">

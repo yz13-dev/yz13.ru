@@ -1,5 +1,5 @@
+import { ChatAttachment } from "rest-api/types/attachments";
 import {
-  ChatAttachment,
   ChatList,
   ChatMessage,
   ChatRoom,
@@ -7,8 +7,8 @@ import {
   ChatTask,
   GroupedChatMessages,
   SelectedChatMessage,
-} from "@/types/chat";
-import { Pricing } from "@/types/pricing";
+} from "rest-api/types/chats";
+import { Pricing } from "rest-api/types/pricing";
 import { createStore } from "zustand";
 import { groupChatMessages } from "../[chatId]/chat-history";
 import { FileWithId } from "../chat-input/input-store";

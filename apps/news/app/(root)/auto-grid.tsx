@@ -1,6 +1,6 @@
 "use client";
-import { getArticlesForCountry } from "@/actions/articles/articles";
-import { Article } from "@/types/news";
+import { getArticlesForCountry } from "rest-api/articles";
+import { Article } from "rest-api/types/articles";
 import "dayjs/locale/ru";
 import { Loader2Icon } from "lucide-react";
 import { useInView } from "motion/react";

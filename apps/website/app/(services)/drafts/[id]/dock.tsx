@@ -1,7 +1,7 @@
 "use client";
-import { deleteDraft } from "@/actions/drafts/drafts";
+import { deleteDraft } from "rest-api/drafts";
 import { useUser } from "@/lib/use-auth";
-import { Draft } from "@/types/drafts";
+import { Draft } from "rest-api/types/drafts";
 import { User } from "@supabase/supabase-js";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
@@ -19,17 +19,18 @@ import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { cn } from "yz13/cn";
+import { UserObject } from "rest-api/types/user";
 
 dayjs.extend(relativeTime);
 
 type DraftDockProps = {
   draft: Draft;
-  author: User | null;
+  author: UserObject | null;
 };
 
-const Author = ({ user }: { user: User }) => {
-  const userName = user?.user_metadata?.username ?? "Пользователь";
-  const email = user?.user_metadata?.email ?? "you@yz13.ru";
+const Author = ({ user }: { user: UserObject }) => {
+  const userName = user?.username ?? "Пользователь";
+  const email = user?.email ?? "you@yz13.ru";
   return (
     <div className="flex flex-row items-center gap-1 justify-between">
       <div className="flex flex-row items-center gap-2">

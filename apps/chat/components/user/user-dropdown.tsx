@@ -10,7 +10,7 @@ import {
 } from "mono/components/dropdown-menu";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
 

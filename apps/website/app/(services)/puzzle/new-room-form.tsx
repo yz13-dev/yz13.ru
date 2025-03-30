@@ -1,5 +1,5 @@
 "use client";
-import { createRoom } from "@/actions/rooms/rooms";
+import { createRoom } from "rest-api/rooms";
 import { useUser } from "@/lib/use-auth";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";

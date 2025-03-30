@@ -1,5 +1,5 @@
 "use client";
-import { createDraft } from "@/actions/drafts/drafts";
+import { createDraft } from "rest-api/drafts";
 import AutoTextarea from "@/components/auto-textarea";
 import {
   CheckIcon,
@@ -12,10 +12,9 @@ import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { TagInput, Tags, TagsList } from "mono/components/tags";
 import { useEffect, useMemo, useState } from "react";
-
-import { uploadFile } from "@/actions/files/files";
+import { uploadFile } from "rest-api/files";
 import { randomNumberId } from "@/lib/random-id";
-import { Attachment } from "@/types/drafts";
+import { Attachment } from "rest-api/types/drafts";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useRouter } from "next/navigation";
@@ -60,8 +59,8 @@ const NewDraftForm = ({ uid, avatarUrl, email, userName }: FormProps) => {
       setUploadIndex(i);
       setLoading(true);
       const attachementsIds = (draft.attachments ?? []).map((attachment) => {
-        const json = attachment as { [key: string]: number };
-        return json.id as number;
+        const json = attachment as { [key: string]: string };
+        return json.id as string;
       });
       attachementsIds.forEach(async (id) => {
         const file = files.find((file) => file.id === id);
@@ -89,6 +88,8 @@ const NewDraftForm = ({ uid, avatarUrl, email, userName }: FormProps) => {
       description: "",
       tags: [],
       attachments: [],
+      animated: false,
+      thumbnail: null,
     };
     addDraft(draft);
   };
@@ -202,7 +203,7 @@ const DraftForm = ({ draft, index, uid }: DraftProps) => {
   const toAttachmentFile = (file: File) => {
     return {
       file,
-      id: randomNumberId(20),
+      id: String(randomNumberId(20)),
     };
   };
   const toAttachment = (attachment: AttachmentFile): Attachment => {
@@ -214,7 +215,7 @@ const DraftForm = ({ draft, index, uid }: DraftProps) => {
       id,
       created_at: date,
       size: file.size,
-      type: file.type,
+      content_type: file.type,
       url,
     };
   };

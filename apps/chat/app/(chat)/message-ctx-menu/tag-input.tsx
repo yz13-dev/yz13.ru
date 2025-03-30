@@ -1,7 +1,7 @@
 "use client";
-import { updateChat, updateChatMessage } from "@/actions/chats/chats";
+import { updateChat, updateChatMessage } from "rest-api/chats";
 import { randomNumberId } from "@/lib/random-id";
-import { ChatTag } from "@/types/chat";
+import { ChatTag } from "rest-api/types/chats";
 import { Loader2Icon, PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";

@@ -1,7 +1,7 @@
 "use client";
-import { updateChat } from "@/actions/chats/chats";
-import { getUserById } from "@/actions/user/user";
-import { ChatRoom } from "@/types/chat";
+import { updateChat } from "rest-api/chats";
+import { getUserById } from "rest-api/user";
+import { ChatRoom } from "rest-api/types/chats";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -17,7 +17,7 @@ import {
 } from "mono/components/sidebar";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 import { updateChatInList } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";

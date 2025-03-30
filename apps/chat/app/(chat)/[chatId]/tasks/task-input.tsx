@@ -1,8 +1,8 @@
 "use client";
-import { createTask } from "@/actions/chats/tasks";
+import { createTask } from "rest-api/tasks";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
-import { ChatList, NewChatTask } from "@/types/chat";
+import { ChatList, NewChatTask } from "rest-api/types/chats";
 import { Loader2Icon, PlusIcon } from "lucide-react";
 import { Checkbox } from "mono/components/checkbox";
 import { Input } from "mono/components/input";

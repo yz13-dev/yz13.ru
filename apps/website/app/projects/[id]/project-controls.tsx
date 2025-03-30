@@ -1,5 +1,5 @@
 "use client";
-import { deleteProject, updateProject } from "@/actions/projects/projects";
+import { deleteProject, updateProject } from "rest-api/projects";
 import { Release } from "@/const/releases";
 import { isEqual } from "lodash";
 import { Edit3Icon, Loader2Icon, TrashIcon, XIcon } from "lucide-react";

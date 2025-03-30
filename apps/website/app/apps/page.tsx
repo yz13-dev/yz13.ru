@@ -1,4 +1,4 @@
-import { getProjects } from "@/actions/projects/projects";
+import { getProjects } from "rest-api/projects";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";

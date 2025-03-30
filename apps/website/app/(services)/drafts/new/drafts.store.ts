@@ -1,7 +1,10 @@
-import { TablesInsert } from "yz13/supabase/database";
+import { Draft } from "rest-api/types/drafts";
 import { create } from "zustand";
 
-export type DraftFormProps = TablesInsert<"drafts"> & {
+export type DraftFormProps = Omit<
+  Draft,
+  "by" | "published_at" | "id" | "created_at" | "updated_at"
+> & {
   index: number;
 };
 
@@ -16,12 +19,17 @@ type Actions = {
   clearDrafts: () => void;
 };
 
-const defaultDraft: DraftFormProps = {
+const defaultDraft: Omit<
+  DraftFormProps,
+  "by" | "published_at" | "id" | "created_at" | "updated_at"
+> = {
   index: 0,
   title: "",
   description: "",
   tags: [],
   attachments: [],
+  animated: false,
+  thumbnail: null,
 };
 
 export const useDraftFormStore = create<State & Actions>()((set) => ({

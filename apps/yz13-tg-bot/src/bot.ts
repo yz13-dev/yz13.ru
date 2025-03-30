@@ -1,7 +1,7 @@
 import { hydrate, HydrateFlavor } from "@grammyjs/hydrate";
 import { Menu } from "@grammyjs/menu";
 import { Bot, Context, InlineKeyboard, InlineQueryResultBuilder } from "grammy";
-import { getPricing } from "./actions/pricing";
+import { getFullPricing } from "rest-api/pricing";
 
 type BotContext = HydrateFlavor<Context>;
 const BOT_TOKEN = process.env.BOT_TOKEN ?? "";
@@ -32,7 +32,7 @@ bot.callbackQuery("click-services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await getPricing();
+    const services = await getFullPricing();
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");
@@ -62,7 +62,7 @@ bot.command("services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await getPricing();
+    const services = await getFullPricing();
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");

@@ -1,7 +1,7 @@
 "use client";
 import { makeUserObj } from "@/lib/make-user-obj";
 import { ReactElement, useEffect, useState } from "react";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 import SignInButton from "./sign-in-button";
 import UserCircle from "./user-circle";

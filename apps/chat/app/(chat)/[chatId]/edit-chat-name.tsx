@@ -1,5 +1,5 @@
 "use client";
-import { updateChat } from "@/actions/chats/chats";
+import { updateChat } from "rest-api/chats";
 import { PencilLineIcon, SaveIcon, XIcon } from "lucide-react";
 import { Input } from "mono/components/input";
 import { motion } from "motion/react";

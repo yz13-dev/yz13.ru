@@ -1,4 +1,4 @@
-import { getProject } from "@/actions/projects/projects";
+import { getProject } from "rest-api/projects";
 import User from "@/components/user";
 import { getStage, getType, ReleaseType } from "@/const/releases";
 import { auth, authorized } from "@/lib/auth";

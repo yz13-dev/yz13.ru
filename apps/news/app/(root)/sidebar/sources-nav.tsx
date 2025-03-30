@@ -1,4 +1,4 @@
-import { getNewsSources } from "@/actions/sources/sources";
+import { getNewsSources } from "rest-api/sources";
 import { ArrowUpRightIcon, NotebookTabsIcon } from "lucide-react";
 import {
   SidebarGroup,

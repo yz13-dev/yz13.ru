@@ -1,6 +1,6 @@
 "use client";
 import { cdn } from "@/lib/cdn";
-import { ChatAttachment } from "@/types/chat";
+import { ChatAttachment } from "rest-api/types/attachments";
 import { AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useState } from "react";

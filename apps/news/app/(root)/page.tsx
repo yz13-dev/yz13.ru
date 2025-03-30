@@ -1,4 +1,4 @@
-import { getArticlesForCountry } from "@/actions/articles/articles";
+import { getArticlesForCountry } from "rest-api/articles";
 import { contries } from "@/const/locale-to-country";
 import { getLocaleFromCookie } from "@/lib/locale";
 import { Separator } from "mono/components/separator";

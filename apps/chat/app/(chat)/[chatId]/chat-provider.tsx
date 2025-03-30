@@ -1,7 +1,7 @@
 "use client";
 
-import { getAuthorizedUser } from "@/actions/user/user";
-import { ChatMessage, ChatRoom, ChatTask } from "@/types/chat";
+import { getAuthorizedUser } from "rest-api/auth";
+import { ChatMessage, ChatRoom, ChatTask } from "rest-api/types/chats";
 import { useEffect, useMemo } from "react";
 import { createClient } from "yz13/supabase/client";
 import {

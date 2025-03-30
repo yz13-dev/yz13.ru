@@ -1,4 +1,4 @@
-import { getChats } from "@/actions/chats/chats";
+import { getChats } from "rest-api/chats";
 import { auth } from "@/lib/auth";
 import {
   ArrowRightIcon,

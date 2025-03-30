@@ -1,5 +1,5 @@
 import { FileWithId } from "@/app/(chat)/chat-input/input-store";
-import { ChatAttachment } from "@/types/chat";
+import { ChatAttachment } from "rest-api/types/attachments";
 import { createClient } from "yz13/supabase/client";
 
 export const uploadAttachment = async (

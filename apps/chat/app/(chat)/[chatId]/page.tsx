@@ -1,6 +1,5 @@
-import { getChatMessages } from "@/actions/chats/chats";
-import { getAuthorizedUser } from "@/actions/user/user";
-import { showChatTopics } from "@/const/flags";
+import { getChatMessages } from "rest-api/chats";
+import { getAuthorizedUser } from "rest-api/auth";
 import { Loader2Icon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";

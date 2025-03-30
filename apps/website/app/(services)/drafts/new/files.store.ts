@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export type AttachmentFile = {
   file: File;
-  id: number;
+  id: string;
 };
 
 type State = {

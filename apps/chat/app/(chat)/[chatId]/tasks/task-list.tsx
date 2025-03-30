@@ -1,6 +1,6 @@
 "use client";
-import { deleteTask, updateTask } from "@/actions/chats/tasks";
-import { ChatList, ChatTask } from "@/types/chat";
+import { deleteTask, updateTask } from "rest-api/tasks";
+import { ChatList, ChatTask } from "rest-api/types/chats";
 import { EllipsisVerticalIcon, TrashIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Checkbox } from "mono/components/checkbox";

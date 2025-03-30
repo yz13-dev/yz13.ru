@@ -1,6 +1,6 @@
 "use client";
-import { getChatMessage, updateChat } from "@/actions/chats/chats";
-import { ChatMessage } from "@/types/chat";
+import { getChatMessage, updateChat } from "rest-api/chats";
+import { ChatMessage } from "rest-api/types/chats";
 import { Loader2Icon, PinIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import {

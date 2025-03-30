@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatList } from "@/types/chat";
+import { ChatList } from "rest-api/types/chats";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { useMemo } from "react";

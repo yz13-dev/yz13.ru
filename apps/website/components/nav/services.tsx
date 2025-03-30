@@ -1,6 +1,6 @@
 "use client";
 
-import { ShortPricing } from "@/types/pricing";
+import { ShortPricing } from "rest-api/types/pricing";
 import {
   AppWindowIcon,
   GlobeIcon,

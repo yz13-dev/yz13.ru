@@ -1,6 +1,6 @@
 import { UserIcon } from "lucide-react";
 import Image from "next/image";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 
 const UserCircle = ({

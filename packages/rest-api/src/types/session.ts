@@ -11,3 +11,10 @@ export type ViewsChartSession = {
     labels: string[];
   };
 };
+
+export type VisitorSessionBody = {
+  visitor_id: string;
+  duration: number;
+  user_agent: string | null;
+  user_id: string | null;
+};

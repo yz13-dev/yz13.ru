@@ -1,5 +1,5 @@
-import { getChats } from "@/actions/chats/chats";
-import { getFullPricing } from "@/actions/pricing/pricing";
+import { getChats } from "rest-api/chats";
+import { getFullPricing } from "rest-api/pricing";
 import { auth } from "@/lib/auth";
 import { StoreProvider } from "./chat-api/chat-provider";
 

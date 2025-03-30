@@ -1,4 +1,4 @@
-import { getAuthorizedUser } from "@/actions/user/user";
+import { getAuthorizedUser } from "rest-api/auth";
 import { showUsage } from "@/const/flags";
 import {
   Sidebar,
