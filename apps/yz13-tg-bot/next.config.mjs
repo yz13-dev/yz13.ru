@@ -2,8 +2,9 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  transpilePackages: ["rest-api"],
   experimental: {
-    serverComponentsExternalPackages: ["grammy", "rest-api"],
+    serverComponentsExternalPackages: ["grammy"],
   },
 };
 
