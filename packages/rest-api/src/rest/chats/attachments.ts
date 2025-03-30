@@ -1,4 +1,4 @@
-import { ChatAttachment, FileWithId } from "../../types/attachments";
+import { ChatAttachment, FileWithId } from "@/types/attachments";
 import { createClient } from "yz13/supabase/client";
 
 export const uploadAttachment = async (

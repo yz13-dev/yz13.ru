@@ -21,7 +21,7 @@
     "module": "NodeNext",
     "types": ["@types/node", "@types/react"],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     }
   },
   "exclude": ["node_modules"],

@@ -20,7 +20,7 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const id = params.id;
-  const release = await getProject(id);
+  const { data: release } = await getProject(id);
   const user = await auth();
   const isAdmin = user?.user_metadata?.role === "admin";
   const showControls = (user && isAdmin) ?? false;

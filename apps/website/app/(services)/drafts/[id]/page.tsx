@@ -20,9 +20,9 @@ type PageProps = {
 };
 const page = async ({ params }: PageProps) => {
   const id = params.id;
-  const draft = await getDraft(id);
+  const { data: draft } = await getDraft(id);
   if (!draft) return notFound();
-  const author = await getUserById(draft.by);
+  const { data: author } = await getUserById(draft.by);
   return (
     <>
       <Header className="w-full h-14 flex items-center px-3">

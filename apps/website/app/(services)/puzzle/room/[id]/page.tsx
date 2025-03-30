@@ -18,7 +18,7 @@ type PageProps = {
 };
 const page = async ({ params }: PageProps) => {
   const id = params.id;
-  const room = await getRoom(id);
+  const { data: room } = await getRoom(id);
   if (!room) return redirect("/puzzle");
   return (
     <MultiplayerProvider>

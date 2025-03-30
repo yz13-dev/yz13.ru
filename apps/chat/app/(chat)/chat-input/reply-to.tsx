@@ -35,7 +35,7 @@ const ReplyTo = ({
   };
   const handleReplyUser = async (id: string) => {
     if (!chatId) return;
-    const user = await getUserById(id);
+    const { data: user } = await getUserById(id);
     if (user) setUser(user);
   };
   const replyMessageLabel = useMemo(() => {

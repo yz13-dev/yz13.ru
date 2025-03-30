@@ -35,7 +35,7 @@ const Participant = ({
   const [user, setUser] = useState<UserObject | null>();
   const [loading, setLoading] = useState<boolean>(true);
   const handleUser = async (uid: string) => {
-    const user = await getUserById(uid);
+    const { data: user } = await getUserById(uid);
     if (!user) {
       setLoading(false);
       return;

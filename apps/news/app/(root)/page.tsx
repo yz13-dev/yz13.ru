@@ -1,14 +1,15 @@
-import { getArticlesForCountry } from "rest-api/articles";
 import { contries } from "@/const/locale-to-country";
 import { getLocaleFromCookie } from "@/lib/locale";
 import { Separator } from "mono/components/separator";
 import { SidebarTrigger } from "mono/components/sidebar";
+import { getArticlesForCountry } from "rest-api/articles";
 import AutoGrid from "./auto-grid";
 import NewsCard from "./news-card";
 
 const page = async () => {
   const language = getLocaleFromCookie() || "RU";
-  const articles = await getArticlesForCountry(language);
+  const { data } = await getArticlesForCountry(language);
+  const articles = (data ?? [])
   const sliceNumber = 4;
   const firstRow = articles.slice(0, sliceNumber);
   const restOfArticles = articles.slice(sliceNumber);

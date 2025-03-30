@@ -20,7 +20,7 @@ export type ChatViewProps = {
 const View = async ({ params }: ChatViewProps) => {
   const chatId = params.chatId;
   const messages = await getChatMessages(chatId);
-  const user = await getAuthorizedUser();
+  const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (
     <>

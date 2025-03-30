@@ -7,7 +7,7 @@ import { getNewsSource } from "rest-api/sources";
 export const parseNewsFromSource = async (
   source_id: string,
 ): Promise<NewArticle[]> => {
-  const [source, rules] = await Promise.all([
+  const [{ data: source }, { data: rules }] = await Promise.all([
     getNewsSource(source_id),
     getNewsSourceParseRules(source_id),
   ]);

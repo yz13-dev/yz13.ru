@@ -1,26 +1,19 @@
 "use server";
-import { API_URL } from "../../const/api";
+import { customFetch } from "@/const/fetch";
+import { Room } from "@/types/rooms";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { TablesInsert } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
 
 export const getRoom = async (id: string) => {
-  try {
-    const url = new URL(`/rooms/${id}`, API_URL);
-    const res = await fetch(url.toString(), {
-      next: {
-        revalidate: 3600,
-        tags: ["rooms"],
-      },
-    });
-    if (!res.ok) throw new Error("Failed to fetch project");
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  return await customFetch<Room | null>(`/rooms/${id}`, {
+    method: "GET",
+    next: {
+      revalidate: 3600,
+      tags: ["rooms"],
+    },
+  });
 };
 
 export const createRoom = async (body: TablesInsert<"rooms">) => {

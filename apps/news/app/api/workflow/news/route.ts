@@ -7,16 +7,18 @@ import { serve } from "@upstash/workflow/nextjs";
 
 export const { POST } = serve(async (context) => {
   const codes = await context.run("fetching-country-codes", async () => {
-    const countryCodes = await getCountryCodes();
-    return countryCodes;
+    const { data } = await getCountryCodes();
+    return data ?? [];
   });
   const sources = await context.run(
     "fetching-news-sources-for-country",
     async () => {
       if (codes.length === 0) await context.cancel();
-      const newsSources: NewsSource[] = (
+      const newsSources = (
         await Promise.all(codes.map((code) => getNewsSources(code)))
-      ).flat();
+      )
+        .map((sources) => (sources.data ?? []).flat())
+        .flat();
       return newsSources;
     },
   );

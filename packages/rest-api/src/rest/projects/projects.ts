@@ -1,44 +1,28 @@
 "use server";
-import { API_URL } from "../../const/api";
-import { NewRelease, Release } from "../../types/projects";
+import { customFetch } from "@/const/fetch";
+import { NewRelease, Release } from "@/types/projects";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 
-export const getProjects = async (): Promise<Release[]> => {
-  try {
-    const url = new URL("/works", API_URL);
-    const res = await fetch(url.toString(), {
-      next: {
-        revalidate: 3600,
-        tags: ["projects"],
-      },
-    });
-    if (!res.ok) throw new Error("Failed to fetch projects");
-    const data = await res.json();
-    return data as Release[];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+export const getProjects = async () => {
+  return await customFetch<Release[]>("/works", {
+    method: "GET",
+    next: {
+      revalidate: 3600,
+      tags: ["projects"],
+    },
+  });
 };
 
-export const getProject = async (id: string): Promise<Release | null> => {
-  try {
-    const url = new URL(`/works/${id}`, API_URL);
-    const res = await fetch(url.toString(), {
-      next: {
-        revalidate: 3600,
-        tags: ["projects"],
-      },
-    });
-    if (!res.ok) throw new Error("Failed to fetch project");
-    const data = await res.json();
-    return data as Release | null;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+export const getProject = async (id: string) => {
+  return await customFetch<Release | null>(`/works/${id}`, {
+    method: "GET",
+    next: {
+      revalidate: 3600,
+      tags: ["projects"],
+    },
+  });
 };
 
 export const createProject = async (

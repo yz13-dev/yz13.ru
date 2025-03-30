@@ -32,7 +32,8 @@ bot.callbackQuery("click-services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await getFullPricing();
+    const { data } = await getFullPricing();
+    const services = data ?? [];
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");
@@ -62,7 +63,8 @@ bot.command("services", async (ctx) => {
   const statusMessage = await ctx.reply("Получаем список...");
 
   try {
-    const services = await getFullPricing();
+    const { data } = await getFullPricing();
+    const services = data ?? [];
 
     if (services.length === 0) {
       await statusMessage.editText("Нет доступных услуг");

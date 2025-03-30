@@ -1,5 +1,5 @@
 "use server";
-import { ChatMessage, ChatRoom } from "../../types/chats";
+import { ChatMessage, ChatRoom } from "@/types/chats";
 import { cookies } from "next/headers";
 import { TablesInsert, TablesUpdate } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";

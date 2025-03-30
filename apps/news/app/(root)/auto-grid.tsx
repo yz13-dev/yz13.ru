@@ -1,10 +1,10 @@
 "use client";
-import { getArticlesForCountry } from "rest-api/articles";
-import { Article } from "rest-api/types/articles";
 import "dayjs/locale/ru";
 import { Loader2Icon } from "lucide-react";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
+import { getArticlesForCountry } from "rest-api/articles";
+import { Article } from "rest-api/types/articles";
 import NewsCard from "./news-card";
 
 type AutoGridProps = {
@@ -32,7 +32,8 @@ const AutoGrid = ({
     setLoading(true);
     try {
       const newOffset = offset + offsetStep;
-      const newArticles = await getArticlesForCountry(locale, newOffset);
+      const { data } = await getArticlesForCountry(locale, newOffset);
+      const newArticles = (data ?? [])
       if (newArticles.length === 0) setIsAll(true);
       else {
         setOffset(newOffset);
@@ -50,7 +51,7 @@ const AutoGrid = ({
   return (
     <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 p-6">
       {children}
-      {articles.map((news, index) => {
+      {articles.map((news) => {
         return <NewsCard key={news.id} news={news} />;
       })}
       {loading && (

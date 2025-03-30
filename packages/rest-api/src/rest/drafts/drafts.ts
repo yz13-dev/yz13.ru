@@ -1,37 +1,24 @@
 "use server";
 
-import { API_URL } from "../../const/api";
-import { Draft } from "../../types/drafts";
+import { customFetch } from "@/const/fetch";
+import { Draft } from "@/types/drafts";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { TablesInsert } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
 
-export const getDrafts = async (): Promise<Draft[]> => {
-  try {
-    const url = new URL("/drafts", API_URL);
-    const res = await fetch(url.toString(), {
-      method: "GET",
-      next: { revalidate: 3600, tags: ["drafts"] },
-    });
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+export const getDrafts = async () => {
+  return await customFetch<Draft[]>("/drafts", {
+    method: "GET",
+    next: { revalidate: 3600, tags: ["drafts"] },
+  });
 };
 
-export const getDraft = async (id: string): Promise<Draft | null> => {
-  try {
-    const url = new URL(`/drafts/${id}`, API_URL);
-    const res = await fetch(url.toString());
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+export const getDraft = async (id: string) => {
+  return await customFetch<Draft | null>(`/drafts/${id}`, {
+    method: "GET",
+    next: { revalidate: 3600, tags: ["drafts"] },
+  });
 };
 
 const uuid = () => {

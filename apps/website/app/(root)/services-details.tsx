@@ -159,13 +159,13 @@ const ServiceBlank = () => {
 };
 
 const ServicesDetails = async () => {
-  const services = await getFullPricing();
+  const { data: services } = await getFullPricing();
   const sign = await get<string>("price-sign");
   const busy = await availableForWork();
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x flex flex-row divide-x overflow-x-auto">
-        {services
+        {(services ?? [])
           .sort((a, b) => a.price - b.price)
           .map((service, index) => {
             const price = service.price;

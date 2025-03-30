@@ -1,43 +1,30 @@
 "use server";
-import { API_URL } from "../../const/api";
-import { NewsSource } from "../../types/articles";
+import { API_URL } from "@/const/api";
+import { customFetch } from "@/const/fetch";
+import { NewsSource } from "@/types/articles";
 
-export const getNewsSources = async (code: string): Promise<NewsSource[]> => {
-  try {
-    const url = new URL("/news/news-sources", API_URL);
-    const searchParams = url.searchParams;
-    searchParams.set("country_code", code);
-    const response = await fetch(url.toString(), {
+export const getNewsSources = async (code: string) => {
+  return await customFetch<NewsSource[]>(
+    `/news/news-sources?country_code=${code}`,
+    {
       method: "GET",
       next: {
         revalidate: 3600 * 6, // 6 hours,
         tags: ["news-sources"],
       },
-    });
-    const data = await response.json();
-    return data as NewsSource[];
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
+    },
+  );
 };
 
-export const getNewsSource = async (
-  source_id: string,
-): Promise<NewsSource | null> => {
-  try {
-    const url = new URL(`/news/news-sources/${source_id}`, API_URL);
-    const response = await fetch(url.toString(), {
+export const getNewsSource = async (source_id: string) => {
+  return await customFetch<NewsSource | null>(
+    `/news/news-sources/${source_id}`,
+    {
       method: "GET",
       next: {
         revalidate: 3600, // 1 hours,
         tags: [`news-source/${source_id}`],
       },
-    });
-    const data = await response.json();
-    return data as NewsSource | null;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+    },
+  );
 };

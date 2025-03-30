@@ -12,13 +12,13 @@ import {
 import Link from "next/link";
 
 const SourcesNav = async () => {
-  const sources = await getNewsSources("RU");
+  const { data: sources } = await getNewsSources("RU");
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Источники</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          {sources.map((item, index) => {
+          {(sources ?? []).map((item, index) => {
             return (
               <SidebarMenuItem
                 key={`${item.id}/${index}`}

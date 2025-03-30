@@ -23,10 +23,10 @@ export const DraftsGridSkeleton = () => {
 };
 
 const DraftsGrid = async () => {
-  const drafts = await getDrafts();
+  const { data: drafts } = await getDrafts();
   return (
     <div className="grid xl:!grid-cols-5 lg:!grid-cols-4 md:!grid-cols-3 sm:!grid-cols-2 gap-4">
-      {drafts.map((draft) => (
+      {(drafts ?? []).map((draft) => (
         <DraftCard draft={draft} key={draft.id} />
       ))}
     </div>

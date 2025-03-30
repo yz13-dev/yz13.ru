@@ -1,29 +1,14 @@
 "use server";
-import { UserObject } from "../../types/user";
-import { API_URL } from "../../const/api";
+import { UserObject } from "@/types/user";
+import { customFetch } from "@/const/fetch";
 
-export const getUserById = async (id: string): Promise<UserObject | null> => {
-  try {
-    const url = new URL(`/user/${id}`, API_URL);
-    const res = await fetch(url.toString(), {
-      method: "GET",
-      next: { revalidate: 3600, tags: [`user/${id}`] },
-    });
-    const data = await res.json();
-    return data as UserObject | null;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+export const getUserById = async (id: string) => {
+  return await customFetch<UserObject | null>(`/user/${id}`, {
+    method: "GET",
+    next: { revalidate: 3600, tags: [`user/${id}`] },
+  });
 };
 
-export const getUsersById = async (
-  uids: string[],
-): Promise<(UserObject | null)[]> => {
-  try {
-    return await Promise.all(uids.map(async (id) => await getUserById(id)));
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+export const getUsersById = async (uids: string[]) => {
+  return await Promise.all(uids.map(async (id) => await getUserById(id)));
 };

@@ -116,7 +116,7 @@ const ChatProvider = ({
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
-          const user = await getAuthorizedUser();
+          const { data: user } = await getAuthorizedUser();
           if (isInsert) {
             const newMessage = payload.new as ChatMessage;
             if (user && user.id !== newMessage.from_id) pushMessage(newMessage);

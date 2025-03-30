@@ -17,8 +17,8 @@ import ProjectTypeIcons from "../projects/project-type-icons";
 import Empty from "./empty";
 
 const page = async () => {
-  const releases = await getProjects();
-  const groups = getGroups(releases);
+  const { data: releases } = await getProjects();
+  const groups = getGroups(releases ?? []);
   const released = groups["released"];
   const abc = groupByFirstLetter("name", released);
   const keys = Object.keys(abc).sort();

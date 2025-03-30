@@ -1,5 +1,5 @@
 "use server";
-import { ChatTask, NewChatTask, UpdatedTask } from "../../types/chats";
+import { ChatTask, NewChatTask, UpdatedTask } from "@/types/chats";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 

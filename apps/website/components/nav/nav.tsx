@@ -16,14 +16,14 @@ const Nav = async ({
   className?: string;
   side?: "left" | "right";
 }) => {
-  const pricing = await getShortPricing();
+  const { data: services } = await getShortPricing();
   const busy = await availableForWork();
   const sign = await get<string>("price-sign");
   return (
     <div className={cn("flex items-center gap-4", className)}>
       {side === "left" && children}
       <NavWrapper>
-        <Services services={pricing} busy={busy} sign={sign} />
+        <Services services={services ?? []} busy={busy} sign={sign} />
         <Projects />
         {(await showBlog()) && <Blog />}
       </NavWrapper>

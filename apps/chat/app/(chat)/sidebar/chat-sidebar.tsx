@@ -18,7 +18,7 @@ const Header = dynamic(() => import("./header"), {
 });
 
 const ChatSidebar = async () => {
-  const user = await getAuthorizedUser();
+  const { data: user } = await getAuthorizedUser();
   return (
     <Sidebar collapsible="offcanvas" className="py-2">
       <SidebarHeader>

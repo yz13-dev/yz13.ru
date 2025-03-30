@@ -12,6 +12,7 @@
     "./types/attachments": "./dist/types/attachments.d.ts",
     "./types/session": "./dist/types/session.d.ts",
     "./types/charts": "./dist/types/charts.d.ts",
+    "./types/rooms": "./dist/types/charts.d.ts",
     "./articles": {
       "types": "./dist/rest/articles/articles.d.ts",
       "import": "./dist/rest/articles/articles.mjs",

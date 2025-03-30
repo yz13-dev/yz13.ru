@@ -21,7 +21,7 @@ type PageProps = {
 const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
   const messages = await getChatMessages(chatId);
-  const user = await getAuthorizedUser();
+  const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (
     <>
