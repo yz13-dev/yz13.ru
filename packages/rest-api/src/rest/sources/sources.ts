@@ -8,10 +8,6 @@ export const getNewsSources = async (code: string) => {
     `/news/news-sources?country_code=${code}`,
     {
       method: "GET",
-      next: {
-        revalidate: 3600 * 6, // 6 hours,
-        tags: ["news-sources"],
-      },
     },
   );
 };
@@ -21,10 +17,6 @@ export const getNewsSource = async (source_id: string) => {
     `/news/news-sources/${source_id}`,
     {
       method: "GET",
-      next: {
-        revalidate: 3600, // 1 hours,
-        tags: [`news-source/${source_id}`],
-      },
     },
   );
 };

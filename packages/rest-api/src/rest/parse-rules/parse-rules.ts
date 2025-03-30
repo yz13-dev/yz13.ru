@@ -7,10 +7,6 @@ export const getNewsSourceParseRules = async (source_id: string) => {
     `/news/parse-rules/${source_id}`,
     {
       method: "GET",
-      next: {
-        revalidate: 3600, // 1 hours,
-        tags: ["news-sources", "parse-rules"],
-      },
     },
   );
 };

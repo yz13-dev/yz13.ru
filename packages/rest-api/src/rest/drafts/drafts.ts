@@ -10,14 +10,12 @@ import { createClient } from "yz13/supabase/server";
 export const getDrafts = async () => {
   return await customFetch<Draft[]>("/drafts", {
     method: "GET",
-    next: { revalidate: 3600, tags: ["drafts"] },
   });
 };
 
 export const getDraft = async (id: string) => {
   return await customFetch<Draft | null>(`/drafts/${id}`, {
     method: "GET",
-    next: { revalidate: 3600, tags: ["drafts"] },
   });
 };
 

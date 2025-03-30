@@ -1,7 +1,6 @@
 "use server";
 
 import { customFetch } from "@/const/fetch";
-import { FetchResponse } from "@/const/response";
 import { Article, NewArticle } from "@/types/articles";
 
 export const uploadArticle = async (article: NewArticle) => {

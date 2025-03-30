@@ -9,10 +9,6 @@ import { createClient } from "yz13/supabase/server";
 export const getRoom = async (id: string) => {
   return await customFetch<Room | null>(`/rooms/${id}`, {
     method: "GET",
-    next: {
-      revalidate: 3600,
-      tags: ["rooms"],
-    },
   });
 };
 
