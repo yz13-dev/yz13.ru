@@ -20,6 +20,11 @@
     "moduleResolution": "nodenext",
     "module": "NodeNext",
     "types": ["@types/node", "@types/react"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
       "@/*": ["./src/*"]
     }
