@@ -8,20 +8,12 @@ import { createClient } from "yz13/supabase/server";
 export const getProjects = async () => {
   return await customFetch<Release[]>("/works", {
     method: "GET",
-    next: {
-      revalidate: 3600,
-      tags: ["projects"],
-    },
   });
 };
 
 export const getProject = async (id: string) => {
   return await customFetch<Release | null>(`/works/${id}`, {
     method: "GET",
-    next: {
-      revalidate: 3600,
-      tags: ["projects"],
-    },
   });
 };
 

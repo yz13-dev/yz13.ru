@@ -20,10 +20,15 @@
     "moduleResolution": "nodenext",
     "module": "NodeNext",
     "types": ["@types/node", "@types/react"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", "src"]
+  "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "src"]
 }

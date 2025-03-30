@@ -5,7 +5,6 @@ import { customFetch } from "@/const/fetch";
 export const getUserById = async (id: string) => {
   return await customFetch<UserObject | null>(`/user/${id}`, {
     method: "GET",
-    next: { revalidate: 3600, tags: [`user/${id}`] },
   });
 };
 
