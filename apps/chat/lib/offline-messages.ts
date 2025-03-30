@@ -1,4 +1,4 @@
-import { ChatMessage, NewChatMessage } from "@/types/chat";
+import { ChatMessage, NewChatMessage } from "rest-api/types/chats";
 import dayjs from "dayjs";
 import randomId from "./random-id";
 

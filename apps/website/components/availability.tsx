@@ -1,6 +1,6 @@
-import { isAvailable } from "@/actions/availability-status";
 import { Typewriter } from "@/components/text-writter";
 import SocialLinks from "./social-links";
+import { availableForWork } from "@/const/flags";
 
 type AvailabilityProps = {};
 
@@ -12,7 +12,7 @@ const unavailableTexts = [
 ];
 
 const Availability = async ({}: AvailabilityProps) => {
-  const isBusy = await isAvailable();
+  const isBusy = await availableForWork();
   const status: "available" | "unavailable" = isBusy
     ? "unavailable"
     : "available";

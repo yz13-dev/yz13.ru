@@ -1,7 +1,7 @@
 "use client";
-import { createChat } from "@/actions/chats/chats";
+import { createChat } from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
-import { ChatRoom } from "@/types/chat";
+import { ChatRoom } from "rest-api/types/chats";
 import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";

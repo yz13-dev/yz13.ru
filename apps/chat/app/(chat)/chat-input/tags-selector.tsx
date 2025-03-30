@@ -1,5 +1,5 @@
 "use client";
-import { ChatTag } from "@/types/chat";
+import { ChatTag } from "rest-api/types/chats";
 import { motion } from "motion/react";
 import { cn } from "yz13/cn";
 import { useChatApi } from "../chat-api/chat-provider";

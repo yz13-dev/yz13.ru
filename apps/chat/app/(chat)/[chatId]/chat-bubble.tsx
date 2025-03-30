@@ -1,7 +1,8 @@
 "use client";
-import { updateChat, updateChatMessage } from "@/actions/chats/chats";
+import { updateChat, updateChatMessage } from "rest-api/chats";
 import { cdn } from "@/lib/cdn";
-import { ChatAttachment, ChatMessage, ChatTag } from "@/types/chat";
+import { ChatMessage, ChatTag } from "rest-api/types/chats";
+import { ChatAttachment } from "rest-api/types/attachments";
 import { cva, VariantProps } from "class-variance-authority";
 import {
   CheckIcon,

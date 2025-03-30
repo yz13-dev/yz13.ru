@@ -1,6 +1,6 @@
-import { getUserById } from "@/actions/user/user";
+import { getUserById } from "rest-api/user";
 import { cdn } from "@/lib/cdn";
-import { Draft } from "@/types/drafts";
+import { Draft } from "rest-api/types/drafts";
 import { ImageIcon, TagIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import Image from "next/image";
@@ -8,8 +8,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 const DraftAuthor = async ({ author }: { author: string }) => {
-  const user = await getUserById(author);
-  const userName = user?.user_metadata?.username ?? "Пользователь";
+  const { data: user } = await getUserById(author);
+  const userName = user?.username ?? "Пользователь";
   return (
     <div className="flex flex-row items-center gap-1">
       <span className="text-xs text-secondary">От</span>

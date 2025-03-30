@@ -1,4 +1,4 @@
-import { getProject } from "@/actions/projects/projects";
+import { getProject } from "rest-api/projects";
 import User from "@/components/user";
 import { getStage, getType, ReleaseType } from "@/const/releases";
 import { auth, authorized } from "@/lib/auth";
@@ -20,7 +20,7 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const id = params.id;
-  const release = await getProject(id);
+  const { data: release } = await getProject(id);
   const user = await auth();
   const isAdmin = user?.user_metadata?.role === "admin";
   const showControls = (user && isAdmin) ?? false;

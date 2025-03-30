@@ -1,5 +1,3 @@
-import { isAvailable } from "@/actions/availability-status";
-import { getAuthorizedUser } from "@/actions/user/user";
 import Availability from "@/components/availability";
 import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
@@ -7,6 +5,7 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import User from "@/components/user";
 import {
+  availableForWork,
   showAppsLink,
   showCallToAction,
   showLogoUnderFooter,
@@ -26,8 +25,6 @@ import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
 
 const page = async () => {
-  unstable_noStore();
-  console.log(await getAuthorizedUser());
   return (
     <>
       <Header className="sticky top-0">
@@ -54,7 +51,7 @@ const page = async () => {
       <div className="w-full divide-y border-b">
         <Hero />
         {(await showCallToAction()) && (
-          <CallToAction busy={await isAvailable()} />
+          <CallToAction busy={await availableForWork()} />
         )}
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
@@ -83,11 +80,6 @@ const page = async () => {
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
-        {/* <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-20" />
-          </div>
-        </div> */}
         {false && (
           <div className="w-full">
             <div className="max-w-screen-2xl w-full mx-auto border-x">

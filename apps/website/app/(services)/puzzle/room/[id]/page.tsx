@@ -1,4 +1,4 @@
-import { getRoom } from "@/actions/rooms/rooms";
+import { getRoom } from "rest-api/rooms";
 import { StoreProvider } from "@/components/canvas/api-provider";
 import Canvas from "@/components/canvas/canvas";
 import Overlay from "@/components/canvas/overlay";
@@ -18,7 +18,7 @@ type PageProps = {
 };
 const page = async ({ params }: PageProps) => {
   const id = params.id;
-  const room = await getRoom(id);
+  const { data: room } = await getRoom(id);
   if (!room) return redirect("/puzzle");
   return (
     <MultiplayerProvider>

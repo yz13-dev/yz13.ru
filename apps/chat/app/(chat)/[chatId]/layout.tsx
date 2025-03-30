@@ -1,5 +1,4 @@
-import { getChat } from "@/actions/chats/chats";
-import { AnimatePresence } from "motion/react";
+import { getChat } from "rest-api/chats";
 import { redirect } from "next/navigation";
 import ChatSidebarTrigger from "../sidebar-trigger";
 import ChatProvider from "./chat-provider";

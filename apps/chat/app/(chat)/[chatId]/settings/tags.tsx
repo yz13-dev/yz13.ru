@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatTag } from "@/types/chat";
+import { ChatTag } from "rest-api/types/chats";
 import { useMemo } from "react";
 import { useChatApi } from "../../chat-api/chat-provider";
 import { BubbleTag } from "../chat-history";

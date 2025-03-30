@@ -1,4 +1,4 @@
-import { getProjects } from "@/actions/projects/projects";
+import { getProjects } from "rest-api/projects";
 import Dock from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
@@ -35,7 +35,7 @@ const page = async ({ searchParams }: PageProps) => {
   const user = await auth();
   const isAdmin = user?.user_metadata?.role === "admin";
   const showNewProjectModal = (user && isAdmin) ?? false;
-  const releases = await getProjects();
+  const { data: releases } = await getProjects();
   const isActive = showNewProjectModal;
   return (
     <>
@@ -63,7 +63,7 @@ const page = async ({ searchParams }: PageProps) => {
       </Header>
       <div className="w-full bg-background-secondary">
         <DndContextWrapper>
-          <ProjectsList defaultProjects={releases} isActive={isActive} />
+          <ProjectsList defaultProjects={releases ?? []} isActive={isActive} />
         </DndContextWrapper>
         <PageDockFiller />
       </div>

@@ -1,4 +1,4 @@
-import { Article } from "@/types/news";
+import { Article } from "rest-api/types/articles";
 import dayjs from "dayjs";
 import { ExternalLinkIcon } from "lucide-react";
 import Image from "next/image";

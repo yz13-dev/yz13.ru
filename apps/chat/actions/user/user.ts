@@ -2,7 +2,7 @@
 import { API_URL } from "@/const/api";
 import { makeUserObj } from "@/lib/make-user-obj";
 import { cookies } from "next/headers";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/server";
 
 export const getUserById = async (id: string): Promise<UserObject | null> => {

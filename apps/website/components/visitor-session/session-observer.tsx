@@ -1,5 +1,4 @@
 "use client";
-import postVisitorSession from "@/actions/post-visitor-session";
 import { useUserStore } from "@/app/account/settings/user.store";
 import { isProd } from "@/app/login/get-url";
 import randomId from "@/lib/random-id";
@@ -7,6 +6,7 @@ import { useInterval } from "ahooks";
 import { CircleCheckIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { useEffect, useMemo, useState } from "react";
+import { sendVisitorSession } from "rest-api/visitor/session";
 import useVisitorStore, {
   getVisitorId,
   setVisitorId as updateVisitorId,
@@ -37,7 +37,7 @@ const SessionWatcher = () => {
   };
   const postSession = async () => {
     if (canBeSaved && visitorId)
-      await postVisitorSession({
+      await sendVisitorSession({
         visitor_id: visitorId,
         duration: time,
         user_agent: userAgent ?? null,

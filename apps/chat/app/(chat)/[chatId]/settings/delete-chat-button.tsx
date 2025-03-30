@@ -1,5 +1,5 @@
 "use client";
-import { deleteChat } from "@/actions/chats/chats";
+import { deleteChat } from "rest-api/chats";
 import { Loader2Icon, TrashIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";

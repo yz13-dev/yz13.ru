@@ -1,6 +1,6 @@
 "use client";
-import { ChatRoom } from "@/types/chat";
-import { Pricing } from "@/types/pricing";
+import { ChatRoom } from "rest-api/types/chats";
+import { Pricing } from "rest-api/types/pricing";
 import { type ReactNode, createContext, useContext, useEffect } from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/react/shallow";

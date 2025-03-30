@@ -1,4 +1,4 @@
-import { getTasks } from "@/actions/chats/tasks";
+import { getTasks } from "rest-api/tasks";
 import { Separator } from "mono/components/separator";
 import { cn } from "yz13/cn";
 import ChatToolbar from "../../chat-toolbar/chat-toolbar";

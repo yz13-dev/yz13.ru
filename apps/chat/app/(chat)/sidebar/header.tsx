@@ -4,7 +4,7 @@ import { ChevronDownIcon, UserIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import { useSidebar } from "mono/components/sidebar";
 import { useState } from "react";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 
 const Header = ({ user }: { user: UserObject }) => {

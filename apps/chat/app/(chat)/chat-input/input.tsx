@@ -1,7 +1,7 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
 import { useUser } from "@/hooks/use-user";
-import { ChatRoom } from "@/types/chat";
+import { ChatRoom } from "rest-api/types/chats";
 import { AnimatePresence } from "motion/react";
 import { useRef, useState } from "react";
 import { cn } from "yz13/cn";

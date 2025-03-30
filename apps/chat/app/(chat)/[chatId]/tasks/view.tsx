@@ -1,11 +1,9 @@
 import { Separator } from "mono/components/separator";
-import { Button } from "mono/components/button";
 import { Suspense } from "react";
-import { getChatMessages } from "@/actions/chats/chats";
-import { getAuthorizedUser } from "@/actions/user/user";
+import { getAuthorizedUser } from "rest-api/auth";
 import { redirect } from "next/navigation";
 import { Loader2Icon } from "lucide-react";
-import { getTasks } from "@/actions/chats/tasks";
+import { getTasks } from "rest-api/tasks";
 import TasksListInput from "./list-input";
 import TaskLists from "./task-lists";
 import TaskList from "./task-list";
@@ -20,7 +18,7 @@ export type TasksViewProps = {
 const View = async ({ params }: TasksViewProps) => {
   const chatId = params.chatId;
   const tasks = await getTasks(chatId);
-  const user = await getAuthorizedUser();
+  const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (
     <>

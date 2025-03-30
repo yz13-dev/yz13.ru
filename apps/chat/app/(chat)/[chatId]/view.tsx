@@ -4,8 +4,8 @@ import { Button } from "mono/components/button";
 import PinnedMessage from "./pinned-message";
 import GroupChatParticipants from "./group-chat-participants";
 import { Suspense } from "react";
-import { getChatMessages } from "@/actions/chats/chats";
-import { getAuthorizedUser } from "@/actions/user/user";
+import { getChatMessages } from "rest-api/chats";
+import { getAuthorizedUser } from "rest-api/auth";
 import { redirect } from "next/navigation";
 import ChatHistory from "./chat-history";
 import ChatInput from "../chat-input/input";
@@ -20,7 +20,7 @@ export type ChatViewProps = {
 const View = async ({ params }: ChatViewProps) => {
   const chatId = params.chatId;
   const messages = await getChatMessages(chatId);
-  const user = await getAuthorizedUser();
+  const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (
     <>

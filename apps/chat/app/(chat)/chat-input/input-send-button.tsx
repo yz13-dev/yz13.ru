@@ -1,13 +1,13 @@
 "use client";
-import { uploadAttachments } from "@/actions/chats/attachments";
+import { uploadAttachments } from "rest-api/attachments";
 import {
   createMessageInChat,
   updateChat,
   updateChatMessage,
-} from "@/actions/chats/chats";
+} from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
 import { makeOfflineMessage } from "@/lib/offline-messages";
-import { ChatMessage } from "@/types/chat";
+import { ChatMessage } from "rest-api/types/chats";
 import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useMemo } from "react";

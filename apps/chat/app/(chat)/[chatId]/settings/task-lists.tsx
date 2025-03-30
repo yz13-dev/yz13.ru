@@ -1,5 +1,5 @@
 "use client";
-import { ChatList } from "@/types/chat";
+import { ChatList } from "rest-api/types/chats";
 import { TrashIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useMemo } from "react";

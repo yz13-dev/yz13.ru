@@ -1,5 +1,5 @@
-import { removeAttachments } from "@/actions/chats/attachments";
-import { deleteMessageFromChat, updateChat } from "@/actions/chats/chats";
+import { removeAttachments } from "rest-api/attachments";
+import { deleteMessageFromChat, updateChat } from "rest-api/chats";
 import {
   CheckCircleIcon,
   CircleIcon,

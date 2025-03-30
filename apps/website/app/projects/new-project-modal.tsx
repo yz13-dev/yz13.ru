@@ -1,5 +1,5 @@
 "use client";
-import { createProject } from "@/actions/projects/projects";
+import { createProject } from "rest-api/projects";
 import AutoTextarea from "@/components/auto-textarea";
 import { ReleaseStage } from "@/const/releases";
 import { Loader2Icon, PlusIcon, XIcon } from "lucide-react";

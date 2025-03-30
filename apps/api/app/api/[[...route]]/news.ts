@@ -95,7 +95,7 @@ news.get("/articles/:source_id", async (c) => {
 news.get("/country/:code/articles", async (c) => {
   const offset = parseInt(c.req.query("offset") || "0");
   const limit = parseInt(c.req.query("limit") || "30");
-  const code = c.req.param("code");
+  const code = String(c.req.param("code")).toUpperCase();
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
@@ -109,7 +109,6 @@ news.get("/country/:code/articles", async (c) => {
     .in("source_id", sources)
     .order("published_at", { ascending: false })
     .range(offset, offset + limit);
-
   if (articlesError) {
     return c.json([]);
   } else return c.json(articles);

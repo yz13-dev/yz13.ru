@@ -112,3 +112,12 @@ export const enableChat = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const availableForWork = flag<boolean>({
+  key: "busy",
+  description: "Show available for work button",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});

@@ -1,22 +1,24 @@
-import { uploadArticle } from "@/actions/articles/articles";
-import { getCountryCodes } from "@/actions/codes/codes";
-import { parseNewsFromSource } from "@/actions/parse-news/parse-news";
-import { getNewsSources } from "@/actions/sources/sources";
-import { NewsSource } from "@/types/news";
+import { uploadArticle } from "rest-api/articles";
+import { getCountryCodes } from "rest-api/codes";
+import { parseNewsFromSource } from "@/lib/parse-news";
+import { getNewsSources } from "rest-api/sources";
+import { NewsSource } from "rest-api/types/articles";
 import { serve } from "@upstash/workflow/nextjs";
 
 export const { POST } = serve(async (context) => {
   const codes = await context.run("fetching-country-codes", async () => {
-    const countryCodes = await getCountryCodes();
-    return countryCodes;
+    const { data } = await getCountryCodes();
+    return data ?? [];
   });
   const sources = await context.run(
     "fetching-news-sources-for-country",
     async () => {
       if (codes.length === 0) await context.cancel();
-      const newsSources: NewsSource[] = (
+      const newsSources = (
         await Promise.all(codes.map((code) => getNewsSources(code)))
-      ).flat();
+      )
+        .map((sources) => (sources.data ?? []).flat())
+        .flat();
       return newsSources;
     },
   );

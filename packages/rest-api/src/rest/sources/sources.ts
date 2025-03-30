@@ -1,0 +1,30 @@
+"use server";
+import { API_URL } from "@/const/api";
+import { customFetch } from "@/const/fetch";
+import { NewsSource } from "@/types/articles";
+
+export const getNewsSources = async (code: string) => {
+  return await customFetch<NewsSource[]>(
+    `/news/news-sources?country_code=${code}`,
+    {
+      method: "GET",
+      next: {
+        revalidate: 3600 * 6, // 6 hours,
+        tags: ["news-sources"],
+      },
+    },
+  );
+};
+
+export const getNewsSource = async (source_id: string) => {
+  return await customFetch<NewsSource | null>(
+    `/news/news-sources/${source_id}`,
+    {
+      method: "GET",
+      next: {
+        revalidate: 3600, // 1 hours,
+        tags: [`news-source/${source_id}`],
+      },
+    },
+  );
+};

@@ -18,5 +18,5 @@ export function getLocale(request: NextRequest): string | undefined {
 export function getLocaleFromCookie() {
   const cookieStore = cookies();
   const locale = cookieStore.get("language")?.value;
-  return locale;
+  return String(locale).toUpperCase();
 }

@@ -1,5 +1,5 @@
 "use client";
-import { updateProject } from "@/actions/projects/projects";
+import { updateProject } from "rest-api/projects";
 import { Release, ReleaseStage } from "@/const/releases";
 import {
   DndContext,

@@ -18,7 +18,8 @@
     "react-dom": "18.3.1",
     "recharts": "^2.15.1",
     "rss-parser": "^3.13.0",
-    "yz13": "*"
+    "yz13": "*",
+    "rest-api": "*"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

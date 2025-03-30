@@ -1,4 +1,4 @@
-import { NewArticle } from "@/types/news";
+import { NewArticle } from "rest-api/types/articles";
 import * as cheerio from "cheerio";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";

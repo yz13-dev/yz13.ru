@@ -1,11 +1,12 @@
 "use client";
-import { getChatMessage } from "@/actions/chats/chats";
-import { getUserById } from "@/actions/user/user";
-import { ChatAttachment, ChatMessage } from "@/types/chat";
+import { getChatMessage } from "rest-api/chats";
+import { getUserById } from "rest-api/user";
+import { ChatMessage } from "rest-api/types/chats";
+import { ChatAttachment } from "rest-api/types/attachments";
 import { XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useEffect, useMemo, useState } from "react";
-import { UserObject } from "types/user";
+import { UserObject } from "rest-api/types/user";
 import { getMessage } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import { AttachmentsPreviews } from "./attachments-preview-row";
@@ -34,7 +35,7 @@ const ReplyTo = ({
   };
   const handleReplyUser = async (id: string) => {
     if (!chatId) return;
-    const user = await getUserById(id);
+    const { data: user } = await getUserById(id);
     if (user) setUser(user);
   };
   const replyMessageLabel = useMemo(() => {
