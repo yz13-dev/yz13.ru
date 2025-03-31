@@ -3,6 +3,7 @@
  */
 const nextConfig = {
   transpilePackages: ["rest-api"],
+  compress: true,
   experimental: {
     serverComponentsExternalPackages: ["grammy"],
   },

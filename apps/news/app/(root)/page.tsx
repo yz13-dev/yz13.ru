@@ -9,39 +9,43 @@ import NewsCard from "./news-card";
 const page = async () => {
   const language = getLocaleFromCookie() || "RU";
   const { data } = await getArticlesForCountry(language);
-  const articles = (data ?? [])
+  const articles = data ?? [];
   const sliceNumber = 4;
   const firstRow = articles.slice(0, sliceNumber);
   const restOfArticles = articles.slice(sliceNumber);
   const country = contries[language as keyof typeof contries];
   return (
     <>
-      <div className="w-full p-6 flex items-center gap-2">
-        <SidebarTrigger></SidebarTrigger>
-        <h1 className="text-2xl font-semibold">
-          Агрегатор новостей / {country}
-        </h1>
-      </div>
-      <div className="w-full min-h-96 grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6 p-6">
-        {firstRow.map((news) => {
-          return <NewsCard key={news.id} news={news} showThumbnail />;
-        })}
+      <div className="py-6 space-y-6 *:px-6">
+        <div className="w-full flex items-center gap-2">
+          <SidebarTrigger></SidebarTrigger>
+          <h1 className="text-2xl font-semibold">
+            Агрегатор новостей / {country}
+          </h1>
+        </div>
+        <div className="w-full min-h-96 grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
+          {firstRow.map((news) => {
+            return <NewsCard key={news.id} news={news} showThumbnail />;
+          })}
+        </div>
       </div>
       <Separator />
-      <div className="w-full p-6">
-        <h3 className="text-2xl font-semibold">
-          Последние новости / {country}
-        </h3>
+      <div className="py-6 space-y-6 *:px-6">
+        <div className="w-full">
+          <h3 className="text-2xl font-semibold">
+            Последние новости / {country}
+          </h3>
+        </div>
+        <AutoGrid
+          data={articles}
+          defaultOffset={articles.length}
+          locale={language}
+        >
+          {restOfArticles.map((news) => {
+            return <NewsCard key={news.id} news={news} />;
+          })}
+        </AutoGrid>
       </div>
-      <AutoGrid
-        data={articles}
-        defaultOffset={articles.length}
-        locale={language}
-      >
-        {restOfArticles.map((news) => {
-          return <NewsCard key={news.id} news={news} />;
-        })}
-      </AutoGrid>
     </>
   );
 };
