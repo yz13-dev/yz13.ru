@@ -1,6 +1,6 @@
 "use server";
 import { customFetch } from "@/const/fetch";
-import { ChatMessage, ChatRoom } from "@/types/chats";
+import { ChatData, ChatMessage, ChatRoom } from "@/types/chats";
 import { cookies } from "next/headers";
 import { TablesInsert, TablesUpdate } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
@@ -164,4 +164,10 @@ export const deleteChat = async (id: string) => {
     console.log(error);
     return null;
   }
+};
+
+export const getChatsData = async (uid: string) => {
+  return customFetch<ChatData>(`/chats/user/${uid}/all`, {
+    method: "GET",
+  });
 };

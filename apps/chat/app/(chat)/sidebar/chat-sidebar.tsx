@@ -17,7 +17,7 @@ const Header = dynamic(() => import("./header"), {
   loading: () => <Skeleton className="w-full h-[58px]" />,
 });
 
-const ChatSidebar = async () => {
+const ChatSidebar = async ({ chatId }: { chatId: string }) => {
   const { data: user } = await getAuthorizedUser();
   return (
     <Sidebar collapsible="offcanvas" className="py-2">
@@ -29,7 +29,7 @@ const ChatSidebar = async () => {
         )}
       </SidebarHeader>
       <SidebarContent>
-        <ChatSidebarActions />
+        <ChatSidebarActions chatId={chatId} />
         {(await showUsage()) && <ChatSidebarUsage />}
         <ChatHistoryNav />
       </SidebarContent>

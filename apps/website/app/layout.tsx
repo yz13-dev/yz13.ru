@@ -78,6 +78,9 @@ const MONO = localFont({
 });
 
 export const metadata: Metadata = {
+  category: "Разработчик",
+  applicationName: "YZ13",
+  creator: "YZ13",
   title: "YZ13 – разработчик",
   description: "Нужен разработчик?",
   authors: [

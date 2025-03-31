@@ -3,12 +3,8 @@ import { SquareSplitHorizontalIcon, TableColumnsSplitIcon } from "lucide-react";
 
 const SplitScreen = () => {
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="gap-2 h-8 rounded-md text-xs"
-    >
-      <SquareSplitHorizontalIcon size={16} />
+    <Button variant="outline" size="icon" className="gap-2 rounded-md text-xs">
+      <SquareSplitHorizontalIcon size={18} />
     </Button>
   );
 };

@@ -39,7 +39,6 @@ const Topbar = ({
   hideBreadcrumbs = false,
 }: TopbarProps) => {
   const overscrolled = useTopbar((state) => state.overscrolled);
-  const chat = useChatApi((state) => state.chat);
   const handleScroll = (e: Event) => {
     const scrollTop = window.scrollY;
     if (scrollTop >= 48) {
@@ -66,38 +65,32 @@ const Topbar = ({
   return (
     <header
       className={cn(
-        "top-0 z-20 h-14 shrink-0 w-full sticky p-2 transition-colors duration-700",
-        overscrolled ? "bg-transparent" : "bg-background",
+        "top-0 z-20 h-fit group/topbar shrink-0 w-full sticky transition-all",
+        overscrolled ? "p-2" : "p-0 min-h-16",
       )}
     >
       <div
         className={cn(
-          "px-2 flex items-center bg-background/80 backdrop-blur-sm rounded-lg justify-center gap-2 h-full",
-          "mx-auto transition-all",
-          overscrolled ? "max-w-4xl" : "max-w-full",
+          "flex flex-col gap-2 backdrop-blur-sm h-full",
+          "mx-auto transition-all p-1 duration-500 border-b",
+          overscrolled
+            ? "max-w-4xl rounded-lg bg-neutral-200/60 border-transparent"
+            : "max-w-full rounded-none bg-background border-border",
           className,
         )}
       >
-        <ChatSidebarTrigger />
-        {!hideBreadcrumbs && <TopBarBreadcrumbs />}
         {children}
       </div>
     </header>
   );
 };
 
-export const TopBarBreadcrumbs = () => {
+export const ChatName = () => {
   const chat = useChatApi((state) => state.chat);
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/">Чаты</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbPage>{chat?.name ?? "Без названия"}</BreadcrumbPage>
-      </BreadcrumbList>
-    </Breadcrumb>
+    <span className="text-sm shrink-0 px-4 font-medium">
+      {chat?.name ?? "Без названия"}
+    </span>
   );
 };
 

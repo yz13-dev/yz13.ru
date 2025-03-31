@@ -6,7 +6,11 @@ import TaskList from "./task-list";
 import TaskLists from "./task-lists";
 import { Suspense } from "react";
 import { Loader2Icon } from "lucide-react";
-import Topbar from "../../top-bar/bar";
+import Topbar, { ChatName } from "../../top-bar/bar";
+import ChatSidebarTrigger from "../../sidebar-trigger";
+import PinnedMessage from "../pinned-message";
+import SplitScreen from "../../top-bar/split-screen";
+import GroupChatParticipants from "../group-chat-participants";
 
 type PageProps = {
   params: {
@@ -20,13 +24,25 @@ const page = async ({ params }: PageProps) => {
   return (
     <>
       <Topbar>
-        <TasksListInput chatId={chatId} />
-        <Separator orientation="vertical" className="h-6" />
-        <TaskLists />
+        <div className="w-full flex items-center justify-between">
+          <div className="w-fit flex items-center mr-auto">
+            <ChatSidebarTrigger />
+            <ChatName />
+            <PinnedMessage />
+          </div>
+          <div className="w-fit flex items-center gap-2 shrink-0">
+            <GroupChatParticipants />
+          </div>
+        </div>
+        <div className="w-full flex items-center justify-start gap-2">
+          <TasksListInput chatId={chatId} />
+          <Separator orientation="vertical" className="h-6" />
+          <TaskLists />
+        </div>
       </Topbar>
       <div
         id="chat-history-wrapper"
-        className="w-full min-h-[calc(100dvh-96px-126px-24px)] max-w-2xl mx-auto pt-6 overflow-y-visible flex pb-4"
+        className="w-full min-h-[calc(100dvh-105px-42px)] max-w-2xl mx-auto pt-6 overflow-y-visible flex pb-4"
       >
         <Suspense fallback={<Loader2Icon className="animate-spin" />}>
           <TaskList tasks={tasks} />

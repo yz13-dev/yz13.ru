@@ -45,30 +45,25 @@ const TaskListTag = ({ task }: { task: ChatTask }) => {
     );
 };
 
-const Task = ({ task }: { task: ChatTask }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const handleCheckboxChange = async () => {
-    setLoading(true);
-    try {
-      const positiveTaskUpdate: ChatTask = {
-        ...task,
-        checked: !task.checked,
-      };
-      updateTaskInStore(positiveTaskUpdate);
-      const res = await updateTask(task.id, positiveTaskUpdate);
-      if (!res) updateTaskInStore(task);
-    } catch (error) {
-      console.error(error);
-      updateTaskInStore(task);
-    } finally {
-      setLoading(false);
-    }
-  };
+type TaskProps = {
+  task: ChatTask;
+  loading?: boolean;
+  onCheckboxChange?: (task: ChatTask) => void;
+  withDropdown?: boolean;
+  withTag?: boolean;
+};
+export const Task = ({
+  task,
+  loading = false,
+  onCheckboxChange,
+  withDropdown = false,
+  withTag = false,
+}: TaskProps) => {
   return (
     <div
       aria-checked={task.checked ?? false}
       data-state={task.checked ?? false}
-      className="w-full group bg-background flex items-center justify-start rounded-xl border gap-2 p-2"
+      className="w-full group  flex items-center justify-start gap-2 p-2"
     >
       <div className="flex items-start gap-2">
         <Checkbox
@@ -78,7 +73,9 @@ const Task = ({ task }: { task: ChatTask }) => {
             loading && "animate-pulse",
           )}
           checked={task.checked ?? false}
-          onClick={handleCheckboxChange}
+          onClick={() => {
+            onCheckboxChange && onCheckboxChange(task);
+          }}
         />
         <div className="w-full flex flex-col gap-1">
           <div className="flex items-center gap-2">
@@ -92,7 +89,9 @@ const Task = ({ task }: { task: ChatTask }) => {
             >
               {task.title}
             </span>
-            {typeof task.task_list === "number" && <TaskListTag task={task} />}
+            {withTag && typeof task.task_list === "number" && (
+              <TaskListTag task={task} />
+            )}
           </div>
           {!!task.note && task.note.length !== 0 && (
             <span
@@ -107,11 +106,13 @@ const Task = ({ task }: { task: ChatTask }) => {
         </div>
       </div>
       <div className="flex items-center shrink-0 ml-auto gap-2">
-        <TaskDropdown id={task.id} taskListId={task.task_list ?? undefined}>
-          <Button variant="ghost" size="icon" className="size-6">
-            <EllipsisVerticalIcon size={16} />
-          </Button>
-        </TaskDropdown>
+        {withDropdown && (
+          <TaskDropdown id={task.id} taskListId={task.task_list ?? undefined}>
+            <Button variant="ghost" size="icon" className="size-6">
+              <EllipsisVerticalIcon size={16} />
+            </Button>
+          </TaskDropdown>
+        )}
       </div>
     </div>
   );
@@ -213,15 +214,42 @@ const TaskList = ({ tasks: providedTasks }: { tasks: ChatTask[] }) => {
     setTasks(providedTasks);
   }, [providedTasks]);
   const list = applyFilter(tasks, tasks_filter_list);
+  const [taksProcessing, setTaksProcessing] = useState<string | null>(null);
+  const handleCheckboxChange = async (task: ChatTask) => {
+    setTaksProcessing(task.id);
+    try {
+      const positiveTaskUpdate: ChatTask = {
+        ...task,
+        checked: !task.checked,
+      };
+      updateTaskInStore(positiveTaskUpdate);
+      const res = await updateTask(task.id, positiveTaskUpdate);
+      if (!res) updateTaskInStore(task);
+    } catch (error) {
+      console.error(error);
+      updateTaskInStore(task);
+    } finally {
+      setTaksProcessing(null);
+    }
+  };
   return (
-    <div className="w-full space-y-3 px-4">
+    <ul className="w-full space-y-3 px-4">
       {list.length === 0 && (
         <div className="text-center text-sm text-secondary">Нет задач</div>
       )}
       {list.map((task, index) => {
-        return <Task key={task.id} task={task} />;
+        const isProcessing = taksProcessing === task.id;
+        return (
+          <li key={task.id} className="rounded-xl bg-background border">
+            <Task
+              task={task}
+              loading={isProcessing}
+              onCheckboxChange={handleCheckboxChange}
+            />
+          </li>
+        );
       })}
-    </div>
+    </ul>
   );
 };
 

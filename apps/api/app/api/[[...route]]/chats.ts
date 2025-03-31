@@ -26,8 +26,7 @@ chats.get("/:id", async (c) => {
   }
 });
 
-chats.get("/:id/messages", async (c) => {
-  const id = c.req.param("id");
+const getChatMessages = async (id: string, offset: number = 0) => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -36,19 +35,22 @@ chats.get("/:id/messages", async (c) => {
       .select("*")
       .eq("chat_id", id)
       .order("created_at", { ascending: false })
-      .limit(30);
+      .range(offset, offset + 100);
     if (error) {
       console.log(error);
-      return c.json([]);
-    } else return c.json(data);
+      return [];
+    } else return data;
   } catch (error) {
     console.log(error);
-    return c.json([]);
+    return [];
   }
+};
+chats.get("/:id/messages", async (c) => {
+  const id = c.req.param("id");
+  return c.json(await getChatMessages(id));
 });
 
-chats.get("/:id/tasks", async (c) => {
-  const id = c.req.param("id");
+const getChatTasks = async (id: string) => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -58,12 +60,16 @@ chats.get("/:id/tasks", async (c) => {
       .eq("chat_id", id);
     if (error) {
       console.log(error);
-      return c.json([]);
-    } else return c.json(data);
+      return [];
+    } else return data;
   } catch (error) {
     console.log(error);
-    return c.json([]);
+    return [];
   }
+};
+chats.get("/:id/tasks", async (c) => {
+  const id = c.req.param("id");
+  return c.json(await getChatTasks(id));
 });
 
 chats.get("/:id/messages/:message_id", async (c) => {
@@ -110,8 +116,7 @@ chats.get("/:id/tasks/:task_id", async (c) => {
   }
 });
 
-chats.get("/user/:uid", async (c) => {
-  const uid = c.req.param("uid");
+const getUserChat = async (uid: string) => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -123,12 +128,41 @@ chats.get("/user/:uid", async (c) => {
       .limit(10);
     if (error) {
       console.log(error);
-      return c.json([]);
+      return [];
     } else {
-      return c.json(data);
+      return data;
     }
   } catch (error) {
     console.log(error);
-    return c.json([]);
+    return [];
   }
+};
+chats.get("/user/:uid", async (c) => {
+  const uid = c.req.param("uid");
+  return c.json(await getUserChat(uid));
+});
+
+chats.get("/user/:uid/all", async (c) => {
+  const uid = c.req.param("uid");
+  const chats = await getUserChat(uid);
+  const tags = chats.map((chat) => chat.tags).flat();
+  const attachments = chats.map((chat) => chat.attachments).flat();
+  const chatIds = chats.map((chat) => chat.id);
+  const tasks = await Promise.all(
+    chatIds.map(async (id) => {
+      return await getChatTasks(id);
+    }),
+  );
+  const messages = await Promise.all(
+    chatIds.map(async (id) => {
+      return await getChatMessages(id);
+    }),
+  );
+  return c.json({
+    tags,
+    attachments,
+    chats,
+    tasks: tasks.flat(),
+    messages: messages.flat(),
+  });
 });
