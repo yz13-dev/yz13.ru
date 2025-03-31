@@ -17,7 +17,8 @@ export type TasksViewProps = {
 };
 const View = async ({ params }: TasksViewProps) => {
   const chatId = params.chatId;
-  const tasks = await getTasks(chatId);
+  const { data } = await getTasks(chatId);
+  const tasks = data ?? [];
   const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (

@@ -5,6 +5,11 @@ import PageWrapper from "../page-wrapper";
 import DeleteChatButton from "./delete-chat-button";
 import Tags from "./tags";
 import TaskLists from "./task-lists";
+import Topbar, { ChatName } from "../../top-bar/bar";
+import ChatSidebarTrigger from "../../sidebar-trigger";
+import PinnedMessage from "../pinned-message";
+import SplitScreen from "../../top-bar/split-screen";
+import GroupChatParticipants from "../group-chat-participants";
 
 type PageProps = {
   params: {
@@ -15,6 +20,18 @@ const page = ({ params }: PageProps) => {
   const chatId = params.chatId;
   return (
     <>
+      <Topbar>
+        <div className="w-full flex items-center justify-between">
+          <div className="w-fit flex items-center mr-auto">
+            <ChatSidebarTrigger />
+            <ChatName />
+            <PinnedMessage />
+          </div>
+          <div className="w-fit flex items-center gap-2 shrink-0">
+            <GroupChatParticipants />
+          </div>
+        </div>
+      </Topbar>
       <div
         id="chat-history-wrapper"
         className="w-full min-h-[calc(100dvh-96px-126px-24px)] p-6 overflow-y-visible flex"

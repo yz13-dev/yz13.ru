@@ -1,4 +1,5 @@
 import { Tables, TablesInsert, TablesUpdate } from "yz13/supabase/database";
+import { ChatAttachment } from "./attachments";
 
 export type ChatRoom = Tables<"chats">;
 export type ChatMessage = Tables<"chats-messages">;
@@ -18,4 +19,11 @@ export type UpdatedTask = TablesUpdate<"chats-tasks">;
 export type ChatList = {
   id: number;
   name: string;
+};
+export type ChatData = {
+  chats: ChatRoom[];
+  messages: ChatMessage[];
+  tasks: ChatTask[];
+  tags: ChatTag[];
+  attachments: ChatAttachment[];
 };

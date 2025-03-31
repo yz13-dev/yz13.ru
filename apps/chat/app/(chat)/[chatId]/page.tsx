@@ -1,17 +1,25 @@
 import { getChatMessages } from "rest-api/chats";
 import { getAuthorizedUser } from "rest-api/auth";
-import { Loader2Icon, SearchIcon } from "lucide-react";
+import {
+  ListTodoIcon,
+  Loader2Icon,
+  MessageCircleIcon,
+  SearchIcon,
+  SettingsIcon,
+} from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import ChatInput from "../chat-input/input";
-import Topbar from "../top-bar/bar";
+import Topbar, { ChatName } from "../top-bar/bar";
 import AttachmentPreview from "./attachment-preview";
 import ChatHistory from "./chat-history";
 import GroupChatParticipants from "./group-chat-participants";
 import PinnedMessage from "./pinned-message";
 import SplitScreen from "../top-bar/split-screen";
+import Link from "next/link";
+import ChatSidebarTrigger from "../sidebar-trigger";
 
 type PageProps = {
   params: {
@@ -20,26 +28,22 @@ type PageProps = {
 };
 const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
-  const messages = await getChatMessages(chatId);
+  const { data } = await getChatMessages(chatId);
+  const messages = data ?? [];
   const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (
     <>
       <Topbar>
-        <div className="w-fit flex items-center gap-2 mr-auto">
-          <Separator orientation="vertical" className="h-7" />
-          <Button
-            variant="ghost"
-            className="gap-2 h-8 rounded-md text-xs py-0.5 px-3"
-          >
-            <SearchIcon size={14} />
-            <span className="h-[14px]">Поиск</span>
-          </Button>
-          <PinnedMessage />
-        </div>
-        <div className="w-fit flex items-center gap-2 shrink-0">
-          <SplitScreen />
-          <GroupChatParticipants />
+        <div className="w-full flex items-center justify-between">
+          <div className="w-fit flex items-center mr-auto">
+            <ChatSidebarTrigger />
+            <ChatName />
+            <PinnedMessage />
+          </div>
+          <div className="w-fit flex items-center gap-2 shrink-0">
+            <GroupChatParticipants />
+          </div>
         </div>
       </Topbar>
       <div

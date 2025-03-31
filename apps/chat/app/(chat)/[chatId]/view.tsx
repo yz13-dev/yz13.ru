@@ -1,6 +1,5 @@
 import { Separator } from "mono/components/separator";
 import Topbar from "../top-bar/bar";
-import { Button } from "mono/components/button";
 import PinnedMessage from "./pinned-message";
 import GroupChatParticipants from "./group-chat-participants";
 import { Suspense } from "react";
@@ -19,7 +18,8 @@ export type ChatViewProps = {
 };
 const View = async ({ params }: ChatViewProps) => {
   const chatId = params.chatId;
-  const messages = await getChatMessages(chatId);
+  const { data: dataMessages } = await getChatMessages(chatId);
+  const messages = dataMessages ?? [];
   const { data: user } = await getAuthorizedUser();
   if (!user) return redirect("/");
   return (

@@ -1,9 +1,16 @@
 "use server";
+import { customFetch } from "@/const/fetch";
 import { ChatTask, NewChatTask, UpdatedTask } from "@/types/chats";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 
-export const getTasks = async (chatId: string): Promise<ChatTask[]> => {
+export const getTasks = async (chatId: string) => {
+  return await customFetch<ChatTask[]>(`/chats/${chatId}/tasks`, {
+    method: "GET",
+  });
+};
+
+export const getTasksByChatId = async (chatId: string) => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);

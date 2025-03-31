@@ -21,6 +21,7 @@ import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 import { updateChatInList } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
+import { useDebounceEffect } from "ahooks";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
@@ -43,12 +44,16 @@ const Participant = ({
     setUser(user);
     setLoading(false);
   };
-  useEffect(() => {
-    handleUser(uid);
+  useDebounceEffect(
     () => {
-      setUser(null);
-    };
-  }, [uid]);
+      handleUser(uid);
+      () => {
+        setUser(null);
+      };
+    },
+    [uid],
+    { wait: 1000 },
+  );
   if (!user || loading)
     return (
       <div

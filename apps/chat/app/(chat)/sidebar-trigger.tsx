@@ -1,18 +1,20 @@
 "use client";
 import { ArrowLeftIcon, ArrowRightIcon, PanelLeftIcon } from "lucide-react";
+import { Button } from "mono/components/button";
 import { useSidebar } from "mono/components/sidebar";
 import { motion } from "motion/react";
 
 const ChatSidebarTrigger = () => {
   const { toggleSidebar, open } = useSidebar();
   return (
-    <motion.button
-      layoutId="chat-sidebar-trigger"
-      className="size-9 flex items-center justify-center "
+    <Button
+      variant="outline"
+      size="icon"
+      className="gap-2 rounded-md text-xs"
       onClick={toggleSidebar}
     >
-      <PanelLeftIcon size={16} />
-    </motion.button>
+      <PanelLeftIcon size={18} />
+    </Button>
   );
 };
 

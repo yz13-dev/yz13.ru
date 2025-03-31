@@ -11,36 +11,49 @@ import {
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { cn } from "yz13/cn";
+import { ChatRoom } from "rest-api/types/chats";
 
-export const LastChatListSkeleton = () => {
+const ListGrid = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="w-full space-y-3">
-      <span className="text-base block font-medium text-secondary">
-        Последние чаты
-      </span>
-      <div className="w-full grid sm:grid-cols-2 *:h-[105px] grid-cols-1 gap-2">
-        <Skeleton className="w-full" />
-        <Skeleton className="w-full" />
-        <Skeleton className="w-full" />
-        <Skeleton className="w-full" />
-        <Skeleton className="w-full" />
-        <Skeleton className="w-full" />
-      </div>
+    <div className="w-full grid md:grid-cols-2 grid-cols-1 *:h-[105px] gap-2">
+      {children}
     </div>
   );
 };
 
-const LastChatList = async () => {
-  const user = await auth();
-  const id = user?.id;
-  const chats = id ? await getChats(id) : [];
-  if (!user) return null;
+export const ChatListSkeleton = () => {
   return (
     <div className="w-full space-y-3">
       <span className="text-base block font-medium text-secondary">
         Последние чаты
       </span>
-      <div className="w-full grid sm:grid-cols-2 grid-cols-1 gap-2">
+      <ListGrid>
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+        <Skeleton className="w-full" />
+      </ListGrid>
+    </div>
+  );
+};
+
+const ChatList = async ({
+  chats = [],
+  label,
+}: {
+  chats?: ChatRoom[];
+  label?: string;
+}) => {
+  return (
+    <div className="w-full space-y-3">
+      {label && (
+        <span className="text-base block font-medium text-secondary">
+          {label}
+        </span>
+      )}
+      <ListGrid>
         {chats
           .sort((a, b) => {
             if (a.favorite && !b.favorite) return -1;
@@ -100,9 +113,9 @@ const LastChatList = async () => {
               </div>
             );
           })}
-      </div>
+      </ListGrid>
     </div>
   );
 };
 
-export default LastChatList;
+export default ChatList;

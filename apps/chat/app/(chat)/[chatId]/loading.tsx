@@ -1,9 +1,14 @@
-import { Loader2Icon } from "lucide-react";
+import { cookies } from "next/headers";
+import { SidebarSkeleton } from "../sidebar/sidebar-skeleton";
 
 const loading = () => {
+  const cookieStore = cookies();
+  const sidebar = cookieStore.get("sidebar_state")?.value || "false";
+  const sidebarState = sidebar === "true" || false;
   return (
-    <div className="w-full h-[calc(100dvh-56px)] flex flex-col items-center justify-center gap-4 px-4">
-      <Loader2Icon size={20} className="animate-spin" />
+    <div className="w-full h-dvh flex flex-row">
+      {sidebarState && <SidebarSkeleton />}
+      <div className="w-full h-full bg-background-secondary" />
     </div>
   );
 };

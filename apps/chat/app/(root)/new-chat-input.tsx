@@ -10,8 +10,14 @@ import { useMemo, useState } from "react";
 
 type NewChatInputProps = {
   type?: ChatRoom["type"];
+  showLabel?: boolean;
+  label?: string;
 };
-const NewChatInput = ({ type = "personal" }: NewChatInputProps) => {
+const NewChatInput = ({
+  type = "personal",
+  showLabel = false,
+  label = "Создать",
+}: NewChatInputProps) => {
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [user] = useUser();
@@ -39,7 +45,7 @@ const NewChatInput = ({ type = "personal" }: NewChatInputProps) => {
     <div className="flex w-full items-center gap-2">
       <Input
         placeholder="Название чата"
-        className="w-full h-10 text-base font-medium"
+        className="w-full h-10 text-base font-medium bg-background"
         value={name}
         onChange={(e) => setName(e.target.value)}
         onKeyDown={(e) => {
@@ -51,9 +57,8 @@ const NewChatInput = ({ type = "personal" }: NewChatInputProps) => {
       />
       <Button
         onClick={handleNewChat}
-        size="icon"
         variant={disabled ? "secondary" : "default"}
-        className="rounded-full size-9 shrink-0"
+        className="rounded-full h-9 gap-2 shrink-0"
         disabled={disabled}
       >
         {loading ? (
@@ -61,6 +66,7 @@ const NewChatInput = ({ type = "personal" }: NewChatInputProps) => {
         ) : (
           <ArrowUpIcon size={18} />
         )}
+        {!loading && showLabel && <span>{label}</span>}
       </Button>
     </div>
   );

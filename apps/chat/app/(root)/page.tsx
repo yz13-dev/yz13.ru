@@ -1,12 +1,15 @@
-import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import Header from "./header";
-import LastChatList, { LastChatListSkeleton } from "./last-chat-list";
 import NewChatForm from "./new-chat-form";
+import { authorized } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import ChatTypeSwitch from "./chat-type-switch";
 
 const page = async () => {
+  const user = await authorized();
+  if (user) return redirect("/chats");
   return (
     <>
       <Suspense fallback={<Skeleton className="w-full h-14" />}>
@@ -14,7 +17,7 @@ const page = async () => {
       </Suspense>
       <div
         className={cn(
-          "w-full min-h-[calc(100dvh-56px)] flex flex-col justify-center",
+          "w-full min-h-[calc(100dvh-56px)] space-y-6",
           "*:max-w-xl *:mx-auto *:w-full *:px-6 py-12 gap-12",
         )}
       >
@@ -25,12 +28,10 @@ const page = async () => {
             и списки, рабочее пространство в виде групп и чатов.
           </p>
         </div>
-
-        <NewChatForm />
-        <Separator />
-        <Suspense fallback={<LastChatListSkeleton />}>
-          <LastChatList />
-        </Suspense>
+        <ChatTypeSwitch defaultChecked={false} />
+        <span className="text-sm text-secondary block">
+          Для создания чата необходимо авторизоваться или создать аккаунт
+        </span>
       </div>
     </>
   );
