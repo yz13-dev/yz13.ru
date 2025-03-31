@@ -1,9 +1,9 @@
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
+import Footer from "@/components/small-footer";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import Footer from "../old/footer";
 
 const loading = () => {
   return (

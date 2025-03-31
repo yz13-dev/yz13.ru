@@ -62,11 +62,11 @@ const RadioPlayer = () => {
     { wait: 1500 },
   );
   return (
-    <div className="flex items-center gap-2 px-2 py-1 rounded-full border bg-background">
+    <div className="flex items-center gap-2 rounded-full border bg-background">
       <button
         disabled={loading}
         onClick={handlePlaySwitch}
-        className="text-secondary"
+        className="text-secondary size-6 flex items-center justify-center rounded-full border-r hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors"
       >
         {loading ? (
           <Loader2Icon size={14} className="animate-spin" />
@@ -83,7 +83,7 @@ const RadioPlayer = () => {
           onClick={() => toggleMute()}
           onPointerEnter={() => setOpenVolume(true)}
         >
-          <button className="text-secondary">
+          <button className="text-secondary size-6 flex items-center justify-center rounded-full border-l hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors">
             {muted ? (
               <VolumeOffIcon size={14} />
             ) : volume > 0.25 && volume <= 0.5 ? (

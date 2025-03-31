@@ -14,11 +14,10 @@ import {
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
-import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 import { isDev } from "../login/get-url";
-import Footer from "../old/footer";
+import Footer from "../../components/small-footer";
 import CallToAction from "./call-to-action";
 import Hero from "./hero";
 import ServicesDetails from "./services-details";
