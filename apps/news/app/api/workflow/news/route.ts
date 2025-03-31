@@ -2,7 +2,6 @@ import { uploadArticle } from "rest-api/articles";
 import { getCountryCodes } from "rest-api/codes";
 import { parseNewsFromSource } from "@/lib/parse-news";
 import { getNewsSources } from "rest-api/sources";
-import { NewsSource } from "rest-api/types/articles";
 import { serve } from "@upstash/workflow/nextjs";
 
 export const { POST } = serve(async (context) => {

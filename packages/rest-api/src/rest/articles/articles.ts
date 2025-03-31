@@ -26,3 +26,15 @@ export const getArticlesForCountry = async (
     },
   );
 };
+
+export const getArticles = async (offset: number = 0) => {
+  return await customFetch<Article[]>(`/news/articles?offset=${offset}`, {
+    method: "GET",
+  });
+};
+
+export const getArticle = async (article_id: string) => {
+  return await customFetch<Article | null>(`/news/article/${article_id}`, {
+    method: "GET",
+  });
+};

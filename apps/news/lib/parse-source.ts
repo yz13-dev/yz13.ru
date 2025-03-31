@@ -35,7 +35,11 @@ async function fetchRSS(source: NewsSource): Promise<NewArticle[]> {
 
 async function fetchHTML(source: NewsSource): Promise<NewArticle[]> {
   if (!source.parse_rules) return [];
-  const response = await fetch(source.url);
+  const abort = new AbortController();
+  const response = await fetch(source.url, {
+    signal: abort.signal,
+  });
+  setTimeout(() => abort.abort(), 5000);
   const data = await response.text();
   const $ = cheerio.load(data);
   return $(source.parse_rules.article_selector)
@@ -69,6 +73,11 @@ async function fetchHTML(source: NewsSource): Promise<NewArticle[]> {
     .get();
 }
 
-export async function parseNews(source: NewsSource): Promise<NewArticle[]> {
-  return source.rss ? await fetchRSS(source) : await fetchHTML(source);
+export type ParseType = "rss" | "html";
+export async function parseNews(
+  source: NewsSource,
+  override?: ParseType,
+): Promise<NewArticle[]> {
+  const isRSS = override ? override === "rss" : !!source.rss;
+  return isRSS ? await fetchRSS(source) : await fetchHTML(source);
 }

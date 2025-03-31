@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
-import Footer from "./footer";
+import Footer from "@/components/small-footer";
 import RootGrid from "./root-grid";
 const ConnectButton = dynamic(() => import("./connect-button"), {
   loading: () => (

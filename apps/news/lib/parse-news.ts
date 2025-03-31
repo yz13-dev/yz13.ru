@@ -19,3 +19,17 @@ export const parseNewsFromSource = async (
   const parsedNews = await parseNews(result);
   return parsedNews;
 };
+
+export const parseNewsAsHTML = async (source_id: string) => {
+  const [{ data: source }, { data: rules }] = await Promise.all([
+    getNewsSource(source_id),
+    getNewsSourceParseRules(source_id),
+  ]);
+  if (!source || !rules) return [];
+  const result: NewsSource = {
+    ...source,
+    parse_rules: rules,
+  };
+  const parsedNews = await parseNews(result, "html");
+  return parsedNews;
+};

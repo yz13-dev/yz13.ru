@@ -11,15 +11,16 @@
   "dependencies": {
     "@upstash/workflow": "^0.2.12",
     "cheerio": "^1.0.0",
+    "hono-geo-middleware": "^0.1.2",
     "mono": "*",
     "negotiator": "^1.0.0",
     "next": "14.2.26",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "recharts": "^2.15.1",
+    "rest-api": "*",
     "rss-parser": "^3.13.0",
-    "yz13": "*",
-    "rest-api": "*"
+    "yz13": "*"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,5 +1,4 @@
 import { isDev } from "@/app/login/get-url";
-import Footer from "@/app/old/footer";
 import AutoTextarea from "@/components/auto-textarea";
 import Dock from "@/components/dock/dock";
 import Header from "@/components/header";
@@ -7,6 +6,7 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import { PagesLogo } from "@/components/pages-logo";
+import Footer from "@/components/small-footer";
 import User from "@/components/user";
 import { showPagesPromo } from "@/const/flags";
 import { ArrowRightIcon, MenuIcon } from "lucide-react";

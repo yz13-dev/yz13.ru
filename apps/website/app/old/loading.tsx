@@ -1,11 +1,11 @@
 import { HandwrittenStrikethrough } from "@/components/handwritten-strikethrough";
 import { Logo } from "@/components/logo";
 import PageDockFiller from "@/components/page-dock-filler";
+import Footer from "@/components/small-footer";
 import { Typewriter } from "@/components/text-writter";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { cn } from "yz13/cn";
-import Footer from "./footer";
 
 const loading = () => {
   return (

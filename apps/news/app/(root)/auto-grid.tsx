@@ -33,7 +33,7 @@ const AutoGrid = ({
     try {
       const newOffset = offset + offsetStep;
       const { data } = await getArticlesForCountry(locale, newOffset);
-      const newArticles = (data ?? [])
+      const newArticles = data ?? [];
       if (newArticles.length === 0) setIsAll(true);
       else {
         setOffset(newOffset);
@@ -49,7 +49,7 @@ const AutoGrid = ({
     if (inView) handleNewArticles();
   }, [inView]);
   return (
-    <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 p-6">
+    <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
       {children}
       {articles.map((news) => {
         return <NewsCard key={news.id} news={news} />;

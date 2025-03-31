@@ -2,8 +2,16 @@ import { sourcesWithObjectTags } from "@/const/sources-rules";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
+import { GeoMiddleware } from "hono-geo-middleware";
 
 export const news = new Hono();
+
+news.use(
+  "/*",
+  GeoMiddleware({
+    extractors: ["vercel", "cloudflare", "cloudflare-worker"],
+  }),
+);
 
 const parseObjTags = (tags: string[]): string[] => {
   const other = tags
@@ -79,6 +87,22 @@ news.get("/parse-rules/:source_id", async (c) => {
     return c.json(null);
   } else return c.json(data);
 });
+
+news.get("/articles", async (c) => {
+  const offset = parseInt(c.req.query("offset") || "0");
+  const limit = 10;
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("news")
+    .select()
+    .order("published_at", { ascending: false })
+    .range(offset, offset + limit);
+  if (error) {
+    return c.json([]);
+  } else return c.json(data);
+});
+
 news.get("/articles/:source_id", async (c) => {
   const source_id = c.req.param("source_id");
   const cookieStore = cookies();

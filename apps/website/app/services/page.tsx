@@ -14,8 +14,8 @@ import { Suspense } from "react";
 import ServicesDetails from "../(root)/services-details";
 import Header from "../../components/header";
 import { isDev } from "../login/get-url";
-import Footer from "../old/footer";
 import FAQ from "./faq";
+import Footer from "@/components/small-footer";
 
 export const metadata: Metadata = {
   title: "Услуги по разработке",

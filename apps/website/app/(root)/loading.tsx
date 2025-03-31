@@ -4,14 +4,14 @@ import Nav from "@/components/nav/nav";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import Footer from "../old/footer";
+import Footer from "@/components/small-footer";
 import Hero from "./hero";
 
 export const ServicesSkeleton = () => {
   return (
     <div className="w-full">
       <div className="max-w-screen-2xl w-full mx-auto border-x">
-        <div className="h-fit flex items-center divide-x xl:!grid flex xl:!grid-cols-3 xl:!grid-rows-1 flex-col">
+        <div className="h-fit flex items-center divide-x xl:!grid xl:!grid-cols-3 xl:!grid-rows-1 flex-col">
           <div className="relative w-full h-full col-span-2 bg-neutral-100">
             <Skeleton className="aspect-video rounded-none" />
           </div>
