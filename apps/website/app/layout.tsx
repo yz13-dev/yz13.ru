@@ -12,6 +12,7 @@ import localFont from "next/font/local";
 import { cn } from "yz13/cn";
 
 import "dayjs/locale/ru";
+import { isDev } from "./login/get-url";
 
 const SessionObserver = dynamic(
   () => import("../components/visitor-session/session-observer"),
@@ -160,6 +161,14 @@ export default function RootLayout({
       lang="en"
       className={cn(SANS.variable, MONO.variable, PIXEL.variable)}
     >
+      {isDev && (
+        <head>
+          <script
+            crossOrigin="anonymous"
+            src="//unpkg.com/react-scan/dist/auto.global.js"
+          />
+        </head>
+      )}
       <body id="root" className="antialiased">
         <Analytics />
         <SpeedInsights />

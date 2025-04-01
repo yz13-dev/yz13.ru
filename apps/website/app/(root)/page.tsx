@@ -23,6 +23,7 @@ import CallToAction from "./call-to-action";
 import Hero from "./hero";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
+import Timeline from "./timeline";
 
 const page = async () => {
   return (
@@ -53,6 +54,7 @@ const page = async () => {
         {(await showCallToAction()) && (
           <CallToAction busy={await availableForWork()} />
         )}
+        <Timeline />
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
