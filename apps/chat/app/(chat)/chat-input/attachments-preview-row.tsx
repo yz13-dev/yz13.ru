@@ -25,6 +25,7 @@ const ImagePreview = ({
         src={url}
         fill
         onLoad={() => setLoading(false)}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className={cn(
           "!static inline-block rounded-lg",
           loading && "opacity-0",

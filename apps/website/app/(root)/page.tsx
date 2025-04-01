@@ -22,6 +22,7 @@ import CallToAction from "./call-to-action";
 import Hero from "./hero";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
+import Background from "./background";
 
 const page = async () => {
   return (
@@ -62,7 +63,7 @@ const page = async () => {
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
-            <div className="h-fit border-x px-6 py-3">
+            <div className="h-fit border-x px-6 py-3 bg-background/60 backdrop-blur-sm">
               <Suspense
                 fallback={<Skeleton className="h-4 w-full rounded-md" />}
               >
