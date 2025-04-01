@@ -51,24 +51,6 @@ export const showPriceDetails = flag<boolean>({
   },
 });
 
-export const showChart = flag<boolean>({
-  key: "show-chart",
-  description: "Show chart on the root page",
-  async decide() {
-    if (isDev) return pretendProduction;
-    return (await get<boolean>(this.key)) ?? false;
-  },
-});
-
-export const showChartData = flag<boolean>({
-  key: "show-chart-data",
-  description: "Show chart data in charts",
-  async decide() {
-    if (isDev) return pretendProduction;
-    return (await get<boolean>(this.key)) ?? false;
-  },
-});
-
 export const showCallToAction = flag<boolean>({
   key: "show-call-to-action",
   description: "Show call to action on the root page",
@@ -116,6 +98,15 @@ export const enableChat = flag<boolean>({
 export const availableForWork = flag<boolean>({
   key: "busy",
   description: "Show available for work button",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
+
+export const showUser = flag<boolean>({
+  key: "show-user",
+  description: "Show user button",
   async decide() {
     if (isDev) return pretendProduction;
     return (await get<boolean>(this.key)) ?? false;

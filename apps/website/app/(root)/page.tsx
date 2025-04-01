@@ -10,6 +10,7 @@ import {
   showCallToAction,
   showLogoUnderFooter,
   showPriceDetails,
+  showUser,
 } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -22,7 +23,6 @@ import CallToAction from "./call-to-action";
 import Hero from "./hero";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
-import Background from "./background";
 
 const page = async () => {
   return (
@@ -44,7 +44,7 @@ const page = async () => {
             )}
           </Suspense>
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-            {isDev && <User />}
+            {(await showUser()) && <User />}
           </Suspense>
         </div>
       </Header>
@@ -117,7 +117,7 @@ const page = async () => {
       </div>
       {/* <PageDockFiller /> */}
       <Suspense fallback={<DockSkeleton />}>
-        <Dock />
+        <Dock showUser={await showUser()} />
       </Suspense>
       {(await showLogoUnderFooter()) && (
         <div className="w-full 2xl:h-[450px] lg:h-[300px] md:h-[150px] h-[125px] overflow-hidden flex items-start justify-center">
