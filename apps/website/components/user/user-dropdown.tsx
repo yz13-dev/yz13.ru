@@ -52,35 +52,22 @@ const UserDropdown = ({
             {positionOrEmail}
           </span>
         </DropdownMenuLabel>
-        <DropdownMenuItem className="justify-between" asChild>
-          <Link href="/account">
-            Профиль
-            <UserCircleIcon size={16} />
-          </Link>
-        </DropdownMenuItem>
-        {isDev && (
-          <DropdownMenuItem className="justify-between" asChild>
-            <Link href="/account/settings">
-              Настройки аккаунта
-              <SettingsIcon size={16} />
-            </Link>
-          </DropdownMenuItem>
-        )}
-        {isAdmin && (
+        {false && (
           <>
-            <DropdownMenuSeparator />
             <DropdownMenuItem className="justify-between" asChild>
-              <Link href="/workspace">
-                Рабочее пространство
-                <FolderIcon size={16} />
+              <Link href="/account">
+                Профиль
+                <UserCircleIcon size={16} />
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="justify-between" asChild>
+              <Link href="/account/settings">
+                Настройки аккаунта
+                <SettingsIcon size={16} />
               </Link>
             </DropdownMenuItem>
           </>
         )}
-        {/* <DropdownMenuLabel className="flex flex-row items-center justify-between">
-          <span className="text-sm font-normal">Тема</span>
-          <ThemeSwitcher />
-        </DropdownMenuLabel> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="justify-between" onClick={handleSignOut}>
           Выйти из аккаунта

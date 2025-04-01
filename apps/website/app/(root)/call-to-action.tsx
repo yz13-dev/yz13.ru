@@ -45,7 +45,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
       <div className="w-full">
         <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
           <div className="w-full h-full pattern-lines" />
-          <div className="w-full px-6 border-x">
+          <div className="w-full px-6 border-x bg-background/60 backdrop-blur-sm">
             <div className="h-fit flex w-fit items-center flex-row">
               {busy ? (
                 <Button
