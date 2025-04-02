@@ -15,7 +15,13 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "mono/components/dropdown-menu";
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useOptimistic,
+  useState,
+  useTransition,
+} from "react";
 import { cn } from "yz13/cn";
 import {
   getChatTaskLists,
@@ -59,29 +65,41 @@ export const Task = ({
   withDropdown = false,
   withTag = false,
 }: TaskProps) => {
+  const [isPending, startTransition] = useTransition();
+  const [optTask, markTask] = useOptimistic(task, (state) => ({
+    ...state,
+    checked: !state.checked,
+  }));
+  const handleCheckboxChange = (checked: boolean) => {
+    startTransition(() => {
+      onCheckboxChange && onCheckboxChange(task);
+      markTask(task);
+    });
+  };
   return (
     <div
-      aria-checked={task.checked ?? false}
-      data-state={task.checked ?? false}
+      aria-checked={optTask.checked ?? false}
+      data-state={optTask.checked ?? false}
       className="w-full group  flex items-center justify-start gap-2 p-2"
     >
       <div className="flex items-start gap-2">
         <Checkbox
-          disabled={loading}
+          disabled={loading || isPending}
           className={cn(
             "size-6 shrink-0 rounded-md [&>span>svg]:size-4",
             loading && "animate-pulse",
           )}
-          checked={task.checked ?? false}
+          checked={optTask.checked ?? false}
+          onCheckedChange={handleCheckboxChange}
           onClick={() => {
-            onCheckboxChange && onCheckboxChange(task);
+            // onCheckboxChange && onCheckboxChange(task);
           }}
         />
         <div className="w-full flex flex-col gap-1">
           <div className="flex items-center gap-2">
             <span
               className={cn(
-                task.checked
+                optTask.checked
                   ? "text-secondary line-through"
                   : "text-foreground/80",
                 task.note?.length !== 0 && "text-sm",
@@ -97,7 +115,7 @@ export const Task = ({
             <span
               className={cn(
                 "text-xs text-secondary line-clamp-1",
-                task.checked ? "text-secondary line-through" : "",
+                optTask.checked ? "text-secondary line-through" : "",
               )}
             >
               {task.note}
@@ -222,7 +240,6 @@ const TaskList = ({ tasks: providedTasks }: { tasks: ChatTask[] }) => {
         ...task,
         checked: !task.checked,
       };
-      updateTaskInStore(positiveTaskUpdate);
       const res = await updateTask(task.id, positiveTaskUpdate);
       if (!res) updateTaskInStore(task);
     } catch (error) {

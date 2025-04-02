@@ -1,16 +1,14 @@
-import { Suspense } from "react";
-import Header from "../(root)/header";
-import { Skeleton } from "mono/components/skeleton";
-import { cn } from "yz13/cn";
-import NewChatForm from "../(root)/new-chat-form";
-import { Separator } from "mono/components/separator";
-import ChatList, { ChatListSkeleton } from "./chats-list";
 import { auth } from "@/lib/auth";
-import { getChatsData } from "rest-api/chats";
-import { FileIcon, HashIcon } from "lucide-react";
+import { Separator } from "mono/components/separator";
+import { Skeleton } from "mono/components/skeleton";
 import { redirect } from "next/navigation";
-import { Checkbox } from "mono/components/checkbox";
-import { Task } from "../(chat)/[chatId]/tasks/task-list";
+import { Suspense } from "react";
+import { getChatsData } from "rest-api/chats";
+import { cn } from "yz13/cn";
+import Header from "../(root)/header";
+import NewChatForm from "../(root)/new-chat-form";
+import ChatList, { ChatListSkeleton } from "./chats-list";
+import TaskList from "./task-list";
 
 const page = async () => {
   const user = await auth();
@@ -40,16 +38,7 @@ const page = async () => {
               <span className="text-base block font-medium text-secondary">
                 Задачи
               </span>
-              <ul className="rounded-xl border divide-y">
-                {tasks.map((task) => (
-                  <li
-                    key={task.id}
-                    className="flex gap-2 min-h-9 bg-background text-secondary items-center first:rounded-t-xl last:rounded-b-xl"
-                  >
-                    <Task task={task} />
-                  </li>
-                ))}
-              </ul>
+              <TaskList defaultTasks={tasks} />
             </div>
           </div>
           <div className="md:w-2/3 w-full space-y-6">
