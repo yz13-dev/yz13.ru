@@ -112,3 +112,12 @@ export const showUser = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showTimeline = flag<boolean>({
+  key: "show-timeline",
+  description: "Show timeline",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});

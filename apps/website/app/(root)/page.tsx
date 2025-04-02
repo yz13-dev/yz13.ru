@@ -10,6 +10,7 @@ import {
   showCallToAction,
   showLogoUnderFooter,
   showPriceDetails,
+  showTimeline,
   showUser,
 } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
@@ -54,7 +55,7 @@ const page = async () => {
         {(await showCallToAction()) && (
           <CallToAction busy={await availableForWork()} />
         )}
-        <Timeline />
+        {(await showTimeline()) && <Timeline />}
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />

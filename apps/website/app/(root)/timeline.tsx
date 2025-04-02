@@ -113,9 +113,11 @@ const Timeline = () => {
     const getCurrentTimeStamp = document.getElementById(timestamp);
     if (!getCurrentTimeStamp) return;
     const width = div.clientWidth;
+    const left = getCurrentTimeStamp.offsetLeft - GAP - width / 2;
+    console.log(left);
     requestAnimationFrame(() => {
       div.scrollTo({
-        left: getCurrentTimeStamp.offsetLeft - GAP - width / 2,
+        left,
         behavior: "smooth",
       });
     });
@@ -135,7 +137,7 @@ const Timeline = () => {
           <div className="border-x h-16">
             <div
               ref={ref}
-              className="w-full h-full marquee overflow-x-auto flex flex-row items-end gap-1 justify-center relative"
+              className="w-full h-full marquee overflow-x-auto flex flex-row items-end gap-1 relative"
             >
               {lines.map((line) => {
                 const { hour, minute, day, month, year, active } = line;
