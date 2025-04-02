@@ -53,6 +53,19 @@
   }
 }
 
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  mask-image: linear-gradient(
+    var(--mask-direction, to right),
+    transparent,
+    var(--color-background) 20%,
+    var(--color-background) 80%,
+    transparent
+  );
+}
+
 .grid-template {
   grid-template-columns: 48px minmax(0, 1fr) 48px;
   display: grid;

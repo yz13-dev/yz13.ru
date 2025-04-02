@@ -1,11 +1,11 @@
 import { getProjects } from "rest-api/projects";
-import Dock from "@/components/dock/dock";
+import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
-import { showAppsLink } from "@/const/flags";
+import { showAppsLink, showUser } from "@/const/flags";
 import { auth } from "@/lib/auth";
 import "dayjs/locale/ru";
 import { LayoutGridIcon } from "lucide-react";
@@ -57,7 +57,7 @@ const page = async ({ searchParams }: PageProps) => {
             )}
           </Suspense>
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-            {isDev && <User />}
+            {(await showUser()) && <User />}
           </Suspense>
         </div>
       </Header>
@@ -67,7 +67,9 @@ const page = async ({ searchParams }: PageProps) => {
         </DndContextWrapper>
         <PageDockFiller />
       </div>
-      <Dock />
+      <Suspense fallback={<DockSkeleton />}>
+        <Dock showUser={await showUser()} />
+      </Suspense>
     </>
   );
 };

@@ -99,7 +99,11 @@ const ItemsGroup = ({ className = "" }: { className?: string }) => {
   );
 };
 
-const Items = () => {
+type DockItemsProps = {
+  showUser?: boolean;
+};
+
+const Items = ({ showUser = false }: DockItemsProps) => {
   const [unMuteReminder, setUnMuteReminder] = useState<boolean>(true);
   return (
     <>
@@ -122,7 +126,7 @@ const Items = () => {
         >
           <LayoutGridIcon size={18} />
         </button> */}
-        {isDev && (
+        {showUser && (
           <div className="size-12 rounded-xl border flex items-center justify-center">
             <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
               <User sideOffset={12} asSquare />
@@ -140,7 +144,12 @@ export const DockSkeleton = () => {
   );
 };
 
-const Dock = ({ className = "" }: { className?: string }) => {
+type DockProps = {
+  className?: string;
+  showUser?: boolean;
+};
+
+const Dock = ({ className = "", showUser = false }: DockProps) => {
   const useOverlay = useDockMenuStore((state) => state.withOverlay);
   const menuId = useDockMenuStore((state) => state.menuId);
   const menuItem = menuId ? menu[menuId] : null;
@@ -154,7 +163,7 @@ const Dock = ({ className = "" }: { className?: string }) => {
         <DockWidgets>
           <RadioPlayer />
         </DockWidgets>
-        <Items />
+        <Items showUser={showUser} />
       </DockWrapper>
     </>
   );

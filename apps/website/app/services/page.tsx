@@ -1,10 +1,15 @@
 import Availability from "@/components/availability";
-import Dock from "@/components/dock/dock";
+import Dock, { DockSkeleton } from "@/components/dock/dock";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
-import { showAppsLink, showFAQ, showPriceDetails } from "@/const/flags";
+import {
+  showAppsLink,
+  showFAQ,
+  showPriceDetails,
+  showUser,
+} from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -43,7 +48,7 @@ const page = async () => {
             )}
           </Suspense>
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-            {isDev && <User />}
+            {(await showUser()) && <User />}
           </Suspense>
         </div>
       </Header>
@@ -96,7 +101,9 @@ const page = async () => {
         </div>
       </div>
       <PageDockFiller />
-      <Dock />
+      <Suspense fallback={<DockSkeleton />}>
+        <Dock showUser={await showUser()} />
+      </Suspense>
     </>
   );
 };

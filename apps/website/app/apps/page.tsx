@@ -3,7 +3,7 @@ import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import User from "@/components/user";
-import { showAppsLink } from "@/const/flags";
+import { showAppsLink, showUser } from "@/const/flags";
 import { getGroups, ReleaseType } from "@/const/releases";
 import { groupByFirstLetter } from "@/lib/group";
 import { ExternalLinkIcon, LayoutGridIcon } from "lucide-react";
@@ -16,6 +16,8 @@ import { isDev } from "../login/get-url";
 import ProjectTypeIcons from "../projects/project-type-icons";
 import Empty from "./empty";
 import AppCard from "./app-card";
+import PageDockFiller from "@/components/page-dock-filler";
+import Dock, { DockSkeleton } from "@/components/dock/dock";
 
 const page = async () => {
   const { data: releases } = await getProjects();
@@ -42,7 +44,7 @@ const page = async () => {
             )}
           </Suspense>
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-            {isDev && <User />}
+            {(await showUser()) && <User />}
           </Suspense>
         </div>
       </Header>
@@ -82,6 +84,10 @@ const page = async () => {
           <Empty />
         )}
       </div>
+      <PageDockFiller />
+      <Suspense fallback={<DockSkeleton />}>
+        <Dock showUser={await showUser()} />
+      </Suspense>
     </>
   );
 };

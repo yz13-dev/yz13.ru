@@ -10,6 +10,8 @@ import {
   showCallToAction,
   showLogoUnderFooter,
   showPriceDetails,
+  showTimeline,
+  showUser,
 } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -22,7 +24,7 @@ import CallToAction from "./call-to-action";
 import Hero from "./hero";
 import ServicesDetails from "./services-details";
 import TechList from "./tech-list";
-import Background from "./background";
+import Timeline from "./timeline";
 
 const page = async () => {
   return (
@@ -44,7 +46,7 @@ const page = async () => {
             )}
           </Suspense>
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-            {isDev && <User />}
+            {(await showUser()) && <User />}
           </Suspense>
         </div>
       </Header>
@@ -53,6 +55,7 @@ const page = async () => {
         {(await showCallToAction()) && (
           <CallToAction busy={await availableForWork()} />
         )}
+        {(await showTimeline()) && <Timeline />}
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
             <div className="w-full h-full pattern-lines" />
@@ -117,7 +120,7 @@ const page = async () => {
       </div>
       {/* <PageDockFiller /> */}
       <Suspense fallback={<DockSkeleton />}>
-        <Dock />
+        <Dock showUser={await showUser()} />
       </Suspense>
       {(await showLogoUnderFooter()) && (
         <div className="w-full 2xl:h-[450px] lg:h-[300px] md:h-[150px] h-[125px] overflow-hidden flex items-start justify-center">
