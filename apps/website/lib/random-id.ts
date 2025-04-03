@@ -11,3 +11,6 @@ export default function randomId(length = 15) {
 export function randomNumberId(length: number = 15): number {
   return Math.floor(Math.random() * Math.pow(10, length));
 }
+
+export const randomNumberInRange = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min + 1) + min);

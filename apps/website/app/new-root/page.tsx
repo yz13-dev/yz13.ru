@@ -12,29 +12,23 @@ import {
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import Timeline from "../(root)/timeline";
-import Dock, { DockSkeleton } from "@/components/dock/dock";
 import CallToAction from "../(root)/call-to-action";
-import { wait } from "@/helpers/wait";
+import Timeline from "../(root)/timeline";
+import Background from "./background";
 
 export default async function page() {
   return (
     <>
       <div className="w-full">
-        <div className="w-full h-dvh absolute top-0 left-0">
-          <div className="w-full h-full relative">
-            <Image
-              className="object-cover w-full h-full invert dark:invert-0"
-              src="/background/variant-1.gif"
-              fill
-              alt="background"
-            />
-            <div className="w-full h-full absolute top-0 left-0 backdrop-grayscale backdrop-blur-xl" />
-          </div>
-        </div>
+        <Suspense
+          fallback={
+            <Skeleton className="w-full h-dvh absolute top-0 left-0 rounded-none" />
+          }
+        >
+          <Background />
+        </Suspense>
         <Header className="border-none z-10 background-transparent md:px-[2.5%] px-[5%]">
           <Nav side="left">
             <Link href="/">
@@ -79,11 +73,8 @@ export default async function page() {
                 <Availability />
               </Suspense>
             </div>
-            <div className="w-full relative h-20 overflow-visible">
-              <div className="w-full h-40 absolute bottom-0 z-0 left-0 bg-gradient-to-b from-transparent to-background" />
-              <div className="w-full max-w-dvw h-20 px-6 pb-2 background-transition-to-b">
-                <Timeline />
-              </div>
+            <div className="w-full max-w-dvw h-20 px-6 pb-2 background-transition-to-b">
+              <Timeline />
             </div>
           </div>
         </main>

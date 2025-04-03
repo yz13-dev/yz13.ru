@@ -2,24 +2,21 @@ import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import { Skeleton } from "mono/components/skeleton";
-import Image from "next/image";
 import Link from "next/link";
+import Background from "./background";
+import { Suspense } from "react";
 
 export default function Loading() {
   return (
     <>
       <div className="w-full">
-        <div className="w-full h-dvh absolute top-0 left-0">
-          <div className="w-full h-full relative">
-            <Image
-              className="object-cover w-full h-full invert dark:invert-0"
-              src="/background/variant-1.gif"
-              fill
-              alt="background"
-            />
-            <div className="w-full h-full absolute top-0 left-0 backdrop-grayscale backdrop-blur-xl" />
-          </div>
-        </div>
+        <Suspense
+          fallback={
+            <Skeleton className="w-full h-dvh absolute top-0 left-0 rounded-none" />
+          }
+        >
+          <Background />
+        </Suspense>
         <Header className="border-none">
           <Nav side="left">
             <Link href="/">

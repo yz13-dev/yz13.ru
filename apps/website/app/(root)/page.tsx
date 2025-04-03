@@ -83,17 +83,10 @@ const page = async () => {
           <div className="w-full">
             <div className="grid-template yz13-container border-x">
               <div className="w-full h-full pattern-lines" />
-              <div className="h-6 border-x" />
-              <div className="w-full h-full pattern-lines" />
-            </div>
-            <div className="w-full">
-              <div className="grid-template yz13-container border-x">
-                <div className="w-full h-full pattern-lines" />
-                <div className="border-x h-16">
-                  <Timeline />
-                </div>
-                <div className="w-full h-full pattern-lines" />
+              <div className="border-x h-16">
+                <Timeline />
               </div>
+              <div className="w-full h-full pattern-lines" />
             </div>
           </div>
         )}
@@ -170,19 +163,19 @@ const page = async () => {
         <Dock showUser={await showUser()} />
       </Suspense>
       {(await showLogoUnderFooter()) && (
-        <div className="w-full 2xl:h-[450px] lg:h-[300px] md:h-[150px] h-[125px] overflow-hidden flex items-start justify-center">
-          <span
+        <div className="w-full yz13-container overflow-hidden flex items-start justify-center border-x">
+          <div
             style={{
-              fontSize: "46dvw",
+              fontSize: "calc(200dvw /4)",
               lineHeight: "0.7",
             }}
-            className="font-semibold divide-x text-center *:w-1/4 *:overflow-hidden block text-secondary/5 select-none *:transition-colors *:duration-500"
+            className="font-semibold grid w-full grid-cols-4 divide-x text-center *:w-full *:overflow-hidden text-secondary/5 select-none *:transition-colors *:duration-500"
           >
             <span className="hover:text-foreground">Y</span>
             <span className="hover:text-foreground">Z</span>
             <span className="hover:text-foreground">1</span>
             <span className="hover:text-foreground">3</span>
-          </span>
+          </div>
         </div>
       )}
     </>
