@@ -5,10 +5,12 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getChatsData } from "rest-api/chats";
 import { cn } from "yz13/cn";
-import Header from "../(root)/header";
-import NewChatForm from "../(root)/new-chat-form";
 import ChatList, { ChatListSkeleton } from "./chats-list";
 import TaskList from "./task-list";
+import { Logo } from "@/components/logo";
+import NewChatForm from "@/app/(root)/new-chat-form";
+import Header from "@/app/(root)/header";
+import User from "@/components/user";
 
 const page = async () => {
   const user = await auth();
@@ -21,15 +23,21 @@ const page = async () => {
   const tasks = (data?.tasks ?? []).filter((task) => !task.checked);
   return (
     <>
-      <Suspense fallback={<Skeleton className="w-full h-14" />}>
-        <Header />
-      </Suspense>
       <div
         className={cn(
           "w-full min-h-[calc(100dvh-56px)] space-y-6",
-          "*:max-w-5xl *:mx-auto *:w-full *:px-6 py-12 gap-12",
+          "*:max-w-5xl *:mx-auto *:w-full *:px-6 py-6",
         )}
       >
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-1">
+            <Logo size={{ width: 36, height: 36 }} type="only-icon" />
+            <span className="font-pixel text-3xl">Chat</span>
+          </div>
+          <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
+            <User />
+          </Suspense>
+        </div>
         <NewChatForm showLabel />
         <Separator />
         <div className="w-full flex md:flex-row flex-col gap-6">

@@ -2,7 +2,7 @@
 import { createChat } from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
 import { ChatRoom } from "rest-api/types/chats";
-import { ArrowUpIcon, Loader2Icon } from "lucide-react";
+import { ArrowUpIcon, Loader2Icon, PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { useRouter } from "next/navigation";
@@ -58,15 +58,17 @@ const NewChatInput = ({
       <Button
         onClick={handleNewChat}
         variant={disabled ? "secondary" : "default"}
-        className="rounded-full h-9 gap-2 shrink-0"
+        className="rounded-full h-10 gap-2 shrink-0"
         disabled={disabled}
       >
         {loading ? (
           <Loader2Icon size={18} className="animate-spin" />
         ) : (
-          <ArrowUpIcon size={18} />
+          <PlusIcon size={18} />
         )}
-        {!loading && showLabel && <span>{label}</span>}
+        {!loading && showLabel && (
+          <span className="md:inline hidden">{label}</span>
+        )}
       </Button>
     </div>
   );

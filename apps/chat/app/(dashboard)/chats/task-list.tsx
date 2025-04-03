@@ -1,6 +1,6 @@
 "use client";
 import { ChatTask } from "rest-api/types/chats";
-import { Task } from "../(chat)/[chatId]/tasks/task-list";
+import { Task } from "@/app/(chat)/[chatId]/tasks/task-list";
 import { useEffect, useMemo, useState } from "react";
 import { createClient } from "yz13/supabase/client";
 import { updateTask } from "rest-api/tasks";
