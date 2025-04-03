@@ -36,76 +36,63 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
   return (
     <>
       <div className="w-full">
-        <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-          <div className="w-full h-full pattern-lines" />
-          <div className="h-6 border-x" />
-          <div className="w-full h-full pattern-lines" />
-        </div>
-      </div>
-      <div className="w-full">
-        <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-          <div className="w-full h-full pattern-lines" />
-          <div className="w-full px-6 border-x bg-background/60 backdrop-blur-sm">
-            <div className="h-fit flex w-fit items-center flex-row">
-              {busy ? (
-                <Button
-                  variant="secondary"
-                  className={cn(
-                    "gap-2 rounded-l-full pr-2.5",
-                    hideSearch ? "rounded-full" : "rounded-r-none",
-                  )}
-                  disabled={busy}
-                >
-                  <ArrowLeftIcon size={16} />
-                  Связаться
-                </Button>
-              ) : (
-                <Button
-                  variant="secondary"
-                  className={cn(
-                    "gap-2 rounded-l-full pr-2.5",
-                    hideSearch ? "rounded-full" : "rounded-r-none",
-                  )}
-                  disabled={busy}
-                  asChild
-                >
-                  <Link href="/contact-me">
-                    <ArrowLeftIcon size={16} />
-                    Связаться
-                  </Link>
-                </Button>
+        <div className="h-fit flex w-fit items-center flex-row">
+          {busy ? (
+            <Button
+              variant="secondary"
+              className={cn(
+                "gap-2 rounded-l-full pr-2.5",
+                hideSearch ? "rounded-full" : "rounded-r-none",
               )}
-              <Separator
-                orientation="vertical"
-                className={cn("h-9", hideSearch && "hidden")}
-              />
-              {href ? (
-                <Button
-                  variant="secondary"
-                  className={cn(
-                    "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
-                    hideSearch && "hidden",
-                  )}
-                  asChild
-                >
-                  <Link href={href}>
-                    <span>{label}</span>
-                  </Link>
-                </Button>
-              ) : (
-                <Button
-                  variant="secondary"
-                  className={cn(
-                    "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
-                    hideSearch && "hidden",
-                  )}
-                >
-                  <span>{label}</span>
-                </Button>
+              disabled={busy}
+            >
+              <ArrowLeftIcon size={16} />
+              Связаться
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              className={cn(
+                "gap-2 rounded-l-full pr-2.5",
+                hideSearch ? "rounded-full" : "rounded-r-none",
               )}
-            </div>
-          </div>
-          <div className="w-full h-full pattern-lines" />
+              disabled={busy}
+              asChild
+            >
+              <Link href="/contact-me">
+                <ArrowLeftIcon size={16} />
+                Связаться
+              </Link>
+            </Button>
+          )}
+          <Separator
+            orientation="vertical"
+            className={cn("h-9", hideSearch && "hidden")}
+          />
+          {href ? (
+            <Button
+              variant="secondary"
+              className={cn(
+                "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
+                hideSearch && "hidden",
+              )}
+              asChild
+            >
+              <Link href={href}>
+                <span>{label}</span>
+              </Link>
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              className={cn(
+                "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
+                hideSearch && "hidden",
+              )}
+            >
+              <span>{label}</span>
+            </Button>
+          )}
         </div>
       </div>
     </>

@@ -53,6 +53,16 @@
   }
 }
 
+.background-transition-to-b {
+  mask-image: linear-gradient(
+    var(--mask-direction, to bottom),
+    transparent,
+    var(--color-background) 0%,
+    var(--color-background) 80%,
+    transparent
+  );
+}
+
 .marquee {
   display: flex;
   overflow: hidden;
@@ -64,6 +74,10 @@
     var(--color-background) 80%,
     transparent
   );
+}
+
+.yz13-container {
+  @apply max-w-screen-2xl w-full mx-auto;
 }
 
 .grid-template {

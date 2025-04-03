@@ -100,7 +100,7 @@ const Timeline = () => {
     if (isEqual(timeline, newTimeline)) return;
     else setTimeline(newTimeline);
   }, [time.format("YYYY-MM-DD HH:mm")]);
-  useEffect(() => {
+  const handleScroll = () => {
     const div = ref.current;
     if (!div) return;
     const timestamp = makeKey(
@@ -121,56 +121,48 @@ const Timeline = () => {
         behavior: "smooth",
       });
     });
+  };
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("resize", handleScroll);
+    };
   }, [timeline]);
   return (
     <>
-      <div className="w-full">
-        <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-          <div className="w-full h-full pattern-lines" />
-          <div className="h-6 border-x" />
-          <div className="w-full h-full pattern-lines" />
-        </div>
-      </div>
-      <div className="w-full">
-        <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-          <div className="w-full h-full pattern-lines" />
-          <div className="border-x h-16">
-            <div
-              ref={ref}
-              className="w-full h-full marquee overflow-x-auto flex flex-row items-end gap-1 relative"
-            >
-              {lines.map((line) => {
-                const { hour, minute, day, month, year, active } = line;
-                const intervalOfFifty = minute % 15 === 0;
-                const isZero = minute === 0;
-                const timestamp = formatTime(hour, minute);
-                const showTime = isZero || active;
-                const intervalOfFive = minute % 5 === 0;
-                const height = active
-                  ? "50%"
-                  : isZero
-                    ? "50%"
-                    : intervalOfFifty
-                      ? "35%"
-                      : intervalOfFive
-                        ? "25%"
-                        : "15%";
-                const delay = 0;
-                return (
-                  <Line
-                    id={makeKey(day, month, year, hour, minute)}
-                    key={makeKey(day, month, year, hour, minute)}
-                    height={height}
-                    time={timestamp}
-                    showTime={showTime}
-                    active={active}
-                  />
-                );
-              })}
-            </div>
-          </div>
-          <div className="w-full h-full pattern-lines" />
-        </div>
+      <div
+        ref={ref}
+        className="w-full h-full marquee overflow-x-auto flex flex-row items-end gap-1 relative"
+      >
+        {lines.map((line) => {
+          const { hour, minute, day, month, year, active } = line;
+          const intervalOfFifty = minute % 15 === 0;
+          const isZero = minute === 0;
+          const timestamp = formatTime(hour, minute);
+          const showTime = isZero || active;
+          const intervalOfFive = minute % 5 === 0;
+          const height = active
+            ? "50%"
+            : isZero
+              ? "50%"
+              : intervalOfFifty
+                ? "35%"
+                : intervalOfFive
+                  ? "25%"
+                  : "15%";
+          const delay = 0;
+          return (
+            <Line
+              id={makeKey(day, month, year, hour, minute)}
+              key={makeKey(day, month, year, hour, minute)}
+              height={height}
+              time={timestamp}
+              showTime={showTime}
+              active={active}
+            />
+          );
+        })}
       </div>
     </>
   );
@@ -210,7 +202,9 @@ const Line = ({
             transition={{ delay: 0.25 }}
             className={cn(
               "text-sm absolute top-1 text-center",
-              active ? "text-foreground z-10 bg-background" : "text-secondary",
+              active
+                ? "text-foreground z-10 backdrop-blur-sm"
+                : "text-secondary",
             )}
           >
             {time}

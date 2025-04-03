@@ -28,7 +28,7 @@ const Services = ({
 }: ServicesProps) => {
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger className="rounded-full">
+      <NavigationMenuTrigger className="rounded-full bg-background/50">
         Услуги
       </NavigationMenuTrigger>
       <NavigationMenuContent>

@@ -28,11 +28,17 @@ type CanvasOptions = {
 };
 
 type CanvasProps = {
+  className?: string;
   onRender?: (ctx: CanvasRenderingContext2D) => void;
   options?: CanvasOptions;
-};
+} & React.HTMLAttributes<HTMLCanvasElement>;
 
-const Canvas = ({ onRender, options }: CanvasProps) => {
+const Canvas = ({
+  onRender,
+  options,
+  className = "",
+  ...props
+}: CanvasProps) => {
   const { grid = false } = options || {};
   const ref = useRef<HTMLCanvasElement>(null);
   const offset = useMapApi((state) => state.offset);
@@ -101,6 +107,9 @@ const Canvas = ({ onRender, options }: CanvasProps) => {
 
     const dx = clientX - startX;
     const dy = clientY - startY;
+
+    if (dx === 0 && dy === 0) return;
+
     if (event === "move") {
       moveCanvas(dx, dy);
       setDragStart({ x: clientX, y: clientY });
@@ -207,10 +216,12 @@ const Canvas = ({ onRender, options }: CanvasProps) => {
   return (
     <>
       <canvas
+        {...props}
         ref={ref}
         id="canvas"
         width="100"
         height="100"
+        className={className}
         onPointerDown={handleDown}
         onPointerMove={handleMove}
         onPointerUp={handleUp}
