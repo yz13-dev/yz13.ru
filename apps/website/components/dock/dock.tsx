@@ -159,7 +159,7 @@ const Dock = ({ className = "", showUser = false }: DockProps) => {
     <>
       {useOverlay && <Overlay />}
       <AnimatePresence>{menuId && <Menu />}</AnimatePresence>
-      <DockWrapper>
+      <DockWrapper className={className}>
         <DockWidgets>
           <RadioPlayer />
         </DockWidgets>

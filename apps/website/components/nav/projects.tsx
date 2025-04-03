@@ -12,7 +12,10 @@ const Projects = () => {
     <NavigationMenuItem>
       <Link href="/projects" legacyBehavior passHref>
         <NavigationMenuLink
-          className={cn(navigationMenuTriggerStyle(), "rounded-full")}
+          className={cn(
+            navigationMenuTriggerStyle(),
+            "rounded-full bg-background/50",
+          )}
         >
           Проекты
         </NavigationMenuLink>

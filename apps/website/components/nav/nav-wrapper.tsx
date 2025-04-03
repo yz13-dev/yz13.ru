@@ -4,10 +4,17 @@ import {
   NavigationMenu,
   NavigationMenuList,
 } from "mono/components/navigation-menu";
+import { cn } from "yz13/cn";
 
-const NavWrapper = ({ children }: { children: React.ReactNode }) => {
+const NavWrapper = ({
+  children,
+  className = "",
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
   return (
-    <NavigationMenu className="lg:flex hidden">
+    <NavigationMenu className={cn("lg:flex hidden", className)}>
       <NavigationMenuList>{children}</NavigationMenuList>
     </NavigationMenu>
   );

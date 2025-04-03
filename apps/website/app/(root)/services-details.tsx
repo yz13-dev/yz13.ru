@@ -163,48 +163,40 @@ const ServicesDetails = async () => {
   const sign = await get<string>("price-sign");
   const busy = await availableForWork();
   return (
-    <div className="w-full">
-      <div className="max-w-screen-2xl w-full mx-auto border-x flex flex-row divide-x overflow-x-auto">
-        {(services ?? [])
-          .sort((a, b) => a.price - b.price)
-          .map((service, index) => {
-            const price = service.price;
-            return (
-              <Details key={`${service.id}-${index}`}>
-                <DetailsHeader
-                  icon={
-                    <>
-                      {service.type === "pages" && <PanelTopIcon size={18} />}
-                      {service.type === "website" && <GlobeIcon size={18} />}
-                      {service.type === "web-app" && (
-                        <AppWindowIcon size={18} />
-                      )}
-                      {service.type === "mvp" && <SparklesIcon size={18} />}
-                    </>
-                  }
-                  title={service.name ?? "Неизвестно"}
-                  price={`${price.toLocaleString()}${sign}+`}
-                />
-                <DetailsDescription>{service.description}</DetailsDescription>
-                <Separator />
-                <DetailsExtraList
-                  list={service.details as unknown as DetailsExtra[]}
-                />
-                <DetailsFooter>
-                  <Button
-                    disabled={busy}
-                    variant="secondary"
-                    className="w-full"
-                  >
-                    Связаться
-                  </Button>
-                </DetailsFooter>
-              </Details>
-            );
-          })}
-        {false && <ServiceBlank />}
-      </div>
-    </div>
+    <>
+      {(services ?? [])
+        .sort((a, b) => a.price - b.price)
+        .map((service, index) => {
+          const price = service.price;
+          return (
+            <Details key={`${service.id}-${index}`}>
+              <DetailsHeader
+                icon={
+                  <>
+                    {service.type === "pages" && <PanelTopIcon size={18} />}
+                    {service.type === "website" && <GlobeIcon size={18} />}
+                    {service.type === "web-app" && <AppWindowIcon size={18} />}
+                    {service.type === "mvp" && <SparklesIcon size={18} />}
+                  </>
+                }
+                title={service.name ?? "Неизвестно"}
+                price={`${price.toLocaleString()}${sign}+`}
+              />
+              <DetailsDescription>{service.description}</DetailsDescription>
+              <Separator />
+              <DetailsExtraList
+                list={service.details as unknown as DetailsExtra[]}
+              />
+              <DetailsFooter>
+                <Button disabled={busy} variant="secondary" className="w-full">
+                  Связаться
+                </Button>
+              </DetailsFooter>
+            </Details>
+          );
+        })}
+      {false && <ServiceBlank />}
+    </>
   );
 };
 

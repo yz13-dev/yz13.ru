@@ -12,7 +12,10 @@ const Blog = () => {
     <NavigationMenuItem>
       <Link href="/blog" legacyBehavior passHref>
         <NavigationMenuLink
-          className={cn(navigationMenuTriggerStyle(), "rounded-full")}
+          className={cn(
+            navigationMenuTriggerStyle(),
+            "rounded-full bg-background/50",
+          )}
         >
           Блог
         </NavigationMenuLink>

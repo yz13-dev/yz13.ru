@@ -29,7 +29,7 @@ import Timeline from "./timeline";
 const page = async () => {
   return (
     <>
-      <Header className="sticky top-0">
+      <Header className="sticky top-0 yz13-container border-x">
         <Nav side="left">
           <Link href="/">
             <Logo size={{ width: 110, height: 20 }} type="full" />
@@ -53,18 +53,59 @@ const page = async () => {
       <div className="w-full divide-y border-b">
         <Hero />
         {(await showCallToAction()) && (
-          <CallToAction busy={await availableForWork()} />
+          <>
+            <div className="w-full">
+              <div className="grid-template yz13-container border-x">
+                <div className="w-full h-full pattern-lines" />
+                <div className="h-6 border-x" />
+                <div className="w-full h-full pattern-lines" />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="grid-template yz13-container border-x">
+                <div className="w-full h-full pattern-lines" />
+                <div className="w-full h-fit border-x px-6">
+                  <CallToAction busy={await availableForWork()} />
+                </div>
+                <div className="w-full h-full pattern-lines" />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className="grid-template yz13-container border-x">
+                <div className="w-full h-full pattern-lines" />
+                <div className="h-6 border-x" />
+                <div className="w-full h-full pattern-lines" />
+              </div>
+            </div>
+          </>
         )}
-        {(await showTimeline()) && <Timeline />}
+        {(await showTimeline()) && (
+          <div className="w-full">
+            <div className="grid-template yz13-container border-x">
+              <div className="w-full h-full pattern-lines" />
+              <div className="h-6 border-x" />
+              <div className="w-full h-full pattern-lines" />
+            </div>
+            <div className="w-full">
+              <div className="grid-template yz13-container border-x">
+                <div className="w-full h-full pattern-lines" />
+                <div className="border-x h-16">
+                  <Timeline />
+                </div>
+                <div className="w-full h-full pattern-lines" />
+              </div>
+            </div>
+          </div>
+        )}
         <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+          <div className="grid-template yz13-container border-x">
             <div className="w-full h-full pattern-lines" />
             <div className="h-6 border-x" />
             <div className="w-full h-full pattern-lines" />
           </div>
         </div>
         <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+          <div className="grid-template yz13-container border-x">
             <div className="w-full h-full pattern-lines" />
             <div className="h-fit border-x px-6 py-3 bg-background/60 backdrop-blur-sm">
               <Suspense
@@ -77,7 +118,7 @@ const page = async () => {
           </div>
         </div>
         <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
+          <div className="grid-template yz13-container border-x">
             <div className="w-full h-full pattern-lines" />
             <div className="h-6 border-x" />
             <div className="w-full h-full pattern-lines" />
@@ -85,7 +126,7 @@ const page = async () => {
         </div>
         {false && (
           <div className="w-full">
-            <div className="max-w-screen-2xl w-full mx-auto border-x">
+            <div className="yz13-container border-x">
               <div className="h-fit divide-y">
                 <div className="flex flex-col gap-2 bg-neutral-100 p-6">
                   <span className="text-foreground/80 text-2xl block font-medium">
@@ -103,15 +144,21 @@ const page = async () => {
         <Suspense
           fallback={<Skeleton className="h-[475px] w-full rounded-none" />}
         >
-          {(await showPriceDetails()) && <ServicesDetails />}
+          {(await showPriceDetails()) && (
+            <div className="w-full">
+              <div className="yz13-container border-x flex flex-row divide-x overflow-x-auto">
+                <ServicesDetails />
+              </div>
+            </div>
+          )}
         </Suspense>
         <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
+          <div className="yz13-container border-x">
             <div className="h-20" />
           </div>
         </div>
         <div className="w-full relative">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
+          <div className="yz13-container border-x">
             <div className="h-fit p-6 space-y-6">
               <Footer />
             </div>
