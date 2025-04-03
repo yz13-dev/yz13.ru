@@ -10,13 +10,6 @@ export default function Loading() {
   return (
     <>
       <div className="w-full">
-        <Suspense
-          fallback={
-            <Skeleton className="w-full h-dvh absolute top-0 left-0 rounded-none" />
-          }
-        >
-          <Background />
-        </Suspense>
         <Header className="border-none">
           <Nav side="left">
             <Link href="/">

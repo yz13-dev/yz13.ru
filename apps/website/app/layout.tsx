@@ -13,6 +13,7 @@ import { cn } from "yz13/cn";
 
 import "dayjs/locale/ru";
 import { isDev } from "./login/get-url";
+import LiveTimeProvider from "@/components/live/live-provider";
 
 const SessionObserver = dynamic(
   () => import("../components/visitor-session/session-observer"),
@@ -175,10 +176,12 @@ export default function RootLayout({
         <Toaster />
         <TooltipProvider>
           <ThemeObserver />
-          <SessionObserver />
+          {false && <SessionObserver />}
           <UserProvider>
-            {children}
-            {modal}
+            <LiveTimeProvider>
+              {children}
+              {modal}
+            </LiveTimeProvider>
           </UserProvider>
         </TooltipProvider>
       </body>
