@@ -8,32 +8,10 @@ import { Input } from "mono/components/input";
 import { useMemo, useState } from "react";
 import { getMessage, setChat } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
+import { Tag } from "./tags";
 
 type TagInputProps = {
   messageId?: string;
-};
-
-const Tag = ({ tag, messageId }: { tag: ChatTag; messageId?: string }) => {
-  const handleAddTag = async () => {
-    if (!messageId) return;
-    const message = await getMessage(messageId);
-    if (message) {
-      const isTagExists = message.tags.includes(tag.id);
-      if (isTagExists) return;
-      const messageTags = [...message.tags, tag.id];
-      await updateChatMessage(messageId, {
-        tags: messageTags,
-      });
-    }
-  };
-  return (
-    <span
-      onClick={handleAddTag}
-      className="px-2 py-0.5 text-xs text-secondary cursor-pointer rounded-full border"
-    >
-      {tag.tag}
-    </span>
-  );
 };
 
 const TagInput = ({ messageId }: TagInputProps) => {
@@ -111,11 +89,6 @@ const TagInput = ({ messageId }: TagInputProps) => {
       {alreadyExists && (
         <span className="text-xs text-secondary">Такой тэг уже существует</span>
       )}
-      <div className="w-full flex flex-wrap gap-1 items-start">
-        {chatTags.map((tag) => {
-          return <Tag key={tag.id} tag={tag} messageId={messageId} />;
-        })}
-      </div>
     </div>
   );
 };
