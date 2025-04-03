@@ -53,11 +53,13 @@ const page = async () => {
       <div className="w-full divide-y border-b">
         <Hero />
         {(await showCallToAction()) && (
-          <div className="w-full">
-            <div className="grid-template yz13-container border-x">
-              <div className="w-full h-full pattern-lines" />
-              <div className="h-6 border-x" />
-              <div className="w-full h-full pattern-lines" />
+          <>
+            <div className="w-full">
+              <div className="grid-template yz13-container border-x">
+                <div className="w-full h-full pattern-lines" />
+                <div className="h-6 border-x" />
+                <div className="w-full h-full pattern-lines" />
+              </div>
             </div>
             <div className="w-full">
               <div className="grid-template yz13-container border-x">
@@ -68,7 +70,14 @@ const page = async () => {
                 <div className="w-full h-full pattern-lines" />
               </div>
             </div>
-          </div>
+            <div className="w-full">
+              <div className="grid-template yz13-container border-x">
+                <div className="w-full h-full pattern-lines" />
+                <div className="h-6 border-x" />
+                <div className="w-full h-full pattern-lines" />
+              </div>
+            </div>
+          </>
         )}
         {(await showTimeline()) && (
           <div className="w-full">
