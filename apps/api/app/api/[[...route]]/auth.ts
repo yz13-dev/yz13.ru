@@ -29,3 +29,67 @@ auth.get("/current", async (c) => {
     return c.json(null);
   }
 });
+
+auth.post("/login", async (c) => {
+  try {
+    const { email, password } = await c.req.json();
+    const supabase = createClient(cookies());
+    const auth = supabase.auth;
+    const {
+      data: { user },
+      error,
+    } = await auth.signInWithPassword({ email, password });
+    if (error) {
+      console.log(error);
+      return c.json({ error: error.message });
+    } else {
+      if (user) {
+        return c.json({ user: makeUserObj(user) });
+      } else return c.json({ error: "Invalid Credentials" });
+    }
+  } catch (error) {
+    console.log(error);
+    return c.json({ error });
+  }
+});
+
+auth.post("/signup", async (c) => {
+  try {
+    const { email, password } = await c.req.json();
+    const supabase = createClient(cookies());
+    const auth = supabase.auth;
+    const {
+      data: { user },
+      error,
+    } = await auth.signUp({ email, password });
+    if (error) {
+      console.log(error);
+      return c.json({ error });
+    } else {
+      if (user) {
+        return c.json({ user: makeUserObj(user) });
+      } else return c.json({ error: "Invalid Credentials" });
+    }
+  } catch (error) {
+    console.log(error);
+    return c.json({ error });
+  }
+});
+
+auth.post("/logout", async (c) => {
+  try {
+    const supabase = createClient(cookies());
+    const auth = supabase.auth;
+    const { error } = await auth.signOut();
+    if (error) {
+      console.log(error);
+      return c.json({ error });
+    } else {
+      if (!error) return c.json({ status: true });
+      else return c.json({ error, status: false });
+    }
+  } catch (error) {
+    console.log(error);
+    return c.json({ error });
+  }
+});

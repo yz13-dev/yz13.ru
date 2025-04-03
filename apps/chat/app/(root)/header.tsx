@@ -2,10 +2,19 @@ import { Logo } from "@/components/logo";
 import User from "@/components/user";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
+import { cn } from "yz13/cn";
 
-const Header = () => {
+type HeaderProps = {
+  className?: string;
+};
+const Header = ({ className = "" }: HeaderProps) => {
   return (
-    <header className="w-full h-14 flex items-center justify-between px-4">
+    <header
+      className={cn(
+        "w-full h-14 flex items-center justify-between px-4",
+        className,
+      )}
+    >
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-1">
           <Logo size={{ width: 36, height: 36 }} type="only-icon" />

@@ -1,5 +1,3 @@
-import { getChats } from "rest-api/chats";
-import { auth } from "@/lib/auth";
 import {
   ArrowRightIcon,
   HashIcon,

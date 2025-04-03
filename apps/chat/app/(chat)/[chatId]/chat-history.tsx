@@ -211,9 +211,7 @@ const ChatHistory = ({
                 })
                 .filter((attachment) => !!attachment);
               const isDelivered = !!message.delivered_at;
-              const messageDate = isDelivered
-                ? dayjs(message.delivered_at).format("HH:mm")
-                : dayjs(message.created_at).format("HH:mm");
+              const messageDate = dayjs(message.created_at).format("HH:mm");
               const selected = !!selectedMessages.find(
                 (msg) => msg.id === message.id,
               );

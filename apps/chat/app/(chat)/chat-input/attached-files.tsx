@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import useChatInput, { detachFile } from "./input-store";
 import { ImagePreview, VideoPreview } from "./attachments-preview-row";
 import { useEffect, useMemo, useState } from "react";
+import { Button } from "mono/components/button";
 
 const AttachedFiles = () => {
   const files = useChatInput((state) => state.files);
@@ -15,7 +16,7 @@ const AttachedFiles = () => {
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.2 }}
-      className="w-full flex items-start gap-1 flex-wrap"
+      className="w-full flex flex-col gap-1 *:w-full"
     >
       {files.map((file, i) => {
         return <AttachedFile key={`${file.name}-${i}`} file={file} index={i} />;
@@ -50,28 +51,35 @@ const AttachedFile = ({ file, index = 0 }: { file: File; index?: number }) => {
     };
   }, [file]);
   return (
-    <div className="pl-0.5 pr-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-3xl border bg-background-secondary">
-      {url && isImage && (
-        <ImagePreview
-          url={url}
-          alt={file.name}
-          className="h-10 w-fit border rounded-2xl overflow-hidden"
-        />
-      )}
-      {url && isVideo && (
-        <VideoPreview
-          url={url}
-          className="h-10 w-fit border rounded-2xl overflow-hidden"
-        />
-      )}
-      {!isImage && !isVideo && <div className="size-10 rounded-2xl border" />}
-      <div className="flex flex-col px-1">
-        {fileName}
-        <span className="text-xs text-secondary">{fileSize(file.size)}</span>
+    <div className="px-0.5 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-2xl border bg-background-secondary justify-between">
+      <div className="flex items-center gap-1">
+        {url && isImage && (
+          <ImagePreview
+            url={url}
+            alt={file.name}
+            className="h-10 w-fit border rounded-xl overflow-hidden"
+          />
+        )}
+        {url && isVideo && (
+          <VideoPreview
+            url={url}
+            className="h-10 w-fit border rounded-xl overflow-hidden"
+          />
+        )}
+        {!isImage && !isVideo && <div className="size-10 rounded-xl border" />}
+        <div className="flex flex-col px-1">
+          {fileName}
+          <span className="text-xs text-secondary">{fileSize(file.size)}</span>
+        </div>
       </div>
-      <button onClick={() => handleDetachFile(index)}>
+      <Button
+        size="icon"
+        variant="ghost"
+        className="rounded-xl"
+        onClick={() => handleDetachFile(index)}
+      >
         <XIcon size={14} />
-      </button>
+      </Button>
     </div>
   );
 };

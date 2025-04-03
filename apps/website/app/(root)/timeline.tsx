@@ -145,13 +145,16 @@ const Timeline = () => {
                 const isZero = minute === 0;
                 const timestamp = formatTime(hour, minute);
                 const showTime = isZero || active;
+                const intervalOfFive = minute % 5 === 0;
                 const height = active
                   ? "50%"
                   : isZero
                     ? "50%"
                     : intervalOfFifty
-                      ? "33%"
-                      : "15%";
+                      ? "35%"
+                      : intervalOfFive
+                        ? "25%"
+                        : "15%";
                 const delay = 0;
                 return (
                   <Line
