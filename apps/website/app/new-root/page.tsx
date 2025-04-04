@@ -12,7 +12,6 @@ import ServicesDetails from "../(root)/services-details";
 import Timeline from "../(root)/timeline";
 import Background from "./background";
 import RootHeader, { RootHeaderSkeleton } from "./header";
-import { wait } from "@/helpers/wait";
 
 export default async function page() {
   return (
@@ -58,16 +57,14 @@ export default async function page() {
             </div>
           </div>
         </main>
-        <div className="w-full">
-          <div className="max-w-dvw md:px-[2.5%] px-[5%] md:py-[5%] py-[10%] overflow-x-auto w-full flex">
-            <Suspense
-              fallback={<Skeleton className="h-[475px] w-full rounded-none" />}
-            >
-              {(await showPriceDetails()) && <ServicesDetails />}
-            </Suspense>
-          </div>
+        <div className="yz-future-container yz-future-container-max mx-auto md:py-[5%] py-[10%] overflow-x-auto !w-fit *:p-0 gap-6 *:hover:bg-transparent flex flex-row">
+          <Suspense
+            fallback={<Skeleton className="h-[475px] w-full rounded-none" />}
+          >
+            {(await showPriceDetails()) && <ServicesDetails />}
+          </Suspense>
         </div>
-        <Footer className="w-full max-w-dvw md:p-[2.5%] p-[5%]" />
+        <Footer className="yz-future-container yz-future-container-max mx-auto md:py-[2.5%] py-[5%]" />
       </div>
     </>
   );

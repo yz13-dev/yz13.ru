@@ -1,12 +1,11 @@
 "use client";
 
 import useTimeStore, { getTime } from "@/components/live/time.store";
-import { Separator } from "mono/components/separator";
-import { useEffect, useMemo, useRef, useState, useTransition } from "react";
-import { cn } from "yz13/cn";
-import { AnimatePresence, motion, useInView } from "motion/react";
 import { Dayjs } from "dayjs";
 import { isEqual } from "lodash";
+import { AnimatePresence, motion, useInView } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { cn } from "yz13/cn";
 
 const GAP = 2;
 const PX_PER_SECOND = 1;
@@ -191,9 +190,11 @@ const Line = ({
     <div
       ref={ref}
       id={id}
+      data-active={active}
+      data-visible={inView}
       className={cn(
         "w-px h-full relative flex flex-col justify-end items-center",
-        inView ? "opacity-100" : "opacity-0",
+        "data-[visible=true]:opacity-100 opacity-0",
       )}
     >
       <AnimatePresence>
@@ -203,11 +204,11 @@ const Line = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ delay: 0.25 }}
+            data-active={active}
             className={cn(
-              "text-sm absolute top-1 text-center",
-              active
-                ? "text-foreground z-10 backdrop-blur-sm"
-                : "text-secondary",
+              "text-sm absolute top-1 text-center px-2",
+              "text-secondary data-[active=true]:text-foreground",
+              "data-[active=true]/line:z-10 data-[active=true]/line:backdrop-blur-sm",
             )}
           >
             {time}
@@ -216,7 +217,11 @@ const Line = ({
       </AnimatePresence>
       <div
         style={{ height }}
-        className={cn("w-px ", active ? "bg-foreground" : "bg-neutral-300")}
+        data-active={active}
+        className={cn(
+          "w-px",
+          "data-[active=true]:bg-foreground bg-neutral-300",
+        )}
       />
     </div>
   );

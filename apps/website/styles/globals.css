@@ -80,6 +80,13 @@
   @apply max-w-screen-2xl w-full mx-auto;
 }
 
+.yz-future-container {
+  @apply w-full max-w-dvw md:px-[2.5%] px-[5%];
+}
+.yz-future-container-max {
+  @apply max-w-[90dvw];
+}
+
 .grid-template {
   grid-template-columns: 48px minmax(0, 1fr) 48px;
   display: grid;
