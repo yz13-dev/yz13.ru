@@ -26,7 +26,7 @@ const ProjectsList = ({
     setProjects(defaultProjects);
   }, []);
   return (
-    <div className="w-full flex gap-4 p-6 min-h-[calc(100dvh-3.5rem)] overflow-auto">
+    <div className="w-full flex gap-4 md:p-[2.5%] p-[5%] min-h-[calc(100dvh-3.5rem)] overflow-auto">
       {keys.map((group, index) => {
         const groupData = groups[group as ReleaseStage];
         const groupName = getStage[group as ReleaseStage];

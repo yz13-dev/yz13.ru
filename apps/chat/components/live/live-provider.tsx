@@ -1,12 +1,16 @@
-"use client"
+"use client";
 import { useInterval } from "ahooks";
-import { getNewTime, setTime } from "./time.store";
+import useTimeStore, { getNewTime, setTime } from "./time.store";
 
 const LiveTimeProvider = ({ children }: { children?: React.ReactNode }) => {
+  const { time, setTime } = useTimeStore();
+  const getTime = () => {
+    return getNewTime();
+  };
   useInterval(() => {
-    setTime(getNewTime())
-  }, 1000)
-  return <>{children}</>
-}
+    setTime(getTime());
+  }, 1000);
+  return <>{children}</>;
+};
 
-export default LiveTimeProvider
+export default LiveTimeProvider;
