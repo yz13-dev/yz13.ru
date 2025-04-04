@@ -1,5 +1,6 @@
 "use client";
-import { updateChat, updateChatMessage } from "rest-api/chats";
+import { updateChat } from "rest-api/chats";
+import { updateChatMessage } from "rest-api/messages";
 import { cdn } from "@/lib/cdn";
 import { ChatMessage, ChatTag } from "rest-api/types/chats";
 import { ChatAttachment } from "rest-api/types/attachments";
