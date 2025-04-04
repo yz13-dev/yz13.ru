@@ -40,9 +40,16 @@ const page = async () => {
           data={articles}
           defaultOffset={articles.length}
           locale={language}
+          className="p-4 rounded-lg bg-background border"
         >
           {restOfArticles.map((news) => {
-            return <NewsCard key={news.id} news={news} />;
+            return (
+              <NewsCard
+                key={news.id}
+                news={news}
+                className="p-4 rounded-lg bg-background border"
+              />
+            );
           })}
         </AutoGrid>
       </div>

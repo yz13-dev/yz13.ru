@@ -14,27 +14,39 @@ import { cn } from "yz13/cn";
 type NewsCardProps = {
   news: Article;
   showThumbnail?: boolean;
+  className?: string;
 };
-const NewsCard = ({ news, showThumbnail = false }: NewsCardProps) => {
-  const imageUrl = (news.img as { url: string })?.url;
+
+const NewsThumbnail = ({ img }: { img: { url: string } | null }) => {
+  const imgUrl = img?.url;
+  if (!imgUrl)
+    return (
+      <div className="!static max-h-[200px] rounded-2xl w-full h-full object-cover flex items-center justify-center border bg-background-secondary">
+        <div className="size-12 flex items-center justify-center rounded-lg border bg-background">
+          <ImageIcon size={24} />
+        </div>
+      </div>
+    );
+  else
+    return (
+      <Image
+        fill
+        src={imgUrl}
+        alt="Обложка новости"
+        className="!static block max-h-[200px] rounded-2xl w-full h-full object-cover"
+      />
+    );
+};
+
+const NewsCard = ({
+  className = "",
+  news,
+  showThumbnail = false,
+}: NewsCardProps) => {
+  const img = news.img as { url: string } | null;
   return (
-    <div key={news.id} className="w-full flex flex-col gap-3">
-      {showThumbnail ? (
-        news.img ? (
-          <Image
-            fill
-            src={imageUrl}
-            alt="Обложка новости"
-            className="!static block max-h-[200] rounded-2xl w-full h-full object-cover"
-          />
-        ) : (
-          <div className="!static max-h-[200] rounded-2xl w-full h-full object-cover flex items-center justify-center border bg-background-secondary">
-            <div className="size-12 flex items-center justify-center rounded-lg border bg-background">
-              <ImageIcon size={24} />
-            </div>
-          </div>
-        )
-      ) : null}
+    <div key={news.id} className={cn("w-full flex flex-col gap-3", className)}>
+      {showThumbnail && <NewsThumbnail img={img} />}
       {false && (
         <Link
           href={news.url}

@@ -12,13 +12,14 @@ type AutoGridProps = {
   data?: Article[];
   defaultOffset?: number;
   offsetStep?: number;
+  className?: string;
   children?: React.ReactNode;
 };
 const AutoGrid = ({
   locale = "RU",
   offsetStep = 30,
   children,
-  data = [],
+  className = "",
   defaultOffset = 0,
 }: AutoGridProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -52,7 +53,7 @@ const AutoGrid = ({
     <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
       {children}
       {articles.map((news) => {
-        return <NewsCard key={news.id} news={news} />;
+        return <NewsCard key={news.id} news={news} className={className} />;
       })}
       {loading && (
         <div className="w-full col-span-full flex items-center gap-2 justify-center">
