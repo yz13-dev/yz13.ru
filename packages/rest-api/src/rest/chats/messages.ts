@@ -1,63 +1,20 @@
 "use server";
 import { customFetch } from "@/const/fetch";
 import { Filter, makeFilterString } from "@/lib/filters";
-import { ChatTask, NewChatTask, UpdatedTask } from "@/types/chats";
+import { ChatMessage, NewChatMessage } from "@/types/chats";
 import { cookies } from "next/headers";
+import { TablesUpdate } from "yz13/supabase/database";
 import { createClient } from "yz13/supabase/server";
 
-export const getTasks = async (chatId: string, filters?: Filter[]) => {
-  const filterArray = filters ?? [];
-  const query =
-    filterArray.length !== 0
-      ? "?" + decodeURIComponent(makeFilterString(filterArray))
-      : "";
-  return await customFetch<ChatTask[]>(`/chats/${chatId}/tasks${query}`, {
-    method: "GET",
-  });
-};
-
-export const getTasksByChatId = async (chatId: string) => {
+export const createMessageInChat = async (
+  body: NewChatMessage,
+): Promise<ChatMessage | null> => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
-      .from("chats-tasks")
-      .select("*")
-      .eq("chat_id", chatId);
-    if (error) {
-      console.log(error);
-      return [];
-    } else return data;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-export const createTask = async (chatId: string, task: NewChatTask) => {
-  try {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase.from("chats-tasks").insert({
-      ...task,
-      chat_id: chatId,
-    });
-    if (error) {
-      console.log(error);
-      return null;
-    } else return data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-export const updateTask = async (taskId: string, task: UpdatedTask) => {
-  try {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("chats-tasks")
-      .update(task)
-      .eq("id", taskId)
+      .from("chats-messages")
+      .insert(body)
       .select("*")
       .maybeSingle();
     if (error) {
@@ -70,14 +27,68 @@ export const updateTask = async (taskId: string, task: UpdatedTask) => {
   }
 };
 
-export const deleteTask = async (taskId: string) => {
+export const getChatMessages = async (id: string, filters?: Filter[]) => {
+  const filterArray = filters ?? [];
+  const query =
+    filterArray.length !== 0
+      ? "?" + decodeURIComponent(makeFilterString(filterArray))
+      : "";
+  return await customFetch<ChatMessage[]>(`/chats/${id}/messages${query}`, {
+    method: "GET",
+  });
+};
+
+export const getChatMessage = async (id: string, messageId: string) => {
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
-      .from("chats-tasks")
+      .from("chats-messages")
+      .select("*")
+      .eq("chat_id", id)
+      .eq("id", messageId)
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteMessageFromChat = async (id: string) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-messages")
       .delete()
-      .eq("id", taskId)
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const updateChatMessage = async (
+  id: string,
+  body: TablesUpdate<"chats-messages">,
+) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-messages")
+      .update(body)
+      .eq("id", id)
       .select("*")
       .maybeSingle();
     if (error) {

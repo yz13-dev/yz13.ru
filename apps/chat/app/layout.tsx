@@ -1,4 +1,5 @@
 import LiveTimeProvider from "@/components/live/live-provider";
+import { isDev } from "@/const/api";
 import "@/styles/globals.css";
 import { Toaster } from "mono/components/sonner";
 import { TooltipProvider } from "mono/components/tooltip";
@@ -59,6 +60,14 @@ export default function RootLayout({
       lang="en"
       className={`${SANS.variable} ${PIXEL.variable} antialiased`}
     >
+      {isDev && (
+        <head>
+          <script
+            crossOrigin="anonymous"
+            src="//unpkg.com/react-scan/dist/auto.global.js"
+          />
+        </head>
+      )}
       <body id="root">
         <Toaster position="top-right" />
         <TooltipProvider>

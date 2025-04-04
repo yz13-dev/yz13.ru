@@ -1,5 +1,6 @@
 "use client";
-import { updateChat, updateChatMessage } from "rest-api/chats";
+import { updateChat } from "rest-api/chats";
+import { updateChatMessage } from "rest-api/messages";
 import { randomNumberId } from "@/lib/random-id";
 import { ChatTag } from "rest-api/types/chats";
 import { Loader2Icon, PlusIcon } from "lucide-react";

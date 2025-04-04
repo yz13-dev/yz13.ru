@@ -234,7 +234,7 @@ const ChatBubble = ({
       className={cn(
         "w-full gap-1 group/bubble h-fit",
         "md:pl-6 md:pr-6 pl-4 pr-2 py-3",
-        selected && "bg-neutral-200 first:rounded-b-lg last:rounded-t-lg",
+        "aria-selected:bg-neutral-200 aria-selected:first:rounded-b-lg aria-selected:last:rounded-t-lg",
         showAsShortMessage
           ? side === "left"
             ? "flex flex-row justify-start items-center"

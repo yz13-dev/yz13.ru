@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useChatApi } from "../chat-api/chat-provider";
 import { ChatTag } from "rest-api/types/chats";
-import { updateChatMessage } from "rest-api/chats";
+import { updateChatMessage } from "rest-api/messages";
 import { getMessage } from "../chat-api/chat-api";
 
 export const Tag = ({

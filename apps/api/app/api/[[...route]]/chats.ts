@@ -45,9 +45,33 @@ const getChatMessages = async (id: string, offset: number = 0) => {
     return [];
   }
 };
+const getChatMessagesByTag = async (id: string, tagId: string) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const tagIdAsNumber = parseInt(tagId);
+    const { data, error } = await supabase
+      .from("chats-messages")
+      .select("*")
+      .eq("chat_id", id)
+      .contains("tags", [tagIdAsNumber])
+      .order("created_at", { ascending: false });
+    if (error) {
+      console.log(error);
+      return [];
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 chats.get("/:id/messages", async (c) => {
+  const filter = c.req.query("filter");
+  const tag = c.req.query("tag");
+  const byTag = filter === "tag";
   const id = c.req.param("id");
-  return c.json(await getChatMessages(id));
+  if (tag && byTag) return c.json(await getChatMessagesByTag(id, tag));
+  else return c.json(await getChatMessages(id));
 });
 
 const getChatTasks = async (id: string) => {
@@ -67,9 +91,32 @@ const getChatTasks = async (id: string) => {
     return [];
   }
 };
+const getChatTasksByListId = async (id: string, listId: string) => {
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const listIdAsNumber = parseInt(listId);
+    const { data, error } = await supabase
+      .from("chats-tasks")
+      .select("*")
+      .eq("chat_id", id)
+      .eq("task_list", listIdAsNumber);
+    if (error) {
+      console.log(error);
+      return [];
+    } else return data;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
 chats.get("/:id/tasks", async (c) => {
+  const filter = c.req.query("filter");
+  const list = c.req.query("list");
+  const byList = filter === "list";
   const id = c.req.param("id");
-  return c.json(await getChatTasks(id));
+  if (list && byList) return c.json(await getChatTasksByListId(id, list));
+  else return c.json(await getChatTasks(id));
 });
 
 chats.get("/:id/messages/:message_id", async (c) => {

@@ -1,5 +1,6 @@
 import { removeAttachments } from "rest-api/attachments";
-import { deleteMessageFromChat, updateChat } from "rest-api/chats";
+import { updateChat } from "rest-api/chats";
+import { deleteMessageFromChat } from "rest-api/messages";
 import {
   CheckCheckIcon,
   CheckCircleIcon,
@@ -104,7 +105,12 @@ const MessageCtxMenu = ({
   }, [messageId]);
   return (
     <ContextMenu onOpenChange={onOpenChange}>
-      <ContextMenuTrigger className={className} asChild>
+      <ContextMenuTrigger
+        className={className}
+        asChild
+        aria-selected={selected}
+        data-selected={selected}
+      >
         {children}
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64 *:gap-2">

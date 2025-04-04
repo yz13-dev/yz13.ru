@@ -1,4 +1,4 @@
-import { getChatMessages } from "rest-api/chats";
+import { getChatMessages } from "rest-api/messages";
 import { getAuthorizedUser } from "rest-api/auth";
 import {
   ListTodoIcon,
