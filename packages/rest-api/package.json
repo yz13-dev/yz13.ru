@@ -73,6 +73,11 @@
       "import": "./dist/rest/chats/chats.mjs",
       "require": "./dist/rest/chats/chats.js"
     },
+    "./messages": {
+      "types": "./dist/rest/chats/messages.d.ts",
+      "import": "./dist/rest/chats/messages.mjs",
+      "require": "./dist/rest/chats/messages.js"
+    },
     "./attachments": {
       "types": "./dist/rest/chats/attachments.d.ts",
       "import": "./dist/rest/chats/attachments.mjs",

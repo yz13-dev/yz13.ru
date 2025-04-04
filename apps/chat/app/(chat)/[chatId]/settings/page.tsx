@@ -1,23 +1,22 @@
 import { Separator } from "mono/components/separator";
-import { cn } from "yz13/cn";
-import ChatToolbar from "../../chat-toolbar/chat-toolbar";
-import PageWrapper from "../page-wrapper";
+import { getChat } from "rest-api/chats";
+import ChatSidebarTrigger from "../../sidebar-trigger";
+import Topbar, { ChatName } from "../../top-bar/bar";
+import EditChatName from "../edit-chat-name";
+import GroupChatParticipants from "../group-chat-participants";
+import PinnedMessage from "../pinned-message";
 import DeleteChatButton from "./delete-chat-button";
 import Tags from "./tags";
 import TaskLists from "./task-lists";
-import Topbar, { ChatName } from "../../top-bar/bar";
-import ChatSidebarTrigger from "../../sidebar-trigger";
-import PinnedMessage from "../pinned-message";
-import SplitScreen from "../../top-bar/split-screen";
-import GroupChatParticipants from "../group-chat-participants";
 
 type PageProps = {
   params: {
     chatId: string;
   };
 };
-const page = ({ params }: PageProps) => {
+const page = async ({ params }: PageProps) => {
   const chatId = params.chatId;
+  const { data } = await getChat(chatId);
   return (
     <>
       <Topbar>
@@ -39,12 +38,18 @@ const page = ({ params }: PageProps) => {
         <div className="space-y-6">
           <span className="text-2xl block font-semibold">Настройки</span>
           <div className="w-full flex flex-col gap-2">
+            <span className="text-base font-medium block">Название чата</span>
+            <div className="w-full mt-3">
+              <EditChatName id={chatId} name={data?.name ?? undefined} />
+            </div>
+          </div>
+          <div className="w-full flex flex-col gap-2">
             <span className="text-base font-medium block">Тэги</span>
             <span className="text-sm text-secondary block">
               При удалении тэга, у сообщений будет удален тэг
             </span>
             <div className="w-full mt-3">
-              <Tags />
+              <Tags tagClassName="bg-background/60" />
             </div>
           </div>
           <div className="w-full flex flex-col gap-2">

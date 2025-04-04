@@ -1,10 +1,6 @@
 "use client";
 import { uploadAttachments } from "rest-api/attachments";
-import {
-  createMessageInChat,
-  updateChat,
-  updateChatMessage,
-} from "rest-api/chats";
+import { updateChat } from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
 import { makeOfflineMessage } from "@/lib/offline-messages";
 import { ChatMessage } from "rest-api/types/chats";
@@ -31,6 +27,7 @@ import useChatInput, {
   setTags,
   setValue,
 } from "./input-store";
+import { createMessageInChat, updateChatMessage } from "rest-api/messages";
 
 type InputSendButtonProps = {
   chatId?: string;

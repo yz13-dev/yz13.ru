@@ -3,7 +3,7 @@ import Topbar from "../top-bar/bar";
 import PinnedMessage from "./pinned-message";
 import GroupChatParticipants from "./group-chat-participants";
 import { Suspense } from "react";
-import { getChatMessages } from "rest-api/chats";
+import { getChatMessages } from "rest-api/messages";
 import { getAuthorizedUser } from "rest-api/auth";
 import { redirect } from "next/navigation";
 import ChatHistory from "./chat-history";

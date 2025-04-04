@@ -1,35 +1,18 @@
-import Footer from "@/components/small-footer";
 import { Skeleton } from "mono/components/skeleton";
 import { RootHeaderSkeleton } from "../new-root/header";
+import { DockSkeleton } from "@/components/dock/dock";
 
 const loading = () => {
   return (
     <>
       <RootHeaderSkeleton />
-      <div className="w-full divide-y border-b">
-        <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-            <div className="w-full h-full pattern-lines" />
-            <div className="h-fit border-x flex items-center p-6">
-              <Skeleton className="h-5 w-full rounded-md" />
-            </div>
-            <div className="w-full h-full pattern-lines" />
-          </div>
-        </div>
-        <Skeleton className="h-[386px] w-full rounded-none" />
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-20" />
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-fit p-6 space-y-6">
-              <Footer />
-            </div>
-          </div>
-        </div>
+      <div className="max-w-dvw md:p-[2.5%] p-[5%] overflow-x-auto w-full flex">
+        <Skeleton className="h-4 w-full rounded-md" />
       </div>
+      <div className="max-w-dvw md:px-[2.5%] px-[5%] overflow-x-auto w-full flex">
+        <Skeleton className="h-[475px] w-full rounded-none" />
+      </div>
+      <DockSkeleton />
     </>
   );
 };

@@ -23,7 +23,9 @@ export const BubbleTag = ({
   tag,
   messageId,
   onClick,
+  className = "",
 }: {
+  className?: string;
   tag: ChatTag;
   onClick?: (messageId: string | null, tagId: number) => void;
   messageId?: string;
@@ -33,6 +35,7 @@ export const BubbleTag = ({
       className={cn(
         "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-full border",
         "bg-background-secondary",
+        className,
       )}
     >
       <HashIcon

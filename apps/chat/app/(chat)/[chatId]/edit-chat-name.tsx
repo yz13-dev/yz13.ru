@@ -1,12 +1,13 @@
 "use client";
 import { updateChat } from "rest-api/chats";
-import { PencilLineIcon, SaveIcon, XIcon } from "lucide-react";
+import { Loader2Icon, PencilLineIcon, SaveIcon, XIcon } from "lucide-react";
 import { Input } from "mono/components/input";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 import { updateChatInList } from "../chat-api/chat-api";
 import { useTopbar } from "../top-bar/bar";
+import { Button } from "mono/components/button";
 
 type Props = {
   id: string;
@@ -14,13 +15,11 @@ type Props = {
 };
 
 const EditChatName = ({ id, name = "Без названия" }: Props) => {
-  const [editMode, setEditMode] = useState<boolean>(false);
   const [roomName, setRoomName] = useState<string>(name);
+  const sameName = useMemo(() => roomName === name, [roomName, name]);
   const [loading, setLoading] = useState<boolean>(false);
-  const overscrolled = useTopbar((state) => state.overscrolled);
   const handleSave = async () => {
     setLoading(true);
-    setEditMode(false);
     try {
       const updatedChat = await updateChat(id, { name: roomName });
       if (updatedChat) {
@@ -32,42 +31,30 @@ const EditChatName = ({ id, name = "Без названия" }: Props) => {
     }
     setLoading(false);
   };
-  if (editMode) {
-    return (
-      <div className="flex items-center gap-2 bg-neutral-200 rounded-md">
-        <Input
-          className="h-[28px] w-28 text-lg font-semibold border-none rounded-md px-2"
-          value={roomName}
-          onChange={(e) => setRoomName(e.target.value)}
-          placeholder="Название чата"
-        />
-        <button
-          className="cursor-pointer px-2"
-          onClick={() => setEditMode(false)}
-        >
-          <XIcon size={16} />
-        </button>
-        <button className="cursor-pointer px-2" onClick={handleSave}>
-          <SaveIcon size={16} />
-        </button>
-      </div>
-    );
-  } else
-    return (
-      <div className="flex items-center gap-2 group px-2 hover:bg-neutral-200 rounded-md">
-        {!overscrolled && (
-          <motion.span
-            layoutId="chat-name"
-            className={cn("text-lg font-semibold", loading ? "opacity-50" : "")}
-          >
-            {roomName || "Без названия"}
-          </motion.span>
+  return (
+    <div className="flex items-center gap-2">
+      <Input
+        disabled={loading}
+        value={roomName}
+        onChange={(e) => setRoomName(e.target.value)}
+        placeholder="Название чата"
+        className="h-10 text-base bg-background/60"
+      />
+      <Button
+        disabled={loading || sameName}
+        size="icon"
+        variant="secondary"
+        className="size-10 shrink-0"
+        onClick={handleSave}
+      >
+        {loading ? (
+          <Loader2Icon size={18} className="animate-spin" />
+        ) : (
+          <SaveIcon size={18} />
         )}
-        <button className="cursor-pointer" onClick={() => setEditMode(true)}>
-          <PencilLineIcon size={16} className="group-hover:flex hidden" />
-        </button>
-      </div>
-    );
+      </Button>
+    </div>
+  );
 };
 
 export default EditChatName;

@@ -1,5 +1,5 @@
 "use client";
-import { getChatMessage } from "rest-api/chats";
+import { getChatMessage } from "rest-api/messages";
 import { getUserById } from "rest-api/user";
 import { ChatMessage } from "rest-api/types/chats";
 import { ChatAttachment } from "rest-api/types/attachments";
