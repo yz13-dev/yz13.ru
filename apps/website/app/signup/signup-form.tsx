@@ -12,12 +12,14 @@ import { createClient } from "yz13/supabase/client";
 
 type FormProps = ComponentPropsWithoutRef<"div"> & {
   continueLink?: string;
+  showLogin?: boolean;
   back?: boolean;
 };
 
 export function SignupForm({
   className,
   continueLink,
+  showLogin = false,
   back = false,
   ...props
 }: FormProps) {
@@ -53,74 +55,75 @@ export function SignupForm({
   };
   return (
     <div className={cn("flex flex-col", className)} {...props}>
-      <Card className="rounded-none border-x-0 pt-6 divide-y">
-        <CardContent>
-          <form>
-            <div className="grid gap-6">
-              <div className="grid gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="nickname">Имя пользователя</Label>
-                  <Input
-                    id="nickname"
-                    type="text"
-                    placeholder="yz13"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Почта</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="grid gap-2">
-                  <div className="flex items-center">
-                    <Label htmlFor="password">Пароль</Label>
-                  </div>
-                  <Input
-                    id="password"
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                {hasError && (
-                  <span className="text-xs text-error-foreground">
-                    Ошибка, проверьте правильно ли введены почта и/или пароль
-                  </span>
-                )}
-                <div className="flex flex-row items-center justify-end gap-2">
-                  <Button variant="ghost" className="w-fit gap-2" asChild>
-                    <Link href="/login">Уже есть аккаунт</Link>
-                  </Button>
-                  <Button
-                    onClick={signIn}
-                    type="submit"
-                    disabled={
-                      isLoading || email.length === 0 || password.length === 0
-                    }
-                    className="w-fit gap-2"
-                  >
-                    {isLoading && (
-                      <Loader2Icon className="animate-spin" size={18} />
-                    )}
-                    Продолжить
-                  </Button>
-                </div>
-              </div>
+      <form>
+        <div className="grid gap-6">
+          <div className="grid gap-6">
+            <div className="grid gap-2">
+              <Label htmlFor="nickname">Имя пользователя</Label>
+              <Input
+                id="nickname"
+                type="text"
+                placeholder="yz13"
+                required
+                className="bg-background/60 h-10 text-base"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
-          </form>
-        </CardContent>
-      </Card>
-      <div className="text-balance p-6 text-xs text-secondary">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Почта</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="m@example.com"
+                required
+                className="bg-background/60 h-10 text-base"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Пароль</Label>
+              </div>
+              <Input
+                id="password"
+                type="password"
+                required
+                className="bg-background/60 h-10 text-base"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {hasError && (
+              <span className="text-xs text-error-foreground">
+                Ошибка, проверьте правильно ли введены почта и/или пароль
+              </span>
+            )}
+            <div className="flex flex-row items-center justify-end gap-2">
+              {showLogin && (
+                <Button variant="ghost" className="w-fit gap-2" asChild>
+                  <Link href="/login">Уже есть аккаунт</Link>
+                </Button>
+              )}
+              <Button
+                onClick={signIn}
+                type="submit"
+                disabled={
+                  isLoading || email.length === 0 || password.length === 0
+                }
+                className="w-fit gap-2"
+              >
+                {isLoading && (
+                  <Loader2Icon className="animate-spin" size={18} />
+                )}
+                Продолжить
+              </Button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div className="text-balance py-6 text-xs text-secondary">
         Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
         <Link href="#" className="text-foreground">
           Условиями использования

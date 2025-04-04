@@ -1,26 +1,18 @@
 import Availability from "@/components/availability";
-import Header from "@/components/header";
-import { Logo } from "@/components/logo";
-import Nav from "@/components/nav/nav";
-import User from "@/components/user";
+import Footer from "@/components/small-footer";
 import {
   availableForWork,
-  showAppsLink,
   showCallToAction,
-  showLogoUnderFooter,
   showPriceDetails,
-  showUser,
 } from "@/const/flags";
-import { LayoutGridIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
 import { Suspense } from "react";
 import CallToAction from "../(root)/call-to-action";
+import ServicesDetails from "../(root)/services-details";
 import Timeline from "../(root)/timeline";
 import Background from "./background";
-import ServicesDetails from "../(root)/services-details";
-import Footer from "@/components/small-footer";
+import RootHeader, { RootHeaderSkeleton } from "./header";
+import { wait } from "@/helpers/wait";
 
 export default async function page() {
   return (
@@ -33,27 +25,9 @@ export default async function page() {
         >
           <Background />
         </Suspense>
-        <Header className="border-none z-10 background-transparent md:px-[2.5%] px-[5%]">
-          <Nav side="left">
-            <Link href="/">
-              <Logo size={{ width: 110, height: 20 }} type="full" />
-            </Link>
-          </Nav>
-          <div className="flex items-center gap-2">
-            <Suspense fallback={<Skeleton className="size-9" />}>
-              {(await showAppsLink()) && (
-                <Button variant="ghost" size="icon" asChild>
-                  <Link href="/apps">
-                    <LayoutGridIcon size={16} />
-                  </Link>
-                </Button>
-              )}
-            </Suspense>
-            <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-              {(await showUser()) && <User />}
-            </Suspense>
-          </div>
-        </Header>
+        <Suspense fallback={<RootHeaderSkeleton />}>
+          <RootHeader />
+        </Suspense>
         <main className="w-full relative flex flex-col justify-between h-[calc(100dvh-56px)]">
           <div className="w-full h-fit space-y-10 md:p-[2.5%] p-[5%]">
             <div className="w-full *:max-w-4xl space-y-6 *:block *:lg:text-5xl *:md:text-4xl *:text-3xl">

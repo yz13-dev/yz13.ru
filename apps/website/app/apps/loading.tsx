@@ -1,24 +1,11 @@
-import Header from "@/components/header";
-import { Logo } from "@/components/logo";
-import Nav from "@/components/nav/nav";
 import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
+import { RootHeaderSkeleton } from "../new-root/header";
 import { abc } from "./empty";
 
 const loading = () => {
   return (
     <>
-      <Header className="sticky top-0">
-        <Nav side="left">
-          <Link href="/">
-            <Logo size={{ width: 110, height: 20 }} type="full" />
-          </Link>
-        </Nav>
-        <div className="flex items-center gap-2">
-          <Skeleton className="size-9" />
-          <Skeleton className="h-9 w-[75px]" />
-        </div>
-      </Header>
+      <RootHeaderSkeleton />
       <div className="w-full divide-y border-b">
         <div className="w-full">
           <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
