@@ -36,14 +36,16 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
   return (
     <>
       <div className="w-full">
-        <div className="h-fit flex w-fit items-center flex-row">
+        <div
+          className={cn(
+            "h-fit flex w-fit items-center flex-row *:rounded-none *:bg-neutral-300/60",
+            "[&>button]:first:rounded-l-full [&>button]:last:rounded-r-full",
+          )}
+        >
           {busy ? (
             <Button
               variant="secondary"
-              className={cn(
-                "gap-2 rounded-l-full pr-2.5",
-                hideSearch ? "rounded-full" : "rounded-r-none",
-              )}
+              className={cn("gap-2 ")}
               disabled={busy}
             >
               <ArrowLeftIcon size={16} />
@@ -52,10 +54,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
           ) : (
             <Button
               variant="secondary"
-              className={cn(
-                "gap-2 rounded-l-full pr-2.5",
-                hideSearch ? "rounded-full" : "rounded-r-none",
-              )}
+              className={cn("gap-2")}
               disabled={busy}
               asChild
             >
@@ -73,7 +72,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
             <Button
               variant="secondary"
               className={cn(
-                "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
+                "max-w-xs w-full justify-center *:text-sm relative",
                 hideSearch && "hidden",
               )}
               asChild
@@ -86,7 +85,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
             <Button
               variant="secondary"
               className={cn(
-                "max-w-xs w-full justify-center *:text-sm pl-2.5 relative rounded-r-full rounded-l-none",
+                "max-w-xs w-full justify-center *:text-sm relative",
                 hideSearch && "hidden",
               )}
             >

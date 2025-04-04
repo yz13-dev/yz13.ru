@@ -7,6 +7,7 @@ import {
   availableForWork,
   showAppsLink,
   showCallToAction,
+  showLogoUnderFooter,
   showPriceDetails,
   showUser,
 } from "@/const/flags";
@@ -19,6 +20,7 @@ import CallToAction from "../(root)/call-to-action";
 import Timeline from "../(root)/timeline";
 import Background from "./background";
 import ServicesDetails from "../(root)/services-details";
+import Footer from "@/components/small-footer";
 
 export default async function page() {
   return (
@@ -82,6 +84,16 @@ export default async function page() {
             </div>
           </div>
         </main>
+        <div className="w-full">
+          <div className="max-w-dvw md:px-[2.5%] px-[5%] md:py-[5%] py-[10%] overflow-x-auto w-full flex">
+            <Suspense
+              fallback={<Skeleton className="h-[475px] w-full rounded-none" />}
+            >
+              {(await showPriceDetails()) && <ServicesDetails />}
+            </Suspense>
+          </div>
+        </div>
+        <Footer className="w-full max-w-dvw md:p-[2.5%] p-[5%]" />
       </div>
     </>
   );

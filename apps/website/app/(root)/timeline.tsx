@@ -73,6 +73,7 @@ type Timeline = {
 const Timeline = () => {
   const ref = useRef<HTMLDivElement>(null);
   const time = useTimeStore((state) => state.time);
+  const timeStr = useMemo(() => time.format("YYYY-MM-DD HH:mm"), [time]);
   const [timeline, setTimeline] = useState<Timeline>({
     day: getTime().date(),
     month: getTime().month(),
@@ -97,9 +98,11 @@ const Timeline = () => {
       hour: time.hour(),
       minute: time.minute(),
     };
-    if (isEqual(timeline, newTimeline)) return;
+    const isSame = isEqual(timeline, newTimeline);
+    console.log(isSame, timeStr);
+    if (isSame) return;
     else setTimeline(newTimeline);
-  }, [time.format("YYYY-MM-DD HH:mm")]);
+  }, [timeStr]);
   const handleScroll = () => {
     const div = ref.current;
     if (!div) return;
