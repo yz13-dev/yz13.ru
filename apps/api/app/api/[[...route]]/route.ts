@@ -16,6 +16,7 @@ import { visitor_session } from "./visitor-session";
 import { works } from "./works";
 import { cors } from "hono/cors";
 import { chats } from "./chats";
+import { konfa } from "./konfa";
 
 export const runtime = "edge";
 
@@ -68,6 +69,7 @@ app.route("/rooms", rooms);
 app.route("/pages", pages);
 app.route("/news", news);
 app.route("/chats", chats);
+app.route("/konfa", konfa);
 
 app.get("/version", (c) => {
   const version = packageJson.version;
