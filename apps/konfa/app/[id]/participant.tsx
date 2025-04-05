@@ -1,3 +1,4 @@
+"use client";
 import {
   MicOffIcon,
   MoreVerticalIcon,
@@ -11,36 +12,47 @@ import { Avatar, AvatarFallback } from "mono/components/avatar";
 import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import { cn } from "yz13/cn";
+import { useMemo } from "react";
+import { UserObject } from "rest-api/types/user";
 
 export type Participant = {
-  id: number;
-  name: string;
-  avatar: string;
-  isMuted: boolean;
+  joined_at: string;
+  presence_ref: string;
+  user: UserObject;
   isVideoOff: boolean;
-  isHost?: boolean;
+  isMuted: boolean;
+  isHost: boolean;
 };
 
-export const renderParticipantVideo = (
-  participant: Participant,
-  index: number,
-) => {
-  const isPinned = false;
-  const isSpotlight = false;
+type RenderParticipantVideoProps = {
+  id: string;
+  participant: Participant;
+  isPinned?: boolean;
+  onPin?: (id: string | null) => void;
+};
 
+export const ParticipantVideo = ({
+  id,
+  participant,
+  isPinned = false,
+  onPin,
+}: RenderParticipantVideoProps) => {
+  const isSpotlight = false;
+  const name = useMemo(() => participant.user.username, [participant.user]);
   return (
     <div
-      key={participant.id}
       className={cn(
         "relative group",
-        isPinned || isSpotlight ? "col-span-2 row-span-2" : "",
+        isPinned || isSpotlight
+          ? "col-span-full max-w-4xl mx-auto col-start-1 row-start-1 row-span-2"
+          : "",
       )}
     >
       <div className="absolute inset-0 flex items-center justify-center overflow-hidden border rounded-lg bg-muted">
         {participant.isVideoOff ? (
-          <Avatar className="h-20 w-20 text-2xl">
-            <AvatarFallback>
-              <UserIcon />
+          <Avatar className="size-36 text-5xl border-2 rounded-full bg-background-secondary">
+            <AvatarFallback className="uppercase font-medium text-center">
+              {name.slice(0, 2)}
             </AvatarFallback>
           </Avatar>
         ) : (
@@ -51,25 +63,29 @@ export const renderParticipantVideo = (
       </div>
 
       <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
-        <div className="flex items-center gap-2 rounded-full bg-black/50 px-2 py-1 text-xs text-white">
-          {participant.isMuted && <MicOffIcon className="h-3 w-3" />}
-          <span>{participant.name}</span>
-          {participant.isHost && (
-            <Badge
-              variant="outline"
-              className="ml-1 border-blue-400 bg-blue-500/20 px-1 py-0 text-[10px] text-blue-100"
-            >
-              Организатор
-            </Badge>
+        <div className="flex items-center h-8">
+          {participant.isMuted && (
+            <div className="size-8 flex items-center justify-center">
+              <MicOffIcon size={16} />
+            </div>
           )}
+          <span className="font-medium text-base px-2">{name}</span>
+          {participant.isHost && <Badge variant="outline">Организатор</Badge>}
         </div>
 
-        <div className="hidden items-center gap-1 rounded-full bg-black/50 px-1 text-white group-hover:flex">
+        <div
+          className={cn(
+            "hidden items-center gap-1 group-hover:flex",
+            "*:size-8 *:rounded-full *:[&>svg]:size-4",
+          )}
+        >
           {!isPinned ? (
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 text-white hover:bg-white/20 hover:text-white"
+              className="h-6 w-6"
+              disabled={!onPin}
+              onClick={() => onPin && onPin(id)}
             >
               <PinIcon className="h-3 w-3" />
             </Button>
@@ -77,25 +93,19 @@ export const renderParticipantVideo = (
             <Button
               variant="ghost"
               size="icon"
-              className="h-6 w-6 text-white hover:bg-white/20 hover:text-white"
+              className="h-6 w-6"
+              disabled={!onPin}
+              onClick={() => onPin && onPin(null)}
             >
               <XIcon className="h-3 w-3" />
             </Button>
           )}
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-6 w-6 text-white hover:bg-white/20 hover:text-white"
-          >
+          <Button variant="ghost" size="icon" className="h-6 w-6">
             <Volume2Icon className="h-3 w-3" />
           </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-6 w-6 text-white hover:bg-white/20 hover:text-white"
-          >
+          <Button variant="ghost" size="icon" className="h-6 w-6">
             <MoreVerticalIcon className="h-3 w-3" />
           </Button>
         </div>

@@ -10,7 +10,7 @@ export default function Footer({ children }: FooterProps) {
   const ref = useRef<HTMLDivElement>(null);
   const setHeight = useDock((state) => state.setHeight);
 
-  const handleResize = (event: UIEvent) => {
+  const handleResize = () => {
     const div = ref.current;
     if (!div) return;
     const height = div.clientHeight;
@@ -19,13 +19,17 @@ export default function Footer({ children }: FooterProps) {
   useEffect(() => {
     const div = ref.current;
     if (!div) return;
+    handleResize();
     div.addEventListener("resize", handleResize);
     return () => {
       div.removeEventListener("resize", handleResize);
     };
   }, []);
   return (
-    <footer ref={ref} className="w-full divide-y gap-2 bg-background-secondary">
+    <footer
+      ref={ref}
+      className="w-full divide-y border-t gap-2 bg-background-secondary"
+    >
       {children}
     </footer>
   );

@@ -27,7 +27,7 @@ export default function Wrapper({ children }: WrapperProps) {
           "--controls-height": `${height}px`,
         } as CSSProperties
       }
-      className="w-full flex flex-col h-dvh divide-y"
+      className="w-full flex flex-col h-dvh"
     >
       {children}
     </div>
