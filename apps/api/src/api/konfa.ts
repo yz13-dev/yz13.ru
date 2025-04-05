@@ -2,11 +2,11 @@ import { Hono } from "hono";
 import { createBunWebSocket } from "hono/bun";
 import type { ServerWebSocket } from "bun";
 
-export const konfa = new Hono();
-
 const rooms = new Map<string, Map<string, ServerWebSocket<any>>>();
 
 const { upgradeWebSocket } = createBunWebSocket<ServerWebSocket>();
+
+export const konfa = new Hono();
 
 konfa.get(
   "/ws",
@@ -36,7 +36,7 @@ konfa.get(
         }
       },
 
-      onMessage: (event, ws) => {
+      onMessage: (event) => {
         try {
           const data = JSON.parse(event.data as string);
           const room = rooms.get(roomId);
