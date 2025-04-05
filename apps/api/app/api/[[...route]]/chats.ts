@@ -186,7 +186,8 @@ const getUserChat = async (uid: string) => {
 };
 chats.get("/user/:uid", async (c) => {
   const uid = c.req.param("uid");
-  return c.json(await getUserChat(uid));
+  const chats = await getUserChat(uid);
+  return c.json(chats);
 });
 
 chats.get("/user/:uid/all", async (c) => {

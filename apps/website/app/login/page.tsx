@@ -37,7 +37,7 @@ const page = async (props: Props) => {
       <Link href="/" className="absolute top-6 left-6">
         <Logo size={{ width: 128, height: 24 }} type="full" />
       </Link>
-      <div className={cn("w-full max-w-2xl mx-auto z-20")}>
+      <div className={cn("w-full max-w-2xl mx-auto md:px-[2.5%] px-[5%] z-20")}>
         <div className="w-full h-fit py-6 flex flex-col gap-4 justify-start">
           <h1 className="text-4xl font-medium">Вход</h1>
           <p className="text-base text-secondary">Используйте свой аккаунт</p>
