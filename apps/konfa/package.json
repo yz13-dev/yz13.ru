@@ -1,0 +1,41 @@
+{
+  "name": "konfa",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo --port 3001 --experimental-https",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@vercel/edge-config": "^1.4.0",
+    "@vercel/flags": "^3.0.2",
+    "@vercel/speed-insights": "^1.1.0",
+    "ahooks": "^3.8.4",
+    "lucide-react": "^0.452.0",
+    "mono": "*",
+    "motion": "^11.14.4",
+    "next": "14.2.26",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "rest-api": "*",
+    "yz13": "*",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.49",
+    "tailwind-config": "*",
+    "@tailwindcss/postcss": "^4.0.6",
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@types/node": "^20.17.9",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "tailwindcss": "^4.0.6",
+    "eslint": "^9",
+    "eslint-config-next": "15.0.3",
+    "typescript": "^5"
+  },
+  "packageManager": "bun@1.2.4"
+}

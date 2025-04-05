@@ -1,4 +1,4 @@
-import { getFullPricing } from "rest-api/pricing";
+import { availableForWork } from "@/const/flags";
 import { getPricing, isPaid } from "@/lib/pricing";
 import { get } from "@vercel/edge-config";
 import {
@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
+import { getFullPricing } from "rest-api/pricing";
 import { cn } from "yz13/cn";
-import { availableForWork } from "@/const/flags";
 
 const Details = ({
   children,
@@ -27,7 +27,7 @@ const Details = ({
   return (
     <div
       className={cn(
-        "w-80 shrink-0 relative space-y-3 p-4 hover:bg-background-secondary transition-colors",
+        "w-80 min-w-80 shrink-0 relative space-y-3 p-4 hover:bg-background-secondary transition-colors",
         "group flex flex-col justify-between",
         active && "bg-neutral-100",
         className,
