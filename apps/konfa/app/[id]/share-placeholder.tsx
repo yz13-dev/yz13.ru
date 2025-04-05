@@ -29,7 +29,7 @@ export default function SharePlaceholder({ id }: SharePlaceholderProps) {
     copied ? 1000 : undefined,
   );
   return (
-    <div className="w-full h-full border overflow-hidden rounded-lg flex flex-col items-center justify-center gap-4">
+    <div className="w-full h-full border bg-background overflow-hidden rounded-lg flex flex-col items-center justify-center gap-4">
       <div className="relative size-14 rounded-full overflow-visible border-2 flex items-center justify-center">
         <div className="size-[336px] rounded-full border border-border/20 absolute" />
         <div className="size-[280px] rounded-full border border-border/40 absolute" />
@@ -48,8 +48,8 @@ export default function SharePlaceholder({ id }: SharePlaceholderProps) {
         </span>
       </div>
       <div className="flex z-10 *:bg-background w-fit">
-        <div className="px-3 w-fit h-9 py-2 rounded-l-md border">
-          <span className="text-sm">{url.slice(0, 30)}...</span>
+        <div className="px-3 w-fit h-9 py-1 text-secondary rounded-l-md border">
+          <span className="text-sm select-none">{url.slice(0, 30)}...</span>
         </div>
         <Button
           onClick={handleCopy}

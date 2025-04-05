@@ -42,7 +42,7 @@ export const ParticipantVideo = ({
   return (
     <div
       className={cn(
-        "relative group",
+        "relative group bg-background",
         isPinned || isSpotlight
           ? "col-span-full max-w-4xl mx-auto col-start-1 row-start-1 row-span-2"
           : "",

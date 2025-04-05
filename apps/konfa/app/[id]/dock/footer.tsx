@@ -26,10 +26,7 @@ export default function Footer({ children }: FooterProps) {
     };
   }, []);
   return (
-    <footer
-      ref={ref}
-      className="w-full divide-y border-t gap-2 bg-background-secondary"
-    >
+    <footer ref={ref} className="w-full *:md:px-[2.5%] *:px-[5%] gap-2">
       {children}
     </footer>
   );

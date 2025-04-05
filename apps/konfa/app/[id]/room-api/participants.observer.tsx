@@ -5,6 +5,7 @@ import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 import { useRoomApi } from "./api-provider";
 import { Participant } from "../participant";
+import { getChannel } from "./channel";
 
 type ParticipantsObserver = {
   id: string;
@@ -17,25 +18,50 @@ export default function ParticipantsObserver({
   user,
 }: ParticipantsObserver) {
   const addParticipant = useRoomApi((state) => state.addParticipant);
-  const getChannel = () => {
-    const client = createClient();
-    const channelName = `konfa/room/${id}`;
-    const channel = client.channel(channelName, {
-      config: {
-        presence: {
-          key: uid,
-        },
-      },
-    });
-    return channel;
+  const updateParticipant = useRoomApi((state) => state.updateParticipant);
+  const deleteParticipant = useRoomApi((state) => state.deleteParticipant);
+  const setCurrent = useRoomApi((state) => state.setCurrent);
+  const getRoomChannel = () => {
+    return getChannel({ id, uid });
+  };
+  const handleUpdateParticipant = (participant: Participant) => {
+    if (!participant.user) return;
+    updateParticipant(participant);
+    if (participant.user.id === uid) {
+      setCurrent(participant);
+    }
+  };
+  const handleDeleteParticipant = (id: string) => {
+    deleteParticipant(id);
+    if (id === uid) {
+      setCurrent(null);
+    }
   };
   const handleParticipant = (participant: Participant) => {
+    if (!participant.user) return;
     addParticipant(participant);
+    if (participant.user.id === uid) {
+      setCurrent(participant);
+    }
   };
   useEffect(() => {
-    const channel = getChannel();
+    const channel = getRoomChannel();
     channel
-      .on("presence", { event: "join" }, () => {
+      .on("broadcast", { event: "mute" }, ({ event, type, payload }) => {
+        // console.log(event, "payload: ", payload);
+        if (payload.user) {
+          const participant = payload as Participant;
+          handleUpdateParticipant(participant);
+        }
+      })
+      .on("broadcast", { event: "camera" }, ({ event, type, payload }) => {
+        // console.log(event, "payload: ", payload);
+        if (payload.user) {
+          const participant = payload as Participant;
+          handleUpdateParticipant(participant);
+        }
+      })
+      .on("presence", { event: "join" }, ({ newPresences }) => {
         const state = channel.presenceState<Participant>();
         const keys = Object.keys(state);
         keys.forEach((key) => {
@@ -53,10 +79,35 @@ export default function ParticipantsObserver({
             }
           }
         });
-        console.log("join presence state: ", channel.presenceState());
+        // console.log("join presence state: ", state);
       })
       .on("presence", { event: "sync" }, () => {
-        console.log("Synced presence state: ", channel.presenceState());
+        const state = channel.presenceState<Participant>();
+        const keys = Object.keys(state);
+        keys.forEach((key) => {
+          const participantArr = state[key];
+          if (participantArr && participantArr.length !== 0) {
+            const participant = participantArr[0];
+            if (participant) {
+              handleUpdateParticipant(participant);
+            }
+          }
+        });
+        console.log("synced presence state: ", state);
+      })
+      .on("presence", { event: "leave" }, () => {
+        const state = channel.presenceState<Participant>();
+        const keys = Object.keys(state);
+        keys.forEach((key) => {
+          const participantArr = state[key];
+          if (participantArr && participantArr.length !== 0) {
+            const participant = participantArr[0];
+            if (participant) {
+              handleDeleteParticipant(participant.user.id);
+            }
+          }
+        });
+        // console.log("leave presence state: ", state);
       })
       .subscribe(async (status) => {
         if (status === "SUBSCRIBED") {

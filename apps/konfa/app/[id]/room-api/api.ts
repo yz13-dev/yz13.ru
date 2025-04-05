@@ -6,6 +6,7 @@ type State = {
   roomId: string;
   participants: Participant[];
   focusedOn: string | null;
+  current: Participant | null;
 };
 
 type Actions = {
@@ -14,6 +15,7 @@ type Actions = {
   deleteParticipant: (id: string) => void;
   setParticipants: (participants: Participant[]) => void;
   setFocusedOn: (id: string | null) => void;
+  setCurrent: (participant: Participant | null) => void;
 };
 
 export type Store = State & Actions;
@@ -21,6 +23,7 @@ export type InitialState = State;
 const initialState: InitialState = {
   roomId: "",
   focusedOn: null,
+  current: null,
   participants: [],
 };
 
@@ -75,6 +78,10 @@ export const createRoomApi = (init?: Partial<InitialState>) => {
     setFocusedOn: (focusedOn: string | null) =>
       set(() => ({
         focusedOn,
+      })),
+    setCurrent: (current: Participant | null) =>
+      set(() => ({
+        current,
       })),
   }));
 };

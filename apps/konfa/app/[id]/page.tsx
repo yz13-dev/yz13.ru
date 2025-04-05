@@ -8,6 +8,7 @@ import Participants from "./dock/participants";
 import Wrapper from "./dock/wrapper";
 import ParticipantsGrid from "./participants-grid";
 import CopyLinkButton from "./dock/copy-link-button";
+import Controls from "./dock/controls";
 
 type PageProps = {
   params: {
@@ -23,22 +24,13 @@ export default function page({ params }: PageProps) {
       </div>
       <Footer>
         <div className="flex items-center justify-between h-14">
-          <div className="flex items-center gap-2 px-6">
+          <div className="flex items-center gap-2">
             <Participants />
           </div>
           <div className="flex items-center gap-2">
-            <Button size="icon" variant="outline">
-              <MicIcon size={16} />
-            </Button>
-            <Button size="icon" variant="outline">
-              <VideoIcon size={16} />
-            </Button>
-            <Button variant="secondary" className="gap-2">
-              <PhoneOffIcon size={16} />
-              <span>Отключиться</span>
-            </Button>
+            <Controls id={id} />
           </div>
-          <div className="flex items-center gap-2 px-6">
+          <div className="flex items-center gap-2">
             <CopyLinkButton id={id} />
             <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
               <User />
