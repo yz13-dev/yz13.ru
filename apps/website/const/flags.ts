@@ -130,15 +130,6 @@ export const showTimeline = flag<boolean>({
   },
 });
 
-export const showNewRoot = flag<boolean>({
-  key: "show-new-root",
-  description: "Rewrite paths to show new root page",
-  async decide() {
-    if (isDev) return pretendProduction;
-    return (await get<boolean>(this.key)) ?? false;
-  },
-});
-
 export const animatedBackground = flag<StaticImageData>({
   key: "animated-background",
   description: "Animated background",
