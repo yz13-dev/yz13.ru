@@ -1,4 +1,4 @@
-import packageJson from "../../package.json";
+import packageJson from "@/package.json";
 import { Hono } from "hono";
 import { languageDetector } from "hono/language";
 import { poweredBy } from "hono/powered-by";
@@ -16,7 +16,6 @@ import { visitor_session } from "./visitor-session";
 import { works } from "./works";
 import { cors } from "hono/cors";
 import { chats } from "./chats";
-import { konfa } from "./konfa";
 
 export const runtime = "edge";
 
@@ -69,7 +68,6 @@ app.route("/rooms", rooms);
 app.route("/pages", pages);
 app.route("/news", news);
 app.route("/chats", chats);
-app.route("/konfa", konfa);
 
 app.get("/version", (c) => {
   const version = packageJson.version;
@@ -78,12 +76,8 @@ app.get("/version", (c) => {
 
 app.get("/health", (c) => c.json({ status: "ok" }));
 
-const handler = handle(app);
-
-export const GET = handler;
-export const POST = handler;
-export const PUT = handler;
-export const PATCH = handler;
-export const DELETE = handler;
-export const OPTIONS = handler;
-export const WEBSOCKET = handler;
+export const GET = handle(app);
+export const POST = handle(app);
+export const PUT = handle(app);
+export const PATCH = handle(app);
+export const DELETE = handle(app);
