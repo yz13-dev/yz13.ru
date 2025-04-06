@@ -10,7 +10,9 @@ const ImagePreview = ({
   url,
   className,
   alt = "image-preview",
+  lowQuality = false,
 }: {
+  lowQuality?: boolean;
   url: string;
   alt?: string;
   className?: string;
@@ -25,7 +27,11 @@ const ImagePreview = ({
         src={url}
         fill
         onLoad={() => setLoading(false)}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes={
+          lowQuality
+            ? "33vw"
+            : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        }
         className={cn(
           "!static inline-block rounded-lg",
           loading && "opacity-0",
@@ -70,7 +76,9 @@ const AttachmentsPreviews = ({
   attachments,
   className = "",
   previewClassName = "",
+  lowQuality = false,
 }: {
+  lowQuality?: boolean;
   className?: string;
   previewClassName?: string;
   attachments: ChatAttachment[];
@@ -84,6 +92,7 @@ const AttachmentsPreviews = ({
             return (
               <ImagePreview
                 key={attachment.id}
+                lowQuality={lowQuality}
                 url={url}
                 className={previewClassName}
               />

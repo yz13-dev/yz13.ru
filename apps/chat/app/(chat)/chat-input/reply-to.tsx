@@ -81,6 +81,7 @@ const ReplyTo = ({
             attachments={attachments}
             className="shrink-0"
             previewClassName="bg-neutral-200/80 rounded-lg border"
+            lowQuality
           />
         )}
         <div className="flex flex-col px-2">

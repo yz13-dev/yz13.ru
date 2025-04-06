@@ -5,7 +5,7 @@ import { getGroups } from "@/const/releases";
 import { groupByFirstLetter } from "@/lib/group";
 import { Suspense } from "react";
 import { getProjects } from "rest-api/projects";
-import RootHeader, { RootHeaderSkeleton } from "../new-root/header";
+import RootHeader, { RootHeaderSkeleton } from "../(root)/header";
 import AppCard from "./app-card";
 import Empty from "./empty";
 

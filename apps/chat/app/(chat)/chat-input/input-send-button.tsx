@@ -1,5 +1,5 @@
 "use client";
-import { uploadAttachments } from "rest-api/attachments";
+import { removeAttachments, uploadAttachments } from "rest-api/attachments";
 import { updateChat } from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
 import { makeOfflineMessage } from "@/lib/offline-messages";
@@ -33,7 +33,7 @@ type InputSendButtonProps = {
   chatId?: string;
 };
 
-const sendOfflineMessage = async (chatId: string, userId: string) => {
+const sendOfflineMessage = (chatId: string, userId: string) => {
   const value = getValue();
   const tags = getTags();
   const reply_to = getReplyTo();
@@ -46,7 +46,6 @@ const sendOfflineMessage = async (chatId: string, userId: string) => {
   });
   const files = getFiles();
   pushMessage(offlineMessage);
-  clearInput();
   return { offlineMessage, files };
 };
 const clearInput = () => {
@@ -61,9 +60,10 @@ export const sendMessage = async (
   chatId: string,
   userId: string,
 ): Promise<ChatMessage | null> => {
-  const { offlineMessage, files } = await sendOfflineMessage(chatId, userId);
+  const { offlineMessage, files } = sendOfflineMessage(chatId, userId);
   const tags = offlineMessage.tags;
   const reply_to = offlineMessage.reply_to;
+  clearInput();
   try {
     const newMessage = await createMessageInChat({
       chat_id: chatId,
@@ -73,8 +73,8 @@ export const sendMessage = async (
       tags,
     });
     if (newMessage) {
-      await uploadMessageAttachments(newMessage, files);
       replaceMessage(offlineMessage.id, newMessage);
+      await uploadMessageAttachments(newMessage, files);
       return newMessage;
     } else return null;
   } catch (error) {
@@ -87,7 +87,7 @@ const uploadMessageAttachments = async (
   message: ChatMessage,
   files: FileWithId[] = [],
 ) => {
-  if (files.length === 0) return;
+  if (files.length === 0) return [];
   const result = await uploadAttachments(message.chat_id, files);
   const onlySuccessfull = result.filter((file) => file !== null);
   if (onlySuccessfull.length > 0) {
@@ -99,7 +99,8 @@ const uploadMessageAttachments = async (
     const attachments = [...currentAttachments, ...onlySuccessfull];
     const updatedChat = await updateChat(message.chat_id, { attachments });
     if (updatedChat) setChat(updatedChat);
-  }
+    return onlySuccessfull;
+  } else return [];
 };
 
 const InputSendButton = ({ chatId }: InputSendButtonProps) => {
