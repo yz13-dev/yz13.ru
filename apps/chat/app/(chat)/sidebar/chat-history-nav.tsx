@@ -82,14 +82,16 @@ export const ChatParticipants = ({
   uids,
   className = "",
   avatarClassName = "",
+  max = 2,
 }: {
+  max?: number;
   uids: string[];
   className?: string;
   avatarClassName?: string;
 }) => {
   return (
     <div className={cn("h-fit -space-x-2.5 *:inline-block", className)}>
-      {uids.map((uid) => (
+      {uids.slice(0, max).map((uid) => (
         <Participant key={uid} uid={uid} className={avatarClassName} />
       ))}
     </div>

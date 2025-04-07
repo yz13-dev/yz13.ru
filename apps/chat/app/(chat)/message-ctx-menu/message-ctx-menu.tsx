@@ -8,8 +8,11 @@ import {
   CopyIcon,
   PencilIcon,
   PinIcon,
+  PinOff,
+  PinOffIcon,
   PlusIcon,
   ReplyIcon,
+  TimerResetIcon,
   TrashIcon,
   XIcon,
 } from "lucide-react";
@@ -25,6 +28,7 @@ import dayjs from "dayjs";
 import {
   addSelectedMessage,
   deleteMessage,
+  getChat,
   getChatAttachments,
   getChatAttachmentsById,
   getMessage,
@@ -32,7 +36,7 @@ import {
   removeSelectedMessage,
   setChat,
 } from "../chat-api/chat-api";
-import { setReplyTo } from "../chat-input/input-store";
+import { setEditMessage, setReplyTo } from "../chat-input/input-store";
 import TagInput from "./tag-input";
 import { useMemo, useState } from "react";
 import Tags from "./tags";
@@ -69,7 +73,11 @@ const MessageCtxMenu = ({
   selected = false,
   message,
   onOpenChange,
+  edited = false,
+  pinned = false,
 }: {
+  edited?: boolean;
+  pinned?: boolean;
   from_id?: string;
   selected?: boolean;
   message?: string;
@@ -92,6 +100,29 @@ const MessageCtxMenu = ({
   };
   const handleReply = (messageId: string) => {
     setReplyTo(messageId);
+  };
+  const handlePinMessage = async () => {
+    if (!messageId) return;
+    const chat = getChat();
+    const pinned = chat?.["pinned-message"] === messageId;
+    if (chat) {
+      try {
+        const updatedChat = await updateChat(chat.id, {
+          "pinned-message": pinned ? null : messageId,
+        });
+        if (updatedChat) setChat(updatedChat);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+  const handleEditMessage = async () => {
+    if (!messageId) return;
+    if (!from_id) return;
+    const message = await getMessage(messageId);
+    if (message) {
+      setEditMessage(message);
+    }
   };
   const handleSelect = () => {
     if (!messageId) return;
@@ -125,6 +156,16 @@ const MessageCtxMenu = ({
               </span>
             </div>
           )}
+          {messageData?.edited_at && (
+            <div className="flex items-center text-secondary gap-2">
+              <TimerResetIcon size={16} />
+              <span className="text-xs capitalize">
+                {dayjs(messageData?.edited_at)
+                  .locale("ru")
+                  .format("HH:mm, DD MMMM YYYY")}
+              </span>
+            </div>
+          )}
         </ContextMenuLabel>
         <ContextMenuSeparator />
         <ContextMenuItem
@@ -134,13 +175,13 @@ const MessageCtxMenu = ({
           <ReplyIcon size={16} />
           <span>Ответить</span>
         </ContextMenuItem>
-        <ContextMenuItem>
+        <ContextMenuItem onClick={handleEditMessage}>
           <PencilIcon size={16} />
           <span>Изменить</span>
         </ContextMenuItem>
-        <ContextMenuItem>
-          <PinIcon size={16} />
-          <span>Закрепить</span>
+        <ContextMenuItem onClick={handlePinMessage}>
+          {pinned ? <PinOffIcon size={16} /> : <PinIcon size={16} />}
+          <span>{pinned ? "Открепить" : "Закрепить"}</span>
         </ContextMenuItem>
         <ContextMenuSeparator />
         <ContextMenuItem disabled={!message} onClick={handleCopyText}>

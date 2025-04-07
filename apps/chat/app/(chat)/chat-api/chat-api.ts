@@ -11,7 +11,7 @@ import {
 import { Pricing } from "rest-api/types/pricing";
 import { createStore } from "zustand";
 import { groupChatMessages } from "../[chatId]/chat-history";
-import { FileWithId } from "../chat-input/input-store";
+import { FileWithId, setReplyTo, setValue } from "../chat-input/input-store";
 
 export type Store = {
   services: Pricing[];
@@ -28,10 +28,10 @@ export type Store = {
 
 const initialState: Store = {
   attachmentPreview: null,
+  chat: null,
   selectedMessages: [],
   localAttachements: [],
   services: [],
-  chat: null,
   messages: [],
   grouped_messages: {},
   chats: [],
