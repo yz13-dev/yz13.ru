@@ -1,3 +1,4 @@
+import { ChatMessage } from "rest-api/types/chats";
 import { create } from "zustand";
 
 export type FileWithId = {
@@ -11,6 +12,7 @@ type State = {
   files: FileWithId[];
   loading: boolean;
   reply_to: string | null;
+  editMessage: ChatMessage | null;
 };
 
 type Actions = {
@@ -18,6 +20,7 @@ type Actions = {
 };
 
 export const useChatInput = create<State & Actions>((set) => ({
+  editMessage: null,
   value: "",
   reply_to: null,
   showTags: false,
@@ -47,5 +50,16 @@ export const detachFile = (index: number) =>
   useChatInput.setState((state) => ({
     files: state.files.filter((_, i) => i !== index),
   }));
+export const setEditMessage = (message: ChatMessage | null) => {
+  if (message) {
+    setValue(message.message);
+    setReplyTo(message.reply_to);
+  } else {
+    setValue("");
+    setReplyTo(null);
+  }
+  useChatInput.setState({ editMessage: message });
+};
+export const getEditMessage = () => useChatInput.getState().editMessage;
 
 export default useChatInput;

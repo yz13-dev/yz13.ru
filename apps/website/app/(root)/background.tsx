@@ -1,30 +1,19 @@
-"use client";
-import { useEffect, useState } from "react";
+import { animatedBackground } from "@/const/flags";
+import Image from "next/image";
 
-const Background = ({ children }: { children?: React.ReactNode }) => {
-  const [width, setWidth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (typeof window === "undefined") return;
-      else {
-        setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+export default async function Background() {
+  const bgSrc = await animatedBackground();
   return (
-    <>
-      <div style={{ width, height }} className="absolute top-0 left-0">
-        <div className="w-full h-full relative"></div>
+    <div className="w-full h-dvh absolute top-0 left-0">
+      <div className="w-full h-full relative">
+        <Image
+          className="object-cover w-full h-full invert dark:invert-0"
+          src={bgSrc}
+          fill
+          alt="background"
+        />
+        <div className="w-full h-full absolute top-0 left-0 backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background backdrop-blur-xl" />
       </div>
-      {children}
-    </>
+    </div>
   );
-};
-
-export default Background;
+}

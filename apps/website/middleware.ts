@@ -2,10 +2,6 @@ import { get } from "@vercel/edge-config";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "yz13/supabase/server";
-import { showNewRoot } from "./const/flags";
-
-const admins = ["/workspace"];
-const users = [""];
 
 export async function middleware(request: NextRequest) {
   await get<boolean>("busy");
@@ -19,11 +15,6 @@ export async function middleware(request: NextRequest) {
   // now we can check user`s role`
   if (userRole !== "admin" && pathname.startsWith("/workspace")) {
     return NextResponse.redirect(new URL("/", request.url));
-  } else {
-    const rewriteToNewRoot = await showNewRoot();
-    if (rewriteToNewRoot && pathname === "/") {
-      return NextResponse.rewrite(new URL("/new-root", request.url));
-    } else return NextResponse.next();
   }
 
   // const isRoot = request.nextUrl.pathname === "/";

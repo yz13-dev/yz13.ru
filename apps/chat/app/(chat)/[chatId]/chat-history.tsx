@@ -218,12 +218,14 @@ const ChatHistory = ({
               const selected = !!selectedMessages.find(
                 (msg) => msg.id === message.id,
               );
+              const edited = !!message.edited_at;
               return (
                 <ChatBubble
                   key={`${key}/message/${message.id}`}
                   delivered={isDelivered}
                   chatId={message.chat_id}
                   messageId={message.id}
+                  edited={edited}
                   side={isMe ? "right" : "left"}
                   variant={isMe ? "secondary" : "ghost"}
                   date={messageDate}

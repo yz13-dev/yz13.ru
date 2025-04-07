@@ -70,6 +70,7 @@ export const parseText = (text: string) => {
 };
 
 export type ChatBubbleProps = {
+  edited?: boolean;
   side?: "left" | "right";
   variant?: "default" | "secondary" | "outline" | "ghost" | "link";
   children?: React.ReactNode;
@@ -217,6 +218,7 @@ const ChatBubble = ({
   from_id,
   chatId,
   delivered = false,
+  edited = false,
   selected = false,
   replyTo,
   children,
@@ -232,6 +234,7 @@ const ChatBubble = ({
       from_id={from_id}
       selected={selected}
       onOpenChange={setIsCtxMenuOpen}
+      pinned={pinned}
       className={cn(
         "w-full gap-1 group/bubble h-fit",
         "md:pl-6 md:pr-6 pl-4 pr-2 py-3",
@@ -330,6 +333,11 @@ const ChatBubble = ({
               )}
               <div className="flex items-center gap-1">
                 {pinned && <PinIcon size={14} className="text-secondary" />}
+                {edited && (
+                  <span className="text-xs shrink-0 px-1.5 py-1 select-none text-secondary">
+                    Изменено
+                  </span>
+                )}
                 {date && (
                   <span className="text-xs shrink-0 px-1.5 py-1 select-none text-secondary">
                     {date}

@@ -6,7 +6,7 @@ import "dayjs/locale/ru";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getProjects } from "rest-api/projects";
-import RootHeader, { RootHeaderSkeleton } from "../new-root/header";
+import RootHeader, { RootHeaderSkeleton } from "../(root)/header";
 import DndContextWrapper from "./dnd-context";
 import ProjectsList from "./projects-list";
 

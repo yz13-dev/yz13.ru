@@ -6,6 +6,7 @@ import { useChatApi } from "../../chat-api/chat-provider";
 import { Button } from "mono/components/button";
 import { getChatMessages, updateChatMessage } from "rest-api/messages";
 import { setChat } from "../../chat-api/chat-api";
+import { updateChat } from "rest-api/chats";
 
 const Tags = ({ tagClassName = "" }: { tagClassName?: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,6 +21,9 @@ const Tags = ({ tagClassName = "" }: { tagClassName?: string }) => {
         { key: "tag", value: tag.id },
       ]);
       const filteredTags = tags.filter((t) => t.id !== tag.id);
+      await updateChat(chat.id, {
+        tags: filteredTags,
+      });
       setChat({
         ...chat,
         tags: filteredTags,

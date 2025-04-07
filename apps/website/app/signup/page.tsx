@@ -4,7 +4,7 @@ import { cn } from "yz13/cn";
 import { SignupForm } from "./signup-form";
 import { Suspense } from "react";
 import { Skeleton } from "mono/components/skeleton";
-import Background from "../new-root/background";
+import Background from "../(root)/background";
 
 type Props = {
   searchParams: Promise<{

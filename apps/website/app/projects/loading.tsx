@@ -1,6 +1,6 @@
 import PageDockFiller from "@/components/page-dock-filler";
 import { Skeleton } from "mono/components/skeleton";
-import { RootHeaderSkeleton } from "../new-root/header";
+import { RootHeaderSkeleton } from "../(root)/header";
 import StageColumn from "./stage-column";
 
 const loading = () => {

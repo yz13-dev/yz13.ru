@@ -6,6 +6,7 @@ import { getTasks, updateTask } from "rest-api/tasks";
 import { ChatList } from "rest-api/types/chats";
 import { setChat } from "../../chat-api/chat-api";
 import { useChatApi } from "../../chat-api/chat-provider";
+import { updateChat } from "rest-api/chats";
 
 const TaskLists = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,6 +25,9 @@ const TaskLists = () => {
         { key: "list", value: list.id },
       ]);
       const filteredLists = tasks_lists.filter((t) => t.id !== list.id);
+      await updateChat(chat.id, {
+        task_lists: filteredLists,
+      });
       setChat({
         ...chat,
         task_lists: filteredLists,

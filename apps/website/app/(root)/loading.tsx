@@ -1,112 +1,31 @@
-import Header from "@/components/header";
-import { Logo } from "@/components/logo";
-import Nav from "@/components/nav/nav";
-import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
-import Footer from "@/components/small-footer";
-import Hero from "./hero";
+import { RootHeaderSkeleton } from "./header";
 
-export const ServicesSkeleton = () => {
-  return (
-    <div className="w-full">
-      <div className="max-w-screen-2xl w-full mx-auto border-x">
-        <div className="h-fit flex items-center divide-x xl:!grid xl:!grid-cols-3 xl:!grid-rows-1 flex-col">
-          <div className="relative w-full h-full col-span-2 bg-neutral-100">
-            <Skeleton className="aspect-video rounded-none" />
-          </div>
-          <div className="w-full flex flex-col h-full justify-between">
-            <div className="relative w-full space-y-3 p-3 h-full pattern-lines">
-              <Skeleton className="w-full h-[58px]" />
-              <Skeleton className="w-full h-[58px]" />
-              <Skeleton className="w-full h-[58px]" />
-              <Skeleton className="w-full h-[80px]" />
-            </div>
-            <div className="w-full flex items-center gap-3 p-3 bg-neutral-100 border-t">
-              <Button className="w-1/2 h-10" variant="default">
-                Все услуги
-              </Button>
-              <Button className="w-1/2 h-10" variant="secondary">
-                Заказать услугу
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const loading = () => {
+export default function Loading() {
   return (
     <>
-      <Header className="sticky top-0">
-        <Nav side="left">
-          <Link href="/">
-            <Logo size={{ width: 110, height: 20 }} type="full" />
-          </Link>
-        </Nav>
-        <div className="flex items-center gap-2">
-          <Skeleton className="size-9" />
-          <Skeleton className="h-9 w-[75px]" />
-        </div>
-      </Header>
-      <div className="w-full divide-y border-b">
-        <Hero />
-        <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-            <div className="w-full h-full pattern-lines" />
-            <div className="h-6 border-x" />
-            <div className="w-full h-full pattern-lines" />
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-            <div className="w-full h-full pattern-lines" />
-            <div className="h-fit border-x px-6">
-              <Skeleton className="h-9 w-[400px] rounded-full" />
+      <div className="w-full">
+        <RootHeaderSkeleton />
+        <main className="w-full relative flex flex-col justify-between h-[calc(100dvh-56px)]">
+          <div className="w-full h-fit space-y-10 md:p-[2.5%] p-[5%]">
+            <div className="w-full *:max-w-4xl space-y-6 *:block *:lg:text-5xl *:md:text-4xl *:text-3xl">
+              <h1 className="text-foreground font-semibold">
+                YZ13 - Фронтенд разработчик
+              </h1>
+              <p className="text-secondary font-medium text-balance">
+                Специализируюсь на разработке сайтов, веб-приложений. Увлекаюсь
+                разработкой интерфейсов для сайтов и приложений.
+              </p>
             </div>
-            <div className="w-full h-full pattern-lines" />
           </div>
-        </div>
-        <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-            <div className="w-full h-full pattern-lines" />
-            <div className="h-6 border-x" />
-            <div className="w-full h-full pattern-lines" />
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-            <div className="w-full h-full pattern-lines" />
-            <div className="h-fit border-x px-6 py-3">
+          <div className="w-full space-y-5 md:space-y-10">
+            <div className="w-full max-w-dvw md:px-[2.5%] px-[5%] h-fit">
               <Skeleton className="h-4 w-full rounded-md" />
             </div>
-            <div className="w-full h-full pattern-lines" />
+            <Skeleton className="w-full max-w-dvw h-20 px-6 pb-2 rounded-none background-transition-to-b" />
           </div>
-        </div>
-        <div className="w-full">
-          <div className="grid-template max-w-screen-2xl w-full mx-auto border-x">
-            <div className="w-full h-full pattern-lines" />
-            <div className="h-6 border-x" />
-            <div className="w-full h-full pattern-lines" />
-          </div>
-        </div>
-        <Skeleton className="h-[475px] w-full rounded-none" />
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-20" />
-          </div>
-        </div>
-        <div className="w-full">
-          <div className="max-w-screen-2xl w-full mx-auto border-x">
-            <div className="h-fit p-6 space-y-6">
-              <Footer />
-            </div>
-          </div>
-        </div>
+        </main>
       </div>
     </>
   );
-};
-export default loading;
+}

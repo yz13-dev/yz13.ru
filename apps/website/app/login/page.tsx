@@ -7,7 +7,7 @@ import { createClient } from "yz13/supabase/server";
 import { LoginForm } from "./login-form";
 import { Suspense } from "react";
 import { Skeleton } from "mono/components/skeleton";
-import Background from "../new-root/background";
+import Background from "../(root)/background";
 
 type Props = {
   params: Promise<{}>;

@@ -63,6 +63,20 @@
   );
 }
 
+.marquee-vertical {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+  mask-image: linear-gradient(
+    var(--mask-direction, to bottom),
+    transparent,
+    var(--color-background) 20%,
+    var(--color-background) 80%,
+    transparent
+  );
+}
+
 .marquee {
   display: flex;
   overflow: hidden;

@@ -1,5 +1,5 @@
 import { Skeleton } from "mono/components/skeleton";
-import { RootHeaderSkeleton } from "../new-root/header";
+import { RootHeaderSkeleton } from "../(root)/header";
 import { abc } from "./empty";
 
 const loading = () => {

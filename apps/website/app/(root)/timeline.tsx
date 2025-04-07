@@ -116,7 +116,6 @@ const Timeline = () => {
     if (!getCurrentTimeStamp) return;
     const width = div.clientWidth;
     const left = getCurrentTimeStamp.offsetLeft - GAP - width / 2;
-    console.log(left);
     requestAnimationFrame(() => {
       div.scrollTo({
         left,
@@ -206,9 +205,9 @@ const Line = ({
             transition={{ delay: 0.25 }}
             data-active={active}
             className={cn(
-              "text-sm absolute top-1 text-center px-2",
+              "text-sm absolute top-1 text-center px-0.5",
               "text-secondary data-[active=true]:text-foreground",
-              "data-[active=true]/line:z-10 data-[active=true]/line:backdrop-blur-sm",
+              "data-[active=true]:z-10 data-[active=true]:backdrop-blur-sm",
             )}
           >
             {time}

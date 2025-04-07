@@ -12,6 +12,7 @@ import useChatInput, { setLoading } from "./input-store";
 import ReplyTo from "./reply-to";
 import TagsSelector from "./tags-selector";
 import { addFiles } from "./file-handler";
+import EditMessage from "./edit-message";
 
 type ChatInputProps = {
   containerClassName?: string;
@@ -35,10 +36,18 @@ const ChatInput = ({
   const showTags = useChatInput((state) => state.showTags);
   const loading = useChatInput((state) => state.loading);
   const reply_to = useChatInput((state) => state.reply_to);
+  const editMessage = useChatInput((state) => state.editMessage);
   const [isOver, setIsOver] = useState<boolean>(false);
   const collectFiles = (list: FileList) => {
     const files = Array.from(list);
     return files;
+  };
+  const handleSend = async () => {
+    if (chatId && user && user.id) {
+      setLoading(true);
+      const response = await sendMessage(chatId, user?.id);
+      console.log(response);
+    }
   };
   return (
     <footer
@@ -73,6 +82,15 @@ const ChatInput = ({
         )}
         <div className="w-full flex flex-col gap-2">
           <AnimatePresence>
+            {editMessage && (
+              <EditMessage
+                showClose
+                chatId={chatId}
+                messageId={editMessage.id}
+              />
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
             {reply_to && (
               <ReplyTo showClose chatId={chatId} replyTo={reply_to} />
             )}
@@ -97,10 +115,7 @@ const ChatInput = ({
               }
               if (isSendAction && value.length > 0) {
                 e.preventDefault();
-                if (chatId && user && user.id) {
-                  setLoading(true);
-                  sendMessage(chatId, user.id);
-                }
+                handleSend();
               }
             }}
             placeholder="Пишите здесь"

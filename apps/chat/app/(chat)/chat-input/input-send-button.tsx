@@ -1,13 +1,14 @@
 "use client";
-import { uploadAttachments } from "rest-api/attachments";
+import { removeAttachments, uploadAttachments } from "rest-api/attachments";
 import { updateChat } from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
 import { makeOfflineMessage } from "@/lib/offline-messages";
-import { ChatMessage } from "rest-api/types/chats";
+import { ChatMessage, NewChatMessage } from "rest-api/types/chats";
 import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useMemo } from "react";
 import { cn } from "yz13/cn";
+import dayjs from "dayjs";
 import {
   getChatAttachments,
   pushMessage,
@@ -16,10 +17,12 @@ import {
 } from "../chat-api/chat-api";
 import useChatInput, {
   FileWithId,
+  getEditMessage,
   getFiles,
   getReplyTo,
   getTags,
   getValue,
+  setEditMessage,
   setFiles,
   setLoading,
   setReplyTo,
@@ -33,10 +36,19 @@ type InputSendButtonProps = {
   chatId?: string;
 };
 
-const sendOfflineMessage = async (chatId: string, userId: string) => {
+const sendOfflineMessage = (chatId: string, userId: string) => {
+  const editedMessage = getEditMessage();
   const value = getValue();
   const tags = getTags();
   const reply_to = getReplyTo();
+  const updatedMessage: NewChatMessage = {
+    id: editedMessage?.id,
+    attachments: editedMessage?.attachments ?? [],
+    message: value,
+    reply_to,
+  };
+  if (editedMessage)
+    return { editedMessage: updatedMessage, offlineMessage: null, files: [] };
   const offlineMessage = makeOfflineMessage({
     chat_id: chatId,
     from_id: userId,
@@ -46,8 +58,7 @@ const sendOfflineMessage = async (chatId: string, userId: string) => {
   });
   const files = getFiles();
   pushMessage(offlineMessage);
-  clearInput();
-  return { offlineMessage, files };
+  return { editedMessage: null, offlineMessage, files };
 };
 const clearInput = () => {
   setLoading(false);
@@ -56,14 +67,41 @@ const clearInput = () => {
   setShowTags(false);
   setFiles([]);
   setReplyTo(null);
+  setEditMessage(null);
+};
+const applyEditedMessage = async (
+  messageId: string,
+  message: NewChatMessage,
+) => {
+  clearInput();
+  try {
+    delete message.id;
+    const newMessage = await updateChatMessage(messageId, {
+      ...message,
+      edited_at: dayjs().toISOString(),
+    });
+    if (newMessage) {
+      replaceMessage(newMessage.id, newMessage);
+      return newMessage;
+    } else return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };
 export const sendMessage = async (
   chatId: string,
   userId: string,
 ): Promise<ChatMessage | null> => {
-  const { offlineMessage, files } = await sendOfflineMessage(chatId, userId);
+  const { offlineMessage, files, editedMessage } = sendOfflineMessage(
+    chatId,
+    userId,
+  );
+  if (editedMessage)
+    return await applyEditedMessage(editedMessage.id!, editedMessage);
   const tags = offlineMessage.tags;
   const reply_to = offlineMessage.reply_to;
+  clearInput();
   try {
     const newMessage = await createMessageInChat({
       chat_id: chatId,
@@ -73,8 +111,8 @@ export const sendMessage = async (
       tags,
     });
     if (newMessage) {
-      await uploadMessageAttachments(newMessage, files);
       replaceMessage(offlineMessage.id, newMessage);
+      await uploadMessageAttachments(newMessage, files);
       return newMessage;
     } else return null;
   } catch (error) {
@@ -87,7 +125,7 @@ const uploadMessageAttachments = async (
   message: ChatMessage,
   files: FileWithId[] = [],
 ) => {
-  if (files.length === 0) return;
+  if (files.length === 0) return [];
   const result = await uploadAttachments(message.chat_id, files);
   const onlySuccessfull = result.filter((file) => file !== null);
   if (onlySuccessfull.length > 0) {
@@ -99,7 +137,8 @@ const uploadMessageAttachments = async (
     const attachments = [...currentAttachments, ...onlySuccessfull];
     const updatedChat = await updateChat(message.chat_id, { attachments });
     if (updatedChat) setChat(updatedChat);
-  }
+    return onlySuccessfull;
+  } else return [];
 };
 
 const InputSendButton = ({ chatId }: InputSendButtonProps) => {
@@ -117,7 +156,8 @@ const InputSendButton = ({ chatId }: InputSendButtonProps) => {
     if (!chatId) return;
     console.log(chatId, user.id);
     setLoading(true);
-    await sendMessage(chatId, user.id);
+    const response = await sendMessage(chatId, user.id);
+    console.log(response);
   };
   return (
     <Button

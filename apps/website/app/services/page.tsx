@@ -7,7 +7,7 @@ import { Skeleton } from "mono/components/skeleton";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ServicesDetails from "../(root)/services-details";
-import RootHeader, { RootHeaderSkeleton } from "../new-root/header";
+import RootHeader, { RootHeaderSkeleton } from "../(root)/header";
 import FAQ from "./faq";
 
 export const metadata: Metadata = {
