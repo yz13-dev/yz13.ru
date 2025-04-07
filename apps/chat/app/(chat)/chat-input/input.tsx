@@ -45,7 +45,8 @@ const ChatInput = ({
   const handleSend = async () => {
     if (chatId && user && user.id) {
       setLoading(true);
-      await sendMessage(chatId, user?.id);
+      const response = await sendMessage(chatId, user?.id);
+      console.log(response);
     }
   };
   return (
