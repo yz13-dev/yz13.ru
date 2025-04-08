@@ -12,8 +12,10 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
   const isRoot = pathname === "/";
   const isLogin = pathname === "/login";
-  if (isRoot) return NextResponse.next();
-  else if (isLogin) return NextResponse.next();
+  if (isRoot) {
+    if (!user) return NextResponse.next();
+    else return NextResponse.redirect(new URL("/chats", request.url));
+  } else if (isLogin) return NextResponse.next();
   else if (!user) return NextResponse.redirect(new URL("/", request.url));
 }
 

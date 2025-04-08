@@ -11,11 +11,7 @@ const getLimits = () => {
     task_lists: 10,
   };
 };
-chats.get("/limits", async (c) => {
-  return c.json(getLimits());
-});
-chats.get("/limits/chats/:uid", async (c) => {
-  const uid = c.req.param("uid");
+const getChatsCount = async (uid: string) => {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
   const { count } = await supabase
@@ -23,7 +19,14 @@ chats.get("/limits/chats/:uid", async (c) => {
     .select("*", { count: "exact" })
     .eq("from_id", uid);
   const chatsLimits = getLimits().chats;
-  const chatsCount = chatsLimits - (count ?? 0);
+  return chatsLimits - (count ?? 0);
+};
+chats.get("/limits", async (c) => {
+  return c.json(getLimits());
+});
+chats.get("/limits/chats/:uid", async (c) => {
+  const uid = c.req.param("uid");
+  const chatsCount = await getChatsCount(uid);
   return c.json(chatsCount);
 });
 
