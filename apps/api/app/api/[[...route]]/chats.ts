@@ -4,6 +4,29 @@ import { createClient } from "yz13/supabase/server";
 
 export const chats = new Hono();
 
+const getLimits = () => {
+  return {
+    chats: 10,
+    tags: 10,
+    task_lists: 10,
+  };
+};
+chats.get("/limits", async (c) => {
+  return c.json(getLimits());
+});
+chats.get("/limits/chats/:uid", async (c) => {
+  const uid = c.req.param("uid");
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const { count } = await supabase
+    .from("chats")
+    .select("*", { count: "exact" })
+    .eq("from_id", uid);
+  const chatsLimits = getLimits().chats;
+  const chatsCount = chatsLimits - (count ?? 0);
+  return c.json(chatsCount);
+});
+
 chats.get("/:id", async (c) => {
   const id = c.req.param("id");
   try {

@@ -4,6 +4,7 @@ import {
   availableForWork,
   showCallToAction,
   showPriceDetails,
+  showStack,
 } from "@/const/flags";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
@@ -46,9 +47,11 @@ export default async function page() {
                 )}
               </div>
             </div>
-            <div className="w-fullh-full overflow-hidden">
-              <Stack />
-            </div>
+            {(await showStack()) && (
+              <div className="w-full h-full overflow-hidden">
+                <Stack />
+              </div>
+            )}
           </div>
           <div className="w-full space-y-5 md:space-y-10">
             <div className="w-full max-w-dvw md:px-[2.5%] px-[5%] h-fit">

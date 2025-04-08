@@ -23,11 +23,14 @@ const page = async () => {
         <RootHeader />
       </Suspense>
       <div className="max-w-dvw md:p-[2.5%] p-[5%] overflow-x-auto w-full flex">
+        <h1 className="text-4xl font-medium">Услуги</h1>
+      </div>
+      <div className="max-w-dvw md:px-[2.5%] px-[5%] overflow-x-auto w-full flex">
         <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
           <Availability />
         </Suspense>
       </div>
-      <div className="max-w-dvw md:px-[2.5%] px-[5%] overflow-x-auto w-full flex">
+      <div className="yz-future-container mx-auto md:py-[5%] py-[10%] !w-fit *:p-0 md:gap-[2.5%] gap-[5%] *:hover:bg-transparent *:w-full *:h-full grid 2xl:grid-cols-4 md:grid-cols-2 grid-cols-1 auto-rows-auto">
         <Suspense
           fallback={<Skeleton className="h-[475px] w-full rounded-none" />}
         >
