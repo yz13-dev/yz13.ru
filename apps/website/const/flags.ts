@@ -139,3 +139,12 @@ export const animatedBackground = flag<StaticImageData>({
     return randomBg ?? variant1;
   },
 });
+
+export const showStack = flag<boolean>({
+  key: "show-stack",
+  description: "Show stack",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
