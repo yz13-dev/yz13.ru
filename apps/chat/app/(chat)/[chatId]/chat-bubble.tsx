@@ -230,6 +230,7 @@ const ChatBubble = ({
   return (
     <MessageCtxMenu
       message={children as string}
+      chatId={chatId}
       messageId={messageId}
       from_id={from_id}
       selected={selected}

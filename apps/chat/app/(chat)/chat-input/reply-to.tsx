@@ -29,7 +29,7 @@ const ReplyTo = ({
     if (localMessage) {
       setMessage(localMessage);
     } else {
-      const message = await getChatMessage(chatId, id);
+      const { data: message } = await getChatMessage(chatId, id);
       if (message) setMessage(message);
     }
   };

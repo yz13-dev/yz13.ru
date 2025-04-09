@@ -1,6 +1,5 @@
 import { removeAttachments } from "rest-api/attachments";
 import { updateChat } from "rest-api/chats";
-import { deleteMessageFromChat } from "rest-api/messages";
 import {
   CheckCheckIcon,
   CheckCircleIcon,
@@ -40,9 +39,10 @@ import { setEditMessage, setReplyTo } from "../chat-input/input-store";
 import TagInput from "./tag-input";
 import { useMemo, useState } from "react";
 import Tags from "./tags";
+import { deleteChatMessage } from "rest-api/messages";
 
-const removeMessage = async (id: string) => {
-  const res = await deleteMessageFromChat(id);
+const removeMessage = async (chatId: string, id: string) => {
+  const { data: res } = await deleteChatMessage(chatId, id);
   if (res) {
     deleteMessage(res.id);
     const hasAttachments = res.attachments && res.attachments.length !== 0;
@@ -69,6 +69,7 @@ const MessageCtxMenu = ({
   children,
   messageId,
   className = "",
+  chatId,
   from_id,
   selected = false,
   message,
@@ -76,6 +77,7 @@ const MessageCtxMenu = ({
   edited = false,
   pinned = false,
 }: {
+  chatId: string;
   edited?: boolean;
   pinned?: boolean;
   from_id?: string;
@@ -91,8 +93,10 @@ const MessageCtxMenu = ({
     const selectedMessages = getSelectedMessages();
     const notEmpty = selectedMessages.length !== 0;
     if (notEmpty)
-      await Promise.all(selectedMessages.map((msg) => removeMessage(msg.id)));
-    else if (messageId) await removeMessage(messageId);
+      await Promise.all(
+        selectedMessages.map((msg) => removeMessage(chatId, msg.id)),
+      );
+    else if (messageId) await removeMessage(chatId, messageId);
   };
   const handleCopyText = async () => {
     if (!message) return;
@@ -119,7 +123,7 @@ const MessageCtxMenu = ({
   const handleEditMessage = async () => {
     if (!messageId) return;
     if (!from_id) return;
-    const message = await getMessage(messageId);
+    const message = getMessage(messageId);
     if (message) {
       setEditMessage(message);
     }

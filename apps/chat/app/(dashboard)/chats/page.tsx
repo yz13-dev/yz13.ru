@@ -29,7 +29,7 @@ const page = async () => {
           "*:max-w-5xl *:mx-auto *:w-full *:px-6 py-6",
         )}
       >
-        <div className="flex items-center justify-between w-full">
+        <header className="flex items-center justify-between w-full">
           <div className="flex items-center gap-1">
             <Logo size={{ width: 36, height: 36 }} type="only-icon" />
             <span className="font-pixel text-3xl">Chat</span>
@@ -37,7 +37,7 @@ const page = async () => {
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             <User />
           </Suspense>
-        </div>
+        </header>
         <NewChatForm showLabel />
         <Separator />
         <div className="w-full flex md:flex-row flex-col gap-6">

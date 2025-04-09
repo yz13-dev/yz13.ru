@@ -53,16 +53,6 @@
   }
 }
 
-.background-transition-to-b {
-  mask-image: linear-gradient(
-    var(--mask-direction, to bottom),
-    transparent,
-    var(--color-background) 0%,
-    var(--color-background) 80%,
-    transparent
-  );
-}
-
 .marquee-vertical {
   display: flex;
   flex-direction: column;
@@ -98,7 +88,7 @@
   @apply w-full max-w-dvw md:px-[2.5%] px-[5%];
 }
 .yz-future-container-max {
-  @apply max-w-[90dvw];
+  @apply max-w-[1200px];
 }
 
 .grid-template {

@@ -27,7 +27,7 @@ const Details = ({
   return (
     <div
       className={cn(
-        "w-80 min-w-80 shrink-0 relative space-y-3 p-4 hover:bg-background-secondary transition-colors",
+        "w-full relative space-y-3",
         "group flex flex-col justify-between",
         active && "bg-neutral-100",
         className,
@@ -42,28 +42,46 @@ const DetailsHeader = ({
   icon,
   title = "",
   price = "",
+  showPrice = false,
 }: {
+  showPrice?: boolean;
   icon?: React.ReactNode;
   title?: string;
   price?: string;
 }) => {
   return (
     <div className="flex flex-row justify-between items-center gap-2">
-      <div className="flex flex-row items-center gap-1">
+      <div className="flex flex-row-reverse items-center gap-2">
         {icon && (
-          <div className="size-6 flex items-center justify-center">{icon}</div>
+          <div className="size-6 flex items-center justify-center [&>svg]:size-6">
+            {icon}
+          </div>
         )}
-        <span className="font-medium relative line-clamp-1">{title}</span>
+        <span className="font-medium text-2xl relative line-clamp-1">
+          {title}
+        </span>
       </div>
-      <span className="text-foreground shrink-0 font-semibold px-2 py-0 rounded-full bg-secondary/10 border">
-        {price}
-      </span>
+      {showPrice && (
+        <span className="text-foreground shrink-0 font-semibold px-2 py-0 rounded-full bg-secondary/10 border">
+          {price}
+        </span>
+      )}
     </div>
   );
 };
 
-const DetailsDescription = ({ children }: { children?: React.ReactNode }) => {
-  return <span className="text-secondary block text-sm">{children}</span>;
+const DetailsDescription = ({
+  children,
+  className = "",
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <span className={cn("text-secondary block md:text-2xl text-xl", className)}>
+      {children}
+    </span>
+  );
 };
 
 type ExtraSingleItem = {
@@ -170,28 +188,42 @@ const ServicesDetails = async () => {
           const price = service.price;
           return (
             <Details key={`${service.id}-${index}`}>
-              <DetailsHeader
-                icon={
-                  <>
-                    {service.type === "pages" && <PanelTopIcon size={18} />}
-                    {service.type === "website" && <GlobeIcon size={18} />}
-                    {service.type === "web-app" && <AppWindowIcon size={18} />}
-                    {service.type === "mvp" && <SparklesIcon size={18} />}
-                  </>
-                }
-                title={service.name ?? "Неизвестно"}
-                price={`${price.toLocaleString()}${sign}+`}
-              />
-              <DetailsDescription>{service.description}</DetailsDescription>
-              <Separator />
-              <DetailsExtraList
-                list={service.details as unknown as DetailsExtra[]}
-              />
-              <DetailsFooter>
-                <Button disabled={busy} variant="secondary" className="w-full">
-                  Связаться
-                </Button>
-              </DetailsFooter>
+              <div className="space-y-0 *:max-w-4xl">
+                <DetailsHeader
+                  icon={
+                    <>
+                      {service.type === "pages" && <PanelTopIcon size={18} />}
+                      {service.type === "website" && <GlobeIcon size={18} />}
+                      {service.type === "web-app" && (
+                        <AppWindowIcon size={18} />
+                      )}
+                      {service.type === "mvp" && <SparklesIcon size={18} />}
+                    </>
+                  }
+                  title={service.name ?? "Неизвестно"}
+                  price={`${price.toLocaleString()}${sign}+`}
+                />
+                <DetailsDescription className="mt-2">
+                  {service.description}
+                </DetailsDescription>
+              </div>
+              {false && (
+                <>
+                  <Separator />
+                  <DetailsExtraList
+                    list={service.details as unknown as DetailsExtra[]}
+                  />
+                  <DetailsFooter>
+                    <Button
+                      disabled={busy}
+                      variant="secondary"
+                      className="w-full"
+                    >
+                      Связаться
+                    </Button>
+                  </DetailsFooter>
+                </>
+              )}
             </Details>
           );
         })}
