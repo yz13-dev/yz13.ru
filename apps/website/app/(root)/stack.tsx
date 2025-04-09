@@ -16,56 +16,20 @@ const list = [
   "Hono",
 ];
 
-const OFFSET_Y = 80;
-const INTERVAL = 2000;
-
 export default function Stack() {
-  const [activeIndex, setActiveIndex] = useState(Math.floor(list.length / 2));
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setActiveIndex((prev) => {
-        return (prev + 1) % list.length;
-      });
-    }, INTERVAL);
-
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
-
   return (
-    <div className="relative flex items-center justify-start h-full w-full marquee-vertical">
+    <div className="w-full flex items-start gap-2 flex-wrap *:bg-background/60 *:backdrop-blur-sm">
       {list.map((value, i) => {
-        const position = i - activeIndex;
-        const isActive = activeIndex === i;
-
-        const opacity = position === 0 ? 1 : 1 / Math.abs(position) + 0.2;
-
         return (
-          <motion.span
+          <span
             key={value + i}
             className={cn(
-              "absolute left-0 top-1/2 text-5xl font-semibold",
-              isActive ? "text-foreground" : "text-secondary",
+              "px-4 py-1 text-sm text-balance",
+              "rounded-full border md:text-2xl text-lg",
             )}
-            initial={{
-              y: "-100%",
-              opacity: 0,
-            }}
-            animate={{
-              y: position * OFFSET_Y,
-              opacity,
-              zIndex: 100 - Math.abs(position),
-            }}
-            transition={{
-              duration: 0.75,
-              ease: "easeInOut",
-            }}
           >
             {value}
-          </motion.span>
+          </span>
         );
       })}
     </div>

@@ -38,8 +38,9 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
       <div className="w-full">
         <div
           className={cn(
-            "h-fit flex w-fit items-center flex-row *:rounded-none *:bg-neutral-300/60",
+            "h-fit flex w-fit items-center flex-row *:bg-neutral-300/60 *:rounded-none",
             "[&>button]:first:rounded-l-full [&>button]:last:rounded-r-full",
+            "[&>a]:first:rounded-l-full [&>a]:last:rounded-r-full",
           )}
         >
           {busy ? (

@@ -8,10 +8,20 @@ import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
+import { cn } from "yz13/cn";
 
-export const RootHeaderSkeleton = () => {
+export const RootHeaderSkeleton = ({
+  className = "",
+}: {
+  className?: string;
+}) => {
   return (
-    <Header className="border-none *:z-20 z-10 background-transparent md:px-[2.5%] px-[5%]">
+    <Header
+      className={cn(
+        "border-none *:z-20 z-10 background-transparent md:px-[2.5%] px-[5%]",
+        className,
+      )}
+    >
       <Nav side="left">
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />
@@ -25,9 +35,18 @@ export const RootHeaderSkeleton = () => {
   );
 };
 
-export default async function RootHeader() {
+export default async function RootHeader({
+  className = "",
+}: {
+  className?: string;
+}) {
   return (
-    <Header className="border-none *:z-20 z-10 background-transparent md:px-[2.5%] px-[5%]">
+    <Header
+      className={cn(
+        "border-none *:z-20 z-10 background-transparent md:px-[2.5%] px-[5%]",
+        className,
+      )}
+    >
       <Nav side="left">
         <Link href="/">
           <Logo size={{ width: 110, height: 20 }} type="full" />

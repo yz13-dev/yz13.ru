@@ -69,7 +69,15 @@ type Timeline = {
   minute: number;
 };
 
-const Timeline = () => {
+type TimelineProps = {
+  focusAlign?: "left" | "center" | "right";
+  align?: "top" | "center" | "bottom";
+};
+
+const Timeline = ({
+  align = "center",
+  focusAlign = "center",
+}: TimelineProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const time = useTimeStore((state) => state.time);
   const timeStr = useMemo(() => time.format("YYYY-MM-DD HH:mm"), [time]);
@@ -98,7 +106,6 @@ const Timeline = () => {
       minute: time.minute(),
     };
     const isSame = isEqual(timeline, newTimeline);
-    console.log(isSame, timeStr);
     if (isSame) return;
     else setTimeline(newTimeline);
   }, [timeStr]);
@@ -115,7 +122,13 @@ const Timeline = () => {
     const getCurrentTimeStamp = document.getElementById(timestamp);
     if (!getCurrentTimeStamp) return;
     const width = div.clientWidth;
-    const left = getCurrentTimeStamp.offsetLeft - GAP - width / 2;
+    const side =
+      focusAlign === "center"
+        ? width / 2
+        : focusAlign === "right"
+          ? width - width / 4
+          : width / 4;
+    const left = getCurrentTimeStamp.offsetLeft - GAP - side;
     requestAnimationFrame(() => {
       div.scrollTo({
         left,
@@ -134,7 +147,12 @@ const Timeline = () => {
     <>
       <div
         ref={ref}
-        className="w-full h-full marquee overflow-x-auto flex flex-row items-end gap-1 relative"
+        className={cn(
+          "w-full h-full marquee overflow-x-auto flex flex-row  gap-1 relative",
+          align === "top" && "items-start",
+          align === "center" && "items-center",
+          align === "bottom" && "items-end",
+        )}
       >
         {lines.map((line) => {
           const { hour, minute, day, month, year, active } = line;
@@ -161,6 +179,7 @@ const Timeline = () => {
               time={timestamp}
               showTime={showTime}
               active={active}
+              align={align}
             />
           );
         })}
@@ -175,12 +194,14 @@ type LineProps = {
   active?: boolean;
   time: string;
   id: string;
+  align?: "top" | "center" | "bottom";
 };
 const Line = ({
   active = false,
   height,
   id,
   time,
+  align = "center",
   showTime = false,
 }: LineProps) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -192,8 +213,11 @@ const Line = ({
       data-active={active}
       data-visible={inView}
       className={cn(
-        "w-px h-full relative flex flex-col justify-end items-center",
+        "w-px h-full relative flex flex-col items-center",
         "data-[visible=true]:opacity-100 opacity-0",
+        align === "top" && "justify-start",
+        align === "center" && "justify-center",
+        align === "bottom" && "justify-end",
       )}
     >
       <AnimatePresence>
@@ -205,9 +229,12 @@ const Line = ({
             transition={{ delay: 0.25 }}
             data-active={active}
             className={cn(
-              "text-sm absolute top-1 text-center px-0.5",
+              "text-sm absolute text-center px-0.5",
               "text-secondary data-[active=true]:text-foreground",
               "data-[active=true]:z-10 data-[active=true]:backdrop-blur-sm",
+              align === "bottom" && "top-2",
+              align === "center" && "-top-1",
+              align === "top" && "bottom-2",
             )}
           >
             {time}
