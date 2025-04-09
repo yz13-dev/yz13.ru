@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["mono", "yz13", "rest-api"],
+  transpilePackages: ["yz13", "rest-api"],
   compress: true,
   async rewrites() {
     return [

@@ -1,33 +1,42 @@
 import { Hono } from "hono";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
+import {
+  getChatById,
+  getChatMessage,
+  getChatMessages,
+  getChatMessagesByTag,
+  getChatsCount,
+  getChatTasks,
+  getChatTasksByListId,
+  getLimits,
+  getUserChat,
+} from "./actions";
 
 export const chats = new Hono();
 
-const getLimits = () => {
-  return {
-    chats: 10,
-    tags: 10,
-    task_lists: 10,
-  };
-};
-const getChatsCount = async (uid: string) => {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-  const { count } = await supabase
-    .from("chats")
-    .select("*", { count: "exact" })
-    .eq("from_id", uid);
-  const chatsLimits = getLimits().chats;
-  return chatsLimits - (count ?? 0);
-};
 chats.get("/limits", async (c) => {
   return c.json(getLimits());
 });
-chats.get("/limits/chats/:uid", async (c) => {
+chats.get("/limits/user/:uid", async (c) => {
   const uid = c.req.param("uid");
   const chatsCount = await getChatsCount(uid);
-  return c.json(chatsCount);
+  const response = {
+    chats: chatsCount,
+  };
+  return c.json(response);
+});
+chats.get("/limits/chat/:chatId", async (c) => {
+  const chatId = c.req.param("chatId");
+  const chat = await getChatById(chatId);
+  const limits = getLimits();
+  const tags = chat ? (chat.tags?.length ?? 0) : 0;
+  const taskLists = chat ? (chat.task_lists?.length ?? 0) : 0;
+  const response = {
+    tags: limits.tags - tags,
+    task_lists: limits.task_lists - taskLists,
+  };
+  return c.json(response);
 });
 
 chats.get("/:id", async (c) => {
@@ -52,45 +61,6 @@ chats.get("/:id", async (c) => {
   }
 });
 
-const getChatMessages = async (id: string, offset: number = 0) => {
-  try {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("chats-messages")
-      .select("*")
-      .eq("chat_id", id)
-      .order("created_at", { ascending: false })
-      .range(offset, offset + 100);
-    if (error) {
-      console.log(error);
-      return [];
-    } else return data;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-const getChatMessagesByTag = async (id: string, tagId: string) => {
-  try {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const tagIdAsNumber = parseInt(tagId);
-    const { data, error } = await supabase
-      .from("chats-messages")
-      .select("*")
-      .eq("chat_id", id)
-      .contains("tags", [tagIdAsNumber])
-      .order("created_at", { ascending: false });
-    if (error) {
-      console.log(error);
-      return [];
-    } else return data;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
 chats.get("/:id/messages", async (c) => {
   const filter = c.req.query("filter");
   const tag = c.req.query("tag");
@@ -99,43 +69,75 @@ chats.get("/:id/messages", async (c) => {
   if (tag && byTag) return c.json(await getChatMessagesByTag(id, tag));
   else return c.json(await getChatMessages(id));
 });
-
-const getChatTasks = async (id: string) => {
+chats.get("/:id/messages/:message_id", async (c) => {
+  const id = c.req.param("id");
+  const message_id = c.req.param("message_id");
+  const message = await getChatMessage(id, message_id);
+  return c.json(message);
+});
+chats.post("/:id/messages", async (c) => {
+  const message = await c.req.json();
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
-      .from("chats-tasks")
+      .from("chats-messages")
+      .insert(message)
       .select("*")
-      .eq("chat_id", id);
+      .maybeSingle();
     if (error) {
       console.log(error);
-      return [];
-    } else return data;
+      return c.json(null);
+    } else return c.json(data);
   } catch (error) {
     console.log(error);
-    return [];
+    return c.json(null);
   }
-};
-const getChatTasksByListId = async (id: string, listId: string) => {
+});
+chats.patch("/:id/messages/:message_id", async (c) => {
+  const id = c.req.param("id");
+  const message_id = c.req.param("message_id");
+  const message = await c.req.json();
   try {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
-    const listIdAsNumber = parseInt(listId);
     const { data, error } = await supabase
-      .from("chats-tasks")
-      .select("*")
+      .from("chats-messages")
+      .update(message)
       .eq("chat_id", id)
-      .eq("task_list", listIdAsNumber);
+      .eq("id", message_id)
+      .select("*")
+      .maybeSingle();
     if (error) {
       console.log(error);
-      return [];
-    } else return data;
+      return c.json(null);
+    } else return c.json(data);
   } catch (error) {
     console.log(error);
-    return [];
+    return c.json(null);
   }
-};
+});
+chats.delete("/:id/messages/:message_id", async (c) => {
+  const message_id = c.req.param("message_id");
+  try {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats-messages")
+      .delete()
+      .eq("id", message_id)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return c.json(null);
+    } else return c.json(data);
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+});
+
 chats.get("/:id/tasks", async (c) => {
   const filter = c.req.query("filter");
   const list = c.req.query("list");
@@ -189,27 +191,6 @@ chats.get("/:id/tasks/:task_id", async (c) => {
   }
 });
 
-const getUserChat = async (uid: string) => {
-  try {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("chats")
-      .select("*")
-      .contains("chat_participants", [uid])
-      .order("created_at", { ascending: false })
-      .limit(10);
-    if (error) {
-      console.log(error);
-      return [];
-    } else {
-      return data;
-    }
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
 chats.get("/user/:uid", async (c) => {
   const uid = c.req.param("uid");
   return c.json(await getUserChat(uid));

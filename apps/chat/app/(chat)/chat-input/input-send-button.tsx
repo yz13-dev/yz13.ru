@@ -76,7 +76,7 @@ const applyEditedMessage = async (
   clearInput();
   try {
     delete message.id;
-    const newMessage = await updateChatMessage(messageId, {
+    const { data: newMessage } = await updateChatMessage(messageId, {
       ...message,
       edited_at: dayjs().toISOString(),
     });
@@ -103,7 +103,7 @@ export const sendMessage = async (
   const reply_to = offlineMessage.reply_to;
   clearInput();
   try {
-    const newMessage = await createMessageInChat({
+    const { data: newMessage } = await createMessageInChat({
       chat_id: chatId,
       from_id: userId,
       message: offlineMessage.message,

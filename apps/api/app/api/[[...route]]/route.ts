@@ -15,7 +15,7 @@ import { user } from "./user";
 import { visitor_session } from "./visitor-session";
 import { works } from "./works";
 import { cors } from "hono/cors";
-import { chats } from "./chats";
+import { chats } from "./chats/endpoint";
 
 export const runtime = "edge";
 
