@@ -44,7 +44,7 @@ const ChatProvider = ({
         },
         (payload) => {
           const event = payload.eventType;
-          console.log("chats/payload", event, payload);
+          // console.log("chats/payload", event, payload);
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
           if (isUpdate) {
@@ -75,7 +75,7 @@ const ChatProvider = ({
         },
         (payload) => {
           const event = payload.eventType;
-          console.log("chats-tasks/payload", event, payload);
+          // console.log("chats-tasks/payload", event, payload);
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";
@@ -112,7 +112,7 @@ const ChatProvider = ({
         },
         async (payload) => {
           const event = payload.eventType;
-          console.log("chats-messages/payload", event, payload);
+          // console.log("chats-messages/payload", event, payload);
           const isInsert = event === "INSERT";
           const isUpdate = event === "UPDATE";
           const isDelete = event === "DELETE";

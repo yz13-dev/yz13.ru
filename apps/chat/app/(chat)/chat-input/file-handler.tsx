@@ -48,7 +48,7 @@ export function FileHandler({ className = "", watchId }: FileHandlerProps) {
   const handleDrop = useThrottleFn(
     (e: DragEvent) => {
       e.preventDefault();
-      console.log("handle drop");
+      // console.log("handle drop");
       if (e.dataTransfer?.files) {
         const files = e.dataTransfer.files;
         const collectedFiles: File[] = [];

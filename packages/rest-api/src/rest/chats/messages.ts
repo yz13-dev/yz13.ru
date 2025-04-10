@@ -48,10 +48,11 @@ export const deleteChatMessage = async (id: string, messageId: string) => {
 
 export const updateChatMessage = async (
   id: string,
+  messageId: string,
   body: TablesUpdate<"chats-messages">,
 ) => {
   return await customFetch<ChatMessage | null>(
-    `/chats/${id}/messages/${body.id}`,
+    `/chats/${id}/messages/${messageId}`,
     {
       method: "PATCH",
       body: JSON.stringify(body),

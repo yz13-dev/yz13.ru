@@ -39,13 +39,13 @@ const Multiplayer = ({ prefix = "room", roomId }: MultiplayerProps) => {
       .on("presence", { event: "sync" }, () => {
         const state = channel.presenceState();
         const keys = Object.keys(state);
-        console.log(state, keys);
+        // console.log(state, keys);
         keys.forEach((key) => {
           handleUser(key);
         });
       })
       .subscribe(async (status) => {
-        console.log(status);
+        // console.log(status);
         if (status === "SUBSCRIBED") {
           await channel.track({ online_at: dayjs().toISOString() });
         }

@@ -61,7 +61,7 @@ const Map = ({ disabled = false }: MapProps) => {
     });
     map.on("click", (ev) => {
       const { lng, lat } = ev.lngLat;
-      console.log(lng, lat);
+      // console.log(lng, lat);
     });
     setMap(map);
     return () => {

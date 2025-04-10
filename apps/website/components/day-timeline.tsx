@@ -109,7 +109,7 @@ const Day = ({
             }}
             onPointerLeave={() => setEnableEventRange(false)}
             onPointerUp={() => {
-              console.log("pointer up");
+              // console.log("pointer up");
               setEnableEventRange(false);
               if (timeRange.length <= 1) setTimeRange([]);
             }}
@@ -126,7 +126,7 @@ const Day = ({
                   data-selected={isIn}
                   onPointerOver={() => {
                     if (enableEventRange) {
-                      console.log("is-over", formatted);
+                      // console.log("is-over", formatted);
                       if (!isIn) handleRange(time);
                     }
                   }}

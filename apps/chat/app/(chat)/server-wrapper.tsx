@@ -12,6 +12,7 @@ const ServerWrapper = async ({ children }: { children: React.ReactNode }) => {
   const id = user?.id;
   const { data: dataChats } = await getChats(id);
   const chats = dataChats ?? [];
+  // console.log(chats);
   return (
     <StoreProvider services={services} chats={chats}>
       {children}
