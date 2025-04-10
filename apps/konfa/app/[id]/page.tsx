@@ -9,18 +9,23 @@ import Wrapper from "./dock/wrapper";
 import ParticipantsGrid from "./participants-grid";
 import CopyLinkButton from "./dock/copy-link-button";
 import Controls from "./dock/controls";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 type PageProps = {
   params: {
     id: string;
   };
 };
-export default function page({ params }: PageProps) {
+export default async function page({ params }: PageProps) {
   const id = params.id;
+  const user = await auth();
+  if (!user) return redirect("/");
+  const userId = user.id;
   return (
     <Wrapper>
       <div className="w-full h-[calc(100dvh-var(--controls-height))] mx-auto md:px-[2.5%] px-[5%] py-3 flex flex-col items-center justify-center">
-        <ParticipantsGrid id={id} />
+        <ParticipantsGrid id={id} userId={userId} />
       </div>
       <Footer>
         <div className="flex items-center justify-between h-14">

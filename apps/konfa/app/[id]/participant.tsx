@@ -14,6 +14,7 @@ import { Button } from "mono/components/button";
 import { cn } from "yz13/cn";
 import { useMemo } from "react";
 import { UserObject } from "rest-api/types/user";
+import { useStreamActions } from "./room-api/streamStore";
 
 export type Participant = {
   joined_at: string;
@@ -29,6 +30,7 @@ type RenderParticipantVideoProps = {
   participant: Participant;
   isPinned?: boolean;
   onPin?: (id: string | null) => void;
+  children?: React.ReactNode;
 };
 
 export const ParticipantVideo = ({
@@ -36,6 +38,7 @@ export const ParticipantVideo = ({
   participant,
   isPinned = false,
   onPin,
+  children,
 }: RenderParticipantVideoProps) => {
   const isSpotlight = false;
   const name = useMemo(() => participant.user.username, [participant.user]);
@@ -56,9 +59,7 @@ export const ParticipantVideo = ({
             </AvatarFallback>
           </Avatar>
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <VideoIcon />
-          </div>
+          children
         )}
       </div>
 
