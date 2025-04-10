@@ -20,7 +20,7 @@ export const Tag = ({
       const isTagExists = message.tags.includes(tag.id);
       if (isTagExists) return;
       const messageTags = [...message.tags, tag.id];
-      await updateChatMessage(messageId, {
+      await updateChatMessage(message.chat_id, messageId, {
         tags: messageTags,
       });
     }

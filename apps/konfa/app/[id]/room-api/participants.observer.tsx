@@ -93,7 +93,7 @@ export default function ParticipantsObserver({
             }
           }
         });
-        console.log("synced presence state: ", state);
+        // console.log("synced presence state: ", state);
       })
       .on("presence", { event: "leave" }, () => {
         const state = channel.presenceState<Participant>();

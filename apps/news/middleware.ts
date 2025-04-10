@@ -8,10 +8,10 @@ export async function middleware(request: NextRequest) {
   const resCookies = response.cookies;
   if (reqCookies.has("language")) {
     const locale = reqCookies.get("language")?.value;
-    console.log("cookie-locale", locale);
+    // console.log("cookie-locale", locale);
   } else {
     const locale = getLocale(request);
-    console.log("request-locale", locale);
+    // console.log("request-locale", locale);
     if (locale)
       resCookies.set("language", locale, {
         ...cookieOptions,

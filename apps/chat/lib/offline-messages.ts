@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import randomId from "./random-id";
 
 export const makeOfflineMessage = (message: NewChatMessage): ChatMessage => {
-  console.log(message);
+  // console.log(message);
   if (!message.chat_id) throw new Error("Chat id is required");
   if (!message.from_id) throw new Error("From id is required");
   else

@@ -16,7 +16,7 @@ import {
   SidebarMenuItem,
 } from "mono/components/sidebar";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 import { updateChatInList } from "../chat-api/chat-api";

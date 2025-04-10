@@ -11,7 +11,7 @@ import {
   getChatTasksByListId,
   getLimits,
   getUserChat,
-} from "./actions";
+} from "@/app/api/[[...route]]/chats/actions";
 
 export const chats = new Hono();
 
@@ -193,7 +193,8 @@ chats.get("/:id/tasks/:task_id", async (c) => {
 
 chats.get("/user/:uid", async (c) => {
   const uid = c.req.param("uid");
-  return c.json(await getUserChat(uid));
+  const chats = await getUserChat(uid);
+  return c.json(chats);
 });
 
 chats.get("/user/:uid/all", async (c) => {

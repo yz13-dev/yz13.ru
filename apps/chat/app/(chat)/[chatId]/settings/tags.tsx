@@ -32,7 +32,7 @@ const Tags = ({ tagClassName = "" }: { tagClassName?: string }) => {
       if (messages.length === 0) return;
       await Promise.all(
         messages.map((message) => {
-          return updateChatMessage(chat.id, {
+          return updateChatMessage(chat.id, message.id, {
             tags: message.tags.filter((t) => t !== tag.id),
           });
         }),

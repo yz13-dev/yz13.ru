@@ -37,10 +37,10 @@ const PinnedMessage = () => {
   };
   useEffect(() => {
     if (!chat?.id || !chat?.["pinned-message"]) return;
-    console.log(chat.id, chat["pinned-message"]);
+    // console.log(chat.id, chat["pinned-message"]);
     getChatMessage(chat.id, chat["pinned-message"]).then(
       ({ data: recieved }) => {
-        console.log(recieved);
+        // console.log(recieved);
         setMessage(recieved);
       },
     );

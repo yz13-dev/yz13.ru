@@ -22,7 +22,7 @@ const SessionWatcher = () => {
   useInterval(
     () => {
       setTime((t) => t + 1);
-      console.log("time: ", format());
+      // console.log("time: ", format());
     },
     ready ? 1000 : undefined,
   );
@@ -46,7 +46,7 @@ const SessionWatcher = () => {
   };
   useEffect(() => {
     useVisitorStore.subscribe(({ visitorId: newVisitorId }) => {
-      console.log("Visitor ID: ", visitorId);
+      // console.log("Visitor ID: ", visitorId);
       if (newVisitorId !== visitorId) setVisitorId(newVisitorId);
     });
     if (isProd) setReady(true);

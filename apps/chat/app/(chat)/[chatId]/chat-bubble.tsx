@@ -94,7 +94,7 @@ const handleDeleteTag = async (messageId: string | null, tagId: number) => {
   const message = getMessage(messageId);
   if (message) {
     const messageTags = message.tags.filter((tagId) => tagId !== id);
-    await updateChatMessage(messageId, {
+    await updateChatMessage(message.chat_id, messageId, {
       tags: messageTags,
     });
   }
@@ -116,9 +116,6 @@ export const ImagePreview = ({ onClick, attachment }: PreviewProps) => {
         <div className="w-full h-full absolute top-0 left-0 rounded-xl bg-neutral-200" />
       )}
       <Image
-        onLoadedMetadata={(metadata) => {
-          console.log(metadata);
-        }}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 75vw"
         src={url}
         fill

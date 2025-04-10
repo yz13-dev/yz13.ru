@@ -27,7 +27,6 @@ visitor_session.post("/", async (c) => {
         user_agent: body.user_agent ?? null,
       })
       .select();
-    console.log(body, data, error);
     if (error) throw new Error(error.message);
     return c.json({ status: "ok" }, 200);
   } catch (error) {

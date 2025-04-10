@@ -76,10 +76,14 @@ const applyEditedMessage = async (
   clearInput();
   try {
     delete message.id;
-    const { data: newMessage } = await updateChatMessage(messageId, {
-      ...message,
-      edited_at: dayjs().toISOString(),
-    });
+    const { data: newMessage } = await updateChatMessage(
+      message.chat_id!,
+      messageId,
+      {
+        ...message,
+        edited_at: dayjs().toISOString(),
+      },
+    );
     if (newMessage) {
       replaceMessage(newMessage.id, newMessage);
       return newMessage;
@@ -112,7 +116,8 @@ export const sendMessage = async (
     });
     if (newMessage) {
       replaceMessage(offlineMessage.id, newMessage);
-      await uploadMessageAttachments(newMessage, files);
+      const uploaded = await uploadMessageAttachments(newMessage, files);
+      // console.log(uploaded);
       return newMessage;
     } else return null;
   } catch (error) {
@@ -131,7 +136,9 @@ const uploadMessageAttachments = async (
   if (onlySuccessfull.length > 0) {
     if (message) {
       const ids = onlySuccessfull.map((file) => file.id);
-      await updateChatMessage(message.id, { attachments: ids });
+      await updateChatMessage(message.chat_id, message.id, {
+        attachments: ids,
+      });
     }
     const currentAttachments = getChatAttachments();
     const attachments = [...currentAttachments, ...onlySuccessfull];
@@ -154,10 +161,10 @@ const InputSendButton = ({ chatId }: InputSendButtonProps) => {
     if (disabled) return;
     if (!user) return;
     if (!chatId) return;
-    console.log(chatId, user.id);
+    // console.log(chatId, user.id);
     setLoading(true);
     const response = await sendMessage(chatId, user.id);
-    console.log(response);
+    // console.log(response);
   };
   return (
     <Button
