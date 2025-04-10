@@ -84,6 +84,10 @@
   @apply max-w-screen-2xl w-full mx-auto;
 }
 
+.yz-future-panel {
+  border-top-left-radius: 4%;
+  border-top-right-radius: 4%;
+}
 .yz-future-container {
   @apply w-full max-w-dvw md:px-[2.5%] px-[5%];
 }
