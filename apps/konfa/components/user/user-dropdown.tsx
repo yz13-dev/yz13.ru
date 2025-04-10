@@ -1,12 +1,6 @@
 "use client";
-import { isDev } from "@/app/login/get-url";
 import { User } from "@supabase/supabase-js";
-import {
-  FolderIcon,
-  LogOutIcon,
-  SettingsIcon,
-  UserCircleIcon,
-} from "lucide-react";
+import { LogOutIcon, SettingsIcon, UserCircleIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
