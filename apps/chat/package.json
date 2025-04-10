@@ -16,9 +16,10 @@
     "next": "14.2.26",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-responsive": "^10.0.1",
     "recharts": "^2.15.1",
-    "yz13": "*",
-    "rest-api": "*"
+    "rest-api": "*",
+    "yz13": "*"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",

@@ -1,6 +1,10 @@
 import Availability from "@/components/availability";
 import Footer from "@/components/small-footer";
-import { showCallToAction, showPriceDetails } from "@/const/flags";
+import {
+  availableForWork,
+  showCallToAction,
+  showPriceDetails,
+} from "@/const/flags";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import ServicesDetails from "../(root)/services-details";
@@ -9,8 +13,10 @@ import Background from "./background";
 import CallToAction from "./call-to-action";
 import Stack from "./stack";
 import { wait } from "@/helpers/wait";
-import TaskList from "./task-list";
+import TaskList from "./task-list/list";
 import { Logo } from "@/components/logo";
+import Dock, { DockSkeleton } from "@/components/dock/dock";
+import { Button } from "mono/components/button";
 
 export default async function page() {
   return (
@@ -40,7 +46,9 @@ export default async function page() {
                   веб-приложений.
                 </p>
               </div>
-              {(await showCallToAction()) && <CallToAction />}
+              {(await showCallToAction()) && (
+                <CallToAction busy={await availableForWork()} />
+              )}
             </div>
             <TaskList className="md:block hidden" />
           </div>
@@ -48,7 +56,7 @@ export default async function page() {
         <div className="w-full yz-future-container yz-future-container-max mx-auto h-20 px-6">
           <Timeline focusAlign="center" align="bottom" />
         </div>
-        <div className="yz-future-container yz-future-container-max mx-auto bg-background/80 backdrop-blur-sm rounded-t-3xl border-t border-x md:py-[2.5%] py-[5%]">
+        <div className="yz-future-container yz-future-container-max mx-auto bg-background/80 backdrop-blur-sm border-t border-x md:py-[2.5%] py-[5%] yz-future-panel">
           <div className="w-full space-y-5 md:space-y-10">
             <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
               <Availability />
@@ -75,6 +83,9 @@ export default async function page() {
           </div>
         </div>
       </div>
+      <Suspense fallback={<DockSkeleton />}>
+        <Dock />
+      </Suspense>
     </>
   );
 }

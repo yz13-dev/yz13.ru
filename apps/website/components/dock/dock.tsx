@@ -108,7 +108,7 @@ const Items = ({ showUser = false }: DockItemsProps) => {
   return (
     <>
       <div className="flex flex-row items-center space-x-1 *:shrink-0 *:bg-background">
-        <ItemsGroup />
+        {/* <ItemsGroup /> */}
         <button className="size-12 rounded-xl border gap-2 bg-background flex relative items-center justify-center">
           <Link href="/" className="absolute left-0 top-0 w-full h-full" />
           <HomeIcon size={20} className="shrink-0 text-foreground" />

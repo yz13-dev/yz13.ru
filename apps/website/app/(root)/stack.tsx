@@ -24,7 +24,7 @@ export default function Stack() {
           <span
             key={value + i}
             className={cn(
-              "px-4 py-1 text-sm text-balance",
+              "px-4 py-1 text-sm text-balance text-foreground/60",
               "rounded-full border md:text-2xl text-lg",
             )}
           >

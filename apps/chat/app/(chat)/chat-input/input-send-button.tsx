@@ -56,7 +56,7 @@ const sendOfflineMessage = (chatId: string, userId: string) => {
     reply_to,
     tags,
   });
-  const files = getFiles();
+  const files = [...getFiles()];
   pushMessage(offlineMessage);
   return { editedMessage: null, offlineMessage, files };
 };

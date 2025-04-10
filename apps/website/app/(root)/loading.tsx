@@ -1,8 +1,9 @@
 import { Skeleton } from "mono/components/skeleton";
 import { RootHeaderSkeleton } from "./header";
 import Footer from "@/components/small-footer";
-import TaskList from "./task-list";
+import TaskList from "./task-list/list";
 import { Logo } from "@/components/logo";
+import { DockSkeleton } from "@/components/dock/dock";
 
 export default function Loading() {
   return (
@@ -50,6 +51,7 @@ export default function Loading() {
           </div>
         </div>
       </div>
+      <DockSkeleton />
     </>
   );
 }

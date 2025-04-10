@@ -161,6 +161,7 @@ const Timeline = ({
           const timestamp = formatTime(hour, minute);
           const showTime = isZero || active;
           const intervalOfFive = minute % 5 === 0;
+          const isCloseToZero = timeline.minute >= 50 || timeline.minute <= 10;
           const height = active
             ? "50%"
             : isZero
@@ -180,6 +181,7 @@ const Timeline = ({
               showTime={showTime}
               active={active}
               align={align}
+              nearZero={isCloseToZero}
             />
           );
         })}
@@ -194,6 +196,7 @@ type LineProps = {
   active?: boolean;
   time: string;
   id: string;
+  nearZero?: boolean;
   align?: "top" | "center" | "bottom";
 };
 const Line = ({
@@ -201,11 +204,13 @@ const Line = ({
   height,
   id,
   time,
+  nearZero = false,
   align = "center",
   showTime = false,
 }: LineProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref);
+  const isCloseToZero = !active && nearZero;
   return (
     <div
       ref={ref}
@@ -228,13 +233,14 @@ const Line = ({
             exit={{ opacity: 0 }}
             transition={{ delay: 0.25 }}
             data-active={active}
+            data-align={align}
             className={cn(
               "text-sm absolute text-center px-0.5",
               "text-secondary data-[active=true]:text-foreground",
               "data-[active=true]:z-10 data-[active=true]:backdrop-blur-sm",
-              align === "bottom" && "top-2",
-              align === "center" && "-top-1",
-              align === "top" && "bottom-2",
+              "data-[align=top]:bottom-2 data-[align=center]:-top-1 data-[align=bottom]:top-3",
+              isCloseToZero &&
+                "data-[align=top]:bottom-2 data-[align=center]:-top-1 data-[align=bottom]:-top-1",
             )}
           >
             {time}
