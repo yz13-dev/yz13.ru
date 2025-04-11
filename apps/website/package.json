@@ -47,8 +47,8 @@
   },
   "devDependencies": {
     "postcss": "^8.4.49",
-    "tailwind-config": "*",
     "@tailwindcss/postcss": "^4.0.6",
+    "tailwind-config": "*",
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "@types/node": "^20.17.9",
