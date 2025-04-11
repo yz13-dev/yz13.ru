@@ -3,6 +3,9 @@ import "@/styles/globals.css";
 import localFont from "next/font/local";
 import { Inter, Pixelify_Sans } from "next/font/google";
 import { cn } from "yz13/cn";
+import LiveTimeProvider from "@/components/live/live-provider";
+import { isDev } from "yz13/env";
+import "dayjs/locale/ru";
 
 const PIXEL = Pixelify_Sans({
   subsets: ["latin", "cyrillic"],
@@ -46,7 +49,17 @@ export default function RootLayout({
       lang="en"
       className={cn(SANS.variable, MONO.variable, PIXEL.variable)}
     >
-      <body>{children}</body>
+      {isDev && (
+        <head>
+          <script
+            crossOrigin="anonymous"
+            src="//unpkg.com/react-scan/dist/auto.global.js"
+          />
+        </head>
+      )}
+      <body>
+        <LiveTimeProvider>{children}</LiveTimeProvider>
+      </body>
     </html>
   );
 }

@@ -10,10 +10,9 @@ import dynamic from "next/dynamic";
 import { Inter, Pixelify_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
-
 import "dayjs/locale/ru";
-import { isDev } from "./login/get-url";
 import LiveTimeProvider from "@/components/live/live-provider";
+import { isDev } from "yz13/env";
 
 const SessionObserver = dynamic(
   () => import("../components/visitor-session/session-observer"),

@@ -9,3 +9,7 @@
 @source "../app";
 @source "../components";
 @source "../../../packages/mono/dist";
+
+.calendar-container {
+  @apply w-full max-w-screen-2xl mx-auto;
+}

@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "description": "Package with rest-api endpoints for current monorepo",
   "exports": {
+    "./lib/make-user-obj": {
+      "types": "./dist/lib/make-user-obj.d.ts",
+      "import": "./dist/lib/make-user-obj.mjs",
+      "require": "./dist/lib/make-user-obj.js"
+    },
     "./types/articles": "./dist/types/articles.d.ts",
     "./types/pricing": "./dist/types/pricing.d.ts",
     "./types/user": "./dist/types/user.d.ts",
