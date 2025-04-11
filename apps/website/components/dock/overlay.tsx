@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import { setMenuId, setOverlay } from "./menus/menu.store";
+import useDockMenuStore, { setMenuId, setOverlay } from "./menus/menu.store";
 
 const Overlay = () => {
+  const useOverlay = useDockMenuStore((state) => state.withOverlay);
   useEffect(() => {
     const root = document.getElementById("root");
     if (root) {
@@ -15,6 +16,7 @@ const Overlay = () => {
       }
     };
   }, []);
+  if (!useOverlay) return null;
   return (
     <div
       onClick={(e) => {
@@ -23,7 +25,7 @@ const Overlay = () => {
         setMenuId(null);
         setOverlay(false);
       }}
-      className="w-full h-dvh absolute inset-0 bg-background/50 backdrop-blur-sm backdrop-blur-sm"
+      className="w-full h-dvh absolute inset-0 bg-background/50 backdrop-blur-sm"
     />
   );
 };

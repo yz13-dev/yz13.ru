@@ -161,7 +161,10 @@ const Timeline = ({
           const timestamp = formatTime(hour, minute);
           const showTime = isZero || active;
           const intervalOfFive = minute % 5 === 0;
-          const isCloseToZero = timeline.minute >= 50 || timeline.minute <= 10;
+          const isCloseToZero =
+            hour === timeline.hour
+              ? timeline.minute >= 50 || timeline.minute <= 10
+              : false;
           const height = active
             ? "50%"
             : isZero

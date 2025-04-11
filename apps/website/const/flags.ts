@@ -135,8 +135,9 @@ export const animatedBackground = flag<StaticImageData>({
   description: "Animated background",
   async decide() {
     const bgs = [variant1, variant2, variant3, variant4, variant5, variant6];
-    const randomBg = bgs[randomNumberInRange(0, bgs.length - 1)];
-    return randomBg ?? variant1;
+    // const randomBg = bgs[randomNumberInRange(0, bgs.length - 1)];
+    return variant3;
+    // return randomBg ?? variant3;
   },
 });
 

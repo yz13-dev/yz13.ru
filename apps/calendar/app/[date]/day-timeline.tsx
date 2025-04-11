@@ -51,7 +51,7 @@ const Timeline = () => {
       style={{ top: `${top}px` }}
       className="w-full absolute flex items-center h-[18px] select-none pointer-events-none"
     >
-      <div className="w-full h-px bg-red-foreground relative" />
+      <div className="w-full h-px bg-red-foreground relative w-full" />
       <span className="text-xs w-fit right-2 relative z-10 px-2 py-0 rounded-full bg-red-background text-red-foreground border border-red-foreground">
         {time.format("HH:mm")}
       </span>
