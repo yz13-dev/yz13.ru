@@ -1,6 +1,3 @@
-import { Hono } from "hono";
-import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
 import {
   getChatById,
   getChatMessage,
@@ -12,6 +9,9 @@ import {
   getLimits,
   getUserChat,
 } from "@/app/api/[[...route]]/chats/actions";
+import { Hono } from "hono";
+import { cookies } from "next/headers";
+import { createClient } from "yz13/supabase/server";
 
 export const chats = new Hono();
 
@@ -42,7 +42,7 @@ chats.get("/limits/chat/:chatId", async (c) => {
 chats.get("/:id", async (c) => {
   const id = c.req.param("id");
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats")
@@ -78,7 +78,7 @@ chats.get("/:id/messages/:message_id", async (c) => {
 chats.post("/:id/messages", async (c) => {
   const message = await c.req.json();
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-messages")
@@ -99,7 +99,7 @@ chats.patch("/:id/messages/:message_id", async (c) => {
   const message_id = c.req.param("message_id");
   const message = await c.req.json();
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-messages")
@@ -120,7 +120,7 @@ chats.patch("/:id/messages/:message_id", async (c) => {
 chats.delete("/:id/messages/:message_id", async (c) => {
   const message_id = c.req.param("message_id");
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-messages")
@@ -151,7 +151,7 @@ chats.get("/:id/messages/:message_id", async (c) => {
   const id = c.req.param("id");
   const message_id = c.req.param("message_id");
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-messages")
@@ -173,7 +173,7 @@ chats.get("/:id/tasks/:task_id", async (c) => {
   const id = c.req.param("id");
   const task_id = c.req.param("task_id");
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-tasks")

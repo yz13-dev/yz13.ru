@@ -1,33 +1,25 @@
-import { getChatMessages } from "rest-api/messages";
-import { getAuthorizedUser } from "rest-api/auth";
 import {
-  ListTodoIcon,
-  Loader2Icon,
-  MessageCircleIcon,
-  SearchIcon,
-  SettingsIcon,
+  Loader2Icon
 } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { getAuthorizedUser } from "rest-api/auth";
+import { getChatMessages } from "rest-api/messages";
 import ChatInput from "../chat-input/input";
+import ChatSidebarTrigger from "../sidebar-trigger";
 import Topbar, { ChatName } from "../top-bar/bar";
 import AttachmentPreview from "./attachment-preview";
 import ChatHistory from "./chat-history";
 import GroupChatParticipants from "./group-chat-participants";
 import PinnedMessage from "./pinned-message";
-import SplitScreen from "../top-bar/split-screen";
-import Link from "next/link";
-import ChatSidebarTrigger from "../sidebar-trigger";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     chatId: string;
-  };
+  }>;
 };
 const page = async ({ params }: PageProps) => {
-  const chatId = params.chatId;
+  const { chatId } = await params;
   const { data } = await getChatMessages(chatId);
   const messages = data ?? [];
   const { data: user } = await getAuthorizedUser();

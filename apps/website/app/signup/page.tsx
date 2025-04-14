@@ -1,10 +1,10 @@
 import { Logo } from "@/components/logo";
-import Link from "next/link";
-import { cn } from "yz13/cn";
-import { SignupForm } from "./signup-form";
-import { Suspense } from "react";
 import { Skeleton } from "mono/components/skeleton";
+import Link from "next/link";
+import { Suspense } from "react";
+import { cn } from "yz13/cn";
 import Background from "../(root)/background";
+import { SignupForm } from "./signup-form";
 
 type Props = {
   searchParams: Promise<{
@@ -33,7 +33,7 @@ const page = async (props: Props) => {
       <div className={cn("w-full max-w-2xl md:px-[2.5%] px-[5%] mx-auto z-20")}>
         <div className="w-full h-fit py-6 flex flex-col gap-4 justify-start">
           <h1 className="text-4xl font-medium">Создать аккаунт</h1>
-          <p className="text-base text-secondary">
+          <p className="text-base text-muted-foreground">
             Введите свой адрес электронной почты и пароль
           </p>
         </div>

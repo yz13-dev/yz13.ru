@@ -88,7 +88,7 @@ const TagInput = ({ messageId }: TagInputProps) => {
         )}
       </div>
       {alreadyExists && (
-        <span className="text-xs text-secondary">Такой тэг уже существует</span>
+        <span className="text-xs text-foreground">Такой тэг уже существует</span>
       )}
     </div>
   );

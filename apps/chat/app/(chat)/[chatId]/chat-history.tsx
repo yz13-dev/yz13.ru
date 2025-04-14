@@ -1,12 +1,13 @@
 "use client";
-import { ChatMessage, ChatTag } from "rest-api/types/chats";
-import { ChatAttachment } from "rest-api/types/attachments";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { HashIcon, Loader2Icon, MouseIcon, XIcon } from "lucide-react";
+import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
+import { ChatAttachment } from "rest-api/types/attachments";
+import { ChatMessage, ChatTag } from "rest-api/types/chats";
 import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 import { getChatTags, setMessages } from "../chat-api/chat-api";
@@ -31,9 +32,10 @@ export const BubbleTag = ({
   messageId?: string;
 }) => {
   return (
-    <span
+    <Badge
+      variant="outline"
       className={cn(
-        "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-full border",
+        "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-foreground cursor-pointer rounded-full border",
         "bg-background-secondary",
         className,
       )}
@@ -54,7 +56,7 @@ export const BubbleTag = ({
         }
       />
       {tag.tag}
-    </span>
+    </Badge>
   );
 };
 
@@ -75,7 +77,7 @@ const ChatBubbleGroup = ({
   return (
     <div className={cn("space-y-6", className)}>
       <div className="flex sticky top-16 z-10 items-center gap-2 justify-center">
-        <span className="text-sm text-secondary bg-background-secondary/60 backdrop-blur-sm px-2 py-1 rounded-md shrink-0 capitalize">
+        <span className="text-sm text-muted-foreground bg-background-secondary/60 backdrop-blur-sm px-2 py-1 rounded-md shrink-0 capitalize">
           {isToday ? "Сегодня" : groupDate}
         </span>
       </div>
@@ -183,15 +185,15 @@ const ChatHistory = ({
     >
       {false && (
         <div className="absolute top-0 left-0 w-full h-full flex gap-2 items-center justify-center">
-          <Loader2Icon size={16} className="animate-spin text-secondary" />
-          <span className="text-center text-sm text-secondary">
+          <Loader2Icon size={16} className="animate-spin text-foreground" />
+          <span className="text-center text-sm text-foreground">
             Загрузка сообщений...
           </span>
         </div>
       )}
       {groupKeys.length === 0 && (
         <div className="w-full h-full flex items-center justify-center">
-          <span className="text-center text-sm text-secondary">
+          <span className="text-center text-sm text-foreground">
             Нет сообщений
           </span>
         </div>
@@ -265,7 +267,7 @@ const ChatHistory = ({
             exit={{ opacity: 0, height: 0 }}
           >
             <Button
-              variant="secondary"
+              variant="outline"
               className="rounded-full gap-1 text-xs"
               size="sm"
               onClick={handleEnableAutoScroll}

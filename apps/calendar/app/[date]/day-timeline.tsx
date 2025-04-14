@@ -132,7 +132,7 @@ const Day = ({
                   }}
                 >
                   <div className="w-full flex items-start gap-2 h-full">
-                    <span className="text-xs w-8 text-secondary select-none">
+                    <span className="text-xs w-8 text-foreground select-none">
                       {formatted}
                     </span>
                     <div className="w-[calc(100%-2.5rem-0.5rem)] h-full">
@@ -146,12 +146,12 @@ const Day = ({
                           )}
                         >
                           {first && (
-                            <span className="text-xs text-secondary select-none">
+                            <span className="text-xs text-foreground select-none">
                               Начало - {formatted}
                             </span>
                           )}
                           {last && (
-                            <span className="text-xs text-secondary select-none">
+                            <span className="text-xs text-foreground select-none">
                               Конец - {formatted}
                             </span>
                           )}
@@ -160,8 +160,8 @@ const Day = ({
                         <>
                           <Separator className="group-hover:hidden mt-2" />
                           <div className="w-full h-full group-hover:flex gap-2 hidden items-center justify-center border rounded-lg">
-                            <PlusIcon size={16} className="text-secondary" />
-                            <span className="text-xs text-secondary select-none">
+                            <PlusIcon size={16} className="text-foreground" />
+                            <span className="text-xs text-foreground select-none">
                               Нажмите и проведите для добавления события
                             </span>
                           </div>

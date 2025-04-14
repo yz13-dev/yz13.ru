@@ -15,7 +15,7 @@ const page = () => {
       <div className="w-full space-y-6">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-semibold">Аккаунт</h2>
-          <p className="text-sm text-secondary">
+          <p className="text-sm text-foreground">
             Публичные данные вашего аккаунта
           </p>
         </div>
@@ -33,7 +33,7 @@ const page = () => {
           </Field>
           <PositionField />
           <div className="flex flex-row gap-2 items-center justify-between">
-            <span className="text-sm text-secondary">
+            <span className="text-sm text-foreground">
               Изменения применятся сразу после сохранения
             </span>
             <Button>Сохранить</Button>

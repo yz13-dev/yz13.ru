@@ -38,7 +38,7 @@ const CalendarDay = ({ range = [], date }: CalendarDayProps) => {
             return (
               <div key={"today/" + index} className="w-full">
                 <div className="w-full flex items-center gap-2">
-                  <span className="text-xs w-4 text-secondary">
+                  <span className="text-xs w-4 text-foreground">
                     {time <= 9 ? "0" : ""}
                     {time}
                   </span>

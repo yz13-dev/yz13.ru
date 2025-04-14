@@ -1,6 +1,4 @@
 "use client";
-import { deleteTask, updateTask } from "rest-api/tasks";
-import { ChatList, ChatTask } from "rest-api/types/chats";
 import { EllipsisVerticalIcon, TrashIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Checkbox } from "mono/components/checkbox";
@@ -22,6 +20,8 @@ import {
   useState,
   useTransition,
 } from "react";
+import { deleteTask, updateTask } from "rest-api/tasks";
+import { ChatList, ChatTask } from "rest-api/types/chats";
 import { cn } from "yz13/cn";
 import {
   getChatTaskLists,
@@ -45,7 +45,7 @@ const TaskListTag = ({ task }: { task: ChatTask }) => {
   if (!task_list) return null;
   else
     return (
-      <span className="text-xs px-1.5 rounded-sm bg-background-secondary py-0.5 text-secondary">
+      <span className="text-xs px-1.5 rounded-sm bg-background-secondary py-0.5 text-foreground">
         {task_list?.name}
       </span>
     );
@@ -99,9 +99,8 @@ export const Task = ({
           <div className="flex items-center gap-2">
             <span
               className={cn(
-                optTask.checked
-                  ? "text-secondary line-through"
-                  : "text-foreground/80",
+                "text-foreground",
+                optTask.checked && "text-foreground line-through",
                 task.note?.length !== 0 && "text-sm",
               )}
             >
@@ -114,8 +113,8 @@ export const Task = ({
           {!!task.note && task.note.length !== 0 && (
             <span
               className={cn(
-                "text-xs text-secondary line-clamp-1",
-                optTask.checked ? "text-secondary line-through" : "",
+                "text-xs text-muted-foreground line-clamp-1",
+                optTask.checked ? "line-through" : "",
               )}
             >
               {task.note}
@@ -252,7 +251,7 @@ const TaskList = ({ tasks: providedTasks }: { tasks: ChatTask[] }) => {
   return (
     <ul className="w-full space-y-3 px-4">
       {list.length === 0 && (
-        <div className="text-center text-sm text-secondary">Нет задач</div>
+        <div className="text-center text-sm text-foreground">Нет задач</div>
       )}
       {list.map((task, index) => {
         const isProcessing = taksProcessing === task.id;

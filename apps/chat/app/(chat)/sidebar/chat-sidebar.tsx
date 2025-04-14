@@ -1,4 +1,3 @@
-import { getAuthorizedUser } from "rest-api/auth";
 import { showUsage } from "@/const/flags";
 import {
   Sidebar,
@@ -8,12 +7,13 @@ import {
 } from "mono/components/sidebar";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
+import { getAuthorizedUser } from "rest-api/auth";
 import ChatHistoryNav from "./chat-history-nav";
 import ChatSidebarActions from "./chat-sidebar-actions";
 import ChatSidebarUsage from "./chat-sidebar-usage";
 import Footer from "./footer";
 const Header = dynamic(() => import("./header"), {
-  ssr: false,
+
   loading: () => <Skeleton className="w-full h-[58px]" />,
 });
 

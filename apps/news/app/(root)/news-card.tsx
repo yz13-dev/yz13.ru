@@ -1,4 +1,3 @@
-import { Article } from "rest-api/types/articles";
 import dayjs from "dayjs";
 import {
   ArrowRightIcon,
@@ -9,6 +8,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Article } from "rest-api/types/articles";
 import { cn } from "yz13/cn";
 
 type NewsCardProps = {
@@ -50,7 +50,7 @@ const NewsCard = ({
       {false && (
         <Link
           href={news.url}
-          className="text-xs flex items-center gap-2 text-secondary"
+          className="text-xs flex items-center gap-2 text-foreground"
         >
           Источник
           <ExternalLinkIcon size={12} />
@@ -58,26 +58,26 @@ const NewsCard = ({
       )}
       <span className="text-base font-medium text-pretty">{news.title}</span>
       {news.description && (
-        <span className="text-sm text-secondary">{news.description}</span>
+        <span className="text-sm text-muted-foreground">{news.description}</span>
       )}
       <div className="flex items-center justify-between mt-auto">
         <div className="flex flex-col gap-1.5">
           {news.author && (
-            <div className="flex text-secondary items-center gap-1">
+            <div className="flex text-muted-foreground items-center gap-1">
               <div className="flex items-center justify-center size-4">
                 <UserIcon size={16} className="shrink-0" />
               </div>
               <span className="text-sm">{news.author}</span>
             </div>
           )}
-          <div className="flex text-secondary items-center gap-1">
+          <div className="flex text-muted-foreground items-center gap-1">
             <div className="flex items-center justify-center size-4">
               <CalendarIcon size={news.author ? 14 : 16} className="shrink-0" />
             </div>
             <time
               dateTime={news.published_at}
               className={cn(
-                " text-secondary capitalize",
+                "capitalize",
                 news.author ? "text-xs" : "text-sm",
               )}
             >
@@ -90,7 +90,7 @@ const NewsCard = ({
         <Link
           target="_blank"
           href={news.url}
-          className="text-sm flex items-center gap-1 group/link hover:text-foreground transition-colors text-secondary"
+          className="text-sm flex items-center gap-1 group/link hover:text-foreground transition-colors text-foreground"
         >
           <span>Читать</span>
           <ArrowRightIcon

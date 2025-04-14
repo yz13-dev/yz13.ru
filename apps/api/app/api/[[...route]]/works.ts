@@ -5,7 +5,7 @@ import { createClient } from "yz13/supabase/server";
 export const works = new Hono();
 
 works.get("/", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase.from("works").select("*");
   if (error) {
@@ -14,7 +14,7 @@ works.get("/", async (c) => {
 });
 
 works.get("/:id", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const id = c.req.param("id");
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
@@ -29,7 +29,7 @@ works.get("/:id", async (c) => {
 });
 
 works.post("/", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const body = await c.req.json();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
@@ -48,7 +48,7 @@ works.post("/", async (c) => {
 });
 
 works.put("/:id", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const id = c.req.param("id");
   const body = await c.req.json();
   const supabase = createClient(cookieStore);
@@ -69,7 +69,7 @@ works.put("/:id", async (c) => {
 });
 
 works.delete("/:id", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const id = c.req.param("id");
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase

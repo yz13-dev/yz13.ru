@@ -29,7 +29,7 @@ const uuid = () => {
 
 export const uploadAttachment = async (id: string, file: File) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const storage = supabase.storage;
     const randomId = uuid();
@@ -48,7 +48,7 @@ export const createDraft = async (
   body: TablesInsert<"drafts">,
 ): Promise<Draft | null> => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("drafts")
@@ -78,7 +78,7 @@ export const createDraft = async (
 
 export const deleteDraft = async (id: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { error, data } = await supabase.from("drafts").delete().eq("id", id);
     if (error) {

@@ -1,5 +1,5 @@
-import { makeUserObj } from "@/lib/make-user-obj";
 import { useEffect, useState } from "react";
+import { makeUserObj } from "rest-api/lib/make-user-obj";
 import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 

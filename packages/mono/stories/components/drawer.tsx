@@ -90,7 +90,7 @@ export function DrawerDemo() {
                 <div className="text-7xl font-bold tracking-tighter">
                   {goal}
                 </div>
-                <div className="text-[0.70rem] uppercase text-foreground/60">
+                <div className="text-[0.70rem] uppercase text-muted-foreground">
                   Calories/day
                 </div>
               </div>

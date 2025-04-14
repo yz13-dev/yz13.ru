@@ -3,18 +3,18 @@ import dayjs from "dayjs";
 import { DotIcon, ListIcon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { redirect } from "next/navigation";
-import { CalendarProvider } from "./calendar-store";
 import CalendarWidget from "./calendar";
-import DayTimeline from "./day-timeline";
+import { CalendarProvider } from "./calendar-store";
 import DateInfo from "./date-info";
+import DayTimeline from "./day-timeline";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     date: string;
-  };
+  }>
 };
 const page = async ({ params }: PageProps) => {
-  const dateKey = params.date;
+  const { date: dateKey } = await params;
   const date = dayjs(dateKey, "YYYY-MM-DD").locale("ru");
   if (!date.isValid()) {
     const today = dayjs().locale("ru").format("YYYY-MM-DD");
@@ -58,7 +58,7 @@ const page = async ({ params }: PageProps) => {
                 <span className="text-sm">Работа</span>
               </div>
               <div className="flex justify-center items-center gap-2">
-                <span className="text-sm text-secondary">
+                <span className="text-sm text-foreground">
                   Нет внешних списков
                 </span>
               </div>

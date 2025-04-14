@@ -35,7 +35,7 @@ const Header = ({ user }: { user: UserObject }) => {
             <span className="text-sm text-start font-medium">
               {user?.username}
             </span>
-            <span className="text-xs text-secondary">{user?.email}</span>
+            <span className="text-xs text-foreground">{user?.email}</span>
           </div>
         </div>
         <ChevronDownIcon

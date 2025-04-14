@@ -33,7 +33,7 @@ const page = async () => {
                   Заголовок поста
                 </span>
               </div>
-              <span className="text-secondary block text-sm">
+              <span className="text-foreground block text-sm">
                 Описание поста
               </span>
             </div>

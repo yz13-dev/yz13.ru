@@ -1,40 +1,28 @@
-import { getChat } from "rest-api/chats";
-import { redirect } from "next/navigation";
-import ChatSidebarTrigger from "../sidebar-trigger";
-import ChatProvider from "./chat-provider";
-import EditChatName from "./edit-chat-name";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "mono/components/breadcrumb";
-import { showChatCode, showChatTopics } from "@/const/flags";
-import ChatToolbar from "../chat-toolbar/chat-toolbar";
-import { cookies } from "next/headers";
 import { authorized } from "@/lib/auth";
-import { Suspense } from "react";
-import Loading from "./loading";
 import { SidebarProvider } from "mono/components/sidebar";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import { getChat } from "rest-api/chats";
 import ServerWrapper from "../server-wrapper";
-import { SidebarSkeleton } from "../sidebar/sidebar-skeleton";
 import ChatSidebar from "../sidebar/chat-sidebar";
+import { SidebarSkeleton } from "../sidebar/sidebar-skeleton";
+import ChatProvider from "./chat-provider";
+import Loading from "./loading";
 
 type LayoutProps = {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     chatId: string;
-  };
+  }>;
 };
 
 const layout = async ({ children, params }: LayoutProps) => {
+  const { chatId } = await params;
   const isAuthorized = await authorized();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const sidebarState = cookieStore.get("sidebar_state")?.value ?? "false";
   const defaultOpen = isAuthorized ? sidebarState === "true" : false;
-  const chatId = params.chatId;
   const { data: chat } = await getChat(chatId);
   if (!chat) return redirect("/");
   return (

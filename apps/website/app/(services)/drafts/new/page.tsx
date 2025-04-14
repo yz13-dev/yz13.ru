@@ -6,15 +6,15 @@ const page = async () => {
   const user = await auth();
   if (!user) return redirect("/drafts");
   const uid = user?.id;
-  const userName = user?.user_metadata?.username;
+  const userName = user?.username;
   const email = user?.email;
-  const avatarUrl = user?.user_metadata?.avatar_url;
+  const avatarUrl = user?.avatar_url;
   return (
     <>
       <div className="p-6 min-h-[calc(100dvh-64px)] space-y-6">
         <NewDraftForm
           uid={uid}
-          avatarUrl={avatarUrl}
+          avatarUrl={avatarUrl ?? undefined}
           email={email}
           userName={userName}
         />

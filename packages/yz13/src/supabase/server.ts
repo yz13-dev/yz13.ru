@@ -1,11 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
-import { cookieOptions } from "./cookies";
+import { cookieOptions, CookieStore } from "./cookies";
 import { Database } from "./database";
 
 export const createClient = (
-  cookieStore: ReturnType<typeof cookies>,
+  cookieStore: CookieStore,
 ): SupabaseClient<Database> => {
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -18,12 +17,12 @@ export const createClient = (
       },
       cookies: {
         getAll() {
-          return cookieStore.getAll();
+          return (cookieStore).getAll();
         },
         setAll(cookiesToSet) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options),
+              (cookieStore).set(name, value, options),
             );
           } catch (error) {
             console.error("Error setting cookies on server client");

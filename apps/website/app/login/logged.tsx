@@ -32,7 +32,7 @@ const Logged = ({ user, continue: continueLink }: Props) => {
         </Avatar>
         <div className="flex flex-col gap-1">
           <span className="text-center font-medium text-lg">{name}</span>
-          <span className="text-center text-secondary text-sm">{email ?? phone}</span>
+          <span className="text-center text-foreground text-sm">{email ?? phone}</span>
         </div>
         <span>Title</span>
         <div className="flex items-center gap-2 mt-4">

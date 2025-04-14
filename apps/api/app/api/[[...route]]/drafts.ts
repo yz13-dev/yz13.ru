@@ -8,7 +8,7 @@ dayjs.extend(utc);
 export const drafts = new Hono();
 
 drafts.get("/", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("drafts")
@@ -20,7 +20,7 @@ drafts.get("/", async (c) => {
 });
 
 drafts.get("/:id", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const id = c.req.param("id");
   const { data, error } = await supabase
@@ -35,7 +35,7 @@ drafts.get("/:id", async (c) => {
 
 drafts.post("/", async (c) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const body = await c.req.json();
     const published_at = body.published_at ? body.published_at : null;

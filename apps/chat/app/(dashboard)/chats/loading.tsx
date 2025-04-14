@@ -23,7 +23,7 @@ export default function loading() {
       <div className="w-full flex md:flex-row flex-col gap-6">
         <div className="md:w-1/3 w-full space-y-3 *:space-y-1.5">
           <div className="w-full">
-            <span className="text-base block font-medium text-secondary">
+            <span className="text-base block font-medium text-foreground">
               Задачи
             </span>
             <Skeleton className="h-96" />

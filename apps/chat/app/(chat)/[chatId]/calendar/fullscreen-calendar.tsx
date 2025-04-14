@@ -114,7 +114,7 @@ export default function FullScreenCalendar({
                   weekStartsOn: 1,
                 })}
               </h2>
-              <p className="text-xs text-secondary capitalize">
+              <p className="text-xs text-foreground capitalize">
                 {format(firstDayCurrentMonth, "MMM d, yyyy", {
                   locale,
                   weekStartsOn: 1,

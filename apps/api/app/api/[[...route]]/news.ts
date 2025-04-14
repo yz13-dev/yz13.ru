@@ -1,8 +1,8 @@
 import { sourcesWithObjectTags } from "@/const/sources-rules";
+import { GeoMiddleware } from "hono-geo-middleware";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
-import { GeoMiddleware } from "hono-geo-middleware";
 
 export const news = new Hono();
 
@@ -28,7 +28,7 @@ const parseObjTags = (tags: string[]): string[] => {
 
 news.get("/news-sources", async (c) => {
   const country_code = c.req.query("country_code");
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   if (country_code) {
     const { data, error } = await supabase
@@ -47,7 +47,7 @@ news.get("/news-sources", async (c) => {
 });
 news.get("/news-sources/:source_id", async (c) => {
   const source_id = c.req.param("source_id");
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news_sources")
@@ -62,7 +62,7 @@ news.get("/news-sources/:source_id", async (c) => {
 
 news.get("/country/:code/sources", async (c) => {
   const code = c.req.param("code");
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news_sources")
@@ -75,7 +75,7 @@ news.get("/country/:code/sources", async (c) => {
 
 news.get("/parse-rules/:source_id", async (c) => {
   const source_id = c.req.param("source_id");
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("parse_rules")
@@ -91,7 +91,7 @@ news.get("/parse-rules/:source_id", async (c) => {
 news.get("/articles", async (c) => {
   const offset = parseInt(c.req.query("offset") || "0");
   const limit = 10;
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news")
@@ -105,7 +105,7 @@ news.get("/articles", async (c) => {
 
 news.get("/articles/:source_id", async (c) => {
   const source_id = c.req.param("source_id");
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news")
@@ -120,7 +120,7 @@ news.get("/country/:code/articles", async (c) => {
   const offset = parseInt(c.req.query("offset") || "0");
   const limit = parseInt(c.req.query("limit") || "30");
   const code = String(c.req.param("code")).toUpperCase();
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news_sources")
@@ -140,7 +140,7 @@ news.get("/country/:code/articles", async (c) => {
 
 news.get("/article/:article_id", async (c) => {
   const article_id = c.req.param("article_id");
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news")
@@ -160,7 +160,7 @@ news.get("/article/:article_id", async (c) => {
 });
 
 news.get("/codes", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news_sources")
@@ -175,7 +175,7 @@ news.get("/codes", async (c) => {
 });
 
 news.get("/categories", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase.from("news").select("tags");
   if (error) {
@@ -192,7 +192,7 @@ news.get("/categories", async (c) => {
 
 news.patch("/repatch", async (c) => {
   return c.json({ status: "ok" });
-  // const cookieStore = cookies();
+  // const cookieStore = await cookies();
   // const supabase = createClient(cookieStore);
   // const { data, error } = await supabase
   //   .from("news")
@@ -230,7 +230,7 @@ news.post("/articles/new", async (c) => {
       return c.json({ error: "Unauthorized" }, 401);
     } else {
       const article = await c.req.json();
-      const cookieStore = cookies();
+      const cookieStore = await cookies();
       const supabase = createClient(cookieStore);
 
       const title = article.title;

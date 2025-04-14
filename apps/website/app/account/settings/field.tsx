@@ -28,7 +28,7 @@ const Field = ({ type = "input", children }: FieldProps) => {
 };
 
 const FieldLabel = ({ children }: { children?: React.ReactNode }) => {
-  return <div className="text-xs text-secondary w-1/2">{children}</div>;
+  return <div className="text-xs text-foreground w-1/2">{children}</div>;
 };
 
 const FieldDescription = ({ children }: { children?: React.ReactNode }) => {
@@ -52,7 +52,7 @@ const FieldContent = ({
 };
 
 const FieldValue = ({ children }: { children?: React.ReactNode }) => {
-  return <span className="text-sm font-normal text-secondary">{children}</span>;
+  return <span className="text-sm font-normal text-foreground">{children}</span>;
 };
 
 const FieldInput = ({
@@ -133,8 +133,8 @@ const FieldTrigger = ({
           onAction && onAction();
         }}
         className={cn(
-          "text-secondary text-sm hover:text-foreground",
-          "disabled:text-secondary",
+          "text-foreground text-sm hover:text-foreground",
+          "disabled:text-foreground",
         )}
       >
         {loading && <Loader2Icon className="animate-spin" size={16} />}
@@ -144,7 +144,7 @@ const FieldTrigger = ({
   return (
     <button
       onClick={() => setEditing(true)}
-      className="text-secondary text-sm hover:text-foreground"
+      className="text-foreground text-sm hover:text-foreground"
     >
       {children}
     </button>

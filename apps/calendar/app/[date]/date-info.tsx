@@ -10,7 +10,7 @@ export default function DateInfo({ date }: { date: string }) {
       <span className="text-lg font-medium capitalize">
         {parsedDate.format("MMMM DD, YYYY")}
       </span>
-      <span className="text-base text-secondary capitalize">
+      <span className="text-base text-foreground capitalize">
         {parsedDate.format("dddd")}
       </span>
     </div>

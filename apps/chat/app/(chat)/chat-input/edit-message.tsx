@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { ChatMessage } from "rest-api/types/chats";
-import { getMessage } from "../chat-api/chat-api";
-import { getChatMessage } from "rest-api/messages";
 import { EditIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { useEffect, useState } from "react";
+import { getChatMessage } from "rest-api/messages";
+import { ChatMessage } from "rest-api/types/chats";
+import { getMessage } from "../chat-api/chat-api";
 import { setEditMessage } from "./input-store";
 
 export default function EditMessage({
@@ -39,10 +39,10 @@ export default function EditMessage({
           <EditIcon size={16} />
         </div>
         <div className="flex flex-col px-2">
-          <span className="text-sm font-medium text-foreground/60">
+          <span className="text-sm font-medium text-muted-foreground">
             Редактировать сообщение
           </span>
-          <span className="text-xs text-secondary line-clamp-1">
+          <span className="text-xs text-foreground line-clamp-1">
             {message.message}
           </span>
         </div>

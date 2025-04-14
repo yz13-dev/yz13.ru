@@ -21,7 +21,7 @@ export const createProject = async (
   body: NewRelease,
 ): Promise<Release | null> => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("works")
@@ -51,7 +51,7 @@ export const updateProject = async (
   body: Partial<NewRelease>,
 ): Promise<Release | null> => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("works")
@@ -78,7 +78,7 @@ export const updateProject = async (
 
 export const deleteProject = async (id: string): Promise<Release | null> => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("works")

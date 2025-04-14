@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { create } from "zustand";
 import DockMenu from "./dock-menu";
 import QuickSearchMenu from "./quick-search-menu";
@@ -7,7 +8,7 @@ type MenuProps = {
 };
 
 type Menu = {
-  [key: string]: (props: MenuProps) => JSX.Element;
+  [key: string]: (props: MenuProps) => ReactElement;
 };
 
 export const menu: Menu = {
@@ -56,7 +57,7 @@ export {
   setMenuId,
   setOverlay,
   toggleMenu,
-  toggleOverlay,
+  toggleOverlay
 };
 
 export default useDockMenuStore;

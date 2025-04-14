@@ -1,12 +1,12 @@
 "use client";
-import { getChatMessage } from "rest-api/messages";
-import { getUserById } from "rest-api/user";
-import { ChatMessage } from "rest-api/types/chats";
-import { ChatAttachment } from "rest-api/types/attachments";
 import { XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useEffect, useMemo, useState } from "react";
+import { getChatMessage } from "rest-api/messages";
+import { ChatAttachment } from "rest-api/types/attachments";
+import { ChatMessage } from "rest-api/types/chats";
 import { UserObject } from "rest-api/types/user";
+import { getUserById } from "rest-api/user";
 import { getMessage } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import { AttachmentsPreviews } from "./attachments-preview-row";
@@ -85,10 +85,10 @@ const ReplyTo = ({
           />
         )}
         <div className="flex flex-col px-2">
-          <span className="text-sm font-medium text-foreground/60">
+          <span className="text-sm font-medium text-muted-foreground">
             {user?.username || "Пользователь"}
           </span>
-          <span className="text-xs text-secondary line-clamp-1">
+          <span className="text-xs text-foreground line-clamp-1">
             {replyMessageLabel}
           </span>
         </div>

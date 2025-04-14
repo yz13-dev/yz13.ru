@@ -1,22 +1,23 @@
 import dynamic from "next/dynamic";
 import Overlay from "./overlay";
 
-const Map = dynamic(() => import("./map"), { ssr: false });
+const Map = dynamic(() => import("./map"), {});
 
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     lat?: string;
     lng?: string;
-  };
+  }>;
 };
 
-const page = ({ searchParams }: PageProps) => {
-  const lat = searchParams.lat ? parseFloat(searchParams.lat) : 57.152988;
-  const lng = searchParams.lng ? parseFloat(searchParams.lng) : 65.541228;
+const page = async ({ searchParams }: PageProps) => {
+  const { lat = "57.152988", lng = "65.541228" } = await searchParams;
+  const searchLat = parseFloat(lat)
+  const searchLng = parseFloat(lng)
   return (
     <div className="w-full h-dvh overflow-hidden relative">
       <Overlay>
-        <Map lat={lat} lng={lng} />
+        <Map lat={searchLat} lng={searchLng} />
       </Overlay>
     </div>
   );

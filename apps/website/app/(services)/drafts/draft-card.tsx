@@ -12,10 +12,10 @@ const DraftAuthor = async ({ author }: { author: string }) => {
   const userName = user?.username ?? "Пользователь";
   return (
     <div className="flex flex-row items-center gap-1">
-      <span className="text-xs text-secondary">От</span>
+      <span className="text-xs text-foreground">От</span>
       <Link
         href={`/drafts/by/${author}`}
-        className="text-xs text-secondary hover:text-foreground cursor-pointer underline"
+        className="text-xs text-foreground hover:text-foreground cursor-pointer underline"
       >
         {userName}
       </Link>
@@ -38,8 +38,8 @@ const DraftCard = ({ draft }: { draft: Draft }) => {
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center flex-col gap-2">
-            <ImageIcon size={20} className="text-secondary" />
-            <span className="text-xs text-secondary">Нет обложки</span>
+            <ImageIcon size={20} className="text-foreground" />
+            <span className="text-xs text-foreground">Нет обложки</span>
           </div>
         )}
         <Link
@@ -52,7 +52,7 @@ const DraftCard = ({ draft }: { draft: Draft }) => {
           <span className="text-sm font-medium text-foreground/80 line-clamp-1">
             {draft.title}
             {draft.description && (
-              <span className="text-secondary">
+              <span className="text-foreground">
                 {", "}
                 {draft.description.slice(0, 100)}
               </span>
@@ -63,7 +63,7 @@ const DraftCard = ({ draft }: { draft: Draft }) => {
           </Suspense>
         </div>
         {randomTag && (
-          <span className="flex flex-row rounded-full border px-2.5 py-1 items-center gap-1 text-secondary">
+          <span className="flex flex-row rounded-full border px-2.5 py-1 items-center gap-1 text-foreground">
             <TagIcon size={14} />
             <span className="text-xs shrink-0">{randomTag}</span>
           </span>
