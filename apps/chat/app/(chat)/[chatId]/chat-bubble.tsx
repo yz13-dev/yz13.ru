@@ -40,8 +40,8 @@ export const bubbleVariants = cva(
       variant: {
         default: "bg-foreground text-background hover:bg-foreground/90",
         outline:
-          "border border-border bg-background hover:bg-neutral-200 hover:text-foreground",
-        secondary: "bg-neutral-200 text-foreground/70 hover:bg-neutral-200/80",
+          "border border-border bg-background hover:bg-bg-secondary text-muted-foreground",
+        secondary: "bg-secondary text-muted-foreground hover:bg-secondary/80",
         ghost: "text-foreground/70 hover:text-foreground/90",
         link: "text-foreground underline-offset-4 hover:underline",
       },

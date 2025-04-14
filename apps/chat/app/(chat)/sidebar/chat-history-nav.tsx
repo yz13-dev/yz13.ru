@@ -143,7 +143,7 @@ const HistoryItem = ({ chat }: { chat: ChatRoom }) => {
                 "transition-colors",
                 chat.favorite
                   ? "fill-yellow-foreground/25 stroke-yellow-foreground"
-                  : "fill-neutral-200/25 stroke-neutral-300",
+                  : "fill-neutral-600/25 stroke-neutral-700",
               )}
             />
           </button>
