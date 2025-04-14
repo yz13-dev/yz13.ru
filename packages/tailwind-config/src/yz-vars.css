@@ -1,22 +1,21 @@
 :root {
     /* Neutral colors */
     --yz13-neutral-50: oklch(100% 0 0);
-    --yz13-neutral-100: oklch(97.5% 0 0);
-    --yz13-neutral-200: oklch(92.5% 0 0);
-    --yz13-neutral-300: oklch(86.5% 0 0);
-    --yz13-neutral-400: oklch(80.5% 0 0);
-    --yz13-neutral-500: oklch(75.5% 0 0);
-    --yz13-neutral-600: oklch(69.5% 0 0);
-    --yz13-neutral-700: oklch(64.5% 0 0);
-    --yz13-neutral-800: oklch(58.5% 0 0);
-    --yz13-neutral-900: oklch(53.5% 0 0);
+    --yz13-neutral-100: oklch(95% 0 0);
+    --yz13-neutral-200: oklch(90% 0 0);
+    --yz13-neutral-300: oklch(80% 0 0);
+    --yz13-neutral-400: oklch(70% 0 0);
+    --yz13-neutral-500: oklch(60% 0 0);
+    --yz13-neutral-600: oklch(50% 0 0);
+    --yz13-neutral-700: oklch(40% 0 0);
+    --yz13-neutral-800: oklch(30% 0 0);
+    --yz13-neutral-900: oklch(20% 0 0);
 
     /* Base colors */
     --yz13-foreground: oklch(0% 0 0);
     --yz13-foreground-secondary: oklch(0% 0 0 / 60%);
-    --yz13-background: oklch(100% 0 0);
-    --yz13-background-secondary: oklch(97.5% 0 0);
-    --yz13-selection: var(--yz13-foreground);
+    --yz13-background: var(--yz13-neutral-50);
+    --yz13-background-secondary: var(--yz13-neutral-100) --yz13-selection: var(--yz13-foreground);
     --yz13-border: var(--yz13-neutral-300);
     --yz13-secondary: var(--yz13-neutral-100);
     --yz13-secondary-foreground: var(--yz13-foreground);
@@ -76,23 +75,24 @@
 .dark {
     /* Neutral colors */
     --yz13-neutral-50: oklch(0% 0 0);
-    --yz13-neutral-100: oklch(3.5% 0 0);
-    --yz13-neutral-200: oklch(8.5% 0 0);
-    --yz13-neutral-300: oklch(14.5% 0 0);
-    --yz13-neutral-400: oklch(20.5% 0 0);
-    --yz13-neutral-500: oklch(25.5% 0 0);
-    --yz13-neutral-600: oklch(31.5% 0 0);
-    --yz13-neutral-700: oklch(36.5% 0 0);
-    --yz13-neutral-800: oklch(42.5% 0 0);
-    --yz13-neutral-900: oklch(47.5% 0 0);
+    --yz13-neutral-100: oklch(5% 0 0);
+    --yz13-neutral-200: oklch(10% 0 0);
+    --yz13-neutral-300: oklch(20% 0 0);
+    --yz13-neutral-400: oklch(30% 0 0);
+    --yz13-neutral-500: oklch(40% 0 0);
+    --yz13-neutral-600: oklch(50% 0 0);
+    --yz13-neutral-700: oklch(60% 0 0);
+    --yz13-neutral-800: oklch(70% 0 0);
+    --yz13-neutral-900: oklch(80% 0 0);
 
     /* Base colors */
     --yz13-foreground: oklch(100% 0 0);
-    --yz13-background: oklch(0% 0 0);
-    --yz13-background-secondary: oklch(2.5% 0 0);
+    --yz13-foreground-secondary: oklch(100% 0 0 / 60%);
+    --yz13-background: var(--yz13-neutral-50);
+    --yz13-background-secondary: var(--yz13-neutral-100);
     --yz13-selection: var(--yz13-foreground);
-    --yz13-border: var(--yz13-neutral-300);
-    --yz13-secondary: var(--yz13-neutral-900);
+    --yz13-border: var(--yz13-neutral-500);
+    --yz13-secondary: var(--yz13-neutral-500);
     --yz13-secondary-foreground: var(--yz13-foreground);
 
     /* Success colors */
@@ -156,11 +156,12 @@
 
         /* Base colors */
         --yz13-foreground: oklch(100% 0 0);
-        --yz13-background: oklch(0% 0 0);
-        --yz13-background-secondary: oklch(2.5% 0 0);
+        --yz13-foreground-secondary: oklch(100% 0 0 / 60%);
+        --yz13-background: var(--yz13-neutral-50);
+        --yz13-background-secondary: var(--yz13-neutral-100);
         --yz13-selection: var(--yz13-foreground);
-        --yz13-border: var(--yz13-neutral-300);
-        --yz13-secondary: var(--yz13-neutral-900);
+        --yz13-border: var(--yz13-neutral-500);
+        --yz13-secondary: var(--yz13-neutral-500);
         --yz13-secondary-foreground: var(--yz13-foreground);
 
         /* Success colors */
