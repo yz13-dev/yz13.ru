@@ -1,6 +1,6 @@
 import { Typewriter } from "@/components/text-writter";
-import SocialLinks from "./social-links";
 import { availableForWork } from "@/const/flags";
+import SocialLinks from "./social-links";
 
 type AvailabilityProps = {};
 
@@ -11,7 +11,7 @@ const unavailableTexts = [
   "Делаю вид что работаю",
 ];
 
-const Availability = async ({}: AvailabilityProps) => {
+const Availability = async ({ }: AvailabilityProps) => {
   const isBusy = await availableForWork();
   const status: "available" | "unavailable" = isBusy
     ? "unavailable"
@@ -30,7 +30,7 @@ const Availability = async ({}: AvailabilityProps) => {
             text={text}
             speed={100}
             loop={true}
-            className="text-sm text-foreground"
+            className="text-sm text-muted-foreground"
           />
         </div>
       </div>

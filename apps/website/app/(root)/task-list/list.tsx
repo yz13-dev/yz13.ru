@@ -24,7 +24,7 @@ export default function TaskList({ className = "" }: TaskListProps) {
         className,
       )}
     >
-      <div className="w-full text-foreground px-2 py-1.5 flex items-center gap-2 rounded-md bg-neutral-200">
+      <div className="w-full px-2 py-1.5 flex items-center gap-2 rounded-md bg-secondary text-muted-foreground">
         <CalendarIcon size={16} />
         <span className="text-sm font-medium">Сегодня</span>
       </div>

@@ -148,7 +148,7 @@ const Timeline = ({
       <div
         ref={ref}
         className={cn(
-          "w-full h-full marquee overflow-x-auto flex flex-row  gap-1 relative",
+          "w-full h-full marquee flex flex-row  gap-1 relative",
           align === "top" && "items-start",
           align === "center" && "items-center",
           align === "bottom" && "items-end",
@@ -255,7 +255,7 @@ const Line = ({
         data-active={active}
         className={cn(
           "w-px",
-          "data-[active=true]:bg-foreground bg-neutral-300",
+          "data-[active=true]:bg-foreground bg-secondary",
         )}
       />
     </div>

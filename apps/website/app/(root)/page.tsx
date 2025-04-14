@@ -1,7 +1,7 @@
 import Availability from "@/components/availability";
 import Dock, { DockSkeleton } from "@/components/dock/dock";
+import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
-import Footer from "@/components/small-footer";
 import {
   availableForWork,
   showCallToAction,
@@ -27,7 +27,7 @@ export default async function page() {
         >
           <Background />
         </Suspense>
-        <main className="w-full relative mt-[10%] space-y-12 mb-12">
+        <main className="w-full relative pt-[10%] space-y-12 pb-12">
           <div className="w-full yz-future-container yz-future-container-max mx-auto md:gap-[2.5%] gap-[5%] flex items-center justify-between">
             <div className="w-fit h-full space-y-10">
               <Logo size={{ width: 128, height: 24 }} type="full" />
@@ -54,18 +54,18 @@ export default async function page() {
         <div className="w-full yz-future-container yz-future-container-max mx-auto h-20 px-6">
           <Timeline focusAlign="center" align="bottom" />
         </div>
-        <div className="yz-future-container yz-future-container-max mx-auto bg-background/80 backdrop-blur-sm border-t border-x md:py-[2.5%] py-[5%] yz-future-panel">
-          <div className="w-full space-y-5 md:space-y-10">
+        <div className="yz-future-container-no-padding yz-future-container-max mx-auto bg-background/80 backdrop-blur-sm">
+          <div className="w-full space-y-5 md:space-y-10 yz-future-padding-x yz-future-padding-y">
             <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
               <Availability />
             </Suspense>
           </div>
-          <div className="md:py-[2.5%] py-[5%] space-y-12">
-            <div className="w-full space-y-6">
+          <div className="space-y-12">
+            <div className="w-full space-y-6 yz-future-padding-x">
               <span className="text-3xl block font-semibold">Стэк</span>
               <Stack />
             </div>
-            <div className="w-full space-y-6">
+            <div className="w-full space-y-6 yz-future-padding-x">
               <span className="text-3xl block font-semibold">Услуги</span>
               <div className="md:gap-[2.5%] gap-[5%] divide-y space-y-6 *:pb-6">
                 <Suspense
@@ -77,8 +77,8 @@ export default async function page() {
                 </Suspense>
               </div>
             </div>
-            <Footer className="md:py-[2.5%] py-[5%]" />
           </div>
+          <Footer />
         </div>
       </div>
       <Suspense fallback={<DockSkeleton />}>
