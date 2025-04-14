@@ -17,7 +17,7 @@ const SocialLinks = () => {
       >
         <PiMailbox
           size={16}
-          className="text-secondary hover:text-foreground transition-colors"
+          className="text-foreground hover:text-foreground transition-colors"
         />
         <ArrowDownIcon className="hidden group-hover:block absolute size-4 bottom-5 animate-bounce" />
       </Link>
@@ -28,7 +28,7 @@ const SocialLinks = () => {
       >
         <PiGithubLogo
           size={16}
-          className="text-secondary hover:text-foreground transition-colors"
+          className="text-foreground hover:text-foreground transition-colors"
         />
         <ArrowDownIcon className="hidden group-hover:block absolute size-4 bottom-5 animate-bounce" />
       </Link>
@@ -39,7 +39,7 @@ const SocialLinks = () => {
       >
         <PiXLogo
           size={16}
-          className="text-secondary hover:text-foreground transition-colors"
+          className="text-foreground hover:text-foreground transition-colors"
         />
         <ArrowDownIcon className="hidden group-hover:block absolute size-4 bottom-5 animate-bounce" />
       </Link>
@@ -50,7 +50,7 @@ const SocialLinks = () => {
       >
         <PiTelegramLogo
           size={16}
-          className="text-secondary hover:text-foreground transition-colors"
+          className="text-foreground hover:text-foreground transition-colors"
         />
         <ArrowDownIcon className="hidden group-hover:block absolute size-4 bottom-5 animate-bounce" />
       </Link>

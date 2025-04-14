@@ -14,7 +14,7 @@ const sessionBodySchema = z.object({
 
 visitor_session.post("/", async (c) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createAdminClient(cookieStore);
     const body = await c.req.json();
     sessionBodySchema.parse(body);

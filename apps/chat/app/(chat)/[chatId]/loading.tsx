@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { SidebarSkeleton } from "../sidebar/sidebar-skeleton";
 
-const loading = () => {
-  const cookieStore = cookies();
+const loading = async () => {
+  const cookieStore = await cookies();
   const sidebar = cookieStore.get("sidebar_state")?.value || "false";
   const sidebarState = sidebar === "true" || false;
   return (

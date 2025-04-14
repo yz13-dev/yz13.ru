@@ -1,7 +1,4 @@
 "use client";
-import { getChatMessage } from "rest-api/messages";
-import { updateChat } from "rest-api/chats";
-import { ChatMessage } from "rest-api/types/chats";
 import { Loader2Icon, PinIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import {
@@ -10,6 +7,9 @@ import {
   PopoverTrigger,
 } from "mono/components/popover";
 import { useEffect, useState } from "react";
+import { updateChat } from "rest-api/chats";
+import { getChatMessage } from "rest-api/messages";
+import { ChatMessage } from "rest-api/types/chats";
 import { cn } from "yz13/cn";
 import { setChat } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
@@ -48,7 +48,7 @@ const PinnedMessage = () => {
   if (!message || !chat?.["pinned-message"]) return <></>;
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <div className="flex items-center">
           <Button
             variant="outline"
@@ -77,7 +77,7 @@ const PinnedMessage = () => {
         </div>
       </PopoverTrigger>
       <PopoverContent className="rounded-2xl p-3 space-y-2">
-        <span className="text-xs text-secondary block">
+        <span className="text-xs text-foreground block">
           Закрепленное сообщение
         </span>
         <span

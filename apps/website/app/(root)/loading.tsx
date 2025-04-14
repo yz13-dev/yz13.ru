@@ -18,11 +18,11 @@ export default function Loading() {
                 <h1 className="inline text-foreground font-medium lg:text-3xl text-2xl">
                   YZ13
                 </h1>
-                <span className="text-secondary inline font-medium text-balance lg:text-3xl text-2xl">
+                <span className="text-foreground inline font-medium text-balance lg:text-3xl text-2xl">
                   {" "}
                   -{" "}
                 </span>
-                <p className="text-secondary inline font-medium text-balance lg:text-3xl text-2xl">
+                <p className="text-foreground inline font-medium text-balance lg:text-3xl text-2xl">
                   Фронтенд разработчик, специализируюсь на разработке сайтов,
                   веб-приложений.
                 </p>

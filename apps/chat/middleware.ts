@@ -6,7 +6,8 @@ const auth = ["/login", "/signup"];
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const supabase = createClient(cookies());
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
   const {
     data: { user },
   } = await supabase.auth.getUser();

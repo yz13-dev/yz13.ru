@@ -10,12 +10,12 @@ import { CalendarProvider } from "../calendar-store";
 import CalendarWidget from "./calendar";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     date: string;
-  };
+  }>
 };
 const page = async ({ params }: PageProps) => {
-  const dateKey = params.date;
+  const { date: dateKey } = await params;
   const date = dayjs(dateKey, "YYYY-MM-DD").locale("ru");
   if (!date.isValid()) {
     const today = dayjs().locale("ru").format("YYYY-MM-DD");
@@ -28,7 +28,7 @@ const page = async ({ params }: PageProps) => {
           <span className="text-lg text-foreground capitalize font-medium">
             {date.format("MMMM DD, YYYY")}
           </span>
-          <span className="text-xs text-secondary capitalize">
+          <span className="text-xs text-foreground capitalize">
             {date.format("dddd")}
           </span>
         </div>
@@ -62,7 +62,7 @@ const page = async ({ params }: PageProps) => {
               <span className="text-sm">Работа</span>
             </div>
             <div className="flex justify-center items-center gap-2">
-              <span className="text-sm text-secondary">
+              <span className="text-sm text-foreground">
                 Нет внешних списков
               </span>
             </div>

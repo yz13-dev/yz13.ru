@@ -28,7 +28,7 @@ export const Tag = ({
   return (
     <span
       onClick={handleAddTag}
-      className="px-2 py-0.5 text-xs text-secondary cursor-pointer rounded-full border"
+      className="px-2 py-0.5 text-xs text-foreground cursor-pointer rounded-full border"
     >
       {tag.tag}
     </span>

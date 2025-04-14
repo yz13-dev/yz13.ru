@@ -1,6 +1,6 @@
 "use client";
 import useTimeStore from "@/components/live/time.store";
-import { FlameIcon } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { useMemo } from "react";
 import { cn } from "yz13/cn";
 import DefaultList from "./default-list";
@@ -24,8 +24,8 @@ export default function TaskList({ className = "" }: TaskListProps) {
         className,
       )}
     >
-      <div className="w-full text-secondary px-2 py-1.5 flex items-center gap-2 rounded-md bg-neutral-200">
-        <FlameIcon size={16} />
+      <div className="w-full text-foreground px-2 py-1.5 flex items-center gap-2 rounded-md bg-neutral-200">
+        <CalendarIcon size={16} />
         <span className="text-sm font-medium">Сегодня</span>
       </div>
       {isWeekend ? (
@@ -33,7 +33,7 @@ export default function TaskList({ className = "" }: TaskListProps) {
           style={{ height: PLACEHOLDER_HEIGHT }}
           className="w-full flex items-center justify-center rounded-2xl"
         >
-          <span className="text-secondary text-sm">Выходной</span>
+          <span className="text-foreground text-sm">Выходной</span>
         </div>
       ) : (
         <DefaultList />

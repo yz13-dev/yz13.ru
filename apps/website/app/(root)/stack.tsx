@@ -1,6 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 
 const list = [
@@ -24,7 +22,7 @@ export default function Stack() {
           <span
             key={value + i}
             className={cn(
-              "px-4 py-1 text-sm text-balance text-foreground/60",
+              "px-4 py-1 text-sm text-balance text-muted-foreground",
               "rounded-full border md:text-2xl text-lg",
             )}
           >

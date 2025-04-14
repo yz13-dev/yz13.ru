@@ -21,7 +21,6 @@ export const Primary: Story = {
   args: {
     variant: "default",
     children: "Button",
-    rounded: "default",
   },
 };
 
@@ -29,7 +28,6 @@ export const Destructive: Story = {
   args: {
     variant: "destructive",
     children: "Button",
-    rounded: "default",
   },
 };
 
@@ -37,7 +35,6 @@ export const Outline: Story = {
   args: {
     variant: "outline",
     children: "Button",
-    rounded: "default",
   },
 };
 
@@ -45,7 +42,6 @@ export const Secondary: Story = {
   args: {
     variant: "secondary",
     children: "Button",
-    rounded: "default",
   },
 };
 
@@ -53,7 +49,6 @@ export const Ghost: Story = {
   args: {
     variant: "ghost",
     children: "Button",
-    rounded: "default",
   },
 };
 
@@ -61,6 +56,5 @@ export const Link: Story = {
   args: {
     variant: "link",
     children: "Button",
-    rounded: "default",
   },
 };

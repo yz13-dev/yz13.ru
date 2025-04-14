@@ -109,7 +109,7 @@ export function FileUpload({ className = "", onFile, file }: FileUploadProps) {
             />
           ) : (
             <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-              <File size={24} className="text-secondary" />
+              <File size={24} className="text-foreground" />
             </div>
           )}
           {size && (

@@ -3,8 +3,9 @@ import { SupabaseClient } from "@supabase/supabase-js";
 import { cookieOptions } from "./cookies";
 import { Database } from "./database";
 
-export const createClient = (): SupabaseClient<Database> =>
-  createBrowserClient(
+export const createClient = (): SupabaseClient<Database> => {
+  // @ts-expect-error
+  return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -15,3 +16,4 @@ export const createClient = (): SupabaseClient<Database> =>
       },
     },
   );
+}

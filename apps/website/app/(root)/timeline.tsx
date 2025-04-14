@@ -239,11 +239,11 @@ const Line = ({
             data-align={align}
             className={cn(
               "text-sm absolute text-center px-0.5",
-              "text-secondary data-[active=true]:text-foreground",
+              "text-muted-foreground data-[active=true]:text-foreground",
               "data-[active=true]:z-10 data-[active=true]:backdrop-blur-sm",
               "data-[align=top]:bottom-2 data-[align=center]:-top-1 data-[align=bottom]:top-3",
               isCloseToZero &&
-                "data-[align=top]:bottom-2 data-[align=center]:-top-1 data-[align=bottom]:-top-1",
+              "data-[align=top]:bottom-2 data-[align=center]:-top-1 data-[align=bottom]:-top-1",
             )}
           >
             {time}

@@ -31,7 +31,7 @@ const TagsSelector = () => {
             onClick={() => handleSelectTag(tag.id)}
             key={tag.id}
             className={cn(
-              "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-full border",
+              "px-2 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-foreground cursor-pointer rounded-full border",
               selected
                 ? "!border-foreground bg-background-secondary"
                 : "bg-background-secondary",

@@ -78,11 +78,11 @@ const ContactForm = ({
       <div className="space-y-1">
         <h3 className="text-lg font-medium">Готовы начать сотрудничать?</h3>
 
-        <p className="text-sm text-secondary">
+        <p className="text-sm text-foreground">
           Напишите на почту или в телеграм сообщение.
         </p>
       </div>
-      <div className="w-full flex items-center gap-4 *:text-secondary *:text-sm *:transition-colors">
+      <div className="w-full flex items-center gap-4 *:text-foreground *:text-sm *:transition-colors">
         <Link
           href="mailto:YZTHECEO@yandex.ru"
           className="flex items-center gap-2 hover:text-foreground"
@@ -101,7 +101,7 @@ const ContactForm = ({
 
       <div className="w-full">
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-          <span className="relative z-10 bg-background px-2 text-secondary">
+          <span className="relative z-10 bg-background px-2 text-foreground">
             Или воспользуйтесь формой ниже
           </span>
         </div>
@@ -129,7 +129,7 @@ const ContactForm = ({
         />
 
         <div className="flex flex-col gap-2">
-          <p className="text-sm text-secondary">
+          <p className="text-sm text-foreground">
             Для контекста, выберите один вариантов ниже:
           </p>
           <RadioGroup
@@ -154,7 +154,7 @@ const ContactForm = ({
               </div>
               <div className="flex h-full py-1.5 space-y-1 flex-col">
                 <span className="text-sm">Один</span>
-                <span className="text-xs text-secondary">Работаю один</span>
+                <span className="text-xs text-foreground">Работаю один</span>
               </div>
               <RadioGroupItem
                 value="solo"
@@ -185,7 +185,7 @@ const ContactForm = ({
               </div>
               <div className="flex h-full py-1.5 space-y-1 flex-col">
                 <span className="text-sm">Команда</span>
-                <span className="text-xs text-secondary">
+                <span className="text-xs text-foreground">
                   Работаю с командой
                 </span>
               </div>

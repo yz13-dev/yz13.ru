@@ -14,7 +14,7 @@ export const getRoom = async (id: string) => {
 
 export const createRoom = async (body: TablesInsert<"rooms">) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("rooms")

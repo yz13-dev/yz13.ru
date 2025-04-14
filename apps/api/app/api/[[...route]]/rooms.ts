@@ -6,7 +6,7 @@ export const rooms = new Hono();
 
 rooms.get("/:id", async (c) => {
   const id = c.req.param("id");
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
 
   const { data, error } = await supabase
@@ -23,7 +23,7 @@ rooms.get("/:id", async (c) => {
 
 rooms.post("/new", async (c) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
 
     const body = await c.req.json();

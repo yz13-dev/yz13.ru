@@ -2,11 +2,11 @@
 import { XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useMemo, useState } from "react";
+import { updateChat } from "rest-api/chats";
 import { getTasks, updateTask } from "rest-api/tasks";
 import { ChatList } from "rest-api/types/chats";
 import { setChat } from "../../chat-api/chat-api";
 import { useChatApi } from "../../chat-api/chat-provider";
-import { updateChat } from "rest-api/chats";
 
 const TaskLists = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -58,7 +58,7 @@ const TaskLists = () => {
           >
             <div className="flex flex-col">
               <span className="text-sm">{list.name}</span>
-              <span className="text-xs text-secondary">
+              <span className="text-xs text-muted-foreground">
                 {tasksInList.length} задач
               </span>
             </div>

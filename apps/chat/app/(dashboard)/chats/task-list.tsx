@@ -75,7 +75,7 @@ const TaskList = ({ defaultTasks = [] }: { defaultTasks?: ChatTask[] }) => {
       {tasks.map((task) => (
         <li
           key={task.id}
-          className="flex gap-2 min-h-9 bg-background text-secondary items-center first:rounded-t-xl last:rounded-b-xl"
+          className="flex gap-2 min-h-9 bg-background text-foreground items-center first:rounded-t-xl last:rounded-b-xl"
         >
           <Task task={task} onCheckboxChange={handleCheckTask} />
         </li>

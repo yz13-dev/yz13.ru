@@ -1,9 +1,5 @@
 "use client";
-import { updateChat } from "rest-api/chats";
-import { updateChatMessage } from "rest-api/messages";
 import { cdn } from "@/lib/cdn";
-import { ChatMessage, ChatTag } from "rest-api/types/chats";
-import { ChatAttachment } from "rest-api/types/attachments";
 import { cva, VariantProps } from "class-variance-authority";
 import {
   CheckIcon,
@@ -15,9 +11,14 @@ import {
   ReplyIcon,
   XIcon,
 } from "lucide-react";
+import { Checkbox } from "mono/components/checkbox";
 import { AnimatePresence, motion, useInView } from "motion/react";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { updateChat } from "rest-api/chats";
+import { updateChatMessage } from "rest-api/messages";
+import { ChatAttachment } from "rest-api/types/attachments";
+import { ChatMessage, ChatTag } from "rest-api/types/chats";
 import { cn } from "yz13/cn";
 import {
   addSelectedMessage,
@@ -31,7 +32,6 @@ import useChatInput, { setReplyTo } from "../chat-input/input-store";
 import ReplyTo from "../chat-input/reply-to";
 import MessageCtxMenu from "../message-ctx-menu/message-ctx-menu";
 import { BubbleTag } from "./chat-history";
-import { Checkbox } from "mono/components/checkbox";
 
 export const bubbleVariants = cva(
   "max-w-md text-sm transition-colors rounded-3xl w-fit border border-transparent",
@@ -330,21 +330,21 @@ const ChatBubble = ({
                 </div>
               )}
               <div className="flex items-center gap-1">
-                {pinned && <PinIcon size={14} className="text-secondary" />}
+                {pinned && <PinIcon size={14} className="text-foreground" />}
                 {edited && (
-                  <span className="text-xs shrink-0 px-1.5 py-1 select-none text-secondary">
+                  <span className="text-xs shrink-0 px-1.5 py-1 select-none text-muted-foreground">
                     Изменено
                   </span>
                 )}
                 {date && (
-                  <span className="text-xs shrink-0 px-1.5 py-1 select-none text-secondary">
+                  <span className="text-xs shrink-0 px-1.5 py-1 select-none text-muted-foreground">
                     {date}
                   </span>
                 )}
                 {delivered ? (
-                  <CheckIcon size={14} className="text-secondary" />
+                  <CheckIcon size={14} className="text-muted-foreground" />
                 ) : (
-                  <ClockIcon size={14} className="text-secondary" />
+                  <ClockIcon size={14} className="text-muted-foreground" />
                 )}
               </div>
             </div>
@@ -367,7 +367,7 @@ const CopyMessageButton = ({ message }: { message: string }) => {
   };
   return (
     <button
-      className="text-secondary size-6 flex items-center justify-center"
+      className="text-foreground size-6 flex items-center justify-center"
       onClick={handleCopyText}
     >
       {copied ? <CheckIcon size={14} /> : <CopyIcon size={14} />}
@@ -404,7 +404,7 @@ const PinMessageButton = ({ messageId }: { messageId: string }) => {
   };
   return (
     <button
-      className="text-secondary size-6 flex items-center justify-center"
+      className="text-foreground size-6 flex items-center justify-center"
       onClick={handlePinMessage}
     >
       {loading ? (
@@ -428,7 +428,7 @@ const ReplyMessageButton = ({ messageId }: { messageId: string }) => {
   };
   return (
     <button
-      className="text-secondary size-6 flex items-center justify-center"
+      className="text-foreground size-6 flex items-center justify-center"
       onClick={handleReply}
     >
       {isSelected ? <XIcon size={14} /> : <ReplyIcon size={14} />}

@@ -37,7 +37,7 @@ const Author = ({ user }: { user: UserObject }) => {
         <div className="size-10 rounded-full border" />
         <div className="flex flex-col">
           <span className="font-medium text-foreground/80">{userName}</span>
-          <span className="text-xs text-secondary">{email}</span>
+          <span className="text-xs text-foreground">{email}</span>
         </div>
       </div>
       <Button size="icon" variant="ghost">
@@ -74,7 +74,7 @@ const DraftDock = ({ draft, author }: DraftDockProps) => {
       <div className="w-full flex items-start justify-between">
         <div className="flex flex-col gap-1">
           <span className="text-lg font-medium">{draft.title}</span>
-          <span className="text-sm text-secondary">
+          <span className="text-sm text-foreground">
             {draft.description ? draft.description : "Без описания"}
           </span>
         </div>
@@ -132,7 +132,7 @@ const DraftDock = ({ draft, author }: DraftDockProps) => {
               <div className="flex flex-row items-start flex-wrap gap-1">
                 {draft.tags.map((tag) => (
                   <span
-                    className="flex flex-row w-fit rounded-full border px-2.5 py-1 items-center gap-1 text-secondary"
+                    className="flex flex-row w-fit rounded-full border px-2.5 py-1 items-center gap-1 text-foreground"
                     key={tag}
                   >
                     <TagIcon size={14} />
@@ -140,7 +140,7 @@ const DraftDock = ({ draft, author }: DraftDockProps) => {
                   </span>
                 ))}
               </div>
-              <span className="text-xs text-secondary shrink-0">
+              <span className="text-xs text-foreground shrink-0">
                 {published_at}
               </span>
             </div>

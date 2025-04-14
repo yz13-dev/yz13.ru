@@ -61,7 +61,7 @@ const RadioItem = ({
           {isPlaying ? (
             <RadioIcon size={18} className="animate-pulse text-foreground" />
           ) : (
-            <PlayIcon size={18} className="text-secondary" />
+            <PlayIcon size={18} className="text-foreground" />
           )}
         </button>
         <div className="flex flex-col">
@@ -69,7 +69,7 @@ const RadioItem = ({
           {radio.sourceLink && (
             <Link
               href={radio.sourceLink}
-              className="text-xs flex gap-1 text-secondary hover:underline items-center"
+              className="text-xs flex gap-1 text-foreground hover:underline items-center"
             >
               Источник
               <ExternalLinkIcon size={10} />
@@ -80,7 +80,7 @@ const RadioItem = ({
               return (
                 <span
                   key={radio.id + "-" + index}
-                  className="border rounded-full px-2 py-0.5 text-xs text-secondary"
+                  className="border rounded-full px-2 py-0.5 text-xs text-foreground"
                 >
                   {tag}
                 </span>

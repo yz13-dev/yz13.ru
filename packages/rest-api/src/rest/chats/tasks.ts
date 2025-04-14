@@ -18,7 +18,7 @@ export const getTasks = async (chatId: string, filters?: Filter[]) => {
 
 export const getTasksByChatId = async (chatId: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-tasks")
@@ -35,7 +35,7 @@ export const getTasksByChatId = async (chatId: string) => {
 };
 export const createTask = async (chatId: string, task: NewChatTask) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase.from("chats-tasks").insert({
       ...task,
@@ -52,7 +52,7 @@ export const createTask = async (chatId: string, task: NewChatTask) => {
 };
 export const updateTask = async (taskId: string, task: UpdatedTask) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-tasks")
@@ -72,7 +72,7 @@ export const updateTask = async (taskId: string, task: UpdatedTask) => {
 
 export const deleteTask = async (taskId: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-tasks")

@@ -9,7 +9,7 @@ export const getLimits = () => {
   };
 };
 export const getChatsCount = async (uid: string) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { count } = await supabase
     .from("chats")
@@ -21,7 +21,7 @@ export const getChatsCount = async (uid: string) => {
 
 export const getChatTasks = async (id: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-tasks")
@@ -38,7 +38,7 @@ export const getChatTasks = async (id: string) => {
 };
 export const getChatTasksByListId = async (id: string, listId: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const listIdAsNumber = parseInt(listId);
     const { data, error } = await supabase
@@ -58,7 +58,7 @@ export const getChatTasksByListId = async (id: string, listId: string) => {
 
 export const getChatById = async (id: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats")
@@ -77,7 +77,7 @@ export const getChatById = async (id: string) => {
 
 export const getUserChat = async (uid: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats")
@@ -99,7 +99,7 @@ export const getUserChat = async (uid: string) => {
 
 export const getChatMessages = async (id: string, offset: number = 0) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-messages")
@@ -118,7 +118,7 @@ export const getChatMessages = async (id: string, offset: number = 0) => {
 };
 export const getChatMessage = async (id: string, messageId: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats-messages")
@@ -137,7 +137,7 @@ export const getChatMessage = async (id: string, messageId: string) => {
 };
 export const getChatMessagesByTag = async (id: string, tagId: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const tagIdAsNumber = parseInt(tagId);
     const { data, error } = await supabase

@@ -1,7 +1,5 @@
 "use client";
-import { updateChat } from "rest-api/chats";
-import { getUserById } from "rest-api/user";
-import { ChatRoom } from "rest-api/types/chats";
+import { useDebounceEffect } from "ahooks";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -17,11 +15,13 @@ import {
 } from "mono/components/sidebar";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { updateChat } from "rest-api/chats";
+import { ChatRoom } from "rest-api/types/chats";
 import { UserObject } from "rest-api/types/user";
+import { getUserById } from "rest-api/user";
 import { cn } from "yz13/cn";
 import { updateChatInList } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
-import { useDebounceEffect } from "ahooks";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
@@ -115,7 +115,7 @@ const HistoryItem = ({ chat }: { chat: ChatRoom }) => {
     <div className="w-full flex items-center gap-0 group/history">
       <div className="size-10 relative">
         <div className="size-10 shrink-0 rounded-full border group-hover/history:bg-background-secondary group-hover/history:border-foreground transition-colors flex items-center justify-center">
-          <MessageCircleIcon size={16} className="text-secondary" />
+          <MessageCircleIcon size={16} className="text-foreground" />
         </div>
         {chat.type === "group" && (
           <ChatParticipants
@@ -135,7 +135,7 @@ const HistoryItem = ({ chat }: { chat: ChatRoom }) => {
           </Link>
           <button
             onClick={handleFavoriteChat}
-            className="size-5 flex items-center cursor-pointer justify-center text-secondary hover:text-foreground transition-colors gap-0"
+            className="size-5 flex items-center cursor-pointer justify-center text-foreground hover:text-foreground transition-colors gap-0"
           >
             <StarIcon
               size={16}
@@ -148,7 +148,7 @@ const HistoryItem = ({ chat }: { chat: ChatRoom }) => {
             />
           </button>
         </div>
-        <div className="flex w-full items-center justify-start text-xs text-secondary">
+        <div className="flex w-full items-center justify-start text-xs text-muted-foreground">
           <span className="font-medium capitalize">{typeLabel}</span>
         </div>
       </div>

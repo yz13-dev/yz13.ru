@@ -19,7 +19,7 @@ export const getChats = async (uid: string) => {
 
 export const createChat = async (body: TablesInsert<"chats">) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats")
@@ -38,7 +38,7 @@ export const createChat = async (body: TablesInsert<"chats">) => {
 
 export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats")
@@ -58,7 +58,7 @@ export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
 
 export const deleteChat = async (id: string) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
       .from("chats")

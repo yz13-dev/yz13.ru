@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import { cn } from "yz13/cn";
 import { ChatRoom } from "rest-api/types/chats";
+import { cn } from "yz13/cn";
 
 const ListGrid = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -22,7 +22,7 @@ const ListGrid = ({ children }: { children: React.ReactNode }) => {
 export const ChatListSkeleton = () => {
   return (
     <div className="w-full space-y-3">
-      <span className="text-base block font-medium text-secondary">
+      <span className="text-base block font-medium text-foreground">
         Последние чаты
       </span>
       <ListGrid>
@@ -47,7 +47,7 @@ const ChatList = async ({
   return (
     <div className="w-full space-y-3">
       {label && (
-        <span className="text-base block font-medium text-secondary">
+        <span className="text-base block font-medium text-foreground">
           {label}
         </span>
       )}
@@ -95,13 +95,13 @@ const ChatList = async ({
                   </Link>
                 </div>
                 <ul className="flex flex-col *:pl-1.5 bg-background *:pr-2 *:py-1 rounded-md divide-y border">
-                  <li className="flex gap-1 text-secondary items-center">
+                  <li className="flex gap-1 text-muted-foreground items-center">
                     <HashIcon size={14} />
                     <span className="text-xs">
                       {chat.tags?.length ?? 0} Тэгов
                     </span>
                   </li>
-                  <li className="flex gap-1 text-secondary items-center">
+                  <li className="flex gap-1 text-muted-foreground items-center">
                     <ListTodoIcon size={14} />
                     <span className="text-xs">
                       {chat.task_lists?.length ?? 0} Списков задач

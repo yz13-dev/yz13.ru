@@ -1,24 +1,23 @@
-import { getTasks } from "rest-api/tasks";
+import { Loader2Icon } from "lucide-react";
 import { Separator } from "mono/components/separator";
+import { Suspense } from "react";
+import { getTasks } from "rest-api/tasks";
+import ChatSidebarTrigger from "../../sidebar-trigger";
+import Topbar, { ChatName } from "../../top-bar/bar";
+import GroupChatParticipants from "../group-chat-participants";
+import PinnedMessage from "../pinned-message";
 import TasksListInput from "./list-input";
 import TaskInput from "./task-input";
 import TaskList from "./task-list";
 import TaskLists from "./task-lists";
-import { Suspense } from "react";
-import { Loader2Icon } from "lucide-react";
-import Topbar, { ChatName } from "../../top-bar/bar";
-import ChatSidebarTrigger from "../../sidebar-trigger";
-import PinnedMessage from "../pinned-message";
-import SplitScreen from "../../top-bar/split-screen";
-import GroupChatParticipants from "../group-chat-participants";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     chatId: string;
-  };
+  }>;
 };
 const page = async ({ params }: PageProps) => {
-  const chatId = params.chatId;
+  const { chatId } = await params;
   const { data } = await getTasks(chatId);
   const tasks = data ?? [];
   return (

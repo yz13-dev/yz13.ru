@@ -22,7 +22,7 @@ const SourcesNav = async () => {
             return (
               <SidebarMenuItem
                 key={`${item.id}/${index}`}
-                className="text-secondary hover:text-foreground transition-colors"
+                className="text-foreground hover:text-foreground transition-colors"
               >
                 <SidebarMenuButton asChild>
                   <Link href={item.url} target="_blank">

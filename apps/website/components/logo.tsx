@@ -26,7 +26,7 @@ const Logo = ({
   const darkSrc = type === "only-icon" ? yz_dark : yz_full_dark;
   const isSizeToSmall = size && size.width < 40;
   const Label = () => (
-    <span className="text-xs text-secondary absolute -top-2 left-[105%]">
+    <span className="text-xs text-foreground absolute -top-2 left-[105%]">
       {label}
     </span>
   );

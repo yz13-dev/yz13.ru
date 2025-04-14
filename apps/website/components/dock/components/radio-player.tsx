@@ -1,5 +1,4 @@
 "use client";
-
 import useAudio, {
   getPlayed,
   getVolume,
@@ -29,6 +28,7 @@ import { useEffect, useState } from "react";
 
 const RadioPlayer = () => {
   const loading = useAudioStore((state) => state.loading);
+
   const [played, setPlayerPlayed] = useState<boolean>(getPlayed());
   const [volume, setPlayerVolume] = useState(getVolume());
   const audio = useAudioStore((state) => state.audio);
@@ -66,7 +66,7 @@ const RadioPlayer = () => {
       <button
         disabled={loading}
         onClick={handlePlaySwitch}
-        className="text-secondary size-6 flex items-center justify-center rounded-full border-r hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors"
+        className="text-foreground size-6 flex items-center justify-center rounded-full border-r hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors"
       >
         {loading ? (
           <Loader2Icon size={14} className="animate-spin" />
@@ -76,14 +76,14 @@ const RadioPlayer = () => {
           <PlayIcon size={14} />
         )}
       </button>
-      <span className="text-xs text-secondary">Радио</span>
+      <span className="text-xs text-foreground">Радио</span>
       <Popover open={openVolume} onOpenChange={setOpenVolume}>
         <PopoverTrigger
           asChild
           onClick={() => toggleMute()}
           onPointerEnter={() => setOpenVolume(true)}
         >
-          <button className="text-secondary size-6 flex items-center justify-center rounded-full border-l hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors">
+          <button className="text-foreground size-6 flex items-center justify-center rounded-full border-l hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors">
             {muted ? (
               <VolumeOffIcon size={14} />
             ) : volume > 0.25 && volume <= 0.5 ? (
@@ -107,7 +107,7 @@ const RadioPlayer = () => {
             step={0.01}
             onValueChange={(value) => handleVolume(value[0] ?? 0)}
           />
-          <span className="text-xs text-center w-5 text-secondary">
+          <span className="text-xs text-center w-5 text-foreground">
             {(volume * 100).toFixed()}
           </span>
         </PopoverContent>
