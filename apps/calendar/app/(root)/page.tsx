@@ -1,9 +1,9 @@
 import User, { UserSkeleton } from "@/components/user";
-import { SearchIcon, BellIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Suspense } from "react";
-import HeaderTime from "./header-time";
 import DayInfo from "./day-info";
+import HeaderTime from "./header-time";
 
 export default function page() {
   return (
@@ -14,6 +14,7 @@ export default function page() {
           <Button size="icon" variant="outline">
             <SearchIcon size={16} />
           </Button>
+          {/* <User /> */}
           <Suspense fallback={<UserSkeleton />}>
             <User />
           </Suspense>
