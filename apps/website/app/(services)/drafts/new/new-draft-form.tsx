@@ -117,7 +117,7 @@ const NewDraftForm = ({ uid, avatarUrl, email, userName }: FormProps) => {
               <span className="text-base font-medium">
                 {userName ?? "Пользователь"}
               </span>
-              <span className="text-sm text-secondary underline">
+              <span className="text-sm text-foreground underline">
                 {email ?? "example@yz13.ru"}
               </span>
             </div>

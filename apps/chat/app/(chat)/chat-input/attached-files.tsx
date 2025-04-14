@@ -51,7 +51,7 @@ const AttachedFile = ({ file, index = 0 }: { file: File; index?: number }) => {
     };
   }, [file]);
   return (
-    <div className="px-0.5 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-secondary cursor-pointer rounded-2xl border bg-background-secondary justify-between">
+    <div className="px-0.5 py-0.5 group/tag inline-flex items-center gap-1 text-xs text-foreground cursor-pointer rounded-2xl border bg-background-secondary justify-between">
       <div className="flex items-center gap-1">
         {url && isImage && (
           <ImagePreview
@@ -69,7 +69,7 @@ const AttachedFile = ({ file, index = 0 }: { file: File; index?: number }) => {
         {!isImage && !isVideo && <div className="size-10 rounded-xl border" />}
         <div className="flex flex-col px-1">
           {fileName}
-          <span className="text-xs text-secondary">{fileSize(file.size)}</span>
+          <span className="text-xs text-foreground">{fileSize(file.size)}</span>
         </div>
       </div>
       <Button

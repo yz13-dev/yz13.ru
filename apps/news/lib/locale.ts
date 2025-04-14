@@ -15,8 +15,8 @@ export function getLocale(request: NextRequest): string | undefined {
   // we are using map to convert the locales array of string literals to string array
   return language;
 }
-export function getLocaleFromCookie() {
-  const cookieStore = cookies();
+export async function getLocaleFromCookie() {
+  const cookieStore = await cookies();
   const locale = cookieStore.get("language")?.value;
   return String(locale).toUpperCase();
 }

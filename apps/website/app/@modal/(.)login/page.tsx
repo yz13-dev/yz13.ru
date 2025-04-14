@@ -1,14 +1,15 @@
 import { LoginForm } from "@/app/login/login-form";
 import ModalWrapper from "@/components/modal-wrapper";
+import { DialogDescription, DialogTitle } from "mono/components/dialog";
 
 const page = () => {
   return (
     <ModalWrapper className="space-y-0 px-6">
       <div className="py-6">
-        <h1 className="text-4xl block font-medium">Вход</h1>
-        <p className="text-base block text-secondary">
+        <DialogTitle className="text-4xl block font-medium">Вход</DialogTitle>
+        <DialogDescription className="text-base block text-muted-foreground">
           Используйте свой аккаунт
-        </p>
+        </DialogDescription>
       </div>
       <LoginForm back />
     </ModalWrapper>

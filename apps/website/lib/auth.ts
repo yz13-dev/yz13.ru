@@ -1,8 +1,10 @@
 "use server";
 import { cookies } from "next/headers";
+import { makeUserObj } from "rest-api/lib/make-user-obj";
+import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/server";
 
-export const auth = async () => {
+export const auth = async (): Promise<UserObject | null> => {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const {
@@ -12,7 +14,8 @@ export const auth = async () => {
   if (error) {
     return null;
   } else {
-    return user;
+    if (!user) return null;
+    else return makeUserObj(user);
   }
 };
 

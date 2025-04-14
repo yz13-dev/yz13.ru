@@ -32,7 +32,7 @@ const groupViewsChartData = (chartData: any[], options?: GroupOptions) => {
 };
 
 charts.get("/views", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const current_date = dayjs();
   const week_start = current_date.set("day", 1).format();
@@ -61,7 +61,7 @@ charts.get("/views/half-year", async (c) => {
 
   if (cache) return c.json(cache);
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const current_date = dayjs();
   const range_start = current_date
@@ -100,7 +100,7 @@ charts.get("/views/half-year", async (c) => {
 });
 
 charts.get("/sessions", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const current_date = dayjs();
   const week_start = current_date.set("day", 1).format();

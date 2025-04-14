@@ -28,13 +28,13 @@ export default function DefaultList() {
       >
         <Checkbox id="wakeup" checked={isWakeUp} />
         <Label
-          htmllFor="wakeup"
-          className="text-sm group-aria-checked:line-through group-aria-checked:text-secondary text-foreground/60"
+          htmlFor="wakeup"
+          className="text-sm group-aria-checked:line-through group-aria-checked:text-foreground text-muted-foreground"
         >
           Проснуться
         </Label>
         <div className="flex items-center gap-1 ml-auto">
-          <span className="text-xs text-secondary">
+          <span className="text-xs text-foreground">
             {formatNumber(WAKEUP_TIME)}:00
           </span>
         </div>
@@ -42,13 +42,13 @@ export default function DefaultList() {
       <li aria-checked={isWork} className="px-2 flex items-center gap-2 group">
         <Checkbox id="work" checked={isWork} />
         <Label
-          htmllFor="work"
-          className="text-sm group-aria-checked:line-through group-aria-checked:text-secondary text-foreground/60"
+          htmlFor="work"
+          className="text-sm group-aria-checked:line-through group-aria-checked:text-foreground text-muted-foreground"
         >
           Поработать
         </Label>
         <div className="flex items-center gap-1 ml-auto">
-          <span className="text-xs text-secondary">
+          <span className="text-xs text-foreground">
             {formatNumber(WORK_TIME_START)}:00 - {formatNumber(WORK_TIME_END)}
             :00
           </span>
@@ -57,13 +57,13 @@ export default function DefaultList() {
       <li aria-checked={isSleep} className="px-2 flex items-center gap-2 group">
         <Checkbox id="sleep" checked={isSleep} />
         <Label
-          htmllFor="sleep"
-          className="text-sm group-aria-checked:line-through group-aria-checked:text-secondary text-foreground/60"
+          htmlFor="sleep"
+          className="text-sm group-aria-checked:line-through group-aria-checked:text-foreground text-muted-foreground"
         >
           Поспать
         </Label>
         <div className="flex ml-auto items-center gap-1">
-          <span className="text-xs text-secondary">
+          <span className="text-xs text-foreground">
             {formatNumber(SLEEP_TIME)}:00
           </span>
         </div>

@@ -1,13 +1,13 @@
-import { makeUserObj } from "@/lib/make-user-obj";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
+import { makeUserObj } from "rest-api/lib/make-user-obj";
 import { createClient } from "yz13/supabase/server";
 
 export const auth = new Hono();
 
 auth.get("/current", async (c) => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     // const cookie = getCookie(c);
     const supabase = createClient(cookieStore);
     const auth = supabase.auth;
@@ -32,8 +32,9 @@ auth.get("/current", async (c) => {
 
 auth.post("/login", async (c) => {
   try {
+    const cookieStore = await cookies();
     const { email, password } = await c.req.json();
-    const supabase = createClient(cookies());
+    const supabase = createClient(cookieStore);
     const auth = supabase.auth;
     const {
       data: { user },
@@ -56,7 +57,8 @@ auth.post("/login", async (c) => {
 auth.post("/signup", async (c) => {
   try {
     const { email, password } = await c.req.json();
-    const supabase = createClient(cookies());
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
     const auth = supabase.auth;
     const {
       data: { user },
@@ -78,7 +80,8 @@ auth.post("/signup", async (c) => {
 
 auth.post("/logout", async (c) => {
   try {
-    const supabase = createClient(cookies());
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
     const auth = supabase.auth;
     const { error } = await auth.signOut();
     if (error) {

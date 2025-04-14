@@ -15,7 +15,7 @@ const Hero = () => {
             <h1 className="text-foreground lg:!text-5xl text-4xl font-semibold">
               YZ13 - Фронтенд разработчик
             </h1>
-            <p className="text-secondary lg:!text-2xl texg-xl font-medium max-w-4xl text-balance">
+            <p className="text-foreground lg:!text-2xl texg-xl font-medium max-w-4xl text-balance">
               Специализируюсь на разработке сайтов, веб-приложений. Увлекаюсь
               разработкой интерфейсов для сайтов и приложений.
             </p>

@@ -17,13 +17,13 @@ export default function loading() {
       <div className="space-y-6">
         <div className="*:block space-y-3">
           <h1 className="text-4xl font-semibold">Чат от YZ13</h1>
-          <p className="text-base max-w-xl text-secondary">
+          <p className="text-base max-w-xl text-foreground">
             Создайте свой чат, сортируйте сообщения по тэгам, создавайте задачи
             и списки, рабочее пространство в виде групп и чатов.
           </p>
         </div>
         <Skeleton className="w-1/2 h-6" />
-        <span className="text-sm text-secondary block">
+        <span className="text-sm text-foreground block">
           Для создания чата необходимо авторизоваться или создать аккаунт
         </span>
       </div>

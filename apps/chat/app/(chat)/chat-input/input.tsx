@@ -75,7 +75,7 @@ const ChatInput = ({
       >
         {isOver && (
           <div className="w-full h-full z-10 flex items-center justify-center rounded-3xl bg-background p-4 absolute top-0 left-0">
-            <span className="text-sm text-secondary text-center">
+            <span className="text-sm text-foreground text-center">
               Бросайте файлы сюда
             </span>
           </div>

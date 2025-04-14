@@ -8,7 +8,7 @@ const Title = ({ children }: { children?: string }) => {
   return <span className="text-sm font-medium">{children}</span>;
 };
 const List = ({ children }: { children?: React.ReactNode }) => {
-  return <ul className="*:text-sm text-secondary space-y-1">{children}</ul>;
+  return <ul className="*:text-sm text-foreground space-y-1">{children}</ul>;
 };
 const Item = ({ children }: { children?: React.ReactNode }) => {
   return (

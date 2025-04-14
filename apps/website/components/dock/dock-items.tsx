@@ -1,15 +1,14 @@
 "use client";
 import { HomeIcon } from "lucide-react";
+import { Skeleton } from "mono/components/skeleton";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense, useState } from "react";
 import CalendarPopover from "./popovers/calendar";
-import dynamic from "next/dynamic";
-import { Skeleton } from "mono/components/skeleton";
 import User from "./user";
 const LiveTime = dynamic(() => import("../live/live-time"), {
-  ssr: false,
   loading: () => (
-    <span className="h-7 w-12 text-center text-lg font-medium text-secondary/50">
+    <span className="h-7 w-12 text-center text-lg font-medium text-foreground/50">
       00:00
     </span>
   ),

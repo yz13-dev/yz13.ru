@@ -30,7 +30,7 @@ const Availability = async ({}: AvailabilityProps) => {
             text={text}
             speed={100}
             loop={true}
-            className="text-sm text-secondary"
+            className="text-sm text-foreground"
           />
         </div>
       </div>

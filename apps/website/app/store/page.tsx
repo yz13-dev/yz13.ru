@@ -19,42 +19,42 @@ export default function page() {
               <div className="size-16 shrink-0 rounded-lg border" />
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="w-full rounded-xl flex items-center gap-2 hover:bg-background-secondary">
               <div className="size-16 shrink-0 rounded-lg border" />
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="w-full rounded-xl flex items-center gap-2 hover:bg-background-secondary">
               <div className="size-16 shrink-0 rounded-lg border" />
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="w-full rounded-xl flex items-center gap-2 hover:bg-background-secondary">
               <div className="size-16 shrink-0 rounded-lg border" />
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="w-full rounded-xl flex items-center gap-2 hover:bg-background-secondary">
               <div className="size-16 shrink-0 rounded-lg border" />
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="w-full rounded-xl flex items-center gap-2 hover:bg-background-secondary">
               <div className="size-16 shrink-0 rounded-lg border" />
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
           </ul>
@@ -67,49 +67,49 @@ export default function page() {
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
           </ul>
@@ -122,49 +122,49 @@ export default function page() {
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
             <li className="rounded-3xl hover:bg-background-secondary flex flex-col gap-2">
               <div className="size-36 rounded-2xl border"></div>
               <div className="w-full space-y-0 *:block">
                 <span className="text-base font-medium">App name</span>
-                <span className="text-sm text-secondary">App escription</span>
+                <span className="text-sm text-foreground">App escription</span>
               </div>
             </li>
           </ul>

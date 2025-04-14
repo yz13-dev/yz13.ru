@@ -7,7 +7,7 @@ import AutoGrid from "./auto-grid";
 import NewsCard from "./news-card";
 
 const page = async () => {
-  const language = getLocaleFromCookie() || "RU";
+  const language = (await getLocaleFromCookie()) || "RU";
   const { data } = await getArticlesForCountry(language);
   const articles = data ?? [];
   const sliceNumber = 4;

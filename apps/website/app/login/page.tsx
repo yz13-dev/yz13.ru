@@ -1,13 +1,13 @@
 import { Logo } from "@/components/logo";
+import { Skeleton } from "mono/components/skeleton";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
+import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/server";
-import { LoginForm } from "./login-form";
-import { Suspense } from "react";
-import { Skeleton } from "mono/components/skeleton";
 import Background from "../(root)/background";
+import { LoginForm } from "./login-form";
 
 type Props = {
   params: Promise<{}>;
@@ -40,7 +40,7 @@ const page = async (props: Props) => {
       <div className={cn("w-full max-w-2xl mx-auto md:px-[2.5%] px-[5%] z-20")}>
         <div className="w-full h-fit py-6 flex flex-col gap-4 justify-start">
           <h1 className="text-4xl font-medium">Вход</h1>
-          <p className="text-base text-secondary">Используйте свой аккаунт</p>
+          <p className="text-base text-muted-foreground">Используйте свой аккаунт</p>
         </div>
         <LoginForm
           className="w-full h-full"

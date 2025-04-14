@@ -1,11 +1,4 @@
 import { isDev } from "@/app/login/get-url";
-import {
-  Cursor,
-  CursorBody,
-  CursorMessage,
-  CursorName,
-  CursorPointer,
-} from "@/components/cursor";
 import Dock from "@/components/dock/dock";
 import Header from "@/components/header";
 import { Logo } from "@/components/logo";
@@ -40,13 +33,6 @@ const page = async () => {
       <div className="p-3 space-y-3">
         <div className="w-full py-24">
           <div className="relative max-w-xl mx-auto flex items-center justify-center flex-col gap-8">
-            <Cursor className="absolute top-20 -right-6">
-              <CursorPointer className="text-foreground" />
-              <CursorBody className="bg-foreground text-background">
-                <CursorName>@yz13</CursorName>
-                <CursorMessage>Храните свои черновики</CursorMessage>
-              </CursorBody>
-            </Cursor>
             <span className="text-3xl font-medium max-w-md text-center">
               Откройте для себя коллекцию черновиков
             </span>

@@ -22,7 +22,7 @@ const ChatTypeSwitch = ({
         htmlFor="group-chat-switch"
         className={cn(
           "peer text-base inline-flex items-center gap-1.5 transition-colors",
-          localChecked ? "text-secondary" : "text-foreground",
+          localChecked ? "text-foreground" : "text-foreground",
         )}
       >
         <UserIcon size={16} />
@@ -42,7 +42,7 @@ const ChatTypeSwitch = ({
         htmlFor="group-chat-switch"
         className={cn(
           "peer text-base inline-flex items-center gap-1.5 transition-colors",
-          localChecked ? "text-foreground" : "text-secondary",
+          localChecked ? "text-foreground" : "text-foreground",
         )}
       >
         <UsersIcon size={16} />

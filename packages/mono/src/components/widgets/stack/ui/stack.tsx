@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { HTMLMotionProps, motion } from "framer-motion"
+import { HTMLMotionProps, motion } from "motion/react"
 import { ReactNode, useState } from "react"
 import { BiDownArrowAlt, BiFullscreen, BiRightArrowAlt } from "react-icons/bi"
 
@@ -109,4 +109,3 @@ const Content = ({ children, className = "" }: ContentProps) => {
 }
 
 export { Content, GroupStack, Header, Wrapper }
-

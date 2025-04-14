@@ -48,7 +48,7 @@ const UserDropdown = ({
           <span className="text-sm font-medium">
             {user.user_metadata.username ?? "Username"}
           </span>
-          <span className="text-xs text-secondary font-normal">
+          <span className="text-xs text-foreground font-normal">
             {positionOrEmail}
           </span>
         </DropdownMenuLabel>

@@ -1,8 +1,10 @@
 import { UserProvider } from "@/app/account/settings/user.store";
+import LiveTimeProvider from "@/components/live/live-provider";
 import ThemeObserver from "@/components/theme/theme-observer";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import "dayjs/locale/ru";
 import { Toaster } from "mono/components/toaster";
 import { TooltipProvider } from "mono/components/tooltip";
 import type { Metadata, Viewport } from "next";
@@ -10,15 +12,11 @@ import dynamic from "next/dynamic";
 import { Inter, Pixelify_Sans } from "next/font/google";
 import localFont from "next/font/local";
 import { cn } from "yz13/cn";
-import "dayjs/locale/ru";
-import LiveTimeProvider from "@/components/live/live-provider";
 import { isDev } from "yz13/env";
 
 const SessionObserver = dynamic(
   () => import("../components/visitor-session/session-observer"),
-  {
-    ssr: false,
-  },
+
 );
 
 const PIXEL = Pixelify_Sans({

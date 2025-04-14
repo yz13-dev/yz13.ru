@@ -34,7 +34,7 @@ const getUrl = (contextUrl: string): string => {
 
 // NOTE: Add headers
 const getHeaders = async (headers?: HeadersInit): Promise<HeadersInit> => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const str = cookieStore.toString();
   return {
     ...headers,

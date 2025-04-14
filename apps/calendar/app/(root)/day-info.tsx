@@ -17,7 +17,7 @@ export default function DayInfo() {
         </Link>
         <ArrowRightIcon size={16} />
       </div>
-      <span className="text-base text-secondary capitalize">
+      <span className="text-base text-foreground capitalize">
         {date.format("dddd")}
       </span>
     </div>

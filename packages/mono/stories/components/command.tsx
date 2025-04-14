@@ -1,4 +1,4 @@
-import { CalendarIcon, EnvelopeClosedIcon, FaceIcon, GearIcon, PersonIcon, RocketIcon } from "@radix-ui/react-icons"
+import { CalendarIcon, MailIcon, RocketIcon, SettingsIcon, SmileIcon, UserIcon } from "lucide-react"
 import React from "react"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, CommandShortcut } from "../../src/components/ui/command"
 
@@ -14,7 +14,7 @@ const CommandExample = () => {
             <span>Calendar</span>
           </CommandItem>
           <CommandItem>
-            <FaceIcon className="mr-2 h-4 w-4" />
+            <SmileIcon className="mr-2 h-4 w-4" />
             <span>Search Emoji</span>
           </CommandItem>
           <CommandItem disabled>
@@ -25,17 +25,17 @@ const CommandExample = () => {
         <CommandSeparator />
         <CommandGroup heading="Settings">
           <CommandItem>
-            <PersonIcon className="mr-2 h-4 w-4" />
+            <UserIcon className="mr-2 h-4 w-4" />
             <span>Profile</span>
             <CommandShortcut>⌘P</CommandShortcut>
           </CommandItem>
           <CommandItem>
-            <EnvelopeClosedIcon className="mr-2 h-4 w-4" />
+            <MailIcon className="mr-2 h-4 w-4" />
             <span>Mail</span>
             <CommandShortcut>⌘B</CommandShortcut>
           </CommandItem>
           <CommandItem>
-            <GearIcon className="mr-2 h-4 w-4" />
+            <SettingsIcon className="mr-2 h-4 w-4" />
             <span>Settings</span>
             <CommandShortcut>⌘S</CommandShortcut>
           </CommandItem>

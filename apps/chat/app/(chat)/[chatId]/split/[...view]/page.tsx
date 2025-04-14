@@ -8,18 +8,18 @@ import { Fragment } from "react";
 import { getView, ViewKey } from "./views";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     chatId: string;
     view: string[];
-  };
+  }>;
 };
-const page = ({ params }: PageProps) => {
-  const views = params.view;
+const page = async ({ params }: PageProps) => {
+  const { view: views, chatId } = await params
   // .filter((view) => viewKeys.includes(view));
-  if (views.length === 0) return redirect(`/${params.chatId}`);
+  if (views.length === 0) return redirect(`/${chatId}`);
   const onlyUniqueViews = [...new Set(views)];
   if (onlyUniqueViews.length !== views.length)
-    return redirect(`/${params.chatId}/split/${onlyUniqueViews.join("/")}`);
+    return redirect(`/${chatId}/split/${onlyUniqueViews.join("/")}`);
   else
     return (
       <div className="w-full h-dvh">
@@ -34,7 +34,7 @@ const page = ({ params }: PageProps) => {
                 {!isFirst && <ResizableHandle withHandle />}
                 <ResizablePanel minSize={10} className="h-full">
                   <div className="w-full h-full overflow-y-auto">
-                    {View && <View params={{ chatId: params.chatId }} />}
+                    {View && <View params={{ chatId }} />}
                   </div>
                 </ResizablePanel>
               </Fragment>

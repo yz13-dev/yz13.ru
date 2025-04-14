@@ -29,7 +29,7 @@ const ThemeSwitcher = () => {
         onClick={() => handleTheme("system")}
         className={cn(
           "size-6 rounded-full  flex items-center justify-center",
-          theme === "system" ? "border-r text-foreground" : "text-secondary",
+          theme === "system" ? "border-r text-foreground" : "text-foreground",
         )}
       >
         <MonitorIcon size={12} />
@@ -37,8 +37,8 @@ const ThemeSwitcher = () => {
       <button
         onClick={() => handleTheme("light")}
         className={cn(
-          "size-6 rounded-full text-secondary flex items-center justify-center",
-          theme === "light" ? "border text-foreground" : "text-secondary",
+          "size-6 rounded-full text-foreground flex items-center justify-center",
+          theme === "light" ? "border text-foreground" : "text-foreground",
         )}
       >
         <SunIcon size={12} />
@@ -46,8 +46,8 @@ const ThemeSwitcher = () => {
       <button
         onClick={() => handleTheme("dark")}
         className={cn(
-          "size-6 rounded-full text-secondary flex items-center justify-center",
-          theme === "dark" ? "border-l text-foreground" : "text-secondary",
+          "size-6 rounded-full text-foreground flex items-center justify-center",
+          theme === "dark" ? "border-l text-foreground" : "text-foreground",
         )}
       >
         <MoonIcon size={12} />

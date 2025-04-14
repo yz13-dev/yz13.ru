@@ -1,1 +1,6 @@
-@import "../globals.css";
+@layer base, theme;
+@import "tailwind-config/dist/theme.css" layer(theme);
+
+@import "tailwindcss";
+
+@import "tailwind-config/dist/globals.css" layer(base);

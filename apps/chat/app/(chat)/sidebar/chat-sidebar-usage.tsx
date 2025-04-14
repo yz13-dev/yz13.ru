@@ -18,7 +18,7 @@ const ChatSidebarUsage = () => {
               <span className="text-sm font-medium">Чаты</span>
               <div className="flex items-center gap-1">
                 <span className="text-xs text-foreground">2</span>
-                <span className="text-xs text-secondary">из 25</span>
+                <span className="text-xs text-foreground">из 25</span>
               </div>
             </div>
           </SidebarMenuItem>
@@ -28,7 +28,7 @@ const ChatSidebarUsage = () => {
               <span className="text-sm font-medium">Память</span>
               <div className="flex items-center gap-1">
                 <span className="text-xs text-foreground">1 ГБ</span>
-                <span className="text-xs text-secondary">из 2ГБ</span>
+                <span className="text-xs text-foreground">из 2ГБ</span>
               </div>
             </div>
           </SidebarMenuItem>
@@ -38,7 +38,7 @@ const ChatSidebarUsage = () => {
               <span className="text-sm font-medium">Списки задач</span>
               <div className="flex items-center gap-1">
                 <span className="text-xs text-foreground">1</span>
-                <span className="text-xs text-secondary">из 10</span>
+                <span className="text-xs text-foreground">из 10</span>
               </div>
             </div>
           </SidebarMenuItem>

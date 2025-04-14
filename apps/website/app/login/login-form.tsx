@@ -1,7 +1,6 @@
 "use client";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { Card, CardContent } from "mono/components/card";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
 import Link from "next/link";
@@ -118,7 +117,7 @@ export function LoginForm({
           </div>
         </div>
       </form>
-      <div className="text-balance py-6 text-start text-xs text-secondary">
+      <div className="text-balance py-6 text-start text-xs text-muted-foreground">
         Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
         <Link href="#" className="text-foreground">
           Условиями использования

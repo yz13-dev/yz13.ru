@@ -10,12 +10,12 @@ import Tags from "./tags";
 import TaskLists from "./task-lists";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     chatId: string;
-  };
+  }>;
 };
 const page = async ({ params }: PageProps) => {
-  const chatId = params.chatId;
+  const { chatId } = await params;
   const { data } = await getChat(chatId);
   return (
     <>
@@ -45,7 +45,7 @@ const page = async ({ params }: PageProps) => {
           </div>
           <div className="w-full flex flex-col gap-2">
             <span className="text-base font-medium block">Тэги</span>
-            <span className="text-sm text-secondary block">
+            <span className="text-sm text-muted-foreground block">
               При удалении тэга, у сообщений будет удален тэг
             </span>
             <div className="w-full mt-3">
@@ -54,7 +54,7 @@ const page = async ({ params }: PageProps) => {
           </div>
           <div className="w-full flex flex-col gap-2">
             <span className="text-base font-medium block">Списки задач</span>
-            <span className="text-sm text-secondary block">
+            <span className="text-sm text-muted-foreground block">
               При удалении списка, задачи будет перемещены в основной список
             </span>
             <div className="w-full mt-3">

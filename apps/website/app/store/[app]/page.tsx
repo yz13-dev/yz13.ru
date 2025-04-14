@@ -1,16 +1,16 @@
+import { ArrowLeftIcon, BookmarkIcon, ShareIcon } from "lucide-react";
+import { Button } from "mono/components/button";
+import Link from "next/link";
 import { Suspense } from "react";
 import StoreHeader, { StoreHeaderSkeleton } from "../header";
-import { Button } from "mono/components/button";
-import { ArrowLeftIcon, BookmarkIcon, ShareIcon } from "lucide-react";
-import Link from "next/link";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     app: string;
-  };
+  }>;
 };
-export default function page({ params }: PageProps) {
-  const app = params.app;
+export default async function page({ params }: PageProps) {
+  const { app } = await params;
   return (
     <>
       <Suspense fallback={<StoreHeaderSkeleton />}>
@@ -29,24 +29,24 @@ export default function page({ params }: PageProps) {
             <div className="flex flex-col gap-4">
               <span className="text-5xl font-medium block">{app}</span>
               <div className="*:block space-y-1">
-                <span className="text-base text-secondary">YZ13 LAB</span>
+                <span className="text-base text-foreground">YZ13 LAB</span>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex flex-col">
               <span className="text-sm text-center text-foreground">123</span>
-              <span className="text-sm text-center text-secondary">
+              <span className="text-sm text-center text-foreground">
                 Посещений
               </span>
             </div>
             <div className="flex flex-col">
               <span className="text-sm text-center text-foreground">123</span>
-              <span className="text-sm text-center text-secondary">321</span>
+              <span className="text-sm text-center text-foreground">321</span>
             </div>
             <div className="flex flex-col">
               <span className="text-sm text-center text-foreground">123</span>
-              <span className="text-sm text-center text-secondary">321</span>
+              <span className="text-sm text-center text-foreground">321</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -66,7 +66,7 @@ export default function page({ params }: PageProps) {
           </div>
           <div className="w-full *:block space-y-4">
             <span className="text-xl font-medium">Описание</span>
-            <span className="text-sm text-secondary">
+            <span className="text-sm text-foreground">
               Чтобы контролировать безопасность, нужно знать, как разработчики
               собирают ваши данные и передают их третьим лицам. Методы
               обеспечения безопасности и конфиденциальности могут зависеть от
@@ -77,10 +77,10 @@ export default function page({ params }: PageProps) {
           </div>
           <div className="w-full *:block space-y-2">
             <span className="text-base font-medium">Последнее обновление</span>
-            <span className="text-sm text-secondary">23 мар. 2025 г.</span>
+            <span className="text-sm text-foreground">23 мар. 2025 г.</span>
           </div>
           <div className="w-full flex items-start flex-wrap gap-2">
-            <span className="text-sm text-secondary px-3 py-1 rounded-full border">
+            <span className="text-sm text-foreground px-3 py-1 rounded-full border">
               App
             </span>
           </div>

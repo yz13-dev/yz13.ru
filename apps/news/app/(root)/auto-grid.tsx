@@ -52,18 +52,18 @@ const AutoGrid = ({
   return (
     <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
       {children}
-      {articles.map((news) => {
-        return <NewsCard key={news.id} news={news} className={className} />;
+      {articles.map((news, index) => {
+        return <NewsCard key={`${news.id}/${index}`} news={news} className={className} />;
       })}
       {loading && (
         <div className="w-full col-span-full flex items-center gap-2 justify-center">
-          <Loader2Icon size={18} className="text-secondary animate-spin" />
-          <span className="text-sm text-secondary">Подгружаем новости...</span>
+          <Loader2Icon size={18} className="text-foreground animate-spin" />
+          <span className="text-sm text-foreground">Подгружаем новости...</span>
         </div>
       )}
       {isAll && (
         <div className="w-full col-span-full py-6 flex justify-center">
-          <span className="text-sm text-secondary">
+          <span className="text-sm text-foreground">
             Вы дошли до конца списка
           </span>
         </div>

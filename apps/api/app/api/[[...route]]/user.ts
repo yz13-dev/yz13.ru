@@ -1,7 +1,7 @@
 import { expire, redis } from "@/extensions/redis";
-import { makeUserObj } from "@/lib/make-user-obj";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
+import { makeUserObj } from "rest-api/lib/make-user-obj";
 import { createAdminClient } from "yz13/supabase/admin";
 
 export const user = new Hono();
@@ -11,7 +11,7 @@ user.get("/:uid", async (c) => {
   const key = `user:${uid}`;
   const cached = await redis.get(key);
   if (cached) return c.json(cached);
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createAdminClient(cookieStore);
   const {
     data: { user },

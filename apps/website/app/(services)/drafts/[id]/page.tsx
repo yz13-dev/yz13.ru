@@ -1,5 +1,3 @@
-import { getDraft } from "rest-api/drafts";
-import { getUserById } from "rest-api/user";
 import { isDev } from "@/app/login/get-url";
 import Header from "@/components/header";
 import User from "@/components/user";
@@ -11,15 +9,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { getDraft } from "rest-api/drafts";
+import { getUserById } from "rest-api/user";
 import DraftDock from "./dock";
 
 type PageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 const page = async ({ params }: PageProps) => {
-  const id = params.id;
+  const { id } = await params;
   const { data: draft } = await getDraft(id);
   if (!draft) return notFound();
   const { data: author } = await getUserById(draft.by);

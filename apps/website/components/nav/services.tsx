@@ -54,7 +54,7 @@ const Services = ({
                       {service.price.toLocaleString()} {sign}+
                     </span>
                   </div>
-                  <span className="text-secondary block text-sm">
+                  <span className="text-foreground block text-sm">
                     {service.description}
                   </span>
                 </div>

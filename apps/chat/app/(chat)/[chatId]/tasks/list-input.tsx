@@ -89,7 +89,7 @@ const TasksListInput = ({ chatId }: TasksListInputProps) => {
           </Button>
         </div>
         {alreadyExists && (
-          <span className="text-xs text-secondary">
+          <span className="text-xs text-foreground">
             Такой список уже существует
           </span>
         )}

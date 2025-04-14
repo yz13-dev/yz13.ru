@@ -6,7 +6,7 @@ import { createClient } from "yz13/supabase/server";
 export const pricing = new Hono();
 
 pricing.get("/", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase.from("pricing").select("*");
   const cache = await redis.get("pricing");
@@ -19,7 +19,7 @@ pricing.get("/", async (c) => {
 });
 
 pricing.get("/short", async (c) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("pricing")

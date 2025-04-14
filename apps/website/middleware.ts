@@ -6,7 +6,7 @@ import { createClient } from "yz13/supabase/server";
 export async function middleware(request: NextRequest) {
   await get<boolean>("busy");
   const pathname = request.nextUrl.pathname;
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const client = createClient(cookieStore);
   const {
     data: { user },

@@ -1,6 +1,6 @@
 "use client";
 import dayjs, { Dayjs } from "dayjs";
-import { createContext, useContext } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { createStore } from "zustand";
 
 type State = {
@@ -33,7 +33,7 @@ export const CalendarProvider = ({
   date,
 }: {
   date?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }) => {
   const pickedDate = dayjs(date ?? "").locale("ru");
   return (

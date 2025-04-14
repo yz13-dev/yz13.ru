@@ -1,14 +1,15 @@
 import { SignupForm } from "@/app/signup/signup-form";
 import ModalWrapper from "@/components/modal-wrapper";
+import { DialogDescription, DialogTitle } from "mono/components/dialog";
 
 const page = () => {
   return (
     <ModalWrapper className="space-y-0 px-6">
       <div className="py-6">
-        <h1 className="text-4xl font-medium">Создать аккаунт</h1>
-        <p className="text-base text-secondary">
+        <DialogTitle className="text-4xl font-medium">Создать аккаунт</DialogTitle>
+        <DialogDescription className="text-base text-muted-foreground">
           Введите свой адрес электронной почты и пароль
-        </p>
+        </DialogDescription>
       </div>
       <SignupForm back />
     </ModalWrapper>

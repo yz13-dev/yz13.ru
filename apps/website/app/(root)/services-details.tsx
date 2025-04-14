@@ -78,7 +78,7 @@ const DetailsDescription = ({
   className?: string;
 }) => {
   return (
-    <span className={cn("text-secondary block md:text-2xl text-xl", className)}>
+    <span className={cn("text-muted-foreground block md:text-2xl text-xl", className)}>
       {children}
     </span>
   );
@@ -115,7 +115,7 @@ const DetailsExtraList = async ({ list = [] }: { list?: DetailsExtra[] }) => {
           const paid = isPaid(item);
           return (
             <li className="w-full" key={`${label}-${index}`}>
-              <div className="flex flex-row justify-between items-center gap-2 text-secondary group-hover:text-foreground/80 hover:text-foreground">
+              <div className="flex flex-row justify-between items-center gap-2 text-foreground group-hover:text-foreground/80 hover:text-foreground">
                 <div className="w-fit flex items-center justify-between gap-2">
                   {paid ? (
                     <PlusIcon size={16} className="shrink-0" />
@@ -167,9 +167,9 @@ const ServiceBlank = () => {
   return (
     <Details className="justify-center items-center">
       <div className="size-10 rounded-lg border flex items-center justify-center">
-        <PlusIcon size={20} className="text-secondary" />
+        <PlusIcon size={20} className="text-foreground" />
       </div>
-      <span className="text-center text-xl font-medium text-secondary">
+      <span className="text-center text-xl font-medium text-foreground">
         Новые услуги, скоро...
       </span>
     </Details>
