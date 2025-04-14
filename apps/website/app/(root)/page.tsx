@@ -1,4 +1,6 @@
 import Availability from "@/components/availability";
+import Dock, { DockSkeleton } from "@/components/dock/dock";
+import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import {
   availableForWork,
@@ -12,11 +14,7 @@ import Timeline from "../(root)/timeline";
 import Background from "./background";
 import CallToAction from "./call-to-action";
 import Stack from "./stack";
-import { wait } from "@/helpers/wait";
 import TaskList from "./task-list/list";
-import { Logo } from "@/components/logo";
-import Dock, { DockSkeleton } from "@/components/dock/dock";
-import { Button } from "mono/components/button";
 
 export default async function page() {
   return (
