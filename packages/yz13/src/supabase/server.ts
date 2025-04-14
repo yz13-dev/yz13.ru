@@ -6,7 +6,6 @@ import { Database } from "./database";
 export const createClient = (
   cookieStore: CookieStore,
 ): SupabaseClient<Database> => {
-  // @ts-expect-error
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
