@@ -13,10 +13,6 @@ const defaultNav: Nav = {
 }
 const nav: Nav[] = [
   defaultNav,
-  {
-    label: "Расписание",
-    href: "/about"
-  }
 ]
 
 export default function NavTabs() {

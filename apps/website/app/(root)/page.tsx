@@ -31,20 +31,20 @@ export default async function page() {
         </Suspense>
         <main className="w-full relative space-y-12 py-[10%]">
           <div className="w-full yz-future-container yz-future-container-max mx-auto space-y-10">
-            <Logo size={{ width: 160, height: 30 }} type="full" />
-            <div className="w-fit lg:text-5xl text-3xl *:font-semibold">
+            <Logo size={{ width: 140, height: 26 }} type="full" />
+            <div style={{ lineHeight: 1.2 }} className="w-fit lg:text-5xl text-3xl pr-[7.5%] *:font-semibold *:text-pretty">
               <h1 className="inline text-foreground">
                 YZ13
               </h1>
-              <span className="text-muted-foreground inline text-balance">
+              <span className="text-muted-foreground inline">
                 {" "}
                 -{" "}
               </span>
-              <p className="text-muted-foreground inline text-balance">
+              <p className="text-muted-foreground inline">
                 Фронтенд разработчик, специализируюсь на разработке сайтов,
                 веб-приложений.
               </p>
-            </div>
+            </div>s
             <div className="yz-future-padding-y">
               {(await showCallToAction()) && (
                 <CallToAction busy={await availableForWork()} />

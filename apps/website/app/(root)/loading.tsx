@@ -1,35 +1,32 @@
-import { Skeleton } from "mono/components/skeleton";
-import { RootHeaderSkeleton } from "./header";
-import Footer from "@/components/small-footer";
-import TaskList from "./task-list/list";
-import { Logo } from "@/components/logo";
 import { DockSkeleton } from "@/components/dock/dock";
+import { Logo } from "@/components/logo";
+import Footer from "@/components/small-footer";
+import { Skeleton } from "mono/components/skeleton";
 
 export default function Loading() {
   return (
     <>
       <div className="w-full">
         <Skeleton className="w-full h-dvh absolute top-0 left-0 rounded-none" />
-        <main className="w-full relative mt-[10%] space-y-12 mb-12">
-          <div className="w-full yz-future-container yz-future-container-max mx-auto md:gap-[2.5%] gap-[5%] flex items-center justify-between">
-            <div className="w-fit h-full space-y-10">
-              <Logo size={{ width: 128, height: 24 }} type="full" />
-              <div className="w-fit max-w-lg">
-                <h1 className="inline text-foreground font-medium lg:text-3xl text-2xl">
-                  YZ13
-                </h1>
-                <span className="text-foreground inline font-medium text-balance lg:text-3xl text-2xl">
-                  {" "}
-                  -{" "}
-                </span>
-                <p className="text-foreground inline font-medium text-balance lg:text-3xl text-2xl">
-                  Фронтенд разработчик, специализируюсь на разработке сайтов,
-                  веб-приложений.
-                </p>
-              </div>
+        <main className="w-full relative space-y-12 py-[10%]">
+          <div className="w-full yz-future-container yz-future-container-max mx-auto space-y-10">
+            <Logo size={{ width: 140, height: 26 }} type="full" />
+            <div style={{ lineHeight: 1.2 }} className="w-fit lg:text-5xl text-3xl pr-[7.5%] *:font-semibold *:text-pretty">
+              <h1 className="inline text-foreground">
+                YZ13
+              </h1>
+              <span className="text-muted-foreground inline">
+                {" "}
+                -{" "}
+              </span>
+              <p className="text-muted-foreground inline">
+                Фронтенд разработчик, специализируюсь на разработке сайтов,
+                веб-приложений.
+              </p>
+            </div>
+            <div className="yz-future-padding-y">
               <Skeleton className="h-9 w-full max-w-lg" />
             </div>
-            <TaskList className="md:block hidden" />
           </div>
         </main>
         <Skeleton className="w-full yz-future-container rounded-none yz-future-container-max mx-auto h-20" />

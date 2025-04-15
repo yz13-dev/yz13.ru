@@ -62,11 +62,12 @@ const RadioPlayer = () => {
     { wait: 1500 },
   );
   return (
-    <div className="flex items-center gap-2 rounded-full border bg-background">
+    <div className="flex items-center rounded-full border bg-background">
+      <span className="text-xs px-2.5 text-foreground">Радио</span>
       <button
         disabled={loading}
         onClick={handlePlaySwitch}
-        className="text-foreground size-6 flex items-center justify-center rounded-full border-r hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors"
+        className="text-foreground size-6 flex items-center justify-center rounded-full border-x hover:bg-neutral-100 cursor-pointer hover:text-foreground transition-colors"
       >
         {loading ? (
           <Loader2Icon size={14} className="animate-spin" />
@@ -76,7 +77,6 @@ const RadioPlayer = () => {
           <PlayIcon size={14} />
         )}
       </button>
-      <span className="text-xs text-foreground">Радио</span>
       <Popover open={openVolume} onOpenChange={setOpenVolume}>
         <PopoverTrigger
           asChild
