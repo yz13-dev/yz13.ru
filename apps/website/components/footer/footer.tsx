@@ -11,8 +11,8 @@ const Footer = ({ className = "" }: { className?: string }) => {
       )}
     >
       <MiniFooter className="yz-future-padding-x yz-future-padding-y" />
-      <div className="w-full overflow-hidden">
-        <SVGLogo className="w-full scale-125 relative" />
+      <div className="w-full overflow-hidden relative">
+        <SVGLogo className="w-full relative top-40" />
       </div>
     </footer>
   );

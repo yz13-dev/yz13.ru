@@ -4,7 +4,7 @@ import { cn } from "yz13/cn";
 export default function SVGLogo({ className = "", ...props }: ComponentPropsWithoutRef<"svg">) {
   return (
     <svg
-      className={cn("fill-secondary [&>path]:hover:fill-foreground [&>path]:transition-colors w-full h-auto", className)}
+      className={cn("fill-secondary/40 [&>path]:hover:fill-foreground [&>path]:transition-colors w-full h-auto", className)}
       viewBox="0 0 48 15"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

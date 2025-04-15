@@ -36,7 +36,7 @@
 }
 
 .yz-future-container-max {
-    @apply max-w-[1200px];
+    @apply max-w-screen-xl;
 }
 
 
