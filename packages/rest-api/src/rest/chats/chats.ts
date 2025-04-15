@@ -1,9 +1,7 @@
 "use server";
 import { customFetch } from "@/const/fetch";
 import { ChatData, ChatRoom } from "@/types/chats";
-import { cookies } from "next/headers";
 import { TablesInsert, TablesUpdate } from "yz13/supabase/database";
-import { createClient } from "yz13/supabase/server";
 
 export const getChat = async (id: string) => {
   return await customFetch<ChatRoom | null>(`/chats/${id}`, {
@@ -18,62 +16,24 @@ export const getChats = async (uid: string) => {
 };
 
 export const createChat = async (body: TablesInsert<"chats">) => {
-  try {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("chats")
-      .insert(body)
-      .select("*")
-      .maybeSingle();
-    if (error) {
-      console.log(error);
-      return null;
-    } else return data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  return await customFetch<ChatRoom | null>(`/chats`, {
+    method: "POST",
+    body: JSON.stringify(body),
+  });
 };
 
+
 export const updateChat = async (id: string, body: TablesUpdate<"chats">) => {
-  try {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("chats")
-      .update(body)
-      .eq("id", id)
-      .select("*")
-      .maybeSingle();
-    if (error) {
-      console.log(error);
-      return null;
-    } else return data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  return await customFetch<ChatRoom | null>(`/chats/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(body),
+  })
 };
 
 export const deleteChat = async (id: string) => {
-  try {
-    const cookieStore = await cookies();
-    const supabase = createClient(cookieStore);
-    const { data, error } = await supabase
-      .from("chats")
-      .delete()
-      .eq("id", id)
-      .select("*")
-      .maybeSingle();
-    if (error) {
-      console.log(error);
-      return null;
-    } else return data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  return await customFetch<ChatRoom | null>(`/chats/${id}`, {
+    method: "DELETE"
+  })
 };
 
 export const getChatsData = async (uid: string) => {

@@ -44,5 +44,6 @@ export const createClient = (
     },
   );
 
+  // @ts-ignore
   return { supabase, response };
 };

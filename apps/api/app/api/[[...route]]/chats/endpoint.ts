@@ -1,43 +1,41 @@
 import {
-  getChatById,
   getChatMessage,
   getChatMessages,
   getChatMessagesByTag,
-  getChatsCount,
   getChatTasks,
   getChatTasksByListId,
-  getLimits,
-  getUserChat,
+  getUserChat
 } from "@/app/api/[[...route]]/chats/actions";
 import { Hono } from "hono";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
+import { getChatsLimitsByUserId } from "../limits/actions";
 
 export const chats = new Hono();
 
-chats.get("/limits", async (c) => {
-  return c.json(getLimits());
-});
-chats.get("/limits/user/:uid", async (c) => {
-  const uid = c.req.param("uid");
-  const chatsCount = await getChatsCount(uid);
-  const response = {
-    chats: chatsCount,
-  };
-  return c.json(response);
-});
-chats.get("/limits/chat/:chatId", async (c) => {
-  const chatId = c.req.param("chatId");
-  const chat = await getChatById(chatId);
-  const limits = getLimits();
-  const tags = chat ? (chat.tags?.length ?? 0) : 0;
-  const taskLists = chat ? (chat.task_lists?.length ?? 0) : 0;
-  const response = {
-    tags: limits.tags - tags,
-    task_lists: limits.task_lists - taskLists,
-  };
-  return c.json(response);
-});
+chats.post("/", async (c) => {
+  const chat = await c.req.json();
+  const fromId = chat.from_id
+  try {
+    const limits = await getChatsLimitsByUserId(fromId)
+    console.log(limits)
+    if (limits.chats < 0) throw new Error(`User ${fromId} has reached the limit of chats`)
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats")
+      .insert(chat)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return c.json(null);
+    } else return c.json(data);
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+})
 
 chats.get("/:id", async (c) => {
   const id = c.req.param("id");
@@ -60,6 +58,49 @@ chats.get("/:id", async (c) => {
     return c.json(null);
   }
 });
+
+chats.patch("/:id", async (c) => {
+  const id = c.req.param("id")
+  const body = await c.req.json()
+  try {
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats")
+      .update(body)
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return c.json(null);
+    } else return c.json(data);
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+})
+
+chats.delete("/:id", async (c) => {
+  const id = c.req.param("id")
+  try {
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("chats")
+      .delete()
+      .eq("id", id)
+      .select("*")
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return c.json(null);
+    } else return c.json(data);
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+})
 
 chats.get("/:id/messages", async (c) => {
   const filter = c.req.query("filter");
@@ -196,6 +237,7 @@ chats.get("/user/:uid", async (c) => {
   const chats = await getUserChat(uid);
   return c.json(chats);
 });
+
 
 chats.get("/user/:uid/all", async (c) => {
   const uid = c.req.param("uid");
