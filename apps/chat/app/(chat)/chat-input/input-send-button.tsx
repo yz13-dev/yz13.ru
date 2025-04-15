@@ -1,14 +1,15 @@
 "use client";
-import { removeAttachments, uploadAttachments } from "rest-api/attachments";
-import { updateChat } from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
 import { makeOfflineMessage } from "@/lib/offline-messages";
-import { ChatMessage, NewChatMessage } from "rest-api/types/chats";
+import dayjs from "dayjs";
 import { ArrowUpIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useMemo } from "react";
+import { uploadAttachments } from "rest-api/attachments";
+import { updateChat } from "rest-api/chats";
+import { createMessageInChat, updateChatMessage } from "rest-api/messages";
+import { ChatMessage, NewChatMessage } from "rest-api/types/chats";
 import { cn } from "yz13/cn";
-import dayjs from "dayjs";
 import {
   getChatAttachments,
   pushMessage,
@@ -30,7 +31,6 @@ import useChatInput, {
   setTags,
   setValue,
 } from "./input-store";
-import { createMessageInChat, updateChatMessage } from "rest-api/messages";
 
 type InputSendButtonProps = {
   chatId?: string;
@@ -142,7 +142,7 @@ const uploadMessageAttachments = async (
     }
     const currentAttachments = getChatAttachments();
     const attachments = [...currentAttachments, ...onlySuccessfull];
-    const updatedChat = await updateChat(message.chat_id, { attachments });
+    const { data: updatedChat } = await updateChat(message.chat_id, { attachments });
     if (updatedChat) setChat(updatedChat);
     return onlySuccessfull;
   } else return [];

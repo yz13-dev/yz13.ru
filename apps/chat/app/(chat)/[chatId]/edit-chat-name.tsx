@@ -1,13 +1,10 @@
 "use client";
-import { updateChat } from "rest-api/chats";
-import { Loader2Icon, PencilLineIcon, SaveIcon, XIcon } from "lucide-react";
-import { Input } from "mono/components/input";
-import { motion } from "motion/react";
-import { useMemo, useState } from "react";
-import { cn } from "yz13/cn";
-import { updateChatInList } from "../chat-api/chat-api";
-import { useTopbar } from "../top-bar/bar";
+import { Loader2Icon, SaveIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { Input } from "mono/components/input";
+import { useMemo, useState } from "react";
+import { updateChat } from "rest-api/chats";
+import { updateChatInList } from "../chat-api/chat-api";
 
 type Props = {
   id: string;
@@ -21,7 +18,7 @@ const EditChatName = ({ id, name = "Без названия" }: Props) => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const updatedChat = await updateChat(id, { name: roomName });
+      const { data: updatedChat } = await updateChat(id, { name: roomName });
       if (updatedChat) {
         setRoomName(updatedChat.name || "Без названия");
         updateChatInList(updatedChat);

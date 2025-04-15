@@ -103,7 +103,7 @@ const HistoryItem = ({ chat }: { chat: ChatRoom }) => {
   const handleFavoriteChat = async () => {
     const favorite = chat ? !chat.favorite : false;
     try {
-      const updatedChat = await updateChat(chat.id, {
+      const { data: updatedChat } = await updateChat(chat.id, {
         favorite,
       });
       if (updatedChat) updateChatInList(updatedChat);

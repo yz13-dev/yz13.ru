@@ -1,15 +1,14 @@
 "use client";
-import { updateChat } from "rest-api/chats";
-import { updateChatMessage } from "rest-api/messages";
 import { randomNumberId } from "@/lib/random-id";
-import { ChatTag } from "rest-api/types/chats";
 import { Loader2Icon, PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { useMemo, useState } from "react";
+import { updateChat } from "rest-api/chats";
+import { updateChatMessage } from "rest-api/messages";
+import { ChatTag } from "rest-api/types/chats";
 import { getMessage, setChat } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
-import { Tag } from "./tags";
 
 type TagInputProps = {
   messageId?: string;
@@ -40,7 +39,7 @@ const TagInput = ({ messageId }: TagInputProps) => {
         tag,
       };
       const tags = [...(chat.tags as ChatTag[]), newTag] as ChatTag[];
-      const updatedChat = await updateChat(chatId, { tags });
+      const { data: updatedChat } = await updateChat(chatId, { tags });
       if (updatedChat) {
         setChat(updatedChat);
         if (messageId) {
