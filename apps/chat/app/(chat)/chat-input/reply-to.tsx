@@ -88,7 +88,7 @@ const ReplyTo = ({
           <span className="text-sm font-medium text-muted-foreground">
             {user?.username || "Пользователь"}
           </span>
-          <span className="text-xs text-foreground line-clamp-1">
+          <span className="text-xs text-muted-foreground line-clamp-1">
             {replyMessageLabel}
           </span>
         </div>

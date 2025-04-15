@@ -1,4 +1,4 @@
-import { showTaskPageButton } from "@/const/flags";
+import { showCalendar } from "@/const/flags";
 import {
   CalendarIcon,
   ListTodoIcon,
@@ -46,14 +46,17 @@ const ChatSidebarActions = async ({ chatId }: { chatId: string }) => {
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href={`/${chatId}/calendar`}>
-                <CalendarIcon />
-                <span>Календарь</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {
+            await showCalendar() &&
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link href={`/${chatId}/calendar`}>
+                  <CalendarIcon />
+                  <span>Календарь</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          }
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href={`/${chatId}/settings`}>

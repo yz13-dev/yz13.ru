@@ -44,7 +44,7 @@ export default async function page() {
                 Фронтенд разработчик, специализируюсь на разработке сайтов,
                 веб-приложений.
               </p>
-            </div>s
+            </div>
             <div className="yz-future-padding-y">
               {(await showCallToAction()) && (
                 <CallToAction busy={await availableForWork()} />

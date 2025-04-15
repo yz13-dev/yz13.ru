@@ -41,3 +41,21 @@ export const showChatTopics = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showCalendar = flag<boolean>({
+  key: "show-calendar",
+  description: "Show calendar",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
+
+export const showFeedback = flag<boolean>({
+  key: "show-feedback",
+  description: "Show feedback",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});
