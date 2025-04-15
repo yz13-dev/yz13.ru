@@ -1,5 +1,4 @@
-import { removeAttachments } from "rest-api/attachments";
-import { updateChat } from "rest-api/chats";
+import dayjs from "dayjs";
 import {
   CheckCheckIcon,
   CheckCircleIcon,
@@ -7,13 +6,12 @@ import {
   CopyIcon,
   PencilIcon,
   PinIcon,
-  PinOff,
   PinOffIcon,
   PlusIcon,
   ReplyIcon,
   TimerResetIcon,
   TrashIcon,
-  XIcon,
+  XIcon
 } from "lucide-react";
 import {
   ContextMenu,
@@ -23,7 +21,10 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from "mono/components/context-menu";
-import dayjs from "dayjs";
+import { useMemo, useState } from "react";
+import { removeAttachments } from "rest-api/attachments";
+import { updateChat } from "rest-api/chats";
+import { deleteChatMessage } from "rest-api/messages";
 import {
   addSelectedMessage,
   deleteMessage,
@@ -37,9 +38,7 @@ import {
 } from "../chat-api/chat-api";
 import { setEditMessage, setReplyTo } from "../chat-input/input-store";
 import TagInput from "./tag-input";
-import { useMemo, useState } from "react";
 import Tags from "./tags";
-import { deleteChatMessage } from "rest-api/messages";
 
 const removeMessage = async (chatId: string, id: string) => {
   const { data: res } = await deleteChatMessage(chatId, id);
@@ -56,7 +55,7 @@ const removeMessage = async (chatId: string, id: string) => {
         const updatedChatAttachments = chatAttachments.filter(
           (attachment) => !deletedIds.includes(attachment.id),
         );
-        const updatedChat = await updateChat(res.chat_id, {
+        const { data: updatedChat } = await updateChat(res.chat_id, {
           attachments: updatedChatAttachments,
         });
         if (updatedChat) setChat(updatedChat);
@@ -111,7 +110,7 @@ const MessageCtxMenu = ({
     const pinned = chat?.["pinned-message"] === messageId;
     if (chat) {
       try {
-        const updatedChat = await updateChat(chat.id, {
+        const { data: updatedChat } = await updateChat(chat.id, {
           "pinned-message": pinned ? null : messageId,
         });
         if (updatedChat) setChat(updatedChat);

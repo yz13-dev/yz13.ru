@@ -148,7 +148,7 @@ const Timeline = ({
       <div
         ref={ref}
         className={cn(
-          "w-full h-full marquee overflow-x-auto flex flex-row  gap-1 relative",
+          "w-full h-full marquee flex flex-row  gap-1 relative",
           align === "top" && "items-start",
           align === "center" && "items-center",
           align === "bottom" && "items-end",
@@ -161,10 +161,8 @@ const Timeline = ({
           const timestamp = formatTime(hour, minute);
           const showTime = isZero || active;
           const intervalOfFive = minute % 5 === 0;
-          const isCloseToZero =
-            hour === timeline.hour
-              ? timeline.minute >= 50 || timeline.minute <= 10
-              : false;
+          const isCloseToZero = hour - 1 === timeline.hour && timeline.minute >= 50 ||
+            hour === timeline.hour && timeline.minute <= 10
           const height = active
             ? "50%"
             : isZero
@@ -255,7 +253,7 @@ const Line = ({
         data-active={active}
         className={cn(
           "w-px",
-          "data-[active=true]:bg-foreground bg-neutral-300",
+          "data-[active=true]:bg-foreground bg-secondary",
         )}
       />
     </div>

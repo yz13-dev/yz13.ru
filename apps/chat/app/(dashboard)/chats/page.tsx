@@ -1,21 +1,24 @@
+import NewChatForm from "@/app/(root)/new-chat-form";
+import { Logo } from "@/components/logo";
+import User from "@/components/user";
 import { auth } from "@/lib/auth";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { getChatsData } from "rest-api/chats";
+import { getChatLimits } from "rest-api/chats/limits";
 import { cn } from "yz13/cn";
 import ChatList, { ChatListSkeleton } from "./chats-list";
 import TaskList from "./task-list";
-import { Logo } from "@/components/logo";
-import NewChatForm from "@/app/(root)/new-chat-form";
-import Header from "@/app/(root)/header";
-import User from "@/components/user";
 
 const page = async () => {
   const user = await auth();
   const uid = user?.id;
   if (!user || !uid) return redirect("/");
+  const { data: limits } = await getChatLimits(uid)
+  const isLimitReached = (limits?.chats ?? 0) < 0
+  console.log(limits)
   const { data } = await getChatsData(uid);
   const chats = data?.chats ?? [];
   const favoriteChats = chats.filter((chat) => chat.favorite);
@@ -38,7 +41,7 @@ const page = async () => {
             <User />
           </Suspense>
         </header>
-        <NewChatForm showLabel />
+        <NewChatForm showLabel limited={isLimitReached} />
         <Separator />
         <div className="w-full flex md:flex-row flex-col gap-6">
           <div className="md:w-1/3 w-full space-y-3 *:space-y-1.5">

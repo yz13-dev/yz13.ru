@@ -73,7 +73,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
             <Button
               variant="secondary"
               className={cn(
-                "max-w-xs w-full justify-center *:text-sm relative",
+                "max-w-xs w-fit justify-center *:text-sm relative",
                 hideSearch && "hidden",
               )}
               asChild
@@ -86,7 +86,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
             <Button
               variant="secondary"
               className={cn(
-                "max-w-xs w-full justify-center *:text-sm relative",
+                "max-w-xs w-fit justify-center *:text-sm relative",
                 hideSearch && "hidden",
               )}
             >

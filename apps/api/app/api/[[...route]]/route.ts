@@ -1,12 +1,15 @@
 import packageJson from "@/package.json";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { languageDetector } from "hono/language";
 import { poweredBy } from "hono/powered-by";
 import { requestId } from "hono/request-id";
 import { handle } from "hono/vercel";
 import { auth } from "./auth";
 import { charts } from "./charts";
+import { chats } from "./chats/endpoint";
 import { drafts } from "./drafts";
+import { limits } from "./limits/endpoint";
 import { news } from "./news";
 import { pages } from "./pages";
 import { pricing } from "./pricing";
@@ -14,8 +17,6 @@ import { rooms } from "./rooms";
 import { user } from "./user";
 import { visitor_session } from "./visitor-session";
 import { works } from "./works";
-import { cors } from "hono/cors";
-import { chats } from "./chats/endpoint";
 
 export const runtime = "edge";
 
@@ -68,6 +69,7 @@ app.route("/rooms", rooms);
 app.route("/pages", pages);
 app.route("/news", news);
 app.route("/chats", chats);
+app.route("/limits", limits)
 
 app.get("/version", (c) => {
   const version = packageJson.version;

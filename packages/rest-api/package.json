@@ -73,6 +73,11 @@
             "import": "./dist/rest/projects/projects.mjs",
             "require": "./dist/rest/projects/projects.js"
         },
+        "./chats/limits": {
+            "types": "./dist/rest/chats/limits.d.ts",
+            "import": "./dist/rest/chats/limits.mjs",
+            "require": "./dist/rest/chats/limits.js"
+        },
         "./chats": {
             "types": "./dist/rest/chats/chats.d.ts",
             "import": "./dist/rest/chats/chats.mjs",

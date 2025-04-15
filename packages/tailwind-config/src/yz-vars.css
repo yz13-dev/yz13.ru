@@ -15,7 +15,8 @@
     --yz13-foreground: oklch(0% 0 0);
     --yz13-foreground-secondary: oklch(0% 0 0 / 60%);
     --yz13-background: var(--yz13-neutral-50);
-    --yz13-background-secondary: var(--yz13-neutral-100) --yz13-selection: var(--yz13-foreground);
+    --yz13-background-secondary: var(--yz13-neutral-100);
+    --yz13-selection: var(--yz13-foreground);
     --yz13-border: var(--yz13-neutral-300);
     --yz13-secondary: var(--yz13-neutral-100);
     --yz13-secondary-foreground: var(--yz13-foreground);

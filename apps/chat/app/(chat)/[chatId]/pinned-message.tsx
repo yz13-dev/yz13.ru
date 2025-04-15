@@ -24,7 +24,7 @@ const PinnedMessage = () => {
     if (chat) {
       setLoading(true);
       try {
-        const updatedChat = await updateChat(chat.id, {
+        const { data: updatedChat } = await updateChat(chat.id, {
           "pinned-message": null,
         });
         if (updatedChat) setChat(updatedChat);

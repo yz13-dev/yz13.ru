@@ -1,4 +1,4 @@
-import { showUsage } from "@/const/flags";
+import { showFeedback, showUsage } from "@/const/flags";
 import {
   Sidebar,
   SidebarContent,
@@ -33,9 +33,12 @@ const ChatSidebar = async ({ chatId }: { chatId: string }) => {
         {(await showUsage()) && <ChatSidebarUsage />}
         <ChatHistoryNav />
       </SidebarContent>
-      <SidebarFooter>
-        <Footer />
-      </SidebarFooter>
+      {
+        await showFeedback() &&
+        <SidebarFooter>
+          <Footer />
+        </SidebarFooter>
+      }
     </Sidebar>
   );
 };

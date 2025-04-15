@@ -6,6 +6,7 @@ import { Database } from "./database";
 export const createAdminClient = (
   cookieStore: CookieStore
 ): SupabaseClient<Database> => {
+  // @ts-ignore
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
 

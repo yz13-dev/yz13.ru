@@ -1,19 +1,17 @@
 "use client";
 
-import { UserIcon, UsersIcon } from "lucide-react";
-import { Label } from "mono/components/label";
-import { Switch } from "mono/components/switch";
 import { useState } from "react";
-import { cn } from "yz13/cn";
-import NewChatInput from "./new-chat-input";
 import ChatTypeSwitch from "./chat-type-switch";
+import NewChatInput from "./new-chat-input";
 
 type NewChatFormProps = {
   defaultChecked?: boolean;
   showLabel?: boolean;
   label?: string;
+  limited?: boolean
 };
 const NewChatForm = ({
+  limited = false,
   defaultChecked = false,
   showLabel = false,
   label = "Создать",
@@ -27,10 +25,15 @@ const NewChatForm = ({
         defaultChecked={defaultChecked}
       />
       <NewChatInput
+        disabled={limited}
         type={checked ? "group" : "personal"}
         showLabel={showLabel}
         label={label}
       />
+      {
+        limited &&
+        <span className="text-xs text-muted-foreground">Похоже что вы достигли маскимального количества чатов.</span>
+      }
     </div>
   );
 };

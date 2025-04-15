@@ -1,9 +1,9 @@
 "use client";
-import { deleteChat } from "rest-api/chats";
 import { Loader2Icon, TrashIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { deleteChat } from "rest-api/chats";
 
 const DeleteChatButton = ({ chatId }: { chatId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -11,7 +11,7 @@ const DeleteChatButton = ({ chatId }: { chatId: string }) => {
   const handleDeleteChat = async () => {
     setLoading(true);
     try {
-      const res = await deleteChat(chatId);
+      const { data: res } = await deleteChat(chatId);
       if (res) router.push("/");
     } catch (error) {
       console.log(error);

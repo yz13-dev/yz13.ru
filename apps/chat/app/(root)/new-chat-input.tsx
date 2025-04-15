@@ -1,19 +1,21 @@
 "use client";
-import { createChat } from "rest-api/chats";
 import { useUser } from "@/hooks/use-user";
-import { ChatRoom } from "rest-api/types/chats";
-import { ArrowUpIcon, Loader2Icon, PlusIcon } from "lucide-react";
+import { Loader2Icon, PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { createChat } from "rest-api/chats";
+import { ChatRoom } from "rest-api/types/chats";
 
 type NewChatInputProps = {
   type?: ChatRoom["type"];
   showLabel?: boolean;
   label?: string;
+  disabled?: boolean
 };
 const NewChatInput = ({
+  disabled = false,
   type = "personal",
   showLabel = false,
   label = "Создать",
@@ -21,15 +23,15 @@ const NewChatInput = ({
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [user] = useUser();
-  const disabled = useMemo(
-    () => !name || loading || !user,
-    [name, loading, user],
+  const inputDisabled = useMemo(
+    () => !name || loading || !user || disabled,
+    [name, loading, user, disabled],
   );
   const router = useRouter();
   const handleNewChat = async () => {
     if (!user) return;
     setLoading(true);
-    const newChat = await createChat({
+    const { data: newChat } = await createChat({
       from_id: user.id,
       name,
       type,
@@ -50,7 +52,7 @@ const NewChatInput = ({
         onChange={(e) => setName(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            if (disabled) return;
+            if (inputDisabled) return;
             handleNewChat();
           }
         }}
@@ -59,7 +61,7 @@ const NewChatInput = ({
         onClick={handleNewChat}
         variant={disabled ? "secondary" : "default"}
         className="rounded-full h-10 gap-2 shrink-0"
-        disabled={disabled}
+        disabled={inputDisabled}
       >
         {loading ? (
           <Loader2Icon size={18} className="animate-spin" />

@@ -258,6 +258,11 @@
             "import": "./dist/components/widgets/stack/index.js",
             "require": "./dist/components/widgets/stack/index.cjs"
         },
+        "./blocks/gauge": {
+            "types": "./dist/components/blocks/gauge.d.ts",
+            "import": "./dist/components/blocks/gauge.js",
+            "require": "./dist/components/blocks/gauge.cjs"
+        },
         "./hooks/use-mobile": {
             "types": "./dist/hooks/use-mobile.d.ts",
             "import": "./dist/hooks/use-mobile.js",

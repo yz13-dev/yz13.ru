@@ -1,7 +1,5 @@
 "use client";
-import { updateChat } from "rest-api/chats";
 import { randomNumberId } from "@/lib/random-id";
-import { ChatList } from "rest-api/types/chats";
 import { ArrowUpIcon, Loader2Icon, PlusIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
@@ -11,6 +9,8 @@ import {
   PopoverTrigger,
 } from "mono/components/popover";
 import { useMemo, useState } from "react";
+import { updateChat } from "rest-api/chats";
+import { ChatList } from "rest-api/types/chats";
 import { setChat } from "../../chat-api/chat-api";
 import { useChatApi } from "../../chat-api/chat-provider";
 
@@ -49,7 +49,7 @@ const TasksListInput = ({ chatId }: TasksListInputProps) => {
         ...(chat.task_lists as ChatList[]),
         newList,
       ] as ChatList[];
-      const updatedChat = await updateChat(chatId, { task_lists });
+      const { data: updatedChat } = await updateChat(chatId, { task_lists });
       if (updatedChat) setChat(updatedChat);
     } catch (error) {
       console.error(error);
