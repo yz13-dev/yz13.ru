@@ -4,6 +4,8 @@ const nextConfig = {
   // output: "standalone",
   compress: true,
   experimental: {
+    inlineCss: true,
+    reactCompiler: true,
     optimizeCss: true,
     optimizeServerReact: true,
   },
