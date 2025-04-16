@@ -103,12 +103,13 @@ chats.delete("/:id", async (c) => {
 })
 
 chats.get("/:id/messages", async (c) => {
+  const offset = parseInt(c.req.query("offset") || "0");
   const filter = c.req.query("filter");
   const tag = c.req.query("tag");
   const byTag = filter === "tag";
   const id = c.req.param("id");
-  if (tag && byTag) return c.json(await getChatMessagesByTag(id, tag));
-  else return c.json(await getChatMessages(id));
+  if (tag && byTag) return c.json(await getChatMessagesByTag(id, tag, offset));
+  else return c.json(await getChatMessages(id, offset));
 });
 chats.get("/:id/messages/:message_id", async (c) => {
   const id = c.req.param("id");

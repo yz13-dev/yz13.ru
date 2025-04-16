@@ -4,13 +4,14 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { HashIcon, Loader2Icon, MouseIcon, XIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useInView } from "motion/react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { getChatMessages } from "rest-api/messages";
 import { ChatAttachment } from "rest-api/types/attachments";
 import { ChatMessage, ChatTag } from "rest-api/types/chats";
 import { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
-import { getChatTags, setMessages } from "../chat-api/chat-api";
+import { getChatTags, getMessages, setMessages } from "../chat-api/chat-api";
 import { useChatApi } from "../chat-api/chat-provider";
 import ChatBubble, {
   CopyMessageButton,
@@ -89,6 +90,7 @@ const ChatBubbleGroup = ({
 };
 
 type ChatHistoryProps = {
+  defaultOffset?: number;
   messages?: ChatMessage[];
   user: UserObject;
 };
@@ -124,10 +126,18 @@ const sortMessages = (messages: ChatMessage[]) => {
 };
 
 const ChatHistory = ({
+  defaultOffset = 30,
   messages: providedMessages,
   user,
 }: ChatHistoryProps) => {
   const chat = useChatApi((state) => state.chat);
+  const [ready, setReady] = useState<boolean>(false);
+  const [offset, setOffset] = useState<number>(defaultOffset);
+  const [isAll, setIsAll] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref);
+  const [loading, setLoading] = useState<boolean>(false);
+
   // const chatTags = useMemo(() => (chat ? chat.tags : []) as ChatTag[], [chat]);
   const chatPinnedMessageId = useMemo(
     () => chat?.["pinned-message"] ?? null,
@@ -163,12 +173,40 @@ const ChatHistory = ({
       });
     }
   };
+  const handleNewMessages = async () => {
+    const messages = getMessages();
+    if (messages.length < 30) return;
+    if (!chat) return;
+    if (!inView) return;
+    setLoading(true);
+    try {
+      const newOffset = offset + 30;
+      const { data } = await getChatMessages(chat.id, [{ key: "offset", value: newOffset }]);
+      const newMessages = data ?? [];
+      if (newMessages.length === 0) setIsAll(true);
+      else {
+        setOffset(newOffset);
+        const messages = getMessages();
+        setMessages([...messages, ...newMessages]);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    setReady(true);
+  }, []);
   useEffect(() => {
     if (enableAutoScroll) handleScroll();
   }, [groupedMessages, enableAutoScroll]);
   useEffect(() => {
     if (providedMessages) setMessages(providedMessages);
   }, [providedMessages]);
+  useEffect(() => {
+    if (inView && ready) handleNewMessages();
+  }, [inView, ready]);
   return (
     <div
       onLoad={() => {
@@ -183,6 +221,13 @@ const ChatHistory = ({
       onTouchMove={handleManualScroll}
       className={cn("w-full *:py-6 h-full")}
     >
+      {loading && (
+        <div className="w-full col-span-full flex items-center gap-2 justify-center">
+          <Loader2Icon size={14} className="text-muted-foreground animate-spin" />
+          <span className="text-xs text-muted-foreground">Подгружаем сообщения...</span>
+        </div>
+      )}
+      {!isAll && <div ref={ref} className="w-full h-px col-span-full" />}
       {false && (
         <div className="absolute top-0 left-0 w-full h-full flex gap-2 items-center justify-center">
           <Loader2Icon size={16} className="animate-spin text-foreground" />

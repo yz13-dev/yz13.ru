@@ -55,8 +55,8 @@ export default async function page() {
         <div className="w-full yz-future-container yz-future-container-max mx-auto h-20 px-6">
           <Timeline focusAlign="center" align="bottom" />
         </div>
-        <div className="yz-future-container-no-padding yz-future-container-max mx-auto bg-background/80 backdrop-blur-sm">
-          <div className="w-full flex items-center justify-between yz-future-padding-x yz-future-padding-y">
+        <div className="yz-future-container-no-padding yz-future-container-max mx-auto bg-background/80 backdrop-blur-sm pt-[2.5%] space-y-6">
+          <div className="w-full h-14 flex items-center justify-between yz-future-padding-x bg-background sticky top-0 z-10">
             <NavTabs />
             <div className="flex items-center gap-2">
               <RadioClient />
