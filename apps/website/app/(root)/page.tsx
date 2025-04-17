@@ -1,7 +1,8 @@
 import Availability from "@/components/availability";
-import RadioClient from "@/components/dock/components/radio-client-wrapper";
+import Dock, { DockSkeleton } from "@/components/dock/dock";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
+import PageDockFiller from "@/components/page-dock-filler";
 import User from "@/components/user";
 import {
   availableForWork,
@@ -57,7 +58,6 @@ export default async function page() {
           <div className="w-full h-14 flex items-center justify-between yz-future-padding-x bg-background sticky top-0 z-10">
             <NavTabs />
             <div className="flex items-center gap-2">
-              <RadioClient />
               <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
                 {(await showUser()) && <User />}
               </Suspense>
@@ -89,6 +89,10 @@ export default async function page() {
           <Footer />
         </div>
       </div>
+      <PageDockFiller />
+      <Suspense fallback={<DockSkeleton />}>
+        <Dock />
+      </Suspense>
     </>
   );
 }
