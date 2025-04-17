@@ -1,47 +1,36 @@
-FROM node:18-alpine AS base
+# 1. Базовый образ
+FROM oven/bun:latest AS base
 
-FROM base AS builder
-RUN apk update
-RUN apk add --no-cache libc6-compat
-RUN npm install -g bun
-RUN npm install -g turbo@^2
-# Set working directory
 WORKDIR /app
-# COPY package.json ./
-# Replace <your-major-version> with the major version installed in your repository. For example:
-# RUN bun global add turbo@^2
+
+# 2. Копируем только package.json/lockfile/turbo.json для кеширования
+COPY turbo.json bun.lock package.json ./
+COPY apps/website/package.json ./apps/website/
+
+# 3. Копируем весь проект
 COPY . .
 
-# Generate a partial monorepo with a pruned lockfile for a target workspace.
-# Assuming "website" is the name entered in the project's package.json: { name: "website" }
-RUN turbo prune website --docker
-
-# Add lockfile and package.json's of isolated subworkspace
-FROM base AS installer
-RUN apk update
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-# First install the dependencies (as they change less often)
-COPY --from=builder /app/out/json/ .
+# 4. Установка зависимостей
 RUN bun install
 
-# Build the project
-COPY --from=builder /app/out/full/ .
-RUN bun turbo run build
+# 5. Сборка нужного приложения
+RUN bun run build --filter=website
 
+# 6. Финальный образ
 FROM base AS runner
 WORKDIR /app
 
-# Don't run production as root
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-USER nextjs
+ENV NODE_ENV=production
+ENV PORT=3000
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/standalone ./
-COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/static ./apps/website/.next/static
-COPY --from=installer --chown=nextjs:nodejs /app/apps/website/public ./apps/website/public
+# Копируем собранный код и зависимости
+COPY --from=base /app/apps/website/.next .next
+COPY --from=base /app/apps/website/public ./public
+COPY --from=base /app/apps/website/next.config.mjs ./next.config.mjs
+COPY --from=base /app/apps/website/package.json ./
 
-CMD bun apps/website/server.js
+# Установка прод-зависимостей только для website
+RUN bun install --production
+
+# Старт сервера
+CMD ["bun", "start"]

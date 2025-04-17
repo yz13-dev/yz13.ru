@@ -1,4 +1,3 @@
-import NewChatForm from "@/app/(root)/new-chat-form";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { cn } from "yz13/cn";
@@ -30,8 +29,8 @@ export default function loading() {
           </div>
         </div>
         <div className="md:w-2/3 w-full space-y-6">
-          <ChatListSkeleton />
-          <ChatListSkeleton />
+          <ChatListSkeleton label="Избранные" />
+          <ChatListSkeleton label="Последние чаты" />
         </div>
       </div>
     </div>

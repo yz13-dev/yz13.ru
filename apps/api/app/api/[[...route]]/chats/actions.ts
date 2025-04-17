@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 
+export const messagesLimit = 30
 export const getLimits = () => {
   return {
     chats: 10,
@@ -106,7 +107,7 @@ export const getChatMessages = async (id: string, offset: number = 0) => {
       .select("*")
       .eq("chat_id", id)
       .order("created_at", { ascending: false })
-      .range(offset, offset + 100);
+      .range(offset, offset + messagesLimit);
     if (error) {
       console.log(error);
       return [];
@@ -135,7 +136,7 @@ export const getChatMessage = async (id: string, messageId: string) => {
     return [];
   }
 };
-export const getChatMessagesByTag = async (id: string, tagId: string) => {
+export const getChatMessagesByTag = async (id: string, tagId: string, offset: number = 0) => {
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
@@ -145,7 +146,8 @@ export const getChatMessagesByTag = async (id: string, tagId: string) => {
       .select("*")
       .eq("chat_id", id)
       .contains("tags", [tagIdAsNumber])
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .range(offset, offset + messagesLimit);
     if (error) {
       console.log(error);
       return [];

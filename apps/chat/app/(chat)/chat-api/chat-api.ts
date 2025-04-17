@@ -11,7 +11,7 @@ import {
 import { Pricing } from "rest-api/types/pricing";
 import { createStore } from "zustand";
 import { groupChatMessages } from "../[chatId]/chat-history";
-import { FileWithId, setReplyTo, setValue } from "../chat-input/input-store";
+import { FileWithId } from "../chat-input/input-store";
 
 export type Store = {
   services: Pricing[];
@@ -93,6 +93,8 @@ export const getMessage = (id: string): ChatMessage | null => {
   const message = messages.find((message) => message.id === id);
   return message ? message : null;
 };
+
+export const getMessages = () => chat.getState().messages;
 
 export const updateChatInList = (chatRoom: ChatRoom) => {
   const chats = chat.getState().chats;

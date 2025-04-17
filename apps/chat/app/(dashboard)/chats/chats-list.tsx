@@ -19,12 +19,15 @@ const ListGrid = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const ChatListSkeleton = () => {
+export const ChatListSkeleton = ({ label }: { label?: string }) => {
   return (
     <div className="w-full space-y-3">
-      <span className="text-base block font-medium text-foreground">
-        Последние чаты
-      </span>
+      {
+        label &&
+        <span className="text-base block font-medium text-foreground">
+          {label}
+        </span>
+      }
       <ListGrid>
         <Skeleton className="w-full" />
         <Skeleton className="w-full" />

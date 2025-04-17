@@ -15,7 +15,7 @@
     ".env.staging",
     ".env.preview"
   ],
-  "daemon": true,
+  "daemon": false,
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
