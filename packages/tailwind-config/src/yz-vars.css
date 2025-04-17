@@ -1,90 +1,163 @@
 :root {
-    /* Neutral colors */
-    --yz13-neutral-50: oklch(100% 0 0);
-    --yz13-neutral-100: oklch(95% 0 0);
-    --yz13-neutral-200: oklch(90% 0 0);
-    --yz13-neutral-300: oklch(80% 0 0);
-    --yz13-neutral-400: oklch(70% 0 0);
-    --yz13-neutral-500: oklch(60% 0 0);
-    --yz13-neutral-600: oklch(50% 0 0);
-    --yz13-neutral-700: oklch(40% 0 0);
-    --yz13-neutral-800: oklch(30% 0 0);
-    --yz13-neutral-900: oklch(20% 0 0);
+  /* Neutral colors */
+  --yz13-neutral-50: oklch(98% 0 0);
+  --yz13-neutral-100: oklch(95% 0 0);
+  --yz13-neutral-200: oklch(90% 0 0);
+  --yz13-neutral-300: oklch(80% 0 0);
+  --yz13-neutral-400: oklch(70% 0 0);
+  --yz13-neutral-500: oklch(60% 0 0);
+  --yz13-neutral-600: oklch(50% 0 0);
+  --yz13-neutral-700: oklch(40% 0 0);
+  --yz13-neutral-800: oklch(30% 0 0);
+  --yz13-neutral-900: oklch(20% 0 0);
 
-    /* Base colors */
-    --yz13-foreground: oklch(0% 0 0);
-    --yz13-foreground-secondary: oklch(0% 0 0 / 60%);
-    --yz13-background: var(--yz13-neutral-50);
-    --yz13-background-secondary: var(--yz13-neutral-100);
-    --yz13-selection: var(--yz13-foreground);
-    --yz13-border: var(--yz13-neutral-300);
-    --yz13-secondary: var(--yz13-neutral-100);
-    --yz13-secondary-foreground: var(--yz13-foreground);
-    --yz13-radius: .6rem;
+  /* Base colors */
+  --yz13-foreground: oklch(0% 0 0);
+  --yz13-foreground-secondary: oklch(0% 0 0 / 60%);
+  --yz13-background: var(--yz13-neutral-50);
+  --yz13-background-secondary: var(--yz13-neutral-100);
+  --yz13-selection: var(--yz13-foreground);
+  --yz13-border: var(--yz13-neutral-300);
+  --yz13-secondary: var(--yz13-neutral-200);
+  --yz13-secondary-foreground: var(--yz13-foreground);
+  --yz13-radius: 0.6rem;
 
-    /* Success colors */
-    --yz13-success-100: oklch(95.5% 0.03 160);
-    --yz13-success-200: oklch(86.5% 0.08 160);
-    --yz13-success-300: oklch(76.5% 0.12 160);
-    --yz13-success-400: oklch(67.5% 0.15 160);
-    --yz13-success-accent: oklch(62% 0.17 160);
-    --yz13-success-foreground: var(--yz13-success-400);
-    --yz13-success-border: var(--yz13-success-200);
-    --yz13-success-background: var(--yz13-success-100);
+  /* Success colors */
+  --yz13-success-100: oklch(95.5% 0.03 160);
+  --yz13-success-200: oklch(86.5% 0.08 160);
+  --yz13-success-300: oklch(76.5% 0.12 160);
+  --yz13-success-400: oklch(67.5% 0.15 160);
+  --yz13-success-accent: oklch(62% 0.17 160);
+  --yz13-success-foreground: var(--yz13-success-400);
+  --yz13-success-border: var(--yz13-success-200);
+  --yz13-success-background: var(--yz13-success-100);
 
-    /* Error colors */
-    --yz13-error-100: oklch(96.5% 0.05 25);
-    --yz13-error-200: oklch(89% 0.12 25);
-    --yz13-error-300: oklch(81.5% 0.18 25);
-    --yz13-error-400: oklch(75% 0.22 25);
-    --yz13-error-accent: oklch(69% 0.25 25);
-    --yz13-error-foreground: var(--yz13-error-400);
-    --yz13-error-border: var(--yz13-error-200);
-    --yz13-error-background: var(--yz13-error-100);
+  /* Error colors */
+  --yz13-error-100: oklch(96.5% 0.05 25);
+  --yz13-error-200: oklch(89% 0.12 25);
+  --yz13-error-300: oklch(81.5% 0.18 25);
+  --yz13-error-400: oklch(75% 0.22 25);
+  --yz13-error-accent: oklch(69% 0.25 25);
+  --yz13-error-foreground: var(--yz13-error-400);
+  --yz13-error-border: var(--yz13-error-200);
+  --yz13-error-background: var(--yz13-error-100);
 
-    /* Warning colors */
-    --yz13-warning-100: oklch(95% 0.07 90);
-    --yz13-warning-200: oklch(87.5% 0.13 90);
-    --yz13-warning-300: oklch(78.5% 0.18 90);
-    --yz13-warning-400: oklch(70% 0.22 90);
-    --yz13-warning-accent: oklch(63% 0.24 90);
-    --yz13-warning-foreground: var(--yz13-warning-accent);
-    --yz13-warning-border: var(--yz13-warning-200);
-    --yz13-warning-background: color-mix(in oklch, var(--yz13-warning-100), transparent 30%);
+  /* Warning colors */
+  --yz13-warning-100: oklch(95% 0.07 90);
+  --yz13-warning-200: oklch(87.5% 0.13 90);
+  --yz13-warning-300: oklch(78.5% 0.18 90);
+  --yz13-warning-400: oklch(70% 0.22 90);
+  --yz13-warning-accent: oklch(63% 0.24 90);
+  --yz13-warning-foreground: var(--yz13-warning-accent);
+  --yz13-warning-border: var(--yz13-warning-200);
+  --yz13-warning-background: color-mix(
+    in oklch,
+    var(--yz13-warning-100),
+    transparent 30%
+  );
 
-    /* Chart colors */
-    --yz13-chart-1: oklch(60% 0.12 185);
-    --yz13-chart-2: oklch(70% 0.18 35);
-    --yz13-chart-3: oklch(38% 0.06 235);
-    --yz13-chart-4: oklch(78% 0.15 90);
-    --yz13-chart-5: oklch(73% 0.18 50);
+  /* Chart colors */
+  --yz13-chart-1: oklch(60% 0.12 185);
+  --yz13-chart-2: oklch(70% 0.18 35);
+  --yz13-chart-3: oklch(38% 0.06 235);
+  --yz13-chart-4: oklch(78% 0.15 90);
+  --yz13-chart-5: oklch(73% 0.18 50);
 
-    /* Sidebar colors */
-    --yz13-sidebar-background: var(--yz13-background-secondary);
-    --yz13-sidebar-foreground: var(--yz13-foreground);
-    --yz13-sidebar-primary: var(--yz13-background);
-    --yz13-sidebar-primary-foreground: var(--yz13-foreground);
-    --yz13-sidebar-accent: oklch(96% 0.01 260);
-    --yz13-sidebar-accent-foreground: oklch(20% 0.02 260);
-    --yz13-sidebar-border: var(--yz13-border);
-    --yz13-sidebar-ring: oklch(65% 0.25 255);
+  /* Sidebar colors */
+  --yz13-sidebar-background: var(--yz13-background-secondary);
+  --yz13-sidebar-foreground: var(--yz13-foreground);
+  --yz13-sidebar-primary: var(--yz13-background);
+  --yz13-sidebar-primary-foreground: var(--yz13-foreground);
+  --yz13-sidebar-accent: var(--yz13-secondary);
+  --yz13-sidebar-accent-foreground: var(--yz13-secondary-foreground);
+  --yz13-sidebar-border: var(--yz13-border);
+  --yz13-sidebar-ring: var(--yz13-neutral-200);
 
-    /* Pattern */
-    --pattern-fg: color-mix(in oklab, var(--yz13-foreground) 10%, transparent);
+  /* Pattern */
+  --pattern-fg: color-mix(in oklch, var(--yz13-foreground) 10%, transparent);
 }
 
 .dark {
+  /* Neutral colors */
+  --yz13-neutral-50: oklch(15% 0 0);
+  --yz13-neutral-100: oklch(20% 0 0);
+  --yz13-neutral-200: oklch(25% 0 0);
+  --yz13-neutral-300: oklch(30% 0 0);
+  --yz13-neutral-400: oklch(40% 0 0);
+  --yz13-neutral-500: oklch(50% 0 0);
+  --yz13-neutral-600: oklch(60% 0 0);
+  --yz13-neutral-700: oklch(70% 0 0);
+  --yz13-neutral-800: oklch(80% 0 0);
+  --yz13-neutral-900: oklch(90% 0 0);
+
+  /* Base colors */
+  --yz13-foreground: oklch(100% 0 0);
+  --yz13-foreground-secondary: oklch(100% 0 0 / 60%);
+  --yz13-background: var(--yz13-neutral-50);
+  --yz13-background-secondary: var(--yz13-neutral-100);
+  --yz13-selection: var(--yz13-foreground);
+  --yz13-border: var(--yz13-neutral-300);
+  --yz13-secondary: var(--yz13-neutral-300);
+  --yz13-secondary-foreground: var(--yz13-foreground);
+
+  /* Success colors */
+  --yz13-success-100: oklch(52% 0.15 160);
+  --yz13-success-200: oklch(42% 0.13 160);
+  --yz13-success-300: oklch(34% 0.11 160);
+  --yz13-success-400: oklch(26% 0.09 160);
+  --yz13-success-foreground: var(--yz13-success-accent);
+  --yz13-success-border: var(--yz13-success-200);
+  --yz13-success-background: var(--yz13-success-400);
+
+  /* Error colors */
+  --yz13-error-100: oklch(58% 0.18 25);
+  --yz13-error-200: oklch(45% 0.15 25);
+  --yz13-error-300: oklch(37% 0.13 25);
+  --yz13-error-400: oklch(29% 0.11 25);
+  --yz13-error-foreground: var(--yz13-error-accent);
+  --yz13-error-border: var(--yz13-error-200);
+  --yz13-error-background: var(--yz13-error-400);
+
+  /* Warning colors */
+  --yz13-warning-100: oklch(55% 0.18 90);
+  --yz13-warning-200: oklch(42% 0.15 90);
+  --yz13-warning-300: oklch(34% 0.13 90);
+  --yz13-warning-400: oklch(26% 0.11 90);
+  --yz13-warning-foreground: var(--yz13-warning-accent);
+  --yz13-warning-border: var(--yz13-warning-200);
+  --yz13-warning-background: var(--yz13-warning-400);
+
+  /* Chart colors */
+  --yz13-chart-1: oklch(55% 0.18 265);
+  --yz13-chart-2: oklch(65% 0.2 10);
+  --yz13-chart-3: oklch(65% 0.18 50);
+  --yz13-chart-4: oklch(65% 0.2 310);
+  --yz13-chart-5: oklch(60% 0.15 160);
+
+  /* Sidebar colors */
+  --yz13-sidebar-background: var(--yz13-background-secondary);
+  --yz13-sidebar-foreground: var(--yz13-foreground);
+  --yz13-sidebar-primary: var(--yz13-background);
+  --yz13-sidebar-primary-foreground: var(--yz13-foreground);
+  --yz13-sidebar-accent: var(--yz13-secondary);
+  --yz13-sidebar-accent-foreground: var(--yz13-secondary-foreground);
+  --yz13-sidebar-border: var(--yz13-border);
+  --yz13-sidebar-ring: var(--yz13-neutral-200);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
     /* Neutral colors */
-    --yz13-neutral-50: oklch(0% 0 0);
-    --yz13-neutral-100: oklch(5% 0 0);
-    --yz13-neutral-200: oklch(10% 0 0);
-    --yz13-neutral-300: oklch(20% 0 0);
-    --yz13-neutral-400: oklch(30% 0 0);
-    --yz13-neutral-500: oklch(40% 0 0);
-    --yz13-neutral-600: oklch(50% 0 0);
-    --yz13-neutral-700: oklch(60% 0 0);
-    --yz13-neutral-800: oklch(70% 0 0);
-    --yz13-neutral-900: oklch(80% 0 0);
+    --yz13-neutral-50: oklch(15% 0 0);
+    --yz13-neutral-100: oklch(20% 0 0);
+    --yz13-neutral-200: oklch(25% 0 0);
+    --yz13-neutral-300: oklch(30% 0 0);
+    --yz13-neutral-400: oklch(40% 0 0);
+    --yz13-neutral-500: oklch(50% 0 0);
+    --yz13-neutral-600: oklch(60% 0 0);
+    --yz13-neutral-700: oklch(70% 0 0);
+    --yz13-neutral-800: oklch(80% 0 0);
+    --yz13-neutral-900: oklch(90% 0 0);
 
     /* Base colors */
     --yz13-foreground: oklch(100% 0 0);
@@ -92,8 +165,8 @@
     --yz13-background: var(--yz13-neutral-50);
     --yz13-background-secondary: var(--yz13-neutral-100);
     --yz13-selection: var(--yz13-foreground);
-    --yz13-border: var(--yz13-neutral-500);
-    --yz13-secondary: var(--yz13-neutral-500);
+    --yz13-border: var(--yz13-neutral-300);
+    --yz13-secondary: var(--yz13-neutral-300);
     --yz13-secondary-foreground: var(--yz13-foreground);
 
     /* Success colors */
@@ -135,78 +208,9 @@
     --yz13-sidebar-foreground: var(--yz13-foreground);
     --yz13-sidebar-primary: var(--yz13-background);
     --yz13-sidebar-primary-foreground: var(--yz13-foreground);
-    --yz13-sidebar-accent: oklch(18% 0.01 260);
-    --yz13-sidebar-accent-foreground: oklch(96% 0.01 260);
+    --yz13-sidebar-accent: var(--yz13-secondary);
+    --yz13-sidebar-accent-foreground: var(--yz13-secondary-foreground);
     --yz13-sidebar-border: var(--yz13-border);
-    --yz13-sidebar-ring: oklch(65% 0.25 255);
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        /* Neutral colors */
-        --yz13-neutral-50: oklch(0% 0 0);
-        --yz13-neutral-100: oklch(3.5% 0 0);
-        --yz13-neutral-200: oklch(8.5% 0 0);
-        --yz13-neutral-300: oklch(14.5% 0 0);
-        --yz13-neutral-400: oklch(20.5% 0 0);
-        --yz13-neutral-500: oklch(25.5% 0 0);
-        --yz13-neutral-600: oklch(31.5% 0 0);
-        --yz13-neutral-700: oklch(36.5% 0 0);
-        --yz13-neutral-800: oklch(42.5% 0 0);
-        --yz13-neutral-900: oklch(47.5% 0 0);
-
-        /* Base colors */
-        --yz13-foreground: oklch(100% 0 0);
-        --yz13-foreground-secondary: oklch(100% 0 0 / 60%);
-        --yz13-background: var(--yz13-neutral-50);
-        --yz13-background-secondary: var(--yz13-neutral-100);
-        --yz13-selection: var(--yz13-foreground);
-        --yz13-border: var(--yz13-neutral-500);
-        --yz13-secondary: var(--yz13-neutral-500);
-        --yz13-secondary-foreground: var(--yz13-foreground);
-
-        /* Success colors */
-        --yz13-success-100: oklch(52% 0.15 160);
-        --yz13-success-200: oklch(42% 0.13 160);
-        --yz13-success-300: oklch(34% 0.11 160);
-        --yz13-success-400: oklch(26% 0.09 160);
-        --yz13-success-foreground: var(--yz13-success-accent);
-        --yz13-success-border: var(--yz13-success-200);
-        --yz13-success-background: var(--yz13-success-400);
-
-        /* Error colors */
-        --yz13-error-100: oklch(58% 0.18 25);
-        --yz13-error-200: oklch(45% 0.15 25);
-        --yz13-error-300: oklch(37% 0.13 25);
-        --yz13-error-400: oklch(29% 0.11 25);
-        --yz13-error-foreground: var(--yz13-error-accent);
-        --yz13-error-border: var(--yz13-error-200);
-        --yz13-error-background: var(--yz13-error-400);
-
-        /* Warning colors */
-        --yz13-warning-100: oklch(55% 0.18 90);
-        --yz13-warning-200: oklch(42% 0.15 90);
-        --yz13-warning-300: oklch(34% 0.13 90);
-        --yz13-warning-400: oklch(26% 0.11 90);
-        --yz13-warning-foreground: var(--yz13-warning-accent);
-        --yz13-warning-border: var(--yz13-warning-200);
-        --yz13-warning-background: var(--yz13-warning-400);
-
-        /* Chart colors */
-        --yz13-chart-1: oklch(55% 0.18 265);
-        --yz13-chart-2: oklch(65% 0.2 10);
-        --yz13-chart-3: oklch(65% 0.18 50);
-        --yz13-chart-4: oklch(65% 0.2 310);
-        --yz13-chart-5: oklch(60% 0.15 160);
-
-        /* Sidebar colors */
-        --yz13-sidebar-background: var(--yz13-background-secondary);
-        --yz13-sidebar-foreground: var(--yz13-foreground);
-        --yz13-sidebar-primary: var(--yz13-background);
-        --yz13-sidebar-primary-foreground: var(--yz13-foreground);
-        --yz13-sidebar-accent: oklch(18% 0.01 260);
-        --yz13-sidebar-accent-foreground: oklch(96% 0.01 260);
-        --yz13-sidebar-border: var(--yz13-border);
-        --yz13-sidebar-ring: oklch(65% 0.25 255);
-    }
+    --yz13-sidebar-ring: var(--yz13-neutral-200);
+  }
 }
