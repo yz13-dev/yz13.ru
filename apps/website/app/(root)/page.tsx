@@ -32,14 +32,12 @@ export default async function page() {
         <main className="w-full relative space-y-12 py-[10%]">
           <div className="w-full yz-future-container yz-future-container-max mx-auto space-y-10">
             <Logo size={{ width: 140, height: 26 }} type="full" />
-            <div style={{ lineHeight: 1.2 }} className="w-fit lg:text-5xl text-3xl pr-[7.5%] *:font-semibold *:text-pretty">
-              <h1 className="inline text-foreground">
-                YZ13
-              </h1>
-              <span className="text-muted-foreground inline">
-                {" "}
-                -{" "}
-              </span>
+            <div
+              style={{ lineHeight: 1.2 }}
+              className="w-fit lg:text-5xl text-3xl pr-[7.5%] *:font-semibold *:text-pretty"
+            >
+              <h1 className="inline text-foreground">YZ13</h1>
+              <span className="text-muted-foreground inline"> - </span>
               <p className="text-muted-foreground inline">
                 Фронтенд разработчик, специализируюсь на разработке сайтов,
                 веб-приложений.
@@ -55,7 +53,7 @@ export default async function page() {
         <div className="w-full yz-future-container yz-future-container-max mx-auto h-20 px-6">
           <Timeline focusAlign="center" align="bottom" />
         </div>
-        <div className="yz-future-container-no-padding yz-future-container-max mx-auto bg-background/80 backdrop-blur-sm pt-[2.5%] space-y-6">
+        <div className="yz-future-container-no-padding yz-future-container-max mx-auto bg-background backdrop-blur-sm pt-[2.5%] space-y-6">
           <div className="w-full h-14 flex items-center justify-between yz-future-padding-x bg-background sticky top-0 z-10">
             <NavTabs />
             <div className="flex items-center gap-2">
