@@ -1,13 +1,15 @@
 "use client";
-
+import { Button } from "mono/components/button";
+import { toast, Toaster } from "mono/components/sonner";
+import Link from "next/link";
+import { useEffect, useMemo } from "react";
 import { getAuthorizedUser } from "rest-api/auth";
 import { ChatMessage, ChatRoom, ChatTask } from "rest-api/types/chats";
-import { useEffect, useMemo } from "react";
+import { getUserById } from "rest-api/user";
 import { createClient } from "yz13/supabase/client";
 import {
   deleteMessage,
   deleteTask,
-  getMessage,
   pushMessage,
   pushTask,
   setChat,
@@ -119,7 +121,25 @@ const ChatProvider = ({
           const { data: user } = await getAuthorizedUser();
           if (isInsert) {
             const newMessage = payload.new as ChatMessage;
-            if (user && user.id !== newMessage.from_id) pushMessage(newMessage);
+            const notFromMe = newMessage.from_id !== user?.id;
+            if (notFromMe) {
+              pushMessage(newMessage);
+              const uid = newMessage.from_id;
+              const { data: user } = await getUserById(uid);
+              const userName = user?.username ?? user?.email ?? user?.phone;
+              toast(userName, {
+                description: (
+                  <span className="text-sm text-muted-foreground">
+                    {newMessage.message}
+                  </span>
+                ),
+                action: (
+                  <Button asChild variant="default" className="ml-auto">
+                    <Link href={`/${chat.id}`}>Открыть</Link>
+                  </Button>
+                ),
+              });
+            }
           }
           if (isUpdate) {
             const updatedMessage = payload.new as ChatMessage;
@@ -136,7 +156,12 @@ const ChatProvider = ({
       channel.unsubscribe();
     };
   }, [chat]);
-  return <div className={className}>{children}</div>;
+  return (
+    <div className={className}>
+      <Toaster position="bottom-right" />
+      {children}
+    </div>
+  );
 };
 
 export default ChatProvider;

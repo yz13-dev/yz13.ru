@@ -1,9 +1,9 @@
 "use client";
-import { ChatTask } from "rest-api/types/chats";
 import { Task } from "@/app/(chat)/[chatId]/tasks/task-list";
 import { useEffect, useMemo, useState } from "react";
-import { createClient } from "yz13/supabase/client";
 import { updateTask } from "rest-api/tasks";
+import { ChatTask } from "rest-api/types/chats";
+import { createClient } from "yz13/supabase/client";
 
 const TaskList = ({ defaultTasks = [] }: { defaultTasks?: ChatTask[] }) => {
   const [tasks, setTasks] = useState<ChatTask[]>(defaultTasks);
@@ -70,6 +70,13 @@ const TaskList = ({ defaultTasks = [] }: { defaultTasks?: ChatTask[] }) => {
       channel.unsubscribe();
     };
   }, [taskIds]);
+  if (!tasks.length) {
+    return (
+      <div className="w-full flex justify-center">
+        <span className="text-sm text-muted-foreground">Нет задач</span>
+      </div>
+    );
+  }
   return (
     <ul className="rounded-xl border divide-y">
       {tasks.map((task) => (
