@@ -4,8 +4,9 @@ import {
   getChatMessagesByTag,
   getChatTasks,
   getChatTasksByListId,
-  getUserChat
+  getUserChat,
 } from "@/app/api/[[...route]]/chats/actions";
+import { expire, redis } from "@/extensions/redis";
 import { Hono } from "hono";
 import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
@@ -15,11 +16,12 @@ export const chats = new Hono();
 
 chats.post("/", async (c) => {
   const chat = await c.req.json();
-  const fromId = chat.from_id
+  const fromId = chat.from_id;
+  const key = `chats/${fromId}`;
   try {
-    const limits = await getChatsLimitsByUserId(fromId)
-    console.log(limits)
-    if (limits.chats < 0) throw new Error(`User ${fromId} has reached the limit of chats`)
+    const limits = await getChatsLimitsByUserId(fromId);
+    if (limits.chats < 0)
+      throw new Error(`User ${fromId} has reached the limit of chats`);
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
@@ -30,16 +32,22 @@ chats.post("/", async (c) => {
     if (error) {
       console.log(error);
       return c.json(null);
-    } else return c.json(data);
+    } else {
+      await redis.set(key, JSON.stringify(data), { ex: expire.day });
+      return c.json(data);
+    }
   } catch (error) {
     console.log(error);
     return c.json(null);
   }
-})
+});
 
 chats.get("/:id", async (c) => {
   const id = c.req.param("id");
+  const key = `chats/${id}`;
   try {
+    const cache = await redis.get(key);
+    if (cache) return c.json(cache);
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
     const { data, error } = await supabase
@@ -60,8 +68,9 @@ chats.get("/:id", async (c) => {
 });
 
 chats.patch("/:id", async (c) => {
-  const id = c.req.param("id")
-  const body = await c.req.json()
+  const id = c.req.param("id");
+  const body = await c.req.json();
+  const key = `chats/${id}`;
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
@@ -74,15 +83,19 @@ chats.patch("/:id", async (c) => {
     if (error) {
       console.log(error);
       return c.json(null);
-    } else return c.json(data);
+    } else {
+      await redis.set(key, JSON.stringify(data), { ex: expire.day });
+      return c.json(data);
+    }
   } catch (error) {
     console.log(error);
     return c.json(null);
   }
-})
+});
 
 chats.delete("/:id", async (c) => {
-  const id = c.req.param("id")
+  const id = c.req.param("id");
+  const key = `chats/${id}`;
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
@@ -95,12 +108,15 @@ chats.delete("/:id", async (c) => {
     if (error) {
       console.log(error);
       return c.json(null);
-    } else return c.json(data);
+    } else {
+      await redis.del(key);
+      return c.json(data);
+    }
   } catch (error) {
     console.log(error);
     return c.json(null);
   }
-})
+});
 
 chats.get("/:id/messages", async (c) => {
   const offset = parseInt(c.req.query("offset") || "0");
@@ -235,13 +251,23 @@ chats.get("/:id/tasks/:task_id", async (c) => {
 
 chats.get("/user/:uid", async (c) => {
   const uid = c.req.param("uid");
-  const chats = await getUserChat(uid);
-  return c.json(chats);
+  const key = `chats/user/${uid}`;
+  const cache = await redis.get(key);
+  if (cache) return c.json(cache);
+  try {
+    const chats = await getUserChat(uid);
+    return c.json(chats);
+  } catch (error) {
+    console.log(error);
+    return c.json([]);
+  }
 });
-
 
 chats.get("/user/:uid/all", async (c) => {
   const uid = c.req.param("uid");
+  const key = `chats/user/${uid}/all`;
+  const cache = await redis.get(key);
+  if (cache) return c.json(cache);
   const chats = await getUserChat(uid);
   const tags = chats.map((chat) => chat.tags).flat();
   const attachments = chats.map((chat) => chat.attachments).flat();

@@ -16,9 +16,8 @@ const page = async () => {
   const user = await auth();
   const uid = user?.id;
   if (!user || !uid) return redirect("/");
-  const { data: limits } = await getChatLimits(uid)
-  const isLimitReached = (limits?.chats ?? 0) < 0
-  console.log(limits)
+  const { data: limits } = await getChatLimits(uid);
+  const isLimitReached = (limits?.chats ?? 0) < 0;
   const { data } = await getChatsData(uid);
   const chats = data?.chats ?? [];
   const favoriteChats = chats.filter((chat) => chat.favorite);
