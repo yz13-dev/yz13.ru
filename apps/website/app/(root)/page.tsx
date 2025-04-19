@@ -2,7 +2,6 @@ import Availability from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
 import { availableForWork, showCallToAction } from "@/const/flags";
-import { wait } from "@/helpers/wait";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
@@ -12,7 +11,6 @@ import ServicesDetails from "./services-details";
 import Stack from "./stack";
 
 export default async function page() {
-  await wait(3000);
   return (
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
