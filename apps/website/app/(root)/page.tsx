@@ -34,7 +34,7 @@ export default async function page() {
           </div>
         </div>
       </div>
-      <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6 space-y-6">
+      <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
@@ -62,8 +62,6 @@ export default async function page() {
               {packageJson.version}
             </span>
           </div>
-          <Separator />
-          <Footer />
         </div>
         <div className="lg:w-1/3 w-full space-y-6">
           <span className="text-base block font-medium">Другие проекты</span>
@@ -97,6 +95,10 @@ export default async function page() {
             </li>
           </ul>
         </div>
+      </div>
+      <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6">
+        <Separator />
+        <Footer />
       </div>
     </>
   );
