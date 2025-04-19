@@ -1,95 +1,103 @@
-import CallToAction from "@/app/(root)/call-to-action";
-import ServicesDetails from "@/app/(root)/services-details";
-import Stack from "@/app/(root)/stack";
-import NavTabs, { TabsWrapper } from "@/app/(root)/tabs";
-import Timeline from "@/app/(root)/timeline";
 import Availability from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
-import User from "@/components/user";
-import {
-  availableForWork,
-  showCallToAction,
-  showPriceDetails,
-  showUser,
-} from "@/const/flags";
+import packageJson from "@/package.json";
+import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { TabsContent } from "mono/components/tabs";
 import { Suspense } from "react";
-import { cn } from "yz13/cn";
+import ServicesDetails from "./services-details";
+import Stack from "./stack";
 
 export default async function page() {
   return (
-    <div
-      className={cn(
-        "w-full divide-x flex lg:flex-row flex-col overflow-y-auto",
-        "lg:*:w-1/2 *:w-full lg:h-dvh h-fit *:h-full",
-      )}
-    >
-      <main className="sticky top-0 flex flex-col items-center justify-between">
-        <div className="w-full yz-future-container yz-future-container-max my-auto mx-auto space-y-10 p-[5%]">
-          <Logo size={{ width: 140, height: 26 }} type="full" />
-          <div
-            style={{ lineHeight: 1.2 }}
-            className="w-fit lg:text-5xl text-3xl pr-[7.5%] *:font-semibold *:text-pretty"
-          >
-            <h1 className="inline text-foreground">YZ13</h1>
-            <span className="text-muted-foreground inline"> - </span>
-            <p className="text-muted-foreground inline">
+    <>
+      <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
+        <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
+          <div className="size-16 shrink-0 rounded-2xl bg-background-secondary border lg:hidden flex items-center justify-center">
+            <Logo size={{ width: 40, height: 40 }} type="only-icon" />
+          </div>
+          <div className="flex w-full flex-col gap-6">
+            <div className="flex w-full flex-col gap-2">
+              <h1 className="lg:text-5xl text-3xl lg:font-bold md:font-semibold">
+                YZ13
+              </h1>
+              <span className="lg:text-lg text-sm text-muted-foreground">
+                Фронтенд разработчик
+              </span>
+            </div>
+            <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
+              <Availability />
+            </Suspense>
+          </div>
+          <div className="size-36 shrink-0 rounded-[25%] bg-background-secondary border lg:flex hidden items-center justify-center">
+            <Logo size={{ width: 96, height: 96 }} type="only-icon" />
+          </div>
+        </div>
+      </div>
+      <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6 space-y-6">
+        <div className="lg:w-2/3 w-full space-y-8">
+          <div className="w-full space-y-4">
+            <span className="text-base block font-medium">Описание</span>
+            <p className="text-base text-muted-foreground block">
               Фронтенд разработчик, специализируюсь на разработке сайтов,
               веб-приложений.
             </p>
           </div>
-          <div className="yz-future-padding-y">
-            {(await showCallToAction()) && (
-              <CallToAction busy={await availableForWork()} />
-            )}
-          </div>
-        </div>
-        <div className="w-full h-20">
-          <Timeline focusAlign="center" align="bottom" />
-        </div>
-      </main>
-      <div className="">
-        <TabsWrapper className="yz-future-container-no-padding yz-future-container-max mx-auto bg-background backdrop-blur-sm pt-[2.5%] space-y-6">
-          <div className="w-full h-14 flex items-center justify-between yz-future-padding-x bg-background sticky top-0 z-10">
-            <NavTabs />
-            <div className="flex items-center gap-2">
-              <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-                {(await showUser()) && <User />}
-              </Suspense>
+          <Separator />
+          <div className="w-full space-y-4">
+            <span className="text-base block font-medium">Услуги</span>
+            <div className="rounded-xl w-full bg-background-secondary border divide-y *:p-4">
+              <ServicesDetails />
             </div>
           </div>
-          <TabsContent value="/">
-            <div className="w-full space-y-5 md:space-y-10 yz-future-padding-x yz-future-padding-y">
-              <Suspense
-                fallback={<Skeleton className="h-4 w-full rounded-md" />}
-              >
-                <Availability />
-              </Suspense>
-            </div>
-            <div className="space-y-12">
-              <div className="w-full space-y-6 yz-future-padding-x">
-                <span className="text-3xl block font-semibold">Стэк</span>
-                <Stack />
-              </div>
-              <div className="w-full space-y-6 yz-future-padding-x">
-                <span className="text-3xl block font-semibold">Услуги</span>
-                <div className="md:gap-[2.5%] gap-[5%] divide-y space-y-6 *:pb-6">
-                  <Suspense
-                    fallback={
-                      <Skeleton className="h-[475px] w-full rounded-none" />
-                    }
-                  >
-                    {(await showPriceDetails()) && <ServicesDetails />}
-                  </Suspense>
+          <Separator />
+          <div className="w-full space-y-4">
+            <span className="text-base block font-medium">Информация</span>
+            <Stack />
+          </div>
+          <Separator />
+          <div className="w-full space-y-4">
+            <span className="text-sm block font-medium">Последняя версия</span>
+            <span className="text-sm text-muted-foreground block">
+              {packageJson.version}
+            </span>
+          </div>
+          <Separator />
+          <Footer />
+        </div>
+        <div className="lg:w-1/3 w-full space-y-6">
+          <span className="text-base block font-medium">Другие проекты</span>
+          <ul className="space-y-4">
+            <li>
+              <div className="flex items-center gap-4">
+                <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
+                <div className="flex w-full flex-col gap-4">
+                  <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
+                  <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
                 </div>
               </div>
-            </div>
-            <Footer />
-          </TabsContent>
-        </TabsWrapper>
+            </li>
+            <li>
+              <div className="flex items-center gap-4">
+                <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
+                <div className="flex w-full flex-col gap-4">
+                  <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
+                  <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="flex items-center gap-4">
+                <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
+                <div className="flex w-full flex-col gap-4">
+                  <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
+                  <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
