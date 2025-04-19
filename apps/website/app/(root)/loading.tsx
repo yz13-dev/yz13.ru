@@ -25,7 +25,7 @@ export default function loading() {
             </div>
             <CallToActionSkeleton />
           </div>
-          <div className="size-60 shrink-0 lg:flex hidden items-center justify-center">
+          <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
             <Logo size={{ width: 240, height: 240 }} type="only-icon" />
           </div>
         </div>
@@ -49,7 +49,7 @@ export default function loading() {
           </div>
           <Separator />
           <div className="w-full space-y-4">
-            <span className="text-base block font-medium">Информация</span>
+            <span className="text-base block font-medium">Стэк</span>
             <Stack />
           </div>
           <Separator />

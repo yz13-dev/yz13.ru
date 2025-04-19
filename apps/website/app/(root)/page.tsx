@@ -18,7 +18,7 @@ export default async function page() {
           <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">
             <Logo size={{ width: 64, height: 64 }} type="only-icon" />
           </div>
-          <div className="flex w-full flex-col gap-6">
+          <div className="flex flex-col gap-6">
             <div className="flex w-full flex-col gap-2">
               <h1 className="lg:text-5xl text-3xl lg:font-bold font-semibold">
                 YZ13
@@ -33,7 +33,7 @@ export default async function page() {
               )}
             </Suspense>
           </div>
-          <div className="size-60 shrink-0 lg:flex hidden items-center justify-center">
+          <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
             <Logo size={{ width: 240, height: 240 }} type="only-icon" />
           </div>
         </div>
@@ -59,7 +59,7 @@ export default async function page() {
           </div>
           <Separator />
           <div className="w-full space-y-4">
-            <span className="text-base block font-medium">Информация</span>
+            <span className="text-base block font-medium">Стэк</span>
             <Stack />
           </div>
           <Separator />
@@ -74,30 +74,39 @@ export default async function page() {
           <span className="text-base block font-medium">Другие проекты</span>
           <ul className="space-y-4">
             <li>
-              <div className="flex items-center gap-4">
-                <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
-                <div className="flex w-full flex-col gap-4">
-                  <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
-                  <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+              <div className="flex items-start gap-4 justify-between">
+                <div className="flex w-full items-center gap-4">
+                  <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
+                  <div className="flex w-full flex-col gap-4">
+                    <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
+                    <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+                  </div>
                 </div>
+                <button className="size-9 shrink-0 rounded-full bg-background-secondary" />
               </div>
             </li>
             <li>
-              <div className="flex items-center gap-4">
-                <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
-                <div className="flex w-full flex-col gap-4">
-                  <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
-                  <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+              <div className="flex items-start gap-4 justify-between">
+                <div className="flex w-full items-center gap-4">
+                  <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
+                  <div className="flex w-full flex-col gap-4">
+                    <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
+                    <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+                  </div>
                 </div>
+                <button className="size-9 shrink-0 rounded-full bg-background-secondary" />
               </div>
             </li>
             <li>
-              <div className="flex items-center gap-4">
-                <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
-                <div className="flex w-full flex-col gap-4">
-                  <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
-                  <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+              <div className="flex items-start gap-4 justify-between">
+                <div className="flex w-full items-center gap-4">
+                  <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
+                  <div className="flex w-full flex-col gap-4">
+                    <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
+                    <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
+                  </div>
                 </div>
+                <button className="size-9 shrink-0 rounded-full bg-background-secondary" />
               </div>
             </li>
           </ul>
