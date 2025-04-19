@@ -16,7 +16,6 @@ import { isDev } from "yz13/env";
 
 const SessionObserver = dynamic(
   () => import("../components/visitor-session/session-observer"),
-
 );
 
 const PIXEL = Pixelify_Sans({
@@ -70,7 +69,7 @@ export const metadata: Metadata = {
     description: "Полезные материалы по frontend и backend разработке.",
     images: [
       {
-        url: "/og/yz-light-window.png",
+        url: "/og/og.png",
         width: 1090,
         height: 714,
         alt: "YZ13 – разработчик",
@@ -88,16 +87,10 @@ export const metadata: Metadata = {
     emails: ["yztheceo@yandex.ru"],
     images: [
       {
-        url: "/og/yz-light-window.png",
+        url: "/og/og.png",
         width: 1090,
         height: 714,
         alt: "YZ13 – блог разработчика",
-      },
-      {
-        url: "/og/yz-dark-window.png",
-        width: 1090,
-        height: 714,
-        alt: "YZ13 – блог разработчика (темная тема)",
       },
     ],
   },
