@@ -3,7 +3,7 @@ import { getCallToAction } from "@/actions/call-to-action";
 import { toggleMenu } from "@/components/dock/menus/menu.store";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
+import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -13,6 +13,18 @@ type Props = {
   hideSearch?: boolean;
   busy?: boolean;
 };
+
+export const CallToActionSkeleton = () => {
+  return (
+    <div className="w-full">
+      <div className="h-fit flex w-fit items-center flex-row gap-2">
+        <Skeleton className="rounded-full h-9 w-32" />
+        <Skeleton className="rounded-full h-9 w-56" />
+      </div>
+    </div>
+  );
+};
+
 const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
   const [label, setLabel] = useState<string>("Подождите...");
   const [href, setHref] = useState<string | null>(null);
@@ -36,25 +48,15 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
   return (
     <>
       <div className="w-full">
-        <div
-          className={cn(
-            "h-fit flex w-fit items-center flex-row *:bg-neutral-300/60 *:rounded-none",
-            "[&>button]:first:rounded-l-full [&>button]:last:rounded-r-full",
-            "[&>a]:first:rounded-l-full [&>a]:last:rounded-r-full",
-          )}
-        >
+        <div className="h-fit flex w-fit items-center flex-row gap-2">
           {busy ? (
-            <Button
-              variant="secondary"
-              className={cn("gap-2 ")}
-              disabled={busy}
-            >
+            <Button variant="default" className={cn("gap-2 ")} disabled={busy}>
               <ArrowLeftIcon size={16} />
               Связаться
             </Button>
           ) : (
             <Button
-              variant="secondary"
+              variant="default"
               className={cn("gap-2")}
               disabled={busy}
               asChild
@@ -65,10 +67,6 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
               </Link>
             </Button>
           )}
-          <Separator
-            orientation="vertical"
-            className={cn("h-9", hideSearch && "hidden")}
-          />
           {href ? (
             <Button
               variant="secondary"

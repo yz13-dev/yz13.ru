@@ -1,14 +1,18 @@
 import Availability from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
+import { availableForWork, showCallToAction } from "@/const/flags";
+import { wait } from "@/helpers/wait";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
+import CallToAction, { CallToActionSkeleton } from "./call-to-action";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
 
 export default async function page() {
+  await wait(3000);
   return (
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
@@ -25,8 +29,10 @@ export default async function page() {
                 Фронтенд разработчик
               </span>
             </div>
-            <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
-              <Availability />
+            <Suspense fallback={<CallToActionSkeleton />}>
+              {(await showCallToAction()) && (
+                <CallToAction busy={await availableForWork()} />
+              )}
             </Suspense>
           </div>
           <div className="size-60 shrink-0 rounded-[25%] bg-background-secondary border lg:flex hidden items-center justify-center">
@@ -36,6 +42,9 @@ export default async function page() {
       </div>
       <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
+          <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
+            <Availability />
+          </Suspense>
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
             <p className="text-base text-muted-foreground block">

@@ -3,6 +3,7 @@ import { Logo } from "@/components/logo";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
+import { CallToActionSkeleton } from "./call-to-action";
 import Stack from "./stack";
 
 export default function loading() {
@@ -22,15 +23,16 @@ export default function loading() {
                 Фронтенд разработчик
               </span>
             </div>
-            <Skeleton className="h-4 w-full rounded-md" />
+            <CallToActionSkeleton />
           </div>
-          <div className="size-36 shrink-0 rounded-[25%] bg-background-secondary border lg:flex hidden items-center justify-center">
-            <Logo size={{ width: 96, height: 96 }} type="only-icon" />
+          <div className="size-60 shrink-0 rounded-[25%] bg-background-secondary border lg:flex hidden items-center justify-center">
+            <Logo size={{ width: 140, height: 140 }} type="only-icon" />
           </div>
         </div>
       </div>
       <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6 space-y-6">
         <div className="lg:w-2/3 w-full space-y-8">
+          <Skeleton className="h-4 w-full rounded-md" />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
             <p className="text-base text-muted-foreground block">
