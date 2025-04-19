@@ -51,13 +51,13 @@ const DetailsHeader = ({
 }) => {
   return (
     <div className="flex flex-row justify-between items-center gap-2">
-      <div className="flex flex-row-reverse items-center gap-2">
+      <div className="flex flex-row items-center gap-2">
         {icon && (
-          <div className="size-6 flex items-center justify-center [&>svg]:size-6">
+          <div className="size-4 flex items-center justify-center [&>svg]:size-4">
             {icon}
           </div>
         )}
-        <span className="font-medium text-2xl relative line-clamp-1">
+        <span className="font-medium text-base relative line-clamp-1">
           {title}
         </span>
       </div>
@@ -78,12 +78,7 @@ const DetailsDescription = ({
   className?: string;
 }) => {
   return (
-    <span
-      className={cn(
-        "text-muted-foreground block md:text-2xl text-xl",
-        className,
-      )}
-    >
+    <span className={cn("text-muted-foreground block text-base", className)}>
       {children}
     </span>
   );
