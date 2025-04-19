@@ -11,12 +11,12 @@ export default function loading() {
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
         <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
-          <div className="size-16 shrink-0 rounded-2xl bg-background-secondary border lg:hidden flex items-center justify-center">
-            <Logo size={{ width: 40, height: 40 }} type="only-icon" />
+          <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">
+            <Logo size={{ width: 64, height: 64 }} type="only-icon" />
           </div>
           <div className="flex w-full flex-col gap-6">
             <div className="flex w-full flex-col gap-2">
-              <h1 className="lg:text-5xl text-3xl lg:font-bold md:font-semibold">
+              <h1 className="lg:text-5xl text-3xl lg:font-bold font-semibold">
                 YZ13
               </h1>
               <span className="lg:text-lg text-sm text-muted-foreground">
@@ -25,8 +25,8 @@ export default function loading() {
             </div>
             <CallToActionSkeleton />
           </div>
-          <div className="size-60 shrink-0 rounded-[25%] bg-background-secondary border lg:flex hidden items-center justify-center">
-            <Logo size={{ width: 140, height: 140 }} type="only-icon" />
+          <div className="size-60 shrink-0 lg:flex hidden items-center justify-center">
+            <Logo size={{ width: 240, height: 240 }} type="only-icon" />
           </div>
         </div>
       </div>
