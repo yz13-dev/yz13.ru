@@ -29,8 +29,8 @@ export default async function page() {
               <Availability />
             </Suspense>
           </div>
-          <div className="size-36 shrink-0 rounded-[25%] bg-background-secondary border lg:flex hidden items-center justify-center">
-            <Logo size={{ width: 96, height: 96 }} type="only-icon" />
+          <div className="size-60 shrink-0 rounded-[25%] bg-background-secondary border lg:flex hidden items-center justify-center">
+            <Logo size={{ width: 140, height: 140 }} type="only-icon" />
           </div>
         </div>
       </div>
