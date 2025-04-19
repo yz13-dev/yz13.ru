@@ -12,7 +12,7 @@ export default async function Background() {
           fill
           alt="background"
         />
-        <div className="w-full h-full absolute top-0 left-0 backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background backdrop-blur-xl" />
+        <div className="w-full h-full absolute top-0 left-0 backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background backdrop-blur-2xl" />
       </div>
     </div>
   );

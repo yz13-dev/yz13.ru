@@ -12,10 +12,10 @@ const defaultNav: Nav = {
 };
 const nav: Nav[] = [
   defaultNav,
-  {
-    label: "Блог",
-    href: "/blog",
-  },
+  // {
+  //   label: "Блог",
+  //   href: "/blog",
+  // },
 ];
 
 const toLink = (href: string) => {
