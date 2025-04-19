@@ -78,7 +78,12 @@ const DetailsDescription = ({
   className?: string;
 }) => {
   return (
-    <span className={cn("text-muted-foreground block md:text-2xl text-xl", className)}>
+    <span
+      className={cn(
+        "text-muted-foreground block md:text-2xl text-xl",
+        className,
+      )}
+    >
       {children}
     </span>
   );
@@ -86,9 +91,17 @@ const DetailsDescription = ({
 
 type ExtraSingleItem = {
   type: "single";
+  price?: number;
 };
 type ExtraPerItem = {
   type: "per-item";
+  per_item_label?: string;
+  price_per_item?: number;
+};
+export type ExtraItem = {
+  label?: string;
+  type: "single" | "per-item";
+  price?: number;
   per_item_label?: string;
   price_per_item?: number;
 };

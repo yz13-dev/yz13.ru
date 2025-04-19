@@ -11,54 +11,53 @@
 @source "../../../packages/mono/dist";
 
 .yz13-container {
-    @apply max-w-screen-2xl w-full mx-auto;
+  @apply max-w-screen-2xl w-full mx-auto;
 }
 
 .yz-future-panel {
-    border-top-left-radius: 4%;
-    border-top-right-radius: 4%;
+  border-top-left-radius: 4%;
+  border-top-right-radius: 4%;
 }
 
 .yz-future-padding-x {
-    @apply px-[5%] md:px-[2.5%];
+  @apply px-[5%];
 }
 
 .yz-future-padding-y {
-    @apply py-[5%] md:py-[2.5%];
+  @apply py-[5%];
 }
 
 .yz-future-container {
-    @apply w-full max-w-dvw md:px-[2.5%] px-[5%];
+  @apply w-full max-w-dvw px-[5%];
 }
 
 .yz-future-container-no-padding {
-    @apply w-full max-w-dvw;
+  @apply w-full max-w-dvw;
 }
 
 .yz-future-container-max {
-    @apply max-w-screen-xl;
+  @apply max-w-screen-xl;
 }
 
-
 .locked {
-    @apply overflow-hidden;
+  @apply overflow-hidden;
 }
 
 .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
-    background-color: transparent;
-    display: none;
+  width: 0px;
+  height: 0px;
+  background-color: transparent;
+  display: none;
 }
 
 .no-scrollbar::-webkit-scrollbar-thumb {
-    width: 0px;
-    height: 0px;
-    background-color: transparent;
-    display: none;
+  width: 0px;
+  height: 0px;
+  background-color: transparent;
+  display: none;
 }
