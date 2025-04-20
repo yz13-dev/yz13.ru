@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     site: "@YZ13_DEV",
     creator: "@YZ13_DEV",
     title: "YZ13",
-    description: "Полезные материалы по frontend и backend разработке.",
+    description: "Нужен разработчик?",
     images: [
       {
         url: "/og/og.png",

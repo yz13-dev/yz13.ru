@@ -1,3 +1,4 @@
+import { Tables, TablesInsert } from "yz13/supabase/database";
 import { ChatAttachment } from "./attachments";
 
 export type PublicationAttachment = ChatAttachment;
@@ -10,23 +11,29 @@ export type ThemedPublicationIcon = {
   dark: string;
   light: string;
 };
+export type PublisherType = "user" | "group";
 export type PublicationIcon = ThemedPublicationIcon | SimplePublicationIcon;
-export type Publication = {
-  id: string;
-  name: string;
-  description: string;
+export type Publication = Omit<
+  Omit<Tables<"publications">, "icon">,
+  "publisher_type"
+> & {
   icon: PublicationIcon;
-  publisherId: string;
-  publisherType: "user" | "organization";
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  publishedVersion: string;
-  categories: string[];
-  tags: string[];
-  illustrations: PublicationAttachment[];
-  versions: string[];
-  publicUrl: string | null; // null if not published;
-  isPublic: boolean; // false while not published, if true not appreared in store;
-  isArchived: boolean; // false while not archived, if true not appeared in store;
+  publisher_type: PublisherType;
 };
+export type NewPublication = Omit<
+  Omit<TablesInsert<"publications">, "icon">,
+  "publisher_type"
+> & {
+  icon: PublicationIcon;
+  publisher_type: PublisherType;
+};
+
+// const newApp: NewPublication = {
+//   icon: {
+//     type: "simple",
+//     url: "https://avatars.githubusercontent.com/u/10199185?v=4",
+//   },
+//   name: "New app",
+//   publisher_id: "1",
+//   publisher_type: "user",
+// };
