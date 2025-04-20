@@ -1,145 +1,155 @@
 {
-    "name": "rest-api",
-    "version": "0.0.0",
-    "description": "Package with rest-api endpoints for current monorepo",
-    "exports": {
-        "./lib/make-user-obj": {
-            "types": "./dist/lib/make-user-obj.d.ts",
-            "import": "./dist/lib/make-user-obj.mjs",
-            "require": "./dist/lib/make-user-obj.js"
-        },
-        "./types/articles": "./dist/types/articles.d.ts",
-        "./types/pricing": "./dist/types/pricing.d.ts",
-        "./types/user": "./dist/types/user.d.ts",
-        "./types/projects": "./dist/types/projects.d.ts",
-        "./types/chats": "./dist/types/chats.d.ts",
-        "./types/drafts": "./dist/types/drafts.d.ts",
-        "./types/attachments": "./dist/types/attachments.d.ts",
-        "./types/session": "./dist/types/session.d.ts",
-        "./types/charts": "./dist/types/charts.d.ts",
-        "./types/rooms": "./dist/types/charts.d.ts",
-        "./articles": {
-            "types": "./dist/rest/articles/articles.d.ts",
-            "import": "./dist/rest/articles/articles.mjs",
-            "require": "./dist/rest/articles/articles.js"
-        },
-        "./parse-rules": {
-            "types": "./dist/rest/parse-rules/parse-rules.d.ts",
-            "import": "./dist/rest/parse-rules/parse-rules.mjs",
-            "require": "./dist/rest/parse-rules/parse-rules.js"
-        },
-        "./pricing": {
-            "types": "./dist/rest/pricing/pricing.d.ts",
-            "import": "./dist/rest/pricing/pricing.mjs",
-            "require": "./dist/rest/pricing/pricing.js"
-        },
-        "./sources": {
-            "types": "./dist/rest/sources/sources.d.ts",
-            "import": "./dist/rest/sources/sources.mjs",
-            "require": "./dist/rest/sources/sources.js"
-        },
-        "./codes": {
-            "types": "./dist/rest/codes/codes.d.ts",
-            "import": "./dist/rest/codes/codes.mjs",
-            "require": "./dist/rest/codes/codes.js"
-        },
-        "./drafts": {
-            "types": "./dist/rest/drafts/drafts.d.ts",
-            "import": "./dist/rest/drafts/drafts.mjs",
-            "require": "./dist/rest/drafts/drafts.js"
-        },
-        "./auth": {
-            "types": "./dist/rest/user/auth.d.ts",
-            "import": "./dist/rest/user/auth.mjs",
-            "require": "./dist/rest/user/auth.js"
-        },
-        "./user": {
-            "types": "./dist/rest/user/user.d.ts",
-            "import": "./dist/rest/user/user.mjs",
-            "require": "./dist/rest/user/user.js"
-        },
-        "./files": {
-            "types": "./dist/rest/files/files.d.ts",
-            "import": "./dist/rest/files/files.mjs",
-            "require": "./dist/rest/files/files.js"
-        },
-        "./rooms": {
-            "types": "./dist/rest/rooms/rooms.d.ts",
-            "import": "./dist/rest/rooms/rooms.mjs",
-            "require": "./dist/rest/rooms/rooms.js"
-        },
-        "./projects": {
-            "types": "./dist/rest/projects/projects.d.ts",
-            "import": "./dist/rest/projects/projects.mjs",
-            "require": "./dist/rest/projects/projects.js"
-        },
-        "./chats/limits": {
-            "types": "./dist/rest/chats/limits.d.ts",
-            "import": "./dist/rest/chats/limits.mjs",
-            "require": "./dist/rest/chats/limits.js"
-        },
-        "./chats": {
-            "types": "./dist/rest/chats/chats.d.ts",
-            "import": "./dist/rest/chats/chats.mjs",
-            "require": "./dist/rest/chats/chats.js"
-        },
-        "./messages": {
-            "types": "./dist/rest/chats/messages.d.ts",
-            "import": "./dist/rest/chats/messages.mjs",
-            "require": "./dist/rest/chats/messages.js"
-        },
-        "./attachments": {
-            "types": "./dist/rest/chats/attachments.d.ts",
-            "import": "./dist/rest/chats/attachments.mjs",
-            "require": "./dist/rest/chats/attachments.js"
-        },
-        "./tasks": {
-            "types": "./dist/rest/chats/tasks.d.ts",
-            "import": "./dist/rest/chats/tasks.mjs",
-            "require": "./dist/rest/chats/tasks.js"
-        },
-        "./charts/views": {
-            "types": "./dist/rest/charts/views.d.ts",
-            "import": "./dist/rest/charts/views.mjs",
-            "require": "./dist/rest/charts/views.js"
-        },
-        "./visitor/session": {
-            "types": "./dist/rest/visitor/session.d.ts",
-            "import": "./dist/rest/visitor/session.mjs",
-            "require": "./dist/rest/visitor/session.js"
-        },
-        "./charts": {
-            "types": "./dist/rest/charts/charts.d.ts",
-            "import": "./dist/rest/charts/charts.mjs",
-            "require": "./dist/rest/charts/charts.js"
-        }
+  "name": "rest-api",
+  "version": "0.0.0",
+  "description": "Package with rest-api endpoints for current monorepo",
+  "exports": {
+    "./lib/make-user-obj": {
+      "types": "./dist/lib/make-user-obj.d.ts",
+      "import": "./dist/lib/make-user-obj.mjs",
+      "require": "./dist/lib/make-user-obj.js"
     },
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "publish": "bun run build",
-        "build": "tsup",
-        "dev": "tsup --watch --clean=false"
+    "./lib/is-admin": {
+      "types": "./dist/lib/is-admin.d.ts",
+      "import": "./dist/lib/is-admin.mjs",
+      "require": "./dist/lib/is-admin.js"
     },
-    "keywords": [
-        "package",
-        "rest-api"
-    ],
-    "author": "YZ13-ENV",
-    "license": "ISC",
-    "devDependencies": {
-        "@types/node": "^22.14.1",
-        "@types/react": "^19.1.1",
-        "typescript": "^5.8.3",
-        "yz13": "*"
+    "./lib/filters": {
+      "types": "./dist/lib/filters.d.ts",
+      "import": "./dist/lib/filters.mjs",
+      "require": "./dist/lib/filters.js"
     },
-    "dependencies": {
-        "typescript-config": "*",
-        "next": "^15.3.0",
-        "tsup": "^6.7.0"
+    "./types/articles": "./dist/types/articles.d.ts",
+    "./types/pricing": "./dist/types/pricing.d.ts",
+    "./types/user": "./dist/types/user.d.ts",
+    "./types/projects": "./dist/types/projects.d.ts",
+    "./types/chats": "./dist/types/chats.d.ts",
+    "./types/drafts": "./dist/types/drafts.d.ts",
+    "./types/attachments": "./dist/types/attachments.d.ts",
+    "./types/session": "./dist/types/session.d.ts",
+    "./types/charts": "./dist/types/charts.d.ts",
+    "./types/rooms": "./dist/types/charts.d.ts",
+    "./articles": {
+      "types": "./dist/rest/articles/articles.d.ts",
+      "import": "./dist/rest/articles/articles.mjs",
+      "require": "./dist/rest/articles/articles.js"
     },
-    "engines": {
-        "node": ">=20"
+    "./parse-rules": {
+      "types": "./dist/rest/parse-rules/parse-rules.d.ts",
+      "import": "./dist/rest/parse-rules/parse-rules.mjs",
+      "require": "./dist/rest/parse-rules/parse-rules.js"
+    },
+    "./pricing": {
+      "types": "./dist/rest/pricing/pricing.d.ts",
+      "import": "./dist/rest/pricing/pricing.mjs",
+      "require": "./dist/rest/pricing/pricing.js"
+    },
+    "./sources": {
+      "types": "./dist/rest/sources/sources.d.ts",
+      "import": "./dist/rest/sources/sources.mjs",
+      "require": "./dist/rest/sources/sources.js"
+    },
+    "./codes": {
+      "types": "./dist/rest/codes/codes.d.ts",
+      "import": "./dist/rest/codes/codes.mjs",
+      "require": "./dist/rest/codes/codes.js"
+    },
+    "./drafts": {
+      "types": "./dist/rest/drafts/drafts.d.ts",
+      "import": "./dist/rest/drafts/drafts.mjs",
+      "require": "./dist/rest/drafts/drafts.js"
+    },
+    "./auth": {
+      "types": "./dist/rest/user/auth.d.ts",
+      "import": "./dist/rest/user/auth.mjs",
+      "require": "./dist/rest/user/auth.js"
+    },
+    "./user": {
+      "types": "./dist/rest/user/user.d.ts",
+      "import": "./dist/rest/user/user.mjs",
+      "require": "./dist/rest/user/user.js"
+    },
+    "./files": {
+      "types": "./dist/rest/files/files.d.ts",
+      "import": "./dist/rest/files/files.mjs",
+      "require": "./dist/rest/files/files.js"
+    },
+    "./rooms": {
+      "types": "./dist/rest/rooms/rooms.d.ts",
+      "import": "./dist/rest/rooms/rooms.mjs",
+      "require": "./dist/rest/rooms/rooms.js"
+    },
+    "./projects": {
+      "types": "./dist/rest/projects/projects.d.ts",
+      "import": "./dist/rest/projects/projects.mjs",
+      "require": "./dist/rest/projects/projects.js"
+    },
+    "./chats/limits": {
+      "types": "./dist/rest/chats/limits.d.ts",
+      "import": "./dist/rest/chats/limits.mjs",
+      "require": "./dist/rest/chats/limits.js"
+    },
+    "./chats": {
+      "types": "./dist/rest/chats/chats.d.ts",
+      "import": "./dist/rest/chats/chats.mjs",
+      "require": "./dist/rest/chats/chats.js"
+    },
+    "./messages": {
+      "types": "./dist/rest/chats/messages.d.ts",
+      "import": "./dist/rest/chats/messages.mjs",
+      "require": "./dist/rest/chats/messages.js"
+    },
+    "./attachments": {
+      "types": "./dist/rest/chats/attachments.d.ts",
+      "import": "./dist/rest/chats/attachments.mjs",
+      "require": "./dist/rest/chats/attachments.js"
+    },
+    "./tasks": {
+      "types": "./dist/rest/chats/tasks.d.ts",
+      "import": "./dist/rest/chats/tasks.mjs",
+      "require": "./dist/rest/chats/tasks.js"
+    },
+    "./charts/views": {
+      "types": "./dist/rest/charts/views.d.ts",
+      "import": "./dist/rest/charts/views.mjs",
+      "require": "./dist/rest/charts/views.js"
+    },
+    "./visitor/session": {
+      "types": "./dist/rest/visitor/session.d.ts",
+      "import": "./dist/rest/visitor/session.mjs",
+      "require": "./dist/rest/visitor/session.js"
+    },
+    "./charts": {
+      "types": "./dist/rest/charts/charts.d.ts",
+      "import": "./dist/rest/charts/charts.mjs",
+      "require": "./dist/rest/charts/charts.js"
     }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "publish": "bun run build",
+    "build": "tsup",
+    "dev": "tsup --watch --clean=false"
+  },
+  "keywords": [
+    "package",
+    "rest-api"
+  ],
+  "author": "YZ13-ENV",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "@types/react": "^19.1.1",
+    "typescript": "^5.8.3",
+    "yz13": "*"
+  },
+  "dependencies": {
+    "typescript-config": "*",
+    "next": "^15.3.0",
+    "tsup": "^6.7.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }

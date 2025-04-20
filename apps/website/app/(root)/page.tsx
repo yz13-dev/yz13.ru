@@ -7,6 +7,7 @@ import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import CallToAction, { CallToActionSkeleton } from "./call-to-action";
+import OtherProjects from "./other-projects";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
 
@@ -72,43 +73,8 @@ export default async function page() {
         </div>
         <div className="lg:w-1/3 w-full space-y-6">
           <span className="text-base block font-medium">Другие проекты</span>
-          <ul className="space-y-4">
-            <li>
-              <div className="flex items-start gap-4 justify-between">
-                <div className="flex w-full items-center gap-4">
-                  <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
-                  <div className="flex w-full flex-col gap-4">
-                    <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
-                    <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
-                  </div>
-                </div>
-                <button className="size-9 shrink-0 rounded-full bg-background-secondary" />
-              </div>
-            </li>
-            <li>
-              <div className="flex items-start gap-4 justify-between">
-                <div className="flex w-full items-center gap-4">
-                  <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
-                  <div className="flex w-full flex-col gap-4">
-                    <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
-                    <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
-                  </div>
-                </div>
-                <button className="size-9 shrink-0 rounded-full bg-background-secondary" />
-              </div>
-            </li>
-            <li>
-              <div className="flex items-start gap-4 justify-between">
-                <div className="flex w-full items-center gap-4">
-                  <div className="size-16 shrink-0 rounded-2xl bg-background-secondary" />
-                  <div className="flex w-full flex-col gap-4">
-                    <div className="w-2/3 h-6 rounded-full bg-background-secondary" />
-                    <div className="w-1/2 h-4 rounded-full bg-background-secondary" />
-                  </div>
-                </div>
-                <button className="size-9 shrink-0 rounded-full bg-background-secondary" />
-              </div>
-            </li>
+          <ul className="space-y-6">
+            <OtherProjects />
           </ul>
         </div>
       </div>

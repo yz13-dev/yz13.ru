@@ -14,6 +14,7 @@ import { news } from "./news";
 import { pages } from "./pages";
 import { pricing } from "./pricing";
 import { rooms } from "./rooms";
+import { store } from "./store/endpoint";
 import { user } from "./user";
 import { visitor_session } from "./visitor-session";
 import { works } from "./works";
@@ -69,7 +70,8 @@ app.route("/rooms", rooms);
 app.route("/pages", pages);
 app.route("/news", news);
 app.route("/chats", chats);
-app.route("/limits", limits)
+app.route("/limits", limits);
+app.route("/store", store);
 
 app.get("/version", (c) => {
   const version = packageJson.version;

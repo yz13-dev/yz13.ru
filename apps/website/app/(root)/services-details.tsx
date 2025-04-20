@@ -173,13 +173,8 @@ const DetailsFooter = ({
 
 const ServiceBlank = () => {
   return (
-    <Details className="justify-center items-center">
-      <div className="size-10 rounded-lg border flex items-center justify-center">
-        <PlusIcon size={20} className="text-foreground" />
-      </div>
-      <span className="text-center text-xl font-medium text-foreground">
-        Новые услуги, скоро...
-      </span>
+    <Details>
+      <DetailsDescription>Нет доступных услуг</DetailsDescription>
     </Details>
   );
 };
@@ -188,56 +183,58 @@ const ServicesDetails = async () => {
   const { data: services } = await getFullPricing();
   const sign = await get<string>("price-sign");
   const busy = await availableForWork();
-  return (
-    <>
-      {(services ?? [])
-        .sort((a, b) => a.price - b.price)
-        .map((service, index) => {
-          const price = service.price;
-          return (
-            <Details key={`${service.id}-${index}`}>
-              <div className="space-y-0 *:max-w-4xl">
-                <DetailsHeader
-                  icon={
-                    <>
-                      {service.type === "pages" && <PanelTopIcon size={18} />}
-                      {service.type === "website" && <GlobeIcon size={18} />}
-                      {service.type === "web-app" && (
-                        <AppWindowIcon size={18} />
-                      )}
-                      {service.type === "mvp" && <SparklesIcon size={18} />}
-                    </>
-                  }
-                  title={service.name ?? "Неизвестно"}
-                  price={`${price.toLocaleString()}${sign}+`}
-                />
-                <DetailsDescription className="mt-2">
-                  {service.description}
-                </DetailsDescription>
-              </div>
-              {false && (
-                <>
-                  <Separator />
-                  <DetailsExtraList
-                    list={service.details as unknown as DetailsExtra[]}
+  if (!services) return <ServiceBlank />;
+  else
+    return (
+      <>
+        {(services ?? [])
+          .sort((a, b) => a.price - b.price)
+          .map((service, index) => {
+            const price = service.price;
+            return (
+              <Details key={`${service.id}-${index}`}>
+                <div className="space-y-0 *:max-w-4xl">
+                  <DetailsHeader
+                    icon={
+                      <>
+                        {service.type === "pages" && <PanelTopIcon size={18} />}
+                        {service.type === "website" && <GlobeIcon size={18} />}
+                        {service.type === "web-app" && (
+                          <AppWindowIcon size={18} />
+                        )}
+                        {service.type === "mvp" && <SparklesIcon size={18} />}
+                      </>
+                    }
+                    title={service.name ?? "Неизвестно"}
+                    price={`${price.toLocaleString()}${sign}+`}
                   />
-                  <DetailsFooter>
-                    <Button
-                      disabled={busy}
-                      variant="secondary"
-                      className="w-full"
-                    >
-                      Связаться
-                    </Button>
-                  </DetailsFooter>
-                </>
-              )}
-            </Details>
-          );
-        })}
-      {false && <ServiceBlank />}
-    </>
-  );
+                  <DetailsDescription className="mt-2">
+                    {service.description}
+                  </DetailsDescription>
+                </div>
+                {false && (
+                  <>
+                    <Separator />
+                    <DetailsExtraList
+                      list={service.details as unknown as DetailsExtra[]}
+                    />
+                    <DetailsFooter>
+                      <Button
+                        disabled={busy}
+                        variant="secondary"
+                        className="w-full"
+                      >
+                        Связаться
+                      </Button>
+                    </DetailsFooter>
+                  </>
+                )}
+              </Details>
+            );
+          })}
+        {false && <ServiceBlank />}
+      </>
+    );
 };
 
 export default ServicesDetails;
