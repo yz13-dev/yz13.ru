@@ -55,7 +55,7 @@ export default function OtherProjects() {
       <li>
         <div className="flex items-start gap-4 justify-between">
           <div className="flex w-full items-center gap-4">
-            <div className="size-16 shrink-0 flex items-center justify-center rounded-2xl bg-background-secondary">
+            <div className="size-16 shrink-0 flex items-center justify-center rounded-2xl bg-secondary">
               <MessageCircleIcon size={28} />
             </div>
             <div className="flex w-full flex-col gap-0">
@@ -77,7 +77,7 @@ export default function OtherProjects() {
       <li>
         <div className="flex items-start gap-4 justify-between">
           <div className="flex w-full items-center gap-4">
-            <div className="size-16 shrink-0 flex items-center justify-center rounded-2xl bg-background-secondary">
+            <div className="size-16 shrink-0 flex items-center justify-center rounded-2xl bg-secondary">
               <NewspaperIcon size={28} />
             </div>
             <div className="flex w-full flex-col gap-0">
