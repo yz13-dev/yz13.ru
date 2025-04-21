@@ -1,13 +1,10 @@
-import { NewArticle } from "rest-api/types/articles";
-import * as cheerio from "cheerio";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { NewArticle } from "rest-api/types/articles";
 import Parser from "rss-parser";
 import { Tables } from "yz13/supabase/database";
 dayjs.extend(utc);
-export type NewsSource = Tables<"news_sources"> & {
-  parse_rules: Tables<"parse_rules">;
-};
+export type NewsSource = Tables<"news_sources">;
 
 async function fetchRSS(source: NewsSource): Promise<NewArticle[]> {
   if (!source.rss) return [];
@@ -33,51 +30,9 @@ async function fetchRSS(source: NewsSource): Promise<NewArticle[]> {
   }
 }
 
-async function fetchHTML(source: NewsSource): Promise<NewArticle[]> {
-  if (!source.parse_rules) return [];
-  const abort = new AbortController();
-  const response = await fetch(source.url, {
-    signal: abort.signal,
-  });
-  setTimeout(() => abort.abort(), 5000);
-  const data = await response.text();
-  const $ = cheerio.load(data);
-  return $(source.parse_rules.article_selector)
-    .map((_, el) => {
-      const title = $(el)
-        .find(source.parse_rules!.title_selector)
-        .text()
-        .trim();
-      const url = $(el).find(source.parse_rules!.link_selector).attr("href");
-      const content = $(el)
-        .find(source.parse_rules!.content_selector)
-        .text()
-        .trim();
-      const published_at = $(el)
-        .find(source.parse_rules!.date_selector)
-        .text()
-        .trim();
-      return {
-        source_id: source.id,
-        title,
-        author: source.name,
-        description: "",
-        url: url || source.url,
-        content,
-        published_at,
-        source: source.id,
-        method: "html",
-        img: undefined,
-      };
-    })
-    .get();
-}
-
 export type ParseType = "rss" | "html";
-export async function parseNews(
-  source: NewsSource,
-  override?: ParseType,
-): Promise<NewArticle[]> {
-  const isRSS = override ? override === "rss" : !!source.rss;
-  return isRSS ? await fetchRSS(source) : await fetchHTML(source);
+export async function parseNews(source: NewsSource): Promise<NewArticle[]> {
+  const hasRSS = !!source.rss;
+  if (hasRSS) return await fetchRSS(source);
+  else return [];
 }

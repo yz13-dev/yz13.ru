@@ -73,21 +73,6 @@ news.get("/country/:code/sources", async (c) => {
   } else return c.json(data);
 });
 
-news.get("/parse-rules/:source_id", async (c) => {
-  const source_id = c.req.param("source_id");
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const { data, error } = await supabase
-    .from("parse_rules")
-    .select()
-    .eq("source_id", source_id)
-    .limit(1)
-    .maybeSingle();
-  if (error) {
-    return c.json(null);
-  } else return c.json(data);
-});
-
 news.get("/articles", async (c) => {
   const offset = parseInt(c.req.query("offset") || "0");
   const limit = 10;
