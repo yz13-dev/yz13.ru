@@ -1,13 +1,10 @@
 "use client";
-import useAudio, {
-  getPlayed,
-  getVolume,
-} from "@/app/(services)/radio/store/audio.store";
+import useAudio, { getPlayed, getVolume } from "@/components/radio/audio.store";
 import useAudioStore, {
   changeVolume,
   play,
   stop,
-} from "@/app/(services)/radio/store/radio.store";
+} from "@/components/radio/radio.store";
 import { useDebounceEffect } from "ahooks";
 import {
   Loader2Icon,

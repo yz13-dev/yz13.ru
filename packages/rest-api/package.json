@@ -33,11 +33,6 @@
       "import": "./dist/rest/articles/articles.mjs",
       "require": "./dist/rest/articles/articles.js"
     },
-    "./parse-rules": {
-      "types": "./dist/rest/parse-rules/parse-rules.d.ts",
-      "import": "./dist/rest/parse-rules/parse-rules.mjs",
-      "require": "./dist/rest/parse-rules/parse-rules.js"
-    },
     "./pricing": {
       "types": "./dist/rest/pricing/pricing.d.ts",
       "import": "./dist/rest/pricing/pricing.mjs",
