@@ -80,7 +80,12 @@ news.get("/articles", async (c) => {
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news")
-    .select()
+    .select(
+      `
+      *,
+      news_source:news_sources(*)
+      `,
+    )
     .order("published_at", { ascending: false })
     .range(offset, offset + limit);
   if (error) {
@@ -94,7 +99,12 @@ news.get("/articles/:source_id", async (c) => {
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news")
-    .select()
+    .select(
+      `
+      *,
+      news_source:news_sources(*)
+      `,
+    )
     .eq("source_id", source_id);
   if (error) {
     return c.json([]);
@@ -114,7 +124,12 @@ news.get("/country/:code/articles", async (c) => {
   const sources = (data ?? []).map(({ id }) => id);
   const { data: articles, error: articlesError } = await supabase
     .from("news")
-    .select()
+    .select(
+      `
+      *,
+      news_source:news_sources(*)
+      `,
+    )
     .in("source_id", sources)
     .order("published_at", { ascending: false })
     .range(offset, offset + limit);
@@ -129,7 +144,12 @@ news.get("/article/:article_id", async (c) => {
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
     .from("news")
-    .select()
+    .select(
+      `
+      *,
+      news_source:news_sources(*)
+      `,
+    )
     .eq("id", article_id)
     .maybeSingle();
   if (error) {

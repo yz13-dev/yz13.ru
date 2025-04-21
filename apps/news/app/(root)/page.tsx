@@ -1,57 +1,46 @@
 import { contries } from "@/const/locale-to-country";
+import chunk from "@/lib/chunk";
 import { getLocaleFromCookie } from "@/lib/locale";
-import { Separator } from "mono/components/separator";
-import { SidebarTrigger } from "mono/components/sidebar";
+import dayjs from "dayjs";
 import { getArticlesForCountry } from "rest-api/articles";
 import AutoGrid from "./auto-grid";
-import NewsCard from "./news-card";
+import NewsChunk from "./news-chunk";
 
 const page = async () => {
   const language = (await getLocaleFromCookie()) || "RU";
   const { data } = await getArticlesForCountry(language);
   const articles = data ?? [];
   const sliceNumber = 4;
-  const firstRow = articles.slice(0, sliceNumber);
-  const restOfArticles = articles.slice(sliceNumber);
+  const chunks = chunk(articles, sliceNumber);
+  const firstChunk = chunks[0];
+  const restOfChunks = chunks.slice(1);
   const country = contries[language as keyof typeof contries];
   return (
     <>
-      <div className="py-6 space-y-6 *:px-6">
-        <div className="w-full flex items-center gap-2">
-          <SidebarTrigger></SidebarTrigger>
-          <h1 className="text-2xl font-semibold">
-            Агрегатор новостей / {country}
-          </h1>
-        </div>
-        <div className="w-full min-h-96 grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6">
-          {firstRow.map((news) => {
-            return <NewsCard key={news.id} news={news} showThumbnail />;
-          })}
+      <div className="py-6 space-y-6 mt-[10%] *:px-6 max-w-4xl mx-auto">
+        <div className="flex w-full flex-col gap-2">
+          <h1 className="text-3xl font-medium">Сводка новостей / {country}</h1>
+          <span className="lg:text-lg text-sm capitalize text-muted-foreground">
+            {dayjs().locale(language).format("dddd, D MMMM")}
+          </span>
         </div>
       </div>
-      <Separator />
-      <div className="py-6 space-y-6 *:px-6">
-        <div className="w-full">
-          <h3 className="text-2xl font-semibold">
-            Последние новости / {country}
-          </h3>
-        </div>
-        <AutoGrid
-          data={articles}
-          defaultOffset={articles.length}
-          locale={language}
-          className="p-4 rounded-lg bg-background border"
-        >
-          {restOfArticles.map((news) => {
-            return (
-              <NewsCard
-                key={news.id}
-                news={news}
-                className="p-4 rounded-lg bg-background border"
-              />
-            );
-          })}
-        </AutoGrid>
+      <div className="*:p-6 max-w-4xl mx-auto rounded-3xl bg-background divide-y">
+        <NewsChunk articles={firstChunk} />
+        {true && (
+          <AutoGrid
+            data={articles}
+            defaultOffset={articles.length}
+            locale={language}
+          >
+            {false &&
+              restOfChunks.map((chunk, index) => {
+                return (
+                  <NewsChunk key={`chunk/#${index}`} articles={firstChunk} />
+                );
+              })}
+          </AutoGrid>
+        )}
       </div>
     </>
   );
