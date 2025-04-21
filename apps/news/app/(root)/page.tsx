@@ -18,7 +18,7 @@ const page = async () => {
   const country = contries[language as keyof typeof contries];
   return (
     <>
-      <div className="py-6 space-y-6 mt-[10%] *:px-6 max-w-4xl mx-auto">
+      <div className="py-6 space-y-6 mt-[10dvh] *:px-6 max-w-4xl mx-auto">
         <div className="flex w-full flex-col gap-2">
           <h1 className="text-3xl font-medium">Сводка новостей / {country}</h1>
           <span className="lg:text-lg text-sm capitalize text-muted-foreground">
