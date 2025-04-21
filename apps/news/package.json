@@ -11,6 +11,7 @@
   "dependencies": {
     "@upstash/workflow": "^0.2.12",
     "hono-geo-middleware": "^0.1.2",
+    "lodash": "^4.17.21",
     "mono": "*",
     "negotiator": "^1.0.0",
     "next": "14.2.26",
@@ -23,17 +24,18 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "eslint-config": "*",
-    "typescript-config": "*",
     "@tailwindcss/postcss": "^4",
+    "@types/lodash": "^4.17.16",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20.17.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^9",
+    "eslint-config": "*",
     "eslint-config-next": "15.0.3",
     "tailwind-config": "*",
     "tailwindcss": "^4.0.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "typescript-config": "*"
   }
 }
