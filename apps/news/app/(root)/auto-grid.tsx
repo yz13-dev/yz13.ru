@@ -1,11 +1,12 @@
 "use client";
+import chunk from "@/lib/chunk";
 import "dayjs/locale/ru";
 import { Loader2Icon } from "lucide-react";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { getArticlesForCountry } from "rest-api/articles";
 import { Article } from "rest-api/types/articles";
-import NewsCard from "./news-card";
+import NewsChunk from "./news-chunk";
 
 type AutoGridProps = {
   locale?: string;
@@ -24,7 +25,7 @@ const AutoGrid = ({
 }: AutoGridProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState<number>(defaultOffset);
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<Article[][]>([]);
   const [isAll, setIsAll] = useState<boolean>(false);
   const inView = useInView(ref);
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,7 +39,8 @@ const AutoGrid = ({
       if (newArticles.length === 0) setIsAll(true);
       else {
         setOffset(newOffset);
-        setArticles((prev) => [...prev, ...newArticles]);
+        const newChunks = chunk(newArticles, 4);
+        setArticles((prev) => [...prev, ...newChunks]);
       }
     } catch (error) {
       console.log(error);
@@ -50,11 +52,14 @@ const AutoGrid = ({
     if (inView) handleNewArticles();
   }, [inView]);
   return (
-    <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+    <>
       {children}
-      {articles.map((news, index) => {
-        return <NewsCard key={`${news.id}/${index}`} news={news} className={className} />;
+      {articles.map((chunk, index) => {
+        return <NewsChunk key={`auto-grid/chunk/#${index}`} articles={chunk} />;
       })}
+      {/* {articles.map((news, index) => {
+        return <NewsCard key={`${news.id}/${index}`} news={news} className={className} />;
+      })} */}
       {loading && (
         <div className="w-full col-span-full flex items-center gap-2 justify-center">
           <Loader2Icon size={18} className="text-foreground animate-spin" />
@@ -69,7 +74,7 @@ const AutoGrid = ({
         </div>
       )}
       {!isAll && <div ref={ref} className="w-full h-px col-span-full" />}
-    </div>
+    </>
   );
 };
 
