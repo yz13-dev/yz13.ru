@@ -1,5 +1,5 @@
 "use client";
-import chunk from "@/lib/chunk";
+import { chunk } from "@/lib/chunk";
 import "dayjs/locale/ru";
 import { Loader2Icon } from "lucide-react";
 import { useInView } from "motion/react";
@@ -18,6 +18,7 @@ type AutoGridProps = {
 };
 const AutoGrid = ({
   locale = "RU",
+  data = [],
   offsetStep = 30,
   children,
   className = "",
@@ -25,7 +26,7 @@ const AutoGrid = ({
 }: AutoGridProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState<number>(defaultOffset);
-  const [articles, setArticles] = useState<Article[][]>([]);
+  const [articles, setArticles] = useState<Article[][]>(chunk(data, 4));
   const [isAll, setIsAll] = useState<boolean>(false);
   const inView = useInView(ref);
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,12 +35,16 @@ const AutoGrid = ({
     setLoading(true);
     try {
       const newOffset = offset + offsetStep;
-      const { data } = await getArticlesForCountry(locale, newOffset);
-      const newArticles = data ?? [];
-      if (newArticles.length === 0) setIsAll(true);
+      const { data: articles } = await getArticlesForCountry(locale, newOffset);
+      const newArticles = articles ?? [];
+      const filteredArticles = newArticles.filter((article) => {
+        const result = data.find((item) => item.id === article.id);
+        return result === undefined;
+      });
+      if (filteredArticles.length === 0) setIsAll(true);
       else {
         setOffset(newOffset);
-        const newChunks = chunk(newArticles, 4);
+        const newChunks = chunk(filteredArticles, 4);
         setArticles((prev) => [...prev, ...newChunks]);
       }
     } catch (error) {

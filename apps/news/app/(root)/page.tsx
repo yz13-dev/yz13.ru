@@ -1,5 +1,5 @@
 import { contries } from "@/const/locale-to-country";
-import chunk from "@/lib/chunk";
+import { chunk } from "@/lib/chunk";
 import { getLocaleFromCookie } from "@/lib/locale";
 import dayjs from "dayjs";
 import { getArticlesForCountry } from "rest-api/articles";
@@ -14,10 +14,11 @@ const page = async () => {
   const chunks = chunk(articles, sliceNumber);
   const firstChunk = chunks[0];
   const restOfChunks = chunks.slice(1);
+  const flattedRestOfChunks = restOfChunks.flat();
   const country = contries[language as keyof typeof contries];
   return (
     <>
-      <div className="py-6 space-y-6 mt-[10%] *:px-6 max-w-4xl mx-auto">
+      <div className="py-6 space-y-6 mt-[10dvh] *:px-6 max-w-4xl mx-auto">
         <div className="flex w-full flex-col gap-2">
           <h1 className="text-3xl font-medium">Сводка новостей / {country}</h1>
           <span className="lg:text-lg text-sm capitalize text-muted-foreground">
@@ -27,20 +28,11 @@ const page = async () => {
       </div>
       <div className="*:p-6 max-w-4xl mx-auto rounded-3xl bg-background divide-y">
         <NewsChunk articles={firstChunk} />
-        {true && (
-          <AutoGrid
-            data={articles}
-            defaultOffset={articles.length}
-            locale={language}
-          >
-            {false &&
-              restOfChunks.map((chunk, index) => {
-                return (
-                  <NewsChunk key={`chunk/#${index}`} articles={firstChunk} />
-                );
-              })}
-          </AutoGrid>
-        )}
+        <AutoGrid
+          data={flattedRestOfChunks}
+          defaultOffset={articles.length}
+          locale={language}
+        />
       </div>
     </>
   );

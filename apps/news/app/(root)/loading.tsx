@@ -1,10 +1,16 @@
-import { Loader2Icon } from "lucide-react";
+import { Skeleton } from "mono/components/skeleton";
 
 const loading = () => {
   return (
-    <div className="w-full h-dvh flex items-center justify-center">
-      <Loader2Icon size={24} className="animate-spin" />
-    </div>
+    <>
+      <div className="py-6 space-y-6 mt-[10dvh] *:px-6 max-w-4xl mx-auto">
+        <div className="flex w-full flex-col gap-2">
+          <h1 className="text-3xl font-medium">Сводка новостей / </h1>
+          <Skeleton className="w-1/2 h-7" />
+        </div>
+      </div>
+      <Skeleton className="h-[calc(100dvh-10dvh-120px)] w-full max-w-4xl mx-auto rounded-3xl" />
+    </>
   );
 };
 
