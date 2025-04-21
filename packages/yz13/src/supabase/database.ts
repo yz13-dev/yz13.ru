@@ -330,47 +330,6 @@ export type Database = {
         };
         Relationships: [];
       };
-      parse_rules: {
-        Row: {
-          article_selector: string;
-          content_selector: string;
-          date_format: string;
-          date_selector: string;
-          id: string;
-          link_selector: string;
-          source_id: string | null;
-          title_selector: string;
-        };
-        Insert: {
-          article_selector: string;
-          content_selector: string;
-          date_format: string;
-          date_selector: string;
-          id?: string;
-          link_selector: string;
-          source_id?: string | null;
-          title_selector: string;
-        };
-        Update: {
-          article_selector?: string;
-          content_selector?: string;
-          date_format?: string;
-          date_selector?: string;
-          id?: string;
-          link_selector?: string;
-          source_id?: string | null;
-          title_selector?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "parse_rules_source_id_fkey";
-            columns: ["source_id"];
-            isOneToOne: false;
-            referencedRelation: "news_sources";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
       pricing: {
         Row: {
           created_at: string;

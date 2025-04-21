@@ -10,35 +10,6 @@
 @source "../components";
 @source "../../../packages/mono/dist";
 
-.yz13-container {
-  @apply max-w-screen-2xl w-full mx-auto;
-}
-
-.yz-future-panel {
-  border-top-left-radius: 4%;
-  border-top-right-radius: 4%;
-}
-
-.yz-future-padding-x {
-  @apply px-[5%];
-}
-
-.yz-future-padding-y {
-  @apply py-[5%];
-}
-
-.yz-future-container {
-  @apply w-full max-w-dvw px-[5%];
-}
-
-.yz-future-container-no-padding {
-  @apply w-full max-w-dvw;
-}
-
-.yz-future-container-max {
-  @apply max-w-screen-xl;
-}
-
 .locked {
   @apply overflow-hidden;
 }

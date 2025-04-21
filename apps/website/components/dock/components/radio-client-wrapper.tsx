@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
 
@@ -9,5 +8,5 @@ const RadioPlayer = dynamic(() => import("./radio-player"), {
 });
 
 export default function RadioClient() {
-  return <RadioPlayer />
+  return <RadioPlayer />;
 }
