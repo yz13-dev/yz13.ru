@@ -11,15 +11,15 @@ export default function loading() {
   return (
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
+        <Button variant="ghost" asChild className="w-fit">
+          <Link href="/">
+            <ArrowLeftIcon />
+            Вернуться
+          </Link>
+        </Button>
         <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
           <Skeleton className="size-16 shrink-0 lg:hidden flex items-center justify-center" />
           <div className="flex w-full flex-col gap-6">
-            <Button variant="ghost" asChild className="w-fit">
-              <Link href="/">
-                <ArrowLeftIcon />
-                Вернуться
-              </Link>
-            </Button>
             <Skeleton className="lg:h-12 h-9 w-1/3 rounded-full" />
             <UserPublisherSkeleton />
             <div className="flex items-center gap-3">

@@ -23,17 +23,17 @@ export default async function page({ params }: PageProps) {
   return (
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
+        <Button variant="ghost" asChild className="w-fit">
+          <Link href="/">
+            <ArrowLeftIcon />
+            Вернуться
+          </Link>
+        </Button>
         <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
           <div className="size-16 relative border rounded-[25%] overflow-hidden shrink-0 lg:hidden flex items-center justify-center">
             <AppLogo publication={publication} className="aspect-square" />
           </div>
           <div className="flex flex-col gap-6">
-            <Button variant="ghost" asChild className="w-fit">
-              <Link href="/">
-                <ArrowLeftIcon />
-                Вернуться
-              </Link>
-            </Button>
             <div className="flex w-full flex-col gap-2">
               <h1 className="lg:text-5xl text-3xl lg:font-semibold font-medium">
                 {publication?.name}

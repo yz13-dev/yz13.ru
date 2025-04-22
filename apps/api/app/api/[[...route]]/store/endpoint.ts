@@ -10,7 +10,6 @@ store.get("/", async (c) => {
   const cookieStore = await cookies();
   try {
     const cache = await redis.get(key);
-    console.log(cache);
     if (cache) {
       return c.json(cache);
     } else {
