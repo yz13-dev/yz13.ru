@@ -7,7 +7,7 @@ import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import CallToAction, { CallToActionSkeleton } from "./call-to-action";
-import OtherProjects from "./other-projects";
+import OtherProjects, { OtherProjectsSkeleton } from "./other-projects";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
 
@@ -74,7 +74,9 @@ export default async function page() {
         <div className="lg:w-1/3 w-full space-y-6">
           <span className="text-base block font-medium">Другие проекты</span>
           <ul className="space-y-6">
-            <OtherProjects />
+            <Suspense fallback={<OtherProjectsSkeleton />}>
+              <OtherProjects />
+            </Suspense>
           </ul>
         </div>
       </div>

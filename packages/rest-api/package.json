@@ -28,6 +28,7 @@
     "./types/session": "./dist/types/session.d.ts",
     "./types/charts": "./dist/types/charts.d.ts",
     "./types/rooms": "./dist/types/charts.d.ts",
+    "./types/store": "./dist/types/store.d.ts",
     "./articles": {
       "types": "./dist/rest/articles/articles.d.ts",
       "import": "./dist/rest/articles/articles.mjs",
@@ -117,6 +118,11 @@
       "types": "./dist/rest/charts/charts.d.ts",
       "import": "./dist/rest/charts/charts.mjs",
       "require": "./dist/rest/charts/charts.js"
+    },
+    "./store": {
+      "types": "./dist/rest/store/store.d.ts",
+      "import": "./dist/rest/store/store.mjs",
+      "require": "./dist/rest/store/store.js"
     }
   },
   "files": [
