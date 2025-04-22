@@ -44,11 +44,12 @@ const getHeaders = async (headers?: HeadersInit): Promise<HeadersInit> => {
 
 export const customFetch = async <T>(
   url: string,
-  options: RequestInit,
+  options?: RequestInit,
 ): Promise<FetchResponse<T>> => {
   try {
+    const header = options?.headers ?? {};
     const requestUrl = getUrl(url);
-    const requestHeaders = await getHeaders(options.headers);
+    const requestHeaders = await getHeaders(header);
 
     const requestInit: RequestInit = {
       ...options,
