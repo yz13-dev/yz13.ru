@@ -20,7 +20,7 @@ export default function loading() {
                 Вернуться
               </Link>
             </Button>
-            <Skeleton className="h-12 w-1/3 rounded-full" />
+            <Skeleton className="lg:h-12 h-9 w-1/3 rounded-full" />
             <UserPublisherSkeleton />
             <div className="flex items-center gap-3">
               <Skeleton className="h-9 w-24 rounded-full" />
