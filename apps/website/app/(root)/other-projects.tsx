@@ -77,7 +77,7 @@ export default async function OtherProjects({
             )}
             <div className="flex items-start gap-4 justify-between">
               <div className="flex w-full items-center gap-4">
-                <div className="size-16 shrink-0 flex items-center justify-center rounded-2xl bg-secondary relative">
+                <div className="size-16 shrink-0 flex items-center justify-center rounded-[25%] border bg-secondary relative overflow-hidden">
                   {publication.icon.type === "themed" && (
                     <>
                       <Image
