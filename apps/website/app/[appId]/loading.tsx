@@ -38,6 +38,10 @@ export default function loading() {
             <span className="text-base block font-medium">Описание</span>
             <Skeleton className="h-6 w-1/2" />
             <Skeleton className="h-6 w-1/3" />
+            <span className="text-sm block font-medium">
+              Последнее обновление
+            </span>
+            <Skeleton className="h-6 w-1/2" />
           </div>
           <Separator />
         </div>
