@@ -11,16 +11,16 @@ export default function loading() {
   return (
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
+        <Button variant="ghost" asChild className="w-fit">
+          <Link href="/">
+            <ArrowLeftIcon />
+            Вернуться
+          </Link>
+        </Button>
         <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
           <Skeleton className="size-16 shrink-0 lg:hidden flex items-center justify-center" />
           <div className="flex w-full flex-col gap-6">
-            <Button variant="ghost" asChild className="w-fit">
-              <Link href="/">
-                <ArrowLeftIcon />
-                Вернуться
-              </Link>
-            </Button>
-            <Skeleton className="h-12 w-1/3 rounded-full" />
+            <Skeleton className="lg:h-12 h-9 w-1/3 rounded-full" />
             <UserPublisherSkeleton />
             <div className="flex items-center gap-3">
               <Skeleton className="h-9 w-24 rounded-full" />
@@ -38,6 +38,10 @@ export default function loading() {
             <span className="text-base block font-medium">Описание</span>
             <Skeleton className="h-6 w-1/2" />
             <Skeleton className="h-6 w-1/3" />
+            <span className="text-sm block font-medium">
+              Последнее обновление
+            </span>
+            <Skeleton className="h-6 w-1/2" />
           </div>
           <Separator />
         </div>
