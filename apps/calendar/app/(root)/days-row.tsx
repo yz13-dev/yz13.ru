@@ -4,7 +4,7 @@ import { ru } from "date-fns/locale";
 import { useEffect } from "react";
 import { cn } from "yz13/cn";
 
-export default function DaysRow() {
+export default function DaysRow({ className = "" }: { className?: string }) {
   const DAYS = getDaysInMonth(new Date());
   const DAYS_AS_ARRAY = Array.from({ length: DAYS }, (_, i) => {
     const middle = DAYS / 2;
@@ -16,17 +16,31 @@ export default function DaysRow() {
   };
   const days = createDates(DAYS_AS_ARRAY);
 
-  useEffect(() => {
+  const handleScroll = () => {
     const todayElement = document.getElementById(format(today, "yyyy-MM-dd"));
     const parentElement = document.getElementById("days-row");
     if (!todayElement || !parentElement) return;
-    const left = todayElement.offsetLeft - parentElement.clientWidth / 2;
-    todayElement.scrollTo({ left, behavior: "smooth" });
-  }, [days]);
+    const left =
+      todayElement.offsetLeft -
+      parentElement.scrollWidth / 2 -
+      parentElement.clientWidth / 2 -
+      todayElement.clientWidth / 2;
+    parentElement.scrollTo({ left, behavior: "smooth" });
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
+    return () => {
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
   return (
     <div
       id="days-row"
-      className="flex w-full items-center gap-3 overflow-x-auto h-20"
+      className={cn(
+        "flex w-full items-center gap-3 overflow-x-auto",
+        className,
+      )}
     >
       {days.map((day) => {
         const todayKey = format(today, "yyyy-MM-dd");
@@ -39,7 +53,7 @@ export default function DaysRow() {
             data-active={isToday}
             className={cn(
               "w-12 h-full group py-2 gap-0.5 px-3 flex flex-col justify-center items-center shrink-0 rounded-lg border",
-              isToday && "bg-foreground",
+              isToday && "bg-foreground border-foreground",
             )}
           >
             <span className="text-base font-medium group-data-[active=true]:text-background text-foreground">
