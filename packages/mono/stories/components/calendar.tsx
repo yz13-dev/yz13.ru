@@ -1,16 +1,18 @@
-"use client"
+"use client";
 
-import React from "react"
-import { Calendar } from "../../src/components/ui/calendar"
+import React from "react";
+import { Calendar } from "../../src/components/ui/calendar";
 
 export function CalendarDemo() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date())
+  const [date, setDate] = React.useState<Date[] | undefined>([]);
   return (
-    <Calendar
-      mode="single"
-      selected={date}
-      onSelect={setDate}
-      className="rounded-md border"
-    />
-  )
+    <div className="w-80">
+      <Calendar
+        mode="multiple"
+        selected={date}
+        onSelect={setDate}
+        className="rounded-md border"
+      />
+    </div>
+  );
 }

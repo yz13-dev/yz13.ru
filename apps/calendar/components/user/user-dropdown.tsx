@@ -28,7 +28,7 @@ const UserDropdown = ({
     supabase.auth.signOut();
     router.refresh();
   };
-  const positionOrEmail = user.role ?? user.email;
+  const positionOrEmail = user.email ?? user.role;
   // const isAdmin = user.role === "admin";
   return (
     <DropdownMenu>
@@ -42,7 +42,7 @@ const UserDropdown = ({
           <span className="text-sm font-medium">
             {user.username ?? "Username"}
           </span>
-          <span className="text-xs text-foreground font-normal">
+          <span className="text-xs text-muted-foreground font-normal">
             {positionOrEmail}
           </span>
         </DropdownMenuLabel>

@@ -1,10 +1,10 @@
 "use client";
-import { useInterval } from "ahooks";
-import dayjs, { Dayjs } from "dayjs";
+import useTimeStore from "@/components/live/time.store";
+import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import { PlusIcon } from "lucide-react";
 import { Separator } from "mono/components/separator";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
 
 type TimeRange = [number, number];
@@ -23,16 +23,14 @@ type DayTimelineProps = {
   showLabel?: boolean;
 };
 
-const Timeline = () => {
+const Timeline = ({ className = "" }: { className?: string }) => {
+  const [ready, setReady] = useState<boolean>(false);
   const hour = 48;
   const minute = hour / 60;
   const second = minute / 60;
   const lineHeight = 18;
-  const initialMargin = 8;
-  const updateTime = () => {
-    return dayjs().locale("ru");
-  };
-  const [time, setTime] = useState<Dayjs>(updateTime());
+  const initialMargin = 0;
+  const time = useTimeStore((state) => state.time);
   const top = useMemo(() => {
     const hours = time.hour();
     const minutes = time.minute();
@@ -43,20 +41,25 @@ const Timeline = () => {
     const line = lineHeight / 2;
     return initialMargin + hourHeight + minutesHeight + secondsHeight - line;
   }, [time, hour, initialMargin]);
-  useInterval(() => {
-    setTime(updateTime());
-  }, 1000);
-  return (
-    <div
-      style={{ top: `${top}px` }}
-      className="w-full absolute flex items-center h-[18px] select-none pointer-events-none"
-    >
-      <div className="w-full h-px bg-red-foreground relative w-full" />
-      <span className="text-xs w-fit right-2 relative z-10 px-2 py-0 rounded-full bg-red-background text-red-foreground border border-red-foreground">
-        {time.format("HH:mm")}
-      </span>
-    </div>
-  );
+  useEffect(() => {
+    setReady(true);
+  }, []);
+  if (!ready) return null;
+  else
+    return (
+      <div
+        style={{ top: `${top}px` }}
+        className={cn(
+          "w-full absolute flex items-center h-[18px] select-none pointer-events-none",
+          className,
+        )}
+      >
+        <div className="w-full h-px bg-red-foreground relative" />
+        <span className="text-xs w-fit right-2 relative z-10 px-2 py-0 rounded-full bg-red-background text-red-foreground border border-red-foreground">
+          {time.format("HH:mm")}
+        </span>
+      </div>
+    );
 };
 
 const Day = ({
@@ -99,11 +102,12 @@ const Day = ({
         }}
         className="w-full relative *:w-full"
       >
-        <div className="absolute w-full top-0 left-0 relative">
-          {showTimeline && <Timeline />}
+        <div className="absolute w-full top-0 left-0">
+          {showTimeline && (
+            <Timeline className="w-[calc(100%-32px-8px)] right-0" />
+          )}
           <div
             onPointerDown={(e) => {
-              console.log("pointer down");
               setEnableEventRange(true);
               if (timeRange.length !== 0) setTimeRange([]);
             }}
@@ -132,7 +136,7 @@ const Day = ({
                   }}
                 >
                   <div className="w-full flex items-start gap-2 h-full">
-                    <span className="text-xs w-8 text-foreground select-none">
+                    <span className="text-xs relative -top-2 w-8 text-muted-foreground select-none">
                       {formatted}
                     </span>
                     <div className="w-[calc(100%-2.5rem-0.5rem)] h-full">
@@ -158,8 +162,8 @@ const Day = ({
                         </div>
                       ) : (
                         <>
-                          <Separator className="group-hover:hidden mt-2" />
-                          <div className="w-full h-full group-hover:flex gap-2 hidden items-center justify-center border rounded-lg">
+                          <Separator className="group-hover:hidden" />
+                          <div className="w-full h-full group-hover:flex gap-2 hidden items-center justify-center border-x border-t">
                             <PlusIcon size={16} className="text-foreground" />
                             <span className="text-xs text-foreground select-none">
                               Нажмите и проведите для добавления события

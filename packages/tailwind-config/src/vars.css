@@ -1,45 +1,45 @@
 @import "./yz-vars.css";
 
 :root {
-    /* Базовые переменные */
-    --background: var(--yz13-background);
-    --background-secondary: var(--yz13-background-secondary);
-    --foreground: var(--yz13-foreground);
-    --foreground-secondary: var(--yz13-foreground-secondary);
-    --card: var(--yz13-background-secondary);
-    --card-foreground: var(--yz13-foreground);
-    --popover: var(--yz13-background);
-    --popover-foreground: var(--yz13-foreground);
-    --primary: var(--yz13-foreground);
-    --primary-foreground: var(--yz13-background);
-    --secondary: var(--yz13-secondary);
-    --secondary-foreground: var(--yz13-secondary-foreground);
-    --muted: var(--yz13-neutral-100);
-    --muted-foreground: var(--yz13-foreground-secondary);
-    --accent: var(--yz13-secondary);
-    --accent-foreground: var(--yz13-secondary-foreground);
-    --destructive: var(--yz13-error-background);
-    --destructive-foreground: var(--yz13-error-foreground);
-    /* Особый цвет, не из yz13 */
-    --border: var(--yz13-border);
-    --input: var(--yz13-border);
-    --ring: var(--yz13-neutral-200);
-    --radius-base: var(--yz13-radius);
+  /* Базовые переменные */
+  --background: var(--yz13-background);
+  --background-secondary: var(--yz13-background-secondary);
+  --foreground: var(--yz13-foreground);
+  --foreground-secondary: var(--yz13-foreground-secondary);
+  --card: var(--yz13-background-secondary);
+  --card-foreground: var(--yz13-foreground);
+  --popover: var(--yz13-background);
+  --popover-foreground: var(--yz13-foreground);
+  --primary: var(--yz13-foreground);
+  --primary-foreground: var(--yz13-background);
+  --secondary: var(--yz13-secondary);
+  --secondary-foreground: var(--yz13-secondary-foreground);
+  --muted: var(--yz13-neutral-100);
+  --muted-foreground: var(--yz13-foreground-secondary);
+  --accent: var(--yz13-foreground);
+  --accent-foreground: var(--yz13-background);
+  --destructive: var(--yz13-error-background);
+  --destructive-foreground: var(--yz13-error-foreground);
+  /* Особый цвет, не из yz13 */
+  --border: var(--yz13-border);
+  --input: var(--yz13-border);
+  --ring: var(--yz13-neutral-200);
+  --radius-base: var(--yz13-radius);
 
-    /* Цвета графиков */
-    --chart-1: var(--yz13-chart-1);
-    --chart-2: var(--yz13-chart-2);
-    --chart-3: var(--yz13-chart-3);
-    --chart-4: var(--yz13-chart-4);
-    --chart-5: var(--yz13-chart-5);
+  /* Цвета графиков */
+  --chart-1: var(--yz13-chart-1);
+  --chart-2: var(--yz13-chart-2);
+  --chart-3: var(--yz13-chart-3);
+  --chart-4: var(--yz13-chart-4);
+  --chart-5: var(--yz13-chart-5);
 
-    /* Боковая панель */
-    --sidebar: var(--yz13-sidebar);
-    --sidebar-foreground: var(--yz13-sidebar-foreground);
-    --sidebar-primary: var(--yz13-sidebar-primary);
-    --sidebar-primary-foreground: var(--yz13-sidebar-primary-foreground);
-    --sidebar-accent: var(--yz13-sidebar-accent);
-    --sidebar-accent: var(--yz13-sidebar-accent);
-    --sidebar-border: var(--yz13-sidebar-border);
-    --sidebar-ring: var(--yz13-sidebar-ring);
+  /* Боковая панель */
+  --sidebar: var(--yz13-sidebar);
+  --sidebar-foreground: var(--yz13-sidebar-foreground);
+  --sidebar-primary: var(--yz13-sidebar-primary);
+  --sidebar-primary-foreground: var(--yz13-sidebar-primary-foreground);
+  --sidebar-accent: var(--yz13-sidebar-accent);
+  --sidebar-accent: var(--yz13-sidebar-accent);
+  --sidebar-border: var(--yz13-sidebar-border);
+  --sidebar-ring: var(--yz13-sidebar-ring);
 }
