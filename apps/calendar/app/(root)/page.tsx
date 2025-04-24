@@ -3,6 +3,7 @@ import { SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Suspense } from "react";
 import DayInfo from "./day-info";
+import DaysRow from "./days-row";
 import HeaderTime from "./header-time";
 
 export default function page() {
@@ -25,7 +26,7 @@ export default function page() {
           <DayInfo />
         </div>
         <div className="flex flex-col gap-2">
-          <div className="w-full h-20 bg-neutral-200"></div>
+          <DaysRow />
           <div className="w-full h-full *:h-20 space-y-3 py-3">
             <div className="w-full rounded-lg bg-neutral-200"></div>
             <div className="w-full rounded-lg bg-neutral-200"></div>
