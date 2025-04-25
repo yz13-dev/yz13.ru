@@ -1,5 +1,7 @@
 import { format, parse } from "date-fns";
 import { redirect } from "next/navigation";
+import Header from "./header";
+import ViewWrapper from "./view-wrapper";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -31,9 +33,18 @@ export default async function layout({
     const today = format(dateKey, "yyyy-MM-dd");
     return redirect(`/calendar/${today}`);
   }
-  if (view === "month") return month;
-  if (view === "week") return week;
-  if (view === "day") return day;
-  if (view === "year") return year;
-  return children;
+  return (
+    <div className="w-full divide-y">
+      <Header date={dateKey} defaultView={view} />
+      <ViewWrapper
+        views={{
+          year,
+          month,
+          week,
+          day,
+        }}
+      />
+    </div>
+  );
+  // return children;
 }
