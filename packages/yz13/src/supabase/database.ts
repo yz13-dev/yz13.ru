@@ -9,6 +9,81 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      calendar_events: {
+        Row: {
+          all_day: boolean | null;
+          categories: string[] | null;
+          class: string | null;
+          created: string | null;
+          description: string | null;
+          dtend: string | null;
+          dtstart: string;
+          duration: unknown | null;
+          geo_lat: number | null;
+          geo_lon: number | null;
+          last_modified: string | null;
+          location: string | null;
+          organizer_email: string | null;
+          organizer_name: string | null;
+          recurrence_id: string | null;
+          recurrence_rule: string | null;
+          sequence: number | null;
+          status: string | null;
+          summary: string;
+          transp: string | null;
+          uid: string;
+          url: string | null;
+        };
+        Insert: {
+          all_day?: boolean | null;
+          categories?: string[] | null;
+          class?: string | null;
+          created?: string | null;
+          description?: string | null;
+          dtend?: string | null;
+          dtstart: string;
+          duration?: unknown | null;
+          geo_lat?: number | null;
+          geo_lon?: number | null;
+          last_modified?: string | null;
+          location?: string | null;
+          organizer_email?: string | null;
+          organizer_name?: string | null;
+          recurrence_id?: string | null;
+          recurrence_rule?: string | null;
+          sequence?: number | null;
+          status?: string | null;
+          summary: string;
+          transp?: string | null;
+          uid: string;
+          url?: string | null;
+        };
+        Update: {
+          all_day?: boolean | null;
+          categories?: string[] | null;
+          class?: string | null;
+          created?: string | null;
+          description?: string | null;
+          dtend?: string | null;
+          dtstart?: string;
+          duration?: unknown | null;
+          geo_lat?: number | null;
+          geo_lon?: number | null;
+          last_modified?: string | null;
+          location?: string | null;
+          organizer_email?: string | null;
+          organizer_name?: string | null;
+          recurrence_id?: string | null;
+          recurrence_rule?: string | null;
+          sequence?: number | null;
+          status?: string | null;
+          summary?: string;
+          transp?: string | null;
+          uid?: string;
+          url?: string | null;
+        };
+        Relationships: [];
+      };
       chats: {
         Row: {
           attachments: Json[] | null;
@@ -368,16 +443,14 @@ export type Database = {
           icon: Json;
           id: string;
           is_archived: boolean | null;
-          is_public: boolean | null;
           name: string;
           public_url: string | null;
-          published_at: string | null;
           published_version: string | null;
           publisher_id: string;
           publisher_type: string;
           tags: string[] | null;
           updated_at: string;
-          versions: string[] | null;
+          versions: Json[] | null;
         };
         Insert: {
           categories?: string[] | null;
@@ -386,16 +459,14 @@ export type Database = {
           icon: Json;
           id?: string;
           is_archived?: boolean | null;
-          is_public?: boolean | null;
           name: string;
           public_url?: string | null;
-          published_at?: string | null;
           published_version?: string | null;
           publisher_id: string;
           publisher_type: string;
           tags?: string[] | null;
           updated_at?: string;
-          versions?: string[] | null;
+          versions?: Json[] | null;
         };
         Update: {
           categories?: string[] | null;
@@ -404,16 +475,14 @@ export type Database = {
           icon?: Json;
           id?: string;
           is_archived?: boolean | null;
-          is_public?: boolean | null;
           name?: string;
           public_url?: string | null;
-          published_at?: string | null;
           published_version?: string | null;
           publisher_id?: string;
           publisher_type?: string;
           tags?: string[] | null;
           updated_at?: string;
-          versions?: string[] | null;
+          versions?: Json[] | null;
         };
         Relationships: [];
       };

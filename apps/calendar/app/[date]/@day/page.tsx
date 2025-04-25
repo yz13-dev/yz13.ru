@@ -2,30 +2,34 @@ import User from "@/components/user";
 import dayjs from "dayjs";
 import { DotIcon, ListIcon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { redirect } from "next/navigation";
-import CalendarWidget from "./calendar";
-import { CalendarProvider } from "./calendar-store";
-import DateInfo from "./date-info";
-import DayTimeline from "./day-timeline";
+import { Tabs, TabsList, TabsTrigger } from "mono/components/tabs";
+import CalendarWidget from "../calendar";
+import { CalendarProvider } from "../calendar-store";
+import DateInfo from "../date-info";
+import DayTimeline from "../day-timeline";
 
 type PageProps = {
   params: Promise<{
     date: string;
-  }>
+  }>;
 };
 const page = async ({ params }: PageProps) => {
   const { date: dateKey } = await params;
   const date = dayjs(dateKey, "YYYY-MM-DD").locale("ru");
-  if (!date.isValid()) {
-    const today = dayjs().locale("ru").format("YYYY-MM-DD");
-    return redirect(`/calendar/${today}`);
-  }
   return (
     <CalendarProvider date={dateKey}>
       <header className="w-full h-fit border-b bg-background-secondary px-4 py-2 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-2">
           <Button variant="outline">Сегодня</Button>
         </div>
+        <Tabs defaultValue="month">
+          <TabsList>
+            <TabsTrigger value="day">День</TabsTrigger>
+            <TabsTrigger value="week">Неделя</TabsTrigger>
+            <TabsTrigger value="month">Месяц</TabsTrigger>
+            <TabsTrigger value="year">Год</TabsTrigger>
+          </TabsList>
+        </Tabs>
         <div className="flex items-center gap-2">
           <Button size="icon" variant="outline">
             <SearchIcon size={16} />

@@ -26,7 +26,7 @@ export default function page() {
           <DayInfo />
         </div>
         <div className="flex flex-col gap-2">
-          <DaysRow className="h-fit shrink-0" />
+          <DaysRow className="h-fit shrink-0 marquee" />
           <div className="w-full h-full space-y-3 py-3">
             <div className="w-full p-3 flex flex-row justify-between items-start rounded-xl border">
               <div className="flex flex-col gap-1">
