@@ -2,7 +2,6 @@
 import useTimeStore from "@/components/live/time.store";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
-import { PlusIcon } from "lucide-react";
 import { Separator } from "mono/components/separator";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
@@ -106,71 +105,17 @@ const Day = ({
           {showTimeline && (
             <Timeline className="w-[calc(100%-32px-8px)] right-0" />
           )}
-          <div
-            onPointerDown={(e) => {
-              setEnableEventRange(true);
-              if (timeRange.length !== 0) setTimeRange([]);
-            }}
-            onPointerLeave={() => setEnableEventRange(false)}
-            onPointerUp={() => {
-              // console.log("pointer up");
-              setEnableEventRange(false);
-              if (timeRange.length <= 1) setTimeRange([]);
-            }}
-          >
+          <div>
             {range.map((time, index) => {
               const formatted = `${time <= 9 ? "0" : ""}${time}:00`;
-              const isIn = isInRange(time);
-              const last = isLast(time);
-              const first = isFirst(time);
               return (
-                <div
-                  key={"today/" + index}
-                  className="w-full group h-12"
-                  data-selected={isIn}
-                  onPointerOver={() => {
-                    if (enableEventRange) {
-                      // console.log("is-over", formatted);
-                      if (!isIn) handleRange(time);
-                    }
-                  }}
-                >
+                <div key={"today/" + index} className="w-full group h-12">
                   <div className="w-full flex items-start gap-2 h-full">
                     <span className="text-xs relative -top-2 w-8 text-muted-foreground select-none">
                       {formatted}
                     </span>
                     <div className="w-[calc(100%-2.5rem-0.5rem)] h-full">
-                      {isIn ? (
-                        <div
-                          className={cn(
-                            "w-full h-full flex gap-2 items-center justify-center",
-                            first && "rounded-t-lg border",
-                            last && "rounded-b-lg border",
-                            !first && !last && "rounded-none border-x",
-                          )}
-                        >
-                          {first && (
-                            <span className="text-xs text-foreground select-none">
-                              Начало - {formatted}
-                            </span>
-                          )}
-                          {last && (
-                            <span className="text-xs text-foreground select-none">
-                              Конец - {formatted}
-                            </span>
-                          )}
-                        </div>
-                      ) : (
-                        <>
-                          <Separator className="group-hover:hidden" />
-                          <div className="w-full h-full group-hover:flex gap-2 hidden items-center justify-center border-x border-t">
-                            <PlusIcon size={16} className="text-foreground" />
-                            <span className="text-xs text-foreground select-none">
-                              Нажмите и проведите для добавления события
-                            </span>
-                          </div>
-                        </>
-                      )}
+                      <Separator />
                     </div>
                   </div>
                 </div>

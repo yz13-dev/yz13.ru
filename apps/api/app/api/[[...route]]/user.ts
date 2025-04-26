@@ -18,7 +18,7 @@ user.get("/:uid", async (c) => {
     data: { user },
     error,
   } = await supabase.auth.admin.getUserById(uid);
-  if (error) return c.json(error, 404);
+  if (error) return c.json(null);
   if (!user) return c.json(null);
   else {
     const userObj = makeUserObj(user);

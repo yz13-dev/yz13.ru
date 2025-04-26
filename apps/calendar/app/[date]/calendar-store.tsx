@@ -1,26 +1,26 @@
 "use client";
-import dayjs, { Dayjs } from "dayjs";
+import { parse } from "date-fns";
 import { createContext, ReactNode, useContext } from "react";
 import { createStore } from "zustand";
 
 type State = {
-  date: Dayjs;
+  date: Date;
 };
 
 type Actions = {
-  setDate: (date: Dayjs) => void;
+  setDate: (date: Date) => void;
 };
 
 type Store = State & Actions;
 
 const initialState: State = {
-  date: dayjs().locale("ru"),
+  date: new Date(),
 };
 
 export const useCalendarStore = (state: State = initialState) => {
   return createStore<Store>()((set) => ({
     ...state,
-    setDate: (date: Dayjs) => {
+    setDate: (date: Date) => {
       set(() => ({ date }));
     },
   }));
@@ -35,7 +35,7 @@ export const CalendarProvider = ({
   date?: string;
   children?: ReactNode;
 }) => {
-  const pickedDate = dayjs(date ?? "").locale("ru");
+  const pickedDate = parse(date ?? "", "yyyy-MM-dd", new Date());
   return (
     <CalendarContext.Provider value={{ date: pickedDate }}>
       {children}

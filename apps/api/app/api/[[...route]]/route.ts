@@ -6,6 +6,7 @@ import { poweredBy } from "hono/powered-by";
 import { requestId } from "hono/request-id";
 import { handle } from "hono/vercel";
 import { auth } from "./auth";
+import { calendar } from "./calendar/endpoint";
 import { charts } from "./charts";
 import { chats } from "./chats/endpoint";
 import { drafts } from "./drafts";
@@ -72,6 +73,7 @@ app.route("/news", news);
 app.route("/chats", chats);
 app.route("/limits", limits);
 app.route("/store", store);
+app.route("/calendar", calendar);
 
 app.get("/version", (c) => {
   const version = packageJson.version;
