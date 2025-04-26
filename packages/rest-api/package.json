@@ -29,6 +29,7 @@
     "./types/charts": "./dist/types/charts.d.ts",
     "./types/rooms": "./dist/types/charts.d.ts",
     "./types/store": "./dist/types/store.d.ts",
+    "./types/calendar": "./dist/types/calendar.d.ts",
     "./articles": {
       "types": "./dist/rest/articles/articles.d.ts",
       "import": "./dist/rest/articles/articles.mjs",

@@ -37,6 +37,7 @@ export default async function layout({
     <div className="w-full divide-y">
       <Header date={dateKey} defaultView={view} />
       <ViewWrapper
+        defaultView={view}
         views={{
           year,
           month,

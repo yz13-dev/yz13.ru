@@ -1,21 +1,20 @@
 "use client";
 import { addDays, format, getDaysInMonth } from "date-fns";
 import { ru } from "date-fns/locale";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "yz13/cn";
 
 export default function DaysRow({ className = "" }: { className?: string }) {
+  const [today, setToday] = useState<Date>(new Date());
   const DAYS = getDaysInMonth(new Date());
   const DAYS_AS_ARRAY = Array.from({ length: DAYS }, (_, i) => {
     const middle = DAYS / 2;
     return i - middle;
   });
-  const today = new Date();
   const createDates = (days: number[]) => {
     return DAYS_AS_ARRAY.map((day) => addDays(today, day));
   };
   const days = createDates(DAYS_AS_ARRAY);
-
   const handleScroll = () => {
     const todayElement = document.getElementById(format(today, "yyyy-MM-dd"));
     const parentElement = document.getElementById("days-row");
