@@ -448,6 +448,7 @@ export type Database = {
           published_version: string | null;
           publisher_id: string;
           publisher_type: string;
+          stage: string | null;
           tags: string[] | null;
           updated_at: string;
           versions: Json[] | null;
@@ -464,6 +465,7 @@ export type Database = {
           published_version?: string | null;
           publisher_id: string;
           publisher_type: string;
+          stage?: string | null;
           tags?: string[] | null;
           updated_at?: string;
           versions?: Json[] | null;
@@ -480,6 +482,7 @@ export type Database = {
           published_version?: string | null;
           publisher_id?: string;
           publisher_type?: string;
+          stage?: string | null;
           tags?: string[] | null;
           updated_at?: string;
           versions?: Json[] | null;

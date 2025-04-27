@@ -3,5 +3,7 @@
 import { get } from "@vercel/edge-config";
 
 export const getCallToAction = async () => {
-  return await get<{ label: string; href: string | null }>("call-to-action");
+  return await get<{ label: string; href: string | null; disabled: boolean }>(
+    "call-to-action",
+  );
 };

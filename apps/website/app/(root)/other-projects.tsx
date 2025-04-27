@@ -67,6 +67,7 @@ export default async function OtherProjects({
   return (
     <>
       {(publications ?? []).map((publication) => {
+        const stage = publication.stage;
         return (
           <li key={publication.id} className="relative w-full">
             {false && (
@@ -107,7 +108,7 @@ export default async function OtherProjects({
                     <span className="text-lg font-medium">
                       {publication.name}
                     </span>
-                    {false && <Badge variant="secondary">Скоро</Badge>}
+                    {stage && <Badge variant="secondary">{stage}</Badge>}
                   </div>
                   {publication.description && (
                     <span className="text-sm text-muted-foreground line-clamp-2">
