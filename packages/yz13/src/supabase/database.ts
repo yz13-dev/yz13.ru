@@ -15,9 +15,9 @@ export type Database = {
           categories: string[] | null;
           class: string | null;
           created: string | null;
+          date_end: string | null;
+          date_start: string;
           description: string | null;
-          dtend: string | null;
-          dtstart: string;
           duration: unknown | null;
           geo_lat: number | null;
           geo_lon: number | null;
@@ -39,9 +39,9 @@ export type Database = {
           categories?: string[] | null;
           class?: string | null;
           created?: string | null;
+          date_end?: string | null;
+          date_start: string;
           description?: string | null;
-          dtend?: string | null;
-          dtstart: string;
           duration?: unknown | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
@@ -63,9 +63,9 @@ export type Database = {
           categories?: string[] | null;
           class?: string | null;
           created?: string | null;
+          date_end?: string | null;
+          date_start?: string;
           description?: string | null;
-          dtend?: string | null;
-          dtstart?: string;
           duration?: unknown | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
@@ -448,6 +448,7 @@ export type Database = {
           published_version: string | null;
           publisher_id: string;
           publisher_type: string;
+          stage: string | null;
           tags: string[] | null;
           updated_at: string;
           versions: Json[] | null;
@@ -464,6 +465,7 @@ export type Database = {
           published_version?: string | null;
           publisher_id: string;
           publisher_type: string;
+          stage?: string | null;
           tags?: string[] | null;
           updated_at?: string;
           versions?: Json[] | null;
@@ -480,6 +482,7 @@ export type Database = {
           published_version?: string | null;
           publisher_id?: string;
           publisher_type?: string;
+          stage?: string | null;
           tags?: string[] | null;
           updated_at?: string;
           versions?: Json[] | null;

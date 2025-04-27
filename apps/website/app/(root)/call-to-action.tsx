@@ -28,6 +28,7 @@ export const CallToActionSkeleton = () => {
 const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
   const [label, setLabel] = useState<string>("Подождите...");
   const [href, setHref] = useState<string | null>(null);
+  const [disabled, setDisabled] = useState<boolean>(busy);
   useHotkeys(
     "ctrl+k, command+k",
     () => {
@@ -42,6 +43,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
       if (action) {
         setLabel(action.label);
         if (action.href) setHref(action.href);
+        if (typeof action.disabled === "boolean") setDisabled(action.disabled);
       }
     });
   }, []);
@@ -69,6 +71,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
           )}
           {href ? (
             <Button
+              disabled={disabled}
               variant="secondary"
               className={cn(
                 "max-w-xs w-fit justify-center *:text-sm relative",
@@ -82,6 +85,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
             </Button>
           ) : (
             <Button
+              disabled={disabled}
               variant="secondary"
               className={cn(
                 "max-w-xs w-fit justify-center *:text-sm relative",
