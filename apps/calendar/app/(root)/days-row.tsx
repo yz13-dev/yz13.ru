@@ -17,14 +17,12 @@ export default function DaysRow({ className = "" }: { className?: string }) {
   const days = createDates(DAYS_AS_ARRAY);
   const handleScroll = () => {
     const todayElement = document.getElementById(format(today, "yyyy-MM-dd"));
-    const parentElement = document.getElementById("days-row");
-    if (!todayElement || !parentElement) return;
-    const left =
-      todayElement.offsetLeft -
-      parentElement.scrollWidth / 2 -
-      parentElement.clientWidth / 2 -
-      todayElement.clientWidth / 2;
-    parentElement.scrollTo({ left, behavior: "smooth" });
+    if (!todayElement) return;
+    todayElement.scrollIntoView({
+      block: "nearest",
+      inline: "center",
+      behavior: "smooth",
+    });
   };
   useEffect(() => {
     window.addEventListener("resize", handleScroll);

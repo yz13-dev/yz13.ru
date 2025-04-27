@@ -15,9 +15,9 @@ export type Database = {
           categories: string[] | null;
           class: string | null;
           created: string | null;
+          date_end: string | null;
+          date_start: string;
           description: string | null;
-          dtend: string | null;
-          dtstart: string;
           duration: unknown | null;
           geo_lat: number | null;
           geo_lon: number | null;
@@ -39,9 +39,9 @@ export type Database = {
           categories?: string[] | null;
           class?: string | null;
           created?: string | null;
+          date_end?: string | null;
+          date_start: string;
           description?: string | null;
-          dtend?: string | null;
-          dtstart: string;
           duration?: unknown | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
@@ -63,9 +63,9 @@ export type Database = {
           categories?: string[] | null;
           class?: string | null;
           created?: string | null;
+          date_end?: string | null;
+          date_start?: string;
           description?: string | null;
-          dtend?: string | null;
-          dtstart?: string;
           duration?: unknown | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
