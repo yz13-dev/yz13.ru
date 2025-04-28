@@ -18,9 +18,10 @@ export type Database = {
           date_end: string | null;
           date_start: string;
           description: string | null;
-          duration: unknown | null;
+          duration: string | null;
           geo_lat: number | null;
           geo_lon: number | null;
+          id: string;
           last_modified: string | null;
           location: string | null;
           organizer_email: string | null;
@@ -42,9 +43,10 @@ export type Database = {
           date_end?: string | null;
           date_start: string;
           description?: string | null;
-          duration?: unknown | null;
+          duration?: string | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
+          id?: string;
           last_modified?: string | null;
           location?: string | null;
           organizer_email?: string | null;
@@ -66,9 +68,10 @@ export type Database = {
           date_end?: string | null;
           date_start?: string;
           description?: string | null;
-          duration?: unknown | null;
+          duration?: string | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
+          id?: string;
           last_modified?: string | null;
           location?: string | null;
           organizer_email?: string | null;

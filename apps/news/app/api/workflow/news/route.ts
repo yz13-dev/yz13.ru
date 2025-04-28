@@ -1,8 +1,7 @@
-import { uploadArticle } from "rest-api/articles";
-import { getCountryCodes } from "rest-api/codes";
 import { parseNewsFromSource } from "@/lib/parse-news";
-import { getNewsSources } from "rest-api/sources";
 import { serve } from "@upstash/workflow/nextjs";
+import { getCountryCodes, uploadArticle } from "rest-api/articles";
+import { getNewsSources } from "rest-api/sources";
 
 export const { POST } = serve(async (context) => {
   const codes = await context.run("fetching-country-codes", async () => {

@@ -3,6 +3,12 @@
 import { customFetch } from "@/const/fetch";
 import { Article, NewArticle } from "@/types/articles";
 
+export const getCountryCodes = async () => {
+  return await customFetch<string[]>("/news/codes", {
+    method: "GET",
+  });
+};
+
 export const uploadArticle = async (article: NewArticle) => {
   const token = process.env.NEWS_API_TOKEN;
   return await customFetch<Article | null>("/news/articles/new", {

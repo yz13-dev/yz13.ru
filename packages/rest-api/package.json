@@ -35,6 +35,11 @@
       "import": "./dist/rest/articles/articles.mjs",
       "require": "./dist/rest/articles/articles.js"
     },
+    "./calendar": {
+      "types": "./dist/rest/calendar/calendar.d.ts",
+      "import": "./dist/rest/calendar/calendar.mjs",
+      "require": "./dist/rest/calendar/calendar.js"
+    },
     "./pricing": {
       "types": "./dist/rest/pricing/pricing.d.ts",
       "import": "./dist/rest/pricing/pricing.mjs",
