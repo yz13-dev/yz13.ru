@@ -1,5 +1,4 @@
 "use server";
-import { API_URL } from "@/const/api";
 import { customFetch } from "@/const/fetch";
 import { NewsSource } from "@/types/articles";
 

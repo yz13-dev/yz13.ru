@@ -1,6 +1,5 @@
 import { defineConfig } from "tsup";
 
-
 export default defineConfig([
   {
     entry: ["src/const/*", "src/rest/**/*", "src/lib/*"],
@@ -33,5 +32,5 @@ export default defineConfig([
       only: true,
     },
     external: ["node_modules"],
-  }
+  },
 ]);
