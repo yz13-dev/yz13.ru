@@ -8,13 +8,20 @@ import { Separator } from "mono/components/separator";
 import { Suspense } from "react";
 import DayInfo from "./day-info";
 import DaysRow from "./days-row";
-import EventSection from "./events/section";
+import EventSection, { SectionSkeleton } from "./events/section";
 import HeaderTime from "./header-time";
 import MeetingSection from "./meetings/section";
 import NewEventForm from "./new-event";
 import ScheduleSection from "./schedule/section";
 
-export default async function page() {
+type PageProps = {
+  searchParams: Promise<{
+    date?: string;
+  }>;
+};
+export default async function page({ searchParams }: PageProps) {
+  const search = await searchParams;
+  const date = search.date ?? "";
   const user = await auth();
   return (
     <>
@@ -40,15 +47,17 @@ export default async function page() {
       </header>
       <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6 md:*:w-1/2 *:w-full min-h-dvh">
         <div className="space-y-6">
-          <DayInfo />
+          <DayInfo defaultDate={date} />
           <Separator />
           <ScheduleSection />
           <Separator />
           <MeetingSection disabled />
         </div>
         <div className="flex flex-col gap-2">
-          <DaysRow className="h-fit shrink-0 marquee" />
-          {user && <EventSection uid={user?.id ?? null} />}
+          <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />
+          <Suspense fallback={<SectionSkeleton />}>
+            {user && <EventSection uid={user?.id ?? null} date={date} />}
+          </Suspense>
         </div>
       </div>
       <Footer />

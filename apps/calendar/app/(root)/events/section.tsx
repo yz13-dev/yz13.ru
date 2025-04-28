@@ -1,9 +1,30 @@
 import { format, parseISO } from "date-fns";
 import { Button } from "mono/components/button";
+import { Skeleton } from "mono/components/skeleton";
 import { getUserEvents } from "rest-api/calendar";
 
-export default async function Section({ uid }: { uid: string }) {
-  const { data } = await getUserEvents(uid);
+export function SectionSkeleton() {
+  return (
+    <ul className="w-full h-fit space-y-3 py-3">
+      {Array.from({ length: 9 }, (_, i) => {
+        return (
+          <li className="w-full" key={i}>
+            <Skeleton className="w-full h-16" />
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+export default async function Section({
+  uid,
+  date,
+}: {
+  uid: string;
+  date?: string;
+}) {
+  const { data } = await getUserEvents(uid, date);
   const events = data ?? [];
   return (
     <>
@@ -13,6 +34,7 @@ export default async function Section({ uid }: { uid: string }) {
           const description = event.description ?? "Нет описания";
           const parsed = parseISO(event.date_start);
           const time = format(parsed, "HH:mm");
+          const isAllDay = event.all_day ?? false;
           return (
             <li className="w-full" key={i}>
               <div className="w-full p-3 flex flex-row justify-between items-start rounded-xl hover:bg-background-secondary border transition-colors">
