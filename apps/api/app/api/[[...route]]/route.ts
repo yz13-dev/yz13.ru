@@ -5,6 +5,7 @@ import { languageDetector } from "hono/language";
 import { poweredBy } from "hono/powered-by";
 import { requestId } from "hono/request-id";
 import { handle } from "hono/vercel";
+import { appointment } from "./appointment/endpoint";
 import { auth } from "./auth";
 import { calendar } from "./calendar/endpoint";
 import { charts } from "./charts";
@@ -15,6 +16,7 @@ import { news } from "./news";
 import { pages } from "./pages";
 import { pricing } from "./pricing";
 import { rooms } from "./rooms";
+import { schedule } from "./schedule/endpoint";
 import { store } from "./store/endpoint";
 import { user } from "./user";
 import { visitor_session } from "./visitor-session";
@@ -74,6 +76,8 @@ app.route("/chats", chats);
 app.route("/limits", limits);
 app.route("/store", store);
 app.route("/calendar", calendar);
+app.route("/appointments", appointment);
+app.route("/schedule", schedule);
 
 app.get("/version", (c) => {
   const version = packageJson.version;
