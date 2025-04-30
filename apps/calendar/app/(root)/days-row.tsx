@@ -1,11 +1,18 @@
 "use client";
-import { addDays, format, getDaysInMonth } from "date-fns";
+import { addDays, format, getDaysInMonth, parse } from "date-fns";
 import { ru } from "date-fns/locale";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { cn } from "yz13/cn";
 
-export default function DaysRow({ className = "" }: { className?: string }) {
-  const [today, setToday] = useState<Date>(new Date());
+type DaysRowProps = {
+  className?: string;
+  defaultDate?: string;
+};
+const parseDate = (date: string) => {
+  return parse(date, "yyyy-MM-dd", new Date(), { locale: ru });
+};
+export default function DaysRow({ className = "", defaultDate }: DaysRowProps) {
+  const today = defaultDate ? parseDate(defaultDate) : new Date();
   const DAYS = getDaysInMonth(new Date());
   const DAYS_AS_ARRAY = Array.from({ length: DAYS }, (_, i) => {
     const middle = DAYS / 2;
@@ -16,7 +23,9 @@ export default function DaysRow({ className = "" }: { className?: string }) {
   };
   const days = createDates(DAYS_AS_ARRAY);
   const handleScroll = () => {
-    const todayElement = document.getElementById(format(today, "yyyy-MM-dd"));
+    const todayElement = document.getElementById(
+      format(today, "yyyy-MM-dd", { locale: ru }),
+    );
     if (!todayElement) return;
     todayElement.scrollIntoView({
       block: "nearest",

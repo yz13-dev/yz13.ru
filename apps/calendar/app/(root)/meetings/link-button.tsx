@@ -26,7 +26,7 @@ export default function LinkButton({
     }
   };
   return (
-    <Button disabled={buttonDisabled} onClick={handleCopy}>
+    <Button variant="secondary" disabled={buttonDisabled} onClick={handleCopy}>
       {copied ? "Скопировано" : "Скопировать ссылку"}
     </Button>
   );

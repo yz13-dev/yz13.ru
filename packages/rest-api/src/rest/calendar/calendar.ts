@@ -13,6 +13,9 @@ export const createEvent = async (event: NewEvent) => {
   });
 };
 
-export const getUserEvents = async (uid: string) => {
-  return await customFetch<Event[]>(`/calendar/user/${uid}`);
+export const getUserEvents = async (uid: string, date?: string) => {
+  const url = date
+    ? `/calendar/user/${uid}?date=${date}`
+    : `/calendar/user/${uid}`;
+  return await customFetch<Event[]>(url);
 };

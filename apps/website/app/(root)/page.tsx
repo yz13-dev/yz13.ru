@@ -34,8 +34,17 @@ export default async function page() {
               )}
             </Suspense>
           </div>
-          <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
-            <Logo size={{ width: 240, height: 240 }} type="only-icon" />
+          <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center relative justify-center">
+            <Logo
+              size={{ width: 240, height: 240 }}
+              type="only-icon"
+              className="z-10"
+            />
+            <Logo
+              size={{ width: 240, height: 240 }}
+              type="only-icon"
+              className="z-[-1] blur-3xl absolute animate-pulse"
+            />
           </div>
         </div>
       </div>

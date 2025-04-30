@@ -9,6 +9,33 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      calendar_appointment: {
+        Row: {
+          created_at: string;
+          date: string;
+          duration: string;
+          id: number;
+          note: string | null;
+          uid: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          date: string;
+          duration: string;
+          id?: number;
+          note?: string | null;
+          uid?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          date?: string;
+          duration?: string;
+          id?: number;
+          note?: string | null;
+          uid?: string | null;
+        };
+        Relationships: [];
+      };
       calendar_events: {
         Row: {
           all_day: boolean | null;
@@ -84,6 +111,39 @@ export type Database = {
           transp?: string | null;
           uid?: string;
           url?: string | null;
+        };
+        Relationships: [];
+      };
+      calendar_schedule: {
+        Row: {
+          friday: Json[] | null;
+          monday: Json[] | null;
+          saturday: Json[] | null;
+          sunday: Json[] | null;
+          thursday: Json[] | null;
+          tuesday: Json[] | null;
+          uid: string;
+          wednesday: Json[] | null;
+        };
+        Insert: {
+          friday?: Json[] | null;
+          monday?: Json[] | null;
+          saturday?: Json[] | null;
+          sunday?: Json[] | null;
+          thursday?: Json[] | null;
+          tuesday?: Json[] | null;
+          uid?: string;
+          wednesday?: Json[] | null;
+        };
+        Update: {
+          friday?: Json[] | null;
+          monday?: Json[] | null;
+          saturday?: Json[] | null;
+          sunday?: Json[] | null;
+          thursday?: Json[] | null;
+          tuesday?: Json[] | null;
+          uid?: string;
+          wednesday?: Json[] | null;
         };
         Relationships: [];
       };
