@@ -51,7 +51,7 @@ export default async function page({ searchParams }: PageProps) {
           <Separator />
           <ScheduleSection uid={user?.id ?? null} />
           <Separator />
-          <MeetingSection disabled />
+          <MeetingSection uid={user?.id ?? null} />
         </div>
         <div className="flex flex-col gap-2">
           <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />

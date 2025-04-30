@@ -15,17 +15,68 @@ const EmptySchedule = () => {
   );
 };
 
+const DayScheduleItem = ({
+  schedule,
+  label,
+}: {
+  label?: string;
+  schedule: DaySchedule[];
+}) => {
+  const max = 2;
+  return (
+    <>
+      <span className="text-sm text-muted-foreground">{label}:</span>
+      {!schedule.length && <Badge variant="secondary">Нет расписания</Badge>}
+      {schedule &&
+        schedule.slice(0, max).map((item, index) => {
+          const schedule = item as DaySchedule;
+          const startTime = schedule.start.time;
+          const startTz = schedule.start.tz;
+          const endTime = schedule.end.time;
+          const endTz = schedule.end.tz;
+          const start = parse(startTime, "HH:mm", new Date(), {
+            in: tz(startTz),
+          });
+          const end = parse(endTime, "HH:mm", new Date(), {
+            in: tz(endTz),
+          });
+          return (
+            <div
+              key={`monday-${index}`}
+              className="flex flex-row items-center justify-center gap-2"
+            >
+              <Badge variant="secondary">
+                {format(start, "HH:mm", {
+                  in: tz(startTz),
+                })}
+              </Badge>
+              <Separator className="max-w-2" />
+              <Badge variant="secondary">
+                {format(end, "HH:mm", {
+                  in: tz(endTz),
+                })}
+              </Badge>
+            </div>
+          );
+        })}
+      {schedule.length >= max + 1 && (
+        <Badge variant="secondary">+{schedule.length - max}</Badge>
+      )}
+    </>
+  );
+};
+
 export default async function Section({ uid }: { uid: string | null }) {
   if (!uid) return <EmptySchedule />;
   const { data: schedule } = await getSchedule(uid);
   const hasSchedule = !!schedule;
-  const monday = schedule?.monday ?? [];
-  const tuesday = schedule?.tuesday ?? [];
-  const wednesday = schedule?.wednesday ?? [];
-  const thursday = schedule?.thursday ?? [];
-  const friday = schedule?.friday ?? [];
-  const saturday = schedule?.saturday ?? [];
-  const sunday = schedule?.sunday ?? [];
+  const monday = (schedule?.monday ?? []) as DaySchedule[];
+  const tuesday = (schedule?.tuesday ?? []) as DaySchedule[];
+  const wednesday = (schedule?.wednesday ?? []) as DaySchedule[];
+  const thursday = (schedule?.thursday ?? []) as DaySchedule[];
+  const friday = (schedule?.friday ?? []) as DaySchedule[];
+  const saturday = (schedule?.saturday ?? []) as DaySchedule[];
+  const sunday = (schedule?.sunday ?? []) as DaySchedule[];
   return (
     <div className="space-y-6">
       <div className="space-y-0">
@@ -42,148 +93,27 @@ export default async function Section({ uid }: { uid: string | null }) {
         </span>
       </div>
       {hasSchedule ? (
-        <ul className="w-full grid md:grid-cols-3 grid-cols-2 gap-6">
+        <ul className="w-full grid grid-cols-2 gap-6">
           <li className="flex flex-row gap-3">
-            <span className="text-sm text-muted-foreground">Пн:</span>
-            {monday.slice(0, 1).map((item, index) => {
-              const schedule = item as DaySchedule;
-              const startTime = schedule.start.time;
-              const startTz = schedule.start.tz;
-              const endTime = schedule.end.time;
-              const endTz = schedule.end.tz;
-              const start = parse(startTime, "HH:mm", new Date(), {
-                in: tz(startTz),
-              });
-              const end = parse(endTime, "HH:mm", new Date(), {
-                in: tz(endTz),
-              });
-              return (
-                <div
-                  key={`monday-${index}`}
-                  className="flex flex-row items-center justify-center gap-2"
-                >
-                  <Badge variant="secondary">
-                    {format(start, "HH:mm", {
-                      in: tz(startTz),
-                    })}
-                  </Badge>
-                  <Separator className="max-w-2" />
-                  <Badge variant="secondary">
-                    {format(end, "HH:mm", {
-                      in: tz(endTz),
-                    })}
-                  </Badge>
-                </div>
-              );
-            })}
+            <DayScheduleItem schedule={monday} label="Пн" />
           </li>
           <li className="flex flex-row gap-3">
-            <span className="text-sm text-muted-foreground">Вт:</span>
-            {tuesday.slice(0, 1).map((item, index) => {
-              const schedule = item as DaySchedule;
-              const start = schedule.start;
-              const end = schedule.end;
-              return (
-                <div
-                  key={`monday-${index}`}
-                  className="flex flex-row items-center justify-center gap-2"
-                >
-                  <Badge variant="secondary">{start.time}</Badge>
-                  <Separator className="max-w-2" />
-                  <Badge variant="secondary">{end.time}</Badge>
-                </div>
-              );
-            })}
+            <DayScheduleItem schedule={tuesday} label="Вт" />
           </li>
           <li className="flex flex-row gap-3">
-            <span className="text-sm text-muted-foreground">Ср:</span>
-            {wednesday.slice(0, 1).map((item, index) => {
-              const schedule = item as DaySchedule;
-              const start = schedule.start;
-              const end = schedule.end;
-              return (
-                <div
-                  key={`monday-${index}`}
-                  className="flex flex-row items-center justify-center gap-2"
-                >
-                  <Badge variant="secondary">{start.time}</Badge>
-                  <Separator className="max-w-2" />
-                  <Badge variant="secondary">{end.time}</Badge>
-                </div>
-              );
-            })}
+            <DayScheduleItem schedule={wednesday} label="Ср" />
           </li>
           <li className="flex flex-row gap-3">
-            <span className="text-sm text-muted-foreground">Чт:</span>
-            {thursday.slice(0, 1).map((item, index) => {
-              const schedule = item as DaySchedule;
-              const start = schedule.start;
-              const end = schedule.end;
-              return (
-                <div
-                  key={`monday-${index}`}
-                  className="flex flex-row items-center justify-center gap-2"
-                >
-                  <Badge variant="secondary">{start.time}</Badge>
-                  <Separator className="max-w-2" />
-                  <Badge variant="secondary">{end.time}</Badge>
-                </div>
-              );
-            })}
+            <DayScheduleItem schedule={thursday} label="Чт" />
           </li>
           <li className="flex flex-row gap-3">
-            <span className="text-sm text-muted-foreground">Пт:</span>
-            {friday.slice(0, 1).map((item, index) => {
-              const schedule = item as DaySchedule;
-              const start = schedule.start;
-              const end = schedule.end;
-              return (
-                <div
-                  key={`monday-${index}`}
-                  className="flex flex-row items-center justify-center gap-2"
-                >
-                  <Badge variant="secondary">{start.time}</Badge>
-                  <Separator className="max-w-2" />
-                  <Badge variant="secondary">{end.time}</Badge>
-                </div>
-              );
-            })}
+            <DayScheduleItem schedule={friday} label="Пт" />
           </li>
           <li className="flex flex-row gap-3">
-            <span className="text-sm text-muted-foreground">Сб:</span>
-            {saturday.slice(0, 1).map((item, index) => {
-              const schedule = item as DaySchedule;
-              const start = schedule.start;
-              const end = schedule.end;
-              return (
-                <div
-                  key={`monday-${index}`}
-                  className="flex flex-row items-center justify-center gap-2"
-                >
-                  <Badge variant="secondary">{start.time}</Badge>
-                  <Separator className="max-w-2" />
-                  <Badge variant="secondary">{end.time}</Badge>
-                </div>
-              );
-            })}
+            <DayScheduleItem schedule={saturday} label="Сб" />
           </li>
           <li className="flex flex-row gap-3">
-            <span className="text-sm text-muted-foreground">Вс:</span>
-            {sunday.slice(0, 1).map((item, index) => {
-              const schedule = item as DaySchedule;
-              const start = schedule.start;
-              const end = schedule.end;
-              return (
-                <div
-                  key={`monday-${index}`}
-                  className="flex flex-row items-center justify-center gap-2"
-                >
-                  <Badge variant="secondary">{start.time}</Badge>
-                  <Separator className="max-w-2" />
-                  <Badge variant="secondary">{end.time}</Badge>
-                </div>
-              );
-            })}
+            <DayScheduleItem schedule={sunday} label="Вс" />
           </li>
         </ul>
       ) : (
