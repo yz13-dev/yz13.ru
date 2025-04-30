@@ -1,10 +1,12 @@
+import { tz } from "@date-fns/tz";
+import { format, parse } from "date-fns";
 import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { getSchedule } from "rest-api/calendar/schedule";
 import { DaySchedule } from "rest-api/types/calendar";
+import EditScheduleModal from "./edit-schedule-modal";
 import NewScheduleButton from "./new-schedule-button";
-
 const EmptySchedule = () => {
   return (
     <div className="w-full h-fit p-8 border rounded-xl border-dashed flex flex-col items-center justify-center gap-4">
@@ -29,7 +31,11 @@ export default async function Section({ uid }: { uid: string | null }) {
       <div className="space-y-0">
         <div className="flex justify-between items-center">
           <span className="text-lg font-medium block">Расписание</span>
-          {hasSchedule && <Button variant="secondary">Изменить</Button>}
+          {hasSchedule && (
+            <EditScheduleModal uid={uid} defaultSchedule={schedule}>
+              <Button variant="secondary">Изменить</Button>
+            </EditScheduleModal>
+          )}
         </div>
         <span className="text-sm text-muted-foreground">
           Время когда другие пользователи могут запланировать с вами созвон.
@@ -41,16 +47,32 @@ export default async function Section({ uid }: { uid: string | null }) {
             <span className="text-sm text-muted-foreground">Пн:</span>
             {monday.slice(0, 1).map((item, index) => {
               const schedule = item as DaySchedule;
-              const start = schedule.start;
-              const end = schedule.end;
+              const startTime = schedule.start.time;
+              const startTz = schedule.start.tz;
+              const endTime = schedule.end.time;
+              const endTz = schedule.end.tz;
+              const start = parse(startTime, "HH:mm", new Date(), {
+                in: tz(startTz),
+              });
+              const end = parse(endTime, "HH:mm", new Date(), {
+                in: tz(endTz),
+              });
               return (
                 <div
                   key={`monday-${index}`}
                   className="flex flex-row items-center justify-center gap-2"
                 >
-                  <Badge variant="secondary">{start.time}</Badge>
+                  <Badge variant="secondary">
+                    {format(start, "HH:mm", {
+                      in: tz(startTz),
+                    })}
+                  </Badge>
                   <Separator className="max-w-2" />
-                  <Badge variant="secondary">{end.time}</Badge>
+                  <Badge variant="secondary">
+                    {format(end, "HH:mm", {
+                      in: tz(endTz),
+                    })}
+                  </Badge>
                 </div>
               );
             })}

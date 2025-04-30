@@ -21,7 +21,7 @@ type PageProps = {
 };
 export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
-  const date = search.date ?? "";
+  const date = search.date;
   const user = await auth();
   return (
     <>
