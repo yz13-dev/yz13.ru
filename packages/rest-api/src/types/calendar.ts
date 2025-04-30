@@ -10,7 +10,7 @@ export type EventDateTime = {
   tz: string; // .../...
 };
 
-type DaySchedule = {
+export type DaySchedule = {
   start: {
     time: string; // HH:MM
     tz: string; // .../..
@@ -22,13 +22,6 @@ type DaySchedule = {
   enabled: boolean;
 };
 
-export type WeekSchedule = {
-  userId: string;
-  monday: DaySchedule | null;
-  tuesday: DaySchedule | null;
-  wednesday: DaySchedule | null;
-  thursday: DaySchedule | null;
-  friday: DaySchedule | null;
-  saturday: DaySchedule | null;
-  sunday: DaySchedule | null;
-};
+export type WeekSchedule = Tables<"calendar_schedule">;
+export type NewWeekSchedule = TablesInsert<"calendar_schedule">;
+export type UpdateWeekSchedule = TablesUpdate<"calendar_schedule">;

@@ -49,7 +49,7 @@ export default async function page({ searchParams }: PageProps) {
         <div className="space-y-6">
           <DayInfo defaultDate={date} />
           <Separator />
-          <ScheduleSection />
+          <ScheduleSection uid={user?.id ?? null} />
           <Separator />
           <MeetingSection disabled />
         </div>

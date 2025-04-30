@@ -40,6 +40,16 @@
       "import": "./dist/rest/calendar/calendar.mjs",
       "require": "./dist/rest/calendar/calendar.js"
     },
+    "./calendar/schedule": {
+      "types": "./dist/rest/calendar/schedule.d.ts",
+      "import": "./dist/rest/calendar/schedule.mjs",
+      "require": "./dist/rest/calendar/schedule.js"
+    },
+    "./calendar/appointment": {
+      "types": "./dist/rest/calendar/appointment.d.ts",
+      "import": "./dist/rest/calendar/appointment.mjs",
+      "require": "./dist/rest/calendar/appointment.js"
+    },
     "./pricing": {
       "types": "./dist/rest/pricing/pricing.d.ts",
       "import": "./dist/rest/pricing/pricing.mjs",
