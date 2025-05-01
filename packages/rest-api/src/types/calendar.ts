@@ -22,6 +22,11 @@ export type DaySchedule = {
   enabled: boolean;
 };
 
+export type ScheduleAvailability = {
+  availability: Record<string, string[][]>;
+  date: string;
+};
+
 export type WeekSchedule = Tables<"calendar_schedule">;
 export type NewWeekSchedule = TablesInsert<"calendar_schedule">;
 export type UpdateWeekSchedule = TablesUpdate<"calendar_schedule">;
