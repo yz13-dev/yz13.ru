@@ -77,6 +77,7 @@ export default async function Section({ uid }: { uid: string | null }) {
   const friday = (schedule?.friday ?? []) as DaySchedule[];
   const saturday = (schedule?.saturday ?? []) as DaySchedule[];
   const sunday = (schedule?.sunday ?? []) as DaySchedule[];
+  const durations = schedule?.durations ?? [];
   return (
     <div className="space-y-6">
       <div className="space-y-0">
@@ -122,6 +123,24 @@ export default async function Section({ uid }: { uid: string | null }) {
           <NewScheduleButton uid={uid} />
         </div>
       )}
+      <Separator />
+      <div className="space-y-3">
+        <span className="text-sm block text-muted-foreground">
+          Выбраная длительность созвона
+        </span>
+        <ul className="flex items-start gap-2 flex-wrap">
+          {durations
+            .sort((a, b) => a.localeCompare(b))
+            .map((duration) => {
+              const parsed = parse(duration, "HH:mm:ss", new Date());
+              return (
+                <li key={duration}>
+                  <Badge variant="secondary">{format(parsed, "HH:mm")}</Badge>
+                </li>
+              );
+            })}
+        </ul>
+      </div>
     </div>
   );
 }

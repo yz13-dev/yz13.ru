@@ -2,6 +2,7 @@
 import { parse } from "date-fns";
 import { isEqual } from "lodash";
 import { Loader2Icon, XIcon } from "lucide-react";
+import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import {
   Dialog,
@@ -12,6 +13,7 @@ import {
   DialogTrigger,
 } from "mono/components/dialog";
 import { Input } from "mono/components/input";
+import { Separator } from "mono/components/separator";
 import { Switch } from "mono/components/switch";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -67,6 +69,7 @@ const ScheduleItem = ({
     <div className="flex gap-2 items-start">
       <div className="flex items-center h-9">
         <Switch
+          className="shrink-0"
           checked={innerSchedule.enabled}
           onCheckedChange={(checked) => updateSchedule({ enabled: checked })}
         />
@@ -102,17 +105,22 @@ const ScheduleItem = ({
   );
 };
 
+const localDurations = ["00:15", "00:30"];
+
 export default function EditScheduleModal({
   children,
   uid,
   defaultSchedule,
+  defaultDurations = [],
 }: {
   defaultSchedule?: WeekSchedule;
+  defaultDurations?: string[];
   uid: string;
   children: React.ReactNode;
 }) {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const [open, setOpen] = useState<boolean>(false);
+  const [durations, setDurations] = useState<string[]>(defaultDurations);
   const [loading, setLoading] = useState<boolean>(false);
   const [monday, setMonday] = useState<DaySchedule[]>(
     (defaultSchedule?.monday as DaySchedule[]) ?? [],
@@ -252,6 +260,7 @@ export default function EditScheduleModal({
   const router = useRouter();
   const updateWeekSchedule = async () => {
     const weekSchedule: UpdateWeekSchedule = {
+      durations,
       monday,
       tuesday,
       wednesday,
@@ -264,6 +273,7 @@ export default function EditScheduleModal({
     try {
       const { data: updated } = await updateSchedule(uid, weekSchedule);
       if (updated) {
+        setDurations(updated.durations ?? []);
         setMonday(updated.monday as DaySchedule[]);
         setTuesday(updated.tuesday as DaySchedule[]);
         setWednesday(updated.wednesday as DaySchedule[]);
@@ -280,14 +290,47 @@ export default function EditScheduleModal({
       setLoading(false);
     }
   };
+  const handleDuration = (duration: string) => {
+    if (durations.includes(duration)) {
+      setDurations((prev) => prev.filter((item) => item !== duration));
+    } else {
+      setDurations((prev) => [...prev, duration]);
+    }
+  };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="rounded-3xl max-h-dvh !max-w-2xl w-full overflow-y-auto">
-        <DialogTitle>Редактировать расписание</DialogTitle>
-        <DialogDescription>
-          Здесь мы можете редактировать ваше расписание.
-        </DialogDescription>
+        <div className="*:block space-y-2">
+          <DialogTitle>Редактировать расписание</DialogTitle>
+          <DialogDescription>
+            Здесь мы можете редактировать ваше расписание.
+          </DialogDescription>
+        </div>
+        <Separator />
+        <span className="text-sm text-muted-foreground">
+          Выберите длительность созвонов
+        </span>
+        <ul className="flex items-start gap-2 flex-wrap">
+          {localDurations.map((duration) => {
+            const selected = durations.includes(duration);
+            return (
+              <li
+                key={duration}
+                onClick={() => handleDuration(duration)}
+                className="hover:cursor-pointer"
+              >
+                <Badge variant={selected ? "default" : "secondary"}>
+                  {duration}
+                </Badge>
+              </li>
+            );
+          })}
+        </ul>
+        <Separator />
+        <span className="text-sm text-muted-foreground">
+          Определите ваше расписание
+        </span>
         <ul className="gap-4 grid md:grid-cols-2 grid-cols-1 *:gap-4">
           <li className="flex items-start w-full">
             <span className="text-sm shrink-0">Пн:</span>
