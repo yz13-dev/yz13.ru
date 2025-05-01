@@ -1,17 +1,22 @@
 import { parse } from "date-fns";
 import {
+  ArrowLeftIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   PlusCircleIcon,
   SearchIcon,
 } from "lucide-react";
 import { Button } from "mono/components/button";
+import Link from "next/link";
+import NewEventForm from "../(root)/new-event";
 import ViewSelector from "./view-selector";
 
 export default function Header({
+  uid,
   date,
   defaultView = "month",
 }: {
+  uid?: string;
   date: string;
   defaultView?: string;
 }) {
@@ -21,6 +26,11 @@ export default function Header({
     <header className="flex sticky bg-background top-0 z-10 px-4 py-2 flex-row items-center md:justify-between md:space-y-0 lg:flex-none">
       <div className="flex flex-auto">
         <div className="flex items-center gap-2">
+          <Button variant="outline" size="icon" asChild>
+            <Link href="/">
+              <ArrowLeftIcon size={16} />
+            </Link>
+          </Button>
           <div className="size-11 flex items-center rounded-md border justify-center">
             <span className="text-2xl font-semibold">
               {day}
@@ -83,11 +93,12 @@ export default function Header({
             <ChevronRightIcon size={16} strokeWidth={2} aria-hidden="true" />
           </Button>
         </div>
-
-        <Button className="w-fit gap-2">
-          <PlusCircleIcon size={16} strokeWidth={2} aria-hidden="true" />
-          <span className="lg:inline hidden">Добавить</span>
-        </Button>
+        <NewEventForm uid={uid ?? null}>
+          <Button className="w-fit gap-2" disabled={!uid}>
+            <PlusCircleIcon size={16} strokeWidth={2} aria-hidden="true" />
+            <span className="lg:inline hidden">Добавить</span>
+          </Button>
+        </NewEventForm>
       </div>
     </header>
   );

@@ -19,12 +19,12 @@ export function SectionSkeleton() {
 
 export default async function Section({
   uid,
-  date,
+  date = format(new Date(), "yyyy-MM-dd"),
 }: {
   uid: string;
   date?: string;
 }) {
-  const { data } = await getUserEvents(uid, date);
+  const { data } = await getUserEvents(uid, { date });
   const events = data ?? [];
   return (
     <>
@@ -40,9 +40,11 @@ export default async function Section({
               <div className="w-full p-3 flex flex-row justify-between items-start rounded-xl hover:bg-background-secondary border transition-colors">
                 <div className="flex flex-col gap-1">
                   <span className="text-base font-medium">{summary}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {description}
-                  </span>
+                  {description && (
+                    <span className="text-sm text-muted-foreground">
+                      {description}
+                    </span>
+                  )}
                 </div>
                 <span className="text-base font-medium">{time}</span>
               </div>

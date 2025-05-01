@@ -13,9 +13,27 @@ export const createEvent = async (event: NewEvent) => {
   });
 };
 
-export const getUserEvents = async (uid: string, date?: string) => {
-  const url = date
-    ? `/calendar/user/${uid}?date=${date}`
+type GetEventsParams = {
+  date_start?: string;
+  date_end?: string;
+  date?: string;
+  limit?: number;
+};
+export const getUserEvents = async (
+  uid: string,
+  params: GetEventsParams = {},
+) => {
+  const keys = Object.keys(params ?? {});
+  const searchParams = keys
+    .map((key) => {
+      const param = params[key as keyof GetEventsParams];
+      if (!param) return "";
+      return `${key}=${param}`;
+    })
+    .join("&");
+
+  const url = searchParams
+    ? `/calendar/user/${uid}?${searchParams}`
     : `/calendar/user/${uid}`;
   return await customFetch<Event[]>(url);
 };

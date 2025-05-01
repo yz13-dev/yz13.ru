@@ -25,9 +25,9 @@ export default function oading() {
         <div className="space-y-6">
           <Skeleton className="w-32 h-[52px]" />
           <Separator />
-          <ScheduleSection />
+          <ScheduleSection uid={null} />
           <Separator />
-          <MeetingSection disabled />
+          <MeetingSection disabled uid={null} />
         </div>
         <div className="flex flex-col gap-2">
           <Skeleton className="w-full h-[60px]" />

@@ -74,3 +74,28 @@ schedule.post("/:uid", async (c) => {
     return c.json(null);
   }
 });
+
+schedule.patch("/:uid", async (c) => {
+  const uid = c.req.param("uid");
+  const user = await getUser(uid);
+  if (!user) return c.json(null);
+  const body = await getBody(c.req);
+  try {
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("calendar_schedule")
+      .update(body)
+      .eq("uid", uid)
+      .select()
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return c.json(null);
+    }
+    return c.json(data);
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+});

@@ -21,7 +21,7 @@ type PageProps = {
 };
 export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
-  const date = search.date ?? "";
+  const date = search.date;
   const user = await auth();
   return (
     <>
@@ -51,7 +51,7 @@ export default async function page({ searchParams }: PageProps) {
           <Separator />
           <ScheduleSection uid={user?.id ?? null} />
           <Separator />
-          <MeetingSection disabled />
+          <MeetingSection uid={user?.id ?? null} />
         </div>
         <div className="flex flex-col gap-2">
           <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />

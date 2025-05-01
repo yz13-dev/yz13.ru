@@ -116,6 +116,7 @@ export type Database = {
       };
       calendar_schedule: {
         Row: {
+          durations: string[] | null;
           friday: Json[] | null;
           monday: Json[] | null;
           saturday: Json[] | null;
@@ -126,6 +127,7 @@ export type Database = {
           wednesday: Json[] | null;
         };
         Insert: {
+          durations?: string[] | null;
           friday?: Json[] | null;
           monday?: Json[] | null;
           saturday?: Json[] | null;
@@ -136,6 +138,7 @@ export type Database = {
           wednesday?: Json[] | null;
         };
         Update: {
+          durations?: string[] | null;
           friday?: Json[] | null;
           monday?: Json[] | null;
           saturday?: Json[] | null;

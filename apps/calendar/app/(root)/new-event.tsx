@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "mono/components/popover";
+import { useRouter } from "next/navigation";
 import { ReactNode, useState } from "react";
 import { createEvent } from "rest-api/calendar";
 import { NewEvent } from "rest-api/types/calendar";
@@ -43,6 +44,7 @@ export default function NewEventForm({
   const [description, setDescription] = useState<string>("");
   const [summary, setSummary] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const clearForm = () => {
     setAllDay(false);
     setStartTime("00:00");
@@ -79,9 +81,9 @@ export default function NewEventForm({
         uid,
       };
       const createdEvent = await createEvent(event);
-      console.log(createdEvent);
       if (createdEvent) {
         clearForm();
+        router.refresh();
         setOpen(false);
       }
     } catch (error) {
@@ -206,7 +208,9 @@ export default function NewEventForm({
             </div>
           </div>
           <div className="flex justify-end gap-2">
-            <Button variant="ghost">Больше</Button>
+            <Button disabled variant="ghost">
+              Больше
+            </Button>
             <Button disabled={loading} onClick={handleNewEvent}>
               {loading && <Loader2Icon size={16} className="animate-spin" />}
               Создать

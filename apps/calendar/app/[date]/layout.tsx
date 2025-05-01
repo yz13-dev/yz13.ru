@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth";
 import { format, parse } from "date-fns";
 import { redirect } from "next/navigation";
 import Header from "./header";
@@ -25,6 +26,7 @@ export default async function layout({
   params,
   searchParams,
 }: LayoutProps) {
+  const user = await auth();
   const search = await searchParams;
   const { date: dateKey } = await params;
   const date = parse(dateKey, "yyyy-MM-dd", new Date());
@@ -35,7 +37,7 @@ export default async function layout({
   }
   return (
     <div className="w-full divide-y">
-      <Header date={dateKey} defaultView={view} />
+      <Header date={dateKey} defaultView={view} uid={user?.id} />
       <ViewWrapper
         defaultView={view}
         views={{
