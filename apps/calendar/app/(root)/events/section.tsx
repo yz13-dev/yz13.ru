@@ -24,7 +24,7 @@ export default async function Section({
   uid: string;
   date?: string;
 }) {
-  const { data } = await getUserEvents(uid, date);
+  const { data } = await getUserEvents(uid, { date });
   const events = data ?? [];
   return (
     <>
