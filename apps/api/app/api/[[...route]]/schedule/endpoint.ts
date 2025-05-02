@@ -151,6 +151,27 @@ const generateIntervalInRange = (start: Date, end: Date, duration: Date) => {
   return intervals;
 };
 
+const isBetween = (target: string, start: string, duration: string) => {
+  const parsedStart = parse(start, "HH:mm", new Date());
+  const parsedDuration = parse(duration, "HH:mm", new Date());
+  const parsedTarget = parse(target, "HH:mm", new Date());
+  const end = addMinutes(
+    parsedStart,
+    parsedDuration.getMinutes() + parsedDuration.getSeconds() / 60,
+  );
+  return isWithinInterval(parsedTarget, { start: parsedStart, end });
+};
+
+const getNextIterration = (time: string, duration: string) => {
+  const start = parse(time, "HH:mm", new Date());
+  const parsedDuration = parse(duration, "HH:mm", new Date());
+  const end = addMinutes(
+    start,
+    parsedDuration.getMinutes() + parsedDuration.getSeconds() / 60,
+  );
+  return format(end, "HH:mm");
+};
+
 const createObjFromDurations = (
   durations: string[],
   schedule: DaySchedule[],
@@ -171,7 +192,12 @@ const createObjFromDurations = (
     const flatIntervals = intervals.flat();
 
     const filteredIntervals = flatIntervals.filter((item) => {
-      return !busy.some((busyItem) => busyItem.time === item);
+      return !busy.some(
+        (busyItem) =>
+          busyItem.time === item ||
+          getNextIterration(busyItem.time, busyItem.duration) === item ||
+          isBetween(item, busyItem.time, busyItem.duration),
+      );
     });
 
     obj[formatted] = filteredIntervals;
