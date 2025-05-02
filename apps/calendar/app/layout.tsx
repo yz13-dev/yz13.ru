@@ -1,11 +1,12 @@
-import type { Metadata, Viewport } from "next";
-import "@/styles/globals.css";
-import localFont from "next/font/local";
-import { Inter, Pixelify_Sans } from "next/font/google";
-import { cn } from "yz13/cn";
 import LiveTimeProvider from "@/components/live/live-provider";
-import { isDev } from "yz13/env";
+import "@/styles/globals.css";
 import "dayjs/locale/ru";
+import type { Metadata, Viewport } from "next";
+import { Inter, Pixelify_Sans } from "next/font/google";
+import localFont from "next/font/local";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { cn } from "yz13/cn";
+import { isDev } from "yz13/env";
 
 const PIXEL = Pixelify_Sans({
   subsets: ["latin", "cyrillic"],
@@ -58,7 +59,9 @@ export default function RootLayout({
         </head>
       )}
       <body>
-        <LiveTimeProvider>{children}</LiveTimeProvider>
+        <NuqsAdapter>
+          <LiveTimeProvider>{children}</LiveTimeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

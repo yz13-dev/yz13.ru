@@ -3,6 +3,7 @@
 import { customFetch } from "@/const/fetch";
 import {
   NewWeekSchedule,
+  ScheduleAvailability,
   UpdateWeekSchedule,
   WeekSchedule,
 } from "@/types/calendar";
@@ -35,4 +36,11 @@ export const updateSchedule = async (
     },
     body: JSON.stringify(schedule),
   });
+};
+
+export const getUserAvailability = async (uid: string, date?: string) => {
+  const url = date
+    ? `/schedule/${uid}/available?date=${date}`
+    : `/schedule/${uid}/available`;
+  return await customFetch<ScheduleAvailability>(url);
 };

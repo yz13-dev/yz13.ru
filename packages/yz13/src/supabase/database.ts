@@ -9,12 +9,14 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      calendar_appointment: {
+      calendar_appointments: {
         Row: {
           created_at: string;
           date: string;
           duration: string;
-          id: number;
+          email: string;
+          id: string;
+          name: string | null;
           note: string | null;
           uid: string | null;
         };
@@ -22,7 +24,9 @@ export type Database = {
           created_at?: string;
           date: string;
           duration: string;
-          id?: number;
+          email: string;
+          id?: string;
+          name?: string | null;
           note?: string | null;
           uid?: string | null;
         };
@@ -30,7 +34,9 @@ export type Database = {
           created_at?: string;
           date?: string;
           duration?: string;
-          id?: number;
+          email?: string;
+          id?: string;
+          name?: string | null;
           note?: string | null;
           uid?: string | null;
         };

@@ -45,10 +45,10 @@
       "import": "./dist/rest/calendar/schedule.mjs",
       "require": "./dist/rest/calendar/schedule.js"
     },
-    "./calendar/appointment": {
-      "types": "./dist/rest/calendar/appointment.d.ts",
-      "import": "./dist/rest/calendar/appointment.mjs",
-      "require": "./dist/rest/calendar/appointment.js"
+    "./calendar/appointments": {
+      "types": "./dist/rest/calendar/appointments.d.ts",
+      "import": "./dist/rest/calendar/appointments.mjs",
+      "require": "./dist/rest/calendar/appointments.js"
     },
     "./pricing": {
       "types": "./dist/rest/pricing/pricing.d.ts",
