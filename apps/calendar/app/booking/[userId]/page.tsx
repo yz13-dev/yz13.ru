@@ -10,6 +10,7 @@ import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getUserAvailability } from "rest-api/calendar/schedule";
 import { getUserById } from "rest-api/user";
 import { cn } from "yz13/cn";
 import Form from "./form";
@@ -18,12 +19,18 @@ type PageProps = {
   params: Promise<{
     userId: string;
   }>;
+  searchParams: Promise<{
+    date?: string;
+  }>;
 };
-export default async function page({ params }: PageProps) {
+export default async function page({ params, searchParams }: PageProps) {
   const { userId } = await params;
+  const search = await searchParams;
   const { data: user } = await getUserById(userId);
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   if (!user) return notFound();
+  const date = search.date;
+  const { data: availability } = await getUserAvailability(userId, date);
   return (
     <>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">
@@ -117,7 +124,7 @@ export default async function page({ params }: PageProps) {
             </li>
           </ul>
         </div>
-        <Form />
+        <Form availability={availability ?? undefined} />
       </div>
       <footer className="max-w-2xl flex flex-row justify-center w-full mx-auto p-6 mt-12">
         <span className="text-base text-muted-foreground text-center">

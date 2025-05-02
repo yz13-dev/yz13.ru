@@ -5,11 +5,13 @@ import {
   isValid,
   isWithinInterval,
   parse,
+  parseISO,
 } from "date-fns";
 import { Hono, HonoRequest } from "hono";
 import { cookies } from "next/headers";
-import { DaySchedule } from "rest-api/types/calendar";
+import { Appointment, DaySchedule } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
+import { getUserAppointmentsForDate } from "../appointments/actions";
 import { getUser } from "../user";
 
 export const schedule = new Hono();
@@ -152,8 +154,9 @@ const generateIntervalInRange = (start: Date, end: Date, duration: Date) => {
 const createObjFromDurations = (
   durations: string[],
   schedule: DaySchedule[],
+  busy: { time: string; duration: string }[],
 ) => {
-  const obj: Record<string, string[][]> = {};
+  const obj: Record<string, string[]> = {};
   durations.forEach((duration) => {
     const parsed = parse(duration, "HH:mm:ss", new Date());
     const formatted = format(parsed, "HH:mm");
@@ -165,9 +168,28 @@ const createObjFromDurations = (
       else return generateIntervalInRange(start, end, parsed);
     });
 
-    obj[formatted] = intervals;
+    const flatIntervals = intervals.flat();
+
+    const filteredIntervals = flatIntervals.filter((item) => {
+      return !busy.some((busyItem) => busyItem.time === item);
+    });
+
+    obj[formatted] = filteredIntervals;
   });
   return obj;
+};
+
+const getTimeAndDurationFromAppointments = (appointments: Appointment[]) => {
+  const data: { time: string; duration: string }[] = [];
+  appointments.forEach((appointment) => {
+    const start = parseISO(appointment.date);
+    const duration = parse(appointment.duration, "HH:mm:ss", new Date());
+    data.push({
+      time: format(start, "HH:mm"),
+      duration: format(duration, "HH:mm"),
+    });
+  });
+  return data;
 };
 
 schedule.get("/:uid/available", async (c) => {
@@ -177,20 +199,31 @@ schedule.get("/:uid/available", async (c) => {
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
   try {
     if (!isValid(parsedDate)) throw new Error("Provided date is invalid");
+    const appointments = await getUserAppointmentsForDate(uid, defaultDate);
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
     if (!schedule) return c.json(null);
+    const busyTimes = getTimeAndDurationFromAppointments(appointments ?? []);
     const durations = schedule.durations;
     const weekdaySchedule = schedule[
       weekday as keyof typeof schedule
     ] as DaySchedule[];
-    const obj = createObjFromDurations(durations ?? [], weekdaySchedule);
+    const obj = createObjFromDurations(
+      durations ?? [],
+      weekdaySchedule,
+      busyTimes,
+    );
     return c.json({
       availability: obj,
       date: format(parsedDate, "yyyy-MM-dd"),
+      appointments,
     });
   } catch (error) {
     console.log(error);
-    return c.json(null);
+    return c.json({
+      availability: {},
+      date: format(parsedDate, "yyyy-MM-dd"),
+      appointments: [],
+    });
   }
 });
