@@ -10,7 +10,10 @@ appointments.get("/:uid", async (c) => {
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
   try {
-    const appointments = await getUserAppointmentsForDate(uid, defaultDate);
+    const appointments = await getUserAppointmentsForDate(
+      uid,
+      format(parsedDate, "yyyy-MM-dd"),
+    );
     return c.json(appointments);
   } catch (error) {
     console.log(error);

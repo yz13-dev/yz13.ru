@@ -2,6 +2,7 @@
 
 import { Button } from "mono/components/button";
 import { useState } from "react";
+import { isDev } from "yz13/env";
 
 export default function LinkButton({
   uid,
@@ -14,7 +15,8 @@ export default function LinkButton({
   const [copied, setCopied] = useState<boolean>(false);
   const buttonDisabled = disabled || loading || copied || !uid;
   const handleCopy = () => {
-    const link = `https://calendar.yz13.ru/booking/${uid}`;
+    const domain = isDev ? "localhost:3001" : "calendar.yz13.ru";
+    const link = `https://${domain}/booking/${uid}`;
     setLoading(true);
     try {
       navigator.clipboard.writeText(link).then(() => setCopied(true));

@@ -16,10 +16,11 @@ export default function DaysRow({ className = "", defaultDate }: DaysRowProps) {
   const DAYS = getDaysInMonth(new Date());
   const DAYS_AS_ARRAY = Array.from({ length: DAYS }, (_, i) => {
     const middle = DAYS / 2;
-    return i - middle;
+    return Math.round(i - middle);
   });
   const createDates = (days: number[]) => {
-    return DAYS_AS_ARRAY.map((day) => addDays(today, day));
+    const generated = DAYS_AS_ARRAY.map((day) => addDays(today, day));
+    return generated;
   };
   const days = createDates(DAYS_AS_ARRAY);
   const handleScroll = () => {

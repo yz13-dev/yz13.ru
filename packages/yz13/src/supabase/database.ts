@@ -15,7 +15,8 @@ export type Database = {
           date: string;
           duration: string;
           email: string;
-          id: number;
+          id: string;
+          name: string | null;
           note: string | null;
           uid: string | null;
         };
@@ -24,7 +25,8 @@ export type Database = {
           date: string;
           duration: string;
           email: string;
-          id?: number;
+          id?: string;
+          name?: string | null;
           note?: string | null;
           uid?: string | null;
         };
@@ -33,7 +35,8 @@ export type Database = {
           date?: string;
           duration?: string;
           email?: string;
-          id?: number;
+          id?: string;
+          name?: string | null;
           note?: string | null;
           uid?: string | null;
         };
