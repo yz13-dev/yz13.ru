@@ -2,7 +2,7 @@ import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
 import { differenceInDays, format, parse } from "date-fns";
-import { PlusIcon, SearchIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { Suspense } from "react";
@@ -42,17 +42,13 @@ export default async function page({ searchParams }: PageProps) {
               <PlusIcon size={16} />
             </Button>
           </NewEventForm>
-          <Button size="icon" variant="outline">
-            <SearchIcon size={16} />
-          </Button>
-          {/* <User /> */}
           <Suspense fallback={<UserSkeleton />}>
             <User />
           </Suspense>
         </div>
       </header>
-      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6 md:*:w-1/2 *:w-full min-h-dvh">
-        <div className="space-y-6">
+      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6  min-h-dvh">
+        <div className="space-y-6 md:w-1/3 w-full">
           <DayInfo defaultDate={date} />
           <Separator />
           <ScheduleSection uid={user?.id ?? null} />
@@ -61,7 +57,7 @@ export default async function page({ searchParams }: PageProps) {
             <MeetingSection uid={user?.id ?? null} date={date} />
           </Suspense>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 md:w-2/3 w-full">
           <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />
           <DayTimeline
             dateRange={[diffInDay]}
@@ -78,13 +74,13 @@ export default async function page({ searchParams }: PageProps) {
           )} */}
         </div>
       </div>
-      {/* <Footer /> */}
-      <div className="w-full h-[84px]" />
+      <Footer />
+      {/* <div className="w-full h-[84px]" />
       <footer className="fixed backdrop-blur-sm bg-background/60 flex items-center max-w-dvw w-fit gap-1.5 bottom-0 left-0 right-0 mx-auto p-3 rounded-t-3xl">
         <Button>Обзор</Button>
         <Button variant="ghost">Поиск</Button>
         <Button variant="ghost">Календарь</Button>
-      </footer>
+      </footer> */}
     </>
   );
 }
