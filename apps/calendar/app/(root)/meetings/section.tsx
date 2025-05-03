@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { addMinutes, format, parse, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Separator } from "mono/components/separator";
+import { Skeleton } from "mono/components/skeleton";
 import { getAppointments } from "rest-api/calendar/appointments";
 import { getSchedule } from "rest-api/calendar/schedule";
 import LinkButton from "./link-button";
@@ -27,16 +28,34 @@ const Empty = () => {
   );
 };
 
+export const SectionSkeleton = () => {
+  return (
+    <div className="space-y-6">
+      <div className="space-y-0">
+        <div className="flex w-full gap-4 items-center justify-between">
+          <span className="text-lg font-medium block">Созвоны</span>
+          <Skeleton className="w-16 h-9 rounded-full" />
+        </div>
+        <span className="text-sm text-muted-foreground">
+          Созвоны запланированные вами или другими пользователи.
+        </span>
+      </div>
+    </div>
+  );
+};
+
 export default async function Section({
   disabled = false,
   uid,
+  date,
 }: {
   uid: string | null;
+  date?: string;
   disabled?: boolean;
 }) {
   if (!uid) return <Empty />;
   const { data: schedule } = await getSchedule(uid);
-  const { data: appointments } = await getAppointments(uid);
+  const { data: appointments } = await getAppointments(uid, date);
   const hasSchedule = !!schedule;
   const hasMeetings = !!appointments;
   const user = await auth();

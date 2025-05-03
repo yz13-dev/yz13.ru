@@ -1,34 +1,83 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
-import { format, parse } from "date-fns";
+import { format, formatISO, parse } from "date-fns";
 import { ru } from "date-fns/locale";
+import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Calendar } from "mono/components/calendar";
 import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
+import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
-import { ScheduleAvailability } from "rest-api/types/calendar";
+import { createAppointment } from "rest-api/calendar/appointments";
+import { NewAppointment, ScheduleAvailability } from "rest-api/types/calendar";
 
 export default function form({
+  uid,
   className = "",
   availability,
 }: {
+  uid: string;
   className?: string;
   availability?: ScheduleAvailability;
 }) {
+  const [email, setEmail] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [note, setNote] = useState<string>("");
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const [date, setDate] = useQueryState("date", { shallow: false });
   const [time, setTime] = useQueryState("time");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
   const durations = Object.keys(availability?.availability ?? {});
   const [duration, setDuration] = useState<string | null>(durations[0] ?? null);
+  const validateEmail = (email: string): boolean => {
+    // Простое регулярное выражение для проверки email
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
   const handleSelect = (date?: Date) => {
     if (!date) return;
     setDate(format(date, "yyyy-MM-dd"));
   };
-  const disabled = duration === null || time === null;
+  const isValidEmail = validateEmail(email);
+  const [loading, setLoading] = useState<boolean>(false);
+  const disabled =
+    loading ||
+    duration === null ||
+    time === null ||
+    !isValidEmail ||
+    name === "";
+  const router = useRouter();
+  const handleCreateAppointment = async () => {
+    if (!date) return;
+    if (!time) return;
+    if (!duration) return;
+    setLoading(true);
+    try {
+      const appointmentDate = parse(date, "yyyy-MM-dd", new Date());
+      const appointmentTime = parse(time, "HH:mm", new Date());
+      appointmentDate.setHours(appointmentTime.getHours());
+      appointmentDate.setMinutes(appointmentTime.getMinutes());
+      const appointment: NewAppointment = {
+        date: formatISO(appointmentDate),
+        duration,
+        name,
+        email,
+        note,
+      };
+      const { data: created } = await createAppointment(uid, appointment);
+      if (created) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="w-full divide-y">
@@ -45,22 +94,39 @@ export default function form({
             <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <span className="text-sm text-muted-foreground">Имя *</span>
-                <Input />
+                <Input
+                  className="!bg-transparent"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-sm text-muted-foreground">Почта *</span>
-                <Input />
+                <Input
+                  type="email"
+                  className="!bg-transparent"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-sm text-muted-foreground">
                   Заметка к созвону
                 </span>
-                <AutoTextarea className="border rounded-3xl px-3 py-2 min-h-16" />
+                <AutoTextarea
+                  className="!bg-transparent border rounded-3xl px-3 py-2 min-h-16"
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                />
               </div>
             </div>
           </div>
           <div className="md:w-1/3 max-h-[60dvh] overflow-auto w-full flex md:flex-col flex-row md:*:w-full *:w-fit">
-            <Tabs value={duration ?? undefined} onValueChange={setDuration}>
+            <Tabs
+              value={duration ?? undefined}
+              onValueChange={setDuration}
+              className="w-full"
+            >
               <div className="w-full p-6 bg-background-secondary sticky top-0 z-10">
                 <TabsList className="w-full">
                   {durations
@@ -108,7 +174,10 @@ export default function form({
           </div>
         </div>
         <div className="w-full flex justify-end px-6 py-3">
-          <Button disabled={disabled}>Подтвердить</Button>
+          <Button onClick={handleCreateAppointment} disabled={disabled}>
+            {loading && <Loader2Icon size={16} className="animate-spin" />}
+            {loading ? "Подтверждение..." : "Подтвердить"}
+          </Button>
         </div>
       </div>
     </>

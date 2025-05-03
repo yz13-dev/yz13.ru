@@ -1,6 +1,7 @@
 "use client";
 import { addDays, format, getDaysInMonth, parse } from "date-fns";
 import { ru } from "date-fns/locale";
+import { useQueryState } from "nuqs";
 import { useEffect } from "react";
 import { cn } from "yz13/cn";
 
@@ -12,7 +13,14 @@ const parseDate = (date: string) => {
   return parse(date, "yyyy-MM-dd", new Date(), { locale: ru });
 };
 export default function DaysRow({ className = "", defaultDate }: DaysRowProps) {
-  const today = defaultDate ? parseDate(defaultDate) : new Date();
+  const [date, setDate] = useQueryState("date", {
+    shallow: false,
+  });
+  const today = date
+    ? parseDate(date ?? "")
+    : defaultDate
+      ? parseDate(defaultDate)
+      : new Date();
   const DAYS = getDaysInMonth(new Date());
   const DAYS_AS_ARRAY = Array.from({ length: DAYS }, (_, i) => {
     const middle = DAYS / 2;
@@ -58,9 +66,12 @@ export default function DaysRow({ className = "", defaultDate }: DaysRowProps) {
             id={key}
             key={key}
             data-active={isToday}
+            onClick={() => setDate(key)}
             className={cn(
-              "w-12 h-full group py-2 gap-0.5 px-3 flex flex-col justify-center items-center shrink-0 rounded-lg border",
-              isToday && "bg-foreground border-foreground",
+              "w-12 h-full group py-2 gap-0.5 px-3 flex flex-col justify-center items-center shrink-0 rounded-lg border cursor-pointer",
+              isToday
+                ? "bg-foreground border-foreground"
+                : "hover:bg-secondary/40",
             )}
           >
             <span className="text-base font-medium group-data-[active=true]:text-background text-foreground">

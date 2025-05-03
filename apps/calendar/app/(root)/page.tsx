@@ -8,9 +8,13 @@ import { Separator } from "mono/components/separator";
 import { Suspense } from "react";
 import DayInfo from "./day-info";
 import DaysRow from "./days-row";
-import EventSection, { SectionSkeleton } from "./events/section";
+import EventSection, {
+  SectionSkeleton as EventSectionSkeleton,
+} from "./events/section";
 import HeaderTime from "./header-time";
-import MeetingSection from "./meetings/section";
+import MeetingSection, {
+  SectionSkeleton as MeetingSectionSkeleton,
+} from "./meetings/section";
 import NewEventForm from "./new-event";
 import ScheduleSection from "./schedule/section";
 
@@ -51,11 +55,13 @@ export default async function page({ searchParams }: PageProps) {
           <Separator />
           <ScheduleSection uid={user?.id ?? null} />
           <Separator />
-          <MeetingSection uid={user?.id ?? null} />
+          <Suspense fallback={<MeetingSectionSkeleton />}>
+            <MeetingSection uid={user?.id ?? null} date={date} />
+          </Suspense>
         </div>
         <div className="flex flex-col gap-2">
           <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />
-          <Suspense fallback={<SectionSkeleton />}>
+          <Suspense fallback={<EventSectionSkeleton />}>
             {user && <EventSection uid={user?.id ?? null} date={date} />}
           </Suspense>
         </div>

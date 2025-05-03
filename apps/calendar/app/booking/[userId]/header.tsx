@@ -16,7 +16,6 @@ export default function Header({ user }: { user: UserObject }) {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
     <div className="w-full gap-5 flex flex-col p-6">
-      <span className="text-xl font-medium">Название</span>
       <div className="flex flex-row items-center gap-2">
         <Avatar>
           <AvatarImage src={user.avatar_url ?? ""} />
