@@ -48,7 +48,7 @@ export default async function page({ params, searchParams }: PageProps) {
         )}
       >
         <Header user={user} />
-        <Form availability={availability ?? undefined} />
+        <Form uid={userId} availability={availability ?? undefined} />
       </div>
       <footer className="max-w-2xl flex flex-row justify-center w-full mx-auto p-6 mt-12">
         <span className="text-base text-muted-foreground text-center">

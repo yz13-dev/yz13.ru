@@ -1,7 +1,6 @@
 "use client";
 import useTimeStore from "@/components/live/time.store";
-import dayjs from "dayjs";
-import "dayjs/locale/ru";
+import { addDays, format, formatISO, isSameDay, parseISO } from "date-fns";
 import { Separator } from "mono/components/separator";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "yz13/cn";
@@ -67,26 +66,11 @@ const Day = ({
   showTimeline = true,
   showLabel = true,
 }: DayTimelineProps) => {
-  const today = dayjs().locale("ru");
-  const day = dayjs(date).locale("ru");
-  const isToday =
-    today.isSame(day, "D") && today.isSame(day, "M") && today.isSame(day, "y");
-  const todayFormatted = day.format("DD MMMM");
+  const today = new Date();
+  const day = parseISO(date);
+  const isToday = isSameDay(today, day);
+  const todayFormatted = format(today, "dd MMMM");
   const rangeLength = range.length;
-  const [enableEventRange, setEnableEventRange] = useState<boolean>(false);
-  const [timeRange, setTimeRange] = useState<number[]>([]);
-  const isInRange = (item: number) => timeRange.includes(item);
-  const handleRange = (item: number) => {
-    const isIn = isInRange(item);
-    if (isIn) {
-      setTimeRange(timeRange.filter((time) => time !== item));
-    } else {
-      setTimeRange([...timeRange, item]);
-    }
-  };
-  const getSortedRange = () => timeRange.sort((a, b) => a - b);
-  const isLast = (item: number) => getSortedRange().at(-1) === item;
-  const isFirst = (item: number) => getSortedRange()[0] === item;
   return (
     <div>
       {showLabel && (
@@ -102,7 +86,7 @@ const Day = ({
         className="w-full relative *:w-full"
       >
         <div className="absolute w-full top-0 left-0">
-          {showTimeline && (
+          {isToday && showTimeline && (
             <Timeline className="w-[calc(100%-32px-8px)] right-0" />
           )}
           <div>
@@ -132,9 +116,9 @@ const DayTimeline = ({
   timeRange = [9, 16],
   dateRange = [0, 1],
   className = "",
-  timeline = { date: dayjs().format() },
+  timeline = { date: formatISO(new Date()) },
 }: CalendarProps) => {
-  const today = dayjs().locale("ru");
+  const today = new Date();
   const calculateRange = (range: TimeRange) => {
     const length = range[1] - range[0];
     const result: number[] = [];
@@ -152,13 +136,13 @@ const DayTimeline = ({
       className={cn("w-full h-fit grid gap-4 relative *:space-y-4", className)}
     >
       {dateRange.map((date, index) => {
-        const day = today.add(date, "days");
+        const day = addDays(today, date);
         return (
           <Day
             {...timeline}
             key={"today/" + index}
             range={range}
-            date={day.format()}
+            date={formatISO(day)}
           />
         );
       })}
