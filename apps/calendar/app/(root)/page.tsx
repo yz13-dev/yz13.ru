@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
