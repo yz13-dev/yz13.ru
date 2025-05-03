@@ -1,16 +1,14 @@
-import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
+import { differenceInDays, format, parse } from "date-fns";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { Suspense } from "react";
+import DayTimeline from "../[date]/day-timeline";
 import DayInfo from "./day-info";
 import DaysRow from "./days-row";
-import EventSection, {
-  SectionSkeleton as EventSectionSkeleton,
-} from "./events/section";
 import HeaderTime from "./header-time";
 import MeetingSection, {
   SectionSkeleton as MeetingSectionSkeleton,
@@ -27,6 +25,10 @@ export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const date = search.date;
   const user = await auth();
+  const defaultDate = format(new Date(), "yyyy-MM-dd");
+  const today = new Date();
+  const targetDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
+  const diffInDay = differenceInDays(targetDate, today);
   return (
     <>
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
@@ -59,14 +61,30 @@ export default async function page({ searchParams }: PageProps) {
             <MeetingSection uid={user?.id ?? null} date={date} />
           </Suspense>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-6">
           <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />
-          <Suspense fallback={<EventSectionSkeleton />}>
-            {user && <EventSection uid={user?.id ?? null} date={date} />}
-          </Suspense>
+          <DayTimeline
+            dateRange={[diffInDay]}
+            timeRange={[0, 24]}
+            className="w-full"
+            timeline={{
+              showLabel: false,
+            }}
+          />
+          {/* {false && (
+            <Suspense fallback={<EventSectionSkeleton />}>
+              {user && <EventSection uid={user?.id ?? null} date={date} />}
+            </Suspense>
+          )} */}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
+      <div className="w-full h-[84px]" />
+      <footer className="fixed backdrop-blur-sm bg-background/60 flex items-center max-w-dvw w-fit gap-1.5 bottom-0 left-0 right-0 mx-auto p-3 rounded-t-3xl">
+        <Button>Обзор</Button>
+        <Button variant="ghost">Поиск</Button>
+        <Button variant="ghost">Календарь</Button>
+      </footer>
     </>
   );
 }
