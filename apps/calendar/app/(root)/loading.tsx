@@ -21,15 +21,15 @@ export default function oading() {
           <UserSkeleton />
         </div>
       </header>
-      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6 md:*:w-1/2 *:w-full min-h-dvh">
-        <div className="space-y-6">
+      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6  min-h-dvh">
+        <div className="space-y-6 md:w-1/3 w-full">
           <Skeleton className="w-32 h-[52px]" />
           <Separator />
           <ScheduleSection uid={null} />
           <Separator />
           <MeetingSectionSkeleton />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 md:w-2/3 w-full">
           <Skeleton className="w-full h-[60px]" />
           <EventSectionSkeleton />
         </div>

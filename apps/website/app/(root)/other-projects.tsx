@@ -1,5 +1,5 @@
 import { cdn } from "@/lib/cdn";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, ExternalLinkIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -68,6 +68,7 @@ export default async function OtherProjects({
     <>
       {(publications ?? []).map((publication) => {
         const stage = publication.stage;
+        const publicLink = publication.public_url;
         return (
           <li key={publication.id} className="relative w-full">
             {false && (
@@ -77,8 +78,8 @@ export default async function OtherProjects({
               />
             )}
             <div className="flex items-start gap-4 justify-between">
-              <div className="flex w-full items-center gap-4">
-                <div className="size-16 shrink-0 flex items-center justify-center rounded-[25%] border bg-secondary relative overflow-hidden">
+              <div className="flex w-full items-start gap-4">
+                <div className="size-16 shrink-0 flex mt-2 items-center justify-center rounded-[25%] border bg-secondary relative overflow-hidden">
                   {publication.icon.type === "themed" && (
                     <>
                       <Image
@@ -110,6 +111,15 @@ export default async function OtherProjects({
                     </span>
                     {stage && <Badge variant="secondary">{stage}</Badge>}
                   </div>
+                  {publicLink && (
+                    <Link
+                      href={publicLink}
+                      target="_blank"
+                      className="text-xs hover:underline mb-0.5 text-muted-foreground inline-flex items-center gap-1"
+                    >
+                      {publicLink} <ExternalLinkIcon size={12} />
+                    </Link>
+                  )}
                   {publication.description && (
                     <span className="text-sm text-muted-foreground line-clamp-2">
                       {publication.description}

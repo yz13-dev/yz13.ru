@@ -1,3 +1,4 @@
+import { expire, redis } from "@/extensions/redis";
 import {
   addMinutes,
   format,
@@ -32,8 +33,12 @@ const getSchedule = async (uid: string) => {
 
 schedule.get("/:uid", async (c) => {
   const uid = c.req.param("uid");
+  const key = `schedule:${uid}`;
   try {
+    const cached = await redis.get<Appointment[]>(key);
+    if (cached) return c.json(cached);
     const schedule = await getSchedule(uid);
+    if (schedule) await redis.set(key, schedule, { ex: expire.day });
     return c.json(schedule);
   } catch (error) {
     console.log(error);
@@ -95,6 +100,7 @@ schedule.patch("/:uid", async (c) => {
   const user = await getUser(uid);
   if (!user) return c.json(null);
   const body = await getBody(c.req);
+  const key = `schedule:${uid}`;
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
@@ -107,8 +113,10 @@ schedule.patch("/:uid", async (c) => {
     if (error) {
       console.log(error);
       return c.json(null);
+    } else {
+      if (data) await redis.set(key, data, { ex: expire.day });
+      return c.json(data);
     }
-    return c.json(data);
   } catch (error) {
     console.log(error);
     return c.json(null);
