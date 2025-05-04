@@ -7,9 +7,9 @@ import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { Suspense } from "react";
-import DayTimeline from "../[date]/day-timeline";
 import DayInfo from "./day-info";
 import DaysRow from "./days-row";
+import EventSection from "./events/section";
 import MeetingSection, {
   SectionSkeleton as MeetingSectionSkeleton,
 } from "./meetings/section";
@@ -58,19 +58,7 @@ export default async function page({ searchParams }: PageProps) {
         </div>
         <div className="flex flex-col gap-6 md:w-2/3 w-full">
           <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />
-          <DayTimeline
-            dateRange={[diffInDay]}
-            timeRange={[0, 24]}
-            className="w-full"
-            timeline={{
-              showLabel: false,
-            }}
-          />
-          {/* {false && (
-            <Suspense fallback={<EventSectionSkeleton />}>
-              {user && <EventSection uid={user?.id ?? null} date={date} />}
-            </Suspense>
-          )} */}
+          <EventSection uid={user?.id ?? undefined} date={date} />
         </div>
       </div>
       <Footer />

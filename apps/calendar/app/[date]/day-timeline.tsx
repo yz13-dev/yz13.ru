@@ -1,13 +1,22 @@
 "use client";
 import useTimeStore from "@/components/live/time.store";
-import { addDays, format, formatISO, isSameDay, parseISO } from "date-fns";
+import {
+  addDays,
+  format,
+  formatISO,
+  isSameDay,
+  parse,
+  parseISO,
+} from "date-fns";
 import { Separator } from "mono/components/separator";
 import { useEffect, useMemo, useState } from "react";
+import { Event } from "rest-api/types/calendar";
 import { cn } from "yz13/cn";
 
 type TimeRange = [number, number];
 
 type CalendarProps = {
+  events?: Event[];
   timeRange?: TimeRange;
   dateRange?: number[];
   className?: string;
@@ -116,6 +125,7 @@ const DayTimeline = ({
   timeRange = [9, 16],
   dateRange = [0, 1],
   className = "",
+  events = [],
   timeline = { date: formatISO(new Date()) },
 }: CalendarProps) => {
   const today = new Date();
@@ -135,6 +145,41 @@ const DayTimeline = ({
       }}
       className={cn("w-full h-fit grid gap-4 relative *:space-y-4", className)}
     >
+      {events.map((event) => {
+        const start = parseISO(event.date_start, {});
+        const end = event.date_end ? parseISO(event.date_end) : null;
+        const duration = event.duration
+          ? parse(event.duration, "HH:mm:ss", new Date())
+          : null;
+        const hourHeight = 48;
+        const eventStart =
+          start.getHours() * hourHeight +
+          (start.getMinutes() / 60) * hourHeight;
+        const eventEnd =
+          (duration
+            ? duration.getHours() * hourHeight +
+              (duration.getMinutes() / 60) * hourHeight
+            : 0) + 1;
+        const eventRange = event.all_day
+          ? `${format(start, "HH:mm")} - Весь день`
+          : end
+            ? `${format(start, "HH:mm")} - ${format(end, "HH:mm")}`
+            : format(start, "HH:mm");
+        return (
+          <div
+            style={{
+              top: `${eventStart}px`,
+              height: `${eventEnd}px`,
+            }}
+            key={event.id}
+            className="absolute border left-10 bg-background z-10 w-[calc(100%-48px)] p-2"
+          >
+            <span className="text-sm text-muted-foreground">
+              {event.summary} ({eventRange})
+            </span>
+          </div>
+        );
+      })}
       {dateRange.map((date, index) => {
         const day = addDays(today, date);
         return (
