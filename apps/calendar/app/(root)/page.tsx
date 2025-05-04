@@ -10,7 +10,6 @@ import { Suspense } from "react";
 import DayTimeline from "../[date]/day-timeline";
 import DayInfo from "./day-info";
 import DaysRow from "./days-row";
-import HeaderTime from "./header-time";
 import MeetingSection, {
   SectionSkeleton as MeetingSectionSkeleton,
 } from "./meetings/section";
@@ -35,7 +34,6 @@ export default async function page({ searchParams }: PageProps) {
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo size={{ width: 48, height: 48 }} type="only-icon" />
-          <HeaderTime />
         </div>
         <div className="flex items-center gap-2">
           <NewEventForm uid={user?.id ?? null}>

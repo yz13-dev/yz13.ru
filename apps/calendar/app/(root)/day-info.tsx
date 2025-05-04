@@ -4,6 +4,7 @@ import { format, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
+import HeaderTime from "./header-time";
 
 type DayInfoProps = {
   defaultDate?: string;
@@ -17,16 +18,19 @@ export default function DayInfo({ defaultDate }: DayInfoProps) {
   const label = format(today, "dd MMMM, yyyy", { locale: ru });
   const weekday = format(today, "EEEEEEE", { locale: ru });
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center gap-2">
-        <Link href={`/${date}`} className="text-lg font-medium capitalize">
-          {label}
-        </Link>
-        <ArrowRightIcon size={16} />
+    <div className="flex items-center gap-2 justify-between">
+      <HeaderTime />
+      <div className="flex flex-col">
+        <div className="flex items-center gap-2">
+          <Link href={`/${date}`} className="text-lg font-medium capitalize">
+            {label}
+          </Link>
+          <ArrowRightIcon size={16} />
+        </div>
+        <span className="text-base text-muted-foreground capitalize">
+          {weekday}
+        </span>
       </div>
-      <span className="text-base text-muted-foreground capitalize">
-        {weekday}
-      </span>
     </div>
   );
 }

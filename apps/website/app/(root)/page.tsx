@@ -3,15 +3,22 @@ import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
 import { availableForWork, showCallToAction } from "@/const/flags";
 import packageJson from "@/package.json";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import CallToAction, { CallToActionSkeleton } from "./call-to-action";
 import OtherProjects, { OtherProjectsSkeleton } from "./other-projects";
+import Schedule, { SectionSkeleton } from "./schedule";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
 
 export default async function page() {
+  const today = new Date();
+  const formattedToday = format(today, "EEEE, d MMMM yyyy", {
+    locale: ru,
+  });
   return (
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
@@ -59,6 +66,18 @@ export default async function page() {
               Фронтенд разработчик, специализируюсь на разработке сайтов,
               веб-приложений.
             </p>
+          </div>
+          <Separator />
+          <div className="w-full space-y-6">
+            <div className="space-y-1 *:block">
+              <span className="text-base block font-medium">График</span>
+              <span className="text-sm block text-muted-foreground">
+                Время когда я буду доступен для созвонов и сообщений
+              </span>
+            </div>
+            <Suspense fallback={<SectionSkeleton />}>
+              <Schedule />
+            </Suspense>
           </div>
           <Separator />
           <div className="w-full space-y-4">

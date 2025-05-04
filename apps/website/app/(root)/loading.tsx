@@ -5,6 +5,7 @@ import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { CallToActionSkeleton } from "./call-to-action";
 import { OtherProjectsSkeleton } from "./other-projects";
+import { SectionSkeleton } from "./schedule";
 import Stack from "./stack";
 
 export default function loading() {
@@ -40,6 +41,11 @@ export default function loading() {
               Фронтенд разработчик, специализируюсь на разработке сайтов,
               веб-приложений.
             </p>
+          </div>
+          <Separator />
+          <div className="w-full space-y-4">
+            <span className="text-base block font-medium">График</span>
+            <SectionSkeleton />
           </div>
           <Separator />
           <div className="w-full space-y-4">
