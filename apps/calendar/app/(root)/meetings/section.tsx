@@ -57,7 +57,7 @@ export default async function Section({
   const { data: schedule } = await getSchedule(uid);
   const { data: appointments } = await getAppointments(uid, date);
   const hasSchedule = !!schedule;
-  const hasMeetings = !!appointments;
+  const hasMeetings = !!appointments?.length;
   const user = await auth();
   return (
     <div className="space-y-6">

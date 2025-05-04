@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import CallToAction, { CallToActionSkeleton } from "./call-to-action";
 import OtherProjects, { OtherProjectsSkeleton } from "./other-projects";
 import Schedule, { SectionSkeleton } from "./schedule";
+import ScreenshotsGallery, { GallerySkeleton } from "./screenshots-gallery";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
 
@@ -59,6 +60,20 @@ export default async function page() {
         <div className="lg:w-2/3 w-full space-y-8">
           <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
             <Availability />
+          </Suspense>
+          <Suspense fallback={<GallerySkeleton className="h-80 w-full" />}>
+            <ScreenshotsGallery
+              images={[
+                {
+                  dark: "/screenshots/yz13-mobile-dark.png",
+                  light: "/screenshots/yz13-mobile-light.png",
+                },
+                {
+                  dark: "/screenshots/yz13-dark.png",
+                  light: "/screenshots/yz13-light.png",
+                },
+              ]}
+            />
           </Suspense>
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>

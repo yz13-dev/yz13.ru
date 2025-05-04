@@ -6,6 +6,7 @@ import { Skeleton } from "mono/components/skeleton";
 import { CallToActionSkeleton } from "./call-to-action";
 import { OtherProjectsSkeleton } from "./other-projects";
 import { SectionSkeleton } from "./schedule";
+import { GallerySkeleton } from "./screenshots-gallery";
 import Stack from "./stack";
 
 export default function loading() {
@@ -35,6 +36,7 @@ export default function loading() {
       <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6 space-y-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <Skeleton className="h-4 w-full rounded-md" />
+          <GallerySkeleton className="h-80 w-full" />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
             <p className="text-base text-muted-foreground block">
@@ -43,8 +45,13 @@ export default function loading() {
             </p>
           </div>
           <Separator />
-          <div className="w-full space-y-4">
-            <span className="text-base block font-medium">График</span>
+          <div className="w-full space-y-6">
+            <div className="space-y-1 *:block">
+              <span className="text-base block font-medium">График</span>
+              <span className="text-sm block text-muted-foreground">
+                Время когда я буду доступен для созвонов и сообщений
+              </span>
+            </div>
             <SectionSkeleton />
           </div>
           <Separator />

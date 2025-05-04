@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "mono/components/button";
+import { CheckIcon, CopyIcon } from "lucide-react";
 import { useState } from "react";
 import { isDev } from "yz13/env";
 
@@ -28,8 +28,12 @@ export default function LinkButton({
     }
   };
   return (
-    <Button variant="secondary" disabled={buttonDisabled} onClick={handleCopy}>
-      {copied ? "Скопировано" : "Скопировать ссылку"}
-    </Button>
+    <button
+      disabled={buttonDisabled}
+      onClick={handleCopy}
+      className="placeholder:opacity-50 text-muted-foreground hover:text-foreground"
+    >
+      {copied ? <CheckIcon size={16} /> : <CopyIcon size={16} />}
+    </button>
   );
 }
