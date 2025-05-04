@@ -43,7 +43,7 @@ export default function ({ className = "", images = [] }: Props) {
     if (prevIndex < 0) return images.length - 1;
     else return prevIndex;
   };
-  const handleScroll = () => {
+  const handleScroll = (index: number) => {
     const images = imagesElements;
     if (!images.length) return;
     const targetImage = images[index];
@@ -97,8 +97,9 @@ export default function ({ className = "", images = [] }: Props) {
           variant="secondary"
           size="icon"
           onClick={() => {
-            setIndex(getPrevIndex());
-            handleScroll();
+            const newIndex = getPrevIndex();
+            setIndex(newIndex);
+            handleScroll(newIndex);
           }}
         >
           <ArrowLeftIcon size={16} />
@@ -110,8 +111,9 @@ export default function ({ className = "", images = [] }: Props) {
           variant="secondary"
           size="icon"
           onClick={() => {
-            setIndex(getNextIndex());
-            handleScroll();
+            const newIndex = getNextIndex();
+            setIndex(newIndex);
+            handleScroll(newIndex);
           }}
         >
           <ArrowRightIcon size={16} />
@@ -121,7 +123,7 @@ export default function ({ className = "", images = [] }: Props) {
         ref={ref}
         id="screenshots-gallery"
         className={cn(
-          "*:max-h-80 flex items-center gap-4 overflow-x-auto",
+          "h-fit flex items-center gap-4 overflow-x-auto",
           className,
         )}
       >
@@ -134,7 +136,7 @@ export default function ({ className = "", images = [] }: Props) {
             <div
               key={joinedKey}
               className={cn(
-                "relative *:max-h-80 shrink-0 overflow-hidden rounded-xl border-2",
+                "relative shrink-0 *:min-h-80 *:max-h-80 overflow-hidden rounded-xl border-2",
                 needShowScroll &&
                   highlighted &&
                   selected &&
