@@ -19,7 +19,9 @@ export default function DayInfo({ defaultDate }: DayInfoProps) {
   const weekday = format(today, "EEEEEEE", { locale: ru });
   return (
     <div className="flex items-center gap-2 justify-between">
-      <HeaderTime />
+      <div className="flex flex-col">
+        <HeaderTime />
+      </div>
       <div className="flex flex-col">
         <div className="flex items-center gap-2">
           <Link href={`/${date}`} className="text-lg font-medium capitalize">

@@ -1,7 +1,7 @@
 import { tz } from "@date-fns/tz";
 import { format, parse } from "date-fns";
+import { ArrowRightIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
-import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { getSchedule } from "rest-api/calendar/schedule";
 import { DaySchedule } from "rest-api/types/calendar";
@@ -82,11 +82,17 @@ export default async function Section({ uid }: { uid: string | null }) {
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex justify-between items-center">
-          <span className="text-lg font-medium block">Расписание</span>
-          {hasSchedule && (
+          {hasSchedule ? (
             <EditScheduleModal uid={uid} defaultSchedule={schedule}>
-              <Button variant="secondary">Изменить</Button>
+              <button className="text-lg font-medium flex items-center gap-2">
+                <span>Расписание</span>
+                <ArrowRightIcon size={16} />
+              </button>
             </EditScheduleModal>
+          ) : (
+            <button className="text-lg font-medium flex items-center gap-2">
+              <span>Расписание</span>
+            </button>
           )}
         </div>
         <span className="text-sm text-muted-foreground">
