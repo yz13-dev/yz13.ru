@@ -4,8 +4,20 @@ export default function (): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: ["/"],
-      disallow: ["/account", "/radio", "/settings", "/services"],
+      allow: "/",
+      disallow: [
+        "/account",
+        "/radio",
+        "/settings",
+        "/services",
+        "/apps",
+        "/:appId",
+        "/login",
+        "signup",
+        "/account/*",
+        "/contact-me",
+        "/store",
+      ],
     },
     sitemap: "https://yz13.ru/sitemap.xml",
   };
