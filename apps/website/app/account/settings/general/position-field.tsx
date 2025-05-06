@@ -45,7 +45,7 @@ const positions = [
 const PositionField = () => {
   const user = useUserStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
-  const initialValue = user?.user_metadata?.position ?? "";
+  const initialValue = "";
   const [position, setPosition] = useState(initialValue);
   const supabase = createClient();
   const router = useRouter();
@@ -68,11 +68,13 @@ const PositionField = () => {
   return (
     <>
       <Field>
-        <FieldLabel>Профессия</FieldLabel>
-        <FieldDescription>
-          Необезательно, но она отображается вместо почты в списке
-          пользователей.
-        </FieldDescription>
+        <div className="space-y-0 *:block">
+          <FieldLabel>Профессия</FieldLabel>
+          <FieldDescription>
+            Необезательно, но она отображается вместо почты в списке
+            пользователей.
+          </FieldDescription>
+        </div>
         <FieldContent>
           <FieldSelect
             value={position}

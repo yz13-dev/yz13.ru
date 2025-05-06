@@ -18,6 +18,11 @@
       "import": "./dist/lib/filters.mjs",
       "require": "./dist/lib/filters.js"
     },
+    "./lib/avatar-url": {
+      "types": "./dist/lib/avatar-url.d.ts",
+      "import": "./dist/lib/avatar-url.mjs",
+      "require": "./dist/lib/avatar-url.js"
+    },
     "./types/articles": "./dist/types/articles.d.ts",
     "./types/pricing": "./dist/types/pricing.d.ts",
     "./types/user": "./dist/types/user.d.ts",

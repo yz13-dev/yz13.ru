@@ -1,44 +1,12 @@
-import { isDev } from "@/app/login/get-url";
 import Dock from "@/components/dock/dock";
-import Header from "@/components/header";
-import { Logo } from "@/components/logo";
-import Nav from "@/components/nav/nav";
 import PageDockFiller from "@/components/page-dock-filler";
-import User from "@/components/user";
-import { showAppsLink } from "@/const/flags";
-import { LayoutGridIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
-import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
-import { Suspense } from "react";
 import Sidebar from "./sidebar";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Header className="sticky top-0">
-        <Nav side="left">
-          <Link href="/">
-            <Logo size={{ width: 110, height: 20 }} type="full" />
-          </Link>
-        </Nav>
-        <div className="flex items-center gap-2">
-          <Suspense fallback={<Skeleton className="size-9" />}>
-            {(await showAppsLink()) && (
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="/apps">
-                  <LayoutGridIcon size={16} />
-                </Link>
-              </Button>
-            )}
-          </Suspense>
-          <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-            {isDev && <User />}
-          </Suspense>
-        </div>
-      </Header>
-      <div className="bg-background-secondary min-h-[calc(100dvh-64px)]">
+      <div className="mt-[10%] *:max-w-6xl *:w-full *:mx-auto min-h-[calc(100dvh-64px)]">
         <div className="max-w-screen-xl mx-auto px-3 py-6">
           <h1 className="text-2xl font-semibold">Настройки</h1>
         </div>

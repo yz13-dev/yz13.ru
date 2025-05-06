@@ -1,5 +1,5 @@
 "use client";
-import { parse } from "date-fns";
+import { format, parse } from "date-fns";
 import { isEqual } from "lodash";
 import { Loader2Icon, XIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
@@ -67,9 +67,8 @@ const ScheduleItem = ({
   }, [innerSchedule]);
   return (
     <div className="flex gap-2 items-start">
-      <div className="flex items-center h-9">
+      <div className="flex items-center shrink-0 h-9">
         <Switch
-          className="shrink-0"
           checked={innerSchedule.enabled}
           onCheckedChange={(checked) => updateSchedule({ enabled: checked })}
         />
@@ -105,7 +104,7 @@ const ScheduleItem = ({
   );
 };
 
-const localDurations = ["00:15", "00:30"];
+const localDurations = ["00:15", "00:30", "00:45", "01:00"];
 
 export default function EditScheduleModal({
   children,
@@ -313,11 +312,13 @@ export default function EditScheduleModal({
         </span>
         <ul className="flex items-start gap-2 flex-wrap">
           {localDurations.map((duration) => {
-            const selected = durations.includes(duration);
+            const parsedLocalDuration = parse(duration, "HH:mm", new Date());
+            const formatted = format(parsedLocalDuration, "HH:mm:ss");
+            const selected = durations.includes(formatted);
             return (
               <li
                 key={duration}
-                onClick={() => handleDuration(duration)}
+                onClick={() => handleDuration(formatted)}
                 className="hover:cursor-pointer"
               >
                 <Badge variant={selected ? "default" : "secondary"}>

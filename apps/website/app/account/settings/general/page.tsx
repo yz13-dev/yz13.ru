@@ -1,4 +1,3 @@
-import { Button } from "mono/components/button";
 import {
   Field,
   FieldContent,
@@ -6,6 +5,7 @@ import {
   FieldLabel,
   FieldValue,
 } from "../field";
+import AvatarField from "./avatar-field";
 import PositionField from "./position-field";
 import UsernameField from "./username-field";
 
@@ -20,24 +20,27 @@ const page = () => {
           </p>
         </div>
         <div className="w-full border rounded-lg bg-background *:p-3 divide-y">
+          <AvatarField />
           <UsernameField />
           <Field>
-            <FieldLabel>Почта</FieldLabel>
-            <FieldDescription>
-              Почту изменять нельзя, но она отображается вместо профессии, если
-              она не указана.
-            </FieldDescription>
+            <div className="space-y-0 *:block">
+              <FieldLabel>Почта</FieldLabel>
+              <FieldDescription>
+                Почту изменять нельзя, но она отображается вместо профессии,
+                если она не указана.
+              </FieldDescription>
+            </div>
             <FieldContent>
               <FieldValue>bot@example.com</FieldValue>
             </FieldContent>
           </Field>
           <PositionField />
-          <div className="flex flex-row gap-2 items-center justify-between">
+          {/* <div className="flex flex-row gap-2 items-center justify-between">
             <span className="text-sm text-foreground">
               Изменения применятся сразу после сохранения
             </span>
             <Button>Сохранить</Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

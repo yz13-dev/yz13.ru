@@ -22,22 +22,24 @@ type FieldProps = {
 const Field = ({ type = "input", children }: FieldProps) => {
   return (
     <FieldProvider type={type}>
-      <div className="space-y-2 min-h-10">{children}</div>
+      <div className="space-y-4 min-h-10">{children}</div>
     </FieldProvider>
   );
 };
 
 const FieldLabel = ({ children }: { children?: React.ReactNode }) => {
-  return <div className="text-xs text-foreground w-1/2">{children}</div>;
+  return <div className="text-base text-foreground w-1/2">{children}</div>;
 };
 
 const FieldDescription = ({ children }: { children?: React.ReactNode }) => {
-  return <div className="text-sm text-foreground w-1/2">{children}</div>;
+  return <div className="text-sm text-muted-foreground w-1/2">{children}</div>;
 };
 
 const FieldContent = ({
   children,
+  className = "",
 }: {
+  className?: string;
   children?:
     | ReactElement<
         typeof FieldValue | typeof FieldTrigger | typeof FieldInput
@@ -45,14 +47,21 @@ const FieldContent = ({
     | ReactElement<typeof FieldValue | typeof FieldTrigger | typeof FieldInput>;
 }) => {
   return (
-    <div className="w-3/4 flex flex-row items-center justify-between gap-2">
+    <div
+      className={cn(
+        "w-3/4 flex flex-row items-center justify-between gap-2",
+        className,
+      )}
+    >
       {children}
     </div>
   );
 };
 
 const FieldValue = ({ children }: { children?: React.ReactNode }) => {
-  return <span className="text-sm font-normal text-foreground">{children}</span>;
+  return (
+    <span className="text-sm font-normal text-foreground">{children}</span>
+  );
 };
 
 const FieldInput = ({
@@ -97,13 +106,17 @@ const FieldSelect = ({
   // if (!isEditing) return <FieldValue>{value ?? placeholder}</FieldValue>;
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="w-64">
+      <SelectTrigger className="w-64 rounded-full">
         <SelectValue placeholder={placeholder ?? "Ваша позиция..."} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="rounded-3xl">
         <SelectGroup>
           {options.map((option, index) => (
-            <SelectItem key={id + "-" + index} value={option.value}>
+            <SelectItem
+              key={id + "-" + index}
+              value={option.value}
+              className="rounded-full"
+            >
               {option.label}
             </SelectItem>
           ))}

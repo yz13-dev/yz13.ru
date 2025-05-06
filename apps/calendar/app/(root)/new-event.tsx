@@ -1,13 +1,6 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
-import {
-  addHours,
-  addMinutes,
-  format,
-  parse,
-  setHours,
-  setMinutes,
-} from "date-fns";
+import { format, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { AlignLeftIcon, ClockIcon, Loader2Icon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -54,42 +47,77 @@ export default function NewEventForm({
     setDescription("");
   };
   const handleNewEvent = async () => {
-    if (!uid) return;
-    setLoading(true);
-    try {
-      const start_time = parse(startTime, "HH:mm", new Date());
-      const end_time = parse(endTime, "HH:mm", new Date());
+    if (!uid) {
+      console.error("User ID is missing");
+      return;
+    }
 
-      const durationInHours = end_time.getHours() - start_time.getHours();
-      const durationInMinutes = end_time.getMinutes() - start_time.getMinutes();
-      const duration = `${durationInHours}:${durationInMinutes}`;
-      const date_start = setMinutes(
-        setHours(new Date(), start_time.getHours()),
-        start_time.getMinutes(),
-      );
-      const date_end = addMinutes(
-        addHours(date_start, end_time.getHours()),
-        end_time.getMinutes(),
-      );
+    setLoading(true);
+
+    try {
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const now = new Date();
+
+      // Парсим время начала и окончания
+      const start_time = parse(startTime, "HH:mm", now);
+      const end_time = parse(endTime, "HH:mm", now);
+
+      // Создаем начальную дату
+      const date_start = new Date(now);
+      date_start.setHours(start_time.getHours(), start_time.getMinutes(), 0, 0);
+
+      // Рассчитываем продолжительность в минутах
+      const startTotalMinutes =
+        start_time.getHours() * 60 + start_time.getMinutes();
+      const endTotalMinutes = end_time.getHours() * 60 + end_time.getMinutes();
+      let durationMinutes = endTotalMinutes - startTotalMinutes;
+
+      // Корректируем продолжительность при переходе через полночь
+      if (durationMinutes < 0) {
+        durationMinutes += 24 * 60; // Добавляем 24 часа в минутах
+      }
+
+      // Создаем конечную дату
+      const date_end = new Date(date_start);
+      date_end.setMinutes(date_start.getMinutes() + durationMinutes);
+
+      // Форматируем продолжительность
+      const durationHours = Math.floor(durationMinutes / 60);
+      const remainingMinutes = durationMinutes % 60;
+      const duration = `${durationHours}:${String(remainingMinutes).padStart(2, "0")}`;
+
+      // Валидация
+      if (durationMinutes <= 0) {
+        throw new Error("Продолжительность события должна быть больше нуля");
+      }
+
+      // Формируем объект события
       const event: NewEvent = {
-        summary: summary ?? "New event",
+        summary: summary || "Новое событие",
         date_start: date_start.toISOString(),
         date_end: allDay ? null : date_end.toISOString(),
         all_day: allDay,
         duration: allDay ? null : duration,
-        description: description,
+        description: description || "",
         uid,
       };
+
+      // Создаем событие
       const createdEvent = await createEvent(event);
+
       if (createdEvent) {
         clearForm();
         router.refresh();
         setOpen(false);
+        // Можно добавить уведомление об успехе
+        // toast.success("Событие успешно создано");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Ошибка при создании события:", error);
+      // Показываем ошибку пользователю
+      // toast.error(error instanceof Error ? error.message : "Не удалось создать событие");
     } finally {
-      setTimeout(() => setLoading(false), 1000);
+      setLoading(false);
     }
   };
   return (

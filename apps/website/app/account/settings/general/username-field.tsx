@@ -14,7 +14,7 @@ import { useUserStore } from "../user.store";
 const UsernameField = () => {
   const user = useUserStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
-  const initialValue = user?.user_metadata?.username ?? "";
+  const initialValue = user?.username ?? "";
   const [username, setUsername] = useState(initialValue);
   const supabase = createClient();
   const router = useRouter();
@@ -34,11 +34,13 @@ const UsernameField = () => {
   };
   return (
     <Field>
-      <FieldLabel>Никнейм</FieldLabel>
-      <FieldDescription>
-        Никнейм будет отображаться в списке пользователей и в ссылках на профиль
-        и комментарии
-      </FieldDescription>
+      <div className="space-y-0 *:block">
+        <FieldLabel>Никнейм</FieldLabel>
+        <FieldDescription>
+          Никнейм будет отображаться в списке пользователей и в ссылках на
+          профиль и комментарии
+        </FieldDescription>
+      </div>
       <FieldContent>
         <FieldInput
           placeholder="YZ13"

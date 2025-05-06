@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import { Skeleton } from "mono/components/skeleton";
+import { avatarURL } from "rest-api/lib/avatar-url";
 import { getUserById } from "rest-api/user";
 
 export function UserPublisherSkeleton() {
@@ -18,7 +19,7 @@ export async function UserPublisher({ uid }: { uid: string }) {
   return (
     <div className="flex items-center gap-2">
       <Avatar>
-        <AvatarImage src={avatarUrl} />
+        <AvatarImage src={avatarURL(avatarUrl)} />
         <AvatarFallback>{usernameFallback}</AvatarFallback>
       </Avatar>
       <span className="text-base font-medium text-foreground">{username}</span>
