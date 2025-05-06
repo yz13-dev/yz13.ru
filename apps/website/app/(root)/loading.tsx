@@ -26,6 +26,10 @@ export default function loading() {
                 веб-приложений.
               </p>
             </main>
+            <div className="flex items-center gap-2">
+              <Skeleton className="size-[22px] rounded-full" />
+              <Skeleton className="h-[22px] w-28 rounded-full" />
+            </div>
             <CallToActionSkeleton />
           </div>
           <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
