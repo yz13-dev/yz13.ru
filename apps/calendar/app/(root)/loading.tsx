@@ -6,7 +6,7 @@ import { Skeleton } from "mono/components/skeleton";
 import { SectionSkeleton as EventSectionSkeleton } from "./events/section";
 import HeaderTime from "./header-time";
 import { SectionSkeleton as MeetingSectionSkeleton } from "./meetings/section";
-import ScheduleSection from "./schedule/section";
+import { SectionSkeleton } from "./schedule/section";
 export default function oading() {
   return (
     <>
@@ -23,9 +23,12 @@ export default function oading() {
       </header>
       <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6  min-h-dvh">
         <div className="space-y-6 md:w-1/3 w-full">
-          <Skeleton className="w-32 h-[52px]" />
+          <div className="flex items-center gap-2 justify-between">
+            <Skeleton className="w-20 h-8" />
+            <Skeleton className="w-32 h-[52px]" />
+          </div>
           <Separator />
-          <ScheduleSection uid={null} />
+          <SectionSkeleton />
           <Separator />
           <MeetingSectionSkeleton />
         </div>

@@ -127,8 +127,11 @@ const generateIntervalInRange = (start: Date, end: Date, duration: Date) => {
   let reachedEnd = false;
   let lastInterval: Date | null = null;
   let intervals: string[] = [format(start, "HH:mm")];
-  const durationInMinutes = duration.getMinutes() + duration.getSeconds() / 60;
-  while (!reachedEnd) {
+  const durationInMinutes =
+    duration.getMinutes() +
+    duration.getSeconds() / 60 +
+    duration.getHours() * 60;
+  while (reachedEnd === false) {
     const intervalItem = interval(start, end);
     if (lastInterval) {
       const newInterval: Date = addMinutes(lastInterval, durationInMinutes);

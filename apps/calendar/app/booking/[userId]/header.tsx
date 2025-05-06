@@ -1,10 +1,10 @@
 "use client";
-
 import { format, parse } from "date-fns";
 import { CalendarIcon, ClockIcon, GlobeIcon, VideoIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import { Badge } from "mono/components/badge";
 import { useQueryState } from "nuqs";
+import { avatarURL } from "rest-api/lib/avatar-url";
 import { UserObject } from "rest-api/types/user";
 
 export default function Header({ user }: { user: UserObject }) {
@@ -18,7 +18,7 @@ export default function Header({ user }: { user: UserObject }) {
     <div className="w-full gap-5 flex flex-col p-6">
       <div className="flex flex-row items-center gap-2">
         <Avatar>
-          <AvatarImage src={user.avatar_url ?? ""} />
+          <AvatarImage src={avatarURL(user.avatar_url) ?? ""} />
           <AvatarFallback className="uppercase">
             {(user.username ?? "").slice(0, 2)}
           </AvatarFallback>

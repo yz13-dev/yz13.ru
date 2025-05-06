@@ -20,7 +20,6 @@ export default async function page({ params, searchParams }: PageProps) {
   const { userId } = await params;
   const search = await searchParams;
   const { data: user } = await getUserById(userId);
-  // const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   if (!user) return notFound();
   const date = search.date;
   const { data: availability } = await getUserAvailability(userId, date);

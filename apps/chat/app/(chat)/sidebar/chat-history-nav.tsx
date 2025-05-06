@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { updateChat } from "rest-api/chats";
+import { avatarURL } from "rest-api/lib/avatar-url";
 import { ChatRoom } from "rest-api/types/chats";
 import { UserObject } from "rest-api/types/user";
 import { getUserById } from "rest-api/user";
@@ -71,7 +72,7 @@ const Participant = ({
           className,
         )}
       >
-        <AvatarImage src={user.avatar_url ?? undefined} />
+        <AvatarImage src={avatarURL(user.avatar_url) ?? undefined} />
         <AvatarFallback className="p-0.5">
           <UserIcon />
         </AvatarFallback>

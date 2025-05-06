@@ -1,8 +1,9 @@
 import { tz } from "@date-fns/tz";
 import { format, parse } from "date-fns";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, Edit3Icon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Separator } from "mono/components/separator";
+import { Skeleton } from "mono/components/skeleton";
 import { getSchedule } from "rest-api/calendar/schedule";
 import { DaySchedule } from "rest-api/types/calendar";
 import EditScheduleModal from "./edit-schedule-modal";
@@ -82,17 +83,21 @@ export default async function Section({ uid }: { uid: string | null }) {
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex justify-between items-center">
-          {hasSchedule ? (
-            <EditScheduleModal uid={uid} defaultSchedule={schedule}>
-              <button className="text-lg font-medium flex items-center gap-2">
-                <span>Расписание</span>
-                <ArrowRightIcon size={16} />
+          <button className="text-lg font-medium flex items-center gap-2">
+            <span>Расписание</span>
+            <ArrowRightIcon size={16} />
+          </button>
+          {hasSchedule && (
+            <EditScheduleModal
+              uid={uid}
+              defaultSchedule={schedule}
+              defaultDurations={durations}
+            >
+              <button className="placeholder:opacity-50 text-sm flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                Изменить
+                <Edit3Icon size={16} />
               </button>
             </EditScheduleModal>
-          ) : (
-            <button className="text-lg font-medium flex items-center gap-2">
-              <span>Расписание</span>
-            </button>
           )}
         </div>
         <span className="text-sm text-muted-foreground">
@@ -150,3 +155,19 @@ export default async function Section({ uid }: { uid: string | null }) {
     </div>
   );
 }
+
+export const SectionSkeleton = () => {
+  return (
+    <div className="space-y-6">
+      <div className="space-y-0">
+        <div className="flex w-full gap-4 items-center justify-between">
+          <span className="text-lg font-medium block">Расписание</span>
+          <Skeleton className="w-16 h-9 rounded-full" />
+        </div>
+        <span className="text-sm text-muted-foreground">
+          Время когда другие пользователи могут запланировать с вами созвон.
+        </span>
+      </div>
+    </div>
+  );
+};

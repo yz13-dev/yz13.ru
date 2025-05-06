@@ -10,7 +10,7 @@ import { Separator } from "mono/components/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createAppointment } from "rest-api/calendar/appointments";
 import { NewAppointment, ScheduleAvailability } from "rest-api/types/calendar";
 
@@ -77,7 +77,19 @@ export default function form({
       setLoading(false);
     }
   };
-
+  const handleDurationScroll = () => {
+    if (!duration) return;
+    const target = document.getElementById(duration);
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+  useEffect(() => {
+    if (duration) handleDurationScroll();
+  }, [duration]);
   return (
     <>
       <div className="w-full divide-y">
@@ -121,19 +133,19 @@ export default function form({
               </div>
             </div>
           </div>
-          <div className="md:w-1/3 max-h-[60dvh] overflow-auto w-full flex md:flex-col flex-row md:*:w-full *:w-fit">
-            <Tabs
-              value={duration ?? undefined}
-              onValueChange={setDuration}
-              className="w-full"
-            >
-              <div className="w-full p-6 bg-background-secondary sticky top-0 z-10">
-                <TabsList className="w-full">
+          <div className="md:w-1/3 max-h-[60dvh] overflow-auto w-full flex md:flex-col flex-row *:w-full">
+            <Tabs value={duration ?? undefined} onValueChange={setDuration}>
+              <div className="w-full p-6 overflow-x-auto bg-background-secondary md:sticky static top-0 z-10 shrink-0 h-[84px]">
+                <TabsList className="md:w-fit w-full">
                   {durations
                     .sort((a, b) => a.localeCompare(b))
                     .map((duration) => {
                       return (
-                        <TabsTrigger key={duration} value={duration}>
+                        <TabsTrigger
+                          id={duration}
+                          key={duration}
+                          value={duration}
+                        >
                           {duration}
                         </TabsTrigger>
                       );

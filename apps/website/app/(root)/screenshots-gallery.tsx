@@ -2,7 +2,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
-import Image from "next/image";
+import NextImage from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "yz13/cn";
 
@@ -19,8 +19,31 @@ export const GallerySkeleton = ({ className = "" }: { className?: string }) => {
   return <Skeleton className={cn("w-full h-full", className)} />;
 };
 
+type GalleryItemProps = {
+  image: ThemedImage;
+  className?: string;
+  selected?: boolean;
+};
+function GalleryItem({ image, className = "", selected }: GalleryItemProps) {
+  const dark = image.dark;
+  const light = image.light;
+
+  return (
+    <div
+      className={cn(
+        "relative shrink-0 *:min-h-80 *:max-h-80 overflow-hidden rounded-xl border-2",
+        selected && "border-foreground",
+        className,
+      )}
+    >
+      <NextImage src={light} className="light-mode-image !static" fill alt="" />
+      <NextImage src={dark} className="dark-mode-image !static" fill alt="" />
+    </div>
+  );
+}
+
 export default function ({ className = "", images = [] }: Props) {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [selected, setSelected] = useState<number>(0);
   const [index, setIndex] = useState(0);
   const [imagesElements, setImagesElements] = useState<Element[]>([]);
   const [needShowScroll, setNeedShowScroll] = useState<boolean>(false);
@@ -128,34 +151,11 @@ export default function ({ className = "", images = [] }: Props) {
         )}
       >
         {images.map((image, i) => {
-          const joinedKey = `${image.light}-${image.dark}-${i}`;
-          const dark = image.dark;
-          const light = image.light;
           const selected = index === i;
+          const isSelected = needShowScroll && highlighted && selected;
+          const joinedKey = `${image.light}-${image.dark}-${i}`;
           return (
-            <div
-              key={joinedKey}
-              className={cn(
-                "relative shrink-0 *:min-h-80 *:max-h-80 overflow-hidden rounded-xl border-2",
-                needShowScroll &&
-                  highlighted &&
-                  selected &&
-                  "border-foreground",
-              )}
-            >
-              <Image
-                src={light}
-                className="light-mode-image !static"
-                fill
-                alt=""
-              />
-              <Image
-                src={dark}
-                className="dark-mode-image !static"
-                fill
-                alt=""
-              />
-            </div>
+            <GalleryItem key={joinedKey} image={image} selected={isSelected} />
           );
         })}
       </div>

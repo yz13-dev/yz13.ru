@@ -31,8 +31,9 @@ export default function LinkButton({
     <button
       disabled={buttonDisabled}
       onClick={handleCopy}
-      className="placeholder:opacity-50 text-muted-foreground hover:text-foreground"
+      className="placeholder:opacity-50 text-sm flex items-center gap-2 text-muted-foreground hover:text-foreground"
     >
+      {copied ? "Скопировано" : "Скопировать"}
       {copied ? <CheckIcon size={16} /> : <CopyIcon size={16} />}
     </button>
   );

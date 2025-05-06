@@ -46,9 +46,7 @@ user.patch("/:uid", async (c) => {
   const body = await c.req.json();
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
-  const {
-    data: { user },
-  } = await supabase.auth.getUser(uid);
+  const user = await getUser(uid);
   if (!user || user.id !== uid) return c.json(null);
   const {
     data: { user: updated },
@@ -58,11 +56,10 @@ user.patch("/:uid", async (c) => {
   });
   if (error) return c.json(error);
   if (!updated) return c.json(null);
-  else {
-    const userObj = makeUserObj(updated);
-    await redis.set(key, userObj, {
-      ex: expire.day,
-    });
-    return c.json(userObj);
-  }
+
+  const userObj = makeUserObj(updated);
+  await redis.set(key, userObj, {
+    ex: expire.day,
+  });
+  return c.json(userObj);
 });

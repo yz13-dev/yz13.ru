@@ -34,11 +34,13 @@ const UsernameField = () => {
   };
   return (
     <Field>
-      <FieldLabel>Никнейм</FieldLabel>
-      <FieldDescription>
-        Никнейм будет отображаться в списке пользователей и в ссылках на профиль
-        и комментарии
-      </FieldDescription>
+      <div className="space-y-0 *:block">
+        <FieldLabel>Никнейм</FieldLabel>
+        <FieldDescription>
+          Никнейм будет отображаться в списке пользователей и в ссылках на
+          профиль и комментарии
+        </FieldDescription>
+      </div>
       <FieldContent>
         <FieldInput
           placeholder="YZ13"

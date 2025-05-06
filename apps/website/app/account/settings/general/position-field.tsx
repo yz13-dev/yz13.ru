@@ -68,11 +68,13 @@ const PositionField = () => {
   return (
     <>
       <Field>
-        <FieldLabel>Профессия</FieldLabel>
-        <FieldDescription>
-          Необезательно, но она отображается вместо почты в списке
-          пользователей.
-        </FieldDescription>
+        <div className="space-y-0 *:block">
+          <FieldLabel>Профессия</FieldLabel>
+          <FieldDescription>
+            Необезательно, но она отображается вместо почты в списке
+            пользователей.
+          </FieldDescription>
+        </div>
         <FieldContent>
           <FieldSelect
             value={position}
