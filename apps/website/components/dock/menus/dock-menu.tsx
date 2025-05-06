@@ -1,7 +1,7 @@
 "use client";
 
+import { useUserStore } from "@/app/account/settings/user.store";
 import UserCircle from "@/components/user/user-circle";
-import { User } from "@supabase/supabase-js";
 import { ChevronDownIcon, SettingsIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import {
@@ -13,20 +13,12 @@ import {
   CommandList,
 } from "mono/components/command";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { createClient } from "yz13/supabase/client";
 import ConntectionStatus from "../components/connection-status";
 import MenuWrapper from "./menu-wrapper";
 import { setMenuId } from "./menu.store";
 
 const DockMenu = () => {
-  const supabase = createClient();
-  const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    supabase.auth.onAuthStateChange((state, session) => {
-      setUser(session?.user ?? null);
-    });
-  }, []);
+  const user = useUserStore((state) => state.user);
   return (
     <MenuWrapper>
       <Command>

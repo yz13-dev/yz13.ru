@@ -11,7 +11,7 @@ const UserCircle = ({
   user: UserObject;
   className?: string;
 }) => {
-  const avatarUrl = avatarURL(user.avatar_url) ?? null;
+  const avatarUrl = user.avatar_url ? avatarURL(user.avatar_url) : null;
   if (!user) return;
   return (
     <div

@@ -27,7 +27,9 @@ const Header = ({ user }: { user: UserObject }) => {
       >
         <div className="flex items-center gap-2">
           <Avatar className="size-10 rounded-full border bg-background">
-            <AvatarImage src={avatarURL(user?.avatar_url) ?? undefined} />
+            <AvatarImage
+              src={user.avatar_url ? avatarURL(user?.avatar_url) : undefined}
+            />
             <AvatarFallback className="p-0.5">
               <UserIcon />
             </AvatarFallback>
