@@ -1,25 +1,19 @@
 import Availability from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
-import { availableForWork, showCallToAction } from "@/const/flags";
+import { availableForWork, showCallToAction, showGallery } from "@/const/flags";
 import packageJson from "@/package.json";
-import { format } from "date-fns";
-import { ru } from "date-fns/locale";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import CallToAction, { CallToActionSkeleton } from "./call-to-action";
 import OtherProjects, { OtherProjectsSkeleton } from "./other-projects";
-import Schedule, { SectionSkeleton } from "./schedule";
 import ScreenshotsGallery, { GallerySkeleton } from "./screenshots-gallery";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
+import TodaySchedule from "./today-schedule";
 
 export default async function page() {
-  const today = new Date();
-  const formattedToday = format(today, "EEEE, d MMMM yyyy", {
-    locale: ru,
-  });
   return (
     <>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
@@ -28,14 +22,16 @@ export default async function page() {
             <Logo size={{ width: 64, height: 64 }} type="only-icon" />
           </div>
           <div className="flex flex-col gap-6">
-            <div className="flex w-full flex-col gap-2">
+            <main className="flex w-full flex-col gap-2">
               <h1 className="lg:text-5xl text-3xl lg:font-bold font-semibold">
                 YZ13
               </h1>
-              <span className="lg:text-lg text-sm text-muted-foreground">
-                Фронтенд разработчик
-              </span>
-            </div>
+              <p className="lg:text-lg max-w-md text-sm text-muted-foreground">
+                Фронтенд разработчик, специализируюсь на разработке сайтов,
+                веб-приложений.
+              </p>
+            </main>
+            <TodaySchedule />
             <Suspense fallback={<CallToActionSkeleton />}>
               {(await showCallToAction()) && (
                 <CallToAction busy={await availableForWork()} />
@@ -61,28 +57,30 @@ export default async function page() {
           <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
             <Availability />
           </Suspense>
-          <Suspense fallback={<GallerySkeleton className="h-80 w-full" />}>
-            <ScreenshotsGallery
-              images={[
-                {
-                  dark: "/screenshots/yz13-mobile-dark.png",
-                  light: "/screenshots/yz13-mobile-light.png",
-                },
-                {
-                  dark: "/screenshots/yz13-dark.png",
-                  light: "/screenshots/yz13-light.png",
-                },
-              ]}
-            />
-          </Suspense>
+          {(await showGallery()) && (
+            <Suspense fallback={<GallerySkeleton className="h-80 w-full" />}>
+              <ScreenshotsGallery
+                images={[
+                  {
+                    dark: "/screenshots/yz13-mobile-dark.png",
+                    light: "/screenshots/yz13-mobile-light.png",
+                  },
+                  {
+                    dark: "/screenshots/yz13-dark.png",
+                    light: "/screenshots/yz13-light.png",
+                  },
+                ]}
+              />
+            </Suspense>
+          )}
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
-            <p className="text-base text-muted-foreground block">
-              Фронтенд разработчик, специализируюсь на разработке сайтов,
-              веб-приложений.
-            </p>
+            <span className="text-base text-muted-foreground block">
+              Занимаюсь разработкой сайтов в основное время, пробую себя в бэке
+              и дизайне в свободное время.
+            </span>
           </div>
-          <Separator />
+          {/* <Separator />
           <div className="w-full space-y-6">
             <div className="space-y-1 *:block">
               <span className="text-base block font-medium">График</span>
@@ -93,7 +91,7 @@ export default async function page() {
             <Suspense fallback={<SectionSkeleton />}>
               <Schedule />
             </Suspense>
-          </div>
+          </div> */}
           <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Услуги</span>

@@ -6,7 +6,7 @@ import { Skeleton } from "mono/components/skeleton";
 import { getSchedule } from "rest-api/calendar/schedule";
 import { DaySchedule } from "rest-api/types/calendar";
 
-const DayScheduleItem = ({
+export const DayScheduleItem = ({
   schedule,
   label,
 }: {
@@ -95,7 +95,7 @@ export const SectionSkeleton = () => {
 export default async function () {
   const uid = "929e8f4f-ff0b-4802-8381-4cb5f73630f6";
   const { data: schedule } = await getSchedule(uid);
-  const hasSchedule = !!schedule;
+  // const hasSchedule = !!schedule;
   const monday = (schedule?.monday ?? []) as DaySchedule[];
   const tuesday = (schedule?.tuesday ?? []) as DaySchedule[];
   const wednesday = (schedule?.wednesday ?? []) as DaySchedule[];
@@ -103,7 +103,7 @@ export default async function () {
   const friday = (schedule?.friday ?? []) as DaySchedule[];
   const saturday = (schedule?.saturday ?? []) as DaySchedule[];
   const sunday = (schedule?.sunday ?? []) as DaySchedule[];
-  const durations = schedule?.durations ?? [];
+  // const durations = schedule?.durations ?? [];
   return (
     <ul className="w-full grid grid-cols-2 gap-6">
       <li className="flex flex-row gap-3">
