@@ -1,12 +1,5 @@
 "use client";
-import { isDev } from "@/app/login/get-url";
-import { User } from "@supabase/supabase-js";
-import {
-  FolderIcon,
-  LogOutIcon,
-  SettingsIcon,
-  UserCircleIcon,
-} from "lucide-react";
+import { LogOutIcon, SettingsIcon, UserCircleIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +10,7 @@ import {
 } from "mono/components/dropdown-menu";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 
 const UserDropdown = ({
@@ -24,7 +18,7 @@ const UserDropdown = ({
   children,
   sideOffset = 4,
 }: {
-  user: User;
+  user: UserObject;
   sideOffset?: number;
   children: React.ReactNode;
 }) => {
@@ -34,8 +28,8 @@ const UserDropdown = ({
     supabase.auth.signOut();
     router.refresh();
   };
-  const positionOrEmail = user.user_metadata.position ?? user.email;
-  const isAdmin = user.user_metadata.role === "admin";
+  const positionOrEmail = user.email;
+  const isAdmin = user.role === "admin";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
@@ -46,7 +40,7 @@ const UserDropdown = ({
       >
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-sm font-medium">
-            {user.user_metadata.username ?? "Username"}
+            {user.username ?? "Username"}
           </span>
           <span className="text-xs text-foreground font-normal">
             {positionOrEmail}
