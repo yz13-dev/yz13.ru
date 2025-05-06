@@ -18,14 +18,15 @@ export default function loading() {
             <Logo size={{ width: 64, height: 64 }} type="only-icon" />
           </div>
           <div className="flex w-full flex-col gap-6">
-            <div className="flex w-full flex-col gap-2">
+            <main className="flex w-full flex-col gap-2">
               <h1 className="lg:text-5xl text-3xl lg:font-bold font-semibold">
                 YZ13
               </h1>
-              <span className="lg:text-lg text-sm text-muted-foreground">
-                Фронтенд разработчик
-              </span>
-            </div>
+              <p className="lg:text-lg max-w-md text-sm text-muted-foreground">
+                Фронтенд разработчик, специализируюсь на разработке сайтов,
+                веб-приложений.
+              </p>
+            </main>
             <CallToActionSkeleton />
           </div>
           <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
@@ -39,10 +40,10 @@ export default function loading() {
           <GallerySkeleton className="h-80 w-full" />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
-            <p className="text-base text-muted-foreground block">
-              Фронтенд разработчик, специализируюсь на разработке сайтов,
-              веб-приложений.
-            </p>
+            <span className="text-base text-muted-foreground block">
+              Занимаюсь разработкой сайтов в основное время, пробую себя в бэке
+              и дизайне в свободное время.
+            </span>
           </div>
           <Separator />
           <div className="w-full space-y-6">
