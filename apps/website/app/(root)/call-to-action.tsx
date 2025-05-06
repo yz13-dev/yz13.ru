@@ -29,6 +29,8 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
   const [label, setLabel] = useState<string>("Подождите...");
   const [href, setHref] = useState<string | null>(null);
   const [disabled, setDisabled] = useState<boolean>(busy);
+  const CALL_TO_ACTION_LINK =
+    "https://calendar.yz13.ru/booking/929e8f4f-ff0b-4802-8381-4cb5f73630f6";
   useHotkeys(
     "ctrl+k, command+k",
     () => {
@@ -63,7 +65,7 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
               disabled={busy}
               asChild
             >
-              <Link href="/contact-me">
+              <Link href={CALL_TO_ACTION_LINK}>
                 <ArrowLeftIcon size={16} />
                 Связаться
               </Link>
