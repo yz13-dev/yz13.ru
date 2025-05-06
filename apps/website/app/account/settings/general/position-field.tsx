@@ -45,7 +45,7 @@ const positions = [
 const PositionField = () => {
   const user = useUserStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
-  const initialValue = user?.user_metadata?.position ?? "";
+  const initialValue = "";
   const [position, setPosition] = useState(initialValue);
   const supabase = createClient();
   const router = useRouter();
