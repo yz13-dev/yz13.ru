@@ -14,7 +14,7 @@ import { useUserStore } from "../user.store";
 const UsernameField = () => {
   const user = useUserStore((state) => state.user);
   const [loading, setLoading] = useState<boolean>(false);
-  const initialValue = user?.user_metadata?.username ?? "";
+  const initialValue = user?.username ?? "";
   const [username, setUsername] = useState(initialValue);
   const supabase = createClient();
   const router = useRouter();

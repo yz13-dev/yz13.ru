@@ -72,7 +72,9 @@ const Participant = ({
           className,
         )}
       >
-        <AvatarImage src={avatarURL(user.avatar_url) ?? undefined} />
+        <AvatarImage
+          src={user.avatar_url ? avatarURL(user.avatar_url) : undefined}
+        />
         <AvatarFallback className="p-0.5">
           <UserIcon />
         </AvatarFallback>
