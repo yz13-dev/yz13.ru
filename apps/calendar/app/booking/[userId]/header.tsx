@@ -18,7 +18,7 @@ export default function Header({ user }: { user: UserObject }) {
     <div className="w-full gap-5 flex flex-col p-6">
       <div className="flex flex-row items-center gap-2">
         <Avatar>
-          <AvatarImage src={avatarURL(user.avatar_url) ?? ""} />
+          <AvatarImage src={avatarURL(user.avatar_url) ?? undefined} />
           <AvatarFallback className="uppercase">
             {(user.username ?? "").slice(0, 2)}
           </AvatarFallback>
