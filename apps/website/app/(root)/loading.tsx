@@ -5,7 +5,6 @@ import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { CallToActionSkeleton } from "./call-to-action";
 import { OtherProjectsSkeleton } from "./other-projects";
-import { SectionSkeleton } from "./schedule";
 import { GallerySkeleton } from "./screenshots-gallery";
 import Stack from "./stack";
 
@@ -45,7 +44,7 @@ export default function loading() {
               и дизайне в свободное время.
             </span>
           </div>
-          <Separator />
+          {/* <Separator />
           <div className="w-full space-y-6">
             <div className="space-y-1 *:block">
               <span className="text-base block font-medium">График</span>
@@ -54,7 +53,7 @@ export default function loading() {
               </span>
             </div>
             <SectionSkeleton />
-          </div>
+          </div> */}
           <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Услуги</span>

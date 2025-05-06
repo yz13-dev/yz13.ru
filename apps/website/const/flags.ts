@@ -171,3 +171,12 @@ export const showStack = flag<boolean>({
     return (await get<boolean>(this.key)) ?? false;
   },
 });
+
+export const showGallery = flag<boolean>({
+  key: "show-gallery",
+  description: "Show gallery",
+  async decide() {
+    if (isDev) return pretendProduction;
+    return (await get<boolean>(this.key)) ?? false;
+  },
+});

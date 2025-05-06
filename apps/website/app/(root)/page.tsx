@@ -1,17 +1,17 @@
 import Availability from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
-import { availableForWork, showCallToAction } from "@/const/flags";
+import { availableForWork, showCallToAction, showGallery } from "@/const/flags";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
 import CallToAction, { CallToActionSkeleton } from "./call-to-action";
 import OtherProjects, { OtherProjectsSkeleton } from "./other-projects";
-import Schedule, { SectionSkeleton } from "./schedule";
 import ScreenshotsGallery, { GallerySkeleton } from "./screenshots-gallery";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
+import TodaySchedule from "./today-schedule";
 
 export default async function page() {
   return (
@@ -31,6 +31,7 @@ export default async function page() {
                 веб-приложений.
               </p>
             </main>
+            <TodaySchedule />
             <Suspense fallback={<CallToActionSkeleton />}>
               {(await showCallToAction()) && (
                 <CallToAction busy={await availableForWork()} />
@@ -56,20 +57,22 @@ export default async function page() {
           <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
             <Availability />
           </Suspense>
-          <Suspense fallback={<GallerySkeleton className="h-80 w-full" />}>
-            <ScreenshotsGallery
-              images={[
-                {
-                  dark: "/screenshots/yz13-mobile-dark.png",
-                  light: "/screenshots/yz13-mobile-light.png",
-                },
-                {
-                  dark: "/screenshots/yz13-dark.png",
-                  light: "/screenshots/yz13-light.png",
-                },
-              ]}
-            />
-          </Suspense>
+          {(await showGallery()) && (
+            <Suspense fallback={<GallerySkeleton className="h-80 w-full" />}>
+              <ScreenshotsGallery
+                images={[
+                  {
+                    dark: "/screenshots/yz13-mobile-dark.png",
+                    light: "/screenshots/yz13-mobile-light.png",
+                  },
+                  {
+                    dark: "/screenshots/yz13-dark.png",
+                    light: "/screenshots/yz13-light.png",
+                  },
+                ]}
+              />
+            </Suspense>
+          )}
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
             <span className="text-base text-muted-foreground block">
@@ -77,7 +80,7 @@ export default async function page() {
               и дизайне в свободное время.
             </span>
           </div>
-          <Separator />
+          {/* <Separator />
           <div className="w-full space-y-6">
             <div className="space-y-1 *:block">
               <span className="text-base block font-medium">График</span>
@@ -88,7 +91,7 @@ export default async function page() {
             <Suspense fallback={<SectionSkeleton />}>
               <Schedule />
             </Suspense>
-          </div>
+          </div> */}
           <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Услуги</span>
