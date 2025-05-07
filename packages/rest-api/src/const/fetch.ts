@@ -56,8 +56,6 @@ export const customFetch = async <T>(
       headers: requestHeaders,
     };
 
-    console.log(requestUrl);
-
     const request = new Request(requestUrl, requestInit);
     const response = await fetch(request);
     const data = await getBody<T>(response);

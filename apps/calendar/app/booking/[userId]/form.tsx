@@ -1,5 +1,6 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
+import { tz } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
 import { format, formatISO, parse } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -32,8 +33,11 @@ export default function form({
   const [note, setNote] = useState<string>("");
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const [date, setDate] = useQueryState("date", { shallow: false });
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const [time, setTime] = useQueryState("time");
-  const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
+  const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
+    in: tz(timezone),
+  });
   const durations = Object.keys(availability?.availability ?? {});
   const [duration, setDuration] = useState<string | null>(durations[0] ?? null);
   const validateEmail = (email: string): boolean => {
