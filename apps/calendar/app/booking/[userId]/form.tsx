@@ -56,15 +56,13 @@ export default function form({
     !user;
   const router = useRouter();
   const handleCreateAppointment = async () => {
-    console.log(date, time, duration, user);
-    if (!date) return;
     if (!time) return;
     if (!duration) return;
     if (!user) return;
     setLoading(true);
     try {
       const organizer = user.id;
-      const appointmentDate = parse(date, "yyyy-MM-dd", new Date());
+      const appointmentDate = parsedDate;
       const appointmentTime = parse(time, "HH:mm", new Date());
       appointmentDate.setHours(appointmentTime.getHours());
       appointmentDate.setMinutes(appointmentTime.getMinutes());
