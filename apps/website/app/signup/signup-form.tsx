@@ -4,7 +4,7 @@ import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ComponentPropsWithoutRef, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
@@ -22,6 +22,8 @@ export function SignupForm({
   back = false,
   ...props
 }: FormProps) {
+  const searchParams = useSearchParams();
+  const searchParamsAsString = searchParams.toString();
   const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +40,7 @@ export function SignupForm({
         options: {
           data: {
             role: "user",
-            username,
+            // username,
           },
         },
       });
@@ -60,7 +62,7 @@ export function SignupForm({
       <form>
         <div className="grid gap-6">
           <div className="grid gap-6">
-            <div className="grid gap-2">
+            {/* <div className="grid gap-2">
               <Label htmlFor="nickname">Имя пользователя</Label>
               <Input
                 id="nickname"
@@ -71,7 +73,7 @@ export function SignupForm({
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-            </div>
+            </div> */}
             <div className="grid gap-2">
               <Label htmlFor="email">Почта</Label>
               <Input
@@ -105,7 +107,15 @@ export function SignupForm({
             <div className="flex flex-row items-center justify-end gap-2">
               {showLogin && (
                 <Button variant="ghost" className="w-fit gap-2" asChild>
-                  <Link href="/login">Уже есть аккаунт</Link>
+                  <Link
+                    href={
+                      searchParamsAsString
+                        ? `/login?${searchParamsAsString}`
+                        : "/login"
+                    }
+                  >
+                    Уже есть аккаунт
+                  </Link>
                 </Button>
               )}
               <Button

@@ -7,6 +7,7 @@ import { getUserById } from "rest-api/user";
 import { cn } from "yz13/cn";
 import Form from "./form";
 import Header from "./header";
+import { UserProvider } from "./user.store";
 
 type PageProps = {
   params: Promise<{
@@ -24,7 +25,7 @@ export default async function page({ params, searchParams }: PageProps) {
   const date = search.date;
   const { data: availability } = await getUserAvailability(userId, date);
   return (
-    <>
+    <UserProvider>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">
         <Button variant="outline" asChild>
           <Link href="/">
@@ -54,6 +55,6 @@ export default async function page({ params, searchParams }: PageProps) {
           YZ13
         </span>
       </footer>
-    </>
+    </UserProvider>
   );
 }

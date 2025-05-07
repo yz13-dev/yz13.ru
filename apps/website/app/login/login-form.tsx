@@ -4,7 +4,7 @@ import { Button } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ComponentPropsWithoutRef, useState } from "react";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
@@ -22,6 +22,8 @@ export function LoginForm({
   back = false,
   ...props
 }: LoginFormProps) {
+  const searchParams = useSearchParams();
+  const searchParamsAsString = searchParams.toString();
   const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,10 +38,13 @@ export function LoginForm({
         password: password,
       });
       const user = data.user;
+      const backLink = continueLink
+        ? `${continueLink}?${searchParamsAsString}`
+        : "/";
       if (error) setError(true);
       if (user) {
         if (back) router.back();
-        else router.push(continueLink || "/");
+        else router.push(backLink);
       }
     } catch (error) {
       setError(true);
@@ -48,7 +53,7 @@ export function LoginForm({
     }
   };
   return (
-    <div className={cn("flex flex-col h-fit", className)} {...props}>
+    <div className={cn("flex flex-col space-y-12 h-fit", className)} {...props}>
       <form>
         <div className="grid gap-6">
           <div className="grid gap-6">
@@ -68,12 +73,14 @@ export function LoginForm({
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Пароль</Label>
-                <a
-                  href="#"
-                  className="ml-auto text-sm underline-offset-4 hover:underline"
-                >
-                  Забыли пароль?
-                </a>
+                {false && (
+                  <a
+                    href="#"
+                    className="ml-auto text-sm underline-offset-4 hover:underline"
+                  >
+                    Забыли пароль?
+                  </a>
+                )}
               </div>
               <Input
                 autoComplete="current-password"
@@ -94,7 +101,11 @@ export function LoginForm({
               {showSignUp && (
                 <Button variant="ghost" className="w-fit gap-2" asChild>
                   <Link
-                    href="/signup"
+                    href={
+                      searchParamsAsString
+                        ? `/signup?${searchParamsAsString}`
+                        : "/signup"
+                    }
                     className="underline-offset-4 text-foreground"
                   >
                     Создать аккаунт
@@ -117,7 +128,7 @@ export function LoginForm({
           </div>
         </div>
       </form>
-      <div className="text-balance py-6 text-start text-xs text-muted-foreground">
+      <div className="text-balance text-start text-xs text-muted-foreground">
         Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
         <Link href="#" className="text-foreground">
           Условиями использования

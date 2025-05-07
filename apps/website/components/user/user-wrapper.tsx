@@ -16,6 +16,7 @@ type WrapperProps = {
     | ReactElement<typeof UserDropdown>;
   unauthorized?: ReactElement<typeof SignInButton>;
 };
+
 const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
   const [user, setUser] = useState<UserObject | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

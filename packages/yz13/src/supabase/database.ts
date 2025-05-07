@@ -18,6 +18,7 @@ export type Database = {
           id: string;
           name: string | null;
           note: string | null;
+          organizer: string;
           uid: string | null;
         };
         Insert: {
@@ -28,6 +29,7 @@ export type Database = {
           id?: string;
           name?: string | null;
           note?: string | null;
+          organizer?: string;
           uid?: string | null;
         };
         Update: {
@@ -38,6 +40,7 @@ export type Database = {
           id?: string;
           name?: string | null;
           note?: string | null;
+          organizer?: string;
           uid?: string | null;
         };
         Relationships: [];
