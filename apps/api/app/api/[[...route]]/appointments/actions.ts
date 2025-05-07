@@ -16,10 +16,10 @@ export const getUserAppointmentsForDate = async (uid: string, date: string) => {
   const { data, error } = await supabase
     .from("calendar_appointments")
     .select()
-    .eq("uid", uid)
+    .or(`organizer.eq.${uid}, uid.eq.${uid}`)
     .gte("date", todayFormatted)
     .lte("date", nextDayFormatted);
-  // console.log(data, error);
+  console.log(data, error);
   if (error) {
     console.log(error);
     return null;
