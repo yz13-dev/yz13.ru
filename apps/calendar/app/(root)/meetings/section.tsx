@@ -11,21 +11,10 @@ import LinkButton from "./link-button";
 
 const Empty = () => {
   return (
-    <div className="space-y-6">
-      <div className="space-y-0">
-        <div className="flex w-full gap-4 items-center justify-between">
-          <span className="text-lg font-medium block">Созвоны</span>
-          <LinkButton disabled={true} />
-        </div>
-        <span className="text-sm text-muted-foreground">
-          Созвоны запланированные вами или другими пользователи.
-        </span>
-      </div>
-      <div className="w-full h-fit p-8 border rounded-xl border-dashed flex flex-col items-center justify-center gap-4">
-        <span className="text-sm text-muted-foreground">
-          Необходимо войти для просмотра
-        </span>
-      </div>
+    <div className="w-full h-fit p-8 border rounded-xl border-dashed flex flex-col items-center justify-center gap-4">
+      <span className="text-sm text-muted-foreground">
+        Необходимо войти для просмотра
+      </span>
     </div>
   );
 };
