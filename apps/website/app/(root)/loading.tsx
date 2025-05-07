@@ -11,6 +11,7 @@ import Stack from "./stack";
 export default function loading() {
   return (
     <>
+      <header className="max-w-6xl w-full mx-auto h-[68px]" />
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
         <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
           <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">

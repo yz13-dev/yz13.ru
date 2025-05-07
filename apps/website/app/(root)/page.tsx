@@ -1,6 +1,7 @@
 import Availability from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
+import User from "@/components/user";
 import { availableForWork, showCallToAction, showGallery } from "@/const/flags";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
@@ -16,6 +17,11 @@ import TodaySchedule from "./today-schedule";
 export default async function page() {
   return (
     <>
+      <header className="max-w-6xl w-full mx-auto px-6 h-fit py-4 flex justify-end">
+        <Suspense fallback={<Skeleton className="h-9 w-16" />}>
+          <User />
+        </Suspense>
+      </header>
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
         <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
           <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">

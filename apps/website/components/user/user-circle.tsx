@@ -21,7 +21,12 @@ const UserCircle = ({
       )}
     >
       {avatarUrl ? (
-        <Image src={avatarUrl} alt="avatar" fill className="rounded-full" />
+        <Image
+          src={avatarUrl}
+          alt="avatar"
+          fill
+          className="size-9 rounded-full"
+        />
       ) : (
         <UserIcon size={18} />
       )}

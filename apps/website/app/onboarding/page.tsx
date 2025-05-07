@@ -16,6 +16,7 @@ export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const continueLink = search.continue;
   const disabled = !continueLink;
+  const href = continueLink ? continueLink : "/";
   return (
     <div className="w-full h-dvh flex flex-col items-center justify-center">
       <Suspense
@@ -49,9 +50,9 @@ export default async function page({ searchParams }: PageProps) {
         <div className="w-full h-fit space-y-6">
           <Form />
           <div className="flex justify-end mt-24">
-            {continueLink ? (
+            {href ? (
               <Button asChild disabled={disabled}>
-                <Link href={continueLink}>Продолжить</Link>
+                <Link href={href}>Продолжить</Link>
               </Button>
             ) : (
               <Button disabled={disabled}>Продолжить</Button>

@@ -1,6 +1,7 @@
 "use client";
 import AvatarHandler from "@/components/avatar-handler";
 import { useDebounceEffect } from "ahooks";
+import { Loader2Icon } from "lucide-react";
 import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
 import { useRouter } from "next/navigation";
@@ -18,7 +19,6 @@ export default function () {
     const uid = user?.id;
     if (!uid) return;
     try {
-      setUsernameLoading(false);
       await updateUser(uid, {
         data: {
           username,
@@ -55,12 +55,17 @@ export default function () {
             Выберите вашу профессию и укажите свой никнейм
           </span>
         </div>
-        <Input
-          disabled={usernameLoading}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Введите ваш никнейм"
-        />
+        <div className="relative w-full flex items-center">
+          <Input
+            disabled={usernameLoading}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Введите ваш никнейм"
+          />
+          {usernameLoading && (
+            <Loader2Icon className="absolute right-2 animate-spin" size={18} />
+          )}
+        </div>
         {/* <Select>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Выберите вашу профессию" />
