@@ -2,6 +2,7 @@ import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
+import { wait } from "@/lib/wait";
 import { differenceInDays, format, parse } from "date-fns";
 import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -22,6 +23,7 @@ type PageProps = {
   }>;
 };
 export default async function page({ searchParams }: PageProps) {
+  await wait(3000);
   const search = await searchParams;
   const date = search.date;
   const user = await auth();
@@ -47,7 +49,7 @@ export default async function page({ searchParams }: PageProps) {
         </div>
       </header>
       <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6  min-h-dvh">
-        <div className="space-y-6 md:w-1/3 w-full">
+        <div className="space-y-6 md:w-1/3 shrink-0 w-full">
           <DayInfo defaultDate={date} />
           <Separator />
           <ScheduleSection uid={user?.id ?? null} />
@@ -56,7 +58,7 @@ export default async function page({ searchParams }: PageProps) {
             <MeetingSection uid={user?.id ?? null} date={date} />
           </Suspense>
         </div>
-        <div className="flex flex-col gap-6 md:w-2/3 w-full">
+        <div className="flex flex-col gap-6 shrink-0 md:w-2/3 w-full">
           <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />
           <EventSection uid={user?.id ?? undefined} date={date} />
         </div>

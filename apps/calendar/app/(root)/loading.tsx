@@ -3,7 +3,7 @@ import { Logo } from "@/components/logo";
 import { UserSkeleton } from "@/components/user";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { SectionSkeleton as EventSectionSkeleton } from "./events/section";
+import { DayTimelineSkeleton } from "../[date]/day-timeline";
 import HeaderTime from "./header-time";
 import { SectionSkeleton as MeetingSectionSkeleton } from "./meetings/section";
 import { SectionSkeleton } from "./schedule/section";
@@ -32,9 +32,10 @@ export default function oading() {
           <Separator />
           <MeetingSectionSkeleton />
         </div>
-        <div className="flex flex-col gap-2 md:w-2/3 w-full">
+        <div className="flex flex-col gap-6 md:w-2/3 w-full">
           <Skeleton className="w-full h-[60px]" />
-          <EventSectionSkeleton />
+          <DayTimelineSkeleton />
+          {/* <EventSectionSkeleton /> */}
         </div>
       </div>
       <Footer />

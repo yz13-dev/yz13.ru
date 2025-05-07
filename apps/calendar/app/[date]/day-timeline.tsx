@@ -9,6 +9,7 @@ import {
   parseISO,
 } from "date-fns";
 import { Separator } from "mono/components/separator";
+import { Skeleton } from "mono/components/skeleton";
 import { useEffect, useMemo, useState } from "react";
 import { Event } from "rest-api/types/calendar";
 import { cn } from "yz13/cn";
@@ -194,5 +195,23 @@ const DayTimeline = ({
     </div>
   );
 };
+
+export function DayTimelineSkeleton() {
+  const lines = Array.from({ length: 24 }, (_, i) => i);
+  return (
+    <ul>
+      {lines.map((line) => {
+        return (
+          <li key={line} className="w-[calc(100%-32px-8px)] h-12 flex gap-2">
+            <Skeleton className="w-8 h-4 relative -top-2" />
+            <div className="w-[calc(100%-2.5rem-0.5rem)] h-full">
+              <Separator />
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
 export default DayTimeline;
