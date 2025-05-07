@@ -96,6 +96,12 @@ export default function form({
       });
     }
   };
+  useEffect(() => {
+    if (user) {
+      if (user.email) setEmail(user.email);
+      if (user.username) setName(user.username);
+    }
+  }, [user]);
   useDebounceEffect(
     () => {
       const searchParamsAsString = searchParams.toString();
