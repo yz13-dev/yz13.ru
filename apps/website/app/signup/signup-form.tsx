@@ -45,7 +45,10 @@ export function SignupForm({
       const user = data.user;
       if (error) setError(true);
       if (back) router.back();
-      else router.push(continueLink || "/");
+      else {
+        const urlToOnboarding = `/onboarding${continueLink ? "?continue=" + continueLink : ""}`;
+        router.push(urlToOnboarding);
+      }
     } catch (error) {
       setError(true);
     } finally {
