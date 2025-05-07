@@ -5,13 +5,11 @@ import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { CallToActionSkeleton } from "./call-to-action";
 import { OtherProjectsSkeleton } from "./other-projects";
-import { GallerySkeleton } from "./screenshots-gallery";
 import Stack from "./stack";
 
 export default function loading() {
   return (
     <>
-      <header className="max-w-6xl w-full mx-auto h-[68px]" />
       <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
         <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
           <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">
@@ -27,21 +25,22 @@ export default function loading() {
                 веб-приложений.
               </p>
             </main>
-            <div className="flex items-center gap-2">
-              <Skeleton className="size-[22px] rounded-full" />
-              <Skeleton className="h-[22px] w-28 rounded-full" />
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Skeleton className="size-[22px] rounded-full" />
+                <Skeleton className="h-[22px] w-28 rounded-full" />
+              </div>
+              <CallToActionSkeleton />
             </div>
-            <CallToActionSkeleton />
           </div>
           <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
             <Logo size={{ width: 240, height: 240 }} type="only-icon" />
           </div>
         </div>
       </div>
-      <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6 space-y-6">
+      <div className="w-full gap-6 mt-[2.5%] flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <Skeleton className="h-4 w-full rounded-md" />
-          <GallerySkeleton className="h-80 w-full" />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
             <span className="text-base text-muted-foreground block">
@@ -49,16 +48,6 @@ export default function loading() {
               и дизайне в свободное время.
             </span>
           </div>
-          {/* <Separator />
-          <div className="w-full space-y-6">
-            <div className="space-y-1 *:block">
-              <span className="text-base block font-medium">График</span>
-              <span className="text-sm block text-muted-foreground">
-                Время когда я буду доступен для созвонов и сообщений
-              </span>
-            </div>
-            <SectionSkeleton />
-          </div> */}
           <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Услуги</span>

@@ -2,7 +2,6 @@ import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
-import { wait } from "@/lib/wait";
 import { differenceInDays, format, parse } from "date-fns";
 import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -23,7 +22,6 @@ type PageProps = {
   }>;
 };
 export default async function page({ searchParams }: PageProps) {
-  await wait(3000);
   const search = await searchParams;
   const date = search.date;
   const user = await auth();
@@ -38,11 +36,13 @@ export default async function page({ searchParams }: PageProps) {
           <Logo size={{ width: 48, height: 48 }} type="only-icon" />
         </div>
         <div className="flex items-center gap-2">
-          <NewEventForm uid={user?.id ?? null}>
-            <Button size="icon" variant="outline">
-              <PlusIcon size={16} />
-            </Button>
-          </NewEventForm>
+          {user && (
+            <NewEventForm uid={user?.id ?? null}>
+              <Button size="icon" variant="outline">
+                <PlusIcon size={16} />
+              </Button>
+            </NewEventForm>
+          )}
           <Suspense fallback={<UserSkeleton />}>
             <User />
           </Suspense>

@@ -26,6 +26,7 @@ export const CallToActionSkeleton = () => {
 };
 
 const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
+  const [visible, setVisible] = useState<boolean>(false);
   const [label, setLabel] = useState<string>("Подождите...");
   const [href, setHref] = useState<string | null>(null);
   const [disabled, setDisabled] = useState<boolean>(busy);
@@ -46,60 +47,57 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
         setLabel(action.label);
         if (action.href) setHref(action.href);
         if (typeof action.disabled === "boolean") setDisabled(action.disabled);
+        if (typeof action.visible === "boolean") setVisible(action.visible);
       }
     });
   }, []);
   return (
-    <>
-      <div className="w-full">
-        <div className="h-fit flex w-fit items-center flex-row gap-2">
-          {busy ? (
-            <Button variant="default" className={cn("gap-2 ")} disabled={busy}>
-              <ArrowLeftIcon size={16} />
-              Связаться
-            </Button>
-          ) : (
-            <Button
-              variant="default"
-              className={cn("gap-2")}
-              disabled={busy}
-              asChild
-            >
-              <Link href={CALL_TO_ACTION_LINK}>
-                <ArrowLeftIcon size={16} />
-                Связаться
-              </Link>
-            </Button>
+    <div className="h-fit flex w-fit items-center flex-row gap-2">
+      {busy ? (
+        <Button variant="default" className={cn("gap-2 ")} disabled={busy}>
+          <ArrowLeftIcon size={16} />
+          Связаться
+        </Button>
+      ) : (
+        <Button
+          variant="default"
+          className={cn("gap-2")}
+          disabled={busy}
+          asChild
+        >
+          <Link href={CALL_TO_ACTION_LINK}>
+            <ArrowLeftIcon size={16} />
+            Связаться
+          </Link>
+        </Button>
+      )}
+      {!visible ? null : href ? (
+        <Button
+          disabled={disabled}
+          variant="secondary"
+          className={cn(
+            "max-w-xs w-fit justify-center *:text-sm relative",
+            hideSearch && "hidden",
           )}
-          {href ? (
-            <Button
-              disabled={disabled}
-              variant="secondary"
-              className={cn(
-                "max-w-xs w-fit justify-center *:text-sm relative",
-                hideSearch && "hidden",
-              )}
-              asChild
-            >
-              <Link href={href}>
-                <span>{label}</span>
-              </Link>
-            </Button>
-          ) : (
-            <Button
-              disabled={disabled}
-              variant="secondary"
-              className={cn(
-                "max-w-xs w-fit justify-center *:text-sm relative",
-                hideSearch && "hidden",
-              )}
-            >
-              <span>{label}</span>
-            </Button>
+          asChild
+        >
+          <Link href={href}>
+            <span>{label}</span>
+          </Link>
+        </Button>
+      ) : (
+        <Button
+          disabled={disabled}
+          variant="secondary"
+          className={cn(
+            "max-w-xs w-fit justify-center *:text-sm relative",
+            hideSearch && "hidden",
           )}
-        </div>
-      </div>
-    </>
+        >
+          <span>{label}</span>
+        </Button>
+      )}
+    </div>
   );
 };
 

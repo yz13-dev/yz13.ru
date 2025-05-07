@@ -1,5 +1,7 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
+import { appId } from "@/const/app-id";
+import { useDebounceEffect } from "ahooks";
 import { format, formatISO, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Loader2Icon } from "lucide-react";
@@ -8,11 +10,13 @@ import { Calendar } from "mono/components/calendar";
 import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { createAppointment } from "rest-api/calendar/appointments";
 import { NewAppointment, ScheduleAvailability } from "rest-api/types/calendar";
+import { isDev } from "yz13/env";
+import { useUserStore } from "./user.store";
 
 export default function form({
   uid,
@@ -23,6 +27,8 @@ export default function form({
   className?: string;
   availability?: ScheduleAvailability;
 }) {
+  const searchParams = useSearchParams();
+  const user = useUserStore((state) => state.user);
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [note, setNote] = useState<string>("");
@@ -54,14 +60,17 @@ export default function form({
     if (!date) return;
     if (!time) return;
     if (!duration) return;
+    if (!user) return;
     setLoading(true);
     try {
+      const organizer = user.id;
       const appointmentDate = parse(date, "yyyy-MM-dd", new Date());
       const appointmentTime = parse(time, "HH:mm", new Date());
       appointmentDate.setHours(appointmentTime.getHours());
       appointmentDate.setMinutes(appointmentTime.getMinutes());
       const appointment: NewAppointment = {
         date: formatISO(appointmentDate),
+        organizer,
         duration,
         name,
         email,
@@ -87,6 +96,22 @@ export default function form({
       });
     }
   };
+  useDebounceEffect(
+    () => {
+      const searchParamsAsString = searchParams.toString();
+      const authDomain = isDev
+        ? "https://localhost:3001/login"
+        : "https://yz13.ru/login";
+      const returnDomain = isDev
+        ? "https://localhost:3001"
+        : "https://calendar.yz13.ru";
+      const returnLink = `${returnDomain}/booking/${uid}?${searchParamsAsString}`;
+      const authLink = `${authDomain}?continue=${encodeURIComponent(returnLink)}&appId=${appId}`;
+      if (!user) router.push(authLink);
+    },
+    [user, searchParams],
+    { wait: 1000 },
+  );
   useEffect(() => {
     if (duration) handleDurationScroll();
   }, [duration]);

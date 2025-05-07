@@ -1,5 +1,6 @@
 import { Typewriter } from "@/components/text-writter";
 import { availableForWork } from "@/const/flags";
+import { cn } from "yz13/cn";
 import SocialLinks from "./social-links";
 
 type AvailabilityProps = {};
@@ -11,7 +12,7 @@ const unavailableTexts = [
   "Делаю вид что работаю",
 ];
 
-const Availability = async ({ }: AvailabilityProps) => {
+const Availability = async ({}: AvailabilityProps) => {
   const isBusy = await availableForWork();
   const status: "available" | "unavailable" = isBusy
     ? "unavailable"
@@ -22,7 +23,12 @@ const Availability = async ({ }: AvailabilityProps) => {
     <div className="w-full flex items-center justify-between gap-2">
       <div className="flex items-center gap-2">
         <div className="size-2 relative">
-          <div className="absolute inset-0 size-2 animate-ping bg-red-foreground rounded-full" />
+          <div
+            className={cn(
+              "absolute inset-0 size-2 animate-ping rounded-full",
+              isBusy ? "bg-red-foreground" : "bg-green-foreground",
+            )}
+          />
           <div className="size-2 animate-pulse bg-red-foreground rounded-full" />
         </div>
         <div className="flex items-center gap-1">

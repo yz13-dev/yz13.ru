@@ -1,10 +1,11 @@
+import { appId } from "@/const/app-id";
 import { permanentRedirect } from "next/navigation";
 
 const page = () => {
-  // console.log(check)
-  return permanentRedirect(
-    "https://yz13.ru/login?continue=https://calendar.yz13.ru",
-  );
+  const url = new URL("/login", "https://calendar.yz13.ru");
+  const searchParams = url.searchParams;
+  if (appId) searchParams.set("appId", appId);
+  return permanentRedirect(url.toString());
 };
 
 export default page;
