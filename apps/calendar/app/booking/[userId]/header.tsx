@@ -61,7 +61,7 @@ export default function Header({ user }: { user: UserObject }) {
             className="max-w-full w-full [&>svg]:size-4"
           >
             <VideoIcon size={16} className="shrink-0 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">---</span>
+            <span className="text-sm text-muted-foreground">Не готово</span>
           </Badge>
         </li>
         <li className="flex items-center gap-2">

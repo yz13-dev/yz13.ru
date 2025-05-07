@@ -1,6 +1,5 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
-import { appId } from "@/const/app-id";
 import { useDebounceEffect } from "ahooks";
 import { format, formatISO, parse } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -15,7 +14,6 @@ import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { createAppointment } from "rest-api/calendar/appointments";
 import { NewAppointment, ScheduleAvailability } from "rest-api/types/calendar";
-import { isDev } from "yz13/env";
 import { useUserStore } from "./user.store";
 
 export default function form({
@@ -54,9 +52,11 @@ export default function form({
     duration === null ||
     time === null ||
     !isValidEmail ||
-    name === "";
+    name === "" ||
+    !user;
   const router = useRouter();
   const handleCreateAppointment = async () => {
+    console.log(date, time, duration, user);
     if (!date) return;
     if (!time) return;
     if (!duration) return;
@@ -96,17 +96,22 @@ export default function form({
       });
     }
   };
+  useEffect(() => {
+    if (user) {
+      if (user.email) setEmail(user.email);
+      if (user.username) setName(user.username);
+    }
+  }, [user]);
   useDebounceEffect(
     () => {
-      const searchParamsAsString = searchParams.toString();
-      const authDomain = isDev
-        ? "https://localhost:3001/login"
-        : "https://yz13.ru/login";
-      const returnDomain = isDev
-        ? "https://localhost:3001"
-        : "https://calendar.yz13.ru";
-      const returnLink = `${returnDomain}/booking/${uid}?${searchParamsAsString}`;
-      const authLink = `${authDomain}?continue=${encodeURIComponent(returnLink)}&appId=${appId}`;
+      const url = new URL("/login", "https://yz13.ru");
+      const urlSearchParams = url.searchParams;
+      searchParams.forEach((value, key) => urlSearchParams.set(key, value));
+      urlSearchParams.set(
+        "continue",
+        `https://calendar.yz13.ru/booking/${uid}`,
+      );
+      const authLink = url.toString();
       if (!user) router.push(authLink);
     },
     [user, searchParams],

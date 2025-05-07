@@ -28,7 +28,7 @@ export function SignupForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setError] = useState<boolean>(false);
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const signIn = async () => {
@@ -48,7 +48,7 @@ export function SignupForm({
       if (error) setError(true);
       if (back) router.back();
       else {
-        const urlToOnboarding = `/onboarding${continueLink ? "?continue=" + continueLink : ""}`;
+        const urlToOnboarding = `/onboarding${searchParamsAsString ? `?${searchParamsAsString}` : ""}`;
         router.push(urlToOnboarding);
       }
     } catch (error) {
