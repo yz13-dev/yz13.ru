@@ -1,7 +1,7 @@
 import { Tables, TablesInsert } from "yz13/supabase/database";
-import { ChatAttachment } from "./attachments";
+import { Attachment } from "./attachments";
 
-export type PublicationAttachment = ChatAttachment;
+export type PublicationAttachment = Attachment;
 export type SimplePublicationIcon = {
   type: "simple";
   url: string;

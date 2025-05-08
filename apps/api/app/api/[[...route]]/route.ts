@@ -8,10 +8,6 @@ import { handle } from "hono/vercel";
 import { appointments } from "./appointments/endpoint";
 import { auth } from "./auth";
 import { calendar } from "./calendar/endpoint";
-import { charts } from "./charts";
-import { chats } from "./chats/endpoint";
-import { drafts } from "./drafts";
-import { limits } from "./limits/endpoint";
 import { news } from "./news";
 import { pages } from "./pages";
 import { pricing } from "./pricing";
@@ -19,8 +15,6 @@ import { rooms } from "./rooms";
 import { schedule } from "./schedule/endpoint";
 import { store } from "./store/endpoint";
 import { user } from "./user";
-import { visitor_session } from "./visitor-session";
-import { works } from "./works";
 
 export const runtime = "edge";
 
@@ -63,17 +57,11 @@ app.use(
 app.use(poweredBy());
 
 app.route("/user", user);
-app.route("/visitor-session", visitor_session);
-app.route("/charts", charts);
-app.route("/drafts", drafts);
-app.route("/works", works);
 app.route("/auth", auth);
 app.route("/pricing", pricing);
 app.route("/rooms", rooms);
 app.route("/pages", pages);
 app.route("/news", news);
-app.route("/chats", chats);
-app.route("/limits", limits);
 app.route("/store", store);
 app.route("/calendar", calendar);
 app.route("/appointments", appointments);
