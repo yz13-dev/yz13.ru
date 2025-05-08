@@ -13,7 +13,7 @@ export default function (): MetadataRoute.Robots {
         "/apps",
         "/:appId",
         "/login",
-        "signup",
+        "/signup",
         "/account/*",
         "/onboard",
         "/contact-me",
