@@ -15,12 +15,12 @@ export default function loading() {
           <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">
             <Logo size={{ width: 64, height: 64 }} type="only-icon" />
           </div>
-          <div className="flex w-full flex-col gap-6">
+          <div className="flex md:w-2/3 w-full flex-col gap-6">
             <main className="flex w-full flex-col gap-2">
               <h1 className="lg:text-5xl text-3xl lg:font-bold font-semibold">
                 YZ13
               </h1>
-              <p className="lg:text-lg max-w-md text-sm text-muted-foreground">
+              <p className="lg:text-5xl text-3xl text-muted-foreground">
                 Фронтенд разработчик, специализируюсь на разработке сайтов,
                 веб-приложений.
               </p>
@@ -31,7 +31,7 @@ export default function loading() {
           </div>
         </div>
       </div>
-      <div className="w-full gap-6 mt-[2.5%] flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
+      <div className="w-full gap-6 mt-[10%] flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <Skeleton className="h-5 w-full rounded-md" />
           <ContactSkeleton />
