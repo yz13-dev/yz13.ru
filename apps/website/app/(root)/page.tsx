@@ -1,17 +1,14 @@
 import Availability from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
-import User from "@/components/user";
-import { availableForWork, showCallToAction } from "@/const/flags";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
-import CallToAction, { CallToActionSkeleton } from "./call-to-action";
+import Contact, { ContactSkeleton } from "./contact";
 import OtherProjects, { OtherProjectsSkeleton } from "./other-projects";
 import ServicesDetails from "./services-details";
 import Stack from "./stack";
-import TodaySchedule from "./today-schedule";
 
 export default async function page() {
   return (
@@ -31,19 +28,6 @@ export default async function page() {
                 веб-приложений.
               </p>
             </main>
-            <div className="space-y-3">
-              <TodaySchedule />
-              <div className="flex items-center justify-start gap-2">
-                <Suspense fallback={<CallToActionSkeleton />}>
-                  {(await showCallToAction()) && (
-                    <CallToAction busy={await availableForWork()} />
-                  )}
-                </Suspense>
-                <Suspense fallback={<Skeleton className="h-9 w-16" />}>
-                  <User />
-                </Suspense>
-              </div>
-            </div>
           </div>
           <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center relative justify-center">
             <Logo
@@ -64,6 +48,10 @@ export default async function page() {
           <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
             <Availability />
           </Suspense>
+          <Suspense fallback={<ContactSkeleton />}>
+            <Contact />
+          </Suspense>
+          <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
             <span className="text-base text-muted-foreground block">

@@ -3,7 +3,7 @@ import { Logo } from "@/components/logo";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { CallToActionSkeleton } from "./call-to-action";
+import { ContactSkeleton } from "./contact";
 import { OtherProjectsSkeleton } from "./other-projects";
 import Stack from "./stack";
 
@@ -25,13 +25,6 @@ export default function loading() {
                 веб-приложений.
               </p>
             </main>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <Skeleton className="size-[22px] rounded-full" />
-                <Skeleton className="h-[22px] w-28 rounded-full" />
-              </div>
-              <CallToActionSkeleton />
-            </div>
           </div>
           <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
             <Logo size={{ width: 240, height: 240 }} type="only-icon" />
@@ -40,7 +33,9 @@ export default function loading() {
       </div>
       <div className="w-full gap-6 mt-[2.5%] flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
-          <Skeleton className="h-4 w-full rounded-md" />
+          <Skeleton className="h-5 w-full rounded-md" />
+          <ContactSkeleton />
+          <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Описание</span>
             <span className="text-base text-muted-foreground block">
