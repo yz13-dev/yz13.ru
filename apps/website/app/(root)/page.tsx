@@ -23,7 +23,7 @@ export default async function page() {
               <h1 className="lg:text-5xl text-3xl lg:font-bold font-semibold">
                 YZ13
               </h1>
-              <p className="lg:text-lg max-w-md text-sm text-muted-foreground">
+              <p className="lg:text-5xl text-3xl text-muted-foreground">
                 Фронтенд разработчик, специализируюсь на разработке сайтов,
                 веб-приложений.
               </p>
@@ -43,7 +43,7 @@ export default async function page() {
           </div>
         </div>
       </div>
-      <div className="w-full gap-6 mt-[2.5%] flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
+      <div className="w-full gap-6 mt-[10%] flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
             <Availability />
