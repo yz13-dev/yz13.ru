@@ -13,17 +13,15 @@ import Stack from "./stack";
 export default async function page() {
   return (
     <>
-      <div className="max-w-6xl w-full mx-auto px-6 space-y-6 mt-[10%]">
-        <div className="flex flex-row lg:items-center items-start gap-6 lg:justify-between justify-start">
+      <div className="max-w-6xl w-full mx-auto px-6 py-12 space-y-6">
+        <div className="flex lg:flex-row flex-col lg:items-center items-start gap-6 lg:justify-between justify-start">
           <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">
             <Logo size={{ width: 64, height: 64 }} type="only-icon" />
           </div>
           <div className="flex md:w-2/3 w-full flex-col gap-6">
             <main className="flex w-full flex-col gap-2">
-              <h1 className="lg:text-5xl text-3xl lg:font-bold font-semibold">
-                YZ13
-              </h1>
-              <p className="lg:text-5xl text-3xl text-muted-foreground">
+              <h1 className="text-4xl lg:font-bold font-semibold">YZ13</h1>
+              <p className="text-xl text-muted-foreground">
                 Фронтенд разработчик, специализируюсь на разработке сайтов,
                 веб-приложений.
               </p>
@@ -43,7 +41,7 @@ export default async function page() {
           </div>
         </div>
       </div>
-      <div className="w-full gap-6 mt-[10%] flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
+      <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <Suspense fallback={<Skeleton className="h-4 w-full rounded-md" />}>
             <Availability />
