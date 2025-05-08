@@ -1,7 +1,7 @@
 export type FileWithId = {
   id: string;
 } & File;
-export type ChatAttachment = {
+export type Attachment = {
   id: string;
   name: string;
   type: string;
