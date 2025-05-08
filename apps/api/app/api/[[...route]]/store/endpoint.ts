@@ -4,12 +4,13 @@ import { cookies } from "next/headers";
 import { createClient } from "yz13/supabase/server";
 
 export const store = new Hono();
+const isDev = process.env.NODE_ENV === "development";
 
 store.get("/", async (c) => {
   const key = `store/10`;
   const cookieStore = await cookies();
   try {
-    const cache = await redis.get(key);
+    const cache = isDev ? null : await redis.get(key);
     if (cache) {
       return c.json(cache);
     } else {
@@ -18,12 +19,13 @@ store.get("/", async (c) => {
       const { data, error } = await supabase
         .from("publications")
         .select("*")
+        .eq("is_archived", false)
         .order("created_at", { ascending: false })
         .limit(10);
       if (error) {
         return c.json([]);
       } else {
-        await redis.set(key, data, { ex: expire.hour });
+        if (!isDev) await redis.set(key, data, { ex: expire.hour });
         return c.json(data);
       }
     }

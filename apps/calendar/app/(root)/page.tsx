@@ -1,8 +1,8 @@
 import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
+import { showEventForm } from "@/const/flags";
 import { auth } from "@/lib/auth";
-import { differenceInDays, format, parse } from "date-fns";
 import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
@@ -25,10 +25,7 @@ export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const date = search.date;
   const user = await auth();
-  const defaultDate = format(new Date(), "yyyy-MM-dd");
-  const today = new Date();
-  const targetDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
-  const diffInDay = differenceInDays(targetDate, today);
+  const showForm = await showEventForm();
   return (
     <>
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
@@ -36,7 +33,7 @@ export default async function page({ searchParams }: PageProps) {
           <Logo size={{ width: 48, height: 48 }} type="only-icon" />
         </div>
         <div className="flex items-center gap-2">
-          {user && (
+          {showForm && user && (
             <NewEventForm uid={user?.id ?? null}>
               <Button size="icon" variant="outline">
                 <PlusIcon size={16} />

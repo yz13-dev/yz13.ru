@@ -53,6 +53,8 @@
       "version": "0.1.0",
       "dependencies": {
         "@date-fns/tz": "^1.2.0",
+        "@vercel/edge-config": "^1.4.0",
+        "@vercel/flags": "^3.1.1",
         "ahooks": "^3.8.4",
         "date-fns": "^4.1.0",
         "lodash": "^4.17.21",
@@ -72,39 +74,6 @@
         "@types/react": "^19.1.1",
         "@types/react-dom": "^19.1.2",
         "eslint-config": "*",
-        "tailwind-config": "*",
-        "tailwindcss": "^4.1.3",
-        "typescript": "^5.8.3",
-        "typescript-config": "*",
-      },
-    },
-    "apps/chat": {
-      "name": "chat",
-      "version": "0.1.0",
-      "dependencies": {
-        "@upstash/redis": "^1.34.7",
-        "@vercel/flags": "^3.1.1",
-        "ahooks": "^3.8.4",
-        "lucide-react": "^0.488.0",
-        "mono": "*",
-        "next": "15.3.0",
-        "react": "19.1.0",
-        "react-dom": "19.1.0",
-        "react-responsive": "^10.0.1",
-        "recharts": "^2.15.2",
-        "rest-api": "*",
-        "sonner": "^2.0.3",
-        "yz13": "*",
-      },
-      "devDependencies": {
-        "@eslint/eslintrc": "^3.3.1",
-        "@tailwindcss/postcss": "^4.1.3",
-        "@types/node": "^22.14.1",
-        "@types/react": "^19.1.1",
-        "@types/react-dom": "^19.1.2",
-        "eslint": "^9.24.0",
-        "eslint-config": "*",
-        "eslint-config-next": "15.0.3",
         "tailwind-config": "*",
         "tailwindcss": "^4.1.3",
         "typescript": "^5.8.3",
@@ -147,7 +116,7 @@
     },
     "apps/website": {
       "name": "website",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "dependencies": {
         "@date-fns/tz": "^1.2.0",
         "@dnd-kit/core": "^6.3.1",
@@ -1362,8 +1331,6 @@
     "chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
 
     "char-regex": ["char-regex@1.0.2", "", {}, "sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw=="],
-
-    "chat": ["chat@workspace:apps/chat"],
 
     "check-error": ["check-error@2.1.1", "", {}, "sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw=="],
 
@@ -2923,8 +2890,6 @@
 
     "body-parser/debug": ["debug@2.6.9", "", { "dependencies": { "ms": "2.0.0" } }, "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="],
 
-    "chat/eslint-config-next": ["eslint-config-next@15.0.3", "", { "dependencies": { "@next/eslint-plugin-next": "15.0.3", "@rushstack/eslint-patch": "^1.10.3", "@typescript-eslint/eslint-plugin": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0", "@typescript-eslint/parser": "^5.4.2 || ^6.0.0 || ^7.0.0 || ^8.0.0", "eslint-import-resolver-node": "^0.3.6", "eslint-import-resolver-typescript": "^3.5.2", "eslint-plugin-import": "^2.31.0", "eslint-plugin-jsx-a11y": "^6.10.0", "eslint-plugin-react": "^7.35.0", "eslint-plugin-react-hooks": "^5.0.0" }, "peerDependencies": { "eslint": "^7.23.0 || ^8.0.0 || ^9.0.0", "typescript": ">=3.3.1" }, "optionalPeers": ["typescript"] }, "sha512-IGP2DdQQrgjcr4mwFPve4DrCqo7CVVez1WoYY47XwKSrYO4hC0Dlb+iJA60i0YfICOzgNADIb8r28BpQ5Zs0wg=="],
-
     "chokidar/glob-parent": ["glob-parent@5.1.2", "", { "dependencies": { "is-glob": "^4.0.1" } }, "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow=="],
 
     "clean-regexp/escape-string-regexp": ["escape-string-regexp@1.0.5", "", {}, "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg=="],
@@ -3222,8 +3187,6 @@
     "babel-plugin-istanbul/istanbul-lib-instrument/semver": ["semver@6.3.1", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA=="],
 
     "body-parser/debug/ms": ["ms@2.0.0", "", {}, "sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A=="],
-
-    "chat/eslint-config-next/@next/eslint-plugin-next": ["@next/eslint-plugin-next@15.0.3", "", { "dependencies": { "fast-glob": "3.3.1" } }, "sha512-3Ln/nHq2V+v8uIaxCR6YfYo7ceRgZNXfTd3yW1ukTaFbO+/I8jNakrjYWODvG9BuR2v5kgVtH/C8r0i11quOgw=="],
 
     "cliui/strip-ansi/ansi-regex": ["ansi-regex@5.0.1", "", {}, "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="],
 
