@@ -1,7 +1,7 @@
 "use client";
 import { format, parse } from "date-fns";
 import { isEqual } from "lodash";
-import { Loader2Icon, XIcon } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import {
@@ -66,14 +66,8 @@ const ScheduleItem = ({
     if (onScheduleChange) onScheduleChange(innerSchedule);
   }, [innerSchedule]);
   return (
-    <div className="flex gap-2 items-start">
-      <div className="flex items-center shrink-0 h-9">
-        <Switch
-          checked={innerSchedule.enabled}
-          onCheckedChange={(checked) => updateSchedule({ enabled: checked })}
-        />
-      </div>
-      <div className="flex flex-row w-full gap-2 *:w-1/2">
+    <div className="flex gap-2 flex-col w-full">
+      <div className="flex flex-row w-full *:w-1/2 gap-2">
         <Input
           type="time"
           aria-invalid={!isValid}
@@ -91,15 +85,25 @@ const ScheduleItem = ({
           className="text-center aria-invalid:border-destructive aria-invalid:bg-destructive/40"
         />
       </div>
-      <Button
-        disabled={!onDelete}
-        onClick={onDelete}
-        size="icon"
-        variant="outline"
-        className="shrink-0"
-      >
-        <XIcon size={16} />
-      </Button>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Switch
+            checked={innerSchedule.enabled}
+            onCheckedChange={(checked) => updateSchedule({ enabled: checked })}
+          />
+          <span className="text-sm">
+            {innerSchedule.enabled ? "Работает" : "Не работает"}
+          </span>
+        </div>
+        <Button
+          disabled={!onDelete}
+          onClick={onDelete}
+          size="sm"
+          variant="ghost"
+        >
+          Удалить
+        </Button>
+      </div>
     </div>
   );
 };
@@ -299,7 +303,7 @@ export default function EditScheduleModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="rounded-3xl max-h-dvh !max-w-2xl w-full overflow-y-auto">
+      <DialogContent className="rounded-3xl max-h-dvh !max-w-md w-full overflow-y-auto">
         <div className="*:block space-y-2">
           <DialogTitle>Редактировать расписание</DialogTitle>
           <DialogDescription>
@@ -332,182 +336,70 @@ export default function EditScheduleModal({
         <span className="text-sm text-muted-foreground">
           Определите ваше расписание
         </span>
-        <ul className="gap-4 grid md:grid-cols-2 grid-cols-1 *:gap-4">
-          <li className="flex items-start w-full">
-            <span className="text-sm shrink-0">Пн:</span>
-            <div className="flex flex-col gap-4 w-full">
-              {monday.map((item, index) => {
-                const key = `monday-${index}`;
-                return (
-                  <ScheduleItem
-                    schedule={item}
-                    key={key}
-                    onScheduleChange={(schedule) =>
-                      changeSchedule("monday", index, schedule)
-                    }
-                    onDelete={() => removeSchedule("monday", index)}
-                  />
-                );
-              })}
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => addSchedule("monday", getEmptySchedule())}
-              >
-                Добавить
-              </Button>
-            </div>
-          </li>
-          <li className="flex items-start w-full">
-            <span className="text-sm shrink-0">Вт:</span>
-            <div className="flex flex-col gap-4 w-full">
-              {tuesday.map((item, index) => {
-                const key = `tuesday-${index}`;
-                return (
-                  <ScheduleItem
-                    schedule={item}
-                    key={key}
-                    onScheduleChange={(schedule) =>
-                      changeSchedule("tuesday", index, schedule)
-                    }
-                    onDelete={() => removeSchedule("tuesday", index)}
-                  />
-                );
-              })}
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => addSchedule("tuesday", getEmptySchedule())}
-              >
-                Добавить
-              </Button>
-            </div>
-          </li>
-          <li className="flex items-start w-full">
-            <span className="text-sm shrink-0">Ср:</span>
-            <div className="flex flex-col gap-4 w-full">
-              {wednesday.map((item, index) => {
-                const key = `wednesday-${index}`;
-                return (
-                  <ScheduleItem
-                    schedule={item}
-                    key={key}
-                    onScheduleChange={(schedule) =>
-                      changeSchedule("wednesday", index, schedule)
-                    }
-                    onDelete={() => removeSchedule("wednesday", index)}
-                  />
-                );
-              })}
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => addSchedule("wednesday", getEmptySchedule())}
-              >
-                Добавить
-              </Button>
-            </div>
-          </li>
-          <li className="flex items-start w-full">
-            <span className="text-sm shrink-0">Чт:</span>
-            <div className="flex flex-col gap-4 w-full">
-              {thursday.map((item, index) => {
-                const key = `thursday-${index}`;
-                return (
-                  <ScheduleItem
-                    schedule={item}
-                    key={key}
-                    onScheduleChange={(schedule) =>
-                      changeSchedule("thursday", index, schedule)
-                    }
-                    onDelete={() => removeSchedule("thursday", index)}
-                  />
-                );
-              })}
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => addSchedule("thursday", getEmptySchedule())}
-              >
-                Добавить
-              </Button>
-            </div>
-          </li>
-          <li className="flex items-start w-full">
-            <span className="text-sm shrink-0">Пт:</span>
-            <div className="flex flex-col gap-4 w-full">
-              {friday.map((item, index) => {
-                const key = `friday-${index}`;
-                return (
-                  <ScheduleItem
-                    schedule={item}
-                    key={key}
-                    onScheduleChange={(schedule) =>
-                      changeSchedule("friday", index, schedule)
-                    }
-                    onDelete={() => removeSchedule("friday", index)}
-                  />
-                );
-              })}
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => addSchedule("friday", getEmptySchedule())}
-              >
-                Добавить
-              </Button>
-            </div>
-          </li>
-          <li className="flex items-start w-full">
-            <span className="text-sm shrink-0">Сб:</span>
-            <div className="flex flex-col gap-4 w-full">
-              {saturday.map((item, index) => {
-                const key = `saturday-${index}`;
-                return (
-                  <ScheduleItem
-                    schedule={item}
-                    key={key}
-                    onScheduleChange={(schedule) =>
-                      changeSchedule("saturday", index, schedule)
-                    }
-                    onDelete={() => removeSchedule("saturday", index)}
-                  />
-                );
-              })}
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => addSchedule("saturday", getEmptySchedule())}
-              >
-                Добавить
-              </Button>
-            </div>
-          </li>
-          <li className="flex items-start w-full">
-            <span className="text-sm shrink-0">Вс:</span>
-            <div className="flex flex-col gap-4 w-full">
-              {sunday.map((item, index) => {
-                const key = `sunday-${index}`;
-                return (
-                  <ScheduleItem
-                    schedule={item}
-                    key={key}
-                    onScheduleChange={(schedule) =>
-                      changeSchedule("sunday", index, schedule)
-                    }
-                    onDelete={() => removeSchedule("sunday", index)}
-                  />
-                );
-              })}
-              <Button
-                variant="secondary"
-                className="w-full"
-                onClick={() => addSchedule("sunday", getEmptySchedule())}
-              >
-                Добавить
-              </Button>
-            </div>
-          </li>
+        <ul className="w-full space-y-6">
+          <WeekdayItem
+            label="Понедельник"
+            schedule={monday}
+            onChange={changeSchedule}
+            onDeleteSchedule={removeSchedule}
+            onNewSchedule={(weekday) =>
+              addSchedule(weekday, getEmptySchedule())
+            }
+          />
+          <WeekdayItem
+            label="Вторник"
+            schedule={tuesday}
+            onChange={changeSchedule}
+            onDeleteSchedule={removeSchedule}
+            onNewSchedule={(weekday) =>
+              addSchedule(weekday, getEmptySchedule())
+            }
+          />
+          <WeekdayItem
+            label="Среда"
+            schedule={wednesday}
+            onChange={changeSchedule}
+            onDeleteSchedule={removeSchedule}
+            onNewSchedule={(weekday) =>
+              addSchedule(weekday, getEmptySchedule())
+            }
+          />
+          <WeekdayItem
+            label="Четверг"
+            schedule={thursday}
+            onChange={changeSchedule}
+            onDeleteSchedule={removeSchedule}
+            onNewSchedule={(weekday) =>
+              addSchedule(weekday, getEmptySchedule())
+            }
+          />
+          <WeekdayItem
+            label="Пятница"
+            schedule={friday}
+            onChange={changeSchedule}
+            onDeleteSchedule={removeSchedule}
+            onNewSchedule={(weekday) =>
+              addSchedule(weekday, getEmptySchedule())
+            }
+          />
+          <WeekdayItem
+            label="Суббота"
+            schedule={saturday}
+            onChange={changeSchedule}
+            onDeleteSchedule={removeSchedule}
+            onNewSchedule={(weekday) =>
+              addSchedule(weekday, getEmptySchedule())
+            }
+          />
+          <WeekdayItem
+            label="Воскресенье"
+            schedule={sunday}
+            onChange={changeSchedule}
+            onDeleteSchedule={removeSchedule}
+            onNewSchedule={(weekday) =>
+              addSchedule(weekday, getEmptySchedule())
+            }
+          />
         </ul>
         <DialogFooter>
           <Button onClick={updateWeekSchedule} disabled={disabled}>
@@ -519,3 +411,53 @@ export default function EditScheduleModal({
     </Dialog>
   );
 }
+
+const WeekdayItem = ({
+  label,
+  schedule = [],
+  onChange,
+  onDeleteSchedule,
+  onNewSchedule,
+}: {
+  onChange?: (
+    weekday: keyof WeekSchedule,
+    index: number,
+    schedule: DaySchedule,
+  ) => void;
+  onNewSchedule?: (weekday: keyof WeekSchedule) => void;
+  onDeleteSchedule?: (weekday: keyof WeekSchedule, index: number) => void;
+  label?: string;
+  schedule?: DaySchedule[];
+}) => {
+  return (
+    <li className="flex flex-col gap-2 w-full">
+      <div className="flex items-center justify-between">
+        <span className="text-sm shrink-0">{label}</span>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => onNewSchedule && onNewSchedule("sunday")}
+        >
+          Добавить
+        </Button>
+      </div>
+      <div className="flex flex-col gap-4 w-full">
+        {schedule.map((item, index) => {
+          const key = `sunday-${index}`;
+          return (
+            <ScheduleItem
+              schedule={item}
+              key={key}
+              onScheduleChange={(schedule) => {
+                onChange && onChange("sunday", index, schedule);
+              }}
+              onDelete={() =>
+                onDeleteSchedule && onDeleteSchedule("sunday", index)
+              }
+            />
+          );
+        })}
+      </div>
+    </li>
+  );
+};
