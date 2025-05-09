@@ -5,7 +5,7 @@ import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import { UserPublisherSkeleton } from "./publisher";
+import { UserPublisherSkeleton } from "./components/publisher";
 
 export default function loading() {
   return (
