@@ -29,7 +29,7 @@ export default async function page({ params }: Props) {
   const stage = publication.stage;
   return (
     <>
-      <header className="max-w-screen-2xl w-full mx-auto flex items-center justify-between p-6">
+      <header className="max-w-6xl w-full mx-auto flex items-center justify-between p-6">
         <Link href="/">
           <Logo size={{ width: 128, height: 64 }} type="full" />
         </Link>
@@ -37,11 +37,11 @@ export default async function page({ params }: Props) {
           <User />
         </Suspense>
       </header>
-      <div className="max-w-screen-2xl w-full mx-auto py-12 px-6 space-y-6">
+      <div className="max-w-6xl w-full mx-auto py-12 px-6 space-y-6">
         <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center">
           <AppLogo publication={publication} className="aspect-square" />
         </div>
-        <div className="w-full space-x-2 *:inline *:lg:text-4xl *:text-2xl max-w-lg">
+        <div className="w-full space-x-2 *:inline *:lg:text-4xl *:text-2xl max-w-2xl">
           <h1 className="lg:font-semibold font-medium">{publication?.name}</h1>
           {publication.description && (
             <>
@@ -97,13 +97,13 @@ export default async function page({ params }: Props) {
           <ShareButton appId={appId} />
         </div>
       </div>
-      <div className="w-full space-y-4 max-w-screen-2xl mx-auto p-6">
+      <div className="w-full space-y-4 max-w-6xl mx-auto p-6">
         <span className="text-base block font-medium">Другие проекты</span>
         <ul className="w-full grid grid-cols-3 gap-6">
           <OtherProjects exclude={[appId]} />
         </ul>
       </div>
-      <div className="w-full gap-6 max-w-screen-2xl mx-auto p-6 space-y-6">
+      <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6">
         <Separator />
         <Footer />
       </div>

@@ -10,23 +10,19 @@ import Stack from "./stack";
 export default function loading() {
   return (
     <>
-      <div className="max-w-6xl w-full mx-auto px-6 py-12 space-y-6">
-        <div className="flex lg:flex-row flex-col lg:items-center items-start gap-6 lg:justify-between justify-start">
-          <div className="size-16 shrink-0 lg:hidden flex items-center justify-center">
-            <Logo size={{ width: 64, height: 64 }} type="only-icon" />
-          </div>
-          <div className="flex md:w-2/3 w-full flex-col gap-6">
-            <main className="flex w-full flex-col gap-2">
-              <h1 className="text-4xl lg:font-bold font-semibold">YZ13</h1>
-              <p className="text-xl text-muted-foreground">
-                Фронтенд разработчик, специализируюсь на разработке сайтов,
-                веб-приложений.
-              </p>
-            </main>
-          </div>
-          <div className="h-60 w-1/3 shrink-0 lg:flex hidden items-center justify-center">
-            <Logo size={{ width: 240, height: 240 }} type="only-icon" />
-          </div>
+      <div className="max-w-6xl w-full mx-auto py-12 px-6 space-y-6">
+        <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center">
+          <Logo size={{ width: 64, height: 64 }} type="only-icon" />
+        </div>
+        <div className="flex md:w-2/3 w-full flex-col gap-6">
+          <main className="w-full space-x-2 *:inline *:lg:text-4xl *:text-2xl max-w-2xl">
+            <h1 className="lg:font-semibold font-medium">YZ13</h1>
+            <span className="lg:font-semibold font-medium">—</span>
+            <p className="lg:font-semibold font-medium">
+              Фронтенд разработчик, специализируюсь на разработке сайтов,
+              веб-приложений.
+            </p>
+          </main>
         </div>
       </div>
       <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
