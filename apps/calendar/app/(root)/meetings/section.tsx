@@ -1,10 +1,8 @@
 import { auth } from "@/lib/auth";
 import { addMinutes, format, parse, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
-import { ArrowRightIcon } from "lucide-react";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
 import { getUserEvents } from "rest-api/calendar";
 import { getSchedule } from "rest-api/calendar/schedule";
 import LinkButton from "./link-button";
@@ -57,13 +55,14 @@ export default async function Section({
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex w-full gap-4 items-center justify-between">
-          <Link
+          <span className="text-lg font-medium">Созвоны</span>
+          {/* <Link
             href={`/meetings/${uid}`}
             className="text-lg font-medium flex items-center gap-2"
           >
             <span className="text-lg font-medium">Созвоны</span>
             <ArrowRightIcon size={16} />
-          </Link>
+          </Link> */}
           <LinkButton uid={user?.id} disabled={!hasSchedule} />
         </div>
         <span className="text-sm text-muted-foreground">
