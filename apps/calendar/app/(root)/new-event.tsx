@@ -93,13 +93,14 @@ export default function NewEventForm({
 
       // Формируем объект события
       const event: NewEvent = {
+        type: "event",
         summary: summary || "Новое событие",
         date_start: date_start.toISOString(),
         date_end: allDay ? null : date_end.toISOString(),
         all_day: allDay,
         duration: allDay ? null : duration,
         description: description || "",
-        uid,
+        organizer_id: uid,
       };
 
       // Создаем событие
