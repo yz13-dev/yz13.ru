@@ -1,9 +1,9 @@
+import { OtherProjectsSkeleton } from "@/app/(root)/other-projects";
 import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import { OtherProjectsSkeleton } from "../(root)/other-projects";
 
 export default function Loading() {
   return (
