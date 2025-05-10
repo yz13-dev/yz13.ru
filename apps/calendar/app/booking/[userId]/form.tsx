@@ -13,8 +13,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
-import { createAppointment } from "rest-api/calendar/appointments";
-import { NewAppointment, ScheduleAvailability } from "rest-api/types/calendar";
+import { createEvent } from "rest-api/calendar";
+import { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
 import { useUserStore } from "./user.store";
 
 export default function form({
@@ -65,20 +65,37 @@ export default function form({
     if (!user) return;
     setLoading(true);
     try {
-      const organizer = user.id;
-      const appointmentDate = parsedDate;
+      const organizer = uid;
+      const date_start = parsedDate;
       const appointmentTime = parse(time, "HH:mm", new Date());
-      appointmentDate.setHours(appointmentTime.getHours());
-      appointmentDate.setMinutes(appointmentTime.getMinutes());
-      const appointment: NewAppointment = {
-        date: formatISO(appointmentDate),
-        organizer,
+      date_start.setHours(appointmentTime.getHours());
+      date_start.setMinutes(appointmentTime.getMinutes());
+
+      const parsedDuration = parse(duration, "HH:mm", new Date());
+
+      let durationMinutes =
+        parsedDuration.getMinutes() + parsedDuration.getHours() * 60;
+
+      // Корректируем продолжительность при переходе через полночь
+      if (durationMinutes < 0) {
+        durationMinutes += 24 * 60; // Добавляем 24 часа в минутах
+      }
+
+      // Создаем конечную дату
+      const date_end = new Date(date_start);
+      date_end.setMinutes(date_start.getMinutes() + durationMinutes);
+
+      const event: NewEvent = {
+        date_start: formatISO(date_start),
+        date_end: formatISO(date_end),
+        organizer_id: organizer,
+        guests: [user.id],
         duration,
-        name,
-        email,
-        note,
+        description: note,
+        type: "appointment",
+        summary: `Созвон с ${name}`,
       };
-      const { data: created } = await createAppointment(uid, appointment);
+      const { data: created } = await createEvent(event);
       if (created) {
         router.push("/");
       }

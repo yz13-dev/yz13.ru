@@ -4,7 +4,6 @@ import { UserSkeleton } from "@/components/user";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { DayTimelineSkeleton } from "../[date]/day-timeline";
-import HeaderTime from "./header-time";
 import { SectionSkeleton as MeetingSectionSkeleton } from "./meetings/section";
 import { SectionSkeleton } from "./schedule/section";
 export default function oading() {
@@ -13,11 +12,8 @@ export default function oading() {
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo size={{ width: 48, height: 48 }} type="only-icon" />
-          <HeaderTime />
         </div>
         <div className="flex items-center gap-2">
-          <Skeleton className="rounded-full size-9" />
-          <Skeleton className="rounded-full size-9" />
           <UserSkeleton />
         </div>
       </header>

@@ -1,12 +1,9 @@
 import { formatISO, isValid, parse } from "date-fns";
 import { Hono } from "hono";
 import { cookies } from "next/headers";
+import { Event } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
-import {
-  getLastEvents,
-  getLastEventsForDate,
-  getLastEventsForPeriod,
-} from "./actions";
+import { getLastEvents, getLastEventsForDate, getUserEvents } from "./actions";
 
 export const calendar = new Hono();
 
@@ -18,6 +15,7 @@ calendar.get("/user/:uid", async (c) => {
   const parsedDate = parse(date ?? "", "yyyy-MM-dd", new Date());
   const isValidDate = isValid(parsedDate);
   const limit = c.req.query("limit") ?? "10";
+  const type = (c.req.query("type") ?? "event") as Event["type"];
   const parsedLimit = parseInt(limit);
   if (!uid) return c.json({ error: "uid is required" }, 400);
   try {
@@ -30,15 +28,25 @@ calendar.get("/user/:uid", async (c) => {
         return c.json({ error: "Invalid date" }, 400);
       }
       // events that have place in this date
-      const data = await getLastEventsForPeriod(uid, date_start, date_end);
+      const data = await getUserEvents(uid, {
+        type,
+        start: date_start,
+        end: date_end,
+      });
       return c.json(data);
     } else if (isValidDate) {
       const isoDate = formatISO(parsedDate);
       // events that have place in this date
-      const data = await getLastEventsForDate(uid, isoDate);
+      const data = await getLastEventsForDate(uid, {
+        type,
+        date: isoDate,
+      });
       return c.json(data);
     } else {
-      const data = await getLastEvents(uid, parsedLimit);
+      const data = await getLastEvents(uid, {
+        type,
+        limit: parsedLimit,
+      });
       return c.json(data);
     }
   } catch (error) {

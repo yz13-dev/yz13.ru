@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "lucide-react";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import { getAppointments } from "rest-api/calendar/appointments";
+import { getUserEvents } from "rest-api/calendar";
 import { getSchedule } from "rest-api/calendar/schedule";
 import LinkButton from "./link-button";
 
@@ -46,7 +46,10 @@ export default async function Section({
 }) {
   if (!uid) return <Empty />;
   const { data: schedule } = await getSchedule(uid);
-  const { data: appointments } = await getAppointments(uid, date);
+  const { data: appointments } = await getUserEvents(uid, {
+    date,
+    type: "appointment",
+  });
   const hasSchedule = !!schedule;
   const hasMeetings = !!appointments?.length;
   const user = await auth();
@@ -70,12 +73,12 @@ export default async function Section({
       {hasMeetings ? (
         <ul className="w-full grid md:grid-cols-2 grid-cols-1 gap-6">
           {appointments.map((appointment) => {
-            const parsedTime = parseISO(appointment.date);
+            const parsedTime = parseISO(appointment.date_start);
             const time = format(parsedTime, "HH:mm");
             const idSlice = appointment.id.slice(0, 6);
-            const note = appointment.note ?? "";
+            const note = appointment.description ?? "";
             const parsedDuration = parse(
-              appointment.duration,
+              appointment.duration!,
               "HH:mm:ss",
               new Date(),
             );
@@ -88,20 +91,13 @@ export default async function Section({
               parsedDuration.getMinutes() + parsedDuration.getHours() * 60,
             );
             const endTime = format(end, "HH:mm");
-            const email = appointment.email;
             return (
               <li key={appointment.id} className="flex flex-col gap-3 w-full">
                 <div className="flex items-start w-full justify-between">
                   <div className="flex flex-col items-start">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-foreground">
-                        {appointment.name}
-                      </span>
-                      <span className="text-sm text-muted-foreground">
-                        #{idSlice}
-                      </span>
-                    </div>
-                    <span className="text-base text-foreground">{email}</span>
+                    <span className="text-sm text-foreground">
+                      {appointment.summary}
+                    </span>
                     <span className="text-xs mt-1 capitalize text-muted-foreground">
                       {date}
                     </span>

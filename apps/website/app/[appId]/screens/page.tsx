@@ -2,7 +2,6 @@ import OtherProjects from "@/app/(root)/other-projects";
 import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import User from "@/components/user";
-import { wait } from "@/helpers/wait";
 import { ExternalLinkIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
@@ -21,7 +20,6 @@ type Props = {
 };
 export default async function page({ params }: Props) {
   const { appId } = await params;
-  await wait(3000);
   const { data: publication } = await getPublication(appId);
   if (!publication) return notFound();
   const noPublicUrl = !publication.public_url;

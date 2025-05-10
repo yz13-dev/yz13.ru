@@ -28,8 +28,8 @@ export default async function page({ params }: PageProps) {
   const date_start = format(startDate, "yyyy-MM-dd");
   const date_end = format(endDate, "yyyy-MM-dd");
   const { data: events } = await getUserEvents(user.id, {
-    date_start,
-    date_end,
+    start: date_start,
+    end: date_end,
   });
   return (
     <FullScreenCalendar

@@ -57,18 +57,17 @@ export type Database = {
           duration: string | null;
           geo_lat: number | null;
           geo_lon: number | null;
+          guests: string[] | null;
           id: string;
           last_modified: string | null;
           location: string | null;
-          organizer_email: string | null;
-          organizer_name: string | null;
+          organizer_id: string;
           recurrence_id: string | null;
           recurrence_rule: string | null;
           sequence: number | null;
           status: string | null;
           summary: string;
-          transp: string | null;
-          uid: string;
+          type: Database["public"]["Enums"]["event-type"];
           url: string | null;
         };
         Insert: {
@@ -82,18 +81,17 @@ export type Database = {
           duration?: string | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
+          guests?: string[] | null;
           id?: string;
           last_modified?: string | null;
           location?: string | null;
-          organizer_email?: string | null;
-          organizer_name?: string | null;
+          organizer_id?: string;
           recurrence_id?: string | null;
           recurrence_rule?: string | null;
           sequence?: number | null;
           status?: string | null;
           summary: string;
-          transp?: string | null;
-          uid: string;
+          type?: Database["public"]["Enums"]["event-type"];
           url?: string | null;
         };
         Update: {
@@ -107,18 +105,17 @@ export type Database = {
           duration?: string | null;
           geo_lat?: number | null;
           geo_lon?: number | null;
+          guests?: string[] | null;
           id?: string;
           last_modified?: string | null;
           location?: string | null;
-          organizer_email?: string | null;
-          organizer_name?: string | null;
+          organizer_id?: string;
           recurrence_id?: string | null;
           recurrence_rule?: string | null;
           sequence?: number | null;
           status?: string | null;
           summary?: string;
-          transp?: string | null;
-          uid?: string;
+          type?: Database["public"]["Enums"]["event-type"];
           url?: string | null;
         };
         Relationships: [];
@@ -156,48 +153,6 @@ export type Database = {
           tuesday?: Json[] | null;
           uid?: string;
           wednesday?: Json[] | null;
-        };
-        Relationships: [];
-      };
-      drafts: {
-        Row: {
-          animated: boolean | null;
-          attachments: Json[];
-          by: string;
-          created_at: string;
-          description: string | null;
-          id: string;
-          published_at: string | null;
-          tags: string[];
-          thumbnail: string | null;
-          title: string;
-          updated_at: string | null;
-        };
-        Insert: {
-          animated?: boolean | null;
-          attachments?: Json[];
-          by?: string;
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          published_at?: string | null;
-          tags?: string[];
-          thumbnail?: string | null;
-          title: string;
-          updated_at?: string | null;
-        };
-        Update: {
-          animated?: boolean | null;
-          attachments?: Json[];
-          by?: string;
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          published_at?: string | null;
-          tags?: string[];
-          thumbnail?: string | null;
-          title?: string;
-          updated_at?: string | null;
         };
         Relationships: [];
       };
@@ -401,6 +356,7 @@ export type Database = {
     };
     Enums: {
       "chat-type": "personal" | "group";
+      "event-type": "event" | "appointment";
       "widget-type":
         | "clock"
         | "quick-link"
@@ -529,6 +485,7 @@ export const Constants = {
   public: {
     Enums: {
       "chat-type": ["personal", "group"],
+      "event-type": ["event", "appointment"],
       "widget-type": [
         "clock",
         "quick-link",

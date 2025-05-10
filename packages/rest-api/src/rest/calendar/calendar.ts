@@ -1,5 +1,4 @@
 "use server";
-
 import { customFetch } from "@/const/fetch";
 import { Event, NewEvent } from "@/types/calendar";
 
@@ -14,9 +13,10 @@ export const createEvent = async (event: NewEvent) => {
 };
 
 type GetEventsParams = {
-  date_start?: string;
-  date_end?: string;
+  type?: Event["type"];
   date?: string;
+  start?: string;
+  end?: string;
   limit?: number;
 };
 export const getUserEvents = async (
