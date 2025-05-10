@@ -86,8 +86,12 @@ export default function form({
       date_end.setMinutes(date_start.getMinutes() + durationMinutes);
 
       const event: NewEvent = {
-        date_start: formatISO(date_start),
-        date_end: formatISO(date_end),
+        date_start: formatISO(date_start, {
+          in: tz(timezone),
+        }),
+        date_end: formatISO(date_end, {
+          in: tz(timezone),
+        }),
         organizer_id: organizer,
         guests: [user.id],
         duration,
@@ -95,6 +99,7 @@ export default function form({
         type: "appointment",
         summary: `Созвон с ${name}`,
       };
+      console.log(event);
       const { data: created } = await createEvent(event);
       if (created) {
         router.push("/");

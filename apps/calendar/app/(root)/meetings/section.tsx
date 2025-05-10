@@ -77,7 +77,10 @@ export default async function Section({
             const parsedTime = parseISO(appointment.date_start, {
               in: tz(timezone),
             });
-            const time = format(parsedTime, "HH:mm");
+            const time = format(parsedTime, "HH:mm", {
+              in: tz(timezone),
+            });
+            console.log(parsedTime);
             const note = appointment.description ?? "";
             const parsedDuration = parse(
               appointment.duration!,
@@ -86,6 +89,7 @@ export default async function Section({
             );
             const date = format(parsedTime, "EEEE, d MMMM", {
               locale: ru,
+              in: tz(timezone),
             });
             const duration = format(parsedDuration, "HH:mm");
             const end = addMinutes(
