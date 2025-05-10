@@ -1,6 +1,6 @@
 import { tz } from "@date-fns/tz";
 import { format, parse } from "date-fns";
-import { ArrowRightIcon, Edit3Icon } from "lucide-react";
+import { Edit3Icon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
@@ -83,10 +83,11 @@ export default async function Section({ uid }: { uid: string | null }) {
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex justify-between items-center">
-          <button className="text-lg font-medium flex items-center gap-2">
+          <span>Расписание</span>
+          {/* <button className="text-lg font-medium flex items-center gap-2">
             <span>Расписание</span>
             <ArrowRightIcon size={16} />
-          </button>
+          </button> */}
           {hasSchedule && (
             <EditScheduleModal
               uid={uid}

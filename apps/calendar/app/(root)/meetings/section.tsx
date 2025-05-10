@@ -1,12 +1,8 @@
 import { auth } from "@/lib/auth";
-import { addMinutes, format, parse, parseISO } from "date-fns";
-import { ru } from "date-fns/locale";
-import { ArrowRightIcon } from "lucide-react";
-import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
 import { getUserEvents } from "rest-api/calendar";
 import { getSchedule } from "rest-api/calendar/schedule";
+import Card from "./card";
 import LinkButton from "./link-button";
 
 const Empty = () => {
@@ -53,17 +49,19 @@ export default async function Section({
   const hasSchedule = !!schedule;
   const hasMeetings = !!appointments?.length;
   const user = await auth();
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex w-full gap-4 items-center justify-between">
-          <Link
+          <span className="text-lg font-medium">Созвоны</span>
+          {/* <Link
             href={`/meetings/${uid}`}
             className="text-lg font-medium flex items-center gap-2"
           >
             <span className="text-lg font-medium">Созвоны</span>
             <ArrowRightIcon size={16} />
-          </Link>
+          </Link> */}
           <LinkButton uid={user?.id} disabled={!hasSchedule} />
         </div>
         <span className="text-sm text-muted-foreground">
@@ -73,52 +71,7 @@ export default async function Section({
       {hasMeetings ? (
         <ul className="w-full grid md:grid-cols-2 grid-cols-1 gap-6">
           {appointments.map((appointment) => {
-            const parsedTime = parseISO(appointment.date_start);
-            const time = format(parsedTime, "HH:mm");
-            const idSlice = appointment.id.slice(0, 6);
-            const note = appointment.description ?? "";
-            const parsedDuration = parse(
-              appointment.duration!,
-              "HH:mm:ss",
-              new Date(),
-            );
-            const date = format(parsedTime, "EEEE, d MMMM", {
-              locale: ru,
-            });
-            const duration = format(parsedDuration, "HH:mm");
-            const end = addMinutes(
-              parsedTime,
-              parsedDuration.getMinutes() + parsedDuration.getHours() * 60,
-            );
-            const endTime = format(end, "HH:mm");
-            return (
-              <li key={appointment.id} className="flex flex-col gap-3 w-full">
-                <div className="flex items-start w-full justify-between">
-                  <div className="flex flex-col items-start">
-                    <span className="text-sm text-foreground">
-                      {appointment.summary}
-                    </span>
-                    <span className="text-xs mt-1 capitalize text-muted-foreground">
-                      {date}
-                    </span>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="text-sm text-muted-foreground">
-                      {time}-{endTime}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {duration}
-                    </span>
-                  </div>
-                </div>
-                {note && <Separator />}
-                {note && (
-                  <span className="text-sm text-muted-foreground">
-                    Заметка: {note}
-                  </span>
-                )}
-              </li>
-            );
+            return <Card key={appointment.id} appointment={appointment} />;
           })}
         </ul>
       ) : (

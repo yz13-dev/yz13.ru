@@ -1,5 +1,6 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
+import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
 import { format, formatISO, parse } from "date-fns";
@@ -33,7 +34,7 @@ export default function form({
   const [note, setNote] = useState<string>("");
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const [date, setDate] = useQueryState("date", { shallow: false });
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const timezone = useTz();
   const [time, setTime] = useQueryState("time");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
     in: tz(timezone),
@@ -86,8 +87,12 @@ export default function form({
       date_end.setMinutes(date_start.getMinutes() + durationMinutes);
 
       const event: NewEvent = {
-        date_start: formatISO(date_start),
-        date_end: formatISO(date_end),
+        date_start: formatISO(date_start, {
+          in: tz(timezone),
+        }),
+        date_end: formatISO(date_end, {
+          in: tz(timezone),
+        }),
         organizer_id: organizer,
         guests: [user.id],
         duration,
@@ -95,6 +100,7 @@ export default function form({
         type: "appointment",
         summary: `Созвон с ${name}`,
       };
+      console.log(event);
       const { data: created } = await createEvent(event);
       if (created) {
         router.push("/");
