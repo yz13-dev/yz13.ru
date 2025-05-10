@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { tz } from "@date-fns/tz";
 import { addMinutes, format, parse, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Separator } from "mono/components/separator";
@@ -51,6 +52,7 @@ export default async function Section({
   const hasSchedule = !!schedule;
   const hasMeetings = !!appointments?.length;
   const user = await auth();
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
     <div className="space-y-6">
       <div className="space-y-0">
@@ -72,9 +74,10 @@ export default async function Section({
       {hasMeetings ? (
         <ul className="w-full grid md:grid-cols-2 grid-cols-1 gap-6">
           {appointments.map((appointment) => {
-            const parsedTime = parseISO(appointment.date_start);
+            const parsedTime = parseISO(appointment.date_start, {
+              in: tz(timezone),
+            });
             const time = format(parsedTime, "HH:mm");
-            const idSlice = appointment.id.slice(0, 6);
             const note = appointment.description ?? "";
             const parsedDuration = parse(
               appointment.duration!,
