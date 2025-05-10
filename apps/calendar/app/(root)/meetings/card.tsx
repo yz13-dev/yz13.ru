@@ -1,4 +1,4 @@
-"use client ";
+"use client";
 
 import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
@@ -15,7 +15,6 @@ export default function ({ appointment }: { appointment: Event }) {
   const time = format(parsedTime, "HH:mm", {
     in: tz(timezone),
   });
-  console.log(parsedTime);
   const note = appointment.description ?? "";
   const parsedDuration = parse(appointment.duration!, "HH:mm:ss", new Date());
   const date = format(parsedTime, "EEEE, d MMMM", {
