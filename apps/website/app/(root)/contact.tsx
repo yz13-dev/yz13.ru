@@ -84,15 +84,19 @@ export default async function () {
       </div>
       <div className="flex items-center gap-2">
         <TimerIcon size={18} />
-        {schedule.map((item, index, arr) => {
-          const isLast = index === arr.length - 1;
-          return (
-            <span key={`schedule-${index}`} className="text-base">
-              {item.start.time}-{item.end.time}
-              {!isLast && ", "}
-            </span>
-          );
-        })}
+        {schedule.length !== 0 ? (
+          schedule.map((item, index, arr) => {
+            const isLast = index === arr.length - 1;
+            return (
+              <span key={`schedule-${index}`} className="text-base">
+                {item.start.time}-{item.end.time}
+                {!isLast && ", "}
+              </span>
+            );
+          })
+        ) : (
+          <span className="text-base">Нет доступного времени</span>
+        )}
       </div>
       <div className="flex items-center mt-6 gap-2">
         <Suspense fallback={<CallToActionSkeleton />}>
