@@ -47,15 +47,17 @@ export default async function () {
   const schedule = (data?.[weekday as keyof typeof data] ??
     []) as DaySchedule[];
   const chat_url = "https://t.me/yz13_dev";
-  const start = addDays(today, -1);
-  const end = addDays(today, 5);
+  const previousDays = 1;
+  const nextDays = 5;
+  const start = addDays(today, -previousDays);
+  const end = addDays(today, nextDays);
   const week = eachDayOfInterval({ start, end });
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col w-full gap-4">
       <span className="text-2xl font-medium capitalize">
         {format(today, "EEEE, d MMMM", { locale: ru })}
       </span>
-      <div className="flex items-center gap-3">
+      <div className="flex w-full items-center overflow-hidden gap-3">
         {week.map((day) => {
           const isDayIsToday = isToday(day);
           const isPastDate = isPast(day);
@@ -64,13 +66,13 @@ export default async function () {
           const date = format(day, "d");
           const noSchedule =
             data?.[fullweekday as keyof typeof data]?.length === 0;
-          const disabled = (!isDayIsToday && isPastDate) || noSchedule;
+          const disabled = (!isDayIsToday && isPastDate) ?? noSchedule;
           return (
             <div
               key={format(day, "yyyy-MM-dd")}
               className={cn(
                 "flex min-w-10 flex-col gap-0 py-1 px-2",
-                isDayIsToday ? "rounded-lg bg-background-secondary" : "",
+                isDayIsToday ? "rounded-lg bg-secondary" : "",
                 disabled && "opacity-50",
               )}
             >
