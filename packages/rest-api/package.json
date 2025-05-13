@@ -26,12 +26,7 @@
     "./types/articles": "./dist/types/articles.d.ts",
     "./types/pricing": "./dist/types/pricing.d.ts",
     "./types/user": "./dist/types/user.d.ts",
-    "./types/projects": "./dist/types/projects.d.ts",
-    "./types/chats": "./dist/types/chats.d.ts",
-    "./types/drafts": "./dist/types/drafts.d.ts",
     "./types/attachments": "./dist/types/attachments.d.ts",
-    "./types/session": "./dist/types/session.d.ts",
-    "./types/charts": "./dist/types/charts.d.ts",
     "./types/rooms": "./dist/types/charts.d.ts",
     "./types/store": "./dist/types/store.d.ts",
     "./types/calendar": "./dist/types/calendar.d.ts",
@@ -50,11 +45,6 @@
       "import": "./dist/rest/calendar/schedule.mjs",
       "require": "./dist/rest/calendar/schedule.js"
     },
-    "./calendar/appointments": {
-      "types": "./dist/rest/calendar/appointments.d.ts",
-      "import": "./dist/rest/calendar/appointments.mjs",
-      "require": "./dist/rest/calendar/appointments.js"
-    },
     "./pricing": {
       "types": "./dist/rest/pricing/pricing.d.ts",
       "import": "./dist/rest/pricing/pricing.mjs",
@@ -64,16 +54,6 @@
       "types": "./dist/rest/sources/sources.d.ts",
       "import": "./dist/rest/sources/sources.mjs",
       "require": "./dist/rest/sources/sources.js"
-    },
-    "./codes": {
-      "types": "./dist/rest/codes/codes.d.ts",
-      "import": "./dist/rest/codes/codes.mjs",
-      "require": "./dist/rest/codes/codes.js"
-    },
-    "./drafts": {
-      "types": "./dist/rest/drafts/drafts.d.ts",
-      "import": "./dist/rest/drafts/drafts.mjs",
-      "require": "./dist/rest/drafts/drafts.js"
     },
     "./auth": {
       "types": "./dist/rest/user/auth.d.ts",
@@ -94,51 +74,6 @@
       "types": "./dist/rest/rooms/rooms.d.ts",
       "import": "./dist/rest/rooms/rooms.mjs",
       "require": "./dist/rest/rooms/rooms.js"
-    },
-    "./projects": {
-      "types": "./dist/rest/projects/projects.d.ts",
-      "import": "./dist/rest/projects/projects.mjs",
-      "require": "./dist/rest/projects/projects.js"
-    },
-    "./chats/limits": {
-      "types": "./dist/rest/chats/limits.d.ts",
-      "import": "./dist/rest/chats/limits.mjs",
-      "require": "./dist/rest/chats/limits.js"
-    },
-    "./chats": {
-      "types": "./dist/rest/chats/chats.d.ts",
-      "import": "./dist/rest/chats/chats.mjs",
-      "require": "./dist/rest/chats/chats.js"
-    },
-    "./messages": {
-      "types": "./dist/rest/chats/messages.d.ts",
-      "import": "./dist/rest/chats/messages.mjs",
-      "require": "./dist/rest/chats/messages.js"
-    },
-    "./attachments": {
-      "types": "./dist/rest/chats/attachments.d.ts",
-      "import": "./dist/rest/chats/attachments.mjs",
-      "require": "./dist/rest/chats/attachments.js"
-    },
-    "./tasks": {
-      "types": "./dist/rest/chats/tasks.d.ts",
-      "import": "./dist/rest/chats/tasks.mjs",
-      "require": "./dist/rest/chats/tasks.js"
-    },
-    "./charts/views": {
-      "types": "./dist/rest/charts/views.d.ts",
-      "import": "./dist/rest/charts/views.mjs",
-      "require": "./dist/rest/charts/views.js"
-    },
-    "./visitor/session": {
-      "types": "./dist/rest/visitor/session.d.ts",
-      "import": "./dist/rest/visitor/session.mjs",
-      "require": "./dist/rest/visitor/session.js"
-    },
-    "./charts": {
-      "types": "./dist/rest/charts/charts.d.ts",
-      "import": "./dist/rest/charts/charts.mjs",
-      "require": "./dist/rest/charts/charts.js"
     },
     "./store": {
       "types": "./dist/rest/store/store.d.ts",
