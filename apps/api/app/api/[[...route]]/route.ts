@@ -5,7 +5,6 @@ import { languageDetector } from "hono/language";
 import { poweredBy } from "hono/powered-by";
 import { requestId } from "hono/request-id";
 import { handle } from "hono/vercel";
-import { appointments } from "./appointments/endpoint";
 import { auth } from "./auth";
 import { calendar } from "./calendar/endpoint";
 import { news } from "./news";
@@ -64,7 +63,6 @@ app.route("/pages", pages);
 app.route("/news", news);
 app.route("/store", store);
 app.route("/calendar", calendar);
-app.route("/appointments", appointments);
 app.route("/schedule", schedule);
 
 app.get("/version", (c) => {

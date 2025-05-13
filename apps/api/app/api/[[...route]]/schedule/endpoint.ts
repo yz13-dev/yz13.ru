@@ -10,9 +10,9 @@ import {
 } from "date-fns";
 import { Hono, HonoRequest } from "hono";
 import { cookies } from "next/headers";
-import { Appointment, DaySchedule } from "rest-api/types/calendar";
+import { DaySchedule, Event } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
-import { getUserAppointmentsForDate } from "../appointments/actions";
+import { getLastEventsForDate } from "../calendar/actions";
 import { getUser } from "../user";
 
 export const schedule = new Hono();
@@ -35,7 +35,7 @@ schedule.get("/:uid", async (c) => {
   const uid = c.req.param("uid");
   const key = `schedule:${uid}`;
   try {
-    const cached = await redis.get<Appointment[]>(key);
+    const cached = await redis.get<Event[]>(key);
     if (cached) return c.json(cached);
     const schedule = await getSchedule(uid);
     if (schedule) await redis.set(key, schedule, { ex: expire.day });
@@ -216,10 +216,11 @@ const createObjFromDurations = (
   return obj;
 };
 
-const getTimeAndDurationFromAppointments = (appointments: Appointment[]) => {
+const getTimeAndDurationFromAppointments = (appointments: Event[]) => {
   const data: { time: string; duration: string }[] = [];
   appointments.forEach((appointment) => {
-    const start = parseISO(appointment.date);
+    const start = parseISO(appointment.date_start);
+    if (!appointment.duration) return [];
     const duration = parse(appointment.duration, "HH:mm:ss", new Date());
     data.push({
       time: format(start, "HH:mm"),
@@ -236,7 +237,10 @@ schedule.get("/:uid/available", async (c) => {
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
   try {
     if (!isValid(parsedDate)) throw new Error("Provided date is invalid");
-    const appointments = await getUserAppointmentsForDate(uid, defaultDate);
+    const appointments = await getLastEventsForDate(uid, {
+      date: defaultDate,
+      type: "appointment",
+    });
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
     if (!schedule) return c.json(null);

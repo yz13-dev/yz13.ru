@@ -9,42 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      calendar_appointments: {
-        Row: {
-          created_at: string;
-          date: string;
-          duration: string;
-          email: string;
-          id: string;
-          name: string | null;
-          note: string | null;
-          organizer: string;
-          uid: string | null;
-        };
-        Insert: {
-          created_at?: string;
-          date: string;
-          duration: string;
-          email: string;
-          id?: string;
-          name?: string | null;
-          note?: string | null;
-          organizer?: string;
-          uid?: string | null;
-        };
-        Update: {
-          created_at?: string;
-          date?: string;
-          duration?: string;
-          email?: string;
-          id?: string;
-          name?: string | null;
-          note?: string | null;
-          organizer?: string;
-          uid?: string | null;
-        };
-        Relationships: [];
-      };
       calendar_events: {
         Row: {
           all_day: boolean | null;

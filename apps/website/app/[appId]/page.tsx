@@ -99,7 +99,7 @@ export default async function page({ params }: Props) {
       </div>
       <div className="w-full space-y-4 max-w-6xl mx-auto p-6">
         <span className="text-base block font-medium">Другие проекты</span>
-        <ul className="w-full grid grid-cols-3 gap-6">
+        <ul className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
           <OtherProjects exclude={[appId]} />
         </ul>
       </div>
