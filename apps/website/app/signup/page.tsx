@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getPublication } from "rest-api/store";
 import { cn } from "yz13/cn";
-import Background from "../(root)/background";
+import Background from "../(root)/components/background";
 import { SignupForm } from "./signup-form";
 
 type Props = {

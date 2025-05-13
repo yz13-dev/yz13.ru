@@ -4,7 +4,7 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
-import Background from "../(root)/background";
+import Background from "../(root)/components/background";
 import Form from "./form";
 
 type PageProps = {

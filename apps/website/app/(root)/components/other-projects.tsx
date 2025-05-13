@@ -1,7 +1,6 @@
 import { cdn } from "@/lib/cdn";
-import { ArrowRightIcon, ExternalLinkIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
-import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,12 +14,11 @@ export async function OtherProjectsSkeleton() {
           <div className="flex w-full items-center gap-4">
             <Skeleton className="size-16 shrink-0 rounded-2xl" />
             <div className="flex w-full flex-col gap-2">
-              <Skeleton className="w-2/3 h-6 rounded-full" />
-              <Skeleton className="w-1/2 h-4 rounded-full" />
+              <Skeleton className="w-2/3 h-5 rounded-full" />
+              <Skeleton className="w-2/3 h-5 rounded-full" />
               <Skeleton className="w-1/2 h-4 rounded-full" />
             </div>
           </div>
-          <Skeleton className="size-9 shrink-0 rounded-full" />
         </div>
       </li>
       <li>
@@ -28,12 +26,11 @@ export async function OtherProjectsSkeleton() {
           <div className="flex w-full items-center gap-4">
             <Skeleton className="size-16 shrink-0 rounded-2xl" />
             <div className="flex w-full flex-col gap-2">
-              <Skeleton className="w-2/3 h-6 rounded-full" />
-              <Skeleton className="w-1/2 h-4 rounded-full" />
+              <Skeleton className="w-2/3 h-5 rounded-full" />
+              <Skeleton className="w-2/3 h-5 rounded-full" />
               <Skeleton className="w-1/2 h-4 rounded-full" />
             </div>
           </div>
-          <Skeleton className="size-9 shrink-0 rounded-full" />
         </div>
       </li>
       <li>
@@ -41,12 +38,11 @@ export async function OtherProjectsSkeleton() {
           <div className="flex w-full items-center gap-4">
             <Skeleton className="size-16 shrink-0 rounded-2xl" />
             <div className="flex w-full flex-col gap-2">
-              <Skeleton className="w-2/3 h-6 rounded-full" />
-              <Skeleton className="w-1/2 h-4 rounded-full" />
+              <Skeleton className="w-2/3 h-5 rounded-full" />
+              <Skeleton className="w-2/3 h-5 rounded-full" />
               <Skeleton className="w-1/2 h-4 rounded-full" />
             </div>
           </div>
-          <Skeleton className="size-9 shrink-0 rounded-full" />
         </div>
       </li>
     </>
@@ -104,34 +100,38 @@ export default async function OtherProjects({
                     />
                   )}
                 </div>
-                <div className="flex w-full flex-col gap-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg font-medium">
+                <div className="flex w-full flex-col gap-1">
+                  <div className="group *:inline relative space-x-2 line-clamp-2 *:text-base *:font-medium">
+                    <Link
+                      href={`/${publication.id}`}
+                      className="w-full h-full absolute left-0 top-0"
+                    />
+                    <span className="group-hover:underline">
                       {publication.name}
                     </span>
+                    {publication.description && (
+                      <>
+                        <span className="group-hover:underline">—</span>
+                        <span className="group-hover:underline">
+                          {publication.description}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {publicLink && (
+                      <Link
+                        href={publicLink}
+                        target="_blank"
+                        className="text-xs hover:underline mb-0.5 text-muted-foreground inline-flex items-center gap-1"
+                      >
+                        {publicLink} <ExternalLinkIcon size={12} />
+                      </Link>
+                    )}
                     {stage && <Badge variant="secondary">{stage}</Badge>}
                   </div>
-                  {publicLink && (
-                    <Link
-                      href={publicLink}
-                      target="_blank"
-                      className="text-xs hover:underline mb-0.5 text-muted-foreground inline-flex items-center gap-1"
-                    >
-                      {publicLink} <ExternalLinkIcon size={12} />
-                    </Link>
-                  )}
-                  {publication.description && (
-                    <span className="text-sm text-muted-foreground line-clamp-2">
-                      {publication.description}
-                    </span>
-                  )}
                 </div>
               </div>
-              <Button size="icon" variant="secondary" asChild>
-                <Link href={`/${publication.id}`}>
-                  <ArrowRightIcon size={16} />
-                </Link>
-              </Button>
             </div>
           </li>
         );

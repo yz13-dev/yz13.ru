@@ -3,7 +3,7 @@ import Footer from "@/components/small-footer";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import { OtherProjectsSkeleton } from "../(root)/other-projects";
+import { OtherProjectsSkeleton } from "../(root)/components/other-projects";
 
 export default function Loading() {
   return (

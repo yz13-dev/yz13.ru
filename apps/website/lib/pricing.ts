@@ -1,4 +1,4 @@
-import { DetailsExtra } from "@/app/(root)/services-details";
+import { DetailsExtra } from "@/app/(root)/components/services-details";
 
 export const isPaid = (item: DetailsExtra) => {
   if (item.type === "single") return item.price !== undefined;
