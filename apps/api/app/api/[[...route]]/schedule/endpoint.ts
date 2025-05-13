@@ -237,7 +237,10 @@ schedule.get("/:uid/available", async (c) => {
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
   try {
     if (!isValid(parsedDate)) throw new Error("Provided date is invalid");
-    const appointments = await getLastEventsForDate(uid, { date: defaultDate });
+    const appointments = await getLastEventsForDate(uid, {
+      date: defaultDate,
+      type: "appointment",
+    });
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
     if (!schedule) return c.json(null);
