@@ -1,4 +1,4 @@
-import OtherProjects from "@/app/(root)/other-projects";
+import OtherProjects from "@/app/(root)/components/other-projects";
 import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import User from "@/components/user";

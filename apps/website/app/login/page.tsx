@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import { getPublication } from "rest-api/store";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/server";
-import Background from "../(root)/background";
+import Background from "../(root)/components/background";
 import { LoginForm } from "./login-form";
 
 type Props = {

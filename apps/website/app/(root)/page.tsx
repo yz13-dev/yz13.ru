@@ -5,10 +5,12 @@ import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { Suspense } from "react";
-import Contact, { ContactSkeleton } from "./contact";
-import OtherProjects, { OtherProjectsSkeleton } from "./other-projects";
-import ServicesDetails from "./services-details";
-import Stack from "./stack";
+import Contact, { ContactSkeleton } from "./components/contact";
+import OtherProjects, {
+  OtherProjectsSkeleton,
+} from "./components/other-projects";
+import ServicesDetails from "./components/services-details";
+import Stack from "./components/stack";
 
 export default async function page() {
   return (
@@ -65,12 +67,14 @@ export default async function page() {
           </div>
         </div>
         <div className="lg:w-1/3 w-full space-y-6">
-          <span className="text-base block font-medium">Другие проекты</span>
-          <ul className="space-y-6">
-            <Suspense fallback={<OtherProjectsSkeleton />}>
-              <OtherProjects />
-            </Suspense>
-          </ul>
+          <div className="w-full space-y-3">
+            <span className="text-base block font-medium">Другие проекты</span>
+            <ul className="space-y-6">
+              <Suspense fallback={<OtherProjectsSkeleton />}>
+                <OtherProjects />
+              </Suspense>
+            </ul>
+          </div>
         </div>
       </div>
       <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6">

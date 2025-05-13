@@ -3,9 +3,9 @@ import { Logo } from "@/components/logo";
 import packageJson from "@/package.json";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { ContactSkeleton } from "./contact";
-import { OtherProjectsSkeleton } from "./other-projects";
-import Stack from "./stack";
+import { ContactSkeleton } from "./components/contact";
+import { OtherProjectsSkeleton } from "./components/other-projects";
+import Stack from "./components/stack";
 
 export default function loading() {
   return (
