@@ -1,9 +1,9 @@
+import { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
 import packageJson from "@/package.json";
-import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { ContactSkeleton } from "./components/contact";
+import { CallToActionSkeleton } from "./components/call-to-action";
 import { OtherProjectsSkeleton } from "./components/other-projects";
 import Stack from "./components/stack";
 
@@ -14,42 +14,36 @@ export default function loading() {
         <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center">
           <Logo size={{ width: 64, height: 64 }} type="only-icon" />
         </div>
+        <AvailabilitySkeleton />
         <div className="flex md:w-2/3 w-full flex-col gap-6">
-          <main className="w-full space-x-2 *:inline *:lg:text-4xl *:text-2xl max-w-2xl">
-            <h1 className="lg:font-semibold font-medium">YZ13</h1>
-            <span className="lg:font-semibold font-medium">—</span>
-            <p className="lg:font-semibold font-medium">
+          <main className="w-full space-x-2 *:font-semibold *:inline *:md:text-4xl *:text-3xl max-w-2xl">
+            <h1>YZ13</h1>
+            <span>—</span>
+            <p>
               Фронтенд разработчик, специализируюсь на разработке сайтов,
               веб-приложений.
             </p>
           </main>
         </div>
+        <div className="flex items-center mt-6 gap-2">
+          <CallToActionSkeleton />
+        </div>
       </div>
       <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
-          <Skeleton className="h-5 w-full rounded-md" />
-          <ContactSkeleton />
-          <Separator />
-          <div className="w-full space-y-4">
-            <span className="text-base block font-medium">Описание</span>
-            <span className="text-base text-muted-foreground block">
-              Занимаюсь разработкой сайтов в основное время, пробую себя в бэке
-              и дизайне в свободное время.
-            </span>
-          </div>
-          <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Услуги</span>
-            <div className="rounded-xl w-full bg-background-secondary border divide-y *:p-4">
-              <Skeleton className="w-full rounded-xl h-96" />
+            <div className="*:rounded-xl w-full *:border space-y-3 *:p-4">
+              <Skeleton className="w-full rounded-xl h-28" />
+              <Skeleton className="w-full rounded-xl h-28" />
+              <Skeleton className="w-full rounded-xl h-28" />
+              <Skeleton className="w-full rounded-xl h-28" />
             </div>
           </div>
-          <Separator />
           <div className="w-full space-y-4">
             <span className="text-base block font-medium">Стэк</span>
             <Stack />
           </div>
-          <Separator />
           <div className="w-full space-y-4">
             <span className="text-sm block font-medium">Последняя версия</span>
             <span className="text-sm text-muted-foreground block">
@@ -65,7 +59,6 @@ export default function loading() {
         </div>
       </div>
       <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6">
-        <Separator />
         <Footer />
       </div>
     </>

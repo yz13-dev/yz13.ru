@@ -1,18 +1,11 @@
 import { availableForWork } from "@/const/flags";
 import { addDays, eachDayOfInterval, format, isPast, isToday } from "date-fns";
 import { ru } from "date-fns/locale";
-import { SendIcon, TimerIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { Button } from "mono/components/button";
+import { TimerIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
-import Link from "next/link";
-import { Suspense } from "react";
 import { getSchedule } from "rest-api/calendar/schedule";
-import { avatarURL } from "rest-api/lib/avatar-url";
 import { DaySchedule } from "rest-api/types/calendar";
-import { getUserById } from "rest-api/user";
 import { cn } from "yz13/cn";
-import CallToAction, { CallToActionSkeleton } from "./call-to-action";
 
 export const ContactSkeleton = () => {
   const days = Array.from({ length: 7 }, (_, i) => i);
@@ -30,9 +23,6 @@ export const ContactSkeleton = () => {
       <div className="flex items-center gap-2">
         <TimerIcon size={18} />
         <span className="text-base">00:00-00:00</span>
-      </div>
-      <div className="flex items-center mt-6 gap-2">
-        <CallToActionSkeleton />
       </div>
     </div>
   );
@@ -100,36 +90,6 @@ export default async function () {
           <span className="text-base">Нет доступного времени</span>
         )}
       </div>
-      <div className="flex items-center mt-6 gap-2">
-        <Suspense fallback={<CallToActionSkeleton />}>
-          <CallToAction busy={busy} />
-        </Suspense>
-        <Button variant="ghost" asChild>
-          <Link href={chat_url}>
-            <SendIcon size={16} />
-            Чат
-          </Link>
-        </Button>
-      </div>
     </div>
   );
 }
-
-const User = async ({ uid }: { uid: string }) => {
-  const { data: user } = await getUserById(uid);
-  const username = user?.username ?? "Username";
-  const email = user?.email;
-  const avatar_url = user?.avatar_url;
-  return (
-    <div className="flex items-center gap-2">
-      <Avatar className="ring-ring ring-2 ring-offset-2">
-        <AvatarImage src={avatar_url ? avatarURL(avatar_url) : undefined} />
-        <AvatarFallback>{username?.slice(0, 2)}</AvatarFallback>
-      </Avatar>
-      <div className="flex flex-col">
-        <span className="font-medium">{username}</span>
-        <span className="text-xs text-muted-foreground">{email}</span>
-      </div>
-    </div>
-  );
-};
