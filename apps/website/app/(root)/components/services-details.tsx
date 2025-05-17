@@ -1,19 +1,9 @@
-import { availableForWork } from "@/const/flags";
 import { getPricing, isPaid } from "@/lib/pricing";
 import { get } from "@vercel/edge-config";
-import {
-  AppWindowIcon,
-  CheckIcon,
-  GlobeIcon,
-  LucideIcon,
-  PanelTopIcon,
-  PlusIcon,
-  SparklesIcon,
-} from "lucide-react";
-import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
+import { CheckIcon, LucideIcon, PlusIcon } from "lucide-react";
 import { getFullPricing } from "rest-api/pricing";
 import { cn } from "yz13/cn";
+import ServicesStand from "./services-stand";
 
 const Details = ({
   children,
@@ -180,61 +170,10 @@ const ServiceBlank = () => {
 };
 
 const ServicesDetails = async () => {
-  const { data: services } = await getFullPricing();
+  const { data } = await getFullPricing();
   const sign = await get<string>("price-sign");
-  const busy = await availableForWork();
-  if (!services) return <ServiceBlank />;
-  else
-    return (
-      <>
-        {(services ?? [])
-          .sort((a, b) => a.price - b.price)
-          .map((service, index) => {
-            const price = service.price;
-            return (
-              <Details key={`${service.id}-${index}`}>
-                <div className="space-y-0 *:max-w-4xl">
-                  <DetailsHeader
-                    icon={
-                      <>
-                        {service.type === "pages" && <PanelTopIcon size={18} />}
-                        {service.type === "website" && <GlobeIcon size={18} />}
-                        {service.type === "web-app" && (
-                          <AppWindowIcon size={18} />
-                        )}
-                        {service.type === "mvp" && <SparklesIcon size={18} />}
-                      </>
-                    }
-                    title={service.name ?? "Неизвестно"}
-                    price={`${price.toLocaleString()}${sign}+`}
-                  />
-                  <DetailsDescription className="mt-2">
-                    {service.description}
-                  </DetailsDescription>
-                </div>
-                {false && (
-                  <>
-                    <Separator />
-                    <DetailsExtraList
-                      list={service.details as unknown as DetailsExtra[]}
-                    />
-                    <DetailsFooter>
-                      <Button
-                        disabled={busy}
-                        variant="secondary"
-                        className="w-full"
-                      >
-                        Связаться
-                      </Button>
-                    </DetailsFooter>
-                  </>
-                )}
-              </Details>
-            );
-          })}
-        {false && <ServiceBlank />}
-      </>
-    );
+  const services = (data ?? []).sort((a, b) => a.price - b.price);
+  return <ServicesStand sign={sign} services={services} />;
 };
 
 export default ServicesDetails;
