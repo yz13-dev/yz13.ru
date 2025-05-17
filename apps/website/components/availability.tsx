@@ -23,7 +23,7 @@ const Availability = async ({ label }: AvailabilityProps) => {
 
   const text = status === "available" ? availableTexts : unavailableTexts;
   return (
-    <div className="w-fit flex items-center gap-2 px-3 py-1 rounded-full border">
+    <div className="w-fit flex items-center bg-background gap-2 px-3 py-1 rounded-full border">
       <div className="size-2 relative">
         <div
           className={cn(
