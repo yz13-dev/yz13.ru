@@ -40,7 +40,13 @@ const page = async ({ params }: PageProps) => {
     <>
       <div className="py-6 space-y-6 mt-[10dvh] *:px-6 max-w-4xl mx-auto">
         <div className="flex w-full flex-col gap-2">
-          <h1 className="text-3xl font-medium">Сводка новостей / {country}</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl font-medium">Сводка новостей</h1>
+            <span className="text-3xl font-medium">/</span>
+            {/* <CountryPicker country={language}> */}
+            <span className="text-3xl font-medium">{country}</span>
+            {/* </CountryPicker> */}
+          </div>
           <CalendarPicker
             locale={language.toLowerCase() as CalendarLocale}
             date={format(targetDate, "yyyy-MM-dd")}
@@ -55,7 +61,10 @@ const page = async ({ params }: PageProps) => {
         </div>
       </div>
       <div className="*:p-6 max-w-4xl mx-auto rounded-3xl bg-background divide-y">
-        <NewsChunk articles={firstChunk} />
+        <NewsChunk
+          articles={firstChunk}
+          locale={language.toLowerCase() as CalendarLocale}
+        />
         <AutoGrid
           data={flattedRestOfChunks}
           defaultOffset={articles.length}

@@ -1,10 +1,15 @@
+import { CalendarLocale } from "@/const/locale-to-country";
 import { Article } from "rest-api/types/articles";
 import NewsCard from "./news-card";
 
 type NewsChunkProps = {
   articles?: Article[];
+  locale?: CalendarLocale;
 };
-export default function NewsChunk({ articles = [] }: NewsChunkProps) {
+export default function NewsChunk({
+  articles = [],
+  locale = "en",
+}: NewsChunkProps) {
   const firstArticles = articles.slice(0, 1);
   const restOfArticles = articles.slice(1);
   if (firstArticles.length === 0) return null;
@@ -16,13 +21,19 @@ export default function NewsChunk({ articles = [] }: NewsChunkProps) {
             key={article.id}
             article={article}
             showThumbnail
+            locale={locale}
             className="row-span-full col-span-2"
           />
         );
       })}
       {restOfArticles.map((article) => {
         return (
-          <NewsCard key={article.id} article={article} className="col-span-2" />
+          <NewsCard
+            key={article.id}
+            article={article}
+            locale={locale}
+            className="col-span-2"
+          />
         );
       })}
     </div>

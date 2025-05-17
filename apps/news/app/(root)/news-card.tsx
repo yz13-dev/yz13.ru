@@ -1,3 +1,5 @@
+import { CalendarLocale, locales } from "@/const/locale-to-country";
+import { formatDistanceToNow, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { DotIcon, ExternalLinkIcon, ImageIcon } from "lucide-react";
@@ -8,6 +10,7 @@ import { cn } from "yz13/cn";
 dayjs.extend(relativeTime);
 
 type NewsCardProps = {
+  locale?: CalendarLocale;
   article: Article;
   showThumbnail?: boolean;
   className?: string;
@@ -38,11 +41,16 @@ const NewsCard = ({
   className = "",
   article,
   showThumbnail = false,
+  locale = "en",
 }: NewsCardProps) => {
+  const currentLocale = locales[locale];
   const img = article ? (article.img as { url: string }) : null;
   const sourceLink = article.news_source?.url;
   const sourceName = article.news_source?.name;
-  const publishedAt = dayjs(article.published_at).locale("ru").fromNow();
+  const publishedAt = formatDistanceToNow(parseISO(article.published_at), {
+    addSuffix: true,
+    locale: currentLocale,
+  });
   return (
     <article
       key={article.id}

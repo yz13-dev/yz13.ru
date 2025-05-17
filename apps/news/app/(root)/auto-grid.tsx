@@ -1,5 +1,7 @@
 "use client";
+import { CalendarLocale } from "@/const/locale-to-country";
 import { chunk } from "@/lib/chunk";
+import { format } from "date-fns";
 import "dayjs/locale/ru";
 import { Loader2Icon } from "lucide-react";
 import { useInView } from "motion/react";
@@ -9,6 +11,7 @@ import { Article } from "rest-api/types/articles";
 import NewsChunk from "./news-chunk";
 
 type AutoGridProps = {
+  date?: string;
   locale?: string;
   data?: Article[];
   defaultOffset?: number;
@@ -17,6 +20,7 @@ type AutoGridProps = {
   children?: React.ReactNode;
 };
 const AutoGrid = ({
+  date = format(new Date(), "yyyy-MM-dd"),
   locale = "RU",
   data = [],
   offsetStep = 30,
@@ -35,7 +39,11 @@ const AutoGrid = ({
     setLoading(true);
     try {
       const newOffset = offset + offsetStep;
-      const { data: articles } = await getArticlesForCountry(locale, newOffset);
+      const { data: articles } = await getArticlesForCountry(
+        locale,
+        newOffset,
+        date,
+      );
       const newArticles = articles ?? [];
       const filteredArticles = newArticles.filter((article) => {
         const result = data.find((item) => item.id === article.id);
@@ -60,7 +68,13 @@ const AutoGrid = ({
     <>
       {children}
       {articles.map((chunk, index) => {
-        return <NewsChunk key={`auto-grid/chunk/#${index}`} articles={chunk} />;
+        return (
+          <NewsChunk
+            key={`auto-grid/chunk/#${index}`}
+            articles={chunk}
+            locale={locale.toLowerCase() as CalendarLocale}
+          />
+        );
       })}
       {/* {articles.map((news, index) => {
         return <NewsCard key={`${news.id}/${index}`} news={news} className={className} />;
