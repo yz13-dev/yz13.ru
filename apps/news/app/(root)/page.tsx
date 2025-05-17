@@ -41,7 +41,10 @@ const page = async () => {
         </div>
       </div>
       <div className="*:p-6 max-w-4xl mx-auto rounded-3xl bg-background divide-y">
-        <NewsChunk articles={firstChunk} />
+        <NewsChunk
+          articles={firstChunk}
+          locale={language.toLowerCase() as CalendarLocale}
+        />
         <AutoGrid
           data={flattedRestOfChunks}
           defaultOffset={articles.length}

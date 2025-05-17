@@ -1,4 +1,5 @@
 "use client";
+import { CalendarLocale } from "@/const/locale-to-country";
 import { chunk } from "@/lib/chunk";
 import "dayjs/locale/ru";
 import { Loader2Icon } from "lucide-react";
@@ -60,7 +61,13 @@ const AutoGrid = ({
     <>
       {children}
       {articles.map((chunk, index) => {
-        return <NewsChunk key={`auto-grid/chunk/#${index}`} articles={chunk} />;
+        return (
+          <NewsChunk
+            key={`auto-grid/chunk/#${index}`}
+            articles={chunk}
+            locale={locale.toLowerCase() as CalendarLocale}
+          />
+        );
       })}
       {/* {articles.map((news, index) => {
         return <NewsCard key={`${news.id}/${index}`} news={news} className={className} />;
