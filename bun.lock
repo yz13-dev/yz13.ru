@@ -85,6 +85,7 @@
       "version": "0.1.1",
       "dependencies": {
         "@upstash/workflow": "^0.2.12",
+        "date-fns": "^4.1.0",
         "hono-geo-middleware": "^0.1.2",
         "lodash": "^4.17.21",
         "mono": "*",
@@ -276,6 +277,7 @@
       "name": "rest-api",
       "version": "0.0.0",
       "dependencies": {
+        "date-fns": "^4.1.0",
         "next": "^15.3.0",
         "tsup": "^6.7.0",
         "typescript-config": "*",

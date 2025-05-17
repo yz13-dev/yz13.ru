@@ -39,7 +39,7 @@ const NewsCard = ({
   article,
   showThumbnail = false,
 }: NewsCardProps) => {
-  const img = article.img as { url: string } | null;
+  const img = article ? (article.img as { url: string }) : null;
   const sourceLink = article.news_source?.url;
   const sourceName = article.news_source?.name;
   const publishedAt = dayjs(article.published_at).locale("ru").fromNow();
