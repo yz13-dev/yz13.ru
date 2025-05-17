@@ -6,6 +6,7 @@ import { cn } from "yz13/cn";
 
 type AvailabilityProps = {
   label?: ReactNode;
+  className?: string;
 };
 
 const availableTexts = ["Открыт для заказов", "Закажите какой-нибудь проект"];
@@ -15,7 +16,7 @@ const unavailableTexts = [
   "Делаю вид что работаю",
 ];
 
-const Availability = async ({ label }: AvailabilityProps) => {
+const Availability = async ({ label, className = "" }: AvailabilityProps) => {
   const isBusy = await availableForWork();
   const status: "available" | "unavailable" = isBusy
     ? "unavailable"
@@ -23,7 +24,12 @@ const Availability = async ({ label }: AvailabilityProps) => {
 
   const text = status === "available" ? availableTexts : unavailableTexts;
   return (
-    <div className="w-fit flex items-center gap-2 px-3 py-1 rounded-full border">
+    <div
+      className={cn(
+        "w-fit flex items-center bg-background gap-2 px-3 py-1 rounded-full border",
+        className,
+      )}
+    >
       <div className="size-2 relative">
         <div
           className={cn(

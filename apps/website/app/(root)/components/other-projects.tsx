@@ -1,8 +1,7 @@
-import { cdn } from "@/lib/cdn";
+import AppLogo from "@/app/[appId]/components/app-logo";
 import { ExternalLinkIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Skeleton } from "mono/components/skeleton";
-import Image from "next/image";
 import Link from "next/link";
 import { getPublications } from "rest-api/store";
 
@@ -64,38 +63,10 @@ export default async function OtherProjects({
         const publicLink = publication.public_url;
         return (
           <li key={publication.id} className="relative w-full">
-            {false && (
-              <Link
-                href="https://news.yz13.ru"
-                className="absolute w-full h-full top-0 left-0"
-              />
-            )}
             <div className="flex items-start gap-4 justify-between">
               <div className="flex w-full items-start gap-4">
-                <div className="size-16 shrink-0 flex mt-2 items-center justify-center rounded-[25%] border bg-secondary relative overflow-hidden">
-                  {publication.icon.type === "themed" && (
-                    <>
-                      <Image
-                        src={cdn(`/apps${publication.icon.dark}`)}
-                        className="dark-mode-image"
-                        alt=""
-                        fill
-                      />
-                      <Image
-                        src={cdn(`/apps${publication.icon.light}`)}
-                        className="light-mode-image"
-                        alt=""
-                        fill
-                      />
-                    </>
-                  )}
-                  {publication.icon.type === "simple" && (
-                    <Image
-                      src={cdn(`/apps${publication.icon.url}`)}
-                      alt=""
-                      fill
-                    />
-                  )}
+                <div className="size-16 shrink-0 flex mt-2 items-center justify-center rounded-[25%] border bg-background/40 relative overflow-hidden">
+                  <AppLogo publication={publication} />
                 </div>
                 <div className="flex w-full flex-col gap-1">
                   <div className="group *:inline relative space-x-2 line-clamp-2 *:text-base *:font-medium">
