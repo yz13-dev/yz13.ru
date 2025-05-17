@@ -59,7 +59,7 @@ export default async function page() {
             </div>
           </div>
           <div className="w-full space-y-4">
-            <span className="text-base block font-medium">Стэк</span>
+            <span className="block text-lg font-medium">Стэк</span>
             <Stack />
           </div>
           <div className="w-full space-y-4">
@@ -71,7 +71,7 @@ export default async function page() {
         </div>
         <div className="lg:w-1/3 w-full space-y-6">
           <div className="w-full space-y-3">
-            <span className="text-base block font-medium">Другие проекты</span>
+            <span className="block text-lg font-medium">Другие проекты</span>
             <ul className="space-y-6">
               <Suspense fallback={<OtherProjectsSkeleton />}>
                 <OtherProjects />

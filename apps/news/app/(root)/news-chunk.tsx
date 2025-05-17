@@ -5,15 +5,21 @@ type NewsChunkProps = {
   articles?: Article[];
 };
 export default function NewsChunk({ articles = [] }: NewsChunkProps) {
-  const firstItem = articles[0];
+  const firstArticles = articles.slice(0, 1);
   const restOfArticles = articles.slice(1);
+  if (firstArticles.length === 0) return null;
   return (
     <div className="w-full grid gap-6 md:grid-cols-4 grid-cols-1 md:grid-rows-3 grid-rows-4">
-      <NewsCard
-        article={firstItem!}
-        showThumbnail
-        className="row-span-full col-span-2"
-      />
+      {firstArticles.map((article) => {
+        return (
+          <NewsCard
+            key={article.id}
+            article={article}
+            showThumbnail
+            className="row-span-full col-span-2"
+          />
+        );
+      })}
       {restOfArticles.map((article) => {
         return (
           <NewsCard key={article.id} article={article} className="col-span-2" />

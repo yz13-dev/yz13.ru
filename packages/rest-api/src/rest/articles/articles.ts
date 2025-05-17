@@ -2,6 +2,7 @@
 
 import { customFetch } from "@/const/fetch";
 import { Article, NewArticle } from "@/types/articles";
+import { format } from "date-fns";
 
 export const getCountryCodes = async () => {
   return await customFetch<string[]>("/news/codes", {
@@ -24,9 +25,14 @@ export const uploadArticle = async (article: NewArticle) => {
 export const getArticlesForCountry = async (
   country_code: string,
   offset: number = 0,
+  date: string = format(new Date(), "yyyy-MM-dd"),
 ) => {
+  const searchParams = new URLSearchParams({
+    offset: offset.toString(),
+    date: date,
+  });
   return await customFetch<Article[]>(
-    `/news/country/${country_code}/articles?offset=${offset}`,
+    `/news/country/${country_code}/articles?${searchParams.toString()}`,
     {
       method: "GET",
     },

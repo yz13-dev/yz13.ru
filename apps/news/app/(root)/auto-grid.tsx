@@ -73,7 +73,7 @@ const AutoGrid = ({
       )}
       {isAll && (
         <div className="w-full col-span-full py-6 flex justify-center">
-          <span className="text-sm text-foreground">
+          <span className="text-sm text-muted-foreground">
             Вы дошли до конца списка
           </span>
         </div>

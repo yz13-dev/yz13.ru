@@ -32,7 +32,7 @@ export default function loading() {
       <div className="w-full gap-6 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <div className="w-full space-y-4">
-            <span className="text-base block font-medium">Услуги</span>
+            <span className="block text-lg font-medium">Услуги</span>
             <div className="*:rounded-xl w-full *:border space-y-3 *:p-4">
               <Skeleton className="w-full rounded-xl h-28" />
               <Skeleton className="w-full rounded-xl h-28" />
@@ -41,7 +41,7 @@ export default function loading() {
             </div>
           </div>
           <div className="w-full space-y-4">
-            <span className="text-base block font-medium">Стэк</span>
+            <span className="block text-lg font-medium">Стэк</span>
             <Stack />
           </div>
           <div className="w-full space-y-4">
@@ -52,7 +52,7 @@ export default function loading() {
           </div>
         </div>
         <div className="lg:w-1/3 w-full space-y-6">
-          <span className="text-base block font-medium">Другие проекты</span>
+          <span className="block text-lg font-medium">Другие проекты</span>
           <ul className="space-y-6">
             <OtherProjectsSkeleton />
           </ul>

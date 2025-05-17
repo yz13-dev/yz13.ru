@@ -1,4 +1,5 @@
 import { sourcesWithObjectTags } from "@/const/sources-rules";
+import { addDays, format, parseISO } from "date-fns";
 import { GeoMiddleware } from "hono-geo-middleware";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
@@ -113,16 +114,18 @@ news.get("/articles/:source_id", async (c) => {
 
 news.get("/country/:code/articles", async (c) => {
   const offset = parseInt(c.req.query("offset") || "0");
+  const dateQuery = c.req.query("date");
+  const defaultDate = new Date();
+  const date = format(
+    dateQuery ? parseISO(dateQuery) : defaultDate,
+    "yyyy-MM-dd",
+  );
+  const nextDate = format(addDays(date, 1), "yyyy-MM-dd");
   const limit = parseInt(c.req.query("limit") || "30");
   const code = String(c.req.param("code")).toUpperCase();
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
-    .from("news_sources")
-    .select("id")
-    .eq("country_code", code);
-  const sources = (data ?? []).map(({ id }) => id);
-  const { data: articles, error: articlesError } = await supabase
     .from("news")
     .select(
       `
@@ -130,10 +133,15 @@ news.get("/country/:code/articles", async (c) => {
       news_source:news_sources(*)
       `,
     )
-    .in("source_id", sources)
+    .eq("news_source.country_code", code)
     .order("published_at", { ascending: false })
+    .gte("published_at", date)
+    .lte("published_at", nextDate)
     .range(offset, offset + limit);
-  if (articlesError) {
+
+  const articles = (data ?? []).filter((article) => !!article.news_source);
+
+  if (error) {
     return c.json([]);
   } else return c.json(articles);
 });

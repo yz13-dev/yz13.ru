@@ -2,17 +2,28 @@ import Footer from "@/components/footer";
 import { CalendarLocale, contries, locales } from "@/const/locale-to-country";
 import { chunk } from "@/lib/chunk";
 import { getLocaleFromCookie } from "@/lib/locale";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { getArticlesForCountry } from "rest-api/articles";
-import AutoGrid from "./auto-grid";
-import CalendarPicker from "./calendar-picker";
-import NewsChunk from "./news-chunk";
+import AutoGrid from "../(root)/auto-grid";
+import CalendarPicker from "../(root)/calendar-picker";
+import NewsChunk from "../(root)/news-chunk";
 
-const page = async () => {
+type PageProps = {
+  params: Promise<{ date: string }>;
+};
+const page = async ({ params }: PageProps) => {
+  const { date } = await params;
+  const defaultDate = new Date();
+  const dateParam = parse(date, "yyyy-MM-dd", new Date());
+  const targetDate = dateParam ?? defaultDate;
   const language = (await getLocaleFromCookie()) || "RU";
-  const { data } = await getArticlesForCountry(language);
+  const { data } = await getArticlesForCountry(
+    language,
+    0,
+    format(date, "yyyy-MM-dd"),
+  );
   const articles = data ?? [];
   const sliceNumber = 4;
   const chunks = chunk(articles, sliceNumber);
@@ -21,7 +32,7 @@ const page = async () => {
   const flattedRestOfChunks = restOfChunks.flat();
   const country = contries[language as keyof typeof contries];
 
-  const calendarDate = format(new Date(), "EEEE, dd MMMM", {
+  const calendarDate = format(targetDate, "EEEE, dd MMMM", {
     locale: locales[language.toLowerCase() as CalendarLocale],
   });
 
@@ -30,7 +41,10 @@ const page = async () => {
       <div className="py-6 space-y-6 mt-[10dvh] *:px-6 max-w-4xl mx-auto">
         <div className="flex w-full flex-col gap-2">
           <h1 className="text-3xl font-medium">Сводка новостей / {country}</h1>
-          <CalendarPicker locale={language.toLowerCase() as CalendarLocale}>
+          <CalendarPicker
+            locale={language.toLowerCase() as CalendarLocale}
+            date={format(targetDate, "yyyy-MM-dd")}
+          >
             <Button variant="secondary" className="w-fit text-muted-foreground">
               <CalendarIcon className="lg:size-5 size-4" />
               <span className="lg:text-lg text-sm capitalize">
