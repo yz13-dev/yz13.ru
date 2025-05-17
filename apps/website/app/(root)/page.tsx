@@ -36,11 +36,11 @@ export default async function page() {
         </Suspense>
         <div className="w-full lg:gap-6 gap-12 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
           <div className="lg:w-2/3 w-full space-y-8">
-            <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center">
+            <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center bg-background/40">
               <Logo size={{ width: 64, height: 64 }} type="only-icon" />
             </div>
             <Suspense fallback={<AvailabilitySkeleton />}>
-              <Availability />
+              <Availability className="bg-background/40" />
             </Suspense>
             <div className="flex w-full flex-col gap-6">
               <main className="w-full space-x-2 *:font-semibold *:inline *:md:text-4xl *:text-3xl">
