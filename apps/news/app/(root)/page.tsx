@@ -29,7 +29,13 @@ const page = async () => {
     <>
       <div className="py-6 space-y-6 mt-[10dvh] *:px-6 max-w-4xl mx-auto">
         <div className="flex w-full flex-col gap-2">
-          <h1 className="text-3xl font-medium">Сводка новостей / {country}</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-3xl font-medium">Сводка новостей</h1>
+            <span className="text-3xl font-medium">/</span>
+            {/* <CountryPicker country={language}> */}
+            <span className="text-3xl font-medium">{country}</span>
+            {/* </CountryPicker> */}
+          </div>
           <CalendarPicker locale={language.toLowerCase() as CalendarLocale}>
             <Button variant="secondary" className="w-fit text-muted-foreground">
               <CalendarIcon className="lg:size-5 size-4" />

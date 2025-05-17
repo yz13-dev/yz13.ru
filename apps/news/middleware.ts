@@ -8,12 +8,24 @@ export async function middleware(request: NextRequest) {
   const resCookies = response.cookies;
   if (reqCookies.has("language")) {
     const locale = reqCookies.get("language")?.value;
+    if (locale !== "RU") {
+      resCookies.set("language", "RU", {
+        ...cookieOptions,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // a year
+      });
+      return response;
+    } else return response;
     // console.log("cookie-locale", locale);
   } else {
-    const locale = getLocale(request);
+    const locale = await getLocale(request);
     // console.log("request-locale", locale);
     if (locale)
-      resCookies.set("language", locale, {
+      resCookies.set("language", "RU", {
+        ...cookieOptions,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // a year
+      });
+    else
+      resCookies.set("language", "RU", {
         ...cookieOptions,
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // a year
       });

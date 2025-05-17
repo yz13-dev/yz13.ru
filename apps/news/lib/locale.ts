@@ -1,7 +1,11 @@
+"use server";
+import { CountryCode } from "@/const/locale-to-country";
 import Negotiator from "negotiator";
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
-export function getLocale(request: NextRequest): string | undefined {
+export async function getLocale(
+  request: NextRequest,
+): Promise<string | undefined> {
   const locales = ["RU", "EN"];
 
   const negotiatorHeaders: Record<string, string> = {};
@@ -19,4 +23,11 @@ export async function getLocaleFromCookie() {
   const cookieStore = await cookies();
   const locale = cookieStore.get("language")?.value;
   return String(locale).toUpperCase();
+}
+export async function setLocaleCookie(locale: CountryCode) {
+  const cookieStore = await cookies();
+  cookieStore.set("language", locale.toLowerCase(), {
+    sameSite: "strict",
+    path: "/",
+  });
 }
