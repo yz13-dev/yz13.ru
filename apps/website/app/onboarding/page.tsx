@@ -1,7 +1,9 @@
 import { Logo } from "@/components/logo";
+import { auth } from "@/lib/auth";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { cn } from "yz13/cn";
 import Background from "../(root)/components/background";
@@ -17,6 +19,8 @@ export default async function page({ searchParams }: PageProps) {
   const continueLink = search.continue;
   const disabled = !continueLink;
   const href = continueLink ? continueLink : "/";
+  const user = await auth();
+  if (!user) return redirect(href);
   return (
     <div className="w-full h-dvh flex flex-col items-center justify-center">
       <Suspense
@@ -47,15 +51,15 @@ export default async function page({ searchParams }: PageProps) {
             местах и на сайте.
           </p>
         </div>
-        <div className="w-full h-fit space-y-6">
-          <Form />
+        <div className="w-full h-fit space-y-6 relative">
+          <Form defaultUser={user} />
           <div className="flex justify-end mt-24">
             {href ? (
               <Button asChild disabled={disabled}>
-                <Link href={href}>Продолжить</Link>
+                <Link href={href}>Завершить</Link>
               </Button>
             ) : (
-              <Button disabled={disabled}>Продолжить</Button>
+              <Button disabled={disabled}>Завершить</Button>
             )}
           </div>
         </div>

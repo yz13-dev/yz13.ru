@@ -63,7 +63,10 @@ const UserDropdown = ({
           </>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="justify-between" onClick={handleSignOut}>
+        <DropdownMenuItem
+          className="justify-between rounded-xl"
+          onClick={handleSignOut}
+        >
           Выйти из аккаунта
           <LogOutIcon size={16} />
         </DropdownMenuItem>
