@@ -33,7 +33,7 @@ export default async function page() {
       >
         <Background className="lg:h-[calc(100dvh-64px)] h-dvh opacity-40" />
       </Suspense>
-      <div className="w-full mt-[10%] lg:gap-6 gap-12 flex lg:flex-row flex-col max-w-6xl mx-auto p-6">
+      <div className="w-full mt-[10%] lg:gap-6 gap-12 flex lg:flex-row flex-col items-center max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center bg-background/40">
             <Logo size={{ width: 64, height: 64 }} type="only-icon" />
@@ -74,7 +74,57 @@ export default async function page() {
           </div>
         </div>
       </div>
-      <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6"></div>
+      <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-6">
+        <div className="flex w-full gap-6 lg:flex-row flex-col items-start">
+          <div className="w-fit h-fit rounded-3xl bg-background/40 border py-3 space-y-3 *:px-3">
+            <div className="w-full grid grid-cols-7 *:text-muted-foreground *:w-full *:flex *:justify-center *:px-3 *:py-1 *:rounded-full gap-3 *:bg-secondary">
+              <span className="text-base font-medium">Mon</span>
+              <span className="text-base font-medium">Tue</span>
+              <span className="text-base font-medium">Wed</span>
+              <span className="text-base font-medium">Thu</span>
+              <span className="text-base font-medium">Fri</span>
+              <span className="text-base font-medium">Sat</span>
+              <span className="text-base font-medium">Sun</span>
+            </div>
+            <div className="gap-3 grid grid-cols-7">
+              {Array.from({ length: 30 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col min-w-9 aspect-square bg-background-secondary rounded-xl items-center justify-end p-1 border"
+                >
+                  <div className="text-xl text-muted-foreground font-medium">
+                    {i + 1}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <span className="text-base block font-medium">Длительность</span>
+              <div className="flex items-center gap-2">
+                <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
+                  00:15
+                </span>
+                <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
+                  00:30
+                </span>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <span className="text-base block font-medium">Время</span>
+              <div className="flex items-start flex-wrap gap-2">
+                <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
+                  10:00
+                </span>
+                <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
+                  10:30
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6">
         <Footer />
       </div>
