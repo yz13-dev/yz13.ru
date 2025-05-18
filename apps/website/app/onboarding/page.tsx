@@ -5,6 +5,7 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { getPositions } from "rest-api/positions";
 import { cn } from "yz13/cn";
 import Background from "../(root)/components/background";
 import Form from "./form";
@@ -17,6 +18,7 @@ type PageProps = {
 export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const continueLink = search.continue;
+  const { data: positions } = await getPositions("ru");
   const disabled = !continueLink;
   const href = continueLink ? continueLink : "/";
   const user = await auth();
@@ -52,7 +54,7 @@ export default async function page({ searchParams }: PageProps) {
           </p>
         </div>
         <div className="w-full h-fit space-y-6 relative">
-          <Form defaultUser={user} />
+          <Form defaultUser={user} positions={positions} />
           <div className="flex justify-end mt-24">
             {href ? (
               <Button asChild disabled={disabled}>

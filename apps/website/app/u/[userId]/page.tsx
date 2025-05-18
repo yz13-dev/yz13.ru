@@ -14,6 +14,7 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 import { avatarURL } from "rest-api/lib/avatar-url";
+import { getPosition } from "rest-api/positions";
 import { getUserById } from "rest-api/user";
 
 type PageProps = {
@@ -28,7 +29,7 @@ export default async function page({ params }: PageProps) {
   const isCurrentUser = currentUser?.id === userId;
   const avatarUrl = user?.avatar_url ? avatarURL(user.avatar_url) : undefined;
   const username = user?.username ?? "Пользователь";
-  const role = "Не указан";
+  const role = user?.position ? await getPosition("ru", user.position) : null;
   const email = user?.email ?? "Не указан";
   const identities = user?.identities ?? [];
   return (
@@ -59,7 +60,9 @@ export default async function page({ params }: PageProps) {
             </Avatar>
             <div className="*:block space-y-1">
               <span className="text-2xl font-medium">{username}</span>
-              <span className="text-sm text-muted-foreground">{role}</span>
+              <span className="text-sm text-muted-foreground">
+                {role?.data?.label}
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="secondary" size="sm">
