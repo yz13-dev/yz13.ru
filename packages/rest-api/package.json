@@ -30,6 +30,12 @@
     "./types/rooms": "./dist/types/charts.d.ts",
     "./types/store": "./dist/types/store.d.ts",
     "./types/calendar": "./dist/types/calendar.d.ts",
+    "./types/positions": "./dist/types/positions.d.ts",
+    "./positions": {
+      "types": "./dist/rest/positions/positions.d.ts",
+      "import": "./dist/rest/positions/positions.mjs",
+      "require": "./dist/rest/positions/positions.js"
+    },
     "./articles": {
       "types": "./dist/rest/articles/articles.d.ts",
       "import": "./dist/rest/articles/articles.mjs",

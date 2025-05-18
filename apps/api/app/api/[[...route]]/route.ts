@@ -9,6 +9,7 @@ import { auth } from "./auth";
 import { calendar } from "./calendar/endpoint";
 import { news } from "./news";
 import { pages } from "./pages";
+import { positions } from "./positions";
 import { pricing } from "./pricing";
 import { rooms } from "./rooms";
 import { schedule } from "./schedule/endpoint";
@@ -64,6 +65,7 @@ app.route("/news", news);
 app.route("/store", store);
 app.route("/calendar", calendar);
 app.route("/schedule", schedule);
+app.route("/positions", positions);
 
 app.get("/version", (c) => {
   const version = packageJson.version;
