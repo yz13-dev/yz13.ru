@@ -3,11 +3,13 @@ import AvatarHandler from "@/components/avatar-handler";
 import { useDebounceEffect } from "ahooks";
 import { Loader2Icon } from "lucide-react";
 import { Input } from "mono/components/input";
+import { Select, SelectTrigger, SelectValue } from "mono/components/select";
 import { Separator } from "mono/components/separator";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { updateUser } from "rest-api/user";
 import { useUserStore } from "../account/settings/user.store";
+import Google from "./extensions/google";
 
 export default function () {
   const user = useUserStore((state) => state.user);
@@ -31,9 +33,10 @@ export default function () {
       setUsernameLoading(false);
     }
   };
+  const gooleLinked = user?.identities?.find((i) => i.provider === "google");
   useDebounceEffect(
     () => {
-      if (user?.username !== username) {
+      if (username.length >= 4 && user?.username !== username) {
         setUsernameLoading(true);
         updateUsername(username);
       }
@@ -41,9 +44,17 @@ export default function () {
     [user, username],
     { wait: 1000 },
   );
-  useEffect(() => {
-    if (!user) router.push("/login");
-  }, [user]);
+  useDebounceEffect(
+    () => {
+      console.log(user);
+      if (!user) router.push("/login");
+      else {
+        if (user.username) setUsername(user.username);
+      }
+    },
+    [user],
+    { wait: 1000 },
+  );
   return (
     <>
       <div className="w-full h-fit space-y-6">
@@ -52,25 +63,33 @@ export default function () {
             Кастомизируйте свой профиль
           </span>
           <span className="text-sm text-muted-foreground">
-            Выберите вашу профессию и укажите свой никнейм
+            При редактировании, изменения вступят в силу сразу.
           </span>
         </div>
-        <div className="relative w-full flex items-center">
-          <Input
-            disabled={usernameLoading}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Введите ваш никнейм"
-          />
-          {usernameLoading && (
-            <Loader2Icon className="absolute right-2 animate-spin" size={18} />
-          )}
+        <div className="space-y-2">
+          <span className="text-sm block text-muted-foreground">
+            Выберите вашу профессию и укажите свой никнейм
+          </span>
+          <div className="relative w-full flex items-center">
+            <Input
+              disabled={usernameLoading}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Введите ваш никнейм"
+            />
+            {usernameLoading && (
+              <Loader2Icon
+                className="absolute right-2 animate-spin"
+                size={18}
+              />
+            )}
+          </div>
         </div>
-        {/* <Select>
+        <Select>
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Выберите вашу профессию" />
           </SelectTrigger>
-        </Select> */}
+        </Select>
       </div>
       <Separator />
       <div className="w-full h-fit space-y-6">
@@ -85,6 +104,22 @@ export default function () {
         <div className="flex items-center gap-4">
           <AvatarHandler />
         </div>
+      </div>
+      <Separator />
+      <div className="w-full h-fit space-y-6">
+        <div className="*:block space-y-0">
+          <span className="text-base font-medium">
+            Подключите социальные сети
+          </span>
+          <span className="text-sm text-muted-foreground">
+            После подключения будут отображены в профиле
+          </span>
+        </div>
+        <ul className="space-y-3">
+          <li>
+            <Google linked={!!gooleLinked} />
+          </li>
+        </ul>
       </div>
     </>
   );

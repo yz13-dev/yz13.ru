@@ -52,10 +52,10 @@ export default async function page({ searchParams }: PageProps) {
           <div className="flex justify-end mt-24">
             {href ? (
               <Button asChild disabled={disabled}>
-                <Link href={href}>Продолжить</Link>
+                <Link href={href}>Завершить</Link>
               </Button>
             ) : (
-              <Button disabled={disabled}>Продолжить</Button>
+              <Button disabled={disabled}>Завершить</Button>
             )}
           </div>
         </div>

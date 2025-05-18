@@ -10,6 +10,7 @@ export type UserObject = {
   role: string;
   username: string;
   avatar_url: string | null;
+  identities: Required<SupabaseUser["identities"]>;
 };
 export type User = SupabaseUser;
 

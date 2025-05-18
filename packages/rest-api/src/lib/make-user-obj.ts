@@ -4,6 +4,7 @@ export const makeUserObj = (user: User): UserObject => {
   const role = user.user_metadata.role as string;
   const username = user.user_metadata.username as string;
   const avatar_url = (user.user_metadata.avatar_url as string) || null;
+  const identities = user.identities ?? [];
   return {
     id: user.id,
     email: user.email,
@@ -15,5 +16,6 @@ export const makeUserObj = (user: User): UserObject => {
     role,
     username,
     avatar_url,
+    identities,
   };
 };
