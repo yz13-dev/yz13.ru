@@ -54,7 +54,7 @@ export default async function page({ searchParams }: PageProps) {
           </p>
         </div>
         <div className="w-full h-fit space-y-6 relative">
-          <Form defaultUser={user} positions={positions} />
+          <Form defaultUser={user} positions={positions ?? []} />
           <div className="flex justify-end mt-24">
             {href ? (
               <Button asChild disabled={disabled}>
