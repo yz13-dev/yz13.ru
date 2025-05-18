@@ -3,20 +3,38 @@ import AvatarHandler from "@/components/avatar-handler";
 import { useDebounceEffect } from "ahooks";
 import { Loader2Icon } from "lucide-react";
 import { Input } from "mono/components/input";
-import { Select, SelectTrigger, SelectValue } from "mono/components/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "mono/components/select";
 import { Separator } from "mono/components/separator";
 import { useEffect, useState } from "react";
+import { Position } from "rest-api/types/positions";
 import { UserObject } from "rest-api/types/user";
 import { updateUser } from "rest-api/user";
 import { useUserStore } from "../account/settings/user.store";
 import Google from "./extensions/google";
 
-export default function ({ defaultUser }: { defaultUser?: UserObject }) {
+export default function ({
+  defaultUser,
+  positions = [],
+}: {
+  defaultUser?: UserObject;
+  positions?: Position[];
+}) {
   const user = useUserStore((state) => state.user);
   const refreshUser = useUserStore((state) => state.refreshUser);
+  const defaultPosition = positions.find((p) => p.id === defaultUser?.position);
   const [loading, setLoading] = useState<boolean>(true);
   const [username, setUsername] = useState<string>(defaultUser?.username ?? "");
+  const [position, setPosition] = useState<Position | null>(
+    defaultPosition ?? null,
+  );
   const [usernameLoading, setUsernameLoading] = useState<boolean>(false);
+  const [positionLoading, setPositionLoading] = useState<boolean>(false);
   const updateUsername = async (username: string) => {
     const uid = user?.id;
     if (!uid) return;
@@ -33,7 +51,33 @@ export default function ({ defaultUser }: { defaultUser?: UserObject }) {
       setUsernameLoading(false);
     }
   };
+  const updatePosition = async (position: Position) => {
+    const uid = user?.id;
+    if (!uid) return;
+    try {
+      await updateUser(uid, {
+        data: {
+          position: position.id,
+        },
+      });
+      refreshUser();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setPositionLoading(false);
+    }
+  };
   const gooleLinked = user?.identities?.find((i) => i.provider === "google");
+  useDebounceEffect(
+    () => {
+      if (position && user?.position !== position?.id) {
+        setPositionLoading(true);
+        updatePosition(position);
+      }
+    },
+    [user, position],
+    { wait: 1000 },
+  );
   useDebounceEffect(
     () => {
       if (username.length >= 4 && user?.username !== username) {
@@ -85,10 +129,23 @@ export default function ({ defaultUser }: { defaultUser?: UserObject }) {
             )}
           </div>
         </div>
-        <Select>
-          <SelectTrigger className="w-full">
+        <Select
+          value={position?.id}
+          onValueChange={(value) => {
+            const newPosition = positions.find((p) => p.id === value);
+            setPosition(newPosition ?? null);
+          }}
+        >
+          <SelectTrigger className="w-full" disabled={positionLoading}>
             <SelectValue placeholder="Выберите вашу профессию" />
           </SelectTrigger>
+          <SelectContent>
+            {positions.map((position) => (
+              <SelectItem key={position.id} value={position.id}>
+                {position.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
         </Select>
       </div>
       <Separator />

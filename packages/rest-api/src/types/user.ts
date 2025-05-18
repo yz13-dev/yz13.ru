@@ -11,6 +11,7 @@ export type UserObject = {
   username: string;
   avatar_url: string | null;
   identities: Required<SupabaseUser["identities"]>;
+  position: string | undefined;
 };
 export type User = SupabaseUser;
 

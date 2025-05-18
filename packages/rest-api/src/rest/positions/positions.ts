@@ -7,3 +7,10 @@ export const getPositions = async (locale: string) => {
     method: "GET",
   });
 };
+
+export const getPosition = async (locale: string, positionId: string) => {
+  const url = `/positions/${locale}/${positionId}`;
+  return await customFetch<Position>(url, {
+    method: "GET",
+  });
+};
