@@ -11,4 +11,13 @@ export default [
   {
     id: "position.qa",
   },
+  {
+    id: "position.design",
+  },
+  {
+    id: "position.marketing",
+  },
+  {
+    id: "position.support",
+  },
 ] as const;

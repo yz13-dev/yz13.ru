@@ -5,17 +5,17 @@ import { Loader2Icon } from "lucide-react";
 import { Input } from "mono/components/input";
 import { Select, SelectTrigger, SelectValue } from "mono/components/select";
 import { Separator } from "mono/components/separator";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { UserObject } from "rest-api/types/user";
 import { updateUser } from "rest-api/user";
 import { useUserStore } from "../account/settings/user.store";
 import Google from "./extensions/google";
 
-export default function () {
+export default function ({ defaultUser }: { defaultUser?: UserObject }) {
   const user = useUserStore((state) => state.user);
   const refreshUser = useUserStore((state) => state.refreshUser);
-  const router = useRouter();
-  const [username, setUsername] = useState<string>(user?.username ?? "");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [username, setUsername] = useState<string>(defaultUser?.username ?? "");
   const [usernameLoading, setUsernameLoading] = useState<boolean>(false);
   const updateUsername = async (username: string) => {
     const uid = user?.id;
@@ -44,19 +44,19 @@ export default function () {
     [user, username],
     { wait: 1000 },
   );
-  useDebounceEffect(
-    () => {
-      console.log(user);
-      if (!user) router.push("/login");
-      else {
-        if (user.username) setUsername(user.username);
-      }
-    },
-    [user],
-    { wait: 1000 },
-  );
+  useEffect(() => {
+    if (user) setLoading(false);
+  }, [user]);
   return (
     <>
+      {loading && (
+        <div className="absolute backdrop-blur-md gap-2 z-10 top-0 left-0 w-full h-full flex items-center justify-center">
+          <Loader2Icon size={16} className="animate-spin" />
+          <span className="text-sm text-muted-foreground">
+            Загрузка данных...
+          </span>
+        </div>
+      )}
       <div className="w-full h-fit space-y-6">
         <div className="*:block space-y-0">
           <span className="text-lg font-medium">
