@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { format } from "date-fns";
 import { Skeleton } from "mono/components/skeleton";
 import { getUserEvents } from "rest-api/calendar";
 import { getSchedule } from "rest-api/calendar/schedule";
@@ -20,8 +21,8 @@ export const SectionSkeleton = () => {
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex w-full gap-4 items-center justify-between">
-          <span className="text-lg font-medium block">Созвоны</span>
-          <Skeleton className="w-16 h-9 rounded-full" />
+          <span className="font-medium block">Созвоны</span>
+          <Skeleton className="w-16 h-7 rounded-full" />
         </div>
         <span className="text-sm text-muted-foreground">
           Созвоны запланированные вами или другими пользователи.
@@ -34,7 +35,7 @@ export const SectionSkeleton = () => {
 export default async function Section({
   disabled = false,
   uid,
-  date,
+  date = format(new Date(), "yyyy-MM-dd"),
 }: {
   uid: string | null;
   date?: string;
@@ -54,7 +55,7 @@ export default async function Section({
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex w-full gap-4 items-center justify-between">
-          <span className="text-lg font-medium">Созвоны</span>
+          <span className="font-medium block">Созвоны</span>
           {/* <Link
             href={`/meetings/${uid}`}
             className="text-lg font-medium flex items-center gap-2"

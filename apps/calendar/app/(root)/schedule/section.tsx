@@ -83,7 +83,7 @@ export default async function Section({ uid }: { uid: string | null }) {
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex justify-between items-center">
-          <span>Расписание</span>
+          <span className="font-medium block">Расписание</span>
           {/* <button className="text-lg font-medium flex items-center gap-2">
             <span>Расписание</span>
             <ArrowRightIcon size={16} />
@@ -135,24 +135,30 @@ export default async function Section({ uid }: { uid: string | null }) {
           <NewScheduleButton uid={uid} />
         </div>
       )}
-      <Separator />
-      <div className="space-y-3">
-        <span className="text-sm block text-muted-foreground">
-          Выбраная длительность созвона
-        </span>
-        <ul className="flex items-start gap-2 flex-wrap">
-          {durations
-            .sort((a, b) => a.localeCompare(b))
-            .map((duration) => {
-              const parsed = parse(duration, "HH:mm:ss", new Date());
-              return (
-                <li key={duration}>
-                  <Badge variant="secondary">{format(parsed, "HH:mm")}</Badge>
-                </li>
-              );
-            })}
-        </ul>
-      </div>
+      {!!durations.length && (
+        <>
+          <Separator />
+          <div className="space-y-3">
+            <span className="text-sm block text-muted-foreground">
+              Выбраная длительность созвона
+            </span>
+            <ul className="flex items-start gap-2 flex-wrap">
+              {durations
+                .sort((a, b) => a.localeCompare(b))
+                .map((duration) => {
+                  const parsed = parse(duration, "HH:mm:ss", new Date());
+                  return (
+                    <li key={duration}>
+                      <Badge variant="secondary">
+                        {format(parsed, "HH:mm")}
+                      </Badge>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -162,8 +168,8 @@ export const SectionSkeleton = () => {
     <div className="space-y-6">
       <div className="space-y-0">
         <div className="flex w-full gap-4 items-center justify-between">
-          <span className="text-lg font-medium block">Расписание</span>
-          <Skeleton className="w-16 h-9 rounded-full" />
+          <span className="font-medium block">Расписание</span>
+          <Skeleton className="w-16 h-7 rounded-full" />
         </div>
         <span className="text-sm text-muted-foreground">
           Время когда другие пользователи могут запланировать с вами созвон.
