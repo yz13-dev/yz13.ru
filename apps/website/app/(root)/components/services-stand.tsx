@@ -6,11 +6,6 @@ import {
   SparklesIcon,
   StoreIcon,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "mono/components/tooltip";
 import { Pricing } from "rest-api/types/pricing";
 
 type Props = {
@@ -30,25 +25,21 @@ export default function ({ services = [], sign = "₽" }: Props) {
     const type = service.type as keyof typeof icons;
     const icon = type ? icons[type] : <StoreIcon />;
     return (
-      <Tooltip key={service.id}>
-        <TooltipTrigger className="flex items-center gap-2 [&>svg]:shrink-0 [&>svg]:size-5">
+      <div key={service.id} className="space-y-3">
+        <div className="flex items-center gap-2 [&>svg]:shrink-0 [&>svg]:size-5 text-foreground/60">
           {icon}
           <span className="text-base">{service.name ?? "Неизвестно"}</span>
-        </TooltipTrigger>
-        <TooltipContent
-          side="top"
-          align="center"
-          className="*:block backdrop-blur-lg space-y-3 max-w-sm"
-        >
-          <span className="text-2xl font-medium">
+        </div>
+        <div className="*:block backdrop-blur-lg space-y-3 max-w-sm">
+          <span className="text-2xl font-semibold">
             От {service.price.toLocaleString()}
             {sign}
           </span>
-          <span className="text-base">
+          <span className="text-base text-muted-foreground">
             {service.description ?? "Нет описания"}
           </span>
-        </TooltipContent>
-      </Tooltip>
+        </div>
+      </div>
     );
   });
 }
