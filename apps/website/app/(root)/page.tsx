@@ -88,7 +88,7 @@ export default async function page() {
           <ServicesDetails />
         </div>
       </div>
-      {(await availableForWork()) && (
+      {!isAvailable && (
         <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-12">
           <div className="space-y-3">
             <span className="text-3xl block font-semibold">Контакт</span>
