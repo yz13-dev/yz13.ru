@@ -8,8 +8,7 @@ import "dayjs/locale/ru";
 import { Toaster } from "mono/components/toaster";
 import { TooltipProvider } from "mono/components/tooltip";
 import type { Metadata, Viewport } from "next";
-import { Inter, Pixelify_Sans } from "next/font/google";
-import localFont from "next/font/local";
+import { Geist_Mono, Inter, Pixelify_Sans } from "next/font/google";
 import { cn } from "yz13/cn";
 import { isDev } from "yz13/env";
 
@@ -28,8 +27,10 @@ const SANS = Inter({
   variable: "--font-yz-sans",
 });
 
-const MONO = localFont({
-  src: "./fonts/geist/GeistMonoVF.woff",
+const MONO = Geist_Mono({
+  weight: "variable",
+  subsets: ["latin"],
+  display: "swap",
   variable: "--font-yz-mono",
 });
 
