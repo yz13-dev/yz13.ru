@@ -35,6 +35,7 @@ export default function form({
   const [note, setNote] = useState<string>("");
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const [date, setDate] = useQueryState("date", { shallow: false });
+  const dateIsToday = date === defaultDate;
   const timezone = useTz();
   const [time, setTime] = useQueryState("time");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
@@ -220,9 +221,20 @@ export default function form({
                     <ul className="w-full space-y-3">
                       {times.map((availableTime) => {
                         const selected = availableTime === time;
+                        const parsedAvailableTime = parse(
+                          availableTime,
+                          "HH:mm",
+                          new Date(),
+                        );
+                        const isItToday = dateIsToday === true;
+                        const timeAsTime = parsedAvailableTime.getTime();
+                        const defaultDateAsTime = new Date().getTime();
+                        const timeDisabled =
+                          isItToday && defaultDateAsTime < timeAsTime;
                         return (
                           <li key={availableTime}>
                             <Button
+                              disabled={timeDisabled}
                               variant={selected ? "default" : "outline"}
                               className="w-full"
                               onClick={() => {
