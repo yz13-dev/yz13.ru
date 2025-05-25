@@ -3,7 +3,7 @@ import AutoTextarea from "@/components/auto-textarea";
 import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
-import { format, formatISO, parse } from "date-fns";
+import { format, formatISO, isPast, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -15,8 +15,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { createEvent } from "rest-api/calendar";
-import { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
+import type { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
 import { useUserStore } from "./user.store";
+import { cn } from "yz13/cn";
 
 export default function form({
   uid,
@@ -147,10 +148,11 @@ export default function form({
   }, [duration]);
   return (
     <>
-      <div className="w-full divide-y">
+      <div className={cn("w-full divide-y", className)}>
         <div className="flex divide-x md:flex-row flex-col-reverse">
           <div className="md:w-2/3 p-6 w-full space-y-6">
             <Calendar
+              disabled={(date) => isPast(date)}
               mode="single"
               className="p-0"
               locale={ru}
