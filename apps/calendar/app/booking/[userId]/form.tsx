@@ -3,7 +3,7 @@ import AutoTextarea from "@/components/auto-textarea";
 import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
-import { format, formatISO, parse } from "date-fns";
+import { format, formatISO, isPast, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -15,8 +15,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { createEvent } from "rest-api/calendar";
-import { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
+import type { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
 import { useUserStore } from "./user.store";
+import { cn } from "yz13/cn";
 
 export default function form({
   uid,
@@ -34,6 +35,7 @@ export default function form({
   const [note, setNote] = useState<string>("");
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const [date, setDate] = useQueryState("date", { shallow: false });
+  const dateIsToday = date === defaultDate;
   const timezone = useTz();
   const [time, setTime] = useQueryState("time");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
@@ -147,10 +149,11 @@ export default function form({
   }, [duration]);
   return (
     <>
-      <div className="w-full divide-y">
+      <div className={cn("w-full divide-y", className)}>
         <div className="flex divide-x md:flex-row flex-col-reverse">
           <div className="md:w-2/3 p-6 w-full space-y-6">
             <Calendar
+              disabled={(date) => isPast(date)}
               mode="single"
               className="p-0"
               locale={ru}
@@ -218,9 +221,20 @@ export default function form({
                     <ul className="w-full space-y-3">
                       {times.map((availableTime) => {
                         const selected = availableTime === time;
+                        const parsedAvailableTime = parse(
+                          availableTime,
+                          "HH:mm",
+                          new Date(),
+                        );
+                        const isItToday = dateIsToday === true;
+                        const timeAsTime = parsedAvailableTime.getTime();
+                        const defaultDateAsTime = new Date().getTime();
+                        const timeDisabled =
+                          isItToday && defaultDateAsTime < timeAsTime;
                         return (
                           <li key={availableTime}>
                             <Button
+                              disabled={timeDisabled}
                               variant={selected ? "default" : "outline"}
                               className="w-full"
                               onClick={() => {

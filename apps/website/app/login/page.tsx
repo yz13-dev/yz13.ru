@@ -1,4 +1,5 @@
 import { Logo } from "@/components/logo";
+import { ExternalLink } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -53,7 +54,7 @@ const page = async (props: Props) => {
         )}
       >
         <div className="space-y-4">
-          <div className="w-fit">
+          <div className="w-fit flex items-center gap-2">
             <Link href="/">
               <Logo size={{ width: 128, height: 24 }} type="full" />
             </Link>
@@ -62,14 +63,29 @@ const page = async (props: Props) => {
             <h1 className="text-3xl font-medium">
               Вход {appName ? `в ${appName}` : ""}
             </h1>
-            <p className="text-base text-muted-foreground">
-              Используйте свой аккаунт
-            </p>
-            {app && (
-              <span className="text-base text-muted-foreground">
-                После авторизации вас перенаправят обратно в {appName}
-              </span>
-            )}
+            <div className="space-x-2 *:inline">
+              <p className="text-base text-muted-foreground">
+                Используйте свой аккаунт.
+              </p>
+              {app && (
+                <span className="text-base text-muted-foreground">
+                  После авторизации вас перенаправят обратно в{" "}
+                  {app.public_url ? (
+                    <Link
+                      href={app.public_url}
+                      className="text-foreground inline-flex items-center gap-1 hover:underline font-medium"
+                    >
+                      {appName}
+                      <ExternalLink size={18} />
+                    </Link>
+                  ) : (
+                    <span className="text-foreground font-medium">
+                      {appName}
+                    </span>
+                  )}
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <LoginForm

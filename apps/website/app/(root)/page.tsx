@@ -80,8 +80,7 @@ export default async function page() {
         <div className="space-y-3">
           <span className="text-3xl block font-semibold">Услуги</span>
           <span className="text-lg block text-muted-foreground">
-            Текущий список услуг предоставляется в разработке и может быть
-            изменен.
+            Список услуг по разработке, рад буду помочь вам с вашими проектами.
           </span>
         </div>
         <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-3 gap-y-6">

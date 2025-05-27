@@ -1,5 +1,5 @@
 "use client";
-import { CalendarLocale } from "@/const/locale-to-country";
+import type { CalendarLocale } from "@/const/locale-to-country";
 import { chunk } from "@/lib/chunk";
 import { format } from "date-fns";
 import "dayjs/locale/ru";
@@ -7,7 +7,7 @@ import { Loader2Icon } from "lucide-react";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { getArticlesForCountry } from "rest-api/articles";
-import { Article } from "rest-api/types/articles";
+import type { Article } from "rest-api/types/articles";
 import NewsChunk from "./news-chunk";
 
 type AutoGridProps = {
