@@ -1,4 +1,5 @@
 import AppLogo from "@/app/[appId]/components/app-logo";
+import { differenceInDays } from "date-fns";
 import { ExternalLinkIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Skeleton } from "mono/components/skeleton";
@@ -59,14 +60,28 @@ export default async function OtherProjects({
   return (
     <>
       {(publications ?? []).map((publication) => {
+        const createdAt = new Date(publication.created_at);
+        const today = new Date();
+        const passedDays = differenceInDays(today, createdAt);
         const stage = publication.stage;
         const publicLink = publication.public_url;
+        const isLessThanWeek = passedDays <= 7;
         return (
           <li key={publication.id} className="relative w-full">
             <div className="flex items-start gap-4 justify-between">
               <div className="flex w-full items-start gap-4">
-                <div className="size-16 shrink-0 flex mt-2 items-center justify-center rounded-[25%] border bg-background/40 relative overflow-hidden">
-                  <AppLogo publication={publication} />
+                <div className="relative">
+                  {isLessThanWeek && (
+                    <Badge
+                      variant="secondary"
+                      className="absolute z-10 rotate-12 top-1 -right-5"
+                    >
+                      Новое
+                    </Badge>
+                  )}
+                  <div className="size-16 shrink-0 flex mt-2 items-center justify-center rounded-[25%] border bg-background/40 relative overflow-hidden">
+                    <AppLogo publication={publication} />
+                  </div>
                 </div>
                 <div className="flex w-full flex-col gap-1">
                   <div className="group *:inline relative space-x-2 line-clamp-2 *:text-base *:font-medium">
