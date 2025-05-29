@@ -1,5 +1,5 @@
 "use client";
-
+import { format } from "date-fns";
 import useTimeStore from "@/components/live/time.store";
 import { useEffect, useState } from "react";
 
@@ -14,7 +14,7 @@ export default function HeaderTime() {
   return (
     <>
       <span className="text-2xl font-medium">
-        {ready ? time.format("HH:mm") : "00:00"}
+        {ready ? format(time, "HH:mm") : "00:00"}
       </span>
       <span className="text-base text-muted-foreground">{tz}</span>
     </>

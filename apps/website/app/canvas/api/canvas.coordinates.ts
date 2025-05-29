@@ -4,10 +4,10 @@ export const fromCanvasCoords = (x: number, y: number) => {
   const zoom = getZoom();
   const offset = getOffset();
   const doc = document?.documentElement;
-  const headerSize = parseInt(
+  const headerSize = Number.parseInt(
     getComputedStyle(doc).getPropertyValue("--map-editor-header"),
   );
-  const sidebarSize = parseInt(
+  const sidebarSize = Number.parseInt(
     getComputedStyle(doc).getPropertyValue("--map-editor-sidebar"),
   );
   const top = headerSize;
@@ -19,10 +19,10 @@ export const fromCanvasCoords = (x: number, y: number) => {
 
 export const toOverlayCoords = (x: number, y: number) => {
   const doc = document?.documentElement;
-  const headerSize = parseInt(
+  const headerSize = Number.parseInt(
     getComputedStyle(doc).getPropertyValue("--map-editor-header"),
   );
-  const sidebarSize = parseInt(
+  const sidebarSize = Number.parseInt(
     getComputedStyle(doc).getPropertyValue("--map-editor-sidebar"),
   );
   const top = headerSize;

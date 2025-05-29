@@ -1,8 +1,8 @@
 "use client";
 import { isDev } from "@/app/login/get-url";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { cn } from "yz13/cn";
-import { useMapApi } from "./api-provider";
+import { useMapApi } from "../api/api-provider";
 
 const OffsetCoords = () => {
   const offset = useMapApi((state) => state.offset);

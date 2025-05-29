@@ -3,7 +3,7 @@ import AutoTextarea from "@/components/auto-textarea";
 import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
-import { format, formatISO, isPast, parse } from "date-fns";
+import { format, formatISO, isPast, isToday, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -18,6 +18,7 @@ import { createEvent } from "rest-api/calendar";
 import type { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
 import { useUserStore } from "./user.store";
 import { cn } from "yz13/cn";
+import useTimeStore from "@/components/live/time.store";
 
 export default function form({
   uid,
@@ -28,19 +29,20 @@ export default function form({
   className?: string;
   availability?: ScheduleAvailability;
 }) {
+  const currentTime = useTimeStore((state) => state.time);
   const searchParams = useSearchParams();
   const user = useUserStore((state) => state.user);
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [note, setNote] = useState<string>("");
-  const defaultDate = format(new Date(), "yyyy-MM-dd");
+  const defaultDate = format(currentTime, "yyyy-MM-dd");
   const [date, setDate] = useQueryState("date", { shallow: false });
-  const dateIsToday = date === defaultDate;
   const timezone = useTz();
-  const [time, setTime] = useQueryState("time");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
     in: tz(timezone),
   });
+  const dateIsToday = isToday(parsedDate);
+  const [time, setTime] = useQueryState("time");
   const durations = Object.keys(availability?.availability ?? {});
   const [duration, setDuration] = useState<string | null>(durations[0] ?? null);
   const validateEmail = (email: string): boolean => {
@@ -145,6 +147,17 @@ export default function form({
     { wait: 1000 },
   );
   useEffect(() => {
+    if (!date) {
+      setDate(defaultDate);
+    }
+    if (date) {
+      const parsedDate = parse(date, "yyyy-MM-dd", new Date(), {
+        in: tz(timezone),
+      });
+      if (isPast(parsedDate)) setDate(defaultDate);
+    }
+  }, [date]);
+  useEffect(() => {
     if (duration) handleDurationScroll();
   }, [duration]);
   return (
@@ -221,16 +234,20 @@ export default function form({
                     <ul className="w-full space-y-3">
                       {times.map((availableTime) => {
                         const selected = availableTime === time;
+                        const timeDateString = `${date} ${availableTime}`;
+                        const current =
+                          currentTime.getHours() * 60 +
+                          currentTime.getMinutes();
                         const parsedAvailableTime = parse(
-                          availableTime,
-                          "HH:mm",
+                          timeDateString,
+                          "yyyy-MM-dd HH:mm",
                           new Date(),
                         );
-                        const isItToday = dateIsToday === true;
-                        const timeAsTime = parsedAvailableTime.getTime();
-                        const defaultDateAsTime = new Date().getTime();
+                        const availableTimeAsMinutes =
+                          parsedAvailableTime.getHours() * 60 +
+                          parsedAvailableTime.getMinutes();
                         const timeDisabled =
-                          isItToday && defaultDateAsTime < timeAsTime;
+                          dateIsToday && current >= availableTimeAsMinutes;
                         return (
                           <li key={availableTime}>
                             <Button
