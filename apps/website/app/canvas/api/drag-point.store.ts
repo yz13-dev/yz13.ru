@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Coordinate } from "./api";
+import type { Coordinate } from "./api";
 
 type State = {
   dragStart: Coordinate;

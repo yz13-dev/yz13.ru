@@ -4,7 +4,7 @@ import { type ReactNode, createContext, useContext, useEffect } from "react";
 
 import { useStore } from "zustand";
 import { useShallow } from "zustand/react/shallow";
-import { type Store, api, createMapApi, setDpr } from "./api";
+import { api, type createMapApi, setDpr, type Store } from "./api";
 
 export type StoreApi = ReturnType<typeof createMapApi>;
 
@@ -40,6 +40,7 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
 export const useMapApi = <T,>(selector: (store: Store) => T): T => {
   const ctx = useContext(StoreContext);
   if (!ctx) {
-    throw new Error(`useStore must be used within StoreProvider`);
-  } else return useStore(ctx, useShallow(selector));
+    throw new Error("useStore must be used within StoreProvider");
+  }
+  return useStore(ctx, useShallow(selector));
 };

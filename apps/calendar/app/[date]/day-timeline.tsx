@@ -11,7 +11,7 @@ import {
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { useEffect, useMemo, useState } from "react";
-import { Event } from "rest-api/types/calendar";
+import type { Event } from "rest-api/types/calendar";
 import { cn } from "yz13/cn";
 
 type TimeRange = [number, number];
@@ -40,9 +40,9 @@ const Timeline = ({ className = "" }: { className?: string }) => {
   const initialMargin = 0;
   const time = useTimeStore((state) => state.time);
   const top = useMemo(() => {
-    const hours = time.hour();
-    const minutes = time.minute();
-    const seconds = time.second();
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
     const hourHeight = hours * 48;
     const minutesHeight = minutes * minute;
     const secondsHeight = seconds * second;
@@ -53,21 +53,20 @@ const Timeline = ({ className = "" }: { className?: string }) => {
     setReady(true);
   }, []);
   if (!ready) return null;
-  else
-    return (
-      <div
-        style={{ top: `${top}px` }}
-        className={cn(
-          "w-full absolute flex items-center h-[18px] select-none pointer-events-none",
-          className,
-        )}
-      >
-        <div className="w-full h-px bg-red-foreground relative" />
-        <span className="text-xs w-fit right-2 relative z-10 px-2 py-0 rounded-full bg-red-background text-red-foreground border border-red-foreground">
-          {time.format("HH:mm")}
-        </span>
-      </div>
-    );
+  return (
+    <div
+      style={{ top: `${top}px` }}
+      className={cn(
+        "w-full absolute flex items-center h-[18px] select-none pointer-events-none",
+        className,
+      )}
+    >
+      <div className="w-full h-px bg-red-foreground relative" />
+      <span className="text-xs w-fit right-2 relative z-10 px-2 py-0 rounded-full bg-red-background text-red-foreground border border-red-foreground">
+        {format(time, "HH:mm")}
+      </span>
+    </div>
+  );
 };
 
 const Day = ({
@@ -103,7 +102,7 @@ const Day = ({
             {range.map((time, index) => {
               const formatted = `${time <= 9 ? "0" : ""}${time}:00`;
               return (
-                <div key={"today/" + index} className="w-full group h-12">
+                <div key={`today/${index}`} className="w-full group h-12">
                   <div className="w-full flex items-start gap-2 h-full">
                     <span className="text-xs relative -top-2 w-8 text-muted-foreground select-none">
                       {formatted}

@@ -1,5 +1,15 @@
-import { isEqual } from "lodash";
+import ld, { isEqual } from "lodash";
 import { createStore } from "zustand/vanilla";
+
+export type Coordinate = {
+  x: number;
+  y: number;
+};
+export type Size = {
+  width: number;
+  height: number;
+};
+export type View = Coordinate & Size;
 
 type CanvasState = {
   ctx: CanvasRenderingContext2D | null;
@@ -12,16 +22,6 @@ type CanvasState = {
     left: number;
   }> | null;
 };
-
-export type Coordinate = {
-  x: number;
-  y: number;
-};
-export type Size = {
-  width: number;
-  height: number;
-};
-export type View = Coordinate & Size;
 
 type Flags = {
   grid: boolean;
@@ -36,8 +36,10 @@ type Settings = {
 };
 
 export type State = {
-  selected: any[];
-  elements: any[];
+  shiftPressed: boolean;
+  contextMenu: boolean;
+  selected: [];
+  elements: [];
   cursor: Coordinate;
   view: View;
   zoom: number;
@@ -48,9 +50,9 @@ export type State = {
   flags: Flags;
 };
 
-export type Actions = {};
+// export type Actions = {};
 
-export type Store = State & Actions;
+export type Store = State; // &Action;
 
 const initialView: View = {
   x: 0,
@@ -84,6 +86,8 @@ const initialSettings: Settings = {
 };
 
 export const initialState: State = {
+  contextMenu: false,
+  shiftPressed: false,
   selected: [],
   elements: [],
   cursor: initialCursor,
@@ -113,36 +117,54 @@ export const api = createMapApi({
   },
 });
 
-// api.subscribe((state) => console.log(JSON.stringify(state, null, 2)));
+// Геттеры и сеттеры
+export const getShiftPressed = () => api.getState().shiftPressed;
+export const setShiftPressed = (shiftPressed: boolean) =>
+  api.setState((state) => ({
+    shiftPressed:
+      state.shiftPressed !== shiftPressed ? shiftPressed : state.shiftPressed,
+  }));
 
 export const getFlag = (flag: keyof Flags) => api.getState().flags[flag];
 
 export const getOffset = () => api.getState().offset;
+
+// ИСПРАВЛЕНО: убрана двойная мультипликация на DPR
 export const setOffset = (offset: Coordinate) => {
   api.setState((state) => {
     const zoom = state.zoom;
-    const dpr = state.dpr;
-    const zoomFactor = 1 / (zoom * dpr);
-    const viewX = offset.x * zoomFactor;
-    const viewY = offset.y * zoomFactor;
+    // Убираем DPR из расчета - view должен быть в логических координатах
+    const zoomFactor = 1 / zoom;
+    const viewX = -offset.x * zoomFactor;
+    const viewY = -offset.y * zoomFactor;
+
     return {
-      offset: isEqual(state.offset, offset) ? state.offset : offset,
+      offset: ld.isEqual(state.offset, offset) ? state.offset : offset,
       view: {
         ...state.view,
-        x: -viewX * state.dpr,
-        y: -viewY * state.dpr,
+        x: viewX,
+        y: viewY,
       },
     };
   });
 };
 
+export const setContextMenu = (contextMenu: boolean) =>
+  api.setState((state) => ({
+    contextMenu:
+      state.contextMenu !== contextMenu ? contextMenu : state.contextMenu,
+  }));
+
+// ИСПРАВЛЕНО: опечатка в height
 export const getSize = (): Size => {
   const canvas = api.getState().canvas;
   return {
     width: canvas.width,
-    height: canvas.width,
+    height: canvas.height, // Было canvas.width
   };
 };
+
+// ИСПРАВЛЕНО: убрана мультипликация на DPR для view
 export const setSize = (size: Size) => {
   api.setState((state) => {
     const width =
@@ -150,10 +172,12 @@ export const setSize = (size: Size) => {
     const height =
       state.canvas.height !== size.height ? size.height : state.canvas.height;
     const zoom = state.zoom;
-    const dpr = state.dpr;
-    const zoomFactor = 1 / (zoom * dpr);
+
+    // View размеры в логических координатах
+    const zoomFactor = 1 / zoom;
     const viewWidth = width * zoomFactor;
     const viewHeight = height * zoomFactor;
+
     return {
       canvas: {
         ...state.canvas,
@@ -163,8 +187,8 @@ export const setSize = (size: Size) => {
       view: {
         x: state.view.x,
         y: state.view.y,
-        width: viewWidth * state.dpr,
-        height: viewHeight * state.dpr,
+        width: viewWidth,
+        height: viewHeight,
       },
     };
   });
@@ -183,30 +207,33 @@ export const setCtx = (ctx: CanvasRenderingContext2D | null) => {
 export const getCursor = () => api.getState().cursor;
 export const setCursor = (cursor: Coordinate) => {
   api.setState((state) => ({
-    cursor: isEqual(state.cursor, cursor) ? state.cursor : cursor,
+    cursor: ld.isEqual(state.cursor, cursor) ? state.cursor : cursor,
   }));
 };
 
 export const getView = () => api.getState().view;
 
+// ИСПРАВЛЕНО: убрана мультипликация на DPR для view
 export const setZoom = (zoom: number) =>
   api.setState((state) => {
-    const dpr = state.dpr;
-    const zoomFactor = 1 / (zoom * dpr);
-    const viewX = Math.abs(state.offset.x) * zoomFactor;
-    const viewY = Math.abs(state.offset.y) * zoomFactor;
+    // View в логических координатах, без учета DPR
+    const zoomFactor = 1 / zoom;
+    const viewX = -state.offset.x * zoomFactor;
+    const viewY = -state.offset.y * zoomFactor;
     const viewWidth = state.canvas.width * zoomFactor;
     const viewHeight = state.canvas.height * zoomFactor;
+
     return {
       zoom: state.zoom !== zoom ? zoom : state.zoom,
       view: {
-        x: viewX * dpr,
-        y: viewY * dpr,
-        width: viewWidth * dpr,
-        height: viewHeight * dpr,
+        x: viewX,
+        y: viewY,
+        width: viewWidth,
+        height: viewHeight,
       },
     };
   });
+
 export const getZoom = () => api.getState().zoom;
 export const setDpr = (dpr: number) =>
   api.setState((state) => ({
@@ -230,3 +257,41 @@ export const setResizeRange = (resizeRange: number) =>
 export const getRotateRange = () => api.getState().settings.rotateRange;
 export const setRotateRange = (rotateRange: number) =>
   api.setState((state) => ({ settings: { ...state.settings, rotateRange } }));
+
+export const getBorder = () => api.getState().canvas.border;
+
+// Дополнительные утилиты для работы с координатами
+export const logicalToPhysical = (coord: Coordinate): Coordinate => {
+  const dpr = getDpr();
+  return {
+    x: coord.x * dpr,
+    y: coord.y * dpr,
+  };
+};
+
+export const physicalToLogical = (coord: Coordinate): Coordinate => {
+  const dpr = getDpr();
+  return {
+    x: coord.x / dpr,
+    y: coord.y / dpr,
+  };
+};
+
+// Утилита для отладки координатных систем
+export const debugCoordinates = () => {
+  const state = api.getState();
+  console.log("Coordinate System Debug:", {
+    canvas: {
+      logical: { width: state.canvas.width, height: state.canvas.height },
+      physical: {
+        width: state.canvas.width * state.dpr,
+        height: state.canvas.height * state.dpr,
+      },
+    },
+    view: state.view,
+    offset: state.offset,
+    zoom: state.zoom,
+    dpr: state.dpr,
+    cursor: state.cursor,
+  });
+};
