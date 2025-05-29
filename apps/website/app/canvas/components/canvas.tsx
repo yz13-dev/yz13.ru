@@ -49,7 +49,7 @@ const Canvas = ({
   } = options || {};
 
   const ref = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number>(0);
   const lastRenderTimeRef = useRef<number>(0);
   const isDirtyRef = useRef<boolean>(true);
   const lastStateRef = useRef<any>({});
@@ -298,27 +298,20 @@ const Canvas = ({
   );
 
   // Optimized resize handler with debouncing
-  const resizeTimeoutRef = useRef<NodeJS.Timeout>();
   useEffect(() => {
     const handleResize = () => {
-      if (resizeTimeoutRef.current) {
-        clearTimeout(resizeTimeoutRef.current);
-      }
-
-      resizeTimeoutRef.current = setTimeout(() => {
-        if (ref.current) {
-          const canvas = ref.current;
-          const parent = canvas.parentElement;
-          if (parent) {
-            const newSize: Size = {
-              width: parent.clientWidth,
-              height: parent.clientHeight,
-            };
-            setSize(newSize);
-            isDirtyRef.current = true;
-          }
+      if (ref.current) {
+        const canvas = ref.current;
+        const parent = canvas.parentElement;
+        if (parent) {
+          const newSize: Size = {
+            width: parent.clientWidth,
+            height: parent.clientHeight,
+          };
+          setSize(newSize);
+          isDirtyRef.current = true;
         }
-      }, 100); // Debounce resize events
+      }
     };
 
     window.addEventListener("resize", handleResize, { passive: true });
@@ -326,9 +319,6 @@ const Canvas = ({
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (resizeTimeoutRef.current) {
-        clearTimeout(resizeTimeoutRef.current);
-      }
     };
   }, []);
 
