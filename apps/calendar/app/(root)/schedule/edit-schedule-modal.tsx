@@ -72,7 +72,10 @@ const ScheduleItem = ({
         <Checkbox
           className="rounded-full"
           checked={innerSchedule.enabled}
-          onCheckedChange={(checked) => updateSchedule({ enabled: checked })}
+          onCheckedChange={(checked) => {
+            const value = typeof checked === "boolean" ? checked : false;
+            updateSchedule({ enabled: value });
+          }}
         />
         <div className="flex flex-row w-full *:w-1/2 gap-2">
           <Input

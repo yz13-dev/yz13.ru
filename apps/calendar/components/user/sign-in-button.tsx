@@ -1,12 +1,9 @@
 import { LockIcon, LogInIcon } from "lucide-react";
-import { Button, ButtonProps } from "mono/components/button";
+import { Button, type ButtonProps } from "mono/components/button";
 import Link from "next/link";
 import { cn } from "yz13/cn";
 
-type SignInButtonProps = ButtonProps & {
-  href?: string;
-  asSquare?: boolean;
-};
+type SignInButtonProps = ButtonProps;
 const SignInButton = ({
   href,
   className,
