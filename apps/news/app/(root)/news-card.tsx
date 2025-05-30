@@ -20,7 +20,7 @@ const NewsThumbnail = ({ img }: { img: { url: string } | null }) => {
   const imgUrl = img?.url;
   if (!imgUrl)
     return (
-      <div className="!static rounded-2xl w-full h-full object-cover flex items-center justify-center border bg-background-secondary">
+      <div className="!static rounded-2xl w-full h-full object-cover flex items-center justify-center border bg-card">
         <div className="size-12 flex items-center justify-center rounded-lg border bg-background">
           <ImageIcon size={24} />
         </div>

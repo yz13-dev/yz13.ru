@@ -166,7 +166,10 @@ export default function form({
         <div className="flex divide-x md:flex-row flex-col-reverse">
           <div className="md:w-2/3 p-6 w-full space-y-6">
             <Calendar
-              disabled={(date) => isPast(date)}
+              disabled={(date) => {
+                if (isToday(date)) return false;
+                return isPast(date);
+              }}
               mode="single"
               className="p-0"
               locale={ru}
@@ -206,7 +209,7 @@ export default function form({
           </div>
           <div className="md:w-1/3 max-h-[60dvh] overflow-auto w-full flex md:flex-col flex-row *:w-full">
             <Tabs value={duration ?? undefined} onValueChange={setDuration}>
-              <div className="w-full p-6 overflow-x-auto bg-background-secondary md:sticky static top-0 z-10 shrink-0 h-[84px]">
+              <div className="w-full p-6 overflow-x-auto bg-card md:sticky static top-0 z-10 shrink-0 h-[84px]">
                 <TabsList className="md:w-fit w-full">
                   {durations
                     .sort((a, b) => a.localeCompare(b))

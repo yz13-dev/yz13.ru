@@ -15,7 +15,7 @@ const DockWrapper = ({
     <div
       className={cn(
         "fixed left-0 right-0 mx-auto bottom-3",
-        "bg-background-secondary/60 backdrop-blur border rounded-3xl",
+        "bg-card/60 backdrop-blur border rounded-3xl",
         "h-fit w-fit p-1 max-w-dvw shrink-0 z-20",
         className,
       )}

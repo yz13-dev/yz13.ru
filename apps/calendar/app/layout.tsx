@@ -2,8 +2,7 @@ import LiveTimeProvider from "@/components/live/live-provider";
 import "@/styles/globals.css";
 import "dayjs/locale/ru";
 import type { Metadata, Viewport } from "next";
-import { Inter, Pixelify_Sans } from "next/font/google";
-import localFont from "next/font/local";
+import { Geist_Mono, Inter, Pixelify_Sans } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { cn } from "yz13/cn";
 import { isDev } from "yz13/env";
@@ -12,7 +11,7 @@ const PIXEL = Pixelify_Sans({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   weight: "variable",
-  variable: "--font-yz-pixel",
+  variable: "--font-pixel",
 });
 
 const SANS = Inter({
@@ -20,12 +19,14 @@ const SANS = Inter({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   preload: true,
-  variable: "--font-yz-sans",
+  variable: "--font-sans",
 });
 
-const MONO = localFont({
-  src: "./fonts/geist/GeistMonoVF.woff",
-  variable: "--font-yz-mono",
+const MONO = Geist_Mono({
+  weight: "variable",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {

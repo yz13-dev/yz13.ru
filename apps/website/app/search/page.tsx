@@ -39,7 +39,7 @@ export default function page() {
           </Button>
         </div>
       </header>
-      <div className="min-h-dvh w-full bg-background-secondary">
+      <div className="min-h-dvh w-full bg-card">
         <div className="max-w-screen-2xl px-6 py-8 space-y-4 w-full mx-auto">
           <div className="space-y-2 max-w-xl">
             <div className="size-9 bg-background rounded-md border" />

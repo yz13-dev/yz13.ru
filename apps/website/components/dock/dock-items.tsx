@@ -33,7 +33,7 @@ const Item = ({
     <Component
       className={cn(
         "h-12 rounded-xl border gap-2 bg-background flex relative items-center justify-center",
-        "hover:bg-background-secondary/60 active:bg-background-secondary/80 transition-colors",
+        "hover:bg-card/60 active:bg-card/80 transition-colors",
         className,
       )}
     >

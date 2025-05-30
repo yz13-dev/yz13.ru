@@ -44,7 +44,7 @@ export default async function page({ params, searchParams }: PageProps) {
       <div
         className={cn(
           "max-w-2xl flex flex-col w-full mx-auto",
-          "rounded-3xl border bg-background-secondary divide-y mt-12",
+          "rounded-3xl border bg-card divide-y mt-12",
         )}
       >
         <Header user={user} />
