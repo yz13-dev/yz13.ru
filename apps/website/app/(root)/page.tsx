@@ -115,7 +115,7 @@ export default async function page() {
                   {Array.from({ length: 30 }).map((_, i) => (
                     <div
                       key={i}
-                      className="flex flex-col min-w-9 aspect-square bg-background-secondary rounded-xl items-center justify-end p-1 border"
+                      className="flex flex-col min-w-9 aspect-square bg-card rounded-xl items-center justify-end p-1 border"
                     >
                       <div className="text-xl text-muted-foreground font-medium">
                         {i + 1}

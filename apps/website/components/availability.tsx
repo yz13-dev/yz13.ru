@@ -1,7 +1,7 @@
 import { Typewriter } from "@/components/text-writter";
 import { availableForWork } from "@/const/flags";
 import { Skeleton } from "mono/components/skeleton";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { cn } from "yz13/cn";
 
 type AvailabilityProps = {
@@ -34,10 +34,10 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
         <div
           className={cn(
             "absolute inset-0 size-2 animate-ping rounded-full",
-            isBusy ? "bg-red-foreground" : "bg-green-foreground",
+            isBusy ? "bg-destructive" : "bg-green-foreground",
           )}
         />
-        <div className="size-2 animate-pulse bg-red-foreground rounded-full" />
+        <div className="size-2 animate-pulse bg-destructive rounded-full" />
       </div>
       <div className="flex items-center gap-1">
         {label ? (

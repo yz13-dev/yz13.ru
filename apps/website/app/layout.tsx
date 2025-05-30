@@ -16,7 +16,7 @@ const PIXEL = Pixelify_Sans({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   weight: "variable",
-  variable: "--font-yz-pixel",
+  variable: "--font-pixel",
 });
 
 const SANS = Inter({
@@ -24,14 +24,14 @@ const SANS = Inter({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   preload: true,
-  variable: "--font-yz-sans",
+  variable: "--font-sans",
 });
 
 const MONO = Geist_Mono({
   weight: "variable",
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-yz-mono",
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {

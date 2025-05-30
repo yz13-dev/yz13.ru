@@ -1,10 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
-import { createContext, ReactElement, useContext, useState } from "react";
-import { Input, InputProps } from "./input";
+import { createContext, type ReactElement, useContext, useState } from "react";
+import { Input } from "./input";
 
-type TagInputProps = InputProps;
+type TagInputProps = React.ComponentProps<"input">;
 
 type TagsContextProps = {
   tags?: string[];
@@ -66,7 +66,7 @@ const Tag = ({ children, tag }: { children: React.ReactNode; tag: string }) => {
   return (
     <div className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs text-foreground">
       {children}
-      <button onClick={() => handleRemoveTag(tag)}>
+      <button type="button" onClick={() => handleRemoveTag(tag)}>
         <XIcon size={16} />
       </button>
     </div>

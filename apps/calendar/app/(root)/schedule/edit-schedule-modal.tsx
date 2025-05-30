@@ -1,9 +1,10 @@
 "use client";
 import { format, parse } from "date-fns";
 import { isEqual } from "lodash";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, PlusIcon, XIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
+import { Checkbox } from "mono/components/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -18,7 +19,7 @@ import { Switch } from "mono/components/switch";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { updateSchedule } from "rest-api/calendar/schedule";
-import {
+import type {
   DaySchedule,
   UpdateWeekSchedule,
   WeekSchedule,
@@ -67,41 +68,40 @@ const ScheduleItem = ({
   }, [innerSchedule]);
   return (
     <div className="flex gap-2 flex-col w-full">
-      <div className="flex flex-row w-full *:w-1/2 gap-2">
-        <Input
-          type="time"
-          aria-invalid={!isValid}
-          disabled={disabled}
-          value={startTime}
-          onChange={(e) => updateStartTime(e.target.value)}
-          className="text-center aria-invalid:border-destructive aria-invalid:bg-destructive/40"
+      <div className="flex items-center gap-2">
+        <Checkbox
+          className="rounded-full"
+          checked={innerSchedule.enabled}
+          onCheckedChange={(checked) => {
+            const value = typeof checked === "boolean" ? checked : false;
+            updateSchedule({ enabled: value });
+          }}
         />
-        <Input
-          type="time"
-          aria-invalid={!isValid}
-          disabled={disabled}
-          value={endTime}
-          onChange={(e) => updateEndTime(e.target.value)}
-          className="text-center aria-invalid:border-destructive aria-invalid:bg-destructive/40"
-        />
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={innerSchedule.enabled}
-            onCheckedChange={(checked) => updateSchedule({ enabled: checked })}
+        <div className="flex flex-row w-full *:w-1/2 gap-2">
+          <Input
+            type="time"
+            aria-invalid={!isValid}
+            disabled={disabled}
+            value={startTime}
+            onChange={(e) => updateStartTime(e.target.value)}
+            className="text-center aria-invalid:border-destructive aria-invalid:bg-destructive/40"
           />
-          <span className="text-sm">
-            {innerSchedule.enabled ? "Работает" : "Не работает"}
-          </span>
+          <Input
+            type="time"
+            aria-invalid={!isValid}
+            disabled={disabled}
+            value={endTime}
+            onChange={(e) => updateEndTime(e.target.value)}
+            className="text-center aria-invalid:border-destructive aria-invalid:bg-destructive/40"
+          />
         </div>
         <Button
           disabled={!onDelete}
           onClick={onDelete}
-          size="sm"
+          size="icon"
           variant="ghost"
         >
-          Удалить
+          <XIcon size={16} />
         </Button>
       </div>
     </div>
@@ -303,7 +303,7 @@ export default function EditScheduleModal({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="rounded-3xl max-h-dvh !max-w-md w-full overflow-y-auto">
+      <DialogContent className="rounded-3xl max-h-dvh !max-w-2xl w-full overflow-y-auto">
         <div className="*:block space-y-2">
           <DialogTitle>Редактировать расписание</DialogTitle>
           <DialogDescription>
@@ -336,7 +336,7 @@ export default function EditScheduleModal({
         <span className="text-sm text-muted-foreground">
           Определите ваше расписание
         </span>
-        <ul className="w-full space-y-6">
+        <ul className="w-full grid grid-cols-2 gap-6">
           <WeekdayItem
             label="Понедельник"
             schedule={monday}
@@ -435,10 +435,11 @@ const WeekdayItem = ({
         <span className="text-sm shrink-0">{label}</span>
         <Button
           variant="secondary"
-          size="sm"
+          className="size-7"
+          size="icon"
           onClick={() => onNewSchedule && onNewSchedule("sunday")}
         >
-          Добавить
+          <PlusIcon size={16} />
         </Button>
       </div>
       <div className="flex flex-col gap-4 w-full">
