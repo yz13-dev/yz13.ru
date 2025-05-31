@@ -35,7 +35,6 @@ export const toOverlayCoords = (x: number, y: number) => {
 export const toCanvasCoords = (x: number, y: number) => {
   const zoom = getZoom();
   const offset = getOffset();
-  const doc = document?.documentElement;
   const top = 0;
   const left = 0;
   const correctedX = Math.round((x - left - offset.x) / zoom);
