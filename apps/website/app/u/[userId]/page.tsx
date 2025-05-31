@@ -1,8 +1,10 @@
 import Background from "@/app/(root)/components/background";
 import { auth } from "@/lib/auth";
+import { format, parseISO } from "date-fns";
 import {
   ArrowLeftIcon,
   AtSignIcon,
+  CalendarIcon,
   ListIcon,
   SettingsIcon,
   UsersIcon,
@@ -49,7 +51,7 @@ export default async function page({ params }: PageProps) {
           </Link>
         </Button>
       </div>
-      <div className="max-w-4xl grid md:grid-cols-3 grid-cols-1 w-full rounded-3xl border mx-auto bg-background/40 divide-x">
+      <div className="max-w-4xl grid md:grid-cols-3 grid-cols-1 w-full rounded-3xl border mx-auto bg-card/80 divide-x">
         <div className="col-span-1 divide-y">
           <div className="w-full p-3 space-y-3">
             <Avatar className="size-12">
@@ -80,19 +82,31 @@ export default async function page({ params }: PageProps) {
             <div className="grid grid-cols-3 gap-2">
               <div className="flex items-center gap-1 text-muted-foreground">
                 <AtSignIcon size={14} />
-                <span className="text-sm">Email</span>
+                <span className="text-sm">Почта</span>
               </div>
               <div className="col-span-2">
                 <span className="text-sm">{email}</span>
               </div>
+              {
+                user?.created_at &&
+                <>
+                  <div className="flex items-center gap-1 text-muted-foreground">
+                    <CalendarIcon size={14} />
+                    <span className="text-sm">Создан</span>
+                  </div>
+                  <div className="col-span-2">
+                    <span className="text-sm">{format(parseISO(user?.created_at), "dd.MM.yyyy")}</span>
+                  </div>
+                </>
+              }
             </div>
           </div>
         </div>
         <div className="col-span-2">
           <div className="w-full p-3 space-y-3">
-            <span className="text-sm block text-muted-foreground">123</span>
-            <div className="w-full grid md:grid-cols-3 grid-cols-2 gap-3">
-              <div className="w-full col-span-2 h-32 flex flex-col justify-between border rounded-lg p-3">
+            <span className="text-sm block text-muted-foreground">Информация</span>
+            <div className="w-full grid md:grid-cols-3 grid-cols-2 gap-3 *:transition-colors">
+              <div className="w-full col-span-2 h-32 flex flex-col justify-between border hover:border-foreground rounded-lg p-3">
                 <div className="flex items-center text-muted-foreground justify-between">
                   <span className="text-sm">Био</span>
                   <ListIcon size={16} />
@@ -101,19 +115,19 @@ export default async function page({ params }: PageProps) {
                   123
                 </span>
               </div>
-              <div className="w-full h-32 border rounded-lg">
-                <ul className="*:p-2 divide-y h-full w-full">
+              <div className="w-full h-32 border hover:border-foreground rounded-lg">
+                <ul className="*:py-2 *:px-3 divide-y h-full w-full *:h-1/2">
                   {identities.map((i) => {
                     const data = i.identity_data;
                     const email = data?.email ?? "";
                     return (
                       <li
                         key={i.provider}
-                        className="flex items-center overflow-x-hidden gap-2"
+                        className="flex flex-col overflow-x-hidden gap-1"
                       >
-                        <Badge variant="secondary" className="capitalize">
+                        <span className="capitalize text-xs text-muted-foreground">
                           {i.provider}
-                        </Badge>
+                        </span>
                         <Badge
                           variant="secondary"
                           className="line-clamp-1 h-fit max-w-full"
@@ -126,7 +140,7 @@ export default async function page({ params }: PageProps) {
                 </ul>
               </div>
 
-              <div className="w-full h-32 border rounded-lg">
+              <div className="w-full h-32 border hover:border-foreground rounded-lg">
                 <div className="p-3 w-full h-full flex flex-col justify-between">
                   <div className="flex items-center text-muted-foreground justify-between">
                     <span className="text-sm">Занятость</span>
@@ -138,7 +152,7 @@ export default async function page({ params }: PageProps) {
                   <span className="text-base text-foreground block">Занят</span>
                 </div>
               </div>
-              <div className="w-full h-32 border rounded-lg">
+              <div className="w-full h-32 border hover:border-foreground rounded-lg">
                 <div className="p-3 w-full h-full flex flex-col justify-between">
                   <div className="flex items-center text-muted-foreground justify-between">
                     <span className="text-sm">Команда</span>
@@ -149,7 +163,7 @@ export default async function page({ params }: PageProps) {
                   </span>
                 </div>
               </div>
-              <div className="w-full h-32 border rounded-lg" />
+              <div className="w-full h-32 border hover:border-foreground rounded-lg" />
             </div>
           </div>
         </div>

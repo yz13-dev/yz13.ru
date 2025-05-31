@@ -2,18 +2,21 @@
 import { ArrowLeftIcon, FileIcon, PlusIcon, StoreIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";
+import Link from "next/link";
 import { useMapApi } from "../api/api-provider";
 import { getGridCoords } from "../api/canvas-api";
 
-export default function () {
+export default function ({ id }: { id: string }) {
   return (
     <aside className="absolute [&>div>button]:h-10 max-w-2xs w-full *:bg-card/60 *:backdrop-blur-sm top-0 left-0 p-4 space-y-2">
       <div className="p-1 rounded-md flex items-center gap-1 border bg-card">
-        <Button size="icon" variant="secondary" className="shrink-0 w-10">
-          <ArrowLeftIcon size={16} />
+        <Button size="icon" variant="secondary" className="shrink-0 w-10" asChild>
+          <Link href="/">
+            <ArrowLeftIcon size={16} />
+          </Link>
         </Button>
         <Button className="w-full shrink" variant="outline">
-          Board
+          Board - #{id.slice(0, 6)}
         </Button>
       </div>
       <div className="p-1 rounded-md grid grid-cols-2 gap-1 border bg-card">
