@@ -3,6 +3,7 @@ import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import User from "@/components/user";
 import { availableForWork } from "@/const/flags";
+import { wait } from "@/helpers/wait";
 import { format } from "date-fns";
 import { SendIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -20,6 +21,7 @@ import OtherProjects, {
 import ServicesDetails from "./components/services-details";
 
 export default async function page() {
+  await wait(3000)
   const isAvailable = await availableForWork();
   const chat_url = "https://t.me/yz13_dev";
   return (

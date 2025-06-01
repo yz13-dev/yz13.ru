@@ -1,12 +1,14 @@
 "use client";
 import {
   AppWindowIcon,
+  ComponentIcon,
   GlobeIcon,
+  PackageIcon,
   PanelTopIcon,
   SparklesIcon,
   StoreIcon,
 } from "lucide-react";
-import { Pricing } from "rest-api/types/pricing";
+import type { Pricing } from "rest-api/types/pricing";
 
 type Props = {
   sign?: string;
@@ -14,6 +16,8 @@ type Props = {
 };
 
 const icons = {
+  components: <ComponentIcon size={14} />,
+  package: <PackageIcon size={14} />,
   pages: <PanelTopIcon size={14} />,
   website: <GlobeIcon size={14} />,
   "web-app": <AppWindowIcon size={14} />,
