@@ -51,6 +51,7 @@ export type State = {
   shiftPressed: boolean;
   contextMenu: boolean;
   cursor: Coordinate;
+  targetCode: Element["code"] | null;
   view: View;
   zoom: number;
   elements: Element[];
@@ -102,6 +103,7 @@ export const initialState: State = {
   shiftPressed: false,
   cursor: initialCursor,
   view: initialView,
+  targetCode: null,
   elements: [],
   zoom: 1,
   dpr: 1,
@@ -128,6 +130,11 @@ export const api = createMapApi({
   },
 });
 
+export const setCode = (code: Element["code"] | null) => {
+  api.setState((state) => ({
+    targetCode: state.targetCode !== code ? code : state.targetCode,
+  }));
+};
 
 export const getFlag = (flag: keyof Flags) => api.getState().flags[flag];
 
