@@ -13,6 +13,7 @@ import Background from "./components/background";
 import CallToAction, {
   CallToActionSkeleton,
 } from "./components/call-to-action";
+import GitHubActivityMap from "./components/github-activity-map";
 import OtherProjects, {
   OtherProjectsSkeleton,
 } from "./components/other-projects";
@@ -75,6 +76,15 @@ export default async function page() {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-12">
+        <div className="space-y-3">
+          <span className="text-3xl block font-semibold">Активность</span>
+          <span className="text-lg block text-muted-foreground">
+            Календарь активности GitHub.
+          </span>
+        </div>
+        <GitHubActivityMap username="yz13-dev" />
       </div>
       <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-12">
         <div className="space-y-3">

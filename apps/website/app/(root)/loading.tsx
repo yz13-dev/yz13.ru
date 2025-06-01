@@ -3,6 +3,7 @@ import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
 import { Skeleton } from "mono/components/skeleton";
 import { CallToActionSkeleton } from "./components/call-to-action";
+import { CalendarSkeleton } from "./components/github-activity-map";
 import { OtherProjectsSkeleton } from "./components/other-projects";
 
 export default function loading() {
@@ -40,6 +41,15 @@ export default function loading() {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-12">
+        <div className="space-y-3">
+          <span className="text-3xl block font-semibold">Активность</span>
+          <span className="text-lg block text-muted-foreground">
+            Календарь активности GitHub.
+          </span>
+        </div>
+        <CalendarSkeleton loading />
       </div>
       <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6">
         <Footer />
