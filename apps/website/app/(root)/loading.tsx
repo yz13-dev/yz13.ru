@@ -12,7 +12,6 @@ export default function loading() {
       <header className="flex items-center justify-end w-full mx-auto px-6 h-16">
         <Skeleton className="rounded-full size-9" />
       </header>
-      <Skeleton className="w-full h-dvh absolute top-0 left-0 rounded-none" />
       <div className="w-full my-[10%] lg:gap-6 gap-12 flex lg:flex-row flex-col items-center max-w-6xl mx-auto p-6">
         <div className="lg:w-2/3 w-full space-y-8">
           <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center bg-background/40">
