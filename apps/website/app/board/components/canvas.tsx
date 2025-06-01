@@ -1,13 +1,11 @@
 "use client";
-
 import {
   type PointerEvent,
   useCallback,
   useEffect,
   useRef,
   useState,
-  useMemo,
-  type WheelEvent,
+  type WheelEvent
 } from "react";
 import {
   type Coordinate,
@@ -17,17 +15,15 @@ import {
   setOffset,
   setSize,
   setZoom,
-  type Size,
+  type Size
 } from "../api/api";
 import { useMapApi } from "../api/api-provider";
-import { zoom as applyZoom, offset as applyOffset } from "../api/canvas-api";
+import { offset as applyOffset, zoom as applyZoom } from "../api/canvas-api";
 import useCanvasEventStore, { setEvent } from "../api/canvas.event";
 import { onMouseDown, onMouseMove } from "../api/event-api";
 
 type CanvasOptions = {
   grid?: boolean;
-  enableDirtyRectOptimization?: boolean;
-  maxFPS?: number;
 };
 
 type CanvasProps = {
@@ -44,96 +40,64 @@ const Canvas = ({
 }: CanvasProps) => {
   const {
     grid = false,
-    enableDirtyRectOptimization = true,
-    maxFPS = 60,
   } = options || {};
 
   const ref = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number>(0);
-  const lastRenderTimeRef = useRef<number>(0);
-  const isDirtyRef = useRef<boolean>(true);
-  const lastStateRef = useRef<any>({});
-
   const offset = useMapApi((state) => state.offset);
   const size = useMapApi((state) => state.canvas);
   const zoom = useMapApi((state) => state.zoom);
   const dpr = useMapApi((state) => state.dpr);
   const ctx = useMapApi((state) => state.canvas.ctx);
   const event = useCanvasEventStore((state) => state.event);
+  const elements = useMapApi((state) => state.elements);
 
   const [dragStart, setDragStart] = useState<Coordinate>({ x: 0, y: 0 });
   const [lastWheelEventTime, setLastWheelEventTime] = useState<number>(0);
-
-  // Memoize frame interval
-  const frameInterval = useMemo(() => 1000 / maxFPS, [maxFPS]);
-
-  // Check if state has changed (dirty checking)
-  const hasStateChanged = useCallback(() => {
-    const currentState = { offset, size, zoom, dpr, grid };
-    const hasChanged =
-      JSON.stringify(currentState) !== JSON.stringify(lastStateRef.current);
-    if (hasChanged) {
-      lastStateRef.current = currentState;
-    }
-    return hasChanged;
-  }, [offset, size, zoom, dpr, grid]);
 
   // Optimized render function with dirty rect optimization
   const render = useCallback(
     (
       ctx: CanvasRenderingContext2D,
-      width: number,
-      height: number,
-      forceFullRender = false,
     ) => {
-      const now = performance.now();
-
-      // Frame rate limiting
-      if (now - lastRenderTimeRef.current < frameInterval && !forceFullRender) {
-        return;
-      }
-
-      lastRenderTimeRef.current = now;
-
-      // Only render if dirty or forced
-      if (!isDirtyRef.current && !forceFullRender) {
-        return;
-      }
+      const start = performance.now();
 
       ctx.save();
-
-      // Use dirty rect optimization if enabled
-      if (enableDirtyRectOptimization && !forceFullRender) {
-        // Calculate dirty region based on movement
-        // For simplicity, we'll clear the entire canvas for now
-        // In a real implementation, you'd track specific dirty regions
-        ctx.clearRect(0, 0, width, height);
-      } else {
-        ctx.clearRect(0, 0, width, height);
-      }
-
-      // Apply transformations
       applyZoom(ctx);
       applyOffset(ctx);
+
+      for (const element of elements) {
+        const x = element.x;
+        const y = element.y;
+        const width = element.width;
+        const height = element.height;
+        const rotation = element.rotation;
+
+        const radians = rotation * Math.PI / 180;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(radians);
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+      }
+
+      ctx.restore()
+
 
       // Custom rendering
       if (onRender) {
         onRender(ctx);
       }
 
-      ctx.restore();
-      isDirtyRef.current = false;
+      const end = performance.now();
+      const duration = end - start;
+      console.log("Rendered in " + duration + "ms");
     },
-    [onRender, grid, zoom, enableDirtyRectOptimization, frameInterval],
+    [onRender, grid, zoom, offset, elements],
   );
 
   // Debounced render function
   const scheduleRender = useCallback(() => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
-
-    animationFrameRef.current = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       const canvas = ref.current;
       if (!canvas) return;
 
@@ -147,28 +111,18 @@ const Canvas = ({
 
       const width = size.width * dpr;
       const height = size.height * dpr;
+      canvas.width = width;
+      canvas.height = height;
+      canvas.style.width = `${size.width}px`;
+      canvas.style.height = `${size.height}px`;
 
-      // Only resize canvas if dimensions changed
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = `${size.width}px`;
-        canvas.style.height = `${size.height}px`;
-        isDirtyRef.current = true;
-      }
-
-      render(ctx, width, height);
+      ctx.save();
+      ctx.clearRect(0, 0, width, height);
+      render(ctx);
+      ctx.restore();
       setCtx(ctx);
     });
-  }, [size, dpr, render]);
-
-  // Mark as dirty when state changes
-  useEffect(() => {
-    if (hasStateChanged()) {
-      isDirtyRef.current = true;
-      scheduleRender();
-    }
-  }, [hasStateChanged, scheduleRender]);
+  }, [size, offset, dpr, render]);
 
   // Optimized event handlers with throttling
   const handleDown = useCallback(
@@ -191,10 +145,12 @@ const Canvas = ({
       const { x: startX, y: startY } = dragStart;
       const { x, y } = onMouseMove(e);
 
+      console.log("cursor", x, y);
+
       setCursor({ x, y });
 
-      const dx = clientX - startX;
-      const dy = clientY - startY;
+      const dx = (clientX - startX) * (zoom / dpr);
+      const dy = (clientY - startY) * (zoom / dpr);
 
       if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return; // Micro-movement threshold
 
@@ -203,7 +159,7 @@ const Canvas = ({
         setDragStart({ x: clientX, y: clientY });
       }
     },
-    [dragStart, event],
+    [dragStart, event, dpr],
   );
 
   const moveCanvas = useCallback(
@@ -216,7 +172,6 @@ const Canvas = ({
       const newY = offsetY + dy * zoomFactor;
 
       setOffset({ x: newX, y: newY });
-      isDirtyRef.current = true;
     },
     [offset, dpr],
   );
@@ -288,6 +243,10 @@ const Canvas = ({
     [offset],
   );
 
+  useEffect(() => {
+    scheduleRender()
+  }, [offset, size, zoom, dpr, grid]);
+
   const handlePan = useCallback(
     (e: React.WheelEvent<HTMLCanvasElement>) => {
       const dx = e.deltaX;
@@ -309,7 +268,6 @@ const Canvas = ({
             height: parent.clientHeight,
           };
           setSize(newSize);
-          isDirtyRef.current = true;
         }
       }
     };
@@ -319,15 +277,6 @@ const Canvas = ({
 
     return () => {
       window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
     };
   }, []);
 

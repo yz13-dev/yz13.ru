@@ -1,5 +1,5 @@
 "use client";
-import { LogOutIcon, SettingsIcon, UserCircleIcon } from "lucide-react";
+import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,21 +46,13 @@ const UserDropdown = ({
             {positionOrEmail}
           </span>
         </DropdownMenuLabel>
-        {false && (
-          <>
-            <DropdownMenuItem className="justify-between" asChild>
-              <Link href="/account">
-                Профиль
-                <UserCircleIcon size={16} />
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="justify-between" asChild>
-              <Link href="/account/settings">
-                Настройки аккаунта
-                <SettingsIcon size={16} />
-              </Link>
-            </DropdownMenuItem>
-          </>
+        {isAdmin && (
+          <DropdownMenuItem className="justify-between" asChild>
+            <Link href={`/u/${user.id}`}>
+              Профиль
+              <UserCircleIcon size={16} />
+            </Link>
+          </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
