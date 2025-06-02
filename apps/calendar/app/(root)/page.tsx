@@ -1,8 +1,8 @@
 import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
-import { showEventForm } from "@/const/flags";
 import { auth } from "@/lib/auth";
+import { showEventForm } from "@yz13/flags";
 import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Separator } from "mono/components/separator";

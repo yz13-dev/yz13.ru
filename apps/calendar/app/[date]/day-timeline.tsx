@@ -61,8 +61,8 @@ const Timeline = ({ className = "" }: { className?: string }) => {
         className,
       )}
     >
-      <div className="w-full h-px bg-red-foreground relative" />
-      <span className="text-xs w-fit right-2 relative z-10 px-2 py-0 rounded-full bg-red-background text-red-foreground border border-red-foreground">
+      <div className="w-full h-px bg-foreground relative" />
+      <span className="text-xs w-fit right-2 relative z-10 px-2 py-0 rounded-full bg-foreground text-background border border-foreground">
         {format(time, "HH:mm")}
       </span>
     </div>
@@ -158,7 +158,7 @@ const DayTimeline = ({
         const eventEnd =
           (duration
             ? duration.getHours() * hourHeight +
-              (duration.getMinutes() / 60) * hourHeight
+            (duration.getMinutes() / 60) * hourHeight
             : 0) + 1;
         const eventRange = event.all_day
           ? `${format(start, "HH:mm")} - Весь день`

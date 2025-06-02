@@ -2,7 +2,6 @@ import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import User from "@/components/user";
-import { showAppsLink, showUser } from "@/const/flags";
 import { LayoutGridIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -54,16 +53,14 @@ export default async function RootHeader({
       </Nav>
       <div className="flex items-center gap-2">
         <Suspense fallback={<Skeleton className="size-9" />}>
-          {(await showAppsLink()) && (
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/apps">
-                <LayoutGridIcon size={16} />
-              </Link>
-            </Button>
-          )}
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/apps">
+              <LayoutGridIcon size={16} />
+            </Link>
+          </Button>
         </Suspense>
         <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
-          {(await showUser()) && <User />}
+          <User />
         </Suspense>
       </div>
     </Header>

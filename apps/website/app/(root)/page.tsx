@@ -2,7 +2,7 @@ import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import User from "@/components/user";
-import { availableForWork } from "@/const/flags";
+import { availableForWork } from "@yz13/flags";
 import { format } from "date-fns";
 import { SendIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -56,7 +56,7 @@ export default async function page() {
           </div>
           <div className="flex items-center mt-6 gap-2">
             <Suspense fallback={<CallToActionSkeleton />}>
-              <CallToAction busy={isAvailable} />
+              <CallToAction available={isAvailable} />
             </Suspense>
             <Button variant="ghost" asChild>
               <Link href={chat_url}>
@@ -97,7 +97,7 @@ export default async function page() {
           <ServicesDetails />
         </div>
       </div>
-      {!isAvailable && (
+      {isAvailable && (
         <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-12">
           <div className="space-y-3">
             <span className="text-3xl block font-semibold">Контакт</span>

@@ -1,12 +1,12 @@
-import { availableForWork, showBlog } from "@/const/flags";
 import { get } from "@vercel/edge-config";
-import { ReactNode } from "react";
+import { availableForWork } from "@yz13/flags";
+import type { ReactNode } from "react";
+import { getShortPricing } from "rest-api/pricing";
 import { cn } from "yz13/cn";
 import Blog from "./blog";
 import NavWrapper from "./nav-wrapper";
 import Projects from "./projects";
 import Services from "./services";
-import { getShortPricing } from "rest-api/pricing";
 const Nav = async ({
   children,
   side = "right",
@@ -25,7 +25,7 @@ const Nav = async ({
       <NavWrapper>
         <Services services={services ?? []} busy={busy} sign={sign} />
         <Projects />
-        {(await showBlog()) && <Blog />}
+        <Blog />
       </NavWrapper>
       {side === "right" && children}
     </div>

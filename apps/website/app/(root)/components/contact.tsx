@@ -1,10 +1,9 @@
-import { availableForWork } from "@/const/flags";
 import { addDays, eachDayOfInterval, format, isPast, isToday } from "date-fns";
 import { ru } from "date-fns/locale";
 import { TimerIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import { getSchedule } from "rest-api/calendar/schedule";
-import { DaySchedule } from "rest-api/types/calendar";
+import type { DaySchedule } from "rest-api/types/calendar";
 import { cn } from "yz13/cn";
 
 export const ContactSkeleton = () => {
@@ -17,7 +16,7 @@ export const ContactSkeleton = () => {
           <Skeleton
             key={`day-${day}`}
             className="min-w-10 h-full rounded-lg"
-          ></Skeleton>
+          />
         ))}
       </div>
       <div className="flex items-center gap-2">
@@ -30,13 +29,13 @@ export const ContactSkeleton = () => {
 
 export default async function () {
   const uid = "929e8f4f-ff0b-4802-8381-4cb5f73630f6";
-  const busy = await availableForWork();
+  // const available = await availableForWork();
   const { data } = await getSchedule(uid);
   const today = new Date();
   const weekday = format(today, "eeeeeee").toLowerCase();
   const schedule = (data?.[weekday as keyof typeof data] ??
     []) as DaySchedule[];
-  const chat_url = "https://t.me/yz13_dev";
+  // const chat_url = "https://t.me/yz13_dev";
   const previousDays = 1;
   const nextDays = 5;
   const start = addDays(today, -previousDays);

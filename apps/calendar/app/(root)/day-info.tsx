@@ -1,4 +1,4 @@
-import { showLinkToCalendar } from "@/const/flags";
+import { showLinkToCalendar } from "@yz13/flags";
 import { format, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { ArrowRightIcon } from "lucide-react";
