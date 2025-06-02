@@ -46,7 +46,7 @@ const page = async () => {
           </CalendarPicker>
         </div>
       </div>
-      <div className="*:p-6 max-w-4xl mx-auto rounded-3xl bg-background divide-y">
+      <div className="*:p-6 max-w-4xl border mx-auto rounded-3xl bg-background divide-y">
         <NewsChunk
           articles={firstChunk}
           locale={language.toLowerCase() as CalendarLocale}
