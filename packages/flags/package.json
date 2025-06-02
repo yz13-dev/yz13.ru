@@ -1,5 +1,5 @@
 {
-  "name": "flags",
+  "name": "@yz13/flags",
   "version": "0.0.0",
   "description": "Package for flags",
   "exports": {

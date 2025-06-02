@@ -1,5 +1,5 @@
 import { Typewriter } from "@/components/text-writter";
-import { availableForWork } from "flags";
+import { availableForWork } from "@yz13/flags";
 import { Skeleton } from "mono/components/skeleton";
 import type { ReactNode } from "react";
 import { cn } from "yz13/cn";

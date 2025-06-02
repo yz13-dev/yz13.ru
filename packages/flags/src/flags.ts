@@ -32,3 +32,7 @@ export const enableSearch = flag<boolean>(
   hypertuneAdapter.declarations.enableSearch,
 );
 export const availableForWork = flag<boolean>(hypertuneAdapter.declarations.availableForWork)
+
+export const showEventForm = flag<boolean>(hypertuneAdapter.declarations.showEventForm)
+
+export const showLinkToCalendar = flag<boolean>(hypertuneAdapter.declarations.showLinkToCalendar)

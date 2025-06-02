@@ -2,18 +2,22 @@
 
 import * as sdk from "hypertune";
 
-export const queryCode = `query FullQuery{root{availableForWork enableSearch}}`;
+export const queryCode = `query FullQuery{root{showLinkToCalendar showEventForm availableForWork enableSearch}}`;
 
-export const query: sdk.Query<sdk.ObjectValueWithVariables> = {"variableDefinitions":{},"fragmentDefinitions":{},"fieldQuery":{"Query":{"type":"InlineFragment","objectTypeName":"Query","selection":{"root":{"fieldArguments":{"__isPartialObject__":true},"fieldQuery":{"Root":{"type":"InlineFragment","objectTypeName":"Root","selection":{"availableForWork":{"fieldArguments":{},"fieldQuery":null},"enableSearch":{"fieldArguments":{},"fieldQuery":null}}}}}}}}};
+export const query: sdk.Query<sdk.ObjectValueWithVariables> = {"variableDefinitions":{},"fragmentDefinitions":{},"fieldQuery":{"Query":{"type":"InlineFragment","objectTypeName":"Query","selection":{"root":{"fieldArguments":{"__isPartialObject__":true},"fieldQuery":{"Root":{"type":"InlineFragment","objectTypeName":"Root","selection":{"showLinkToCalendar":{"fieldArguments":{},"fieldQuery":null},"showEventForm":{"fieldArguments":{},"fieldQuery":null},"availableForWork":{"fieldArguments":{},"fieldQuery":null},"enableSearch":{"fieldArguments":{},"fieldQuery":null}}}}}}}}};
 
-export const vercelFlagDefinitions = {"availableForWork":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EavailableForWork"},"enableSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EenableSearch"}};
+export const vercelFlagDefinitions = {"showLinkToCalendar":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowLinkToCalendar"},"showEventForm":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEventForm"},"availableForWork":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EavailableForWork"},"enableSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EenableSearch"}};
 
 export type RootFlagValues = {
+  "showLinkToCalendar": boolean;
+  "showEventForm": boolean;
   "availableForWork": boolean;
   "enableSearch": boolean;
 }
 
 export type FlagValues = {
+  "showLinkToCalendar": boolean;
+  "showEventForm": boolean;
   "availableForWork": boolean;
   "enableSearch": boolean;
 }
@@ -21,6 +25,8 @@ export type FlagValues = {
 export type FlagPaths = keyof FlagValues & string;
 
 export const flagFallbacks: FlagValues = {
+  "showLinkToCalendar": false,
+  "showEventForm": false,
   "availableForWork": false,
   "enableSearch": false,
 }
@@ -66,11 +72,13 @@ export type RootArgs = {
 export type EmptyObject = {};
 
 export type Root = {
+  showLinkToCalendar: boolean;
+  showEventForm: boolean;
   availableForWork: boolean;
   enableSearch: boolean;
 }
 
-const rootFallback = {availableForWork:false,enableSearch:false};
+const rootFallback = {showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false};
 
 export class RootNode extends sdk.Node {
   override typeName = "Root" as const;
@@ -83,6 +91,46 @@ export class RootNode extends sdk.Node {
   get({ fallback = rootFallback as Root}: { fallback?: Root } = {}): Root {
     const getQuery = null;
     return this.getValue({ query: getQuery, fallback }) as Root;
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowLinkToCalendar})
+   */
+  showLinkToCalendar({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
+    const props0 = this.getFieldNodeProps("showLinkToCalendar", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "BooleanExpression"
+    ) {
+      const node = new sdk.BooleanNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.BooleanNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEventForm})
+   */
+  showEventForm({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
+    const props0 = this.getFieldNodeProps("showEventForm", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "BooleanExpression"
+    ) {
+      const node = new sdk.BooleanNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.BooleanNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
   }
 
   /**
@@ -147,7 +195,7 @@ export type Source = {
   root: Root;
 }
 
-const sourceFallback = {root:{availableForWork:false,enableSearch:false}};
+const sourceFallback = {root:{showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false}};
 
 export type GetQueryRootArgs = {
   args: RootArgs;

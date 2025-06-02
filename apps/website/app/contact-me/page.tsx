@@ -3,7 +3,6 @@ import Header from "@/components/header";
 import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import User from "@/components/user";
-import { showAppsLink } from "@/const/flags";
 import { auth } from "@/lib/auth";
 import { get } from "@vercel/edge-config";
 import { LayoutGridIcon } from "lucide-react";
@@ -30,13 +29,11 @@ const page = async () => {
         </Nav>
         <div className="flex items-center gap-2">
           <Suspense fallback={<Skeleton className="size-9" />}>
-            {(await showAppsLink()) && (
-              <Button variant="ghost" size="icon" asChild>
-                <Link href="/apps">
-                  <LayoutGridIcon size={16} />
-                </Link>
-              </Button>
-            )}
+            <Button variant="ghost" size="icon" asChild>
+              <Link href="/apps">
+                <LayoutGridIcon size={16} />
+              </Link>
+            </Button>
           </Suspense>
           <Suspense fallback={<Skeleton className="h-9 w-[75px]" />}>
             {isDev && <User />}

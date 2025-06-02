@@ -1,4 +1,3 @@
-import { showUser } from "@/const/flags";
 import { Skeleton } from "mono/components/skeleton";
 import RadioClient from "./components/radio-client-wrapper";
 import Items from "./dock-items";
@@ -18,7 +17,6 @@ type DockProps = {
 };
 
 const Dock = async ({ className = "" }: DockProps) => {
-  const showUserInDock = await showUser();
   return (
     <>
       <Overlay />
@@ -27,7 +25,7 @@ const Dock = async ({ className = "" }: DockProps) => {
         <DockWidgets>
           <RadioClient />
         </DockWidgets>
-        <Items showUser={showUserInDock} />
+        <Items />
       </DockWrapper>
     </>
   );

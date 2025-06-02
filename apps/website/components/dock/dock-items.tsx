@@ -3,7 +3,7 @@ import { HomeIcon } from "lucide-react";
 import { Skeleton } from "mono/components/skeleton";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { ReactNode, Suspense, useState } from "react";
+import { type ReactNode, Suspense, useState } from "react";
 import { cn } from "yz13/cn";
 import CalendarPopover from "./popovers/calendar";
 import User from "./user";
@@ -14,10 +14,6 @@ const LiveTime = dynamic(() => import("../live/live-time"), {
     </span>
   ),
 });
-
-type DockItemsProps = {
-  showUser?: boolean;
-};
 
 const Item = ({
   children,
@@ -42,7 +38,7 @@ const Item = ({
   );
 };
 
-export default function Items({ showUser = false }: DockItemsProps) {
+export default function Items() {
   const [unMuteReminder, setUnMuteReminder] = useState<boolean>(true);
   return (
     <>
@@ -65,13 +61,11 @@ export default function Items({ showUser = false }: DockItemsProps) {
         >
           <LayoutGridIcon size={18} />
         </button> */}
-        {showUser && (
-          <Item className="size-12" as="div">
-            <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
-              <User sideOffset={12} asSquare />
-            </Suspense>
-          </Item>
-        )}
+        <Item className="size-12" as="div">
+          <Suspense fallback={<Skeleton className="size-12 rounded-full" />}>
+            <User sideOffset={12} asSquare />
+          </Suspense>
+        </Item>
       </div>
     </>
   );
