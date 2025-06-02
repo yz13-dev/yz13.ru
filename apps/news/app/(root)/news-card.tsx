@@ -54,21 +54,12 @@ const NewsCard = ({
   return (
     <article
       key={article.id}
-      className={cn("w-full flex group/link flex-col gap-3", className)}
+      className={cn("w-full flex group/link flex-col gap-2", className)}
     >
       {showThumbnail && <NewsThumbnail img={img} />}
-      {false && (
-        <Link
-          href={article.url}
-          className="text-xs flex items-center gap-2 text-foreground"
-        >
-          Источник
-          <ExternalLinkIcon size={12} />
-        </Link>
-      )}
       <Link
         href={sourceLink}
-        className="text-xs inline-flex items-center gap-1.5 font-medium"
+        className="text-xs inline-flex text-muted-foreground hover:text-foreground transition-colors items-center gap-1.5 font-medium"
       >
         {sourceName}
         <ExternalLinkIcon size={12} />
@@ -85,7 +76,7 @@ const NewsCard = ({
           {article.description}
         </span>
       )}
-      <div className="flex items-center justify-start gap-0">
+      <div className="*:inline space-x-2">
         <time
           dateTime={article.published_at}
           className="capitalize text-xs text-muted-foreground"

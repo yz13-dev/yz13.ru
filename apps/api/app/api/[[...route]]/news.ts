@@ -113,15 +113,16 @@ news.get("/articles/:source_id", async (c) => {
 });
 
 news.get("/country/:code/articles", async (c) => {
-  const offset = parseInt(c.req.query("offset") || "0");
+  const offset = Number.parseInt(c.req.query("offset") || "0");
   const dateQuery = c.req.query("date");
   const defaultDate = new Date();
   const date = format(
     dateQuery ? parseISO(dateQuery) : defaultDate,
     "yyyy-MM-dd",
   );
+  const chunkSize = 4;
   const nextDate = format(addDays(date, 1), "yyyy-MM-dd");
-  const limit = parseInt(c.req.query("limit") || "30");
+  const limit = Number.parseInt(c.req.query("limit") || String((chunkSize * 4) - 1));
   const code = String(c.req.param("code")).toUpperCase();
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
@@ -143,7 +144,8 @@ news.get("/country/:code/articles", async (c) => {
 
   if (error) {
     return c.json([]);
-  } else return c.json(articles);
+  }
+  return c.json(articles);
 });
 
 news.get("/article/:article_id", async (c) => {
