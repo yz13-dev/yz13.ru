@@ -122,7 +122,7 @@ news.get("/country/:code/articles", async (c) => {
   );
   const chunkSize = 4;
   const nextDate = format(addDays(date, 1), "yyyy-MM-dd");
-  const limit = Number.parseInt(c.req.query("limit") || String((chunkSize * 4) - 1));
+  const limit = Number.parseInt(c.req.query("limit") || String((chunkSize * 4)));
   const code = String(c.req.param("code")).toUpperCase();
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);

@@ -1,3 +1,4 @@
+import LiveTimeProvider from "@/components/live/live-provider";
 import "@/styles/globals.css";
 import "dayjs/locale/ru";
 import type { Metadata } from "next";
@@ -43,7 +44,11 @@ export default function RootLayout({
       lang="en"
       className={`${SANS.variable} ${PIXEL.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        <LiveTimeProvider>
+          {children}
+        </LiveTimeProvider>
+      </body>
     </html>
   );
 }

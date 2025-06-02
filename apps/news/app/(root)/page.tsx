@@ -1,5 +1,5 @@
 import Footer from "@/components/footer";
-import { CalendarLocale, contries, locales } from "@/const/locale-to-country";
+import { type CalendarLocale, contries, locales } from "@/const/locale-to-country";
 import { chunk } from "@/lib/chunk";
 import { getLocaleFromCookie } from "@/lib/locale";
 import { format } from "date-fns";
@@ -9,12 +9,13 @@ import { getArticlesForCountry } from "rest-api/articles";
 import AutoGrid from "./auto-grid";
 import CalendarPicker from "./calendar-picker";
 import NewsChunk from "./news-chunk";
+import Time from "./time";
 
 const page = async () => {
   const language = (await getLocaleFromCookie()) || "RU";
   const { data } = await getArticlesForCountry(language);
   const articles = data ?? [];
-  const sliceNumber = 4;
+  const sliceNumber = 8;
   const chunks = chunk(articles, sliceNumber);
   const firstChunk = chunks[0];
   const restOfChunks = chunks.slice(1);
@@ -36,14 +37,17 @@ const page = async () => {
             <span className="text-3xl font-medium">{country}</span>
             {/* </CountryPicker> */}
           </div>
-          <CalendarPicker locale={language.toLowerCase() as CalendarLocale}>
-            <Button variant="secondary" className="w-fit text-muted-foreground">
-              <CalendarIcon className="lg:size-5 size-4" />
-              <span className="lg:text-lg text-sm capitalize">
-                {calendarDate}
-              </span>
-            </Button>
-          </CalendarPicker>
+          <div className="flex items-center gap-4">
+            <Time className="text-2xl text-muted-foreground font-medium" />
+            <CalendarPicker locale={language.toLowerCase() as CalendarLocale}>
+              <Button variant="secondary" className="w-fit text-muted-foreground">
+                <CalendarIcon className="lg:size-5 size-4" />
+                <span className="lg:text-lg text-sm capitalize">
+                  {calendarDate}
+                </span>
+              </Button>
+            </CalendarPicker>
+          </div>
         </div>
       </div>
       <div className="*:p-6 max-w-4xl border mx-auto rounded-3xl bg-background divide-y">
