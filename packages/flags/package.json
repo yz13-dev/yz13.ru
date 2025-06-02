@@ -3,11 +3,9 @@
   "version": "0.0.0",
   "description": "Package for flags",
   "exports": {
-    "./flags": {
-      "types": "./dist/flags.d.ts",
-      "import": "./dist/flags.mjs",
-      "require": "./dist/flags.js"
-    }
+    "types": "./dist/flags.d.ts",
+    "import": "./dist/flags.mjs",
+    "require": "./dist/flags.js"
   },
   "files": [
     "dist"

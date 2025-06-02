@@ -1,5 +1,5 @@
 import { Typewriter } from "@/components/text-writter";
-import { availableForWork } from "@/const/flags";
+import { availableForWork } from "flags";
 import { Skeleton } from "mono/components/skeleton";
 import type { ReactNode } from "react";
 import { cn } from "yz13/cn";
@@ -17,10 +17,10 @@ const unavailableTexts = [
 ];
 
 const Availability = async ({ label, className = "" }: AvailabilityProps) => {
-  const isBusy = await availableForWork();
-  const status: "available" | "unavailable" = isBusy
-    ? "unavailable"
-    : "available";
+  const available = await availableForWork();
+  const status: "available" | "unavailable" = available
+    ? "available"
+    : "unavailable";
 
   const text = status === "available" ? availableTexts : unavailableTexts;
   return (
@@ -34,7 +34,7 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
         <div
           className={cn(
             "absolute inset-0 size-2 animate-ping rounded-full",
-            isBusy ? "bg-destructive" : "bg-green-foreground",
+            available ? "bg-green-foreground" : "bg-destructive",
           )}
         />
         <div className="size-2 animate-pulse bg-destructive rounded-full" />

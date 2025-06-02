@@ -11,7 +11,7 @@ import { cn } from "yz13/cn";
 
 type Props = {
   hideSearch?: boolean;
-  busy?: boolean;
+  available?: boolean;
 };
 
 export const CallToActionSkeleton = () => {
@@ -25,11 +25,11 @@ export const CallToActionSkeleton = () => {
   );
 };
 
-const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
+const CallToAction = ({ hideSearch = false, available = false }: Props) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [label, setLabel] = useState<string>("Подождите...");
   const [href, setHref] = useState<string | null>(null);
-  const [disabled, setDisabled] = useState<boolean>(busy);
+  const [disabled, setDisabled] = useState<boolean>(!available);
   const CALL_TO_ACTION_LINK =
     "https://calendar.yz13.ru/booking/929e8f4f-ff0b-4802-8381-4cb5f73630f6";
   useHotkeys(
@@ -53,24 +53,27 @@ const CallToAction = ({ hideSearch = false, busy = false }: Props) => {
   }, []);
   return (
     <div className="h-fit flex w-fit items-center flex-row gap-2">
-      {busy ? (
-        <Button variant="default" className={cn("gap-2 ")} disabled={busy}>
-          <ArrowLeftIcon size={16} />
-          Связаться
-        </Button>
-      ) : (
-        <Button
-          variant="default"
-          className={cn("gap-2")}
-          disabled={busy}
-          asChild
-        >
-          <Link href={CALL_TO_ACTION_LINK}>
+      {available ?
+        (
+          <Button
+            variant="default"
+            className={cn("gap-2")}
+            disabled={!available}
+            asChild
+          >
+            <Link href={CALL_TO_ACTION_LINK}>
+              <ArrowLeftIcon size={16} />
+              Связаться
+            </Link>
+          </Button>
+        )
+        :
+        (
+          <Button variant="default" className={cn("gap-2 ")} disabled={!available}>
             <ArrowLeftIcon size={16} />
             Связаться
-          </Link>
-        </Button>
-      )}
+          </Button>
+        )}
       {!visible ? null : href ? (
         <Button
           disabled={disabled}

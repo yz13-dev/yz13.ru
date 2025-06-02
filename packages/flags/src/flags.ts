@@ -28,6 +28,7 @@ const hypertuneAdapter = createHypertuneAdapter<
   identify,
 });
 
-export const enableSearch = flag(
+export const enableSearch = flag<boolean>(
   hypertuneAdapter.declarations.enableSearch,
 );
+export const availableForWork = flag<boolean>(hypertuneAdapter.declarations.availableForWork)

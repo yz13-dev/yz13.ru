@@ -2,8 +2,8 @@ import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import User from "@/components/user";
-import { availableForWork } from "@/const/flags";
 import { format } from "date-fns";
+import { availableForWork } from "flags";
 import { SendIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -97,7 +97,7 @@ export default async function page() {
           <ServicesDetails />
         </div>
       </div>
-      {!isAvailable && (
+      {isAvailable && (
         <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-12">
           <div className="space-y-3">
             <span className="text-3xl block font-semibold">Контакт</span>
