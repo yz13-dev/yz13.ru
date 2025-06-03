@@ -15,7 +15,6 @@ import {
 } from "mono/components/dialog";
 import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
-import { Switch } from "mono/components/switch";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { updateSchedule } from "rest-api/calendar/schedule";
@@ -169,7 +168,7 @@ export default function EditScheduleModal({
     return isEqual(initialSchedule, currentSchedule);
   };
 
-  const disabled = loading ?? getChanges();
+  const disabled = loading ? loading : getChanges();
 
   const addSchedule = (day: keyof WeekSchedule, schedule: DaySchedule) => {
     if (day === "monday") {
@@ -257,7 +256,7 @@ export default function EditScheduleModal({
         time: "00:00",
         tz,
       },
-      enabled: false,
+      enabled: true,
     };
   };
   const router = useRouter();
@@ -336,8 +335,9 @@ export default function EditScheduleModal({
         <span className="text-sm text-muted-foreground">
           Определите ваше расписание
         </span>
-        <ul className="w-full grid grid-cols-2 gap-6">
+        <ul className="w-full grid md:grid-cols-2 grid-cols-1 gap-6">
           <WeekdayItem
+            weekday="monday"
             label="Понедельник"
             schedule={monday}
             onChange={changeSchedule}
@@ -347,6 +347,7 @@ export default function EditScheduleModal({
             }
           />
           <WeekdayItem
+            weekday="tuesday"
             label="Вторник"
             schedule={tuesday}
             onChange={changeSchedule}
@@ -356,6 +357,7 @@ export default function EditScheduleModal({
             }
           />
           <WeekdayItem
+            weekday="wednesday"
             label="Среда"
             schedule={wednesday}
             onChange={changeSchedule}
@@ -365,6 +367,7 @@ export default function EditScheduleModal({
             }
           />
           <WeekdayItem
+            weekday="thursday"
             label="Четверг"
             schedule={thursday}
             onChange={changeSchedule}
@@ -374,6 +377,7 @@ export default function EditScheduleModal({
             }
           />
           <WeekdayItem
+            weekday="friday"
             label="Пятница"
             schedule={friday}
             onChange={changeSchedule}
@@ -383,6 +387,7 @@ export default function EditScheduleModal({
             }
           />
           <WeekdayItem
+            weekday="saturday"
             label="Суббота"
             schedule={saturday}
             onChange={changeSchedule}
@@ -392,6 +397,7 @@ export default function EditScheduleModal({
             }
           />
           <WeekdayItem
+            weekday="sunday"
             label="Воскресенье"
             schedule={sunday}
             onChange={changeSchedule}
@@ -413,12 +419,14 @@ export default function EditScheduleModal({
 }
 
 const WeekdayItem = ({
+  weekday,
   label,
   schedule = [],
   onChange,
   onDeleteSchedule,
   onNewSchedule,
 }: {
+  weekday: keyof WeekSchedule;
   onChange?: (
     weekday: keyof WeekSchedule,
     index: number,
@@ -437,7 +445,9 @@ const WeekdayItem = ({
           variant="secondary"
           className="size-7"
           size="icon"
-          onClick={() => onNewSchedule && onNewSchedule("sunday")}
+          onClick={() => {
+            if (onNewSchedule) onNewSchedule(weekday)
+          }}
         >
           <PlusIcon size={16} />
         </Button>
@@ -450,11 +460,11 @@ const WeekdayItem = ({
               schedule={item}
               key={key}
               onScheduleChange={(schedule) => {
-                onChange && onChange("sunday", index, schedule);
+                if (onChange) onChange(weekday, index, schedule);
               }}
-              onDelete={() =>
-                onDeleteSchedule && onDeleteSchedule("sunday", index)
-              }
+              onDelete={() => {
+                if (onDeleteSchedule) onDeleteSchedule(weekday, index)
+              }}
             />
           );
         })}

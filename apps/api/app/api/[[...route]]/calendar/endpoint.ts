@@ -15,7 +15,7 @@ calendar.get("/user/:uid", async (c) => {
   const parsedDate = parse(date ?? "", "yyyy-MM-dd", new Date());
   const isValidDate = isValid(parsedDate);
   const limit = c.req.query("limit") ?? "10";
-  const type = (c.req.query("type") ?? "event") as Event["type"];
+  const type = (c.req.query("type")) as (Event["type"] | undefined);
   const parsedLimit = Number.parseInt(limit);
   if (!uid) return c.json({ error: "uid is required" }, 400);
   try {

@@ -5,7 +5,7 @@ import { Badge } from "mono/components/badge";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { getSchedule } from "rest-api/calendar/schedule";
-import { DaySchedule } from "rest-api/types/calendar";
+import type { DaySchedule } from "rest-api/types/calendar";
 import EditScheduleModal from "./edit-schedule-modal";
 import NewScheduleButton from "./new-schedule-button";
 const EmptySchedule = () => {
@@ -24,12 +24,13 @@ const DayScheduleItem = ({
   schedule: DaySchedule[];
 }) => {
   const max = 2;
+  const schedules = schedule.slice(0, max);
   return (
     <>
-      <span className="text-sm text-muted-foreground">{label}:</span>
+      <span className="text-sm w-6 shrink-0 text-muted-foreground">{label}:</span>
       {!schedule.length && <Badge variant="secondary">Нет расписания</Badge>}
       {schedule &&
-        schedule.slice(0, max).map((item, index) => {
+        schedules.map((item, index) => {
           const schedule = item as DaySchedule;
           const startTime = schedule.start.time;
           const startTz = schedule.start.tz;
@@ -51,7 +52,7 @@ const DayScheduleItem = ({
                   in: tz(startTz),
                 })}
               </Badge>
-              <Separator className="max-w-2" />
+              <Separator className="w-full shrink" />
               <Badge variant="secondary">
                 {format(end, "HH:mm", {
                   in: tz(endTz),
@@ -94,7 +95,7 @@ export default async function Section({ uid }: { uid: string | null }) {
               defaultSchedule={schedule}
               defaultDurations={durations}
             >
-              <button className="placeholder:opacity-50 text-sm flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <button type="button" className="placeholder:opacity-50 text-sm flex items-center gap-2 text-muted-foreground hover:text-foreground">
                 Изменить
                 <Edit3Icon size={16} />
               </button>
@@ -106,26 +107,26 @@ export default async function Section({ uid }: { uid: string | null }) {
         </span>
       </div>
       {hasSchedule ? (
-        <ul className="w-full grid grid-cols-2 gap-6">
-          <li className="flex flex-row gap-3">
+        <ul className="w-full space-y-6">
+          <li className="flex flex-row [&>div]:w-full [&>div]:justify-between w-full gap-3">
             <DayScheduleItem schedule={monday} label="Пн" />
           </li>
-          <li className="flex flex-row gap-3">
+          <li className="flex flex-row [&>div]:w-full [&>div]:justify-between w-full gap-3">
             <DayScheduleItem schedule={tuesday} label="Вт" />
           </li>
-          <li className="flex flex-row gap-3">
+          <li className="flex flex-row [&>div]:w-full [&>div]:justify-between w-full gap-3">
             <DayScheduleItem schedule={wednesday} label="Ср" />
           </li>
-          <li className="flex flex-row gap-3">
+          <li className="flex flex-row [&>div]:w-full [&>div]:justify-between w-full gap-3">
             <DayScheduleItem schedule={thursday} label="Чт" />
           </li>
-          <li className="flex flex-row gap-3">
+          <li className="flex flex-row [&>div]:w-full [&>div]:justify-between w-full gap-3">
             <DayScheduleItem schedule={friday} label="Пт" />
           </li>
-          <li className="flex flex-row gap-3">
+          <li className="flex flex-row [&>div]:w-full [&>div]:justify-between w-full gap-3">
             <DayScheduleItem schedule={saturday} label="Сб" />
           </li>
-          <li className="flex flex-row gap-3">
+          <li className="flex flex-row [&>div]:w-full [&>div]:justify-between w-full gap-3">
             <DayScheduleItem schedule={sunday} label="Вс" />
           </li>
         </ul>

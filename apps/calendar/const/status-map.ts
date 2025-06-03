@@ -1,12 +1,16 @@
 
-
-
-
-
 export const statuses = {
   "TENTATIVE": "Ждет подтверждения",
   "CONFIRMED": "Подтверждено",
   "CANCELLED": "Отменено",
+}
+
+export const getStatusBadgeVariant = (status: string | null) => {
+  if (!status) return "secondary";
+  if (status === "TENTATIVE") return "secondary";
+  if (status === "CONFIRMED") return "default";
+  if (status === "CANCELLED") return "destructive";
+  return "secondary"
 }
 
 

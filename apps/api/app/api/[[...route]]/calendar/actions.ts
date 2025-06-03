@@ -11,7 +11,7 @@ type EventFilters = {
   limit?: number;
 };
 export const getUserEvents = (uid: string, options?: EventFilters) => {
-  const { limit = 10, start, end, type = "event" } = options || {};
+  const { limit = 10, start, end, type } = options || {};
   if (start && end) return getLastEventsForPeriod(uid, { start, end, type });
   if (start) return getLastEventsForDate(uid, { start, type });
   return getLastEvents(uid, { limit, type });
@@ -37,13 +37,24 @@ export const getEventById = async (id: string) => {
 };
 
 export const getLastEvents = async (uid: string, filters?: EventFilters) => {
-  const { limit = 10, type = "event" } = filters || {};
+  const { limit = 10, type } = filters || {};
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  if (type) {
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .select()
+      .eq("type", type)
+      .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
+      .limit(limit);
+    if (error) {
+      console.log(error);
+      return [];
+    } return data;
+  }
   const { data, error } = await supabase
     .from("calendar_events")
     .select()
-    .eq("type", type)
     .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
     .limit(limit);
   if (error) {
@@ -56,17 +67,30 @@ export const getLastEventsForDate = async (
   uid: string,
   filters?: EventFilters,
 ) => {
-  const { date = format(new Date(), "yyyy-MM-dd"), type = "event" } =
+  const { date = format(new Date(), "yyyy-MM-dd"), type } =
     filters || {};
   const isoDate = parseISO(date);
   const nextDay = addDays(isoDate, 1);
   const isoNextDay = format(nextDay, "yyyy-MM-dd HH:mm");
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  if (type) {
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .select()
+      .eq("type", type)
+      .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
+      .gte("date_start", date)
+      .lte("date_start", isoNextDay);
+
+    if (error) {
+      console.log(error);
+      return [];
+    } return data;
+  }
   const { data, error } = await supabase
     .from("calendar_events")
     .select()
-    .eq("type", type)
     .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
     .gte("date_start", date)
     .lte("date_start", isoNextDay);
@@ -84,14 +108,26 @@ export const getLastEventsForPeriod = async (
   const {
     start = format(new Date(), "yyyy-MM-dd"),
     end = format(new Date(), "yyyy-MM-dd"),
-    type = "event",
+    type,
   } = filters || {};
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  if (type) {
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .select()
+      .eq("type", type)
+      .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
+      .gte("date_start", start)
+      .lte("date_end", end);
+    if (error) {
+      console.log(error);
+      return [];
+    } return data;
+  }
   const { data, error } = await supabase
     .from("calendar_events")
     .select()
-    .eq("type", type)
     .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
     .gte("date_start", start)
     .lte("date_end", end);
