@@ -58,7 +58,7 @@ export default function ({ userId, showName = false }: { userId: string, showNam
           {
             position &&
             <span className="text-xs text-muted-foreground">
-              {position?.label}
+              {position}
             </span>
           }
         </div>
