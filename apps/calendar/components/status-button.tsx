@@ -2,13 +2,11 @@
 import { CalendarCheckIcon, CalendarXIcon, Loader2Icon } from "lucide-react"
 import { Button } from "mono/components/button"
 import { toast } from "mono/components/sonner"
-import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { updateEvent } from "rest-api/calendar"
 
-export default function StatusButton({ callId, status }: { callId: string, status: string }) {
+export default function StatusButton({ callId, status, withLabel = true }: { withLabel?: boolean, callId: string, status: string }) {
   const [loading, setLoading] = useState<boolean>(false)
-  const router = useRouter()
 
   const updateStatus = async (status: string) => {
     setLoading(true)
@@ -19,7 +17,6 @@ export default function StatusButton({ callId, status }: { callId: string, statu
 
       if (data) {
         toast("Стутус успешно изменен")
-        router.refresh()
       }
 
     } catch (error) {
@@ -41,7 +38,9 @@ export default function StatusButton({ callId, status }: { callId: string, statu
             ? <Loader2Icon size={16} className="animate-spin" />
             : <CalendarCheckIcon size={16} />
         }
-        Подтвердить
+        {
+          withLabel && "Подтвердить"
+        }
       </Button>
     )
   return (
@@ -55,7 +54,9 @@ export default function StatusButton({ callId, status }: { callId: string, statu
           ? <Loader2Icon size={16} className="animate-spin" />
           : <CalendarXIcon size={16} />
       }
-      Отменить
+      {
+        withLabel && "Отменить"
+      }
     </Button>
   )
 }

@@ -26,22 +26,20 @@ export default function ({ userId, showName = false }: { userId: string, showNam
         .then(position => setPosition(position.data?.label ?? null))
   }, [userId, user?.position])
 
-  if (loading) return (
-    <div className="flex flex-row items-center gap-2">
-      <Skeleton className="size-8 rounded-full" />
-
-      {
-        showName &&
-        <div className="flex flex-col">
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-3 w-1/2" />
-        </div>
-      }
-    </div>
+  if (loading) return <Skeleton className="size-9 inline-block rounded-full" />
+  if (!showName) return (
+    <Avatar className="inline-block size-9">
+      <AvatarImage
+        src={user?.avatar_url ? avatarURL(user.avatar_url) : undefined}
+      />
+      <AvatarFallback className="uppercase">
+        {(user?.username ?? "Username").slice(0, 2)}
+      </AvatarFallback>
+    </Avatar>
   )
   return (
     <div className="flex flex-row items-center gap-2">
-      <Avatar>
+      <Avatar className="size-9">
         <AvatarImage
           src={user?.avatar_url ? avatarURL(user.avatar_url) : undefined}
         />

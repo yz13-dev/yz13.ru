@@ -99,7 +99,7 @@ export default function form({
           in: tz(timezone),
         }),
         organizer_id: organizer,
-        guests: [user.id],
+        guests: [user.id, organizer],
         duration,
         description: note,
         status: "TENTATIVE",

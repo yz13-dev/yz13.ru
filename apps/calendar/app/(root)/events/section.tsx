@@ -1,4 +1,4 @@
-import { differenceInDays, format, parse } from "date-fns";
+import { format } from "date-fns";
 import { Skeleton } from "mono/components/skeleton";
 import { getUserEvents } from "rest-api/calendar";
 import LiveEvents from "./live-events";
@@ -27,9 +27,9 @@ export default async function Section({
   uid?: string;
   date?: string;
 }) {
-  const today = new Date();
-  const targetDate = parse(date, "yyyy-MM-dd", new Date());
-  const diffInDay = differenceInDays(targetDate, today);
+  // const today = new Date();
+  // const targetDate = parse(date, "yyyy-MM-dd", new Date());
+  // const diffInDay = differenceInDays(targetDate, today);
   if (!uid)
     return null;
   const { data } = await getUserEvents(uid, { date });
@@ -41,7 +41,7 @@ export default async function Section({
   )
   return (
     <div className="w-full space-y-3">
-      <LiveEvents defaultEvents={events} uid={uid} />
+      <LiveEvents defaultEvents={events} uid={uid} date={date} />
     </div>
   );
 }
