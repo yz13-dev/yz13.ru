@@ -38,29 +38,14 @@ export const generateIntervalInRange = (
 
   return result;
 };
-export const isBetween = (target: string, start: string, duration: string) => {
-  const parsedStart = parse(start, "HH:mm", new Date());
-  const parsedDuration = parse(duration, "HH:mm", new Date());
-  const parsedTarget = parse(target, "HH:mm", new Date());
-  const end = addMinutes(
-    parsedStart,
-    parsedDuration.getMinutes() + parsedDuration.getSeconds() / 60,
-  );
-  const interval: Interval = { start: parsedStart, end }
-
-  const startTime = format(parsedStart, "HH:mm");
-  const endTime = format(end, "HH:mm");
-  const targetTime = format(parsedTarget, "HH:mm");
-
-  if (startTime === targetTime || endTime === targetTime) return true;
-  return isWithinInterval(parsedTarget, interval);
-};
 
 export const createObjFromDurations = (
   durations: string[],
   schedule: DaySchedule[],
   busy: { time: string; duration: string }[],
+  timezone?: string
 ) => {
+  const targetTimezone = timezone ?? "UTC";
   const obj: Record<string, string[]> = {};
   for (const duration of durations) {
     const parsed = parse(duration, "HH:mm:ss", new Date());
@@ -72,13 +57,19 @@ export const createObjFromDurations = (
     })
 
     const intervals = schedule.flatMap((item) => {
-      const start = parse(item.start.time, "HH:mm", new Date());
-      const end = parse(item.end.time, "HH:mm", new Date());
+      const start = parse(item.start.time, "HH:mm", new Date(), {
+        in: tz("UTC"),
+      });
+      const end = parse(item.end.time, "HH:mm", new Date(), {
+        in: tz("UTC"),
+      });
       if (!item.enabled) return [];
       const durationInMunutes = parsed.getHours() * 60 + parsed.getMinutes();
       return generateIntervalInRange(start, end, durationInMunutes, busyIntervals);
     })
-      .map(item => format(item.start, "HH:mm"));
+      .map(item => format(item.start, "HH:mm", {
+        in: tz(targetTimezone),
+      }));
 
     obj[formatted] = intervals;
   }
@@ -95,8 +86,9 @@ export const getIntervalFromTimeAndDuration = (time: string, duration: string) =
   return interval(parsedTime, end);
 };
 
-export const getTimeAndDurationFromAppointments = (appointments: Event[]) => {
+export const getTimeAndDurationFromAppointments = (appointments: Event[], timezone?: string) => {
   const data: { time: string; duration: string }[] = [];
+  const targetTimezone = timezone ?? "UTC";
   for (const appointment of appointments) {
     const start = parseISO(appointment.date_start, {
       in: tz("UTC"),
@@ -105,7 +97,7 @@ export const getTimeAndDurationFromAppointments = (appointments: Event[]) => {
     const duration = parse(appointment.duration, "HH:mm:ss", new Date());
     data.push({
       time: format(start, "HH:mm", {
-        in: tz("UTC"),
+        in: tz(targetTimezone),
       }),
       duration: format(duration, "HH:mm"),
     });

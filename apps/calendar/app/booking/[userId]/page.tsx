@@ -4,8 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getUserAvailability } from "rest-api/calendar/schedule";
 import { getUserById } from "rest-api/user";
-import { cn } from "yz13/cn";
 import Form from "./form";
+import FormContainer from "./form-container";
 import Header from "./header";
 import { UserProvider } from "./user.store";
 
@@ -26,6 +26,8 @@ export default async function page({ params, searchParams }: PageProps) {
   if (!user) return notFound();
   const date = search.date;
   const { data: availability } = await getUserAvailability(userId, date);
+
+  console.log(availability);
   return (
     <UserProvider>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">
@@ -43,15 +45,10 @@ export default async function page({ params, searchParams }: PageProps) {
           </p>
         </div>
       </div>
-      <div
-        className={cn(
-          "max-w-2xl flex flex-col w-full mx-auto",
-          "rounded-3xl border bg-card divide-y mt-12",
-        )}
-      >
+      <FormContainer>
         <Header user={user} />
         <Form uid={userId} availability={availability ?? undefined} />
-      </div>
+      </FormContainer>
       <footer className="max-w-2xl flex flex-row justify-center w-full mx-auto p-6 mt-12">
         <span className="text-base text-muted-foreground text-center">
           YZ13
