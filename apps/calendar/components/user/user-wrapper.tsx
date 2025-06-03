@@ -1,11 +1,11 @@
 "use client";
 import { ReactElement, useEffect, useState } from "react";
+import { makeUserObj } from "rest-api/lib/make-user-obj";
+import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 import SignInButton from "./sign-in-button";
 import UserCircle from "./user-circle";
 import UserDropdown from "./user-dropdown";
-import { UserObject } from "rest-api/types/user";
-import { makeUserObj } from "rest-api/lib/make-user-obj";
 
 type WrapperProps = {
   authorized?: (
@@ -34,7 +34,7 @@ const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
   if (loading) return <div className="rounded-full bg-neutral-200 size-9" />;
   if (!authorized && !unauthorized) return;
   if (user && authorized) return authorized(user);
-  else return unauthorized;
+  return unauthorized;
 };
 
 export default UserWrapper;

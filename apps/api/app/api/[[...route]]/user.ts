@@ -2,7 +2,7 @@ import { expire, redis } from "@/extensions/redis";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
 import { makeUserObj } from "rest-api/lib/make-user-obj";
-import { UserObject } from "rest-api/types/user";
+import type { UserObject } from "rest-api/types/user";
 import { createAdminClient } from "yz13/supabase/admin";
 import { createClient } from "yz13/supabase/server";
 
@@ -21,13 +21,12 @@ export const getUser = async (uid: string): Promise<UserObject | null> => {
     } = await supabase.auth.admin.getUserById(uid);
     if (error) return null;
     if (!user) return null;
-    else {
-      const userObj = makeUserObj(user);
-      await redis.set(key, userObj, {
-        ex: expire.day,
-      });
-      return userObj;
-    }
+
+    const userObj = makeUserObj(user);
+    await redis.set(key, userObj, {
+      ex: expire.day,
+    });
+    return userObj;
   } catch (error) {
     console.log(error);
     return null;

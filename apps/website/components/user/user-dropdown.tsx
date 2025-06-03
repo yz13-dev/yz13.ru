@@ -10,7 +10,7 @@ import {
 } from "mono/components/dropdown-menu";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { UserObject } from "rest-api/types/user";
+import type { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 
 const UserDropdown = ({
@@ -23,11 +23,12 @@ const UserDropdown = ({
   children: React.ReactNode;
 }) => {
   const router = useRouter();
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     const supabase = createClient();
-    supabase.auth.signOut();
+    await supabase.auth.signOut();
     router.refresh();
   };
+  const username = user.username || "Пользователь";
   const positionOrEmail = user.email;
   const isAdmin = user.role === "admin";
   return (
@@ -40,7 +41,7 @@ const UserDropdown = ({
       >
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-sm font-medium">
-            {user.username ?? "Username"}
+            {username}
           </span>
           <span className="text-xs text-foreground font-normal">
             {positionOrEmail}

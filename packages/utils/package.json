@@ -1,0 +1,30 @@
+{
+  "name": "@yz13/utils",
+  "version": "0.0.0",
+  "description": "Utils package",
+  "exports": {},
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "package",
+    "utils"
+  ],
+  "author": "YZ13-ENV",
+  "license": "ISC",
+  "devDependencies": {
+    "tsup": "^6.7.0",
+    "typescript-config": "*",
+    "@types/node": "^22.14.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "rest-api": "*"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

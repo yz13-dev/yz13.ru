@@ -6,15 +6,18 @@ import LiveEvents from "./live-events";
 
 export function SectionSkeleton() {
   return (
-    <ul className="w-full h-fit space-y-3 py-3">
-      {Array.from({ length: 9 }, (_, i) => {
-        return (
-          <li className="w-full" key={i}>
-            <Skeleton className="w-full h-16" />
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <div className="space-y-3">
+        <Skeleton className="w-1/2 h-7" />
+        <Skeleton className="w-full h-32" />
+        <Skeleton className="w-full h-32" />
+      </div>
+      <div className="space-y-3">
+        <Skeleton className="w-1/2 h-7" />
+        <Skeleton className="w-full h-32" />
+        <Skeleton className="w-full h-32" />
+      </div>
+    </>
   );
 }
 
