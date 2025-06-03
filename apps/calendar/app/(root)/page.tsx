@@ -5,8 +5,8 @@ import { auth } from "@/lib/auth";
 import { showEventForm } from "@yz13/flags";
 import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import Landing from "../(landing)/landing";
 import DatePicker from "./date-picker";
 import EventSection from "./events/section";
 import LinkButton from "./meetings/link-button";
@@ -26,7 +26,7 @@ export default async function page({ searchParams }: PageProps) {
   const date = search.date;
   const user = await auth();
   const showForm = await showEventForm();
-  if (!user) return redirect("/login?continue=https://calendar.yz13.ru");
+  if (!user) return <Landing />
   return (
     <>
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
