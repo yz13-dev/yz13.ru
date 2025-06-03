@@ -1,4 +1,3 @@
-import DayTimeline from "@/app/[date]/day-timeline";
 import { differenceInDays, format, parse } from "date-fns";
 import { Skeleton } from "mono/components/skeleton";
 import { getUserEvents } from "rest-api/calendar";
@@ -32,16 +31,7 @@ export default async function Section({
   const targetDate = parse(date, "yyyy-MM-dd", new Date());
   const diffInDay = differenceInDays(targetDate, today);
   if (!uid)
-    return (
-      <DayTimeline
-        dateRange={[diffInDay]}
-        timeRange={[0, 24]}
-        className="w-full"
-        timeline={{
-          showLabel: false,
-        }}
-      />
-    );
+    return null;
   const { data } = await getUserEvents(uid, { date });
   const events = data ?? [];
   if (!events.length) return (
@@ -51,7 +41,7 @@ export default async function Section({
   )
   return (
     <div className="w-full space-y-3">
-      <LiveEvents defaultEvents={events} />
+      <LiveEvents defaultEvents={events} uid={uid} />
     </div>
   );
 }
