@@ -1,6 +1,6 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
-import { format, parse } from "date-fns";
+import { addDays, format, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { AlignLeftIcon, ClockIcon, Loader2Icon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -13,9 +13,9 @@ import {
   PopoverTrigger,
 } from "mono/components/popover";
 import { useRouter } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { createEvent } from "rest-api/calendar";
-import { NewEvent } from "rest-api/types/calendar";
+import type { NewEvent } from "rest-api/types/calendar";
 
 type EventForm = {
   uid: string | null;
@@ -96,7 +96,7 @@ export default function NewEventForm({
         type: "event",
         summary: summary || "Новое событие",
         date_start: date_start.toISOString(),
-        date_end: allDay ? null : date_end.toISOString(),
+        date_end: allDay ? addDays(date_start, 1).toISOString() : date_end.toISOString(),
         all_day: allDay,
         duration: allDay ? null : duration,
         description: description || "",
@@ -163,6 +163,7 @@ export default function NewEventForm({
                   </span>
                   {editTime && (
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
