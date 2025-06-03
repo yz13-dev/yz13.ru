@@ -5,10 +5,10 @@ import { auth } from "@/lib/auth";
 import { showEventForm } from "@yz13/flags";
 import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import Landing from "../(landing)/landing";
 import DatePicker from "./date-picker";
-import EventSection from "./events/section";
+import EventSection, { SectionSkeleton } from "./events/section";
 import LinkButton from "./meetings/link-button";
 import MeetingSection, {
   SectionSkeleton as MeetingSectionSkeleton,
@@ -26,7 +26,7 @@ export default async function page({ searchParams }: PageProps) {
   const date = search.date;
   const user = await auth();
   const showForm = await showEventForm();
-  if (!user) return redirect("/login?continue=https://calendar.yz13.ru");
+  if (!user) return <Landing />
   return (
     <>
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
@@ -49,7 +49,9 @@ export default async function page({ searchParams }: PageProps) {
       </header>
       <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col gap-6  min-h-dvh">
         <div className="flex flex-col gap-6 shrink-0 md:w-2/3 w-full">
-          <EventSection uid={user?.id ?? undefined} date={date} />
+          <Suspense fallback={<SectionSkeleton />}>
+            <EventSection uid={user?.id ?? undefined} date={date} />
+          </Suspense>
         </div>
         <div className="space-y-6 md:w-1/3 shrink-0 w-full">
           <div className="flex flex-col gap-2">

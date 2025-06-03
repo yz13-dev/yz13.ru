@@ -2,18 +2,20 @@
 
 import { cookies } from "next/headers";
 import { API_URL } from "./api";
-import { FetchResponse } from "./response";
+import type { FetchResponse } from "./response";
 
 // NOTE: Supports cases where `content-type` is other than `json`
 const getBody = <T>(c: Response | Request): Promise<T> => {
   const contentType = c.headers.get("content-type");
 
-  if (contentType && contentType.includes("application/json")) {
-    return c.json();
-  }
+  if (contentType) {
+    if (contentType.includes("application/json")) {
+      return c.json();
+    }
 
-  if (contentType && contentType.includes("application/pdf")) {
-    return c.blob() as Promise<T>;
+    if (contentType.includes("application/pdf")) {
+      return c.blob() as Promise<T>;
+    }
   }
 
   return c.text() as Promise<T>;

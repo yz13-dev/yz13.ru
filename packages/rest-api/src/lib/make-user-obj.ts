@@ -1,4 +1,4 @@
-import { User, UserObject } from "../types/user";
+import type { User, UserObject } from "../types/user";
 
 export const makeUserObj = (user: User): UserObject => {
   const role = user.user_metadata.role as string;

@@ -15,13 +15,13 @@ import type { Event } from "rest-api/types/calendar";
 
 type Props = {
   defaultEvents?: Event[]
+  uid?: string;
 }
-export default function LiveEvents({ defaultEvents = [] }: Props) {
+export default function LiveEvents({ defaultEvents = [], uid }: Props) {
   const [liveEvents, setLiveEvents] = useState<Event[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [canceledOrTentativeEvents, setCanceledOrTentativeEvents] = useState<Event[]>([]);
   const time = useTimeStore(state => state.time)
-
 
   useEffect(() => {
     const liveEvents = defaultEvents
@@ -52,22 +52,26 @@ export default function LiveEvents({ defaultEvents = [] }: Props) {
         hideEmpty
         label="Сейчас проходят"
         events={liveEvents}
+        uid={uid}
       />
       <EventsGroup
         hideEmpty
         label="Предстоящие"
         events={events}
+        uid={uid}
       />
       <EventsGroup
         hideEmpty
         label="Ожидают подтверждения или отменены"
         events={canceledOrTentativeEvents}
+        uid={uid}
       />
     </>
   )
 }
 
-const EventCard = ({ event }: { event: Event }) => {
+const EventCard = ({ event, userId }: { event: Event, userId?: string }) => {
+  const eventId = event.id;
   const status = event.status ?? "TENTATIVE";
   const startAt = parseISO(event.date_start)
   const endAt = parseISO(event.date_end)
@@ -77,12 +81,14 @@ const EventCard = ({ event }: { event: Event }) => {
 
   const isCanceled = status === "CANCELLED"
 
-  const callPage = `/call/${event.id}`;
+  const callPage = `/call/${eventId}`;
   const guests = event.guests ?? [];
 
   const GUESTS_LIMIT = 3
   const isGuestsMoreThanLimit = guests.length > GUESTS_LIMIT;
   const guestsLimit = isGuestsMoreThanLimit ? guests.slice(0, GUESTS_LIMIT) : guests;
+
+  const isGuest = userId !== undefined && userId !== event.organizer_id && guests.includes(userId);
 
   return (
     <div
@@ -132,8 +138,12 @@ const EventCard = ({ event }: { event: Event }) => {
           }
         </div>
         {
-          status === "TENTATIVE" &&
-          <StatusButton callId={event.id} status={status} />
+          isCanceled
+            ? <span className="text-sm text-muted-foregroundextmu">Событие отменено</span>
+            :
+            isGuest && status === "TENTATIVE"
+              ? <StatusButton callId={eventId} status={"CONFIRMED"} />
+              : <StatusButton callId={eventId} status={event.status ?? "TENTATIVE"} />
         }
       </div>
     </div>
@@ -144,8 +154,9 @@ type EventsGroupProps = {
   events?: Event[]
   label?: string
   hideEmpty?: boolean
+  uid?: string;
 }
-const EventsGroup = ({ label = "Без названия", events = [], hideEmpty = false }: EventsGroupProps) => {
+const EventsGroup = ({ label = "Без названия", events = [], hideEmpty = false, uid }: EventsGroupProps) => {
   if (hideEmpty && !events.length) return null;
   return (
     <div className="w-full space-y-3">
@@ -154,7 +165,7 @@ const EventsGroup = ({ label = "Без названия", events = [], hideEmpty
         events
           .sort((a, b) => a.date_start.localeCompare(b.date_start))
           .map((event) => {
-            return <EventCard key={event.id} event={event} />
+            return <EventCard key={event.id} userId={uid} event={event} />
           })}
     </div>
   );
