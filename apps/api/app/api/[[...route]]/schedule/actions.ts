@@ -1,0 +1,114 @@
+import { tz } from "@date-fns/tz";
+import { addMinutes, areIntervalsOverlapping, format, type Interval, interval, isWithinInterval, parse, parseISO } from "date-fns";
+import type { DaySchedule, Event } from "rest-api/types/calendar";
+
+export const generateIntervalInRange = (
+  start: Date,
+  end: Date,
+  durationMinutes: number,
+  disabledIntervals: Interval[] = []
+): Interval[] => {
+  // Validate inputs
+  if (durationMinutes <= 0) return [];
+  if (start >= end) return [];
+
+  const result: Interval[] = [];
+  let currentStart = start;
+
+  while (true) {
+    const currentEnd = addMinutes(currentStart, durationMinutes);
+
+    // Stop if we've reached or passed the end time
+    if (currentEnd >= end) break;
+
+    const newInterval = { start: currentStart, end: currentEnd };
+
+    // Check if the new interval is valid
+    const isInRange = isWithinInterval(currentEnd, { start, end });
+    const isOverlapping = disabledIntervals.some(disabled =>
+      areIntervalsOverlapping(newInterval, disabled)
+    );
+
+    if (isInRange && !isOverlapping) {
+      result.push(newInterval);
+    }
+
+    currentStart = currentEnd;
+  }
+
+  return result;
+};
+export const isBetween = (target: string, start: string, duration: string) => {
+  const parsedStart = parse(start, "HH:mm", new Date());
+  const parsedDuration = parse(duration, "HH:mm", new Date());
+  const parsedTarget = parse(target, "HH:mm", new Date());
+  const end = addMinutes(
+    parsedStart,
+    parsedDuration.getMinutes() + parsedDuration.getSeconds() / 60,
+  );
+  const interval: Interval = { start: parsedStart, end }
+
+  const startTime = format(parsedStart, "HH:mm");
+  const endTime = format(end, "HH:mm");
+  const targetTime = format(parsedTarget, "HH:mm");
+
+  if (startTime === targetTime || endTime === targetTime) return true;
+  return isWithinInterval(parsedTarget, interval);
+};
+
+export const createObjFromDurations = (
+  durations: string[],
+  schedule: DaySchedule[],
+  busy: { time: string; duration: string }[],
+) => {
+  const obj: Record<string, string[]> = {};
+  for (const duration of durations) {
+    const parsed = parse(duration, "HH:mm:ss", new Date());
+    const formatted = format(parsed, "HH:mm");
+
+    const busyIntervals = busy.flatMap(item => {
+      const { start, end } = getIntervalFromTimeAndDuration(item.time, item.duration);
+      return interval(start, end);
+    })
+
+    const intervals = schedule.flatMap((item) => {
+      const start = parse(item.start.time, "HH:mm", new Date());
+      const end = parse(item.end.time, "HH:mm", new Date());
+      if (!item.enabled) return [];
+      const durationInMunutes = parsed.getHours() * 60 + parsed.getMinutes();
+      return generateIntervalInRange(start, end, durationInMunutes, busyIntervals);
+    })
+      .map(item => format(item.start, "HH:mm"));
+
+    obj[formatted] = intervals;
+  }
+  return obj;
+};
+
+export const getIntervalFromTimeAndDuration = (time: string, duration: string) => {
+  const parsedDuration = parse(duration, "HH:mm", new Date());
+  const parsedTime = parse(time, "HH:mm", new Date());
+  const end = addMinutes(
+    parsedTime,
+    parsedDuration.getMinutes(),
+  );
+  return interval(parsedTime, end);
+};
+
+export const getTimeAndDurationFromAppointments = (appointments: Event[]) => {
+  const data: { time: string; duration: string }[] = [];
+  for (const appointment of appointments) {
+    const start = parseISO(appointment.date_start, {
+      in: tz("UTC"),
+    });
+    if (!appointment.duration) return [];
+    const duration = parse(appointment.duration, "HH:mm:ss", new Date());
+    data.push({
+      time: format(start, "HH:mm", {
+        in: tz("UTC"),
+      }),
+      duration: format(duration, "HH:mm"),
+    });
+  }
+  return data;
+};

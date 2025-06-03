@@ -1,19 +1,12 @@
 import { expire, redis } from "@/extensions/redis";
-import {
-  addMinutes,
-  format,
-  interval,
-  isValid,
-  isWithinInterval,
-  parse,
-  parseISO,
-} from "date-fns";
+import { format, isValid, parse } from "date-fns";
 import { Hono, type HonoRequest } from "hono";
 import { cookies } from "next/headers";
 import type { DaySchedule, Event } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
 import { getLastEventsForDate } from "../calendar/actions";
 import { getUser } from "../user";
+import { createObjFromDurations, getTimeAndDurationFromAppointments } from "./actions";
 
 export const schedule = new Hono();
 
@@ -121,112 +114,6 @@ schedule.patch("/:uid", async (c) => {
   }
 });
 
-const generateIntervalInRange = (start: Date, end: Date, duration: Date) => {
-  let reachedEnd = false;
-  let lastInterval: Date | null = null;
-  let intervals: string[] = [format(start, "HH:mm")];
-  const durationInMinutes =
-    duration.getMinutes() +
-    duration.getSeconds() / 60 +
-    duration.getHours() * 60;
-  while (reachedEnd === false) {
-    const intervalItem = interval(start, end);
-    if (lastInterval) {
-      const newInterval: Date = addMinutes(lastInterval, durationInMinutes);
-      const isInRange = isWithinInterval(newInterval, intervalItem);
-      const formatted = format(newInterval, "HH:mm");
-      if (formatted === format(end, "HH:mm")) {
-        reachedEnd = true;
-        break;
-      }
-      if (!isInRange) {
-        reachedEnd = true;
-        break;
-      }
-      intervals = [...intervals, formatted];
-      lastInterval = newInterval;
-    } else {
-      const newInterval: Date = addMinutes(start, durationInMinutes);
-      const isInRange = isWithinInterval(newInterval, intervalItem);
-      const formated = format(newInterval, "HH:mm");
-      if (!isInRange) {
-        reachedEnd = true;
-        break;
-      }
-      intervals = [...intervals, formated];
-      lastInterval = newInterval;
-    }
-  }
-  return intervals;
-};
-
-const isBetween = (target: string, start: string, duration: string) => {
-  const parsedStart = parse(start, "HH:mm", new Date());
-  const parsedDuration = parse(duration, "HH:mm", new Date());
-  const parsedTarget = parse(target, "HH:mm", new Date());
-  const end = addMinutes(
-    parsedStart,
-    parsedDuration.getMinutes() + parsedDuration.getSeconds() / 60,
-  );
-  return isWithinInterval(parsedTarget, { start: parsedStart, end });
-};
-
-const getNextIterration = (time: string, duration: string) => {
-  const start = parse(time, "HH:mm", new Date());
-  const parsedDuration = parse(duration, "HH:mm", new Date());
-  const end = addMinutes(
-    start,
-    parsedDuration.getMinutes() + parsedDuration.getSeconds() / 60,
-  );
-  return format(end, "HH:mm");
-};
-
-const createObjFromDurations = (
-  durations: string[],
-  schedule: DaySchedule[],
-  busy: { time: string; duration: string }[],
-) => {
-  const obj: Record<string, string[]> = {};
-  durations.forEach((duration) => {
-    const parsed = parse(duration, "HH:mm:ss", new Date());
-    const formatted = format(parsed, "HH:mm");
-
-    const intervals = schedule.map((item) => {
-      const start = parse(item.start.time, "HH:mm", new Date());
-      const end = parse(item.end.time, "HH:mm", new Date());
-      if (!item.enabled) return [];
-      else return generateIntervalInRange(start, end, parsed);
-    });
-
-    const flatIntervals = intervals.flat();
-
-    const filteredIntervals = flatIntervals.filter((item) => {
-      return !busy.some(
-        (busyItem) =>
-          busyItem.time === item ||
-          getNextIterration(busyItem.time, busyItem.duration) === item ||
-          isBetween(item, busyItem.time, busyItem.duration),
-      );
-    });
-
-    obj[formatted] = filteredIntervals;
-  });
-  return obj;
-};
-
-const getTimeAndDurationFromAppointments = (appointments: Event[]) => {
-  const data: { time: string; duration: string }[] = [];
-  appointments.forEach((appointment) => {
-    const start = parseISO(appointment.date_start);
-    if (!appointment.duration) return [];
-    const duration = parse(appointment.duration, "HH:mm:ss", new Date());
-    data.push({
-      time: format(start, "HH:mm"),
-      duration: format(duration, "HH:mm"),
-    });
-  });
-  return data;
-};
 
 schedule.get("/:uid/available", async (c) => {
   const uid = c.req.param("uid");
@@ -239,7 +126,10 @@ schedule.get("/:uid/available", async (c) => {
       date: defaultDate,
       type: "appointment",
     });
-    const appointments = allAppointments.filter((appointment) => appointment.status === "CONFIRMED" || appointment.status === "TENTATIVE");
+    const appointments: Event[] = allAppointments.filter((appointment) => {
+
+      return ["CONFIRMED", "TENTATIVE"].includes(appointment.status ?? "TENTATIVE")
+    });
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
     if (!schedule) return c.json(null);
