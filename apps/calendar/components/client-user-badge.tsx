@@ -26,9 +26,9 @@ export default function ({ userId, showName = false }: { userId: string, showNam
         .then(position => setPosition(position.data?.label ?? null))
   }, [userId, user?.position])
 
-  if (loading) return <Skeleton className="size-8 inline-block rounded-full" />
+  if (loading) return <Skeleton className="size-9 inline-block rounded-full" />
   if (!showName) return (
-    <Avatar className="inline-block">
+    <Avatar className="inline-block size-9">
       <AvatarImage
         src={user?.avatar_url ? avatarURL(user.avatar_url) : undefined}
       />
@@ -39,7 +39,7 @@ export default function ({ userId, showName = false }: { userId: string, showNam
   )
   return (
     <div className="flex flex-row items-center gap-2">
-      <Avatar>
+      <Avatar className="size-9">
         <AvatarImage
           src={user?.avatar_url ? avatarURL(user.avatar_url) : undefined}
         />

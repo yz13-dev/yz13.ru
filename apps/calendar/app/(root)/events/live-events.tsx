@@ -1,12 +1,12 @@
 "use client";
-import ClientUserBadge from "@/app/call/[callId]/client-user-badge";
-import StatusButton from "@/app/call/[callId]/status-button";
+import ClientUserBadge from "@/components/client-user-badge";
 import useTimeStore, { getTime } from "@/components/live/time.store";
+import MicroButton from "@/components/micro-button";
 import StatusBadge from "@/components/status-badge";
+import StatusButton from "@/components/status-button";
 import { format, type Interval, isWithinInterval, parseISO } from "date-fns";
 import { ArrowRightIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
-import { Button } from "mono/components/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getUserEvents } from "rest-api/calendar";
@@ -158,21 +158,23 @@ const EventCard = ({ event, userId }: { event: Event, userId?: string }) => {
           <StatusBadge status={status} />
           <Badge variant="secondary">{event.type === "event" ? "Событие" : "Созвон"}</Badge>
         </div>
-        {
-          isCanceled
-            ?
-            <Button size="sm" variant="secondary" disabled={isCanceled} className="text-xs h-[22px]" >
-              Открыть
-              <ArrowRightIcon className="size-3" />
-            </Button>
-            :
-            <Button size="sm" variant="secondary" disabled={isCanceled} className="text-xs h-[22px]" asChild>
-              <Link href={callPage}>
+        <div className="flex items-center gap-2">
+          {
+            isCanceled
+              ?
+              <MicroButton size="sm" variant="secondary" disabled={isCanceled} asChild>
                 Открыть
-                <ArrowRightIcon className="size-3" />
-              </Link>
-            </Button>
-        }
+                <ArrowRightIcon />
+              </MicroButton>
+              :
+              <MicroButton size="sm" variant="secondary" disabled={isCanceled} asChild>
+                <Link href={callPage}>
+                  Открыть
+                  <ArrowRightIcon />
+                </Link>
+              </MicroButton>
+          }
+        </div>
       </div>
       <div className="w-full flex items-center justify-between gap-2">
         <span className="text-base font-medium">{event.summary}</span>
@@ -182,7 +184,7 @@ const EventCard = ({ event, userId }: { event: Event, userId?: string }) => {
         <span className={cn("text-sm", event.description ? "text-foreground" : "text-muted-foreground")}>{event.description || "Нет заметки"}</span>
       </div>
       <div className="flex pt-2 justify-between items-center gap-2">
-        <div className="-space-x-4 h-8 *:border-2 *:border-background *:inline-block">
+        <div className="-space-x-4 h-9 *:border-2 *:border-background *:inline-block">
           {
             guestsLimit
               .map(guest => <ClientUserBadge userId={guest} key={guest} />)
