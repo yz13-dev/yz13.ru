@@ -9,11 +9,26 @@ type AvailabilityProps = {
   className?: string;
 };
 
-const availableTexts = ["Открыт для заказов", "Закажите какой-нибудь проект"];
+const availableTexts = [
+  "Открыт для заказов",
+  "Закажите какой-нибудь проект",
+  "Готов к новым задачам",
+  "Жду ваши идеи",
+  "Свободен для сотрудничества",
+  "Можно заказать проект",
+  "Есть время на новые заказы"
+];
+
 const unavailableTexts = [
   "Работаю над заказами",
   "Есть пара заказов",
   "Делаю вид что работаю",
+  "Занят выполнением проектов",
+  "Нет свободного времени",
+  "Временно перегружен",
+  "Все силы уходят на текущие проекты",
+  "В тисках дедлайнов",
+  "Завален работой"
 ];
 
 const Availability = async ({ label, className = "" }: AvailabilityProps) => {
@@ -30,16 +45,27 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
         className,
       )}
     >
-      <div className="size-2 relative">
+      <div
+        data-status={status}
+        className="size-2 group relative">
         <div
           className={cn(
             "absolute inset-0 size-2 animate-ping rounded-full",
-            available ? "bg-green-foreground" : "bg-destructive",
+            "group-data-[status=available]:bg-foreground",
+            "group-data-[status=unavailable]:bg-destructive",
           )}
         />
-        <div className="size-2 animate-pulse bg-destructive rounded-full" />
+        <div className={cn(
+          "size-2 animate-pulse rounded-full",
+          "group-data-[status=available]:bg-foreground",
+          "group-data-[status=unavailable]:bg-destructive",
+        )} />
       </div>
-      <div className="flex items-center gap-1">
+      <div data-status={status} className={cn(
+        "flex items-center gap-1",
+        "data-[status=available]:text-foreground",
+        "data-[status=unavailable]:text-muted-foreground",
+      )}>
         {label ? (
           label
         ) : (
@@ -47,7 +73,7 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
             text={text}
             speed={100}
             loop={true}
-            className="text-sm text-muted-foreground"
+            className="text-sm"
           />
         )}
       </div>

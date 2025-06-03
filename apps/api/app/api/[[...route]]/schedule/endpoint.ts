@@ -8,9 +8,9 @@ import {
   parse,
   parseISO,
 } from "date-fns";
-import { Hono, HonoRequest } from "hono";
+import { Hono, type HonoRequest } from "hono";
 import { cookies } from "next/headers";
-import { DaySchedule, Event } from "rest-api/types/calendar";
+import type { DaySchedule, Event } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
 import { getLastEventsForDate } from "../calendar/actions";
 import { getUser } from "../user";
@@ -28,7 +28,7 @@ const getSchedule = async (uid: string) => {
   if (error) {
     console.log(error);
     return null;
-  } else return data;
+  } return data;
 };
 
 schedule.get("/:uid", async (c) => {
@@ -77,18 +77,17 @@ schedule.post("/:uid", async (c) => {
         return c.json(null);
       }
       return c.json(data);
-    } else {
-      const { data, error } = await supabase
-        .from("calendar_schedule")
-        .insert(body)
-        .select()
-        .maybeSingle();
-      if (error) {
-        console.log(error);
-        return c.json(null);
-      }
-      return c.json(data);
     }
+    const { data, error } = await supabase
+      .from("calendar_schedule")
+      .insert(body)
+      .select()
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return c.json(null);
+    }
+    return c.json(data);
   } catch (error) {
     console.log(error);
     return c.json(null);
@@ -113,10 +112,9 @@ schedule.patch("/:uid", async (c) => {
     if (error) {
       console.log(error);
       return c.json(null);
-    } else {
-      if (data) await redis.set(key, data, { ex: expire.day });
-      return c.json(data);
     }
+    if (data) await redis.set(key, data, { ex: expire.day });
+    return c.json(data);
   } catch (error) {
     console.log(error);
     return c.json(null);
@@ -237,10 +235,11 @@ schedule.get("/:uid/available", async (c) => {
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
   try {
     if (!isValid(parsedDate)) throw new Error("Provided date is invalid");
-    const appointments = await getLastEventsForDate(uid, {
+    const allAppointments = await getLastEventsForDate(uid, {
       date: defaultDate,
       type: "appointment",
     });
+    const appointments = allAppointments.filter((appointment) => appointment.status === "CONFIRMED" || appointment.status === "TENTATIVE");
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
     if (!schedule) return c.json(null);

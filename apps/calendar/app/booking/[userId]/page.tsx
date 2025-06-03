@@ -15,10 +15,12 @@ type PageProps = {
   }>;
   searchParams: Promise<{
     date?: string;
+    continue?: string;
   }>;
 };
 export default async function page({ params, searchParams }: PageProps) {
   const { userId } = await params;
+  const { continue: continueLink } = await searchParams;
   const search = await searchParams;
   const { data: user } = await getUserById(userId);
   if (!user) return notFound();
@@ -28,7 +30,7 @@ export default async function page({ params, searchParams }: PageProps) {
     <UserProvider>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">
         <Button variant="outline" asChild>
-          <Link href="/">
+          <Link href={continueLink ?? "/"}>
             <ArrowLeftIcon size={16} />
             Вернуться
           </Link>

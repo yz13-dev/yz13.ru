@@ -1,6 +1,6 @@
 import { addDays, format, parseISO } from "date-fns";
 import { cookies } from "next/headers";
-import { Event } from "rest-api/types/calendar";
+import type { Event } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
 
 type EventFilters = {
@@ -11,43 +11,86 @@ type EventFilters = {
   limit?: number;
 };
 export const getUserEvents = (uid: string, options?: EventFilters) => {
-  const { limit = 10, start, end, type = "event" } = options || {};
+  const { limit = 10, start, end, type } = options || {};
   if (start && end) return getLastEventsForPeriod(uid, { start, end, type });
-  else if (start) return getLastEventsForDate(uid, { start, type });
-  else return getLastEvents(uid, { limit, type });
+  if (start) return getLastEventsForDate(uid, { start, type });
+  return getLastEvents(uid, { limit, type });
+};
+
+export const getEventById = async (id: string) => {
+  try {
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .select()
+      .eq("id", id)
+      .maybeSingle()
+    if (error) {
+      console.log(error);
+      return null;
+    } return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };
 
 export const getLastEvents = async (uid: string, filters?: EventFilters) => {
-  const { limit = 10, type = "event" } = filters || {};
+  const { limit = 10, type } = filters || {};
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  if (type) {
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .select()
+      .eq("type", type)
+      .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
+      .limit(limit);
+    if (error) {
+      console.log(error);
+      return [];
+    } return data;
+  }
   const { data, error } = await supabase
     .from("calendar_events")
     .select()
-    .eq("type", type)
     .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
     .limit(limit);
   if (error) {
     console.log(error);
     return [];
-  } else return data;
+  } return data;
 };
 
 export const getLastEventsForDate = async (
   uid: string,
   filters?: EventFilters,
 ) => {
-  const { date = format(new Date(), "yyyy-MM-dd"), type = "event" } =
+  const { date = format(new Date(), "yyyy-MM-dd"), type } =
     filters || {};
   const isoDate = parseISO(date);
   const nextDay = addDays(isoDate, 1);
   const isoNextDay = format(nextDay, "yyyy-MM-dd HH:mm");
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  if (type) {
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .select()
+      .eq("type", type)
+      .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
+      .gte("date_start", date)
+      .lte("date_start", isoNextDay);
+
+    if (error) {
+      console.log(error);
+      return [];
+    } return data;
+  }
   const { data, error } = await supabase
     .from("calendar_events")
     .select()
-    .eq("type", type)
     .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
     .gte("date_start", date)
     .lte("date_start", isoNextDay);
@@ -55,7 +98,7 @@ export const getLastEventsForDate = async (
   if (error) {
     console.log(error);
     return [];
-  } else return data;
+  } return data;
 };
 
 export const getLastEventsForPeriod = async (
@@ -65,19 +108,31 @@ export const getLastEventsForPeriod = async (
   const {
     start = format(new Date(), "yyyy-MM-dd"),
     end = format(new Date(), "yyyy-MM-dd"),
-    type = "event",
+    type,
   } = filters || {};
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
+  if (type) {
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .select()
+      .eq("type", type)
+      .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
+      .gte("date_start", start)
+      .lte("date_end", end);
+    if (error) {
+      console.log(error);
+      return [];
+    } return data;
+  }
   const { data, error } = await supabase
     .from("calendar_events")
     .select()
-    .eq("type", type)
     .or(`organizer_id.eq.${uid},guests.cs.{"${uid}"}`)
     .gte("date_start", start)
     .lte("date_end", end);
   if (error) {
     console.log(error);
     return [];
-  } else return data;
+  } return data;
 };

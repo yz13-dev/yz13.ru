@@ -1,5 +1,6 @@
+"use server";
 import { customFetch } from "@/const/fetch";
-import { Position } from "@/types/positions";
+import type { Position } from "@/types/positions";
 
 export const getPositions = async (locale: string) => {
   const url = `/positions/${locale}`;

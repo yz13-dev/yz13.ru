@@ -5,11 +5,10 @@ import { auth } from "@/lib/auth";
 import { showEventForm } from "@yz13/flags";
 import { PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
 import { Suspense } from "react";
-import DayInfo from "./day-info";
-import DaysRow from "./days-row";
+import DatePicker from "./date-picker";
 import EventSection from "./events/section";
+import LinkButton from "./meetings/link-button";
 import MeetingSection, {
   SectionSkeleton as MeetingSectionSkeleton,
 } from "./meetings/section";
@@ -31,6 +30,7 @@ export default async function page({ searchParams }: PageProps) {
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo size={{ width: 48, height: 48 }} type="only-icon" />
+          <DatePicker />
         </div>
         <div className="flex items-center gap-2">
           {showForm && user && (
@@ -45,28 +45,26 @@ export default async function page({ searchParams }: PageProps) {
           </Suspense>
         </div>
       </header>
-      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6  min-h-dvh">
-        <div className="space-y-6 md:w-1/3 shrink-0 w-full">
-          <DayInfo defaultDate={date} />
-          <Separator />
-          <ScheduleSection uid={user?.id ?? null} />
-          <Separator />
-          <Suspense fallback={<MeetingSectionSkeleton />}>
-            <MeetingSection uid={user?.id ?? null} date={date} />
-          </Suspense>
-        </div>
+      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col gap-6  min-h-dvh">
         <div className="flex flex-col gap-6 shrink-0 md:w-2/3 w-full">
-          <DaysRow defaultDate={date} className="h-fit shrink-0 marquee" />
           <EventSection uid={user?.id ?? undefined} date={date} />
+        </div>
+        <div className="space-y-6 md:w-1/3 shrink-0 w-full">
+          <div className="flex flex-col gap-2">
+            <span className="font-medium block">Ссылка на бронирование</span>
+            <LinkButton uid={user?.id} className="w-fit" />
+          </div>
+          <ScheduleSection uid={user?.id ?? null} />
+          {/* <Separator /> */}
+          {
+            false &&
+            <Suspense fallback={<MeetingSectionSkeleton />}>
+              <MeetingSection uid={user?.id ?? null} date={date} />
+            </Suspense>
+          }
         </div>
       </div>
       <Footer />
-      {/* <div className="w-full h-[84px]" />
-      <footer className="fixed backdrop-blur-sm bg-background/60 flex items-center max-w-dvw w-fit gap-1.5 bottom-0 left-0 right-0 mx-auto p-3 rounded-t-3xl">
-        <Button>Обзор</Button>
-        <Button variant="ghost">Поиск</Button>
-        <Button variant="ghost">Календарь</Button>
-      </footer> */}
     </>
   );
 }

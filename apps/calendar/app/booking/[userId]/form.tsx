@@ -1,5 +1,6 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
+import useTimeStore from "@/components/live/time.store";
 import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
@@ -16,9 +17,8 @@ import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { createEvent } from "rest-api/calendar";
 import type { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
-import { useUserStore } from "./user.store";
 import { cn } from "yz13/cn";
-import useTimeStore from "@/components/live/time.store";
+import { useUserStore } from "./user.store";
 
 export default function form({
   uid,
@@ -31,6 +31,7 @@ export default function form({
 }) {
   const currentTime = useTimeStore((state) => state.time);
   const searchParams = useSearchParams();
+  const [continueLink] = useQueryState("continue");
   const user = useUserStore((state) => state.user);
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
@@ -101,13 +102,14 @@ export default function form({
         guests: [user.id],
         duration,
         description: note,
+        status: "TENTATIVE",
         type: "appointment",
         summary: `Созвон с ${name}`,
       };
-      console.log(event);
       const { data: created } = await createEvent(event);
       if (created) {
-        router.push("/");
+        const callPage = `/call/${created.id}${continueLink ? `?continue=${continueLink}` : ""}`;
+        router.push(callPage);
       }
     } catch (error) {
       console.log(error);
@@ -134,8 +136,7 @@ export default function form({
   useDebounceEffect(
     () => {
       const url = new URL("/login", "https://yz13.ru");
-      const urlSearchParams = url.searchParams;
-      searchParams.forEach((value, key) => urlSearchParams.set(key, value));
+      const urlSearchParams = new URLSearchParams(searchParams);
       urlSearchParams.set(
         "continue",
         `https://calendar.yz13.ru/booking/${uid}`,

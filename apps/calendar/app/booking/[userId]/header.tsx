@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import { Badge } from "mono/components/badge";
 import { useQueryState } from "nuqs";
 import { avatarURL } from "rest-api/lib/avatar-url";
-import { UserObject } from "rest-api/types/user";
+import type { UserObject } from "rest-api/types/user";
 
 export default function Header({ user }: { user: UserObject }) {
   const [date] = useQueryState("date");

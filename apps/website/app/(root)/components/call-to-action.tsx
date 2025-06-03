@@ -31,7 +31,7 @@ const CallToAction = ({ hideSearch = false, available = false }: Props) => {
   const [href, setHref] = useState<string | null>(null);
   const [disabled, setDisabled] = useState<boolean>(!available);
   const CALL_TO_ACTION_LINK =
-    "https://calendar.yz13.ru/booking/929e8f4f-ff0b-4802-8381-4cb5f73630f6";
+    "https://calendar.yz13.ru/booking/929e8f4f-ff0b-4802-8381-4cb5f73630f6?continue=https://yz13.ru";
   useHotkeys(
     "ctrl+k, command+k",
     () => {
