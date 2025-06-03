@@ -1,6 +1,6 @@
 "use server";
 import { customFetch } from "@/const/fetch";
-import { Event, NewEvent } from "@/types/calendar";
+import type { Event, NewEvent, UpdateEvent } from "@/types/calendar";
 
 export const createEvent = async (event: NewEvent) => {
   return await customFetch<Event | null>("/calendar", {
@@ -36,4 +36,20 @@ export const getUserEvents = async (
     ? `/calendar/user/${uid}?${searchParams}`
     : `/calendar/user/${uid}`;
   return await customFetch<Event[]>(url);
+};
+
+
+export const getEventById = async (id: string) => {
+  return await customFetch<Event | null>(`/calendar/event/${id}`);
+};
+
+
+export const updateEvent = async (id: string, event: UpdateEvent) => {
+  return await customFetch<Event | null>(`/calendar/event/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(event),
+  });
 };

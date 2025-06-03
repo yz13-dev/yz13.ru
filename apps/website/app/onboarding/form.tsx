@@ -12,8 +12,8 @@ import {
 } from "mono/components/select";
 import { Separator } from "mono/components/separator";
 import { useEffect, useState } from "react";
-import { Position } from "rest-api/types/positions";
-import { UserObject } from "rest-api/types/user";
+import type { Position } from "rest-api/types/positions";
+import type { UserObject } from "rest-api/types/user";
 import { updateUser } from "rest-api/user";
 import { useUserStore } from "../account/settings/user.store";
 import Google from "./extensions/google";

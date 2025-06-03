@@ -1,6 +1,7 @@
 import LiveTimeProvider from "@/components/live/live-provider";
 import "@/styles/globals.css";
 import "dayjs/locale/ru";
+import { Toaster } from "mono/components/sonner";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter, Pixelify_Sans } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -61,6 +62,7 @@ export default function RootLayout({
       )}
       <body>
         <NuqsAdapter>
+          <Toaster position="top-right" />
           <LiveTimeProvider>{children}</LiveTimeProvider>
         </NuqsAdapter>
       </body>
