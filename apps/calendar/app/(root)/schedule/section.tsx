@@ -170,7 +170,7 @@ export const SectionSkeleton = () => {
       <div className="space-y-0">
         <div className="flex w-full gap-4 items-center justify-between">
           <span className="font-medium block">Расписание</span>
-          <Skeleton className="w-16 h-7 rounded-full" />
+          <Skeleton className="w-16 h-5 rounded-full" />
         </div>
         <span className="text-sm text-muted-foreground">
           Время когда другие пользователи могут запланировать с вами созвон.

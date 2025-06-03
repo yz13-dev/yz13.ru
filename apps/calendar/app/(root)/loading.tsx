@@ -1,10 +1,7 @@
 import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import { UserSkeleton } from "@/components/user";
-import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
-import { DayTimelineSkeleton } from "../[date]/day-timeline";
-import { SectionSkeleton as MeetingSectionSkeleton } from "./meetings/section";
 import { SectionSkeleton } from "./schedule/section";
 export default function oading() {
   return (
@@ -12,26 +9,31 @@ export default function oading() {
       <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo size={{ width: 48, height: 48 }} type="only-icon" />
+          <Skeleton className="h-9 w-36" />
         </div>
         <div className="flex items-center gap-2">
           <UserSkeleton />
         </div>
       </header>
-      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col-reverse gap-6  min-h-dvh">
-        <div className="space-y-6 md:w-1/3 w-full">
-          <div className="flex items-center gap-2 justify-between">
-            <Skeleton className="w-20 h-8" />
-            <Skeleton className="w-32 h-[52px]" />
+      <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col gap-6  min-h-dvh">
+        <div className="flex flex-col gap-6 shrink-0 md:w-2/3 w-full">
+          <div className="space-y-3">
+            <Skeleton className="w-1/2 h-7" />
+            <Skeleton className="w-full h-32" />
+            <Skeleton className="w-full h-32" />
           </div>
-          <Separator />
-          <SectionSkeleton />
-          <Separator />
-          <MeetingSectionSkeleton />
+          <div className="space-y-3">
+            <Skeleton className="w-1/2 h-7" />
+            <Skeleton className="w-full h-32" />
+            <Skeleton className="w-full h-32" />
+          </div>
         </div>
-        <div className="flex flex-col gap-6 md:w-2/3 w-full">
-          <Skeleton className="w-full h-[60px]" />
-          <DayTimelineSkeleton />
-          {/* <EventSectionSkeleton /> */}
+        <div className="space-y-6 md:w-1/3 w-full">
+          <div className="flex flex-col gap-2">
+            <span className="font-medium block">Ссылка на бронирование</span>
+            <Skeleton className="h-9 w-1/3" />
+          </div>
+          <SectionSkeleton />
         </div>
       </div>
       <Footer />
