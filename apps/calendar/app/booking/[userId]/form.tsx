@@ -91,6 +91,8 @@ export default function form({
       const date_end = new Date(date_start);
       date_end.setMinutes(date_start.getMinutes() + durationMinutes);
 
+      const userIdisOrganizer = user.id === organizer;
+
       const event: NewEvent = {
         date_start: formatISO(date_start, {
           in: tz(timezone),
@@ -99,7 +101,7 @@ export default function form({
           in: tz(timezone),
         }),
         organizer_id: organizer,
-        guests: [user.id, organizer],
+        guests: userIdisOrganizer ? [user.id] : [user.id, organizer],
         duration,
         description: note,
         status: "TENTATIVE",
