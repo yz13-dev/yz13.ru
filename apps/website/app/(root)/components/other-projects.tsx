@@ -111,7 +111,7 @@ export default async function OtherProjects({
                         {publicLink} <ExternalLinkIcon size={12} />
                       </Link>
                     )}
-                    {stage && <Badge variant="secondary">{stage}</Badge>}
+                    {stage && <Badge variant="secondary" className="capitalize">{stage}</Badge>}
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import { cdn } from "@/lib/cdn";
 import Image from "next/image";
-import { Publication } from "rest-api/types/store";
+import type { Publication } from "rest-api/types/store";
 import { cn } from "yz13/cn";
 
 export default function AppLogo({

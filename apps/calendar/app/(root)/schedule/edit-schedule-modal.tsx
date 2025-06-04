@@ -1,4 +1,5 @@
 "use client";
+import { tz } from "@date-fns/tz";
 import { format, parse } from "date-fns";
 import { isEqual } from "lodash";
 import { Loader2Icon, PlusIcon, XIcon } from "lucide-react";
@@ -109,6 +110,60 @@ const ScheduleItem = ({
 
 const localDurations = ["00:15", "00:30", "00:45", "01:00"];
 
+const prepareSchedule = (schedule: DaySchedule[]): DaySchedule[] => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return schedule.map((item) => {
+    const start = parse(item.start.time, "HH:mm", new Date(), {
+      in: tz(timezone),
+    });
+    const end = parse(item.end.time, "HH:mm", new Date(), {
+      in: tz(timezone),
+    });
+    return {
+      enabled: item.enabled,
+      start: {
+        time: format(start, "HH:mm", {
+          in: tz("UTC"),
+        }),
+        tz: timezone
+      },
+      end: {
+        time: format(end, "HH:mm", {
+          in: tz("UTC"),
+        }),
+        tz: timezone
+      },
+    }
+  });
+};
+
+const adaptSchedule = (schedule: DaySchedule[]): DaySchedule[] => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return schedule.map((item) => {
+    const start = parse(item.start.time, "HH:mm", new Date(), {
+      in: tz("UTC"),
+    });
+    const end = parse(item.end.time, "HH:mm", new Date(), {
+      in: tz("UTC"),
+    });
+    return {
+      enabled: item.enabled,
+      start: {
+        ...item.start,
+        time: format(start, "HH:mm", {
+          in: tz(timezone),
+        }),
+      },
+      end: {
+        ...item.end,
+        time: format(end, "HH:mm", {
+          in: tz(timezone),
+        }),
+      },
+    }
+  });
+};
+
 export default function EditScheduleModal({
   children,
   uid,
@@ -125,25 +180,25 @@ export default function EditScheduleModal({
   const [durations, setDurations] = useState<string[]>(defaultDurations);
   const [loading, setLoading] = useState<boolean>(false);
   const [monday, setMonday] = useState<DaySchedule[]>(
-    (defaultSchedule?.monday as DaySchedule[]) ?? [],
+    ((defaultSchedule?.monday as DaySchedule[]) ?? []),
   );
   const [tuesday, setTuesday] = useState<DaySchedule[]>(
-    (defaultSchedule?.tuesday as DaySchedule[]) ?? [],
+    ((defaultSchedule?.tuesday as DaySchedule[]) ?? []),
   );
   const [wednesday, setWednesday] = useState<DaySchedule[]>(
-    (defaultSchedule?.wednesday as DaySchedule[]) ?? [],
+    ((defaultSchedule?.wednesday as DaySchedule[]) ?? []),
   );
   const [thursday, setThursday] = useState<DaySchedule[]>(
-    (defaultSchedule?.thursday as DaySchedule[]) ?? [],
+    ((defaultSchedule?.thursday as DaySchedule[])) ?? [],
   );
   const [friday, setFriday] = useState<DaySchedule[]>(
-    (defaultSchedule?.friday as DaySchedule[]) ?? [],
+    ((defaultSchedule?.friday as DaySchedule[]) ?? []),
   );
   const [saturday, setSaturday] = useState<DaySchedule[]>(
-    (defaultSchedule?.saturday as DaySchedule[]) ?? [],
+    ((defaultSchedule?.saturday as DaySchedule[]) ?? []),
   );
   const [sunday, setSunday] = useState<DaySchedule[]>(
-    (defaultSchedule?.sunday as DaySchedule[]) ?? [],
+    ((defaultSchedule?.sunday as DaySchedule[]) ?? []),
   );
 
   const getChanges = () => {
@@ -263,13 +318,13 @@ export default function EditScheduleModal({
   const updateWeekSchedule = async () => {
     const weekSchedule: UpdateWeekSchedule = {
       durations,
-      monday,
-      tuesday,
-      wednesday,
-      thursday,
-      friday,
-      saturday,
-      sunday,
+      monday: prepareSchedule(monday),
+      tuesday: prepareSchedule(tuesday),
+      wednesday: prepareSchedule(wednesday),
+      thursday: prepareSchedule(thursday),
+      friday: prepareSchedule(friday),
+      saturday: prepareSchedule(saturday),
+      sunday: prepareSchedule(sunday),
     };
     setLoading(true);
     try {

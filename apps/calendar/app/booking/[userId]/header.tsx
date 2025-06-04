@@ -1,10 +1,9 @@
 "use client";
+import ClientUserBadge from "@/components/client-user-badge";
 import { format, parse } from "date-fns";
 import { CalendarIcon, ClockIcon, GlobeIcon, VideoIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import { Badge } from "mono/components/badge";
 import { useQueryState } from "nuqs";
-import { avatarURL } from "rest-api/lib/avatar-url";
 import type { UserObject } from "rest-api/types/user";
 
 export default function Header({ user }: { user: UserObject }) {
@@ -16,19 +15,7 @@ export default function Header({ user }: { user: UserObject }) {
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
     <div className="w-full gap-5 flex flex-col p-6">
-      <div className="flex flex-row items-center gap-2">
-        <Avatar>
-          <AvatarImage
-            src={user.avatar_url ? avatarURL(user.avatar_url) : undefined}
-          />
-          <AvatarFallback className="uppercase">
-            {(user.username ?? "").slice(0, 2)}
-          </AvatarFallback>
-        </Avatar>
-        <span className="text-sm text-muted-foreground">
-          {user.username ?? "Пользователь"}
-        </span>
-      </div>
+      <ClientUserBadge userId={user.id} showName />
       <ul className="gap-3 grid md:grid-cols-4 grid-cols-2">
         <li className="flex items-center gap-2">
           <Badge

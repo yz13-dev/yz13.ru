@@ -2,6 +2,8 @@
 
 import MicroButton from "@/components/micro-button";
 import { getStatusLabel } from "@/const/status-map";
+import { useTz } from "@/hooks/use-tz";
+import { tz } from "@date-fns/tz";
 import { format, parseISO } from "date-fns";
 import { ArrowLeftIcon, CalendarIcon, Edit2Icon, ExternalLinkIcon } from "lucide-react";
 import { Button } from "mono/components/button";
@@ -26,16 +28,26 @@ export default function ({ call: defaultCall, callId, userId, continueLink }: Pr
   const organizer = call.organizer_id;
   const guests = call.guests ?? [];
 
+  const timezone = useTz();
+
   const isOrganizer = userId === organizer;
   const isGuest = userId !== organizer && guests.includes(userId);
 
   const shortId = callId.slice(0, 6)
 
-  const startAt = parseISO(call.date_start)
-  const endAt = parseISO(call.date_end);
+  const startAt = parseISO(call.date_start, {
+    in: tz("UTC"),
+  })
+  const endAt = parseISO(call.date_end, {
+    in: tz("UTC"),
+  });
 
-  const startTime = format(startAt, "HH:mm");
-  const endTime = format(endAt, "HH:mm");
+  const startTime = format(startAt, "HH:mm", {
+    in: tz(timezone),
+  });
+  const endTime = format(endAt, "HH:mm", {
+    in: tz(timezone),
+  });
 
   const GUESTS_LIMIT = 3
   const isGuestsMoreThanLimit = guests.length > GUESTS_LIMIT;

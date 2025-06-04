@@ -2,7 +2,7 @@
 import AutoTextarea from "@/components/auto-textarea";
 import useTimeStore from "@/components/live/time.store";
 import { useTz } from "@/hooks/use-tz";
-import { tz } from "@date-fns/tz";
+import { tz, TZDate } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
 import { format, formatISO, isPast, isToday, parse } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -12,6 +12,7 @@ import { Calendar } from "mono/components/calendar";
 import { Input } from "mono/components/input";
 import { Separator } from "mono/components/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "mono/components/tabs";
+import { motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
@@ -38,12 +39,11 @@ export default function form({
   const [note, setNote] = useState<string>("");
   const defaultDate = format(currentTime, "yyyy-MM-dd");
   const [date, setDate] = useQueryState("date", { shallow: false });
+  const [time] = useQueryState("time");
   const timezone = useTz();
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
-    in: tz(timezone),
+    in: tz("UTC"),
   });
-  const dateIsToday = isToday(parsedDate);
-  const [time, setTime] = useQueryState("time");
   const durations = Object.keys(availability?.availability ?? {});
   const [duration, setDuration] = useState<string | null>(durations[0] ?? null);
   const validateEmail = (email: string): boolean => {
@@ -72,7 +72,7 @@ export default function form({
     setLoading(true);
     try {
       const organizer = uid;
-      const date_start = parsedDate;
+      const date_start = new TZDate(parsedDate, timezone);
       const appointmentTime = parse(time, "HH:mm", new Date());
       date_start.setHours(appointmentTime.getHours());
       date_start.setMinutes(appointmentTime.getMinutes());
@@ -88,18 +88,22 @@ export default function form({
       }
 
       // Создаем конечную дату
-      const date_end = new Date(date_start);
+      const date_end = new TZDate(date_start, timezone);
       date_end.setMinutes(date_start.getMinutes() + durationMinutes);
 
       const userIdisOrganizer = user.id === organizer;
 
+      const start = formatISO(date_start, {
+        in: tz("UTC"),
+      })
+
+      const end = formatISO(date_end, {
+        in: tz("UTC"),
+      })
+
       const event: NewEvent = {
-        date_start: formatISO(date_start, {
-          in: tz(timezone),
-        }),
-        date_end: formatISO(date_end, {
-          in: tz(timezone),
-        }),
+        date_start: start,
+        date_end: end,
         organizer_id: organizer,
         guests: userIdisOrganizer ? [user.id] : [user.id, organizer],
         duration,
@@ -160,9 +164,13 @@ export default function form({
       if (isPast(parsedDate)) setDate(defaultDate);
     }
   }, [date]);
-  useEffect(() => {
-    if (duration) handleDurationScroll();
-  }, [duration]);
+  // useEffect(() => {
+  //   if (duration) {
+  //     setTimeout(() => {
+  //       handleDurationScroll();
+  //     }, 2000)
+  //   }
+  // }, [duration]);
   return (
     <>
       <div className={cn("w-full divide-y", className)}>
@@ -194,6 +202,7 @@ export default function form({
                 <Input
                   type="email"
                   className="!bg-transparent"
+                  aria-invalid={!isValidEmail}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -213,21 +222,7 @@ export default function form({
           <div className="md:w-1/3 max-h-[60dvh] overflow-auto w-full flex md:flex-col flex-row *:w-full">
             <Tabs value={duration ?? undefined} onValueChange={setDuration}>
               <div className="w-full p-6 overflow-x-auto bg-card md:sticky static top-0 z-10 shrink-0 h-[84px]">
-                <TabsList className="md:w-fit w-full">
-                  {durations
-                    .sort((a, b) => a.localeCompare(b))
-                    .map((duration) => {
-                      return (
-                        <TabsTrigger
-                          id={duration}
-                          key={duration}
-                          value={duration}
-                        >
-                          {duration}
-                        </TabsTrigger>
-                      );
-                    })}
-                </TabsList>
+                <DurationsTabs durations={durations} />
               </div>
               {durations.map((duration) => {
                 const times = availability?.availability[duration] ?? [];
@@ -237,40 +232,7 @@ export default function form({
                     value={duration}
                     className="px-6 pb-6"
                   >
-                    <ul className="w-full space-y-3">
-                      {times.map((availableTime) => {
-                        const selected = availableTime === time;
-                        const timeDateString = `${date} ${availableTime}`;
-                        const current =
-                          currentTime.getHours() * 60 +
-                          currentTime.getMinutes();
-                        const parsedAvailableTime = parse(
-                          timeDateString,
-                          "yyyy-MM-dd HH:mm",
-                          new Date(),
-                        );
-                        const availableTimeAsMinutes =
-                          parsedAvailableTime.getHours() * 60 +
-                          parsedAvailableTime.getMinutes();
-                        const timeDisabled =
-                          dateIsToday && current >= availableTimeAsMinutes;
-                        return (
-                          <li key={availableTime}>
-                            <Button
-                              disabled={timeDisabled}
-                              variant={selected ? "default" : "outline"}
-                              className="w-full"
-                              onClick={() => {
-                                if (selected) setTime(null);
-                                else setTime(availableTime);
-                              }}
-                            >
-                              {availableTime}
-                            </Button>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                    <DurationsTimeList times={times} />
                   </TabsContent>
                 );
               })}
@@ -286,4 +248,84 @@ export default function form({
       </div>
     </>
   );
+}
+
+
+const DurationsTabs = ({ durations }: { durations: string[] }) => {
+  return (
+    <TabsList className="md:w-fit w-full">
+      {durations
+        .sort((a, b) => a.localeCompare(b))
+        .map((duration) => {
+          return (
+            <TabsTrigger
+              id={duration}
+              key={duration}
+              value={duration}
+            >
+              {duration}
+            </TabsTrigger>
+          );
+        })}
+    </TabsList>
+  )
+}
+
+const DurationsTimeList = ({ times }: { times: string[] }) => {
+  const currentTime = useTimeStore((state) => state.time);
+  const [date] = useQueryState("date", { shallow: false });
+  const [time, setTime] = useQueryState("time");
+  const defaultDate = format(currentTime, "yyyy-MM-dd");
+  const timezone = useTz();
+  const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
+    in: tz(timezone),
+  });
+  const dateIsToday = isToday(parsedDate);
+  return (
+    <motion.ul
+      className="w-full space-y-3"
+    >
+      {times.map((availableTime, index) => {
+        const selected = availableTime === time;
+        const timeDateString = `${date} ${availableTime}`;
+        const current =
+          currentTime.getHours() * 60 +
+          currentTime.getMinutes();
+        const parsedAvailableTime = parse(
+          timeDateString,
+          "yyyy-MM-dd HH:mm",
+          new Date(),
+        );
+        const availableTimeAsMinutes =
+          parsedAvailableTime.getHours() * 60 +
+          parsedAvailableTime.getMinutes();
+        const timeDisabled =
+          dateIsToday && current >= availableTimeAsMinutes;
+        if (timeDisabled) return null;
+        return (
+          <motion.li
+            key={availableTime}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              delay: 0.05 * index,
+            }}
+          >
+            <Button
+              disabled={timeDisabled}
+              variant={selected ? "default" : "outline"}
+              className="w-full"
+              onClick={() => {
+                if (selected) setTime(null);
+                else setTime(availableTime);
+              }}
+            >
+              {availableTime}
+            </Button>
+          </motion.li>
+        );
+      })}
+    </motion.ul >
+  )
 }

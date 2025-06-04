@@ -123,7 +123,7 @@ schedule.get("/:uid/available", async (c) => {
   try {
     if (!isValid(parsedDate)) throw new Error("Provided date is invalid");
     const allAppointments = await getLastEventsForDate(uid, {
-      date: defaultDate,
+      date: format(parsedDate, "yyyy-MM-dd"),
       type: "appointment",
     });
     const appointments: Event[] = allAppointments.filter((appointment) => {
@@ -133,16 +133,26 @@ schedule.get("/:uid/available", async (c) => {
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
     if (!schedule) return c.json(null);
+    const weekdaySchedule = (schedule[weekday as keyof typeof schedule] as DaySchedule[]);
     const busyTimes = getTimeAndDurationFromAppointments(appointments ?? []);
     const durations = schedule.durations;
-    const weekdaySchedule = schedule[
-      weekday as keyof typeof schedule
-    ] as DaySchedule[];
     const obj = createObjFromDurations(
       durations ?? [],
       weekdaySchedule,
       busyTimes,
     );
+
+    console.log("SCHEDULE", weekdaySchedule)
+    console.log("BUSY TIMES", busyTimes)
+
+    console.log("AVAILABILITY",
+      {
+        availability: obj,
+        date: format(parsedDate, "yyyy-MM-dd"),
+        appointments,
+      }
+    )
+
     return c.json({
       availability: obj,
       date: format(parsedDate, "yyyy-MM-dd"),

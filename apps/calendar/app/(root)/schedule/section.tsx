@@ -1,3 +1,4 @@
+import { adaptWeekSchedule } from "@/lib/schedule";
 import { tz } from "@date-fns/tz";
 import { format, parse } from "date-fns";
 import { Edit3Icon } from "lucide-react";
@@ -5,7 +6,7 @@ import { Badge } from "mono/components/badge";
 import { Separator } from "mono/components/separator";
 import { Skeleton } from "mono/components/skeleton";
 import { getSchedule } from "rest-api/calendar/schedule";
-import type { DaySchedule } from "rest-api/types/calendar";
+import type { DaySchedule, WeekSchedule } from "rest-api/types/calendar";
 import EditScheduleModal from "./edit-schedule-modal";
 import NewScheduleButton from "./new-schedule-button";
 const EmptySchedule = () => {
@@ -70,8 +71,9 @@ const DayScheduleItem = ({
 
 export default async function Section({ uid }: { uid: string | null }) {
   if (!uid) return <EmptySchedule />;
-  const { data: schedule } = await getSchedule(uid);
-  const hasSchedule = !!schedule;
+  const { data } = await getSchedule(uid);
+  const schedule = adaptWeekSchedule(data as WeekSchedule);
+  const hasSchedule = !!data;
   const monday = (schedule?.monday ?? []) as DaySchedule[];
   const tuesday = (schedule?.tuesday ?? []) as DaySchedule[];
   const wednesday = (schedule?.wednesday ?? []) as DaySchedule[];
@@ -89,7 +91,7 @@ export default async function Section({ uid }: { uid: string | null }) {
             <span>Расписание</span>
             <ArrowRightIcon size={16} />
           </button> */}
-          {hasSchedule && (
+          {schedule && (
             <EditScheduleModal
               uid={uid}
               defaultSchedule={schedule}
@@ -131,10 +133,7 @@ export default async function Section({ uid }: { uid: string | null }) {
           </li>
         </ul>
       ) : (
-        <div className="w-full h-fit p-8 border rounded-xl border-dashed flex flex-col items-center justify-center gap-4">
-          <span className="text-sm text-muted-foreground">Нет расписания</span>
-          <NewScheduleButton uid={uid} />
-        </div>
+        <NewScheduleButton uid={uid} />
       )}
       {!!durations.length && (
         <>
