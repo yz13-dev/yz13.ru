@@ -3,7 +3,6 @@ import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import User from "@/components/user";
 import { availableForWork } from "@yz13/flags";
-import { format } from "date-fns";
 import { SendIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -97,73 +96,6 @@ export default async function page() {
           <ServicesDetails />
         </div>
       </div>
-      {isAvailable && (
-        <div className="w-full gap-6 max-w-6xl mx-auto px-6 py-12 space-y-12">
-          <div className="space-y-3">
-            <span className="text-3xl block font-semibold">Контакт</span>
-            <span className="text-lg block text-muted-foreground">
-              Если у вас есть вопросы или предложения, пишите нам на почту, или
-              создайте созвон через форму ниже.
-            </span>
-          </div>
-          <div className="flex w-full gap-6 lg:flex-row flex-col items-start">
-            <div className="space-y-3">
-              <span className="text-2xl font-semibold block">
-                {format(new Date(), "EEEEEEE, d MMMM yyyy")}
-              </span>
-              <div className="w-fit h-fit rounded-3xl bg-background/40 border py-3 space-y-3 *:px-3">
-                <div className="w-full grid grid-cols-7 *:text-muted-foreground *:w-full *:flex *:justify-center *:px-3 *:py-1 *:rounded-full gap-3 *:bg-secondary">
-                  <span className="text-base font-medium">Mon</span>
-                  <span className="text-base font-medium">Tue</span>
-                  <span className="text-base font-medium">Wed</span>
-                  <span className="text-base font-medium">Thu</span>
-                  <span className="text-base font-medium">Fri</span>
-                  <span className="text-base font-medium">Sat</span>
-                  <span className="text-base font-medium">Sun</span>
-                </div>
-                <div className="gap-3 grid grid-cols-7">
-                  {Array.from({ length: 30 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col min-w-9 aspect-square bg-card rounded-xl items-center justify-end p-1 border"
-                    >
-                      <div className="text-xl text-muted-foreground font-medium">
-                        {i + 1}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <span className="text-base block font-medium">
-                  Длительность
-                </span>
-                <div className="flex items-center gap-2">
-                  <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
-                    00:15
-                  </span>
-                  <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
-                    00:30
-                  </span>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <span className="text-base block font-medium">Время</span>
-                <div className="flex items-start flex-wrap gap-2">
-                  <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
-                    10:00
-                  </span>
-                  <span className="text-base px-3 py-1 rounded-full bg-secondary font-medium">
-                    10:30
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
       <div className="w-full gap-6 max-w-6xl mx-auto p-6 space-y-6">
         <Footer />
       </div>

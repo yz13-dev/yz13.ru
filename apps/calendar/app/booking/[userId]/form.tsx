@@ -56,6 +56,7 @@ export default function form({
     setDate(format(date, "yyyy-MM-dd"));
   };
   const isValidEmail = validateEmail(email);
+  const [initialLoading, setInitialLoading] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
   const disabled =
     loading ||
@@ -138,10 +139,12 @@ export default function form({
         `https://calendar.yz13.ru/booking/${uid}`,
       );
       const authLink = url.toString();
-      if (!user) router.push(authLink);
+      if (!user) {
+        router.push(authLink);
+      } else setInitialLoading(false);
     },
     [user, searchParams],
-    { wait: 1000 },
+    { wait: 3000 },
   );
   useEffect(() => {
     if (!date) {
@@ -163,6 +166,13 @@ export default function form({
   // }, [duration]);
   return (
     <>
+      {
+        initialLoading &&
+        <div className="w-full h-full flex justify-center gap-2 items-center absolute top-0 left-0 z-50 backdrop-blur-md bg-background/40">
+          <Loader2Icon className="animate-spin text-muted-foreground" />
+          <span className="text-sm text-muted-foreground">Загрузка...</span>
+        </div>
+      }
       <div className={cn("w-full divide-y", className)}>
         <div className="flex divide-x md:flex-row flex-col-reverse">
           <div className="md:w-2/3 p-6 w-full space-y-6">
