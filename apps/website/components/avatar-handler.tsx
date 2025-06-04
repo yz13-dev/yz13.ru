@@ -5,8 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
 import { Button, buttonVariants } from "mono/components/button";
 import { Input } from "mono/components/input";
 import { Label } from "mono/components/label";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import { avatarURL } from "rest-api/lib/avatar-url";
 import { updateUser } from "rest-api/user";
 import { cn } from "yz13/cn";
@@ -17,7 +16,6 @@ export default function AvatarHandler() {
   const refreshUser = useUserStore((state) => state.refreshUser);
   const avatar_url = user?.avatar_url ?? null;
   const username = user?.username ?? "Username";
-  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const handleAvatarChange = async (url: string | null) => {
     const uid = user?.id;
@@ -81,7 +79,7 @@ export default function AvatarHandler() {
     <>
       <Avatar className="size-16">
         <AvatarImage src={avatar_url ? avatarURL(avatar_url) : undefined} />
-        <AvatarFallback className="text-2xl">
+        <AvatarFallback className="text-2xl uppercase">
           {username.slice(0, 2)}
         </AvatarFallback>
       </Avatar>

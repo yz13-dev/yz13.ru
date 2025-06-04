@@ -68,6 +68,13 @@ export default function ({
     }
   };
   const gooleLinked = user?.identities?.find((i) => i.provider === "google");
+  useEffect(() => {
+    if (defaultUser) {
+      if (defaultUser.username) setUsername(defaultUser.username);
+      const defaultPosition = positions.find((p) => p.id === defaultUser?.position);
+      if (defaultPosition) setPosition(defaultPosition ?? null);
+    }
+  }, [defaultUser, positions])
   useDebounceEffect(
     () => {
       if (position && user?.position !== position?.id) {
@@ -80,7 +87,7 @@ export default function ({
   );
   useDebounceEffect(
     () => {
-      if (username.length >= 4 && user?.username !== username) {
+      if (username && username.length >= 4 && user?.username !== username) {
         setUsernameLoading(true);
         updateUsername(username);
       }

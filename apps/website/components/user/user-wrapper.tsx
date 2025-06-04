@@ -1,11 +1,12 @@
 "use client";
-import { ReactElement, useEffect, useState } from "react";
+import { useUserStore } from "@/app/account/settings/user.store";
+import { type ReactElement, useEffect, useState } from "react";
 import { getAuthorizedUser } from "rest-api/auth";
-import { UserObject } from "rest-api/types/user";
+import type { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
-import SignInButton from "./sign-in-button";
-import UserCircle from "./user-circle";
-import UserDropdown from "./user-dropdown";
+import type SignInButton from "./sign-in-button";
+import type UserCircle from "./user-circle";
+import type UserDropdown from "./user-dropdown";
 
 type WrapperProps = {
   authorized?: (
@@ -20,9 +21,13 @@ type WrapperProps = {
 const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
   const [user, setUser] = useState<UserObject | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const setUserInStore = useUserStore(state => state.setUser);
   const refreshUser = async () => {
     const { data: user } = await getAuthorizedUser()
-    if (user) setUser(user);
+    if (user) {
+      setUser(user);
+      setUserInStore(user);
+    }
   }
   useEffect(() => {
     const supabase = createClient();

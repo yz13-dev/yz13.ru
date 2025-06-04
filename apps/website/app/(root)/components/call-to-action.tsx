@@ -30,8 +30,9 @@ const CallToAction = ({ hideSearch = false, available = false }: Props) => {
   const [label, setLabel] = useState<string>("Подождите...");
   const [href, setHref] = useState<string | null>(null);
   const [disabled, setDisabled] = useState<boolean>(!available);
+  const uuid = "4fd162a9-6da5-48cf-8f51-dc1c453ce1e4"
   const CALL_TO_ACTION_LINK =
-    "https://calendar.yz13.ru/booking/929e8f4f-ff0b-4802-8381-4cb5f73630f6?continue=https://yz13.ru";
+    `https://calendar.yz13.ru/booking/${uuid}?continue=https://yz13.ru`;
   useHotkeys(
     "ctrl+k, command+k",
     () => {
