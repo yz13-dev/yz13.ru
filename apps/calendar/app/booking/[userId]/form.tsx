@@ -286,21 +286,30 @@ const DurationsTimeList = ({ times }: { times: string[] }) => {
       className="w-full space-y-3"
     >
       {times.map((availableTime, index) => {
+        const currentInUTC = new TZDate(currentTime, "UTC");
         const selected = availableTime === time;
         const timeDateString = `${date} ${availableTime}`;
-        const current =
-          currentTime.getHours() * 60 +
-          currentTime.getMinutes();
+        const currentAsMinutes =
+          currentInUTC.getHours() * 60 +
+          currentInUTC.getMinutes();
         const parsedAvailableTime = parse(
           timeDateString,
           "yyyy-MM-dd HH:mm",
           new Date(),
+          {
+            in: tz("UTC")
+          }
         );
         const availableTimeAsMinutes =
           parsedAvailableTime.getHours() * 60 +
           parsedAvailableTime.getMinutes();
-        const timeDisabled =
-          dateIsToday && current >= availableTimeAsMinutes;
+
+        const timeDisabled = dateIsToday && currentAsMinutes >= availableTimeAsMinutes;
+
+        // if (timeDisabled) return null;
+        const formatted = format(parsedAvailableTime, "HH:mm", {
+          in: tz(timezone)
+        });
         if (timeDisabled) return null;
         return (
           <motion.li
@@ -321,7 +330,7 @@ const DurationsTimeList = ({ times }: { times: string[] }) => {
                 else setTime(availableTime);
               }}
             >
-              {availableTime}
+              {formatted}
             </Button>
           </motion.li>
         );
