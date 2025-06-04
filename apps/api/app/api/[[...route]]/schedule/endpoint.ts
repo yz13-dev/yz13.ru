@@ -134,14 +134,12 @@ schedule.get("/:uid/available", async (c) => {
     const schedule = await getSchedule(uid);
     if (!schedule) return c.json(null);
     const weekdaySchedule = (schedule[weekday as keyof typeof schedule] as DaySchedule[]);
-    const timezone = weekdaySchedule.map(item => item.start.tz)[0]
-    const busyTimes = getTimeAndDurationFromAppointments(appointments ?? [], timezone);
+    const busyTimes = getTimeAndDurationFromAppointments(appointments ?? []);
     const durations = schedule.durations;
     const obj = createObjFromDurations(
       durations ?? [],
       weekdaySchedule,
       busyTimes,
-      timezone
     );
 
     console.log("SCHEDULE", weekdaySchedule)

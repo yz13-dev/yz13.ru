@@ -43,9 +43,7 @@ export const createObjFromDurations = (
   durations: string[],
   schedule: DaySchedule[],
   busy: { time: string; duration: string }[],
-  timezone?: string
 ) => {
-  const targetTimezone = timezone ?? "UTC";
   const obj: Record<string, string[]> = {};
   for (const duration of durations) {
     const parsed = parse(duration, "HH:mm:ss", new Date());
@@ -68,7 +66,7 @@ export const createObjFromDurations = (
       return generateIntervalInRange(start, end, durationInMunutes, busyIntervals);
     })
       .map(item => format(item.start, "HH:mm", {
-        in: tz(targetTimezone),
+        in: tz("UTC"),
       }));
 
     obj[formatted] = intervals;
@@ -86,9 +84,8 @@ export const getIntervalFromTimeAndDuration = (time: string, duration: string) =
   return interval(parsedTime, end);
 };
 
-export const getTimeAndDurationFromAppointments = (appointments: Event[], timezone?: string) => {
+export const getTimeAndDurationFromAppointments = (appointments: Event[],) => {
   const data: { time: string; duration: string }[] = [];
-  const targetTimezone = timezone ?? "UTC";
   for (const appointment of appointments) {
     const start = parseISO(appointment.date_start, {
       in: tz("UTC"),
@@ -97,7 +94,7 @@ export const getTimeAndDurationFromAppointments = (appointments: Event[], timezo
     const duration = parse(appointment.duration, "HH:mm:ss", new Date());
     data.push({
       time: format(start, "HH:mm", {
-        in: tz(targetTimezone),
+        in: tz("UTC"),
       }),
       duration: format(duration, "HH:mm"),
     });

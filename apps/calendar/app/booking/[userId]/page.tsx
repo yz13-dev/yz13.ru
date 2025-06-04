@@ -26,8 +26,6 @@ export default async function page({ params, searchParams }: PageProps) {
   if (!user) return notFound();
   const date = search.date;
   const { data: availability } = await getUserAvailability(userId, date);
-
-  console.log(availability);
   return (
     <UserProvider>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">

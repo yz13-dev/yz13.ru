@@ -30,7 +30,8 @@ const adaptSchedule = (schedule: DaySchedule[]): DaySchedule[] => {
   });
 };
 
-export const adaptWeekSchedule = (schedule: WeekSchedule): WeekSchedule => {
+export const adaptWeekSchedule = (schedule: WeekSchedule | null): WeekSchedule | null => {
+  if (!schedule) return null;
   return {
     ...schedule,
     monday: adaptSchedule((schedule.monday ?? []) as DaySchedule[]),

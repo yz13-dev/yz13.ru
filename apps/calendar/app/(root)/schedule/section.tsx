@@ -91,7 +91,7 @@ export default async function Section({ uid }: { uid: string | null }) {
             <span>Расписание</span>
             <ArrowRightIcon size={16} />
           </button> */}
-          {hasSchedule && (
+          {schedule && (
             <EditScheduleModal
               uid={uid}
               defaultSchedule={schedule}
@@ -133,10 +133,7 @@ export default async function Section({ uid }: { uid: string | null }) {
           </li>
         </ul>
       ) : (
-        <div className="w-full h-fit p-8 border rounded-xl border-dashed flex flex-col items-center justify-center gap-4">
-          <span className="text-sm text-muted-foreground">Нет расписания</span>
-          <NewScheduleButton uid={uid} />
-        </div>
+        <NewScheduleButton uid={uid} />
       )}
       {!!durations.length && (
         <>

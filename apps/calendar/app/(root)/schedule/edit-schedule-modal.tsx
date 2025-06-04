@@ -180,25 +180,25 @@ export default function EditScheduleModal({
   const [durations, setDurations] = useState<string[]>(defaultDurations);
   const [loading, setLoading] = useState<boolean>(false);
   const [monday, setMonday] = useState<DaySchedule[]>(
-    adaptSchedule((defaultSchedule?.monday as DaySchedule[]) ?? []),
+    ((defaultSchedule?.monday as DaySchedule[]) ?? []),
   );
   const [tuesday, setTuesday] = useState<DaySchedule[]>(
-    adaptSchedule((defaultSchedule?.tuesday as DaySchedule[]) ?? []),
+    ((defaultSchedule?.tuesday as DaySchedule[]) ?? []),
   );
   const [wednesday, setWednesday] = useState<DaySchedule[]>(
-    adaptSchedule((defaultSchedule?.wednesday as DaySchedule[]) ?? []),
+    ((defaultSchedule?.wednesday as DaySchedule[]) ?? []),
   );
   const [thursday, setThursday] = useState<DaySchedule[]>(
-    adaptSchedule((defaultSchedule?.thursday as DaySchedule[])) ?? [],
+    ((defaultSchedule?.thursday as DaySchedule[])) ?? [],
   );
   const [friday, setFriday] = useState<DaySchedule[]>(
-    adaptSchedule((defaultSchedule?.friday as DaySchedule[]) ?? []),
+    ((defaultSchedule?.friday as DaySchedule[]) ?? []),
   );
   const [saturday, setSaturday] = useState<DaySchedule[]>(
-    adaptSchedule((defaultSchedule?.saturday as DaySchedule[]) ?? []),
+    ((defaultSchedule?.saturday as DaySchedule[]) ?? []),
   );
   const [sunday, setSunday] = useState<DaySchedule[]>(
-    adaptSchedule((defaultSchedule?.sunday as DaySchedule[]) ?? []),
+    ((defaultSchedule?.sunday as DaySchedule[]) ?? []),
   );
 
   const getChanges = () => {

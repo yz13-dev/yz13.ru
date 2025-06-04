@@ -2,7 +2,7 @@
 import AutoTextarea from "@/components/auto-textarea";
 import useTimeStore from "@/components/live/time.store";
 import { useTz } from "@/hooks/use-tz";
-import { tz } from "@date-fns/tz";
+import { tz, TZDate } from "@date-fns/tz";
 import { useDebounceEffect } from "ahooks";
 import { format, formatISO, isPast, isToday, parse } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -42,7 +42,7 @@ export default function form({
   const [time] = useQueryState("time");
   const timezone = useTz();
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
-    in: tz(timezone),
+    in: tz("UTC"),
   });
   const durations = Object.keys(availability?.availability ?? {});
   const [duration, setDuration] = useState<string | null>(durations[0] ?? null);
@@ -72,7 +72,7 @@ export default function form({
     setLoading(true);
     try {
       const organizer = uid;
-      const date_start = parsedDate;
+      const date_start = new TZDate(parsedDate, timezone);
       const appointmentTime = parse(time, "HH:mm", new Date());
       date_start.setHours(appointmentTime.getHours());
       date_start.setMinutes(appointmentTime.getMinutes());
@@ -88,17 +88,17 @@ export default function form({
       }
 
       // Создаем конечную дату
-      const date_end = new Date(date_start);
+      const date_end = new TZDate(date_start, timezone);
       date_end.setMinutes(date_start.getMinutes() + durationMinutes);
 
       const userIdisOrganizer = user.id === organizer;
 
       const start = formatISO(date_start, {
-        in: tz(timezone),
+        in: tz("UTC"),
       })
 
       const end = formatISO(date_end, {
-        in: tz(timezone),
+        in: tz("UTC"),
       })
 
       const event: NewEvent = {

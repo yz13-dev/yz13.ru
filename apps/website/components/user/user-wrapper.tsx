@@ -1,6 +1,6 @@
 "use client";
 import { ReactElement, useEffect, useState } from "react";
-import { makeUserObj } from "rest-api/lib/make-user-obj";
+import { getAuthorizedUser } from "rest-api/auth";
 import { UserObject } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 import SignInButton from "./sign-in-button";
@@ -20,12 +20,17 @@ type WrapperProps = {
 const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
   const [user, setUser] = useState<UserObject | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const refreshUser = async () => {
+    const { data: user } = await getAuthorizedUser()
+    if (user) setUser(user);
+  }
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
-        const user = makeUserObj(session.user);
-        setUser(user);
+        refreshUser()
+        // const user = makeUserObj(session.user);
+        // setUser(user);
       } else {
         setUser(null);
       }
@@ -35,7 +40,7 @@ const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
   if (loading) return <div className="rounded-full bg-neutral-200 size-9" />;
   if (!authorized && !unauthorized) return;
   if (user && authorized) return authorized(user);
-  else return unauthorized;
+  return unauthorized;
 };
 
 export default UserWrapper;
