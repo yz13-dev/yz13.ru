@@ -4,11 +4,11 @@ import useTimeStore, { getTime } from "@/components/live/time.store";
 import MicroButton from "@/components/micro-button";
 import StatusBadge from "@/components/status-badge";
 import StatusButton from "@/components/status-button";
-import { format, type Interval, isWithinInterval, parseISO } from "date-fns";
+import { format, type Interval, isPast, isWithinInterval, parseISO } from "date-fns";
 import { ArrowRightIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getUserEvents } from "rest-api/calendar";
 import type { Event } from "rest-api/types/calendar";
 import { cn } from "yz13/cn";
@@ -31,6 +31,11 @@ const getLiveEvents = (events: Event[]) => {
 const getPendingEvents = (events: Event[]) => {
   const liveEvents = getLiveEvents(events)
   if (liveEvents.length !== 0) return events
+    .filter(event => {
+      const endAt = parseISO(event.date_end)
+      return !isPast(endAt)
+    })
+    .filter(event => event.status === "CONFIRMED")
     .filter(
       (event) => !!liveEvents.find((e) => e.id !== event.id),
     )
@@ -41,6 +46,13 @@ const getCanceledOrTentativeEvents = (events: Event[]) => {
   return events.filter((event) => event.status === "CANCELLED" || event.status === "TENTATIVE")
 }
 
+const getPastEvents = (events: Event[]) => {
+  return events.filter(event => {
+    const endAt = parseISO(event.date_end)
+    return isPast(endAt)
+  })
+}
+
 type Props = {
   defaultEvents?: Event[]
   uid?: string;
@@ -49,14 +61,16 @@ type Props = {
 export default function LiveEvents({ defaultEvents = [], uid, date }: Props) {
   const [allEvents, setAllEvents] = useState<Event[]>(defaultEvents);
 
-
-  const liveEvents: Event[] = getLiveEvents(allEvents)
-
-  const pendingEvents: Event[] = getPendingEvents(allEvents);
-
-  const canceledOrTentativeEvents: Event[] = getCanceledOrTentativeEvents(allEvents);
-
   const time = useTimeStore(state => state.time)
+
+  const liveEvents: Event[] = useMemo(() => getLiveEvents(allEvents), [allEvents, time])
+
+  const pendingEvents: Event[] = useMemo(() => getPendingEvents(allEvents), [allEvents, time]);
+
+  const canceledOrTentativeEvents: Event[] = useMemo(() => getCanceledOrTentativeEvents(allEvents), [allEvents, time]);
+
+  const pastEvents: Event[] = useMemo(() => getPastEvents(allEvents), [allEvents, time]);
+
 
   const refreshEvents = async () => {
     if (!date) return;
@@ -65,10 +79,11 @@ export default function LiveEvents({ defaultEvents = [], uid, date }: Props) {
     if (data) setAllEvents(data)
   }
 
+
   useEffect(() => {
     const client = createClient()
     const channelId = `calendar:events:${uid}`
-    console.log(channelId)
+    // console.log(channelId)
     const channel = client.channel(channelId)
 
     channel
@@ -123,11 +138,18 @@ export default function LiveEvents({ defaultEvents = [], uid, date }: Props) {
         events={canceledOrTentativeEvents}
         uid={uid}
       />
+      <EventsGroup
+        hideEmpty
+        label="Прошедшие"
+        events={pastEvents}
+        uid={uid}
+        disabled
+      />
     </>
   )
 }
 
-const EventCard = ({ event, userId }: { event: Event, userId?: string }) => {
+const EventCard = ({ event, userId, disabled = false }: { event: Event, userId?: string, disabled?: boolean }) => {
   const eventId = event.id;
   const status = event.status ?? "TENTATIVE";
   const startAt = parseISO(event.date_start)
@@ -148,6 +170,7 @@ const EventCard = ({ event, userId }: { event: Event, userId?: string }) => {
 
   const isGuest = userId !== undefined && userId !== event.organizer_id && guests.includes(userId);
 
+  const isDisabledOrCanceled = disabled || isCanceled
   return (
     <div
       key={event.id}
@@ -160,14 +183,14 @@ const EventCard = ({ event, userId }: { event: Event, userId?: string }) => {
         </div>
         <div className="flex items-center gap-2">
           {
-            isCanceled
+            isDisabledOrCanceled
               ?
-              <MicroButton size="sm" variant="secondary" disabled={isCanceled} asChild>
+              <MicroButton size="sm" variant="secondary" disabled={disabled ?? isCanceled}>
                 Открыть
                 <ArrowRightIcon />
               </MicroButton>
               :
-              <MicroButton size="sm" variant="secondary" disabled={isCanceled} asChild>
+              <MicroButton size="sm" variant="secondary" disabled={disabled ?? isCanceled} asChild>
                 <Link href={callPage}>
                   Открыть
                   <ArrowRightIcon />
@@ -199,15 +222,15 @@ const EventCard = ({ event, userId }: { event: Event, userId?: string }) => {
         <div className="flex items-center gap-2">
           {
             isTentative && !isGuest &&
-            <StatusButton callId={eventId} status={"CONFIRMED"} withLabel={false} />
+            <StatusButton disabled={disabled} callId={eventId} status={"CONFIRMED"} withLabel={false} />
           }
           {
             isCanceled
               ? <span className="text-sm text-muted-foregroundextmu">Событие отменено</span>
               :
               isGuest && status === "TENTATIVE"
-                ? <StatusButton callId={eventId} status={"CONFIRMED"} />
-                : <StatusButton callId={eventId} status={status} />
+                ? <StatusButton disabled={disabled} callId={eventId} status={"CONFIRMED"} />
+                : <StatusButton disabled={disabled} callId={eventId} status={status} />
           }
         </div>
       </div>
@@ -220,8 +243,9 @@ type EventsGroupProps = {
   label?: string
   hideEmpty?: boolean
   uid?: string;
+  disabled?: boolean;
 }
-const EventsGroup = ({ label = "Без названия", events = [], hideEmpty = false, uid }: EventsGroupProps) => {
+const EventsGroup = ({ label = "Без названия", events = [], hideEmpty = false, uid, disabled = false }: EventsGroupProps) => {
   if (hideEmpty && !events.length) return null;
   return (
     <div className="w-full space-y-3">
@@ -230,7 +254,7 @@ const EventsGroup = ({ label = "Без названия", events = [], hideEmpty
         events
           .sort((a, b) => a.date_start.localeCompare(b.date_start))
           .map((event) => {
-            return <EventCard key={event.id} userId={uid} event={event} />
+            return <EventCard key={event.id} userId={uid} event={event} disabled={disabled} />
           })}
     </div>
   );

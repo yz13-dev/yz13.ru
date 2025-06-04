@@ -5,7 +5,7 @@ import { toast } from "mono/components/sonner"
 import { useState } from "react"
 import { updateEvent } from "rest-api/calendar"
 
-export default function StatusButton({ callId, status, withLabel = true }: { withLabel?: boolean, callId: string, status: string }) {
+export default function StatusButton({ callId, status, withLabel = true, disabled }: { disabled?: boolean, withLabel?: boolean, callId: string, status: string }) {
   const [loading, setLoading] = useState<boolean>(false)
 
   const updateStatus = async (status: string) => {
@@ -30,7 +30,7 @@ export default function StatusButton({ callId, status, withLabel = true }: { wit
     return (
       <Button
         variant={loading ? "secondary" : "default"}
-        disabled={loading}
+        disabled={disabled ?? loading}
         onClick={() => updateStatus("CONFIRMED")}
       >
         {
@@ -46,7 +46,7 @@ export default function StatusButton({ callId, status, withLabel = true }: { wit
   return (
     <Button
       variant={loading ? "secondary" : "destructive"}
-      disabled={loading}
+      disabled={disabled ?? loading}
       onClick={() => updateStatus("CANCELLED")}
     >
       {
