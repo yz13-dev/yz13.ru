@@ -142,16 +142,17 @@ schedule.get("/:uid/available", async (c) => {
       busyTimes,
     );
 
-    console.log("SCHEDULE", weekdaySchedule)
-    console.log("BUSY TIMES", busyTimes)
+    // console.log("SCHEDULE", weekdaySchedule)
+    // console.log("BUSY TIMES", busyTimes)
+    // console.log("AVAILABLE", obj)
 
-    console.log("AVAILABILITY",
-      {
-        availability: obj,
-        date: format(parsedDate, "yyyy-MM-dd"),
-        appointments,
-      }
-    )
+    // console.log("AVAILABILITY",
+    //   {
+    //     availability: obj,
+    //     date: format(parsedDate, "yyyy-MM-dd"),
+    //     appointments,
+    //   }
+    // )
 
     return c.json({
       availability: obj,

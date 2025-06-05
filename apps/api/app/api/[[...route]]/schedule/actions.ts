@@ -54,48 +54,59 @@ export const createObjFromDurations = (
       return interval(start, end);
     })
 
+
     const intervals = schedule.flatMap((item) => {
-      const start = parse(item.start.time, "HH:mm", new Date(), {
-        in: tz("UTC"),
-      });
-      const end = parse(item.end.time, "HH:mm", new Date(), {
-        in: tz("UTC"),
-      });
+      const start = parse(item.start.time, "HH:mm", new Date(), { in: tz("UTC") });
+      const end = parse(item.end.time, "HH:mm", new Date(), { in: tz("UTC") });
       if (!item.enabled) return [];
       const durationInMunutes = parsed.getHours() * 60 + parsed.getMinutes();
       return generateIntervalInRange(start, end, durationInMunutes, busyIntervals);
     })
-      .map(item => format(item.start, "HH:mm", {
-        in: tz("UTC"),
-      }));
 
-    obj[formatted] = intervals;
+    const filterOverlappingIntervals = intervals.filter(interval => {
+      const intStartFormatted = format(interval.start, "HH:mm", { in: tz("UTC") });
+      const intEndFormatted = format(interval.end, "HH:mm", { in: tz("UTC") });
+      return busyIntervals.some(busy => {
+        const busyStartFormatted = format(busy.start, "HH:mm", { in: tz("UTC") });
+        const busyEndFormatted = format(busy.end, "HH:mm", { in: tz("UTC") });
+        console.log("OVERLAP CHECK")
+        console.log("INTERVAL", intStartFormatted, intEndFormatted)
+        console.log("BUSY", busyStartFormatted, busyEndFormatted)
+        console.log("ARE OVERLAPPING", areIntervalsOverlapping(interval, busy))
+        return !areIntervalsOverlapping(interval, busy)
+      })
+    })
+
+    const result = filterOverlappingIntervals.map(interval => format(interval.start, "HH:mm"))
+
+    obj[formatted] = result;
   }
   return obj;
 };
 
 export const getIntervalFromTimeAndDuration = (time: string, duration: string) => {
-  const parsedDuration = parse(duration, "HH:mm", new Date());
+  const parsedDuration = parse(duration, "HH:mm", new Date(), {
+    in: tz("UTC"),
+  });
   const parsedTime = parse(time, "HH:mm", new Date());
+  const start = parsedTime;
+  const durationInMinutes = parsedDuration.getHours() * 60 + parsedDuration.getMinutes();
   const end = addMinutes(
     parsedTime,
-    parsedDuration.getMinutes(),
+    durationInMinutes,
   );
-  return interval(parsedTime, end);
+  // console.log("START", time, start, end)
+  return interval(start, end);
 };
 
 export const getTimeAndDurationFromAppointments = (appointments: Event[],) => {
   const data: { time: string; duration: string }[] = [];
   for (const appointment of appointments) {
-    const start = parseISO(appointment.date_start, {
-      in: tz("UTC"),
-    });
+    const start = parseISO(appointment.date_start);
     if (!appointment.duration) return [];
     const duration = parse(appointment.duration, "HH:mm:ss", new Date());
     data.push({
-      time: format(start, "HH:mm", {
-        in: tz("UTC"),
-      }),
+      time: format(start, "HH:mm"),
       duration: format(duration, "HH:mm"),
     });
   }

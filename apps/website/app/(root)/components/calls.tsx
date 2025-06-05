@@ -1,6 +1,6 @@
 "use client"
 
-import { format, parseISO } from "date-fns";
+import { format, isToday, parseISO } from "date-fns";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Event } from "rest-api/types/calendar";
@@ -35,7 +35,11 @@ export default function ({ userId, calls: defaultCalls = [] }: { userId: string,
           const isUpdate = payload.eventType === "UPDATE"
           // console.log(body)
           if (isInsert) {
-            setCalls(prev => [...prev, body])
+            const startAt = parseISO(body.date_start)
+            const isItToday = isToday(startAt)
+            if (isItToday) {
+              setCalls(prev => [...prev, body])
+            }
           }
           if (isUpdate) {
             setCalls(prev => prev.map(item => {
