@@ -1,4 +1,5 @@
-import { addDays, format, parseISO } from "date-fns";
+import { expire, redis } from "@/extensions/redis";
+import { addDays, format, parse, parseISO } from "date-fns";
 import { cookies } from "next/headers";
 import type { Event } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
@@ -69,6 +70,14 @@ export const getLastEventsForDate = async (
 ) => {
   const { date = format(new Date(), "yyyy-MM-dd"), type } =
     filters || {};
+
+  const startAt = parse(date, "yyyy-MM-dd", new Date());
+
+  const key = `events:${uid}:${format(startAt, "yyyy-MM-dd")}${type ? `:${type}` : ""}`;
+
+  const cached = await redis.get<Event[]>(key);
+  if (cached) return cached;
+
   const isoDate = parseISO(date);
   const nextDay = addDays(isoDate, 1);
   const isoNextDay = format(nextDay, "yyyy-MM-dd HH:mm");
@@ -98,7 +107,9 @@ export const getLastEventsForDate = async (
   if (error) {
     console.log(error);
     return [];
-  } return data;
+  }
+  if (data) await redis.set(key, data, { ex: expire.hour });
+  return data;
 };
 
 export const getLastEventsForPeriod = async (

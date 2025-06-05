@@ -1,4 +1,5 @@
-import { formatISO, isValid, parse } from "date-fns";
+import { redis } from "@/extensions/redis";
+import { format, formatISO, isValid, parse, parseISO } from "date-fns";
 import { Hono } from "hono";
 import { cookies } from "next/headers";
 import type { Event } from "rest-api/types/calendar";
@@ -84,7 +85,23 @@ calendar.patch("/event/:id", async (c) => {
     if (error) {
       console.log(error);
       return c.json(null, 400);
-    } return c.json(data);
+    }
+
+    if (data) {
+      const organizer_id = data.organizer_id;
+      const startAt = parseISO(data.date_start);
+      const startAtFormatted = format(startAt, "yyyy-MM-dd");
+      const key = `events:${organizer_id}:${startAtFormatted}`;
+      const eventKey = `${key}:event`
+      const appointmentKey = `${key}:appointment`
+      const availabilityKey = `${key}:availability:${startAtFormatted}`
+      redis.del(key);
+      redis.del(eventKey);
+      redis.del(appointmentKey);
+      redis.del(availabilityKey);
+    }
+
+    return c.json(data);
   } catch (error) {
     return c.json(null, 400);
   }
@@ -104,7 +121,23 @@ calendar.post("/", async (c) => {
     if (error) {
       console.log(error);
       return c.json(null, 400);
-    } return c.json(data);
+    }
+
+    if (data) {
+      const organizer_id = data.organizer_id;
+      const startAt = parseISO(data.date_start);
+      const startAtFormatted = format(startAt, "yyyy-MM-dd");
+      const key = `events:${organizer_id}:${startAtFormatted}`;
+      const eventKey = `${key}:event`
+      const appointmentKey = `${key}:appointment`
+      const availabilityKey = `${key}:availability:${startAtFormatted}`
+      redis.del(key);
+      redis.del(eventKey);
+      redis.del(appointmentKey);
+      redis.del(availabilityKey);
+    }
+
+    return c.json(data);
   } catch (error) {
     return c.json(null, 400);
   }

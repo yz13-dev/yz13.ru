@@ -2,7 +2,7 @@ import { expire, redis } from "@/extensions/redis";
 import { format, isValid, parse } from "date-fns";
 import { Hono, type HonoRequest } from "hono";
 import { cookies } from "next/headers";
-import type { DaySchedule, Event } from "rest-api/types/calendar";
+import type { DaySchedule, Event, ScheduleAvailability, WeekSchedule } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
 import { getLastEventsForDate } from "../calendar/actions";
 import { getUser } from "../user";
@@ -10,7 +10,10 @@ import { createObjFromDurations, getTimeAndDurationFromAppointments } from "./ac
 
 export const schedule = new Hono();
 
-const getSchedule = async (uid: string) => {
+const getSchedule = async (uid: string): Promise<WeekSchedule | null> => {
+  const key = `schedule:${uid}`;
+  const cached = await redis.get<WeekSchedule>(key);
+  if (cached) return cached;
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const { data, error } = await supabase
@@ -21,7 +24,9 @@ const getSchedule = async (uid: string) => {
   if (error) {
     console.log(error);
     return null;
-  } return data;
+  }
+  if (data) await redis.set(key, data, { ex: expire.day });
+  return data as WeekSchedule | null;
 };
 
 schedule.get("/:uid", async (c) => {
@@ -31,7 +36,6 @@ schedule.get("/:uid", async (c) => {
     const cached = await redis.get<Event[]>(key);
     if (cached) return c.json(cached);
     const schedule = await getSchedule(uid);
-    if (schedule) await redis.set(key, schedule, { ex: expire.day });
     return c.json(schedule);
   } catch (error) {
     console.log(error);
@@ -120,18 +124,27 @@ schedule.get("/:uid/available", async (c) => {
   const date = c.req.query("date");
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
+
+  const key = `availability:${uid}:${date}`;
+
   try {
     if (!isValid(parsedDate)) throw new Error("Provided date is invalid");
+
+    const cached = await redis.get<ScheduleAvailability>(key);
+    if (cached) return c.json(cached);
+
     const allAppointments = await getLastEventsForDate(uid, {
       date: format(parsedDate, "yyyy-MM-dd"),
       type: "appointment",
     });
+
     const appointments: Event[] = allAppointments.filter((appointment) => {
 
       return ["CONFIRMED", "TENTATIVE"].includes(appointment.status ?? "TENTATIVE")
     });
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
+
     if (!schedule) return c.json(null);
     const weekdaySchedule = (schedule[weekday as keyof typeof schedule] as DaySchedule[]);
     const busyTimes = getTimeAndDurationFromAppointments(appointments ?? []);
@@ -142,17 +155,15 @@ schedule.get("/:uid/available", async (c) => {
       busyTimes,
     );
 
-    // console.log("SCHEDULE", weekdaySchedule)
-    // console.log("BUSY TIMES", busyTimes)
-    // console.log("AVAILABLE", obj)
+    if (Object.keys(obj).length !== 0) {
 
-    // console.log("AVAILABILITY",
-    //   {
-    //     availability: obj,
-    //     date: format(parsedDate, "yyyy-MM-dd"),
-    //     appointments,
-    //   }
-    // )
+      await redis.set(key, {
+        availability: obj,
+        date: format(parsedDate, "yyyy-MM-dd"),
+        appointments,
+      }, { ex: expire.day });
+
+    }
 
     return c.json({
       availability: obj,

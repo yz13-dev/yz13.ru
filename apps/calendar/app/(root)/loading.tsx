@@ -30,7 +30,7 @@ export default function oading() {
         </div>
         <div className="space-y-6 md:w-1/3 w-full">
           <div className="flex flex-col gap-2">
-            <span className="font-medium block">Ссылка на бронирование</span>
+            <span className="font-medium block">Бронирование</span>
             <Skeleton className="h-9 w-1/3" />
           </div>
           <SectionSkeleton />

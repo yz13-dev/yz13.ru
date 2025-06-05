@@ -14,9 +14,9 @@ export default function Header({ user }: { user: UserObject }) {
   const parsedDate = parse(targetDate, "yyyy-MM-dd", new Date());
   const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return (
-    <div className="w-full gap-5 flex flex-col p-6">
+    <div className="md:w-1/3 w-full gap-5 flex flex-col p-6">
       <ClientUserBadge userId={user.id} showName />
-      <ul className="gap-3 grid md:grid-cols-4 grid-cols-2">
+      <ul className="gap-3 grid md:grid-cols-1 grid-cols-2">
         <li className="flex items-center gap-2">
           <Badge
             variant="secondary"
