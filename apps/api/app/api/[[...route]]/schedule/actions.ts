@@ -63,6 +63,14 @@ export const createObjFromDurations = (
       return generateIntervalInRange(start, end, durationInMunutes, busyIntervals);
     })
 
+    if (busyIntervals.length === 0) {
+
+      const result = intervals.map(interval => format(interval.start, "HH:mm"))
+      obj[formatted] = result;
+
+      continue;
+    }
+
     const filterOverlappingIntervals = intervals.filter(interval => {
       const intStartFormatted = format(interval.start, "HH:mm", { in: tz("UTC") });
       const intEndFormatted = format(interval.end, "HH:mm", { in: tz("UTC") });
