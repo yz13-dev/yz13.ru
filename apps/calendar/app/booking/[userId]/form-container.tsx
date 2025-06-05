@@ -22,8 +22,8 @@ export default function FormContainer({ children, className }: { className?: str
         ease: "circInOut",
       }}
       className={cn(
-        "max-w-2xl flex flex-col w-full mx-auto",
-        "rounded-3xl border bg-card divide-y mt-12",
+        "md:max-w-4xl max-w-2xl flex md:flex-row flex-col w-full mx-auto",
+        "rounded-3xl border bg-card md:divide-y-0 divide-y md:divide-x divide-x-0 mt-12 overflow-hidden",
         className
       )}
     >

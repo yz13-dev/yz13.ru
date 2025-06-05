@@ -1,8 +1,9 @@
 import { auth } from "@/lib/auth";
+import { format } from "date-fns";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getUserAvailability } from "rest-api/calendar/schedule";
 import { getUserById } from "rest-api/user";
 import Form from "./form";
@@ -28,6 +29,13 @@ export default async function page({ params, searchParams }: PageProps) {
   const currentUser = await auth();
   const date = search.date;
   const { data: availability } = await getUserAvailability(userId, date);
+  if (!date) {
+    const newSearchParams = new URLSearchParams();
+    if (continueLink) newSearchParams.set("continue", continueLink);
+    const defaultDate = format(new Date(), "yyyy-MM-dd");
+    newSearchParams.set("date", defaultDate);
+    return redirect(`?${newSearchParams.toString()}`);
+  }
   return (
     <UserProvider user={currentUser ?? null}>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">
