@@ -1,3 +1,4 @@
+import { auth } from "@/lib/auth";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import Link from "next/link";
@@ -24,10 +25,11 @@ export default async function page({ params, searchParams }: PageProps) {
   const search = await searchParams;
   const { data: user } = await getUserById(userId);
   if (!user) return notFound();
+  const currentUser = await auth();
   const date = search.date;
   const { data: availability } = await getUserAvailability(userId, date);
   return (
-    <UserProvider>
+    <UserProvider user={currentUser ?? null}>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">
         <Button variant="outline" asChild>
           <Link href={continueLink ?? "/"}>

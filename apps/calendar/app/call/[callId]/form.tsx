@@ -26,7 +26,7 @@ type Props = {
 export default function ({ call: defaultCall, callId, userId, continueLink }: Props) {
   const [call, setCall] = useState<Event>(defaultCall);
   const organizer = call.organizer_id;
-  const guests = call.guests ?? [];
+  const guests = (call.guests ?? []).filter(id => id !== organizer);
 
   const timezone = useTz();
 

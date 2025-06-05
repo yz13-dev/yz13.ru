@@ -25,18 +25,21 @@ const useUserStore = create<State & Actions>()((set) => ({
   setUser: (user) => set({ user }),
 }));
 
-const UserProvider = ({ children }: { children: React.ReactNode }) => {
+const UserProvider = ({ children, user: defaultUser }: { children: React.ReactNode, user?: UserObject | null }) => {
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
   useEffect(() => {
-    if (user) return;
-    getAuthorizedUser().then((user) => {
-      const { data } = user;
-      if (data) {
-        setUser(data);
-      }
-    });
-  }, []);
+    if (defaultUser) setUser(defaultUser);
+    else {
+      if (user) return;
+      getAuthorizedUser().then((user) => {
+        const { data } = user;
+        if (data) {
+          setUser(data);
+        }
+      });
+    }
+  }, [defaultUser]);
   return children;
 };
 

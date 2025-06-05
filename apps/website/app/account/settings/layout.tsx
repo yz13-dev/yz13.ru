@@ -1,5 +1,3 @@
-import Dock from "@/components/dock/dock";
-import PageDockFiller from "@/components/page-dock-filler";
 import { Separator } from "mono/components/separator";
 import Sidebar from "./sidebar";
 
@@ -15,9 +13,9 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
           <Sidebar className="md:flex hidden" />
           <div className="w-full flex flex-col gap-6">{children}</div>
         </div>
-        <PageDockFiller />
+        {/* <PageDockFiller /> */}
       </div>
-      <Dock />
+      {/* <Dock /> */}
     </>
   );
 };
