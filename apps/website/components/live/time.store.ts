@@ -1,30 +1,22 @@
-import dayjs, { Dayjs } from "dayjs";
-import "dayjs/locale/en";
-import "dayjs/locale/ru";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
 import { create } from "zustand";
-
-dayjs.extend(timezone);
-dayjs.extend(utc);
 
 export const TZ = "Asia/Yekaterinburg";
 type Action = {
-  setTime: (date: Dayjs) => void;
+  setTime: (date: Date) => void;
 };
 
 type State = {
-  time: Dayjs;
+  time: Date;
 };
 
-export const getNewTime = () => dayjs().tz(TZ).locale("ru");
+export const getNewTime = () => new Date();
 
 const useTimeStore = create<State & Action>((set) => ({
   time: getNewTime(),
-  setTime: (date: Dayjs) => set({ time: date }),
+  setTime: (date: Date) => set({ time: date }),
 }));
 
 export const getTime = () => useTimeStore.getState().time;
-export const setTime = (date: Dayjs) => useTimeStore.setState({ time: date });
+export const setTime = (date: Date) => useTimeStore.setState({ time: date });
 
 export default useTimeStore;

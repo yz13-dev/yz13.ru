@@ -30,7 +30,7 @@ export default function form({
   className?: string;
   availability?: ScheduleAvailability;
 }) {
-  const currentTime = useTimeStore((state) => state.time);
+  // const currentTime = useTimeStore((state) => state.time);
   const searchParams = useSearchParams();
   const [continueLink] = useQueryState("continue");
   const user = useUserStore((state) => state.user);
