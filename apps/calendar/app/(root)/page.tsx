@@ -2,9 +2,11 @@ import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
+import { getBookingLink } from "@/lib/booking-link";
 import { showEventForm } from "@yz13/flags";
-import { PlusIcon } from "lucide-react";
+import { ArrowRightIcon, PlusIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import Link from "next/link";
 import { Suspense } from "react";
 import Landing from "../(landing)/landing";
 import DatePicker from "./date-picker";
@@ -55,8 +57,19 @@ export default async function page({ searchParams }: PageProps) {
         </div>
         <div className="space-y-6 md:w-1/3 shrink-0 w-full">
           <div className="flex flex-col gap-2">
-            <span className="font-medium block">Ссылка на бронирование</span>
-            <LinkButton uid={user?.id} className="w-fit" />
+            <span className="font-medium block">Бронирование</span>
+            <div className="flex items-center gap-2">
+              <LinkButton uid={user?.id} className="w-fit" />
+              {
+                user?.id &&
+                <Button variant="ghost" size="sm" asChild>
+                  <Link href={getBookingLink(user.id)}>
+                    Перейти
+                    <ArrowRightIcon className="size-[14px]" />
+                  </Link>
+                </Button>
+              }
+            </div>
           </div>
           <ScheduleSection uid={user?.id ?? null} />
           {

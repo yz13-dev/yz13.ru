@@ -24,11 +24,9 @@ export default async function page({ params, searchParams }: PageProps) {
   const { userId } = await params;
   const { continue: continueLink } = await searchParams;
   const search = await searchParams;
-  const { data: user } = await getUserById(userId);
-  if (!user) return notFound();
-  const currentUser = await auth();
+
   const date = search.date;
-  const { data: availability } = await getUserAvailability(userId, date);
+
   if (!date) {
     const newSearchParams = new URLSearchParams();
     if (continueLink) newSearchParams.set("continue", continueLink);
@@ -36,6 +34,14 @@ export default async function page({ params, searchParams }: PageProps) {
     newSearchParams.set("date", defaultDate);
     return redirect(`?${newSearchParams.toString()}`);
   }
+
+  const { data: user } = await getUserById(userId);
+
+  if (!user) return notFound();
+
+  const currentUser = await auth();
+  const { data: availability } = await getUserAvailability(userId, date);
+
   return (
     <UserProvider user={currentUser ?? null}>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">

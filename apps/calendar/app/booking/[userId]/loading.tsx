@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, Loader2Icon } from "lucide-react";
 import { Button } from "mono/components/button";
 
 
@@ -18,6 +18,9 @@ export default function () {
             проекте.
           </p>
         </div>
+      </div>
+      <div className="md:max-w-4xl max-w-2xl mx-auto mt-12 h-[30dvh] flex items-center justify-center">
+        <Loader2Icon size={24} className="animate-spin text-muted-foreground" />
       </div>
     </>
   )

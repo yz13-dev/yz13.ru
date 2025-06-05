@@ -1,6 +1,8 @@
 "use client";
 import { getCallToAction } from "@/actions/call-to-action";
 import { toggleMenu } from "@/components/dock/menus/menu.store";
+import useTimeStore from "@/components/live/time.store";
+import { format } from "date-fns";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { Skeleton } from "mono/components/skeleton";
@@ -31,8 +33,10 @@ const CallToAction = ({ hideSearch = false, available = false }: Props) => {
   const [href, setHref] = useState<string | null>(null);
   const [disabled, setDisabled] = useState<boolean>(!available);
   const uuid = "4fd162a9-6da5-48cf-8f51-dc1c453ce1e4"
+  const time = useTimeStore(state => state.time);
+  const date = format(time, "yyyy-MM-dd");
   const CALL_TO_ACTION_LINK =
-    `https://calendar.yz13.ru/booking/${uuid}?continue=https://yz13.ru`;
+    `https://calendar.yz13.ru/booking/${uuid}?continue=https://yz13.ru&date=${date}`;
   useHotkeys(
     "ctrl+k, command+k",
     () => {
