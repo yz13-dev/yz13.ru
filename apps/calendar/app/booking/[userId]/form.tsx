@@ -144,7 +144,7 @@ export default function form({
       } else setInitialLoading(false);
     },
     [user, searchParams],
-    { wait: 3000 },
+    { wait: 1500 },
   );
   useEffect(() => {
     if (!date) {
@@ -168,7 +168,7 @@ export default function form({
     <>
       {
         initialLoading &&
-        <div className="w-full h-full flex justify-center gap-2 items-center absolute top-0 left-0 z-50 backdrop-blur-md bg-background/40">
+        <div className="w-full h-dvh flex justify-center gap-2 items-center absolute top-0 left-0 z-50 backdrop-blur-md bg-background/40">
           <Loader2Icon className="animate-spin text-muted-foreground" />
           <span className="text-sm text-muted-foreground">Загрузка...</span>
         </div>
