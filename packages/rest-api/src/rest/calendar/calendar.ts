@@ -32,7 +32,7 @@ export const getUserEvents = async (
     })
     .join("&");
 
-  const url = searchParams
+  const url = keys.length !== 0
     ? `/calendar/user/${uid}?${searchParams}`
     : `/calendar/user/${uid}`;
   return await customFetch<Event[]>(url);

@@ -1,5 +1,5 @@
 import { redis } from "@/extensions/redis";
-import { format, formatISO, isValid, parse, parseISO } from "date-fns";
+import { format, isValid, parse, parseISO } from "date-fns";
 import { Hono } from "hono";
 import { cookies } from "next/headers";
 import type { Event } from "rest-api/types/calendar";
@@ -18,15 +18,16 @@ calendar.get("/user/:uid", async (c) => {
   const limit = c.req.query("limit") ?? "10";
   const type = (c.req.query("type")) as (Event["type"] | undefined);
   const parsedLimit = Number.parseInt(limit);
-  if (!uid) return c.json({ error: "uid is required" }, 400);
+  if (!uid) return c.json([], 400);
   try {
     if (date_start && date_end) {
+      console.log("DATE RANGE", date_start, date_end);
       const parsedStartDate = parse(date_start, "yyyy-MM-dd", new Date());
       const parsedEndDate = parse(date_end, "yyyy-MM-dd", new Date());
       const isValidStartDate = isValid(parsedStartDate);
       const isValidEndDate = isValid(parsedEndDate);
       if (!isValidStartDate || !isValidEndDate) {
-        return c.json({ error: "Invalid date" }, 400);
+        return c.json([], 400);
       }
       // events that have place in this date
       const data = await getUserEvents(uid, {
@@ -37,7 +38,8 @@ calendar.get("/user/:uid", async (c) => {
       return c.json(data);
     }
     if (isValidDate) {
-      const isoDate = formatISO(parsedDate);
+      console.log("DATE", format(parsedDate, "yyyy-MM-dd"));
+      const isoDate = format(parsedDate, "yyyy-MM-dd");
       // events that have place in this date
       const data = await getLastEventsForDate(uid, {
         type,
@@ -45,14 +47,14 @@ calendar.get("/user/:uid", async (c) => {
       });
       return c.json(data);
     }
-    {
-      const data = await getLastEvents(uid, {
-        type,
-        limit: parsedLimit,
-      });
-      return c.json(data);
-    }
+    const data = await getLastEvents(uid, {
+      type,
+      limit: parsedLimit,
+    });
+
+    return c.json(data);
   } catch (error) {
+    console.log(error);
     return c.json([], 400);
   }
 });
