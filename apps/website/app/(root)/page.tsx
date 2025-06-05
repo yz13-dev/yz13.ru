@@ -9,14 +9,13 @@ import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 import Background from "./components/background";
-import CallToAction, {
-  CallToActionSkeleton,
-} from "./components/call-to-action";
+import CallToAction from "./components/call-to-action";
 import GitHubActivityMap from "./components/github-activity-map";
 import OtherProjects, {
   OtherProjectsSkeleton,
 } from "./components/other-projects";
 import ServicesDetails from "./components/services-details";
+import TodayCalls from "./components/today-calls";
 
 export default async function page() {
   const isAvailable = await availableForWork();
@@ -53,16 +52,19 @@ export default async function page() {
               </p>
             </main>
           </div>
-          <div className="flex items-center mt-6 gap-2">
-            <Suspense fallback={<CallToActionSkeleton />}>
-              <CallToAction available={isAvailable} />
-            </Suspense>
-            <Button variant="ghost" asChild>
-              <Link href={chat_url}>
-                <SendIcon size={16} />
-                Чат
-              </Link>
-            </Button>
+          <div className="mt-6">
+            <div className="flex flex-col gap-3">
+              <TodayCalls />
+              <div className="flex items-center gap-4">
+                <CallToAction available={isAvailable} />
+                <Button variant="ghost" asChild>
+                  <Link href={chat_url}>
+                    <SendIcon size={16} />
+                    Чат
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
         <div className="lg:w-1/3 w-full h-full space-y-6">

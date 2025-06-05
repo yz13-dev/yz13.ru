@@ -28,8 +28,13 @@ export default function loading() {
               </p>
             </main>
           </div>
-          <div className="flex items-center mt-6 gap-2">
-            <CallToActionSkeleton />
+          <div className="mt-6">
+            <div className="flex flex-col gap-3">
+              <Skeleton className="w-48 h-7 rounded-full" />
+              <div className="flex items-center gap-4">
+                <CallToActionSkeleton />
+              </div>
+            </div>
           </div>
         </div>
         <div className="lg:w-1/3 w-full h-full space-y-6">

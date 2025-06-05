@@ -83,7 +83,7 @@ export default function LiveEvents({ defaultEvents = [], uid, date }: Props) {
   useEffect(() => {
     const client = createClient()
     const channelId = `calendar:events:${uid}`
-    // console.log(channelId)
+
     const channel = client.channel(channelId)
 
     channel
@@ -101,7 +101,7 @@ export default function LiveEvents({ defaultEvents = [], uid, date }: Props) {
           if (!isOrganizerOrGuest) return;
           const isInsert = payload.eventType === "INSERT"
           const isUpdate = payload.eventType === "UPDATE"
-          console.log(body)
+          // console.log(body)
           if (isInsert || isUpdate) {
             refreshEvents()
           }

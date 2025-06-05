@@ -95,7 +95,7 @@ export default function AvatarHandler() {
       </Label>
       <Input
         disabled={loading}
-        accept="image/*"
+        accept="image/png, image/jpeg"
         id="file-upload"
         name="file-upload"
         type="file"

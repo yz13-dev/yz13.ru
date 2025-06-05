@@ -83,7 +83,7 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
 
 export const AvailabilitySkeleton = () => {
   return (
-    <div className="w-fit flex items-center gap-2 px-3 py-1 rounded-full border">
+    <div className="w-fit h-[30px] flex items-center gap-2 px-3 py-1 rounded-full border">
       <div className="size-2 animate-pulse bg-secondary rounded-full" />
       <Skeleton className="w-32 h-4 rounded-full" />
     </div>
