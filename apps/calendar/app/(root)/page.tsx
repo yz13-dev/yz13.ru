@@ -1,11 +1,11 @@
 import Footer from "@/components/footer";
-import { Logo } from "@/components/logo";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
 import { getBookingLink } from "@/lib/booking-link";
 import { showEventForm } from "@yz13/flags";
-import { ArrowRightIcon, PlusIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { Button } from "mono/components/button";
+import { Calendar } from "mono/components/calendar";
 import Link from "next/link";
 import { Suspense } from "react";
 import Landing from "../(landing)/landing";
@@ -15,7 +15,6 @@ import LinkButton from "./meetings/link-button";
 import MeetingSection, {
   SectionSkeleton as MeetingSectionSkeleton,
 } from "./meetings/section";
-import NewEventForm from "./new-event";
 import ScheduleSection from "./schedule/section";
 
 type PageProps = {
@@ -31,10 +30,11 @@ export default async function page({ searchParams }: PageProps) {
   if (!user) return <Landing />
   return (
     <>
-      <header className="md:px-[2.5%] px-[5%] md:pt-[2.5%] pt-[5%] calendar-container w-full flex items-center justify-between">
+      {/* <header className="md:px-[2.5%] px-[5%] h-16 calendar-container w-full flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Logo size={{ width: 48, height: 48 }} type="only-icon" />
-          <DatePicker />
+        </div>
+        <div className="flex items-center gap-2">
         </div>
         <div className="flex items-center gap-2">
           {showForm && user && (
@@ -44,18 +44,42 @@ export default async function page({ searchParams }: PageProps) {
               </Button>
             </NewEventForm>
           )}
-          <Suspense fallback={<UserSkeleton />}>
-            <User />
-          </Suspense>
         </div>
-      </header>
+      </header> */}
       <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col gap-6  min-h-dvh">
-        <div className="flex flex-col gap-6 shrink-0 md:w-2/3 w-full">
+        <div className="space-y-6 md:w-1/4 shrink-0 w-full">
+          <div className="flex items-center justify-between">
+            <DatePicker />
+            <Suspense fallback={<UserSkeleton />}>
+              <User />
+            </Suspense>
+          </div>
+          <div className="rounded-lg bg-card">
+            <Calendar />
+          </div>
+          <div className="flex flex-col gap-2 rounded-lg p-2 bg-card">
+            <div className="flex items-center justify-between p-1 rounded-lg border">
+              <span className="text-base font-medium px-3">
+                Календари
+              </span>
+              <Button variant="ghost" size="sm" className="text-muted-foreground">
+                Скрыть все
+              </Button>
+            </div>
+            <ul className="w-full divide-y">
+              <li className="h-9"></li>
+              <li className="h-9"></li>
+              <li className="h-9"></li>
+              <li className="h-9"></li>
+            </ul>
+          </div>
+        </div>
+        <div className="flex flex-col gap-6 shrink-0 md:w-2/4 w-full">
           <Suspense fallback={<SectionSkeleton />}>
             <EventSection uid={user?.id ?? undefined} date={date} />
           </Suspense>
         </div>
-        <div className="space-y-6 md:w-1/3 shrink-0 w-full">
+        <div className="space-y-6 md:w-1/4 shrink-0 w-full">
           <div className="flex flex-col gap-2">
             <span className="font-medium block">Бронирование</span>
             <div className="flex items-center gap-2">

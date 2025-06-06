@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { getAuthorizedSession } from "rest-api/auth";
-import { Event } from "rest-api/types/calendar";
+import type { Event } from "rest-api/types/calendar";
 import { getUsersById } from "rest-api/user";
 import { createMeeting, getZoomMeetings } from "./actions";
 

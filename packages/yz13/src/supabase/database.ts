@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
+          is_default: boolean | null
           name: string | null
           timezone: string | null
           user_id: string
@@ -20,6 +21,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
+          is_default?: boolean | null
           name?: string | null
           timezone?: string | null
           user_id?: string
@@ -27,6 +29,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
+          is_default?: boolean | null
           name?: string | null
           timezone?: string | null
           user_id?: string
@@ -36,6 +39,7 @@ export type Database = {
       calendar_events: {
         Row: {
           all_day: boolean | null
+          calendar_id: string
           categories: string[] | null
           class: string | null
           conference_id: string | null
@@ -61,6 +65,7 @@ export type Database = {
         }
         Insert: {
           all_day?: boolean | null
+          calendar_id: string
           categories?: string[] | null
           class?: string | null
           conference_id?: string | null
@@ -86,6 +91,7 @@ export type Database = {
         }
         Update: {
           all_day?: boolean | null
+          calendar_id?: string
           categories?: string[] | null
           class?: string | null
           conference_id?: string | null
@@ -109,10 +115,19 @@ export type Database = {
           type?: Database["public"]["Enums"]["event-type"]
           url?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "calendar_events_calendar_id_fkey"
+            columns: ["calendar_id"]
+            isOneToOne: false
+            referencedRelation: "calendar"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       calendar_schedule: {
         Row: {
+          calendar_id: string
           durations: string[] | null
           friday: Json[] | null
           monday: Json[] | null
@@ -124,6 +139,7 @@ export type Database = {
           wednesday: Json[] | null
         }
         Insert: {
+          calendar_id: string
           durations?: string[] | null
           friday?: Json[] | null
           monday?: Json[] | null
@@ -135,6 +151,7 @@ export type Database = {
           wednesday?: Json[] | null
         }
         Update: {
+          calendar_id?: string
           durations?: string[] | null
           friday?: Json[] | null
           monday?: Json[] | null
@@ -145,7 +162,15 @@ export type Database = {
           uid?: string
           wednesday?: Json[] | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "calendar_schedule_calendar_id_fkey"
+            columns: ["calendar_id"]
+            isOneToOne: false
+            referencedRelation: "calendar"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       news: {
         Row: {
