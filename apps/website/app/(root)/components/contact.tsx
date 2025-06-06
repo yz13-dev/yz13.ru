@@ -80,7 +80,7 @@ export default async function () {
             const isLast = index === arr.length - 1;
             return (
               <span key={`schedule-${index}`} className="text-base">
-                {item.start.time}-{item.end.time}
+                {item.start}-{item.end}
                 {!isLast && ", "}
               </span>
             );
