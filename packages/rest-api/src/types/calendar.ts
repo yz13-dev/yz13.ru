@@ -11,14 +11,8 @@ export type EventDateTime = {
 };
 
 export type DaySchedule = {
-  start: {
-    time: string; // HH:MM
-    tz: string; // .../..
-  };
-  end: {
-    time: string; // HH:MM
-    tz: string; // .../..
-  };
+  start: string; // HH:MM
+  end: string; // HH:MM
   enabled: boolean;
 };
 

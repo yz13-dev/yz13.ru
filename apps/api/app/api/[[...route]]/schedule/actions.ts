@@ -56,8 +56,8 @@ export const createObjFromDurations = (
 
 
     const intervals = schedule.flatMap((item) => {
-      const start = parse(item.start.time, "HH:mm", new Date(), { in: tz("UTC") });
-      const end = parse(item.end.time, "HH:mm", new Date(), { in: tz("UTC") });
+      const start = parse(item.start, "HH:mm", new Date(), { in: tz("UTC") });
+      const end = parse(item.end, "HH:mm", new Date(), { in: tz("UTC") });
       if (!item.enabled) return [];
       const durationInMunutes = parsed.getHours() * 60 + parsed.getMinutes();
       return generateIntervalInRange(start, end, durationInMunutes, busyIntervals);

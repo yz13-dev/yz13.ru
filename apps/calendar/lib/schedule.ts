@@ -3,43 +3,36 @@ import { format, parse } from "date-fns";
 import type { DaySchedule, WeekSchedule } from "rest-api/types/calendar";
 
 
-const adaptSchedule = (schedule: DaySchedule[]): DaySchedule[] => {
+export const adaptSchedule = (schedule: DaySchedule[], timezone: string): DaySchedule[] => {
   return schedule.map((item) => {
-    const start = parse(item.start.time, "HH:mm", new Date(), {
+    const start = parse(item.start, "HH:mm", new Date(), {
       in: tz("UTC"),
     });
-    const end = parse(item.end.time, "HH:mm", new Date(), {
+    const end = parse(item.end, "HH:mm", new Date(), {
       in: tz("UTC"),
     });
-    const timezone = item.start.tz;
     return {
       enabled: item.enabled,
-      start: {
-        ...item.start,
-        time: format(start, "HH:mm", {
-          in: tz(timezone),
-        }),
-      },
-      end: {
-        ...item.end,
-        time: format(end, "HH:mm", {
-          in: tz(timezone),
-        }),
-      },
+      start: format(start, "HH:mm", {
+        in: tz(timezone),
+      }),
+      end: format(end, "HH:mm", {
+        in: tz(timezone),
+      }),
     }
   });
 };
 
-export const adaptWeekSchedule = (schedule: WeekSchedule | null): WeekSchedule | null => {
+export const adaptWeekSchedule = (schedule: WeekSchedule | null, timezone = "UTC"): WeekSchedule | null => {
   if (!schedule) return null;
   return {
     ...schedule,
-    monday: adaptSchedule((schedule.monday ?? []) as DaySchedule[]),
-    tuesday: adaptSchedule((schedule.tuesday ?? []) as DaySchedule[]),
-    wednesday: adaptSchedule((schedule.wednesday ?? []) as DaySchedule[]),
-    thursday: adaptSchedule((schedule.thursday ?? []) as DaySchedule[]),
-    friday: adaptSchedule((schedule.friday ?? []) as DaySchedule[]),
-    saturday: adaptSchedule((schedule.saturday ?? []) as DaySchedule[]),
-    sunday: adaptSchedule((schedule.sunday ?? []) as DaySchedule[]),
+    monday: adaptSchedule((schedule.monday ?? []) as DaySchedule[], timezone),
+    tuesday: adaptSchedule((schedule.tuesday ?? []) as DaySchedule[], timezone),
+    wednesday: adaptSchedule((schedule.wednesday ?? []) as DaySchedule[], timezone),
+    thursday: adaptSchedule((schedule.thursday ?? []) as DaySchedule[], timezone),
+    friday: adaptSchedule((schedule.friday ?? []) as DaySchedule[], timezone),
+    saturday: adaptSchedule((schedule.saturday ?? []) as DaySchedule[], timezone),
+    sunday: adaptSchedule((schedule.sunday ?? []) as DaySchedule[], timezone),
   }
 }

@@ -1,5 +1,4 @@
 import { adaptWeekSchedule } from "@/lib/schedule";
-import { tz } from "@date-fns/tz";
 import { format, parse } from "date-fns";
 import { Edit3Icon } from "lucide-react";
 import { Badge } from "mono/components/badge";
@@ -9,6 +8,7 @@ import { getSchedule } from "rest-api/calendar/schedule";
 import type { DaySchedule, WeekSchedule } from "rest-api/types/calendar";
 import EditScheduleModal from "./edit-schedule-modal";
 import NewScheduleButton from "./new-schedule-button";
+import ScheduleList from "./schedule-list";
 const EmptySchedule = () => {
   return (
     <div className="w-full h-fit p-8 border rounded-xl border-dashed flex flex-col items-center justify-center gap-4">
@@ -25,43 +25,13 @@ const DayScheduleItem = ({
   schedule: DaySchedule[];
 }) => {
   const max = 2;
-  const schedules = schedule.slice(0, max);
   return (
     <>
       <span className="text-sm w-6 shrink-0 text-muted-foreground">{label}:</span>
       {!schedule.length && <Badge variant="secondary">Нет расписания</Badge>}
       {schedule &&
-        schedules.map((item, index) => {
-          const schedule = item as DaySchedule;
-          const startTime = schedule.start.time;
-          const startTz = schedule.start.tz;
-          const endTime = schedule.end.time;
-          const endTz = schedule.end.tz;
-          const start = parse(startTime, "HH:mm", new Date(), {
-            in: tz(startTz),
-          });
-          const end = parse(endTime, "HH:mm", new Date(), {
-            in: tz(endTz),
-          });
-          return (
-            <div
-              key={`monday-${index}`}
-              className="flex flex-row items-center justify-center gap-2"
-            >
-              <Badge variant="secondary">
-                {format(start, "HH:mm", {
-                  in: tz(startTz),
-                })}
-              </Badge>
-              <Separator className="w-full shrink" />
-              <Badge variant="secondary">
-                {format(end, "HH:mm", {
-                  in: tz(endTz),
-                })}
-              </Badge>
-            </div>
-          );
-        })}
+        <ScheduleList schedule={schedule} max={max} />
+      }
       {schedule.length >= max + 1 && (
         <Badge variant="secondary">+{schedule.length - max}</Badge>
       )}
