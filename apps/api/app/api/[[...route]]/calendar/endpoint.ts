@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { getDefaultCalendar } from "./actions";
+import { getCalendars, getDefaultCalendar } from "./actions";
 
 
 
@@ -14,4 +14,14 @@ calendar.get("/user/:uid/default", async (c) => {
   const data = await getDefaultCalendar(uid);
 
   return c.json(data);
+});
+
+calendar.get("/user/:uid", async (c) => {
+  const uid = c.req.param("uid");
+  try {
+    const data = await getCalendars(uid);
+    return c.json(data);
+  } catch (error) {
+    return c.json([], 400);
+  }
 });

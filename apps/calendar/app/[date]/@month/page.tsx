@@ -2,7 +2,7 @@ import { getDaysForMonthView } from "@/components/calendar/api";
 import FullScreenCalendar from "@/components/calendar/fullscreen-calendar";
 import { auth } from "@/lib/auth";
 import { format, parse } from "date-fns";
-import { getUserEvents } from "rest-api/calendar";
+import { getUserEvents } from "rest-api/calendar/events";
 
 type PageProps = {
   params: Promise<{

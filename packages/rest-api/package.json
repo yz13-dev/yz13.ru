@@ -62,6 +62,11 @@
       "import": "./dist/rest/calendar/calendar.mjs",
       "require": "./dist/rest/calendar/calendar.js"
     },
+    "./calendar/events": {
+      "types": "./dist/rest/calendar/events.d.ts",
+      "import": "./dist/rest/calendar/events.mjs",
+      "require": "./dist/rest/calendar/events.js"
+    },
     "./calendar/schedule": {
       "types": "./dist/rest/calendar/schedule.d.ts",
       "import": "./dist/rest/calendar/schedule.mjs",

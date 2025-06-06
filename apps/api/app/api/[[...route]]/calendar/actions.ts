@@ -25,3 +25,24 @@ export const getDefaultCalendar = async (uid: string) => {
     return null;
   }
 }
+
+export const getCalendars = async (uid: string) => {
+  try {
+    const cookieStore = await cookies();
+
+    const supabase = createClient(cookieStore);
+
+    const { data, error } = await supabase
+      .from("calendar")
+      .select()
+      .eq("user_id", uid)
+    if (error) {
+      console.log(error)
+      return [];
+    } return data;
+
+  } catch (error) {
+    console.log(error)
+    return [];
+  }
+}

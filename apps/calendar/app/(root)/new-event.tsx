@@ -14,7 +14,7 @@ import {
 } from "mono/components/popover";
 import { useRouter } from "next/navigation";
 import { type ReactNode, useState } from "react";
-import { createEvent } from "rest-api/calendar";
+import { createEvent } from "rest-api/calendar/events";
 import type { NewEvent } from "rest-api/types/calendar";
 
 type EventForm = {
