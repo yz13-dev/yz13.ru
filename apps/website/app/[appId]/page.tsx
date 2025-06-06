@@ -24,7 +24,8 @@ export default async function page({ params }: Props) {
   if (!publication) return notFound();
   const noPublicUrl = !publication.public_url;
   const sliceCount = 2;
-  const categoriesSlice = publication.categories?.slice(0, sliceCount) ?? [];
+  const categories = publication.categories ?? [];
+  const categoriesSlice = categories.slice(0, sliceCount) ?? [];
   const restCount = (publication.categories?.length ?? 0) - sliceCount;
   const stage = publication.stage;
   return (
@@ -62,17 +63,20 @@ export default async function page({ params }: Props) {
                 )}
             </Suspense>
           </div>
-          <div className="flex flex-col gap-2">
-            <span className="text-sm text-muted-foreground">Категории</span>
-            <div className="flex items-center gap-2 *:h-6 *:text-sm">
-              {categoriesSlice.map((category) => (
-                <Badge key={category} className="capitalize" variant="outline">
-                  {category}
-                </Badge>
-              ))}
-              {restCount > 0 && <Badge variant="ghost">{+restCount}</Badge>}
+          {
+            categories.length !== 0 &&
+            <div className="flex flex-col gap-2">
+              <span className="text-sm text-muted-foreground">Категории</span>
+              <div className="flex items-center gap-2 *:h-6 *:text-sm">
+                {categoriesSlice.map((category) => (
+                  <Badge key={category} className="capitalize" variant="outline">
+                    {category}
+                  </Badge>
+                ))}
+                {restCount > 0 && <Badge variant="ghost">{+restCount}</Badge>}
+              </div>
             </div>
-          </div>
+          }
           {stage && (
             <div className="flex flex-col gap-2">
               <span className="text-sm text-muted-foreground">Стадия</span>

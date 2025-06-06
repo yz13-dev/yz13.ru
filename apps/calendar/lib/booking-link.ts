@@ -6,3 +6,9 @@ export function getBookingLink(uid: string) {
   const link = `https://${domain}/booking/${uid}`;
   return link
 }
+
+export function getCallLink(callId: string) {
+  const domain = isDev ? "localhost:3001" : "calendar.yz13.ru";
+  const link = `https://${domain}/call/${callId}`;
+  return link
+}

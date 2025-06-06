@@ -23,6 +23,7 @@ export default async function page({ searchParams }: PageProps) {
   const href = continueLink ? continueLink : "/";
   const user = await auth();
   if (!user) return redirect(href);
+
   return (
     <div className="w-full h-dvh flex flex-col items-center justify-center">
       <Suspense
@@ -42,7 +43,7 @@ export default async function page({ searchParams }: PageProps) {
       </div>
       <div
         className={cn(
-          "w-full max-w-4xl bg-background/90 rounded-3xl mx-auto z-20",
+          "w-full max-w-4xl bg-background/80 rounded-3xl mx-auto z-20",
           "grid md:grid-cols-2 grid-cols-1 divide-x *:h-full *:w-full border *:px-6 *:py-8",
         )}
       >

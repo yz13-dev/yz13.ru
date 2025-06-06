@@ -14,6 +14,19 @@ export async function OtherProjectsSkeleton() {
           <div className="flex w-full items-center gap-4">
             <Skeleton className="size-16 shrink-0 rounded-2xl" />
             <div className="flex w-full flex-col gap-2">
+              <Skeleton className="w-2/3 h-5 rounded-fulls" />
+              <Skeleton className="w-2/3 h-5 rounded-fulls" />
+              <Skeleton className="w-1/2 h-4 rounded-full" />
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div className="flex items-start gap-4 justify-between">
+          <div className="flex w-full items-center gap-4">
+            <Skeleton className="size-16 shrink-0 rounded-2xl" />
+            <div className="flex w-full flex-col gap-2">
+              <Skeleton className="w-2/3 h-5 rounded-full" />
               <Skeleton className="w-2/3 h-5 rounded-full" />
               <Skeleton className="w-1/2 h-4 rounded-full" />
             </div>
@@ -26,16 +39,6 @@ export async function OtherProjectsSkeleton() {
             <Skeleton className="size-16 shrink-0 rounded-2xl" />
             <div className="flex w-full flex-col gap-2">
               <Skeleton className="w-2/3 h-5 rounded-full" />
-              <Skeleton className="w-1/2 h-4 rounded-full" />
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="flex items-start gap-4 justify-between">
-          <div className="flex w-full items-center gap-4">
-            <Skeleton className="size-16 shrink-0 rounded-2xl" />
-            <div className="flex w-full flex-col gap-2">
               <Skeleton className="w-2/3 h-5 rounded-full" />
               <Skeleton className="w-1/2 h-4 rounded-full" />
             </div>
@@ -57,9 +60,10 @@ export default async function OtherProjects({
     if (isIn) return false;
     return true;
   });
+  if (!publications.length) return <OtherProjectsSkeleton />;
   return (
     <>
-      {(publications ?? []).map((publication) => {
+      {publications.map((publication) => {
         const createdAt = new Date(publication.created_at);
         const today = new Date();
         const passedDays = differenceInDays(today, createdAt);

@@ -7,6 +7,7 @@ import { requestId } from "hono/request-id";
 import { handle } from "hono/vercel";
 import { auth } from "./auth";
 import { calendar } from "./calendar/endpoint";
+import { meetings } from "./meetings/endpoint";
 import { news } from "./news";
 import { pages } from "./pages";
 import { positions } from "./positions";
@@ -45,11 +46,9 @@ app.use(
   "*",
   cors({
     origin: (origin) => {
-      if (isDev) {
-        return origin;
-      } else return origin.endsWith(".yz13.com") ? origin : "https://yz13.ru";
+      if (isDev) return origin
+      return origin.endsWith(".yz13.ru") ? origin : "https://yz13.ru";
     },
-    credentials: true,
   }),
 );
 // won't work with `runtime = "edge"`
@@ -66,6 +65,7 @@ app.route("/store", store);
 app.route("/calendar", calendar);
 app.route("/schedule", schedule);
 app.route("/positions", positions);
+app.route("/meetings", meetings)
 
 app.get("/version", (c) => {
   const version = packageJson.version;

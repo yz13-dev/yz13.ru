@@ -25,6 +25,7 @@ const getSchedule = async (uid: string): Promise<WeekSchedule | null> => {
     console.log(error);
     return null;
   }
+
   if (data) await redis.set(key, data, { ex: expire.day });
   return data as WeekSchedule | null;
 };

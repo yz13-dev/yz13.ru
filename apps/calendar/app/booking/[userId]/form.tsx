@@ -3,7 +3,6 @@ import AutoTextarea from "@/components/auto-textarea";
 import useTimeStore from "@/components/live/time.store";
 import { useTz } from "@/hooks/use-tz";
 import { tz, TZDate } from "@date-fns/tz";
-import { useDebounceEffect } from "ahooks";
 import { format, formatISO, isPast, isToday, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Loader2Icon } from "lucide-react";
@@ -129,22 +128,6 @@ export default function form({
       if (user.username) setName(user.username);
     }
   }, [user]);
-  useDebounceEffect(
-    () => {
-      const url = new URL("/login", "https://yz13.ru");
-      const urlSearchParams = new URLSearchParams(searchParams);
-      urlSearchParams.set(
-        "continue",
-        `https://calendar.yz13.ru/booking/${uid}`,
-      );
-      const authLink = url.toString();
-      if (!user) {
-        router.push(authLink);
-      }
-    },
-    [user, searchParams],
-    { wait: 1500 },
-  );
   useEffect(() => {
     if (!date) {
       setDate(defaultDate);

@@ -42,6 +42,19 @@ export default async function page({ params, searchParams }: PageProps) {
   const currentUser = await auth();
   const { data: availability } = await getUserAvailability(userId, date);
 
+  if (!currentUser) {
+    const url = new URL("/login", "https://yz13.ru");
+    const newSearchParams = new URLSearchParams();
+    const defaultDate = format(new Date(), "yyyy-MM-dd");
+    newSearchParams.set("date", defaultDate);
+    newSearchParams.set(
+      "continue",
+      `https://calendar.yz13.ru/booking/${userId}`,
+    );
+    const authLink = url.toString();
+    return redirect(authLink);
+  }
+
   return (
     <UserProvider user={currentUser ?? null}>
       <div className="max-w-2xl w-full mx-auto px-6 space-y-6 mt-[10%]">

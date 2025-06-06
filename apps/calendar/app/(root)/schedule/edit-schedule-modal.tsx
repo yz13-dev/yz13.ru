@@ -35,8 +35,8 @@ const ScheduleItem = ({
   onDelete?: () => void;
 }) => {
   const [innerSchedule, setInnerSchedule] = useState(schedule);
-  const startTime = innerSchedule.start.time;
-  const endTime = innerSchedule.end.time;
+  const startTime = innerSchedule.start;
+  const endTime = innerSchedule.end;
   const validateTimes = (start: string, end: string) => {
     const startTime = parse(start, "HH:mm", new Date());
     const endTime = parse(end, "HH:mm", new Date());
@@ -52,11 +52,11 @@ const ScheduleItem = ({
   const isValid = validateTimes(startTime, endTime);
   const disabled = !innerSchedule.enabled;
   const updateStartTime = (time: string) => {
-    setInnerSchedule((prev) => ({ ...prev, start: { ...prev.start, time } }));
+    setInnerSchedule((prev) => ({ ...prev, start: time }));
     // onScheduleChange?.(innerSchedule);
   };
   const updateEndTime = (time: string) => {
-    setInnerSchedule((prev) => ({ ...prev, end: { ...prev.end, time } }));
+    setInnerSchedule((prev) => ({ ...prev, end: time }));
     // onScheduleChange?.(innerSchedule);
   };
   const updateSchedule = (schedule: Partial<DaySchedule>) => {
@@ -113,55 +113,22 @@ const localDurations = ["00:15", "00:30", "00:45", "01:00"];
 const prepareSchedule = (schedule: DaySchedule[]): DaySchedule[] => {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return schedule.map((item) => {
-    const start = parse(item.start.time, "HH:mm", new Date(), {
+    const start = parse(item.start, "HH:mm", new Date(), {
       in: tz(timezone),
     });
-    const end = parse(item.end.time, "HH:mm", new Date(), {
+    const end = parse(item.end, "HH:mm", new Date(), {
       in: tz(timezone),
     });
     return {
       enabled: item.enabled,
-      start: {
-        time: format(start, "HH:mm", {
-          in: tz("UTC"),
-        }),
-        tz: timezone
-      },
-      end: {
-        time: format(end, "HH:mm", {
-          in: tz("UTC"),
-        }),
-        tz: timezone
-      },
-    }
-  });
-};
-
-const adaptSchedule = (schedule: DaySchedule[]): DaySchedule[] => {
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  return schedule.map((item) => {
-    const start = parse(item.start.time, "HH:mm", new Date(), {
-      in: tz("UTC"),
-    });
-    const end = parse(item.end.time, "HH:mm", new Date(), {
-      in: tz("UTC"),
-    });
-    return {
-      enabled: item.enabled,
-      start: {
-        ...item.start,
-        time: format(start, "HH:mm", {
-          in: tz(timezone),
-        }),
-      },
-      end: {
-        ...item.end,
-        time: format(end, "HH:mm", {
-          in: tz(timezone),
-        }),
-      },
-    }
-  });
+      start: format(start, "HH:mm", {
+        in: tz("UTC"),
+      }),
+      end: format(end, "HH:mm", {
+        in: tz("UTC"),
+      }),
+    };
+  })
 };
 
 export default function EditScheduleModal({
@@ -175,7 +142,6 @@ export default function EditScheduleModal({
   uid: string;
   children: React.ReactNode;
 }) {
-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const [open, setOpen] = useState<boolean>(false);
   const [durations, setDurations] = useState<string[]>(defaultDurations);
   const [loading, setLoading] = useState<boolean>(false);
@@ -303,14 +269,8 @@ export default function EditScheduleModal({
   };
   const getEmptySchedule = (): DaySchedule => {
     return {
-      start: {
-        time: "00:00",
-        tz,
-      },
-      end: {
-        time: "00:00",
-        tz,
-      },
+      start: "00:00",
+      end: "00:00",
       enabled: true,
     };
   };

@@ -13,7 +13,7 @@ export default function loading() {
         <Skeleton className="rounded-full size-9" />
       </header>
       <div className="w-full my-[10%] lg:gap-6 gap-12 flex lg:flex-row flex-col items-center max-w-6xl mx-auto p-6">
-        <div className="lg:w-2/3 w-full space-y-8">
+        <div className="lg:w-2/3 w-full mb-20 space-y-8">
           <div className="size-24 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center bg-background/40">
             <Logo size={{ width: 64, height: 64 }} type="only-icon" />
           </div>

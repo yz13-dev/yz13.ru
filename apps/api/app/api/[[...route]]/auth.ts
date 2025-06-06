@@ -19,11 +19,40 @@ auth.get("/current", async (c) => {
     if (error) {
       // console.log(error);
       return c.json(null);
-    } else {
-      if (user) {
-        return c.json(makeUserObj(user));
-      } else return c.json(null);
     }
+
+    if (user) {
+      return c.json(makeUserObj(user));
+    }
+    return c.json(null);
+
+  } catch (error) {
+    console.log(error);
+    return c.json(null);
+  }
+});
+
+auth.get("/current/session", async (c) => {
+  try {
+    const cookieStore = await cookies();
+    // const cookie = getCookie(c);
+    const supabase = createClient(cookieStore);
+    const auth = supabase.auth;
+    // console.log(cookieStore.getAll(), cookie);
+    const {
+      data: { session },
+      error,
+    } = await auth.getSession();
+    if (error) {
+      // console.log(error);
+      return c.json(null);
+    }
+
+    if (session) {
+      return c.json(session);
+    }
+    return c.json(null);
+
   } catch (error) {
     console.log(error);
     return c.json(null);
@@ -43,11 +72,13 @@ auth.post("/login", async (c) => {
     if (error) {
       console.log(error);
       return c.json({ error: error.message });
-    } else {
-      if (user) {
-        return c.json({ user: makeUserObj(user) });
-      } else return c.json({ error: "Invalid Credentials" });
     }
+
+    if (user) {
+      return c.json({ user: makeUserObj(user) });
+    }
+    return c.json({ error: "Invalid Credentials" });
+
   } catch (error) {
     console.log(error);
     return c.json({ error });
@@ -67,11 +98,12 @@ auth.post("/signup", async (c) => {
     if (error) {
       console.log(error);
       return c.json({ error });
-    } else {
-      if (user) {
-        return c.json({ user: makeUserObj(user) });
-      } else return c.json({ error: "Invalid Credentials" });
     }
+
+    if (user) {
+      return c.json({ user: makeUserObj(user) });
+    } return c.json({ error: "Invalid Credentials" });
+
   } catch (error) {
     console.log(error);
     return c.json({ error });
@@ -87,10 +119,11 @@ auth.post("/logout", async (c) => {
     if (error) {
       console.log(error);
       return c.json({ error });
-    } else {
-      if (!error) return c.json({ status: true });
-      else return c.json({ error, status: false });
     }
+
+    if (!error) return c.json({ status: true });
+    return c.json({ error, status: false });
+
   } catch (error) {
     console.log(error);
     return c.json({ error });

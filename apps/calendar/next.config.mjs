@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["mono", "yz13", "rest-api", "tailwind-config"],
+  transpilePackages: ["mono", "yz13", "@yz13/utils", "rest-api", "tailwind-config"],
   // output: "standalone",
   compress: true,
   experimental: {

@@ -6,6 +6,7 @@ import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
 import { format, parseISO } from "date-fns";
 import { ArrowLeftIcon, CalendarIcon, Edit2Icon, ExternalLinkIcon } from "lucide-react";
+import { Badge } from "mono/components/badge";
 import { Button } from "mono/components/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -15,6 +16,7 @@ import ClientUserBadge from "../../../components/client-user-badge";
 import StatusButton from "../../../components/status-button";
 import CallCalendar from "./components/call-calendar";
 import EditUrlModal from "./components/edit-url-modal";
+import Zoom from "./components/zoom";
 
 
 type Props = {
@@ -22,8 +24,9 @@ type Props = {
   call: Event;
   userId: string;
   continueLink?: string
+  withZoom?: boolean
 }
-export default function ({ call: defaultCall, callId, userId, continueLink }: Props) {
+export default function ({ call: defaultCall, callId, userId, continueLink, withZoom = false }: Props) {
   const [call, setCall] = useState<Event>(defaultCall);
   const organizer = call.organizer_id;
   const guests = (call.guests ?? []).filter(id => id !== organizer);
@@ -56,6 +59,7 @@ export default function ({ call: defaultCall, callId, userId, continueLink }: Pr
   const status = call.status ?? "TENTATIVE";
   const isCanceled = call.status === "CANCELLED";
   const isTentative = call.status === "TENTATIVE";
+  const isConfirmed = call.status === "CONFIRMED";
 
   useEffect(() => {
     const client = createClient()
@@ -168,22 +172,30 @@ export default function ({ call: defaultCall, callId, userId, continueLink }: Pr
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-base block font-medium">Ссылка</span>
-              {
-                isOrganizer &&
-                <EditUrlModal callId={callId}>
-                  <MicroButton variant="secondary" size="sm">
-                    <Edit2Icon />
-                    Изменить
-                  </MicroButton>
-                </EditUrlModal>
-              }
+              <div className="flex items-center gap-2">
+                {
+                  isOrganizer &&
+                  <EditUrlModal callId={callId}>
+                    <MicroButton variant="secondary" size="sm">
+                      <Edit2Icon />
+                      Изменить
+                    </MicroButton>
+                  </EditUrlModal>
+                }
+              </div>
             </div>
             {
+              !call.url && withZoom && isConfirmed &&
+              <Zoom callId={callId} />
+            }
+            {
               call.url &&
-              <Link href={call.url} target="_blank" className="text-sm flex gap-1 items-center hover:underline text-muted-foreground line-clamp-1">
-                {call.url}
+              <Badge className="w-fit" variant="secondary">
+                <Link href={call.url} target="_blank" className="text-sm hover:underline text-muted-foreground line-clamp-1 max-w-44">
+                  {call.url}
+                </Link>
                 <ExternalLinkIcon size={14} />
-              </Link>
+              </Badge>
             }
           </div>
         </div>
