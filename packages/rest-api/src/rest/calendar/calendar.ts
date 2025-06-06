@@ -15,3 +15,9 @@ export async function getDefaultCalendar(uid: string) {
     method: "GET",
   });
 }
+
+export async function getCalendar(id: string) {
+  return customFetch<Calendar | null>(`/calendar/${id}`, {
+    method: "GET",
+  });
+}

@@ -46,3 +46,26 @@ export const getCalendars = async (uid: string) => {
     return [];
   }
 }
+
+
+export const getCalendar = async (id: string) => {
+  try {
+    const cookieStore = await cookies();
+
+    const supabase = createClient(cookieStore);
+
+    const { data, error } = await supabase
+      .from("calendar")
+      .select()
+      .eq("id", id)
+      .maybeSingle()
+    if (error) {
+      console.log(error)
+      return null;
+    } return data;
+
+  } catch (error) {
+    console.log(error)
+    return null;
+  }
+}

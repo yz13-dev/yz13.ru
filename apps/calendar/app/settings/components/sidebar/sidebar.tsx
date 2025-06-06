@@ -1,5 +1,5 @@
-import { CalendarIcon, PlusIcon } from "lucide-react";
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "mono/components/sidebar";
+import { ArrowLeftIcon, CalendarIcon, PlusIcon } from "lucide-react";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "mono/components/sidebar";
 import Link from "next/link";
 import type { Calendar } from "rest-api/types/calendar";
 
@@ -8,9 +8,21 @@ type Props = {
 }
 export default function ({ calendars = [] }: Props) {
   return (
-    <Sidebar className="top-16">
+    <Sidebar collapsible="icon">
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/">
+                <ArrowLeftIcon />
+                <span>Вернуться</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup className="px-4">
+        <SidebarGroup>
           <SidebarGroupLabel>Настройки календарей</SidebarGroupLabel>
           <SidebarGroupAction title="Создать календарь">
             <PlusIcon />
