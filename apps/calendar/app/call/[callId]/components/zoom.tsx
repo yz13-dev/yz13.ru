@@ -5,8 +5,8 @@ import { Loader2Icon, RefreshCw, SparklesIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useEffect, useState } from "react";
 import { getEventById, updateEvent } from "rest-api/calendar";
+import { createMeeting } from "rest-api/meetings";
 import { createClient } from "yz13/supabase/client";
-import { createMeeting } from "./zoom-api";
 
 
 export default function ({ callId }: { callId: string }) {

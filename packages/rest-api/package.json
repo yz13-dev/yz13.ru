@@ -36,6 +36,11 @@
       "import": "./dist/const/fetch.mjs",
       "require": "./dist/const/fetch.js"
     },
+    "./meetings": {
+      "types": "./dist/rest/calendar/meetings.d.ts",
+      "import": "./dist/rest/calendar/meetings.mjs",
+      "require": "./dist/rest/calendar/meetings.js"
+    },
     "./positions": {
       "types": "./dist/rest/positions/positions.d.ts",
       "import": "./dist/rest/positions/positions.mjs",

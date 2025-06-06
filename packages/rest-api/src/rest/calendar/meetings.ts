@@ -1,7 +1,6 @@
 "use server";
 
-import type { Event } from "rest-api/types/calendar";
-
+import type { Event } from "@/types/calendar";
 
 export const createMeeting = async (token: string, call: Event, timezone: string) => {
   try {
