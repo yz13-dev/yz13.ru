@@ -1,10 +1,9 @@
 "use client";
 import { useUserStore } from "@/app/account/settings/user.store";
 import { isDev } from "@/app/login/get-url";
-import { CheckIcon, Loader2Icon, XIcon } from "lucide-react";
+import { CheckIcon, Loader2Icon, StoreIcon, XIcon } from "lucide-react";
 import { Button } from "mono/components/button";
 import { useState } from "react";
-import { PiGoogleLogo } from "react-icons/pi";
 import type { UserIdentity } from "rest-api/types/user";
 import { createClient } from "yz13/supabase/client";
 
@@ -13,6 +12,7 @@ export default function ({ linked = false, identity }: { linked?: boolean, ident
   const refreshUser = useUserStore((state) => state.refreshUser);
   const unlink = async () => {
     if (!identity) return;
+    setLoading(true);
     try {
       const supabase = createClient();
       const { data, error } = await supabase.auth.unlinkIdentity(identity);
@@ -27,11 +27,14 @@ export default function ({ linked = false, identity }: { linked?: boolean, ident
   const link = async () => {
     try {
       const backLink = isDev ? "https://localhost:3001" : "https://yz13.ru";
+      const url = new URL(backLink);
+      const searchParams = url.searchParams;
+      searchParams.set("app", "zoom");
       const supabase = createClient();
       const { data, error } = await supabase.auth.linkIdentity({
-        provider: "google",
+        provider: "zoom",
         options: {
-          redirectTo: backLink,
+          redirectTo: url.toString(),
           scopes: undefined,
         },
       });
@@ -50,9 +53,9 @@ export default function ({ linked = false, identity }: { linked?: boolean, ident
         ) : loading ? (
           <Loader2Icon className="animate-spin" size={16} />
         ) : (
-          <PiGoogleLogo size={16} />
+          <StoreIcon size={16} />
         )}
-        Google
+        Zoom
         {linked && " связан"}
       </Button>
       {

@@ -22,6 +22,10 @@ export default async function page({ params, searchParams }: PageProps) {
   if (!user) return notFound();
   if (!call) return notFound();
 
+  const identities = user.identities ?? [];
+
+  const hasZoomIdentity = !!(identities.find((identity) => identity.provider === "zoom"));
+
   const organizer = call.organizer_id;
   const guests = call.guests ?? [];
 
@@ -31,5 +35,13 @@ export default async function page({ params, searchParams }: PageProps) {
 
   if (isAuthorizedUserNotAllowed) return notFound();
 
-  return <Form call={call} callId={callId} userId={user.id} continueLink={continueLink} />
+  console.log(call)
+
+  return <Form
+    call={call}
+    callId={callId}
+    userId={user.id}
+    continueLink={continueLink}
+    withZoom={hasZoomIdentity}
+  />
 }

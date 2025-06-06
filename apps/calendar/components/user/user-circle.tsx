@@ -1,6 +1,7 @@
 import { UserIcon } from "lucide-react";
 import Image from "next/image";
-import { avatarURL } from "rest-api/lib/avatar-url";
+// import { avatarURL } from "rest-api/lib/avatar-url";
+import { getAvatarURL } from "@yz13/utils/avatar-url";
 import type { UserObject } from "rest-api/types/user";
 import { cn } from "yz13/cn";
 
@@ -11,7 +12,7 @@ const UserCircle = ({
   user: UserObject;
   className?: string;
 }) => {
-  const avatarUrl = user.avatar_url ? avatarURL(user.avatar_url) : null;
+  const avatarUrl = user.avatar_url ? getAvatarURL(user.avatar_url) : null;
   if (!user) return;
   return (
     <div

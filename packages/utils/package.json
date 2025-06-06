@@ -2,7 +2,13 @@
   "name": "@yz13/utils",
   "version": "0.0.0",
   "description": "Utils package",
-  "exports": {},
+  "exports": {
+    "./avatar-url": {
+      "types": "./dist/avatar-url.d.ts",
+      "import": "./dist/avatar-url.mjs",
+      "require": "./dist/avatar-url.js"
+    }
+  },
   "files": [
     "dist"
   ],

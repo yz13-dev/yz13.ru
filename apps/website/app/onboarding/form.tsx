@@ -17,6 +17,7 @@ import type { UserObject } from "rest-api/types/user";
 import { updateUser } from "rest-api/user";
 import { useUserStore } from "../account/settings/user.store";
 import Google from "./extensions/google";
+import Zoom from "./extensions/zoom";
 
 export default function ({
   defaultUser,
@@ -67,7 +68,15 @@ export default function ({
       setPositionLoading(false);
     }
   };
+
+  const googleIdentity = user?.identities?.find((i) => i.provider === "google");
+  const zoomIdentity = user?.identities?.find((i) => i.provider === "zoom");
+
   const gooleLinked = user?.identities?.find((i) => i.provider === "google");
+  const zoomLinked = user?.identities?.find((i) => i.provider === "zoom");
+
+  console.log(user);
+
   useEffect(() => {
     if (defaultUser) {
       if (defaultUser.username) setUsername(defaultUser.username);
@@ -180,8 +189,14 @@ export default function ({
           </span>
         </div>
         <ul className="space-y-3">
+          {
+            false &&
+            <li>
+              <Google linked={!!gooleLinked} identity={googleIdentity} />
+            </li>
+          }
           <li>
-            <Google linked={!!gooleLinked} />
+            <Zoom linked={!!zoomLinked} identity={zoomIdentity} />
           </li>
         </ul>
       </div>

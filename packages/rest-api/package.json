@@ -31,6 +31,11 @@
     "./types/store": "./dist/types/store.d.ts",
     "./types/calendar": "./dist/types/calendar.d.ts",
     "./types/positions": "./dist/types/positions.d.ts",
+    "./lib/custom-fetch": {
+      "types": "./dist/const/fetch.d.ts",
+      "import": "./dist/const/fetch.mjs",
+      "require": "./dist/const/fetch.js"
+    },
     "./positions": {
       "types": "./dist/rest/positions/positions.d.ts",
       "import": "./dist/rest/positions/positions.mjs",

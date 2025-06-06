@@ -1,4 +1,4 @@
-import { User as SupabaseUser, UserAttributes } from "@supabase/supabase-js";
+import type { Session, User as SupabaseUser, UserAttributes, UserIdentity } from "@supabase/supabase-js";
 export type UserObject = {
   id: string;
   email: string | undefined;
@@ -16,3 +16,6 @@ export type UserObject = {
 export type User = SupabaseUser;
 
 export type UpdateUserBody = Partial<UserAttributes>;
+
+export type { Session, UserIdentity };
+
