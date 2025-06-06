@@ -9,11 +9,36 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      calendar: {
+        Row: {
+          created_at: string
+          id: string
+          name: string | null
+          timezone: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          timezone?: string | null
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          timezone?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       calendar_events: {
         Row: {
           all_day: boolean | null
           categories: string[] | null
           class: string | null
+          conference_id: string | null
           created: string | null
           date_end: string
           date_start: string
@@ -38,6 +63,7 @@ export type Database = {
           all_day?: boolean | null
           categories?: string[] | null
           class?: string | null
+          conference_id?: string | null
           created?: string | null
           date_end: string
           date_start: string
@@ -62,6 +88,7 @@ export type Database = {
           all_day?: boolean | null
           categories?: string[] | null
           class?: string | null
+          conference_id?: string | null
           created?: string | null
           date_end?: string
           date_start?: string
@@ -242,6 +269,7 @@ export type Database = {
           publisher_type: string
           stage: string | null
           tags: string[] | null
+          type: string | null
           updated_at: string
           versions: Json[] | null
         }
@@ -259,6 +287,7 @@ export type Database = {
           publisher_type: string
           stage?: string | null
           tags?: string[] | null
+          type?: string | null
           updated_at?: string
           versions?: Json[] | null
         }
@@ -276,6 +305,7 @@ export type Database = {
           publisher_type?: string
           stage?: string | null
           tags?: string[] | null
+          type?: string | null
           updated_at?: string
           versions?: Json[] | null
         }

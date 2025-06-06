@@ -29,8 +29,10 @@ export default function ({ callId }: { callId: string }) {
       if (meeting) {
 
         const jourUrl = meeting.join_url
+        const conference_id = meeting.id
         await updateEvent(callId, {
-          url: jourUrl
+          url: jourUrl,
+          conference_id
         })
       }
     } catch (error) {
