@@ -15,7 +15,7 @@ import { motion } from "motion/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
-import { createEvent } from "rest-api/calendar";
+import { createEvent } from "rest-api/calendar/events";
 import type { NewEvent, ScheduleAvailability } from "rest-api/types/calendar";
 import { cn } from "yz13/cn";
 import { useUserStore } from "./user.store";
@@ -50,6 +50,7 @@ export default function form({
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
+  const calendarId = ""
   const handleSelect = (date?: Date) => {
     if (!date) return;
     setDate(format(date, "yyyy-MM-dd"));
@@ -110,6 +111,7 @@ export default function form({
         status: "TENTATIVE",
         type: "appointment",
         summary: `Созвон с ${name}`,
+        calendar_id: calendarId,
       };
       const { data: created } = await createEvent(event);
       if (created) {

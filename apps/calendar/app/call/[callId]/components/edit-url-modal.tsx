@@ -5,7 +5,7 @@ import { Button } from "mono/components/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "mono/components/dialog";
 import { Input } from "mono/components/input";
 import { useState } from "react";
-import { updateEvent } from "rest-api/calendar";
+import { updateEvent } from "rest-api/calendar/events";
 
 const isValidUrl = (url: string) => {
   try {

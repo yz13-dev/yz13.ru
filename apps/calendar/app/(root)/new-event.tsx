@@ -14,7 +14,7 @@ import {
 } from "mono/components/popover";
 import { useRouter } from "next/navigation";
 import { type ReactNode, useState } from "react";
-import { createEvent } from "rest-api/calendar";
+import { createEvent } from "rest-api/calendar/events";
 import type { NewEvent } from "rest-api/types/calendar";
 
 type EventForm = {
@@ -37,6 +37,7 @@ export default function NewEventForm({
   const [description, setDescription] = useState<string>("");
   const [summary, setSummary] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const calendarId = ""
   const router = useRouter();
   const clearForm = () => {
     setAllDay(false);
@@ -101,6 +102,7 @@ export default function NewEventForm({
         duration: allDay ? null : duration,
         description: description || "",
         organizer_id: uid,
+        calendar_id: calendarId,
       };
 
       // Создаем событие

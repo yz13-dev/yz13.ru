@@ -38,13 +38,14 @@ news.get("/news-sources", async (c) => {
       .eq("country_code", country_code.toUpperCase());
     if (error) {
       return c.json([]);
-    } else return c.json(data);
-  } else {
-    const { data, error } = await supabase.from("news_sources").select();
-    if (error) {
-      return c.json([]);
-    } else return c.json(data);
+    }
+    return c.json(data);
   }
+  const { data, error } = await supabase.from("news_sources").select();
+  if (error) {
+    return c.json([]);
+  }
+  return c.json(data);
 });
 news.get("/news-sources/:source_id", async (c) => {
   const source_id = c.req.param("source_id");
@@ -58,7 +59,8 @@ news.get("/news-sources/:source_id", async (c) => {
     .maybeSingle();
   if (error) {
     return c.json(null);
-  } else return c.json(data);
+  }
+  return c.json(data);
 });
 
 news.get("/country/:code/sources", async (c) => {
@@ -71,11 +73,12 @@ news.get("/country/:code/sources", async (c) => {
     .eq("country_code", code);
   if (error) {
     return c.json([]);
-  } else return c.json(data);
+  }
+  return c.json(data);
 });
 
 news.get("/articles", async (c) => {
-  const offset = parseInt(c.req.query("offset") || "0");
+  const offset = Number.parseInt(c.req.query("offset") || "0");
   const limit = 10;
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
@@ -91,7 +94,8 @@ news.get("/articles", async (c) => {
     .range(offset, offset + limit);
   if (error) {
     return c.json([]);
-  } else return c.json(data);
+  }
+  return c.json(data);
 });
 
 news.get("/articles/:source_id", async (c) => {

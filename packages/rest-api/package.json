@@ -23,6 +23,7 @@
       "import": "./dist/lib/avatar-url.mjs",
       "require": "./dist/lib/avatar-url.js"
     },
+    "./types/timezone": "./dist/types/timezone.d.ts",
     "./types/articles": "./dist/types/articles.d.ts",
     "./types/pricing": "./dist/types/pricing.d.ts",
     "./types/user": "./dist/types/user.d.ts",
@@ -35,6 +36,11 @@
       "types": "./dist/const/fetch.d.ts",
       "import": "./dist/const/fetch.mjs",
       "require": "./dist/const/fetch.js"
+    },
+    "./timezone": {
+      "types": "./dist/rest/timezone/timezone.d.ts",
+      "import": "./dist/rest/timezone/timezone.mjs",
+      "require": "./dist/rest/timezone/timezone.js"
     },
     "./meetings": {
       "types": "./dist/rest/calendar/meetings.d.ts",
@@ -55,6 +61,11 @@
       "types": "./dist/rest/calendar/calendar.d.ts",
       "import": "./dist/rest/calendar/calendar.mjs",
       "require": "./dist/rest/calendar/calendar.js"
+    },
+    "./calendar/events": {
+      "types": "./dist/rest/calendar/events.d.ts",
+      "import": "./dist/rest/calendar/events.mjs",
+      "require": "./dist/rest/calendar/events.js"
     },
     "./calendar/schedule": {
       "types": "./dist/rest/calendar/schedule.d.ts",

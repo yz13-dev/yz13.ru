@@ -1,4 +1,4 @@
-import { Tables, TablesInsert, TablesUpdate } from "yz13/supabase/database";
+import type { Tables, TablesInsert, TablesUpdate } from "yz13/supabase/database";
 
 export type Event = Tables<"calendar_events">;
 export type NewEvent = TablesInsert<"calendar_events">;
@@ -15,6 +15,10 @@ export type DaySchedule = {
   end: string; // HH:MM
   enabled: boolean;
 };
+
+export type Calendar = Tables<"calendar">;
+export type NewCalendar = TablesInsert<"calendar">;
+export type UpdateCalendar = TablesUpdate<"calendar">;
 
 export type WeekSchedule = Tables<"calendar_schedule">;
 export type NewWeekSchedule = TablesInsert<"calendar_schedule">;

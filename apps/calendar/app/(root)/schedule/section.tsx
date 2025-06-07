@@ -42,7 +42,8 @@ const DayScheduleItem = ({
 export default async function Section({ uid }: { uid: string | null }) {
   if (!uid) return <EmptySchedule />;
   const { data } = await getSchedule(uid);
-  const schedule = adaptWeekSchedule(data as WeekSchedule);
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const schedule = adaptWeekSchedule(data as WeekSchedule, timezone);
   const hasSchedule = !!data;
   const monday = (schedule?.monday ?? []) as DaySchedule[];
   const tuesday = (schedule?.tuesday ?? []) as DaySchedule[];

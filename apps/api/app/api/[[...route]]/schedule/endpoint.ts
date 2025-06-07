@@ -2,33 +2,13 @@ import { expire, redis } from "@/extensions/redis";
 import { format, isValid, parse } from "date-fns";
 import { Hono, type HonoRequest } from "hono";
 import { cookies } from "next/headers";
-import type { DaySchedule, Event, ScheduleAvailability, WeekSchedule } from "rest-api/types/calendar";
+import type { DaySchedule, Event, ScheduleAvailability } from "rest-api/types/calendar";
 import { createClient } from "yz13/supabase/server";
-import { getLastEventsForDate } from "../calendar/actions";
+import { getLastEventsForDate } from "../events/actions";
 import { getUser } from "../user";
-import { createObjFromDurations, getTimeAndDurationFromAppointments } from "./actions";
+import { createObjFromDurations, getSchedule, getTimeAndDurationFromAppointments } from "./actions";
 
 export const schedule = new Hono();
-
-const getSchedule = async (uid: string): Promise<WeekSchedule | null> => {
-  const key = `schedule:${uid}`;
-  const cached = await redis.get<WeekSchedule>(key);
-  if (cached) return cached;
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const { data, error } = await supabase
-    .from("calendar_schedule")
-    .select()
-    .eq("uid", uid)
-    .maybeSingle();
-  if (error) {
-    console.log(error);
-    return null;
-  }
-
-  if (data) await redis.set(key, data, { ex: expire.day });
-  return data as WeekSchedule | null;
-};
 
 schedule.get("/:uid", async (c) => {
   const uid = c.req.param("uid");
@@ -56,7 +36,9 @@ const getBody = async (c: HonoRequest) => {
 
 schedule.post("/:uid", async (c) => {
   const uid = c.req.param("uid");
+  const calendarId = c.req.query("calendar_id");
   const user = await getUser(uid);
+  if (!calendarId) return c.json(null);
   if (!user) return c.json(null);
   const body = await getBody(c.req);
   try {
@@ -67,6 +49,7 @@ schedule.post("/:uid", async (c) => {
         .from("calendar_schedule")
         .insert({
           uid,
+          calendar_id: calendarId
         })
         .select()
         .maybeSingle();

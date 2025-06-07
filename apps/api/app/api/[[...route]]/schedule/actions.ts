@@ -1,6 +1,9 @@
+import { expire, redis } from "@/extensions/redis";
 import { tz } from "@date-fns/tz";
 import { addMinutes, areIntervalsOverlapping, format, type Interval, interval, isWithinInterval, parse, parseISO } from "date-fns";
-import type { DaySchedule, Event } from "rest-api/types/calendar";
+import { cookies } from "next/headers";
+import type { DaySchedule, Event, WeekSchedule } from "rest-api/types/calendar";
+import { createClient } from "yz13/supabase/server";
 
 export const generateIntervalInRange = (
   start: Date,
@@ -119,4 +122,25 @@ export const getTimeAndDurationFromAppointments = (appointments: Event[],) => {
     });
   }
   return data;
+};
+
+
+export const getSchedule = async (uid: string): Promise<WeekSchedule | null> => {
+  const key = `schedule:${uid}`;
+  const cached = await redis.get<WeekSchedule>(key);
+  if (cached) return cached;
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+  const { data, error } = await supabase
+    .from("calendar_schedule")
+    .select("*, calendar:calendar(*)")
+    .eq("uid", uid)
+    .maybeSingle();
+  if (error) {
+    console.log(error);
+    return null;
+  }
+
+  if (data) await redis.set(key, data, { ex: expire.day });
+  return data as WeekSchedule | null;
 };
