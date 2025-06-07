@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { notFound } from "next/navigation";
-import { getEventById } from "rest-api/calendar";
+import { getEventById } from "rest-api/calendar/events";
 import Form from "./form";
 
 type PageProps = {

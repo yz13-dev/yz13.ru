@@ -37,6 +37,7 @@ export default function NewEventForm({
   const [description, setDescription] = useState<string>("");
   const [summary, setSummary] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const calendarId = ""
   const router = useRouter();
   const clearForm = () => {
     setAllDay(false);
@@ -101,6 +102,7 @@ export default function NewEventForm({
         duration: allDay ? null : duration,
         description: description || "",
         organizer_id: uid,
+        calendar_id: calendarId,
       };
 
       // Создаем событие

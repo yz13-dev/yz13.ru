@@ -9,7 +9,7 @@ import { ArrowRightIcon } from "lucide-react";
 import { Badge } from "mono/components/badge";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { getUserEvents } from "rest-api/calendar";
+import { getUserEvents } from "rest-api/calendar/events";
 import type { Event } from "rest-api/types/calendar";
 import { cn } from "yz13/cn";
 import { createClient } from "yz13/supabase/client";
