@@ -9,6 +9,7 @@ import { Calendar } from "mono/components/calendar";
 import Link from "next/link";
 import { Suspense } from "react";
 import Landing from "../(landing)/landing";
+import Calendars from "./calendars";
 import DatePicker from "./date-picker";
 import EventSection, { SectionSkeleton } from "./events/section";
 import LinkButton from "./meetings/link-button";
@@ -57,22 +58,7 @@ export default async function page({ searchParams }: PageProps) {
           <div className="rounded-lg bg-card">
             <Calendar />
           </div>
-          <div className="flex flex-col gap-2 rounded-lg p-2 bg-card">
-            <div className="flex items-center justify-between p-1 rounded-lg border">
-              <span className="text-base font-medium px-3">
-                Календари
-              </span>
-              <Button variant="ghost" size="sm" className="text-muted-foreground">
-                Скрыть все
-              </Button>
-            </div>
-            <ul className="w-full divide-y">
-              <li className="h-9"></li>
-              <li className="h-9"></li>
-              <li className="h-9"></li>
-              <li className="h-9"></li>
-            </ul>
-          </div>
+          <Calendars userId={user.id} />
         </div>
         <div className="flex flex-col gap-6 shrink-0 md:w-2/4 w-full">
           <Suspense fallback={<SectionSkeleton />}>

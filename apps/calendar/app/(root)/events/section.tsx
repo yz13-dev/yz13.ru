@@ -34,6 +34,9 @@ export default async function Section({
     return null;
   const { data } = await getUserEvents(uid, { date });
   const events = data ?? [];
+
+  console.log(events)
+
   if (!events.length) return (
     <div className="w-full aspect-video flex items-center justify-center border rounded-md">
       <span className="text-sm text-muted-foreground">Нет событий</span>

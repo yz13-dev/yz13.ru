@@ -33,19 +33,19 @@ export const getUserEvents = async (
     .join("&");
 
   const url = keys.length !== 0
-    ? `/calendar/user/${uid}?${searchParams}`
-    : `/calendar/user/${uid}`;
+    ? `/calendar/events/user/${uid}?${searchParams}`
+    : `/calendar/events/user/${uid}`;
   return await customFetch<Event[]>(url);
 };
 
 
 export const getEventById = async (id: string) => {
-  return await customFetch<Event | null>(`/calendar/event/${id}`);
+  return await customFetch<Event | null>(`/calendar/events/event/${id}`);
 };
 
 
 export const updateEvent = async (id: string, event: UpdateEvent) => {
-  return await customFetch<Event | null>(`/calendar/event/${id}`, {
+  return await customFetch<Event | null>(`/calendar/events/event/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

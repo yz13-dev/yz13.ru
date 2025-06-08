@@ -12,27 +12,39 @@ export type Database = {
       calendar: {
         Row: {
           created_at: string
+          description: string | null
           id: string
           is_default: boolean | null
+          is_public: boolean | null
           name: string | null
+          shared_with: string[] | null
           timezone: string | null
           user_id: string
+          visible: boolean | null
         }
         Insert: {
           created_at?: string
+          description?: string | null
           id?: string
           is_default?: boolean | null
+          is_public?: boolean | null
           name?: string | null
+          shared_with?: string[] | null
           timezone?: string | null
           user_id?: string
+          visible?: boolean | null
         }
         Update: {
           created_at?: string
+          description?: string | null
           id?: string
           is_default?: boolean | null
+          is_public?: boolean | null
           name?: string | null
+          shared_with?: string[] | null
           timezone?: string | null
           user_id?: string
+          visible?: boolean | null
         }
         Relationships: []
       }

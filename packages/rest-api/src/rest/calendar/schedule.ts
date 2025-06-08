@@ -12,7 +12,7 @@ export const createSchedule = async (
   uid: string,
   schedule?: NewWeekSchedule,
 ) => {
-  return await customFetch<WeekSchedule | null>(`/schedule/${uid}`, {
+  return await customFetch<WeekSchedule | null>(`/calendar/schedule/${uid}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,14 +22,14 @@ export const createSchedule = async (
 };
 
 export const getSchedule = async (uid: string) => {
-  return await customFetch<WeekSchedule | null>(`/schedule/${uid}`);
+  return await customFetch<WeekSchedule | null>(`/calendar/schedule/${uid}`);
 };
 
 export const updateSchedule = async (
   uid: string,
   schedule: UpdateWeekSchedule,
 ) => {
-  return await customFetch<WeekSchedule | null>(`/schedule/${uid}`, {
+  return await customFetch<WeekSchedule | null>(`/calendar/schedule/${uid}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export const updateSchedule = async (
 
 export const getUserAvailability = async (uid: string, date?: string) => {
   const url = date
-    ? `/schedule/${uid}/available?date=${date}`
-    : `/schedule/${uid}/available`;
+    ? `/calendar/schedule/${uid}/available?date=${date}`
+    : `/calendar/schedule/${uid}/available`;
   return await customFetch<ScheduleAvailability>(url);
 };

@@ -4,7 +4,7 @@ import type { Event } from "@/types/calendar";
 
 export const createMeeting = async (token: string, call: Event, timezone: string) => {
   try {
-    const url = new URL("/meetings", "https://localhost:3000")
+    const url = new URL("/calendar/meetings", "https://localhost:3000")
     const response = await fetch(url.toString(), {
       method: "POST",
       headers: {
