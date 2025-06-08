@@ -21,13 +21,13 @@ export default async function page() {
       <div
         className="w-full max-w-6xl px-6 flex flex-row gap-4 mx-auto mt-[10%]"
       >
-        <div className="max-w-sm shrink-0 md:block hidden space-y-2 w-full h-fit">
+        <div className="lg:max-w-sm md:max-w-2xs shrink-0 lg:block md:block hidden space-y-2 w-full h-fit">
           <Calendar
             hideCaption
             disableNavigation
           />
         </div>
-        <div className="space-y-12 w-full md:w-[calc(100%-var(--container-sm))]">
+        <div className="space-y-12 w-full lg:w-[calc(100%-var(--container-sm))] md:w-[calc(100%-var(--container-2xs))] max-w-full">
           <div className="space-y-6">
             <main className="space-y-2">
               <div className="flex items-center gap-2">
