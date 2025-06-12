@@ -1,7 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { avatarURL } from "rest-api/lib/avatar-url";
-import { getPosition } from "rest-api/positions";
-import { getUserById } from "rest-api/user";
+import { avatarURL } from "@yz13/api/lib/avatar-url";
+import { getPosition } from "@yz13/api/positions";
+import { getUserById } from "@yz13/api/user";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
 
 
 

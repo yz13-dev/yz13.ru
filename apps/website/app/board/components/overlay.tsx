@@ -1,7 +1,7 @@
 "use client";
 import { isDev } from "@/app/login/get-url";
 import type { ReactNode } from "react";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 import { useMapApi } from "../api/api-provider";
 
 const OffsetCoords = () => {

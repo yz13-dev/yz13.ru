@@ -1,10 +1,10 @@
+import { getSchedule } from "@yz13/api/calendar/schedule";
+import type { DaySchedule } from "@yz13/api/types/calendar";
+import { cn } from "@yz13/ui/cn";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { addDays, eachDayOfInterval, format, isPast, isToday } from "date-fns";
 import { ru } from "date-fns/locale";
 import { TimerIcon } from "lucide-react";
-import { Skeleton } from "mono/components/skeleton";
-import { getSchedule } from "rest-api/calendar/schedule";
-import type { DaySchedule } from "rest-api/types/calendar";
-import { cn } from "yz13/cn";
 
 export const ContactSkeleton = () => {
   const days = Array.from({ length: 7 }, (_, i) => i);

@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
+import { getUserEvents } from "@yz13/api/calendar/events";
 import { format } from "date-fns";
-import { getUserEvents } from "rest-api/calendar/events";
 import Calls from "./calls";
 
 

@@ -1,12 +1,12 @@
 "use client"
 
 import useTimeStore from "@/components/live/time.store";
+import type { Event } from "@yz13/api/types/calendar";
+import { createClient } from "@yz13/supabase/client";
 import { format, interval, isToday, isWithinInterval, parseISO } from "date-fns";
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import type { Event } from "rest-api/types/calendar";
-import { createClient } from "yz13/supabase/client";
 
 export default function ({ userId, calls: defaultCalls = [] }: { userId: string, calls?: Event[] }) {
 

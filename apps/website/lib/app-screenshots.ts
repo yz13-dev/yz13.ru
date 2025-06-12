@@ -1,6 +1,6 @@
 "use server";
+import { createClient } from "@yz13/supabase/server";
 import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
 
 export async function getAppScreenshots(appId: string) {
   const folder = `${appId}/screenshots`;

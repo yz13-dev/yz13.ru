@@ -1,4 +1,4 @@
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 export const DockWidgets = ({ children }: { children?: React.ReactNode }) => {
   return <div className="absolute w-fit -top-9">{children}</div>;

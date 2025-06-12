@@ -1,7 +1,7 @@
 "use server";
 import { customFetch } from "@/const/fetch";
 import type { UserObject } from "@/types/user";
-import type { UserAttributes } from "yz13/supabase/extra";
+import type { UserAttributes } from "@yz13/supabase/extra";
 
 export const getUserById = async (id: string) => {
   return await customFetch<UserObject | null>(`/user/${id}`, {

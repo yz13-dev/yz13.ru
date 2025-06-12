@@ -1,20 +1,20 @@
 "use client";
 import AvatarHandler from "@/components/avatar-handler";
-import { useDebounceEffect } from "ahooks";
-import { Loader2Icon } from "lucide-react";
-import { Input } from "mono/components/input";
+import type { Position } from "@yz13/api/types/positions";
+import type { UserObject } from "@yz13/api/types/user";
+import { updateUser } from "@yz13/api/user";
+import { Input } from "@yz13/ui/components/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "mono/components/select";
-import { Separator } from "mono/components/separator";
+} from "@yz13/ui/components/select";
+import { Separator } from "@yz13/ui/components/separator";
+import { useDebounceEffect } from "ahooks";
+import { Loader2Icon } from "lucide-react";
 import { useEffect, useState } from "react";
-import type { Position } from "rest-api/types/positions";
-import type { UserObject } from "rest-api/types/user";
-import { updateUser } from "rest-api/user";
 import { useUserStore } from "../account/settings/user.store";
 import Google from "./extensions/google";
 import Zoom from "./extensions/zoom";

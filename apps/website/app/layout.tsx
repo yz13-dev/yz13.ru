@@ -4,13 +4,13 @@ import ThemeObserver from "@/components/theme/theme-observer";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { isDev } from "@yz13/supabase/env";
+import { cn } from "@yz13/ui/cn";
+import { Toaster } from "@yz13/ui/components/toaster";
+import { TooltipProvider } from "@yz13/ui/components/tooltip";
 import "dayjs/locale/ru";
-import { Toaster } from "mono/components/toaster";
-import { TooltipProvider } from "mono/components/tooltip";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter, Pixelify_Sans } from "next/font/google";
-import { cn } from "yz13/cn";
-import { isDev } from "yz13/env";
 
 const PIXEL = Pixelify_Sans({
   subsets: ["latin", "cyrillic"],

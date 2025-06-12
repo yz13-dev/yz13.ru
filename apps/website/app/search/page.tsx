@@ -1,8 +1,8 @@
 import { Logo } from "@/components/logo";
 import User from "@/components/user";
-import { Button } from "mono/components/button";
-import { Input } from "mono/components/input";
-import { Skeleton } from "mono/components/skeleton";
+import { Button } from "@yz13/ui/components/button";
+import { Input } from "@yz13/ui/components/input";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 

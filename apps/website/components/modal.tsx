@@ -4,8 +4,8 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-} from "mono/components/dialog";
-import { Drawer, DrawerContent } from "mono/components/drawer";
+} from "@yz13/ui/components/dialog";
+import { Drawer, DrawerContent } from "@yz13/ui/components/drawer";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 

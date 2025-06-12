@@ -1,13 +1,13 @@
 "use client";
+import { createClient } from "@yz13/supabase/client";
 import { Loader2Icon } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Input } from "mono/components/input";
-import { Label } from "mono/components/label";
+import { Button } from "@yz13/ui/components/button";
+import { Input } from "@yz13/ui/components/input";
+import { Label } from "@yz13/ui/components/label";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ComponentPropsWithoutRef, useState } from "react";
-import { cn } from "yz13/cn";
-import { createClient } from "yz13/supabase/client";
+import { cn } from "@yz13/ui/cn";
 
 type FormProps = ComponentPropsWithoutRef<"div"> & {
   continueLink?: string;

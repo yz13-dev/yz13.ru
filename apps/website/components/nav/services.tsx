@@ -1,18 +1,18 @@
 "use client";
 
-import { ShortPricing } from "rest-api/types/pricing";
+import { ShortPricing } from "@yz13/api/types/pricing";
+import { Button } from "@yz13/ui/components/button";
+import {
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+} from "@yz13/ui/components/navigation-menu";
 import {
   AppWindowIcon,
   GlobeIcon,
   PanelTopIcon,
   SparklesIcon,
 } from "lucide-react";
-import { Button } from "mono/components/button";
-import {
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
-} from "mono/components/navigation-menu";
 import Link from "next/link";
 
 type ServicesProps = {

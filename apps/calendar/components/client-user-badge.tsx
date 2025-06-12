@@ -1,11 +1,11 @@
 "use client"
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { Skeleton } from "mono/components/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { useEffect, useState } from "react";
-import { avatarURL } from "rest-api/lib/avatar-url";
-import { getPosition } from "rest-api/positions";
-import type { UserObject } from "rest-api/types/user";
-import { getUserById } from "rest-api/user";
+import { avatarURL } from "@yz13/api/lib/avatar-url";
+import { getPosition } from "@yz13/api/positions";
+import type { UserObject } from "@yz13/api/types/user";
+import { getUserById } from "@yz13/api/user";
 
 
 

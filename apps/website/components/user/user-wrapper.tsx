@@ -1,9 +1,9 @@
 "use client";
 import { useUserStore } from "@/app/account/settings/user.store";
+import { getAuthorizedUser } from "@yz13/api/auth";
+import type { UserObject } from "@yz13/api/types/user";
+import { createClient } from "@yz13/supabase/client";
 import { type ReactElement, useEffect, useState } from "react";
-import { getAuthorizedUser } from "rest-api/auth";
-import type { UserObject } from "rest-api/types/user";
-import { createClient } from "yz13/supabase/client";
 import type SignInButton from "./sign-in-button";
 import type UserCircle from "./user-circle";
 import type UserDropdown from "./user-dropdown";

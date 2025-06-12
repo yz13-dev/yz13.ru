@@ -3,13 +3,13 @@
 import { getStatusLabel } from "@/const/status-map";
 import { useTz } from "@/hooks/use-tz";
 import { tz } from "@date-fns/tz";
+import type { Event } from "@yz13/api/types/calendar";
 import { addMinutes, format, parse, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
 import { ExternalLink } from "lucide-react";
-import { Badge } from "mono/components/badge";
-import { Separator } from "mono/components/separator";
+import { Badge } from "@yz13/ui/components/badge";
+import { Separator } from "@yz13/ui/components/separator";
 import Link from "next/link";
-import type { Event } from "rest-api/types/calendar";
 
 export default function ({ appointment }: { appointment: Event }) {
   const timezone = useTz();

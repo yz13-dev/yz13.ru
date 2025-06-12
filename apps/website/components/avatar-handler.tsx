@@ -1,15 +1,15 @@
 "use client";
 import { useUserStore } from "@/app/account/settings/user.store";
+import { avatarURL } from "@yz13/api/lib/avatar-url";
+import { updateUser } from "@yz13/api/user";
+import { createClient } from "@yz13/supabase/client";
+import { cn } from "@yz13/ui/cn";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
+import { Button, buttonVariants } from "@yz13/ui/components/button";
+import { Input } from "@yz13/ui/components/input";
+import { Label } from "@yz13/ui/components/label";
 import { XIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { Button, buttonVariants } from "mono/components/button";
-import { Input } from "mono/components/input";
-import { Label } from "mono/components/label";
 import { type ChangeEvent, useState } from "react";
-import { avatarURL } from "rest-api/lib/avatar-url";
-import { updateUser } from "rest-api/user";
-import { cn } from "yz13/cn";
-import { createClient } from "yz13/supabase/client";
 
 export default function AvatarHandler() {
   const user = useUserStore((state) => state.user);

@@ -1,10 +1,10 @@
 import { Logo } from "@/components/logo";
 import { auth } from "@/lib/auth";
+import { avatarURL } from "@yz13/api/lib/avatar-url";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
+import { Button } from "@yz13/ui/components/button";
+import { Input } from "@yz13/ui/components/input";
 import { ChevronRightIcon, ExternalLinkIcon, SearchIcon, XIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { Button } from "mono/components/button";
-import { Input } from "mono/components/input";
-import { avatarURL } from "rest-api/lib/avatar-url";
 
 export default async function page() {
   const user = await auth()

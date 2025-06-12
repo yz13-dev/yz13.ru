@@ -1,7 +1,7 @@
 "use server";
 import { NewsSource, parseNews } from "@/lib/parse-source";
-import { getNewsSource } from "rest-api/sources";
-import { NewArticle } from "rest-api/types/articles";
+import { getNewsSource } from "@yz13/api/sources";
+import { NewArticle } from "@yz13/api/types/articles";
 
 export const parseNewsFromSource = async (
   source_id: string,

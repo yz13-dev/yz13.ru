@@ -1,9 +1,9 @@
 "use client";
 
+import { Button } from "@yz13/ui/components/button";
 import { format, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { useQueryState } from "nuqs";
 
 export default function DatePicker() {

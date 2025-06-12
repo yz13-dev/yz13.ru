@@ -1,4 +1,4 @@
-import { Tables, TablesInsert } from "yz13/supabase/database";
+import { Tables, TablesInsert } from "@yz13/supabase/database";
 import { Attachment } from "./attachments";
 
 export type PublicationAttachment = Attachment;

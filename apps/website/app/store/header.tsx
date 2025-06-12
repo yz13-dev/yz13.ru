@@ -3,8 +3,8 @@ import { Logo } from "@/components/logo";
 import Nav from "@/components/nav/nav";
 import User from "@/components/user";
 import { LayoutGridIcon } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Skeleton } from "mono/components/skeleton";
+import { Button } from "@yz13/ui/components/button";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 

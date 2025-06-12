@@ -1,4 +1,4 @@
-import { Separator } from "mono/components/separator";
+import { Separator } from "@yz13/ui/components/separator";
 import Sidebar from "./sidebar";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {

@@ -1,5 +1,6 @@
 "use client";
 
+import { Event } from "@yz13/api/types/calendar";
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -17,8 +18,7 @@ import {
 } from "date-fns";
 import { ru as locale } from "date-fns/locale/ru";
 import * as React from "react";
-import { Event } from "rest-api/types/calendar";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 interface FullScreenCalendarProps {
   data?: Event[];
@@ -96,9 +96,9 @@ export default function FullScreenCalendar({
                   className={cn(
                     dayIdx === 1 && colStartClasses[getDay(day)],
                     !isEqual(day, selectedDay) &&
-                      !isToday(day) &&
-                      !isSameMonth(day, firstDayCurrentMonth) &&
-                      "bg-secondary/50 text-muted-foreground",
+                    !isToday(day) &&
+                    !isSameMonth(day, firstDayCurrentMonth) &&
+                    "bg-secondary/50 text-muted-foreground",
                     "relative flex flex-col border-b border-r hover:bg-secondary/40 focus:z-10",
                     !isEqual(day, selectedDay) && "hover:bg-secondary/40",
                   )}
@@ -109,21 +109,21 @@ export default function FullScreenCalendar({
                       className={cn(
                         isEqual(day, selectedDay) && "text-primary-foreground",
                         !isEqual(day, selectedDay) &&
-                          !isToday(day) &&
-                          isSameMonth(day, firstDayCurrentMonth) &&
-                          "text-foreground",
+                        !isToday(day) &&
+                        isSameMonth(day, firstDayCurrentMonth) &&
+                        "text-foreground",
                         !isEqual(day, selectedDay) &&
-                          !isToday(day) &&
-                          !isSameMonth(day, firstDayCurrentMonth) &&
-                          "text-muted-foreground",
+                        !isToday(day) &&
+                        !isSameMonth(day, firstDayCurrentMonth) &&
+                        "text-muted-foreground",
                         isEqual(day, selectedDay) &&
-                          isToday(day) &&
-                          "border-none bg-primary text-primary-foreground",
+                        isToday(day) &&
+                        "border-none bg-primary text-primary-foreground",
                         isEqual(day, selectedDay) &&
-                          !isToday(day) &&
-                          "bg-foreground text-background",
+                        !isToday(day) &&
+                        "bg-foreground text-background",
                         (isEqual(day, selectedDay) || isToday(day)) &&
-                          "font-semibold",
+                        "font-semibold",
                         "flex h-7 w-7 items-center justify-center rounded-full text-xs hover:border",
                       )}
                     >

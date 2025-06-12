@@ -6,7 +6,7 @@ import {
   PlusCircleIcon,
   SearchIcon,
 } from "lucide-react";
-import { Button } from "mono/components/button";
+import { Button } from "@yz13/ui/components/button";
 import Link from "next/link";
 import NewEventForm from "../(root)/new-event";
 import ViewSelector from "./view-selector";

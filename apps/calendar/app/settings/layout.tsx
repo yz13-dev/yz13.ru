@@ -1,10 +1,10 @@
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
+import { getCalendars } from "@yz13/api/calendar";
+import { SidebarProvider, SidebarTrigger } from "@yz13/ui/components/sidebar";
 import { SidebarIcon } from "lucide-react";
-import { SidebarProvider, SidebarTrigger } from "mono/components/sidebar";
 import { notFound } from "next/navigation";
 import { type ReactNode, Suspense } from "react";
-import { getCalendars } from "rest-api/calendar";
 import Sidebar from "./components/sidebar/sidebar";
 
 

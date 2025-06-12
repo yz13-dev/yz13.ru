@@ -1,4 +1,4 @@
-import type { User, UserObject } from "rest-api/types/user";
+import type { User, UserObject } from "@yz13/api/types/user";
 
 export const makeUserObj = (user: User): UserObject => {
   const role = user.user_metadata.role as string;

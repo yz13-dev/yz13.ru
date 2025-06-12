@@ -1,11 +1,11 @@
 "use client";
 
+import { updateEvent } from "@yz13/api/calendar/events";
+import { Button } from "@yz13/ui/components/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "@yz13/ui/components/dialog";
+import { Input } from "@yz13/ui/components/input";
 import { Loader2Icon } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "mono/components/dialog";
-import { Input } from "mono/components/input";
 import { useState } from "react";
-import { updateEvent } from "rest-api/calendar/events";
 
 const isValidUrl = (url: string) => {
   try {

@@ -1,5 +1,6 @@
 "use client";
-import { LogOutIcon, UserCircleIcon } from "lucide-react";
+import type { UserObject } from "@yz13/api/types/user";
+import { createClient } from "@yz13/supabase/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,11 +8,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "mono/components/dropdown-menu";
+} from "@yz13/ui/components/dropdown-menu";
+import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { UserObject } from "rest-api/types/user";
-import { createClient } from "yz13/supabase/client";
 
 const UserDropdown = ({
   user,

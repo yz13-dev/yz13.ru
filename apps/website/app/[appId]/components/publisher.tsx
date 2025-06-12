@@ -1,8 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { Badge } from "mono/components/badge";
-import { Skeleton } from "mono/components/skeleton";
-import { avatarURL } from "rest-api/lib/avatar-url";
-import { getUserById } from "rest-api/user";
+import { avatarURL } from "@yz13/api/lib/avatar-url";
+import { getUserById } from "@yz13/api/user";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
+import { Badge } from "@yz13/ui/components/badge";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 
 export function UserPublisherSkeleton() {
   return (

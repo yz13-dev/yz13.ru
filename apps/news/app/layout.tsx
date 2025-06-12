@@ -13,7 +13,7 @@ const PIXEL = Pixelify_Sans({
 //   localFont({
 //   src: [
 //     {
-//       path: "./fonts/departure-mono/departure-mono-nerd-font-mono-regular.otf",
+//       path: "./fonts/departure-@yz13/ui/departure-mono-nerd-font-mono-regular.otf",
 //       weight: "400",
 //       style: "normal",
 //     },

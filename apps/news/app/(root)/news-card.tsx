@@ -1,12 +1,12 @@
 import { CalendarLocale, locales } from "@/const/locale-to-country";
+import { Article } from "@yz13/api/types/articles";
+import { cn } from "@yz13/ui/cn";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { DotIcon, ExternalLinkIcon, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Article } from "rest-api/types/articles";
-import { cn } from "yz13/cn";
 dayjs.extend(relativeTime);
 
 type NewsCardProps = {

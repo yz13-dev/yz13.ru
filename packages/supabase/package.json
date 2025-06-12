@@ -1,19 +1,9 @@
 {
-  "name": "yz13",
+  "name": "@yz13/supabase",
   "version": "0.0.6-3",
   "type": "module",
   "description": "yz13 package",
   "exports": {
-    "./dynamic-image": {
-      "types": "./dist/dynamic-image/image.d.ts",
-      "import": "./dist/dynamic-image/image.js",
-      "require": "./dist/dynamic-image/image.cjs"
-    },
-    "./cn": {
-      "types": "./dist/lib/cn.d.ts",
-      "import": "./dist/lib/cn.js",
-      "require": "./dist/lib/cn.cjs"
-    },
     "./env": {
       "types": "./dist/lib/env.d.ts",
       "import": "./dist/lib/env.js",
@@ -24,42 +14,42 @@
       "import": "./dist/lib/get-url.js",
       "require": "./dist/lib/get-url.cjs"
     },
-    "./supabase/database": {
+    "./database": {
       "types": "./dist/supabase/database.d.ts",
       "import": "./dist/supabase/database.js",
       "require": "./dist/supabase/database.cjs"
     },
-    "./supabase/client": {
+    "./client": {
       "types": "./dist/supabase/client.d.ts",
       "import": "./dist/supabase/client.js",
       "require": "./dist/supabase/client.cjs"
     },
-    "./supabase/server": {
+    "./server": {
       "types": "./dist/supabase/server.d.ts",
       "import": "./dist/supabase/server.js",
       "require": "./dist/supabase/server.cjs"
     },
-    "./supabase/admin": {
+    "./admin": {
       "types": "./dist/supabase/admin.d.ts",
       "import": "./dist/supabase/admin.js",
       "require": "./dist/supabase/admin.cjs"
     },
-    "./supabase/middleware": {
+    "./middleware": {
       "types": "./dist/supabase/middleware.d.ts",
       "import": "./dist/supabase/middleware.js",
       "require": "./dist/supabase/middleware.cjs"
     },
-    "./supabase/storage": {
+    "./storage": {
       "types": "./dist/supabase/storage.d.ts",
       "import": "./dist/supabase/storage.js",
       "require": "./dist/supabase/storage.cjs"
     },
-    "./supabase/cookies": {
+    "./cookies": {
       "types": "./dist/supabase/cookies.d.ts",
       "import": "./dist/supabase/cookies.js",
       "require": "./dist/supabase/cookies.cjs"
     },
-    "./supabase/extra": {
+    "./extra": {
       "types": "./dist/supabase/extra.d.ts",
       "import": "./dist/supabase/extra.js",
       "require": "./dist/supabase/extra.cjs"

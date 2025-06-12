@@ -1,8 +1,8 @@
 "use server";
+import { makeUserObj } from "@yz13/api/lib/make-user-obj";
+import type { UserObject } from "@yz13/api/types/user";
+import { createClient } from "@yz13/supabase/server";
 import { cookies } from "next/headers";
-import { makeUserObj } from "rest-api/lib/make-user-obj";
-import type { UserObject } from "rest-api/types/user";
-import { createClient } from "yz13/supabase/server";
 
 export const auth = async (): Promise<UserObject | null> => {
   const cookieStore = await cookies();

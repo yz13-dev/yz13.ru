@@ -40,12 +40,12 @@ export const getUserEvents = async (
 
 
 export const getEventById = async (id: string) => {
-  return await customFetch<Event | null>(`/calendar/events/event/${id}`);
+  return await customFetch<Event | null>(`/calendar/events/${id}`);
 };
 
 
 export const updateEvent = async (id: string, event: UpdateEvent) => {
-  return await customFetch<Event | null>(`/calendar/events/event/${id}`, {
+  return await customFetch<Event | null>(`/calendar/events/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,5 @@
+import { createClient } from "@yz13/supabase/server";
 import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
 
 
 

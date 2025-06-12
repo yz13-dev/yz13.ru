@@ -1,5 +1,5 @@
 import { getStatusBadgeVariant, getStatusLabel } from "@/const/status-map";
-import { Badge } from "mono/components/badge";
+import { Badge } from "@yz13/ui/components/badge";
 
 
 

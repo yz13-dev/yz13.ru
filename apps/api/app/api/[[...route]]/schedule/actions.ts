@@ -1,9 +1,9 @@
 import { expire, redis } from "@/extensions/redis";
 import { tz } from "@date-fns/tz";
+import type { DaySchedule, Event, WeekSchedule } from "@yz13/api/types/calendar";
+import { createClient } from "@yz13/supabase/server";
 import { addMinutes, areIntervalsOverlapping, format, type Interval, interval, isWithinInterval, parse, parseISO } from "date-fns";
 import { cookies } from "next/headers";
-import type { DaySchedule, Event, WeekSchedule } from "rest-api/types/calendar";
-import { createClient } from "yz13/supabase/server";
 
 export const generateIntervalInRange = (
   start: Date,

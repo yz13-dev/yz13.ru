@@ -1,11 +1,11 @@
 import { adaptWeekSchedule } from "@/lib/schedule";
+import { getSchedule } from "@yz13/api/calendar/schedule";
+import type { DaySchedule, WeekSchedule } from "@yz13/api/types/calendar";
+import { Badge } from "@yz13/ui/components/badge";
+import { Separator } from "@yz13/ui/components/separator";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { format, parse } from "date-fns";
 import { Edit3Icon } from "lucide-react";
-import { Badge } from "mono/components/badge";
-import { Separator } from "mono/components/separator";
-import { Skeleton } from "mono/components/skeleton";
-import { getSchedule } from "rest-api/calendar/schedule";
-import type { DaySchedule, WeekSchedule } from "rest-api/types/calendar";
 import EditScheduleModal from "./edit-schedule-modal";
 import NewScheduleButton from "./new-schedule-button";
 import ScheduleList from "./schedule-list";

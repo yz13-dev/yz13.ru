@@ -1,7 +1,7 @@
 "use client"
 import { ArrowLeftIcon, FileIcon, PlusIcon, StoreIcon } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Separator } from "mono/components/separator";
+import { Button } from "@yz13/ui/components/button";
+import { Separator } from "@yz13/ui/components/separator";
 import Link from "next/link";
 import { useMapApi } from "../api/api-provider";
 import { getGridCoords } from "../api/canvas-api";

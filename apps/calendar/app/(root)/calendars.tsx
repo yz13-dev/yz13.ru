@@ -1,9 +1,9 @@
+import { getCalendars } from "@yz13/api/calendar";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@yz13/ui/components/accordion";
+import { Button } from "@yz13/ui/components/button";
+import { Checkbox } from "@yz13/ui/components/checkbox";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@yz13/ui/components/dropdown-menu";
 import { CheckIcon, Edit3Icon, EllipsisVerticalIcon, Trash2Icon } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "mono/components/accordion";
-import { Button } from "mono/components/button";
-import { Checkbox } from "mono/components/checkbox";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "mono/components/dropdown-menu";
-import { getCalendars } from "rest-api/calendar";
 
 
 

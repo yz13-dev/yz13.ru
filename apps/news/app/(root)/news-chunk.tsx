@@ -1,5 +1,5 @@
 import { CalendarLocale } from "@/const/locale-to-country";
-import { Article } from "rest-api/types/articles";
+import { Article } from "@yz13/api/types/articles";
 import NewsCard from "./news-card";
 
 type NewsChunkProps = {

@@ -1,9 +1,9 @@
 import { expire, redis } from "@/extensions/redis";
+import type { DaySchedule, Event, ScheduleAvailability } from "@yz13/api/types/calendar";
+import { createClient } from "@yz13/supabase/server";
 import { format, isValid, parse } from "date-fns";
 import { Hono, type HonoRequest } from "hono";
 import { cookies } from "next/headers";
-import type { DaySchedule, Event, ScheduleAvailability } from "rest-api/types/calendar";
-import { createClient } from "yz13/supabase/server";
 import { getLastEventsForDate } from "../events/actions";
 import { getUser } from "../user";
 import { createObjFromDurations, getSchedule, getTimeAndDurationFromAppointments } from "./actions";

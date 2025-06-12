@@ -1,10 +1,10 @@
 "use server";
 import { customFetch } from "@/const/fetch";
 import { Room } from "@/types/rooms";
+import { TablesInsert } from "@yz13/supabase/database";
+import { createClient } from "@yz13/supabase/server";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { TablesInsert } from "yz13/supabase/database";
-import { createClient } from "yz13/supabase/server";
 
 export const getRoom = async (id: string) => {
   return await customFetch<Room | null>(`/rooms/${id}`, {

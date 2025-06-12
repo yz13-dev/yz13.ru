@@ -1,6 +1,6 @@
+import { getUserEvents } from "@yz13/api/calendar/events";
 import { format } from "date-fns";
-import { Skeleton } from "mono/components/skeleton";
-import { getUserEvents } from "rest-api/calendar/events";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import LiveEvents from "./live-events";
 
 export function SectionSkeleton() {

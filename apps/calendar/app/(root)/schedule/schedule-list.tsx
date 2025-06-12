@@ -1,10 +1,10 @@
 "use client"
 import { adaptSchedule } from "@/lib/schedule";
 import { tz } from "@date-fns/tz";
+import type { DaySchedule } from "@yz13/api/types/calendar";
+import { Badge } from "@yz13/ui/components/badge";
+import { Separator } from "@yz13/ui/components/separator";
 import { format, parse } from "date-fns";
-import { Badge } from "mono/components/badge";
-import { Separator } from "mono/components/separator";
-import type { DaySchedule } from "rest-api/types/calendar";
 
 
 export default function ({ schedule = [], max = 2 }: { schedule?: DaySchedule[], max?: number }) {

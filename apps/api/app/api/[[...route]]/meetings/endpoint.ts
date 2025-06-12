@@ -1,7 +1,7 @@
+import { getAuthorizedSession } from "@yz13/api/auth";
+import type { Event } from "@yz13/api/types/calendar";
+import { getUsersById } from "@yz13/api/user";
 import { Hono } from "hono";
-import { getAuthorizedSession } from "rest-api/auth";
-import type { Event } from "rest-api/types/calendar";
-import { getUsersById } from "rest-api/user";
 import { createMeeting, getZoomMeetings } from "./actions";
 
 export const meetings = new Hono();

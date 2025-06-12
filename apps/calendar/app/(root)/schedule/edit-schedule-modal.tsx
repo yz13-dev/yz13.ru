@@ -1,11 +1,14 @@
 "use client";
 import { tz } from "@date-fns/tz";
-import { format, parse } from "date-fns";
-import { isEqual } from "lodash";
-import { Loader2Icon, PlusIcon, XIcon } from "lucide-react";
-import { Badge } from "mono/components/badge";
-import { Button } from "mono/components/button";
-import { Checkbox } from "mono/components/checkbox";
+import { updateSchedule } from "@yz13/api/calendar/schedule";
+import type {
+  DaySchedule,
+  UpdateWeekSchedule,
+  WeekSchedule,
+} from "@yz13/api/types/calendar";
+import { Badge } from "@yz13/ui/components/badge";
+import { Button } from "@yz13/ui/components/button";
+import { Checkbox } from "@yz13/ui/components/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -13,17 +16,14 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "mono/components/dialog";
-import { Input } from "mono/components/input";
-import { Separator } from "mono/components/separator";
+} from "@yz13/ui/components/dialog";
+import { Input } from "@yz13/ui/components/input";
+import { Separator } from "@yz13/ui/components/separator";
+import { format, parse } from "date-fns";
+import { isEqual } from "lodash";
+import { Loader2Icon, PlusIcon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { updateSchedule } from "rest-api/calendar/schedule";
-import type {
-  DaySchedule,
-  UpdateWeekSchedule,
-  WeekSchedule,
-} from "rest-api/types/calendar";
 
 const ScheduleItem = ({
   schedule,

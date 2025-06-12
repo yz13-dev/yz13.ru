@@ -1,5 +1,5 @@
 {
-  "name": "rest-api",
+  "name": "@yz13/api",
   "version": "0.0.0",
   "description": "Package with rest-api endpoints for current monorepo",
   "exports": {
@@ -126,7 +126,7 @@
     "@types/node": "^22.14.1",
     "@types/react": "^19.1.1",
     "typescript": "^5.8.3",
-    "yz13": "*"
+    "@yz13/supabase": "*"
   },
   "dependencies": {
     "date-fns": "^4.1.0",

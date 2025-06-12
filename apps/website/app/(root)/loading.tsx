@@ -2,7 +2,7 @@ import { AvailabilitySkeleton } from "@/components/availability";
 import Calendar from "@/components/calendar";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
-import { Skeleton } from "mono/components/skeleton";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { CallToActionSkeleton } from "./components/call-to-action";
 import { CalendarSkeleton } from "./components/github-activity-map";
 import { OtherProjectsSkeleton } from "./components/other-projects";

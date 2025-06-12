@@ -1,4 +1,4 @@
-import type { Tables, TablesInsert, TablesUpdate } from "yz13/supabase/database";
+import type { Tables, TablesInsert, TablesUpdate } from "@yz13/supabase/database";
 
 export type Event = Tables<"calendar_events">;
 export type NewEvent = TablesInsert<"calendar_events">;

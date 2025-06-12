@@ -1,8 +1,8 @@
 "use client";
 
 import { getBookingLink } from "@/lib/booking-link";
+import { Button } from "@yz13/ui/components/button";
 import { CheckIcon, CopyIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { useState } from "react";
 
 export default function LinkButton({

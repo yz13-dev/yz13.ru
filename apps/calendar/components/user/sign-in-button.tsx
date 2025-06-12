@@ -1,7 +1,7 @@
+import { cn } from "@yz13/ui/cn";
+import { Button, type ButtonProps } from "@yz13/ui/components/button";
 import { LockIcon, LogInIcon } from "lucide-react";
-import { Button, type ButtonProps } from "mono/components/button";
 import Link from "next/link";
-import { cn } from "yz13/cn";
 
 type SignInButtonProps = ButtonProps;
 const SignInButton = ({

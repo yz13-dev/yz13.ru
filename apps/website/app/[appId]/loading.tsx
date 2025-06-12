@@ -1,7 +1,7 @@
 import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
-import { Separator } from "mono/components/separator";
-import { Skeleton } from "mono/components/skeleton";
+import { Separator } from "@yz13/ui/components/separator";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import Link from "next/link";
 import { OtherProjectsSkeleton } from "../(root)/components/other-projects";
 

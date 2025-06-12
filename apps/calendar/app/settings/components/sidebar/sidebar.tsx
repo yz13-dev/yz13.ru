@@ -1,7 +1,7 @@
+import type { Calendar } from "@yz13/api/types/calendar";
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@yz13/ui/components/sidebar";
 import { ArrowLeftIcon, CalendarIcon, PlusIcon } from "lucide-react";
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "mono/components/sidebar";
 import Link from "next/link";
-import type { Calendar } from "rest-api/types/calendar";
 
 type Props = {
   calendars?: Calendar[]

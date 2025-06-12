@@ -1,4 +1,4 @@
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 import SocialLinks from "./social-links";
 
 const Footer = ({ className = "" }: { className?: string }) => {

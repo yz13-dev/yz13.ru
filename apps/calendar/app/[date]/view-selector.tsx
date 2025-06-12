@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "mono/components/select";
+} from "@yz13/ui/components/select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 

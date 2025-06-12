@@ -1,4 +1,4 @@
-import { createClient } from "yz13/supabase/client";
+import { createClient } from "@yz13/supabase/client";
 
 export async function uploadFile(bucket: string, path: string, file: File) {
   try {

@@ -1,9 +1,9 @@
 "use client";
+import { createSchedule } from "@yz13/api/calendar/schedule";
+import { Button } from "@yz13/ui/components/button";
 import { Loader2Icon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createSchedule } from "rest-api/calendar/schedule";
 
 export default function ({ uid }: { uid: string | null }) {
   const [loading, setLoading] = useState<boolean>(false);

@@ -1,7 +1,7 @@
 "use server";
 
+import { createClient } from "@yz13/supabase/server";
 import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
 import { makeUserObj } from "./make-user-obj";
 
 export async function isAdmin() {

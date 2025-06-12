@@ -1,10 +1,10 @@
 import AppLogo from "@/app/[appId]/components/app-logo";
+import { getPublications } from "@yz13/api/store";
+import { Badge } from "@yz13/ui/components/badge";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { differenceInDays } from "date-fns";
 import { ExternalLinkIcon } from "lucide-react";
-import { Badge } from "mono/components/badge";
-import { Skeleton } from "mono/components/skeleton";
 import Link from "next/link";
-import { getPublications } from "rest-api/store";
 
 export async function OtherProjectsSkeleton() {
   return (

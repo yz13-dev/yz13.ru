@@ -1,8 +1,8 @@
 import { getPricing, isPaid } from "@/lib/pricing";
 import { get } from "@vercel/edge-config";
+import { getFullPricing } from "@yz13/api/pricing";
 import { CheckIcon, LucideIcon, PlusIcon } from "lucide-react";
-import { getFullPricing } from "rest-api/pricing";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 import ServicesStand from "./services-stand";
 
 const Details = ({
