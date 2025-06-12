@@ -2,14 +2,14 @@ import Footer from "@/components/footer";
 import User, { UserSkeleton } from "@/components/user";
 import { auth } from "@/lib/auth";
 import { getBookingLink } from "@/lib/booking-link";
-import { showEventForm } from "@yz13/flags";
-import { ArrowRightIcon } from "lucide-react";
+import { getDefaultCalendar } from "@yz13/api/calendar";
 import { Button } from "@yz13/ui/components/button";
-import { Calendar } from "@yz13/ui/components/calendar";
+import { ArrowRightIcon, CalendarFoldIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import Landing from "../(landing)/landing";
 import Calendars from "./calendars";
+import DateDisplay from "./date-display";
 import DatePicker from "./date-picker";
 import EventSection, { SectionSkeleton } from "./events/section";
 import LinkButton from "./meetings/link-button";
@@ -27,8 +27,13 @@ export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const date = search.date;
   const user = await auth();
-  const showForm = await showEventForm();
+  // const showForm = await showEventForm();
   if (!user) return <Landing />
+
+  const { data: calendar } = await getDefaultCalendar(user.id);
+
+  const calendarId = calendar?.id
+
   return (
     <>
       {/* <header className="md:px-[2.5%] px-[5%] h-16 calendar-container w-full flex items-center justify-between">
@@ -50,13 +55,13 @@ export default async function page({ searchParams }: PageProps) {
       <div className="md:p-[2.5%] p-[5%] calendar-container w-full flex md:flex-row flex-col gap-6  min-h-dvh">
         <div className="space-y-6 md:w-1/4 shrink-0 w-full">
           <div className="flex items-center justify-between">
-            <DatePicker />
+            <DateDisplay />
             <Suspense fallback={<UserSkeleton />}>
               <User />
             </Suspense>
           </div>
           <div className="rounded-lg bg-card">
-            <Calendar />
+            <DatePicker />
           </div>
           <Calendars userId={user.id} />
         </div>
@@ -66,8 +71,18 @@ export default async function page({ searchParams }: PageProps) {
           </Suspense>
         </div>
         <div className="space-y-6 md:w-1/4 shrink-0 w-full">
+          {
+            calendar &&
+            <div className="flex flex-col gap-2">
+              <span className="font-medium text-lg block">Календарь</span>
+              <Button variant="secondary" className="w-fit">
+                <CalendarFoldIcon />
+                {calendar.name}
+              </Button>
+            </div>
+          }
           <div className="flex flex-col gap-2">
-            <span className="font-medium block">Бронирование</span>
+            <span className="font-medium text-lg block">Бронирование</span>
             <div className="flex items-center gap-2">
               <LinkButton uid={user?.id} className="w-fit" />
               {
@@ -81,7 +96,7 @@ export default async function page({ searchParams }: PageProps) {
               }
             </div>
           </div>
-          <ScheduleSection uid={user?.id ?? null} />
+          <ScheduleSection uid={user?.id ?? null} calendarId={calendarId} />
           {
             false &&
             <Suspense fallback={<MeetingSectionSkeleton />}>

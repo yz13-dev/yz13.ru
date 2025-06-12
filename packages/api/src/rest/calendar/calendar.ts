@@ -21,3 +21,23 @@ export async function getCalendar(id: string) {
     method: "GET",
   });
 }
+
+export async function createCalendar(uid: string, name: string) {
+  return customFetch<Calendar>(`/calendar/user/${uid}`, {
+    method: "POST",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function updateCalendar(id: string, name: string) {
+  return customFetch<Calendar>(`/calendar/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export async function deleteCalendar(id: string) {
+  return customFetch<Calendar>(`/calendar/${id}`, {
+    method: "DELETE",
+  });
+}

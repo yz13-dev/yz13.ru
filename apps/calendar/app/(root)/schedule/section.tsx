@@ -39,7 +39,7 @@ const DayScheduleItem = ({
   );
 };
 
-export default async function Section({ uid }: { uid: string | null }) {
+export default async function Section({ uid, calendarId }: { uid: string | null, calendarId?: string }) {
   if (!uid) return <EmptySchedule />;
   const { data } = await getSchedule(uid);
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -55,9 +55,9 @@ export default async function Section({ uid }: { uid: string | null }) {
   const durations = schedule?.durations ?? [];
   return (
     <div className="space-y-6">
-      <div className="space-y-0">
+      <div className="space-y-2">
         <div className="flex justify-between items-center">
-          <span className="font-medium block">Расписание</span>
+          <span className="font-medium text-lg block">Расписание</span>
           {/* <button className="text-lg font-medium flex items-center gap-2">
             <span>Расписание</span>
             <ArrowRightIcon size={16} />
@@ -104,7 +104,7 @@ export default async function Section({ uid }: { uid: string | null }) {
           </li>
         </ul>
       ) : (
-        <NewScheduleButton uid={uid} />
+        <NewScheduleButton uid={uid} calendarId={calendarId} />
       )}
       {!!durations.length && (
         <>

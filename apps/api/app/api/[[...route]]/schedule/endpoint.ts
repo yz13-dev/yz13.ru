@@ -36,7 +36,7 @@ const getBody = async (c: HonoRequest) => {
 
 schedule.post("/:uid", async (c) => {
   const uid = c.req.param("uid");
-  const calendarId = c.req.query("calendar_id");
+  const calendarId = c.req.query("calendarId");
   const user = await getUser(uid);
   if (!calendarId) return c.json(null);
   if (!user) return c.json(null);
@@ -61,7 +61,11 @@ schedule.post("/:uid", async (c) => {
     }
     const { data, error } = await supabase
       .from("calendar_schedule")
-      .insert(body)
+      .insert({
+        ...body,
+        uid,
+        calendar_id: calendarId,
+      })
       .select()
       .maybeSingle();
     if (error) {

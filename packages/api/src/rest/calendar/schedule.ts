@@ -1,7 +1,7 @@
 "use server";
 
 import { customFetch } from "@/const/fetch";
-import {
+import type {
   NewWeekSchedule,
   ScheduleAvailability,
   UpdateWeekSchedule,
@@ -10,9 +10,10 @@ import {
 
 export const createSchedule = async (
   uid: string,
+  calendarId: string,
   schedule?: NewWeekSchedule,
 ) => {
-  return await customFetch<WeekSchedule | null>(`/calendar/schedule/${uid}`, {
+  return await customFetch<WeekSchedule | null>(`/calendar/schedule/${uid}?calendarId=${calendarId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
