@@ -13,6 +13,8 @@ export default function () {
     locale={ru}
     mode="single"
     selected={parsed}
-    onSelect={(date) => setDate(format(date, "yyyy-MM-dd"))}
+    onSelect={(date) => {
+      if (date) setDate(format(date, "yyyy-MM-dd"))
+    }}
   />
 }
