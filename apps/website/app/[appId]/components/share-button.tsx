@@ -1,6 +1,6 @@
 "use client";
+import { Button } from "@yz13/ui/components/button";
 import { Loader2Icon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { useState } from "react";
 
 export default function ShareButton({ appId }: { appId: string }) {

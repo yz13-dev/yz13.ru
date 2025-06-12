@@ -1,12 +1,12 @@
 "use client";
 import { User } from "@supabase/supabase-js";
+import { avatarURL } from "@yz13/api/lib/avatar-url";
+import { createClient } from "@yz13/supabase/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
+import { Button } from "@yz13/ui/components/button";
 import { ArrowLeft } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { Button } from "mono/components/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { avatarURL } from "rest-api/lib/avatar-url";
-import { createClient } from "yz13/supabase/client";
 
 type Props = {
   user: User;

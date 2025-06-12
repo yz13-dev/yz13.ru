@@ -3,7 +3,7 @@ import SignInButton from "@/components/user/sign-in-button";
 import UserCircle from "@/components/user/user-circle";
 import UserDropdown from "@/components/user/user-dropdown";
 import UserWrapper from "@/components/user/user-wrapper";
-import { Skeleton } from "mono/components/skeleton";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 
 type UserProps = {
   sideOffset?: number;

@@ -1,8 +1,8 @@
+import { NewArticle } from "@yz13/api/types/articles";
+import { Tables } from "@yz13/supabase/database";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-import { NewArticle } from "rest-api/types/articles";
 import Parser from "rss-parser";
-import { Tables } from "yz13/supabase/database";
 dayjs.extend(utc);
 export type NewsSource = Tables<"news_sources">;
 

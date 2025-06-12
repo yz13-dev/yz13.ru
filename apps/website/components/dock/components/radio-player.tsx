@@ -19,8 +19,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "mono/components/popover";
-import { Slider } from "mono/components/slider";
+} from "@yz13/ui/components/popover";
+import { Slider } from "@yz13/ui/components/slider";
 import { useEffect, useState } from "react";
 
 const RadioPlayer = () => {

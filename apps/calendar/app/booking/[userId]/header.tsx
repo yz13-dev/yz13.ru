@@ -1,10 +1,10 @@
 "use client";
 import ClientUserBadge from "@/components/client-user-badge";
+import type { UserObject } from "@yz13/api/types/user";
 import { format, parse } from "date-fns";
 import { CalendarIcon, ClockIcon, GlobeIcon, VideoIcon } from "lucide-react";
-import { Badge } from "mono/components/badge";
+import { Badge } from "@yz13/ui/components/badge";
 import { useQueryState } from "nuqs";
-import type { UserObject } from "rest-api/types/user";
 
 export default function Header({ user }: { user: UserObject }) {
   const [date] = useQueryState("date");

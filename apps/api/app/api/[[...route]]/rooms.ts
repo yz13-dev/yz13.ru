@@ -1,6 +1,6 @@
+import { createClient } from "@yz13/supabase/server";
 import { Hono } from "hono/quick";
 import { cookies } from "next/headers";
-import { createClient } from "yz13/supabase/server";
 
 export const rooms = new Hono();
 

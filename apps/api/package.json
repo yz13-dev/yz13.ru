@@ -21,9 +21,9 @@
     "next": "15.3.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "rest-api": "*",
+    "@yz13/api": "*",
     "rss-parser": "^3.13.0",
-    "yz13": "*",
+    "@yz13/supabase": "*",
     "zod": "^3.24.2"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 "use client";
 
+import { cn } from "@yz13/ui/cn";
 import { useEffect, useRef } from "react";
-import { cn } from "yz13/cn";
 
 interface TextAreaPros
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {

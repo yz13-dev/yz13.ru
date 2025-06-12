@@ -1,0 +1,140 @@
+{
+  "name": "@yz13/api",
+  "version": "0.0.0",
+  "description": "Package with rest-api endpoints for current monorepo",
+  "exports": {
+    "./lib/make-user-obj": {
+      "types": "./dist/lib/make-user-obj.d.ts",
+      "import": "./dist/lib/make-user-obj.mjs",
+      "require": "./dist/lib/make-user-obj.js"
+    },
+    "./lib/is-admin": {
+      "types": "./dist/lib/is-admin.d.ts",
+      "import": "./dist/lib/is-admin.mjs",
+      "require": "./dist/lib/is-admin.js"
+    },
+    "./lib/filters": {
+      "types": "./dist/lib/filters.d.ts",
+      "import": "./dist/lib/filters.mjs",
+      "require": "./dist/lib/filters.js"
+    },
+    "./lib/avatar-url": {
+      "types": "./dist/lib/avatar-url.d.ts",
+      "import": "./dist/lib/avatar-url.mjs",
+      "require": "./dist/lib/avatar-url.js"
+    },
+    "./types/timezone": "./dist/types/timezone.d.ts",
+    "./types/articles": "./dist/types/articles.d.ts",
+    "./types/pricing": "./dist/types/pricing.d.ts",
+    "./types/user": "./dist/types/user.d.ts",
+    "./types/attachments": "./dist/types/attachments.d.ts",
+    "./types/rooms": "./dist/types/charts.d.ts",
+    "./types/store": "./dist/types/store.d.ts",
+    "./types/calendar": "./dist/types/calendar.d.ts",
+    "./types/positions": "./dist/types/positions.d.ts",
+    "./lib/custom-fetch": {
+      "types": "./dist/const/fetch.d.ts",
+      "import": "./dist/const/fetch.mjs",
+      "require": "./dist/const/fetch.js"
+    },
+    "./timezone": {
+      "types": "./dist/rest/timezone/timezone.d.ts",
+      "import": "./dist/rest/timezone/timezone.mjs",
+      "require": "./dist/rest/timezone/timezone.js"
+    },
+    "./meetings": {
+      "types": "./dist/rest/calendar/meetings.d.ts",
+      "import": "./dist/rest/calendar/meetings.mjs",
+      "require": "./dist/rest/calendar/meetings.js"
+    },
+    "./positions": {
+      "types": "./dist/rest/positions/positions.d.ts",
+      "import": "./dist/rest/positions/positions.mjs",
+      "require": "./dist/rest/positions/positions.js"
+    },
+    "./articles": {
+      "types": "./dist/rest/articles/articles.d.ts",
+      "import": "./dist/rest/articles/articles.mjs",
+      "require": "./dist/rest/articles/articles.js"
+    },
+    "./calendar": {
+      "types": "./dist/rest/calendar/calendar.d.ts",
+      "import": "./dist/rest/calendar/calendar.mjs",
+      "require": "./dist/rest/calendar/calendar.js"
+    },
+    "./calendar/events": {
+      "types": "./dist/rest/calendar/events.d.ts",
+      "import": "./dist/rest/calendar/events.mjs",
+      "require": "./dist/rest/calendar/events.js"
+    },
+    "./calendar/schedule": {
+      "types": "./dist/rest/calendar/schedule.d.ts",
+      "import": "./dist/rest/calendar/schedule.mjs",
+      "require": "./dist/rest/calendar/schedule.js"
+    },
+    "./pricing": {
+      "types": "./dist/rest/pricing/pricing.d.ts",
+      "import": "./dist/rest/pricing/pricing.mjs",
+      "require": "./dist/rest/pricing/pricing.js"
+    },
+    "./sources": {
+      "types": "./dist/rest/sources/sources.d.ts",
+      "import": "./dist/rest/sources/sources.mjs",
+      "require": "./dist/rest/sources/sources.js"
+    },
+    "./auth": {
+      "types": "./dist/rest/user/auth.d.ts",
+      "import": "./dist/rest/user/auth.mjs",
+      "require": "./dist/rest/user/auth.js"
+    },
+    "./user": {
+      "types": "./dist/rest/user/user.d.ts",
+      "import": "./dist/rest/user/user.mjs",
+      "require": "./dist/rest/user/user.js"
+    },
+    "./files": {
+      "types": "./dist/rest/files/files.d.ts",
+      "import": "./dist/rest/files/files.mjs",
+      "require": "./dist/rest/files/files.js"
+    },
+    "./rooms": {
+      "types": "./dist/rest/rooms/rooms.d.ts",
+      "import": "./dist/rest/rooms/rooms.mjs",
+      "require": "./dist/rest/rooms/rooms.js"
+    },
+    "./store": {
+      "types": "./dist/rest/store/store.d.ts",
+      "import": "./dist/rest/store/store.mjs",
+      "require": "./dist/rest/store/store.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "publish": "bun run build",
+    "build": "tsup",
+    "dev": "tsup --watch --clean=false"
+  },
+  "keywords": [
+    "package",
+    "rest-api"
+  ],
+  "author": "YZ13-ENV",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "@types/react": "^19.1.1",
+    "typescript": "^5.8.3",
+    "@yz13/supabase": "*"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "next": "^15.3.0",
+    "tsup": "^6.7.0",
+    "typescript-config": "*"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,10 +1,10 @@
 "use client";
+import { cn } from "@yz13/ui/cn";
+import { Button } from "@yz13/ui/components/button";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Skeleton } from "mono/components/skeleton";
 import NextImage from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "yz13/cn";
 
 type ThemedImage = {
   light: string;

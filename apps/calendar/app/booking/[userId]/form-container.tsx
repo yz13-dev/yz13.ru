@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "motion/react";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 export default function FormContainer({ children, className }: { className?: string, children: React.ReactNode }) {
   return (

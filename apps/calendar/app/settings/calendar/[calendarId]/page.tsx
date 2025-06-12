@@ -1,6 +1,6 @@
 import AutoTextarea from "@/components/auto-textarea";
-import { Input } from "mono/components/input";
-import { getCalendar } from "rest-api/calendar";
+import { getCalendar } from "@yz13/api/calendar";
+import { Input } from "@yz13/ui/components/input";
 
 type PageProps = {
   params: Promise<{

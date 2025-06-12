@@ -1,9 +1,9 @@
 import { redis } from "@/extensions/redis";
+import type { Event } from "@yz13/api/types/calendar";
+import { createClient } from "@yz13/supabase/server";
 import { format, isValid, parse, parseISO } from "date-fns";
 import { Hono } from "hono";
 import { cookies } from "next/headers";
-import type { Event } from "rest-api/types/calendar";
-import { createClient } from "yz13/supabase/server";
 import { getEventById, getLastEvents, getLastEventsForDate, getUserEvents } from "./actions";
 
 export const events = new Hono();
@@ -59,7 +59,7 @@ events.get("/user/:uid", async (c) => {
   }
 });
 
-events.get("/event/:id", async (c) => {
+events.get("/:id", async (c) => {
   const id = c.req.param("id");
   if (!id) return c.json(null, 400);
   try {
@@ -70,7 +70,7 @@ events.get("/event/:id", async (c) => {
   }
 });
 
-events.patch("/event/:id", async (c) => {
+events.patch("/:id", async (c) => {
   const id = c.req.param("id");
   if (!id) return c.json(null, 400);
   try {

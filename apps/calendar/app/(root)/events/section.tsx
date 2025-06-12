@@ -1,6 +1,6 @@
+import { getUserEvents } from "@yz13/api/calendar/events";
 import { format } from "date-fns";
-import { Skeleton } from "mono/components/skeleton";
-import { getUserEvents } from "rest-api/calendar/events";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import LiveEvents from "./live-events";
 
 export function SectionSkeleton() {
@@ -34,6 +34,9 @@ export default async function Section({
     return null;
   const { data } = await getUserEvents(uid, { date });
   const events = data ?? [];
+
+  console.log(events)
+
   if (!events.length) return (
     <div className="w-full aspect-video flex items-center justify-center border rounded-md">
       <span className="text-sm text-muted-foreground">Нет событий</span>

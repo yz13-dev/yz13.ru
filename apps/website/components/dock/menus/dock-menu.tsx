@@ -2,8 +2,7 @@
 
 import { useUserStore } from "@/app/account/settings/user.store";
 import UserCircle from "@/components/user/user-circle";
-import { ChevronDownIcon, SettingsIcon } from "lucide-react";
-import { Button } from "mono/components/button";
+import { Button } from "@yz13/ui/components/button";
 import {
   Command,
   CommandEmpty,
@@ -11,7 +10,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "mono/components/command";
+} from "@yz13/ui/components/command";
+import { ChevronDownIcon, SettingsIcon } from "lucide-react";
 import Link from "next/link";
 import ConntectionStatus from "../components/connection-status";
 import MenuWrapper from "./menu-wrapper";

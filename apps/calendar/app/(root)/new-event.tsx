@@ -1,21 +1,21 @@
 "use client";
 import AutoTextarea from "@/components/auto-textarea";
-import { addDays, format, parse } from "date-fns";
-import { ru } from "date-fns/locale";
-import { AlignLeftIcon, ClockIcon, Loader2Icon, XIcon } from "lucide-react";
-import { Button } from "mono/components/button";
-import { Checkbox } from "mono/components/checkbox";
-import { Input } from "mono/components/input";
-import { Label } from "mono/components/label";
+import { createEvent } from "@yz13/api/calendar/events";
+import type { NewEvent } from "@yz13/api/types/calendar";
+import { Button } from "@yz13/ui/components/button";
+import { Checkbox } from "@yz13/ui/components/checkbox";
+import { Input } from "@yz13/ui/components/input";
+import { Label } from "@yz13/ui/components/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "mono/components/popover";
+} from "@yz13/ui/components/popover";
+import { addDays, format, parse } from "date-fns";
+import { ru } from "date-fns/locale";
+import { AlignLeftIcon, ClockIcon, Loader2Icon, XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type ReactNode, useState } from "react";
-import { createEvent } from "rest-api/calendar/events";
-import type { NewEvent } from "rest-api/types/calendar";
 
 type EventForm = {
   uid: string | null;

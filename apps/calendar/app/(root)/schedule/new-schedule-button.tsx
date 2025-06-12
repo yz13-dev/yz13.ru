@@ -1,19 +1,20 @@
 "use client";
+import { createSchedule } from "@yz13/api/calendar/schedule";
+import { Button } from "@yz13/ui/components/button";
 import { Loader2Icon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createSchedule } from "rest-api/calendar/schedule";
 
-export default function ({ uid }: { uid: string | null }) {
+export default function ({ uid, calendarId }: { uid: string | null, calendarId?: string }) {
   const [loading, setLoading] = useState<boolean>(false);
-  const disabled = !uid || loading;
+  const disabled = !uid || loading || !calendarId;
   const router = useRouter();
   const handleNewSchedule = async () => {
     if (!uid) return;
+    if (!calendarId) return;
     try {
       setLoading(true);
-      const schedule = await createSchedule(uid);
+      const schedule = await createSchedule(uid, calendarId);
       if (schedule) {
         router.refresh();
       }

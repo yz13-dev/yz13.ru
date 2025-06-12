@@ -1,9 +1,9 @@
 import { expire, redis } from "@/extensions/redis";
+import type { DaySchedule, Event, ScheduleAvailability } from "@yz13/api/types/calendar";
+import { createClient } from "@yz13/supabase/server";
 import { format, isValid, parse } from "date-fns";
 import { Hono, type HonoRequest } from "hono";
 import { cookies } from "next/headers";
-import type { DaySchedule, Event, ScheduleAvailability } from "rest-api/types/calendar";
-import { createClient } from "yz13/supabase/server";
 import { getLastEventsForDate } from "../events/actions";
 import { getUser } from "../user";
 import { createObjFromDurations, getSchedule, getTimeAndDurationFromAppointments } from "./actions";
@@ -36,7 +36,7 @@ const getBody = async (c: HonoRequest) => {
 
 schedule.post("/:uid", async (c) => {
   const uid = c.req.param("uid");
-  const calendarId = c.req.query("calendar_id");
+  const calendarId = c.req.query("calendarId");
   const user = await getUser(uid);
   if (!calendarId) return c.json(null);
   if (!user) return c.json(null);
@@ -61,7 +61,11 @@ schedule.post("/:uid", async (c) => {
     }
     const { data, error } = await supabase
       .from("calendar_schedule")
-      .insert(body)
+      .insert({
+        ...body,
+        uid,
+        calendar_id: calendarId,
+      })
       .select()
       .maybeSingle();
     if (error) {

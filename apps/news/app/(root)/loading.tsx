@@ -1,4 +1,4 @@
-import { Skeleton } from "mono/components/skeleton";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 
 const loading = () => {
   return (

@@ -1,7 +1,7 @@
 import Footer from "@/components/footer";
 import { Logo } from "@/components/logo";
 import { UserSkeleton } from "@/components/user";
-import { Skeleton } from "mono/components/skeleton";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { SectionSkeleton } from "./schedule/section";
 export default function oading() {
   return (

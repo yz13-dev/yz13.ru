@@ -1,8 +1,8 @@
 "use client";
+import { cn } from "@yz13/ui/cn";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
-import { Skeleton } from "mono/components/skeleton";
 import { useEffect, useState } from "react";
-import { cn } from "yz13/cn";
 import useThemeStore, {
   getTheme,
   Theme,

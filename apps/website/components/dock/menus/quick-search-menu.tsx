@@ -1,4 +1,4 @@
-import { Input } from "mono/components/input";
+import { Input } from "@yz13/ui/components/input";
 import MenuWrapper from "./menu-wrapper";
 
 const QuickSearchMenu = () => {

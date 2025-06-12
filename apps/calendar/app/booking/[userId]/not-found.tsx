@@ -1,6 +1,6 @@
 "use client";
 import { ArrowLeftIcon, RefreshCwIcon } from "lucide-react";
-import { Button } from "mono/components/button";
+import { Button } from "@yz13/ui/components/button";
 import { useRouter } from "next/navigation";
 
 export default function NotFound() {

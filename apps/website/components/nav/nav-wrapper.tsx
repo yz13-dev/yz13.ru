@@ -3,8 +3,8 @@
 import {
   NavigationMenu,
   NavigationMenuList,
-} from "mono/components/navigation-menu";
-import { cn } from "yz13/cn";
+} from "@yz13/ui/components/navigation-menu";
+import { cn } from "@yz13/ui/cn";
 
 const NavWrapper = ({
   children,

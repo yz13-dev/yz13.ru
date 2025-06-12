@@ -1,5 +1,5 @@
 import MiniFooter from "@/components/small-footer";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 const Footer = ({ className = "" }: { className?: string }) => {
   return (

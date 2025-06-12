@@ -1,5 +1,8 @@
 import Background from "@/app/(root)/components/background";
 import { auth } from "@/lib/auth";
+import { avatarURL } from "@yz13/api/lib/avatar-url";
+import { getPosition } from "@yz13/api/positions";
+import { getUserById } from "@yz13/api/user";
 import { format, parseISO } from "date-fns";
 import {
   ArrowLeftIcon,
@@ -9,15 +12,12 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "mono/components/avatar";
-import { Badge } from "mono/components/badge";
-import { Button } from "mono/components/button";
-import { Skeleton } from "mono/components/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
+import { Badge } from "@yz13/ui/components/badge";
+import { Button } from "@yz13/ui/components/button";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
-import { avatarURL } from "rest-api/lib/avatar-url";
-import { getPosition } from "rest-api/positions";
-import { getUserById } from "rest-api/user";
 
 type PageProps = {
   params: Promise<{

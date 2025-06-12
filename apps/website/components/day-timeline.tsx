@@ -1,11 +1,11 @@
 "use client";
+import { cn } from "@yz13/ui/cn";
+import { Separator } from "@yz13/ui/components/separator";
 import { useInterval } from "ahooks";
 import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/ru";
 import { PlusIcon } from "lucide-react";
-import { Separator } from "mono/components/separator";
 import { useMemo, useState } from "react";
-import { cn } from "yz13/cn";
 
 type TimeRange = [number, number];
 

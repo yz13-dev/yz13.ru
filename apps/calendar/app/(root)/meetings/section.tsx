@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth";
+import { getUserEvents } from "@yz13/api/calendar/events";
+import { getSchedule } from "@yz13/api/calendar/schedule";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { format } from "date-fns";
-import { Skeleton } from "mono/components/skeleton";
-import { getUserEvents } from "rest-api/calendar/events";
-import { getSchedule } from "rest-api/calendar/schedule";
 import Card from "./card";
 import LinkButton from "./link-button";
 

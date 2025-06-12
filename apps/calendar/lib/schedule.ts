@@ -1,6 +1,6 @@
 import { tz } from "@date-fns/tz";
+import type { DaySchedule, WeekSchedule } from "@yz13/api/types/calendar";
 import { format, parse } from "date-fns";
-import type { DaySchedule, WeekSchedule } from "rest-api/types/calendar";
 
 
 export const adaptSchedule = (schedule: DaySchedule[], timezone: string): DaySchedule[] => {

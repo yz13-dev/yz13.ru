@@ -1,11 +1,11 @@
 "use client";
+import { cn } from "@yz13/ui/cn";
 import {
   NavigationMenuItem,
   NavigationMenuLink,
   navigationMenuTriggerStyle,
-} from "mono/components/navigation-menu";
+} from "@yz13/ui/components/navigation-menu";
 import Link from "next/link";
-import { cn } from "yz13/cn";
 
 const Projects = () => {
   return (

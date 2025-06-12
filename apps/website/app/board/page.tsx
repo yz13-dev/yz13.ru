@@ -1,5 +1,5 @@
+import { isDev } from "@yz13/supabase/env";
 import { redirect } from "next/navigation";
-import { isDev } from "yz13/env";
 import { StoreProvider } from "./api/api-provider";
 import Canvas from "./components/canvas";
 import Dock from "./components/dock";

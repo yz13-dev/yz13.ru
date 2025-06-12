@@ -1,6 +1,6 @@
 "use client";
 import { MousePointer2Icon } from "lucide-react";
-import { Button } from "mono/components/button";
+import { Button } from "@yz13/ui/components/button";
 import { setCode } from "../api/api";
 import { useMapApi } from "../api/api-provider";
 import DockGroup from "./dock-group";

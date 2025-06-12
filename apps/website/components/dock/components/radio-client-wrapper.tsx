@@ -1,5 +1,5 @@
 "use client";
-import { Skeleton } from "mono/components/skeleton";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import dynamic from "next/dynamic";
 
 const RadioPlayer = dynamic(() => import("./radio-player"), {

@@ -1,10 +1,10 @@
 "use client"
 
+import { cn } from "@yz13/ui/cn";
+import { Button } from "@yz13/ui/components/button";
 import { useClickAway } from "ahooks";
 import { ChevronLeftIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import { useRef, useState } from "react";
-import { cn } from "yz13/cn";
 import { setCode } from "../api/api";
 import models, { type DockModel, getGroup } from "../const/models";
 

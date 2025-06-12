@@ -1,4 +1,4 @@
-import { Separator } from "mono/components/separator"
+import { Separator } from "@yz13/ui/components/separator"
 import Link from "next/link"
 import { GithubButton } from "./github-button"
 import { GoogleButton } from "./google-button"

@@ -2,7 +2,7 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  transpilePackages: ["rest-api"],
+  transpilePackages: ["@yz13/api"],
   compress: true,
   experimental: {
     serverComponentsExternalPackages: ["grammy"],

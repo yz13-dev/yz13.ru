@@ -1,5 +1,6 @@
 "use client";
 import useTimeStore from "@/components/live/time.store";
+import type { Event } from "@yz13/api/types/calendar";
 import {
   addDays,
   format,
@@ -8,11 +9,10 @@ import {
   parse,
   parseISO,
 } from "date-fns";
-import { Separator } from "mono/components/separator";
-import { Skeleton } from "mono/components/skeleton";
+import { Separator } from "@yz13/ui/components/separator";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { useEffect, useMemo, useState } from "react";
-import type { Event } from "rest-api/types/calendar";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 type TimeRange = [number, number];
 

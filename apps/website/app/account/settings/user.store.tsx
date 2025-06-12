@@ -1,7 +1,7 @@
 "use client";
+import { getAuthorizedUser } from "@yz13/api/auth";
+import { UserObject } from "@yz13/api/types/user";
 import { useEffect } from "react";
-import { getAuthorizedUser } from "rest-api/auth";
-import { UserObject } from "rest-api/types/user";
 import { create } from "zustand";
 
 type Actions = {

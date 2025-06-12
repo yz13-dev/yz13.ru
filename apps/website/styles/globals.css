@@ -4,31 +4,31 @@
 @import "tailwindcss";
 
 @import "tailwind-config/dist/globals.css" layer(base);
-@import "mono/css/globals.css" layer(components);
+@import "@yz13/ui/css/globals.css" layer(components);
 
 @source "../app";
 @source "../components";
-@source "../../../packages/mono/dist";
+@source "../../../packages/ui/dist";
 
 .locked {
-  @apply overflow-hidden;
+    @apply overflow-hidden;
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .no-scrollbar::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  background-color: transparent;
-  display: none;
+    width: 0px;
+    height: 0px;
+    background-color: transparent;
+    display: none;
 }
 
 .no-scrollbar::-webkit-scrollbar-thumb {
-  width: 0px;
-  height: 0px;
-  background-color: transparent;
-  display: none;
+    width: 0px;
+    height: 0px;
+    background-color: transparent;
+    display: none;
 }

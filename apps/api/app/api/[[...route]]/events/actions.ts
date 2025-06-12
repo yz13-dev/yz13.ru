@@ -1,8 +1,8 @@
 import { expire, redis } from "@/extensions/redis";
+import type { Event } from "@yz13/api/types/calendar";
+import { createClient } from "@yz13/supabase/server";
 import { addDays, format, parse, parseISO } from "date-fns";
 import { cookies } from "next/headers";
-import type { Event } from "rest-api/types/calendar";
-import { createClient } from "yz13/supabase/server";
 
 type EventFilters = {
   type?: Event["type"];

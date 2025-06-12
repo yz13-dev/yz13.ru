@@ -28,7 +28,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "rest-api": "*"
+    "@yz13/api": "*"
   },
   "engines": {
     "node": ">=20"

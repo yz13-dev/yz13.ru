@@ -1,4 +1,4 @@
-import { isDev } from "yz13/env";
+import { isDev } from "@yz13/supabase/env";
 
 
 export function getBookingLink(uid: string) {

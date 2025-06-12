@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 type HeaderProps = {
   children?: ReactNode;

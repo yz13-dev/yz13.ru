@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 const Sidebar = ({ className = "" }: { className?: string }) => {
   return (

@@ -1,8 +1,8 @@
 import { get } from "@vercel/edge-config";
+import { getShortPricing } from "@yz13/api/pricing";
 import { availableForWork } from "@yz13/flags";
 import type { ReactNode } from "react";
-import { getShortPricing } from "rest-api/pricing";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 import Blog from "./blog";
 import NavWrapper from "./nav-wrapper";
 import Projects from "./projects";

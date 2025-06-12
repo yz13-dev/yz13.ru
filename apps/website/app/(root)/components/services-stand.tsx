@@ -1,4 +1,5 @@
 "use client";
+import type { Pricing } from "@yz13/api/types/pricing";
 import {
   AppWindowIcon,
   ComponentIcon,
@@ -8,7 +9,6 @@ import {
   SparklesIcon,
   StoreIcon,
 } from "lucide-react";
-import type { Pricing } from "rest-api/types/pricing";
 
 type Props = {
   sign?: string;

@@ -1,7 +1,7 @@
 import { get } from "@vercel/edge-config";
+import { createClient } from "@yz13/supabase/server";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "yz13/supabase/server";
 
 export async function middleware(request: NextRequest) {
   await get<boolean>("busy");

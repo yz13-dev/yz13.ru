@@ -1,8 +1,8 @@
 "use client"
+import type { Event } from "@yz13/api/types/calendar";
+import { Calendar } from "@yz13/ui/components/calendar";
 import { type Interval, isWithinInterval, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Calendar } from "mono/components/calendar";
-import type { Event } from "rest-api/types/calendar";
 
 
 

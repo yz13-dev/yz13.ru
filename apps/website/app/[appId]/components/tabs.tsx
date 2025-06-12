@@ -1,5 +1,5 @@
 "use client";
-import { Tabs, TabsList, TabsTrigger } from "mono/components/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@yz13/ui/components/tabs";
 import { usePathname, useRouter } from "next/navigation";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { getCalendar, getCalendars, getDefaultCalendar } from "./actions";
+import { createCalendar, deleteCalendar, getCalendar, getCalendars, getDefaultCalendar, updateCalendar } from "./actions";
 
 
 
@@ -26,6 +26,37 @@ calendar.get("/user/:uid", async (c) => {
   }
 });
 
+calendar.post("/user/:uid", async (c) => {
+  const uid = c.req.param("uid");
+  const body = await c.req.json();
+  try {
+    const data = await createCalendar(uid, body);
+    return c.json(data);
+  } catch (error) {
+    return c.json(null, 400);
+  }
+});
+
+calendar.patch("/:id", async (c) => {
+  const id = c.req.param("id");
+  const body = await c.req.json()
+  try {
+    const data = await updateCalendar(id, body);
+    return c.json(data);
+  } catch (error) {
+    return c.json(null, 400);
+  }
+});
+
+calendar.delete("/:id", async (c) => {
+  const id = c.req.param("id");
+  try {
+    const data = await deleteCalendar(id);
+    return c.json(data);
+  } catch (error) {
+    return c.json(null, 400);
+  }
+});
 
 calendar.get("/:id", async (c) => {
   const id = c.req.param("id");

@@ -4,17 +4,18 @@ import useTimeStore, { getTime } from "@/components/live/time.store";
 import MicroButton from "@/components/micro-button";
 import StatusBadge from "@/components/status-badge";
 import StatusButton from "@/components/status-button";
+import { getUserEvents } from "@yz13/api/calendar/events";
+import type { Event } from "@yz13/api/types/calendar";
+import { createClient } from "@yz13/supabase/client";
+import { cn } from "@yz13/ui/cn";
+import { Badge } from "@yz13/ui/components/badge";
 import { format, type Interval, isPast, isWithinInterval, parseISO } from "date-fns";
 import { ArrowRightIcon } from "lucide-react";
-import { Badge } from "mono/components/badge";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { getUserEvents } from "rest-api/calendar/events";
-import type { Event } from "rest-api/types/calendar";
-import { cn } from "yz13/cn";
-import { createClient } from "yz13/supabase/client";
 
 const getLiveEvents = (events: Event[]) => {
+  if (!events.length) return [];
   const time = getTime()
   return events
     .filter((event) => event.status === "CONFIRMED")
@@ -29,6 +30,7 @@ const getLiveEvents = (events: Event[]) => {
     })
 }
 const getPendingEvents = (events: Event[]) => {
+  if (!events.length) return [];
   const liveEvents = getLiveEvents(events)
   if (liveEvents.length !== 0) return events
     .filter(event => {
@@ -43,10 +45,12 @@ const getPendingEvents = (events: Event[]) => {
 };
 
 const getCanceledOrTentativeEvents = (events: Event[]) => {
+  if (!events.length) return [];
   return events.filter((event) => event.status === "CANCELLED" || event.status === "TENTATIVE")
 }
 
 const getPastEvents = (events: Event[]) => {
+  if (!events.length) return [];
   return events.filter(event => {
     const endAt = parseISO(event.date_end)
     return isPast(endAt)

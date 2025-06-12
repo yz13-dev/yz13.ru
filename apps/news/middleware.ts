@@ -1,5 +1,5 @@
+import { cookieOptions } from "@yz13/supabase/cookies";
 import { NextRequest, NextResponse } from "next/server";
-import { cookieOptions } from "yz13/supabase/cookies";
 import { getLocale } from "./lib/locale";
 
 export async function middleware(request: NextRequest) {

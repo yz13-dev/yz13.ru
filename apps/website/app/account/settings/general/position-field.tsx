@@ -1,7 +1,7 @@
 "use client";
+import { createClient } from "@yz13/supabase/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createClient } from "yz13/supabase/client";
 import {
   Field,
   FieldContent,

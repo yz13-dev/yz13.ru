@@ -3,7 +3,7 @@ import yz_dark from "public/calendar-dark.png";
 import yz_light from "public/calendar-light.png";
 import yz_full_dark from "public/yz-full-dark.png";
 import yz_full_light from "public/yz-full-light.png";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 type Size = {
   width: number;

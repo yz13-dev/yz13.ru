@@ -1,6 +1,6 @@
+import { getAuthorizedSession } from "@yz13/api/auth";
+import type { Event } from "@yz13/api/types/calendar";
 import { parse } from "date-fns";
-import { getAuthorizedSession } from "rest-api/auth";
-import type { Event } from "rest-api/types/calendar";
 
 
 

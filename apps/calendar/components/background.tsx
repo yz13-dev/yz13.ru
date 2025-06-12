@@ -14,7 +14,7 @@ import variant6 from "public/background/variant-6.gif";
 import variant7 from "public/background/variant-7.gif";
 import variant8 from "public/background/variant-8.gif";
 import variant9 from "public/background/variant-9.gif";
-import { cn } from "yz13/cn";
+import { cn } from "@yz13/ui/cn";
 
 const bgs = [
   variant1,

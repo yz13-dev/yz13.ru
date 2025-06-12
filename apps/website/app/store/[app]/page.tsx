@@ -1,5 +1,5 @@
+import { Button } from "@yz13/ui/components/button";
 import { ArrowLeftIcon, BookmarkIcon, ShareIcon } from "lucide-react";
-import { Button } from "mono/components/button";
 import Link from "next/link";
 import { Suspense } from "react";
 import StoreHeader, { StoreHeaderSkeleton } from "../header";

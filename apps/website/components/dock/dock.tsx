@@ -1,4 +1,4 @@
-import { Skeleton } from "mono/components/skeleton";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import RadioClient from "./components/radio-client-wrapper";
 import Items from "./dock-items";
 import DockWrapper, { DockWidgets } from "./dock-wrapper";

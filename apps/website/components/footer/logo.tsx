@@ -1,5 +1,5 @@
+import { cn } from "@yz13/ui/cn";
 import { ComponentPropsWithoutRef } from "react";
-import { cn } from "yz13/cn";
 
 export default function SVGLogo({ className = "", ...props }: ComponentPropsWithoutRef<"svg">) {
   return (

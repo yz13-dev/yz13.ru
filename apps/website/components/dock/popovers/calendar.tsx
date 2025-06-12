@@ -3,7 +3,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "mono/components/popover";
+} from "@yz13/ui/components/popover";
 
 const CalendarPopover = ({ children }: { children?: React.ReactNode }) => {
   return (
