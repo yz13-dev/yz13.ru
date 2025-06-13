@@ -56,7 +56,7 @@ const page = async (props: Props) => {
         <div className="space-y-4">
           <div className="w-fit flex items-center gap-2">
             <Link href="/">
-              <Logo size={{ width: 128, height: 24 }} type="full" />
+              <Logo size={24} type="full" />
             </Link>
           </div>
           <div className="w-full h-fit flex flex-col gap-2 justify-start">

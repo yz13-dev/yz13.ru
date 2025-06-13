@@ -10,7 +10,7 @@ export default function Loading() {
     <>
       <header className="max-w-6xl w-full mx-auto flex items-center justify-between p-6">
         <Link href="/">
-          <Logo size={{ width: 128, height: 64 }} type="full" />
+          <Logo size={64} type="full" />
         </Link>
         <Skeleton className="h-9 w-16" />
       </header>

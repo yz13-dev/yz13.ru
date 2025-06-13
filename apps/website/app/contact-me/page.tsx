@@ -24,7 +24,7 @@ const page = async () => {
       <Header className="sticky top-0">
         <Nav side="left">
           <Link href="/">
-            <Logo size={{ width: 110, height: 20 }} type="full" />
+            <Logo size={20} type="full" />
           </Link>
         </Nav>
         <div className="flex items-center gap-2">

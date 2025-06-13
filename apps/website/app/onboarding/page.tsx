@@ -38,7 +38,7 @@ export default async function page({ searchParams }: PageProps) {
           href="/"
           className="opacity-60 hover:opacity-100 transition-opacity"
         >
-          <Logo size={{ width: 128, height: 24 }} type="full" />
+          <Logo size={24} type="full" />
         </Link>
       </div>
       <div

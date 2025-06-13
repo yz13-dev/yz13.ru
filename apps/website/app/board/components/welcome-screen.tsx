@@ -7,7 +7,7 @@ export default function () {
   return (
     <div className="w-full h-dvh absolute z-10 top-0 left-0 flex flex-col items-center justify-center gap-6">
       <div className="px-6 max-w-xs w-full justify-center">
-        <Logo size={{ height: 43.6, width: 180 }} type="full" />
+        <Logo size={42} type="full" />
       </div>
       <div className="max-w-xs w-full px-6">
         <span className="text-start text-sm text-muted-foreground">

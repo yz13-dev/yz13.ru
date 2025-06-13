@@ -32,7 +32,7 @@ export default async function page({ params }: Props) {
     <>
       <header className="max-w-6xl w-full mx-auto flex items-center justify-between p-6">
         <Link href="/">
-          <Logo size={{ width: 128, height: 64 }} type="full" />
+          <Logo size={64} type="full" />
         </Link>
         <Suspense fallback={<Skeleton className="h-9 w-16" />}>
           <User />
