@@ -58,13 +58,12 @@ export default async function page() {
 
           <div className={cn(
             "flex lg:flex-row flex-col w-full items-center justify-center gap-6 px-6",
-            "[&>*>button]:h-12 [&>button]:h-12 [&>*>button]:px-6 [&>button]:px-6",
-            "[&>*>button]:text-base [&>button]:text-base",
-            "[&>*>button]:rounded-full [&>button]:rounded-full",
-            "[&>*>button>svg]:!size-5 [&>button>svg]:!size-5",
+            "[&>button]:h-12 [&>button]:px-6 [&>button]:text-base [&>button]:rounded-full [&>button>svg]:!size-5",
+            "[&>a]:h-12 [&>a]:px-6 [&>a]:text-base [&>a]:rounded-full [&>a>svg]:!size-5",
+            "lg:*:w-fit *:w-full"
           )}>
-            <CallToAction className="lg:w-fit w-full lg:*:w-fit *:w-full" available={isAvailable} />
-            <Button variant="secondary" className="lg:w-fit w-full" asChild>
+            <CallToAction available={isAvailable} />
+            <Button variant="secondary" asChild>
               <Link href={chat_url} target="_blank">
                 <SendIcon />
                 Чат

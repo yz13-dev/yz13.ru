@@ -63,10 +63,7 @@ const CallToAction = ({
   }, []);
   const defaultLabel = "Запланировать видеозвонок"
   return (
-    <div className={cn(
-      "h-fit flex w-fit items-center flex-row gap-2",
-      className,
-    )}>
+    <>
       {available ?
         (
           <Button
@@ -114,7 +111,7 @@ const CallToAction = ({
           <span>{label}</span>
         </Button>
       )}
-    </div>
+    </>
   );
 };
 
