@@ -4,11 +4,12 @@
 @import "tailwindcss";
 
 @import "tailwind-config/dist/globals.css" layer(base);
-@import "@yz13/ui/css/globals.css" layer(components);
+/* @import "@yz13/ui/css/globals.css" layer(components); */
 
 @source "../app";
 @source "../components";
 @source "../../../packages/ui/dist";
+
 
 .calendar-container {
     @apply w-full max-w-screen-2xl mx-auto;

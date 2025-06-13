@@ -3,31 +3,36 @@ import { getCallToAction } from "@/actions/call-to-action";
 import { toggleMenu } from "@/components/dock/menus/menu.store";
 import useTimeStore from "@/components/live/time.store";
 import { cn } from "@yz13/ui/cn";
-import { format } from "date-fns";
-import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "@yz13/ui/components/button";
 import { Skeleton } from "@yz13/ui/components/skeleton";
+import { format } from "date-fns";
+import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 type Props = {
+  className?: string;
   hideSearch?: boolean;
   available?: boolean;
 };
 
-export const CallToActionSkeleton = () => {
+export const CallToActionSkeleton = ({ className = "" }: { className?: string }) => {
   return (
-    <div className="w-full">
-      <div className="h-fit flex w-fit items-center flex-row gap-2">
-        <Skeleton className="rounded-full h-9 w-32" />
-        <Skeleton className="rounded-full h-9 w-56" />
+    <div className={cn("w-full", className)}>
+      <div className="h-fit flex w-full justify-center items-center flex-row gap-2">
+        <Skeleton className="rounded-full h-12 w-56" />
+        <Skeleton className="rounded-full h-12 w-32" />
       </div>
     </div>
   );
 };
 
-const CallToAction = ({ hideSearch = false, available = false }: Props) => {
+const CallToAction = ({
+  className = "",
+  hideSearch = false,
+  available = false
+}: Props) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [label, setLabel] = useState<string>("Подождите...");
   const [href, setHref] = useState<string | null>(null);
@@ -56,8 +61,12 @@ const CallToAction = ({ hideSearch = false, available = false }: Props) => {
       }
     });
   }, []);
+  const defaultLabel = "Запланировать видеозвонок"
   return (
-    <div className="h-fit flex w-fit items-center flex-row gap-2">
+    <div className={cn(
+      "h-fit flex w-fit items-center flex-row gap-2",
+      className,
+    )}>
       {available ?
         (
           <Button
@@ -68,7 +77,7 @@ const CallToAction = ({ hideSearch = false, available = false }: Props) => {
           >
             <Link href={CALL_TO_ACTION_LINK}>
               <ArrowLeftIcon size={16} />
-              Связаться
+              {defaultLabel}
             </Link>
           </Button>
         )
@@ -76,7 +85,7 @@ const CallToAction = ({ hideSearch = false, available = false }: Props) => {
         (
           <Button variant="default" className={cn("gap-2 ")} disabled={!available}>
             <ArrowLeftIcon size={16} />
-            Связаться
+            {defaultLabel}
           </Button>
         )}
       {!visible ? null : href ? (

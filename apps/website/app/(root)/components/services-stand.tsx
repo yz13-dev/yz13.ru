@@ -1,5 +1,6 @@
 "use client";
 import type { Pricing } from "@yz13/api/types/pricing";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@yz13/ui/components/tabs";
 import {
   AppWindowIcon,
   ComponentIcon,
@@ -9,6 +10,7 @@ import {
   SparklesIcon,
   StoreIcon,
 } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
 type Props = {
   sign?: string;
@@ -25,25 +27,49 @@ const icons = {
 };
 
 export default function ({ services = [], sign = "₽" }: Props) {
-  return services.map((service) => {
-    const type = service.type as keyof typeof icons;
-    const icon = type ? icons[type] : <StoreIcon />;
-    return (
-      <div key={service.id} className="space-y-3">
-        <div className="flex items-center gap-2 [&>svg]:shrink-0 [&>svg]:size-5 text-foreground/60">
-          {icon}
-          <span className="text-base">{service.name ?? "Неизвестно"}</span>
-        </div>
-        <div className="*:block backdrop-blur-lg space-y-3 max-w-sm">
-          <span className="text-2xl font-semibold">
-            От {service.price.toLocaleString()}
-            {sign}
-          </span>
-          <span className="text-base text-muted-foreground">
-            {service.description ?? "Нет описания"}
-          </span>
-        </div>
+  const defaultValue = services[0]?.type;
+  return (
+    <Tabs defaultValue={defaultValue ?? undefined} className="space-y-6">
+      <AnimatePresence>
+        {
+          services.map((service) => {
+            const type = service.type as keyof typeof icons;
+            const icon = type ? icons[type] : <StoreIcon key={`icon/${type}`} />;
+            const content = service.description ?? "Нет описания";
+            return (
+              <TabsContent key={service.id} value={type} className="min-h-24">
+                <motion.span
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-xl font-medium block"
+                >
+                  {content}
+                </motion.span>
+              </TabsContent>
+            )
+          })
+        }
+      </AnimatePresence>
+      <div className="w-full overflow-x-auto">
+        <TabsList>
+          {
+            services.map((service) => {
+              const type = service.type as keyof typeof icons;
+              const icon = type ? icons[type] : <StoreIcon />;
+              return (
+                <TabsTrigger key={service.id} value={type}>
+                  {icon}
+                  {service.name ?? "Неизвестно"}
+                </TabsTrigger>
+              )
+            })
+          }
+        </TabsList>
       </div>
-    );
-  });
+    </Tabs>
+  )
+
 }

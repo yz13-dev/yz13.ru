@@ -1,63 +1,48 @@
 import { AvailabilitySkeleton } from "@/components/availability";
-import Calendar from "@/components/calendar";
-import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
+import { cn } from "@yz13/ui/cn";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { CallToActionSkeleton } from "./components/call-to-action";
-import { CalendarSkeleton } from "./components/github-activity-map";
-import { OtherProjectsSkeleton } from "./components/other-projects";
 
 export default function loading() {
   return (
     <>
-      <div
-        className="w-full max-w-6xl px-6 flex flex-row gap-4 mx-auto mt-[10%]"
-      >
-        <div className="max-w-sm shrink-0 md:block hidden space-y-2 w-full h-fit">
-          <Calendar
-            hideCaption
-            disableNavigation
-          />
+      <header className="w-full h-16 flex items-center">
+        <div className="max-w-screen-2xl px-6 w-full mx-auto h-fit flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Logo type="full" size={24} />
+          </div>
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-9 w-16" />
+          </div>
         </div>
-        <div className="space-y-12 w-full md:w-[calc(100%-var(--container-sm))]">
-          <div className="space-y-6">
-            <main className="space-y-2">
-              <div className="flex items-center gap-2">
-                <div className="size-10 relative border rounded-[25%] overflow-hidden shrink-0 flex items-center justify-center bg-background/40">
-                  <Logo size={{ width: 28, height: 28 }} type="only-icon" />
-                </div>
-                <h1 className="text-4xl font-bold">YZ13</h1>
+      </header>
+      <div className="py-8 h-[calc(100dvh-64px)]">
+        <div className="w-full h-16 justify-center items-center flex">
+          <AvailabilitySkeleton />
+        </div>
+        <main className="w-full max-w-5xl mx-auto h-[calc(100%-64px)] flex flex-col gap-20 justify-center items-center">
+          <div className="px-6 space-y-8">
+            <div className="flex md:flex-row flex-col justify-center items-center gap-6">
+              <div className="size-[148px] lg:flex hidden aspect-square items-center justify-center">
+                <Logo size={148} />
               </div>
-              <p className="text-2xl block text-muted-foreground font-medium">
-                Фронтенд разработчик, специализируюсь на разработке сайтов, веб-приложений.
-              </p>
-            </main>
-            <div className="flex flex-col gap-3">
-              <CallToActionSkeleton />
+              <div className="size-[96px] lg:hidden flex aspect-square items-center justify-center">
+                <Logo size={96} />
+              </div>
+              <h1 className="lg:text-9xl text-7xl text-center font-bold">YZ13</h1>
             </div>
+            <p className="lg:text-4xl text-2xl block max-w-3xl w-full text-center font-medium text-muted-foreground">
+              Фронтенд разработчик, специализируюсь на разработке сайтов, веб-приложений.
+            </p>
           </div>
-          <div className="space-y-3">
-            <AvailabilitySkeleton />
-            <div className="p-3 rounded-lg border">
-              <CalendarSkeleton loading />
-            </div>
+
+          <div className={cn(
+            "flex lg:flex-row flex-col w-full items-center justify-center gap-6 px-6",
+          )}>
+            <CallToActionSkeleton className="lg:w-fit w-full lg:*:w-fit *:w-full" />
           </div>
-          <section className="space-y-4">
-            <h3 className="text-2xl block font-medium">Проекты</h3>
-            <ul className="gap-6 grid md:grid-cols-2 grid-cols-1 w-full">
-              <OtherProjectsSkeleton />
-            </ul>
-          </section>
-          <section className="space-y-4">
-            <h3 className="text-2xl block font-medium">Услуги</h3>
-            <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-3 *:py-3 *:px-4 *:rounded-lg *:border">
-              <Skeleton className="w-full aspect-video" />
-              <Skeleton className="w-full aspect-video" />
-              <Skeleton className="w-full aspect-video" />
-            </div>
-          </section>
-          <Footer className="mt-12 mb-6" />
-        </div>
+        </main>
       </div>
     </>
   );

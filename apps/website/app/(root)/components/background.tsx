@@ -44,7 +44,7 @@ export default async function Background({
     <div className={cn("w-full h-dvh absolute top-0 z-[-1] left-0", className)}>
       <div className="w-full h-full relative">
         <Image
-          className="object-cover w-full h-full invert dark:invert-0"
+          className="object-cover opacity-40 w-full h-full invert dark:invert-0"
           src={bgSrc}
           fill
           alt="background"

@@ -1,8 +1,8 @@
 import { avatarURL } from "@yz13/api/lib/avatar-url";
-import { UserObject } from "@yz13/api/types/user";
+import type { UserObject } from "@yz13/api/types/user";
+import { cn } from "@yz13/ui/cn";
 import { UserIcon } from "lucide-react";
 import Image from "next/image";
-import { cn } from "@yz13/ui/cn";
 
 const UserCircle = ({
   user,

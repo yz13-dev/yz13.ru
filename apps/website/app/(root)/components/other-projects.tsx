@@ -45,6 +45,18 @@ export async function OtherProjectsSkeleton() {
           </div>
         </div>
       </li>
+      <li>
+        <div className="flex items-start gap-4 justify-between">
+          <div className="flex w-full items-center gap-4">
+            <Skeleton className="size-16 shrink-0 rounded-2xl" />
+            <div className="flex w-full flex-col gap-2">
+              <Skeleton className="w-2/3 h-5 rounded-full" />
+              <Skeleton className="w-2/3 h-5 rounded-full" />
+              <Skeleton className="w-1/2 h-4 rounded-full" />
+            </div>
+          </div>
+        </div>
+      </li>
     </>
   );
 }

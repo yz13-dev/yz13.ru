@@ -3,4 +3,10 @@
 
 @import "tailwindcss";
 
+@import "tw-animate-css";
+
 @import "tailwind-config/dist/globals.css" layer(base);
+
+
+@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:@media (prefers-color-scheme: dark) *);
