@@ -1,6 +1,6 @@
 "use client";
 import type { Pricing } from "@yz13/api/types/pricing";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@yz13/ui/components/tabs";
+import { Button } from "@yz13/ui/components/button";
 import {
   AppWindowIcon,
   ComponentIcon,
@@ -11,6 +11,8 @@ import {
   StoreIcon,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
+import { setTimeout } from "timers";
 
 type Props = {
   sign?: string;
@@ -28,48 +30,49 @@ const icons = {
 
 export default function ({ services = [], sign = "₽" }: Props) {
   const defaultValue = services[0]?.type;
+  const [value, setValue] = useState<string | null>(defaultValue ?? null);
+  const selected = services.find((service) => service.type === value);
   return (
-    <Tabs defaultValue={defaultValue ?? undefined} className="space-y-6">
+    <div className="space-y-6">
       <AnimatePresence>
+        {
+          selected &&
+          <motion.div
+            className="w-full h-fit min-h-24"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.75 }}
+          >
+            <span>{selected.description ?? "Нет описания"}</span>
+          </motion.div>
+        }
+      </AnimatePresence>
+      <div className="w-full flex gap-2 flex-wrap items-start">
         {
           services.map((service) => {
             const type = service.type as keyof typeof icons;
-            const icon = type ? icons[type] : <StoreIcon key={`icon/${type}`} />;
-            const content = service.description ?? "Нет описания";
+            const icon = type ? icons[type] : <StoreIcon />;
+            const isSelected = type === value;
             return (
-              <TabsContent key={service.id} value={type} className="min-h-24">
-                <motion.span
-                  layout
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="text-xl font-medium block"
-                >
-                  {content}
-                </motion.span>
-              </TabsContent>
+              <Button
+                key={service.id}
+                value={type}
+                variant={isSelected ? "default" : "secondary"}
+                onClick={() => {
+                  setValue(null)
+                  setTimeout(() => setValue(type), 500)
+                }}
+                size="sm"
+              >
+                {icon}
+                {service.name ?? "Неизвестно"}
+              </Button>
             )
           })
         }
-      </AnimatePresence>
-      <div className="w-full overflow-x-auto">
-        <TabsList>
-          {
-            services.map((service) => {
-              const type = service.type as keyof typeof icons;
-              const icon = type ? icons[type] : <StoreIcon />;
-              return (
-                <TabsTrigger key={service.id} value={type}>
-                  {icon}
-                  {service.name ?? "Неизвестно"}
-                </TabsTrigger>
-              )
-            })
-          }
-        </TabsList>
       </div>
-    </Tabs>
+    </div>
   )
 
 }
