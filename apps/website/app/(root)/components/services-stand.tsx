@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { setTimeout } from "timers";
 
 type Props = {
   sign?: string;
@@ -50,9 +49,12 @@ export default function ({ services = [], sign = "₽" }: Props) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.75 }}
+            transition={{
+              type: "spring",
+              duration: 0.75
+            }}
           >
-            <span>{selected.description ?? "Нет описания"}</span>
+            <span className="text-lg font-medium">{selected.description ?? "Нет описания"}</span>
           </motion.div>
         }
       </AnimatePresence>
@@ -69,7 +71,7 @@ export default function ({ services = [], sign = "₽" }: Props) {
                 variant={isSelected ? "default" : "secondary"}
                 onClick={() => {
                   setValue(null)
-                  setTimeout(() => setValue(type), 500)
+                  setTimeout(() => setValue(type), 250)
                 }}
                 size="sm"
               >
