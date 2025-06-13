@@ -1,8 +1,14 @@
 import { AvailabilitySkeleton } from "@/components/availability";
+import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
 import { cn } from "@yz13/ui/cn";
+import { Button } from "@yz13/ui/components/button";
 import { Skeleton } from "@yz13/ui/components/skeleton";
+import { ArrowRightIcon, CircleHelp } from "lucide-react";
+import Link from "next/link";
 import { CallToActionSkeleton } from "./components/call-to-action";
+import { CalendarSkeleton } from "./components/github-activity-map";
+import { OtherProjectsSkeleton } from "./components/other-projects";
 
 export default function loading() {
   return (
@@ -43,6 +49,85 @@ export default function loading() {
             <CallToActionSkeleton className="lg:w-fit w-full lg:*:w-fit *:w-full" />
           </div>
         </main>
+      </div>
+      <div className="w-full divide-y *:first:border-t *:border-x *:last:border-b">
+        <div className="w-full max-w-5xl mx-auto bg-card rounded-t-lg">
+          <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+            <div className="col-span-2 w-full h-full">
+              <Skeleton className="w-full h-full" />
+            </div>
+            <div className="w-full h-full flex flex-col gap-3">
+              <span className="block text-muted-foreground text-base">
+                Скоро появится страница для прямой оплаты услуг.
+              </span>
+              <Button
+                className="justify-between mt-auto w-full"
+                disabled
+              >
+                Заказать <ArrowRightIcon />
+              </Button>
+            </div>
+          </div>
+        </div>
+        <section className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+          <div className="w-full">
+            <h3 className="text-2xl font-medium">
+              Активность
+            </h3>
+            <p className="text-base text-muted-foreground">Календарь активности GitHub.</p>
+          </div>
+          <div className="w-full">
+            <CalendarSkeleton loading />
+          </div>
+        </section>
+        <section className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+          <div className="w-full">
+            <h3 className="text-2xl font-medium">
+              Проекты
+            </h3>
+            <p className="text-base text-muted-foreground">
+              Готовые и в процессе разработки.
+            </p>
+          </div>
+          <div className="w-full">
+            <ul className="gap-6 grid md:grid-cols-2 grid-cols-1 w-full">
+              <OtherProjectsSkeleton />
+            </ul>
+          </div>
+        </section>
+        <div className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+          <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+            <div className="col-span-2 w-full h-full flex items-center">
+              <div className="h-16 w-full text-background bg-foreground rounded-full flex items-center pl-6 pr-1.5 py-1.5">
+                <span className="lg:text-4xl text-3xl font-semibold">
+                  Готовы начать?
+                </span>
+                <div className="h-full aspect-square flex items-center justify-center rounded-full text-foreground bg-background ml-auto">
+                  <CircleHelp className="lg:size-12 size-10" />
+                </div>
+              </div>
+            </div>
+            <div className="w-full h-full space-y-3">
+              <Button className="w-full justify-between" variant="default" disabled>
+                Запланировать видеозвонок
+                <ArrowRightIcon />
+              </Button>
+              <Button
+                className="w-full justify-between"
+                variant="outline"
+                asChild
+              >
+                <Link href="/" target="_blank">
+                  Открыть чат
+                  <ArrowRightIcon />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+        <div className="w-full p-6 max-w-5xl mx-auto bg-card">
+          <Footer />
+        </div>
       </div>
     </>
   );
