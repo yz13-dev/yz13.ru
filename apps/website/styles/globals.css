@@ -10,6 +10,10 @@
 @source "../components";
 @source "../../../packages/ui/dist";
 
+/* @custom-variant dark (&:is(.dark *)); */
+@custom-variant dark (&:where(.dark, .dark *));
+
+
 .locked {
     @apply overflow-hidden;
 }

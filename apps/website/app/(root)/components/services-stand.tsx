@@ -32,6 +32,14 @@ export default function ({ services = [], sign = "₽" }: Props) {
   const defaultValue = services[0]?.type;
   const [value, setValue] = useState<string | null>(defaultValue ?? null);
   const selected = services.find((service) => service.type === value);
+
+  if (!services.length) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <span className="text-muted-foreground text-sm">Нет сервисов</span>
+      </div>
+    )
+  }
   return (
     <div className="space-y-6">
       <AnimatePresence>
