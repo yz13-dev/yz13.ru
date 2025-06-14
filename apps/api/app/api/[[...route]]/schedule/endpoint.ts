@@ -113,10 +113,18 @@ schedule.get("/:uid/available", async (c) => {
   const defaultDate = format(new Date(), "yyyy-MM-dd");
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date());
 
-  const key = `availability:${uid}:${date}`;
+  const key = `availability:${uid}:${date ?? defaultDate}`;
 
   try {
-    if (!isValid(parsedDate)) throw new Error("Provided date is invalid");
+    if (!isValid(parsedDate)) {
+      return c.json({
+        error: "Invalid date format",
+        calendarId: null,
+        availability: {},
+        date: defaultDate,
+        appointments: [],
+      }, 400);
+    }
 
     const cached = await redis.get<ScheduleAvailability>(key);
     if (cached) return c.json(cached);
@@ -127,13 +135,19 @@ schedule.get("/:uid/available", async (c) => {
     });
 
     const appointments: Event[] = allAppointments.filter((appointment) => {
-
       return ["CONFIRMED", "TENTATIVE"].includes(appointment.status ?? "TENTATIVE")
     });
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
-
-    if (!schedule) return c.json(null);
+    if (!schedule) {
+      return c.json({
+        error: "No schedule found",
+        calendarId: null,
+        availability: {},
+        date: format(parsedDate, "yyyy-MM-dd"),
+        appointments: [],
+      }, 404);
+    }
     const weekdaySchedule = (schedule[weekday as keyof typeof schedule] as DaySchedule[]);
     const busyTimes = getTimeAndDurationFromAppointments(appointments ?? []);
     const durations = schedule.durations;
@@ -143,27 +157,28 @@ schedule.get("/:uid/available", async (c) => {
       busyTimes,
     );
 
-    if (Object.keys(obj).length !== 0) {
+    const calendarId = schedule?.calendar_id
 
-      await redis.set(key, {
-        availability: obj,
-        date: format(parsedDate, "yyyy-MM-dd"),
-        appointments,
-      }, { ex: expire.day });
-
-    }
-
-    return c.json({
+    const response = {
+      calendarId: calendarId,
       availability: obj,
       date: format(parsedDate, "yyyy-MM-dd"),
       appointments,
-    });
+    };
+
+    if (Object.keys(obj).length !== 0) {
+      await redis.set(key, response, { ex: expire.day });
+    }
+
+    return c.json(response);
   } catch (error) {
     console.log(error);
     return c.json({
+      error: "Failed to fetch availability",
+      calendarId: null,
       availability: {},
       date: format(parsedDate, "yyyy-MM-dd"),
       appointments: [],
-    });
+    }, 500);
   }
 });

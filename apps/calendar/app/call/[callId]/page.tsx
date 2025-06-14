@@ -35,8 +35,6 @@ export default async function page({ params, searchParams }: PageProps) {
 
   if (isAuthorizedUserNotAllowed) return notFound();
 
-  console.log(call)
-
   return <Form
     call={call}
     callId={callId}

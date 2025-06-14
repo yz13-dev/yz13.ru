@@ -13,9 +13,6 @@ import DateDisplay from "./date-display";
 import DatePicker from "./date-picker";
 import EventSection, { SectionSkeleton } from "./events/section";
 import LinkButton from "./meetings/link-button";
-import MeetingSection, {
-  SectionSkeleton as MeetingSectionSkeleton,
-} from "./meetings/section";
 import ScheduleSection from "./schedule/section";
 
 type PageProps = {
@@ -27,12 +24,13 @@ export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const date = search.date;
   const user = await auth();
-  // const showForm = await showEventForm();
-  if (!user) return <Landing />
+  
+  if (!user) return <Landing />;
 
   const { data: calendar } = await getDefaultCalendar(user.id);
 
-  const calendarId = calendar?.id
+  const calendarId = calendar?.id;
+  const timezone = calendar?.timezone;
 
   return (
     <>
@@ -60,7 +58,7 @@ export default async function page({ searchParams }: PageProps) {
               <User />
             </Suspense>
           </div>
-          <div className="rounded-lg bg-card">
+          <div className="rounded-lg overflow-hidden border bg-card">
             <DatePicker />
           </div>
           <Calendars userId={user.id} />
@@ -71,8 +69,7 @@ export default async function page({ searchParams }: PageProps) {
           </Suspense>
         </div>
         <div className="space-y-6 md:w-1/4 shrink-0 w-full">
-          {
-            calendar &&
+          {calendar && (
             <div className="flex flex-col gap-2">
               <span className="font-medium text-lg block">Календарь</span>
               <Button variant="secondary" className="w-fit">
@@ -80,29 +77,26 @@ export default async function page({ searchParams }: PageProps) {
                 {calendar.name}
               </Button>
             </div>
-          }
+          )}
           <div className="flex flex-col gap-2">
             <span className="font-medium text-lg block">Бронирование</span>
             <div className="flex items-center gap-2">
               <LinkButton uid={user?.id} className="w-fit" />
-              {
-                user?.id &&
+              {user?.id && (
                 <Button variant="ghost" size="sm" asChild>
                   <Link href={getBookingLink(user.id)}>
                     Перейти
                     <ArrowRightIcon className="size-[14px]" />
                   </Link>
                 </Button>
-              }
+              )}
             </div>
           </div>
-          <ScheduleSection uid={user?.id ?? null} calendarId={calendarId} />
-          {
-            false &&
-            <Suspense fallback={<MeetingSectionSkeleton />}>
-              <MeetingSection uid={user?.id ?? null} date={date} />
-            </Suspense>
-          }
+          <ScheduleSection
+            uid={user?.id ?? null}
+            calendarId={calendarId}
+            timezone={timezone ?? undefined}
+          />
         </div>
       </div>
       <Footer />

@@ -15,6 +15,7 @@ import variant6 from "public/background/variant-6.gif";
 import variant7 from "public/background/variant-7.gif";
 import variant8 from "public/background/variant-8.gif";
 import variant9 from "public/background/variant-9.gif";
+import variantX from "public/background/variant-x.gif";
 
 const bgs = [
   variant1,
@@ -31,6 +32,7 @@ const bgs = [
   variant12,
   variant13,
   variant14,
+  variantX
 ];
 
 export default async function Background({
@@ -39,7 +41,7 @@ export default async function Background({
   className?: string;
 }) {
   const randomBg = bgs[randomNumberInRange(0, bgs.length - 1)];
-  const bgSrc = randomBg ?? variant3;
+  const bgSrc = randomBg ?? variantX;
   return (
     <div className={cn("w-full h-dvh absolute top-0 z-[-1] left-0", className)}>
       <div className="w-full h-full relative">

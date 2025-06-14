@@ -15,7 +15,7 @@ export default async function ({ userId }: { userId: string }) {
       defaultValue="calendars"
       type="single"
       collapsible
-      className="flex flex-col gap-2 rounded-lg p-2 bg-card"
+      className="flex flex-col gap-2 rounded-lg border p-2 bg-card"
     >
       <AccordionItem value="calendars">
         <AccordionTrigger className="text-base py-1 font-medium pl-3 pr-6 [&>svg]:mr-0.5">

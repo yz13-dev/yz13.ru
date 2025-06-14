@@ -25,6 +25,7 @@ export type NewWeekSchedule = TablesInsert<"calendar_schedule">;
 export type UpdateWeekSchedule = TablesUpdate<"calendar_schedule">;
 
 export type ScheduleAvailability = {
+  calendarId: string;
   availability: Record<string, string[]>;
   date: string;
   appointments: Event[];

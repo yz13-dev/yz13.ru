@@ -121,7 +121,7 @@ export default function LiveEvents({ defaultEvents = [], uid, date }: Props) {
       channel.unsubscribe()
     }
 
-  }, [uid])
+  }, [uid, date])
   return (
     <>
       <EventsGroup

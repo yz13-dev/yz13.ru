@@ -39,10 +39,19 @@ const DayScheduleItem = ({
   );
 };
 
-export default async function Section({ uid, calendarId }: { uid: string | null, calendarId?: string }) {
+const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+export default async function Section({
+  uid,
+  calendarId,
+  timezone = localTimezone
+}: {
+  uid: string | null,
+  calendarId?: string
+  timezone?: string
+}) {
   if (!uid) return <EmptySchedule />;
   const { data } = await getSchedule(uid);
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const schedule = adaptWeekSchedule(data as WeekSchedule, timezone);
   const hasSchedule = !!data;
   const monday = (schedule?.monday ?? []) as DaySchedule[];

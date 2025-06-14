@@ -3,7 +3,7 @@ import { customFetch } from "@/const/fetch";
 import type { Event, NewEvent, UpdateEvent } from "@/types/calendar";
 
 export const createEvent = async (event: NewEvent) => {
-  return await customFetch<Event | null>("/calendar", {
+  return await customFetch<Event | null>("/calendar/events", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

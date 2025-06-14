@@ -2,7 +2,7 @@
 import AutoTextarea from "@/components/auto-textarea";
 import useTimeStore from "@/components/live/time.store";
 import { useTz } from "@/hooks/use-tz";
-import { tz, TZDate } from "@date-fns/tz";
+import { TZDate } from "@date-fns/tz";
 import { createEvent } from "@yz13/api/calendar/events";
 import type { NewEvent, ScheduleAvailability } from "@yz13/api/types/calendar";
 import { cn } from "@yz13/ui/cn";
@@ -15,7 +15,7 @@ import { format, formatISO, isPast, isToday, parse } from "date-fns";
 import { ru } from "date-fns/locale";
 import { Loader2Icon } from "lucide-react";
 import { motion } from "motion/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
 import { useUserStore } from "./user.store";
@@ -30,7 +30,6 @@ export default function form({
   availability?: ScheduleAvailability;
 }) {
   // const currentTime = useTimeStore((state) => state.time);
-  const searchParams = useSearchParams();
   const [continueLink] = useQueryState("continue");
   const user = useUserStore((state) => state.user);
   const [email, setEmail] = useState<string>("");
@@ -41,7 +40,6 @@ export default function form({
   const [time] = useQueryState("time");
   const timezone = useTz();
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
-    in: tz("UTC"),
   });
   const durations = Object.keys(availability?.availability ?? {});
   const [duration, setDuration] = useState<string | null>(durations[0] ?? null);
@@ -50,7 +48,6 @@ export default function form({
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
-  const calendarId = ""
   const handleSelect = (date?: Date) => {
     if (!date) return;
     setDate(format(date, "yyyy-MM-dd"));
@@ -66,11 +63,14 @@ export default function form({
     !user;
   const router = useRouter();
   const handleCreateAppointment = async () => {
+    const calendarId = availability?.calendarId;
     if (!time) return;
     if (!duration) return;
     if (!user) return;
+    if (!calendarId) return;
     setLoading(true);
     try {
+
       const organizer = uid;
       const date_start = new TZDate(parsedDate, timezone);
       const appointmentTime = parse(time, "HH:mm", new Date());
@@ -94,11 +94,9 @@ export default function form({
       const userIdisOrganizer = user.id === organizer;
 
       const start = formatISO(date_start, {
-        in: tz("UTC"),
       })
 
       const end = formatISO(date_end, {
-        in: tz("UTC"),
       })
 
       const event: NewEvent = {
@@ -115,8 +113,10 @@ export default function form({
       };
       const { data: created } = await createEvent(event);
       if (created) {
-        const callPage = `/call/${created.id}${continueLink ? `?continue=${continueLink}` : ""}`;
-        router.push(callPage);
+        if (created.id) {
+          const callPage = `/call/${created.id}${continueLink ? `?continue=${continueLink}` : ""}`;
+          router.push(callPage);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -135,10 +135,10 @@ export default function form({
       setDate(defaultDate);
     }
     if (date) {
-      const parsedDate = parse(date, "yyyy-MM-dd", new Date(), {
-        in: tz(timezone),
-      });
-      if (isPast(parsedDate)) setDate(defaultDate);
+      const parsedDate = parse(date, "yyyy-MM-dd", new Date(), {});
+      const now = new Date();
+      const isTodayAndPast = isToday(parsedDate) && parsedDate < now;
+      if (isPast(parsedDate) || isTodayAndPast) setDate(defaultDate);
     }
   }, [date]);
   // useEffect(() => {
@@ -258,7 +258,6 @@ const DurationsTimeList = ({ times }: { times: string[] }) => {
   const defaultDate = format(currentTime, "yyyy-MM-dd");
   const timezone = useTz();
   const parsedDate = parse(date ?? defaultDate, "yyyy-MM-dd", new Date(), {
-    in: tz(timezone),
   });
   const dateIsToday = isToday(parsedDate);
   if (!date) return null;
@@ -277,7 +276,6 @@ const DurationsTimeList = ({ times }: { times: string[] }) => {
           "yyyy-MM-dd HH:mm",
           new Date(),
           {
-            in: tz("UTC")
           }
         );
         const availableTimeAsMinutes =
@@ -288,7 +286,6 @@ const DurationsTimeList = ({ times }: { times: string[] }) => {
 
         // if (timeDisabled) return null;
         const formatted = format(parsedAvailableTime, "HH:mm", {
-          in: tz(timezone)
         });
         const selected = formatted === time;
         return (

@@ -21,9 +21,7 @@ export const generateIntervalInRange = (
   while (true) {
     const currentEnd = addMinutes(currentStart, durationMinutes);
 
-    // Stop if we've reached or passed the end time
-    if (currentEnd >= end) break;
-
+    // Create the new interval
     const newInterval = { start: currentStart, end: currentEnd };
 
     // Check if the new interval is valid
@@ -35,6 +33,9 @@ export const generateIntervalInRange = (
     if (isInRange && !isOverlapping) {
       result.push(newInterval);
     }
+
+    // Stop if we've reached or passed the end time
+    if (currentEnd >= end) break;
 
     currentStart = currentEnd;
   }
@@ -59,8 +60,8 @@ export const createObjFromDurations = (
 
 
     const intervals = schedule.flatMap((item) => {
-      const start = parse(item.start, "HH:mm", new Date(), { in: tz("UTC") });
-      const end = parse(item.end, "HH:mm", new Date(), { in: tz("UTC") });
+      const start = parse(item.start, "HH:mm", new Date(), {});
+      const end = parse(item.end, "HH:mm", new Date(), {});
       if (!item.enabled) return [];
       const durationInMunutes = parsed.getHours() * 60 + parsed.getMinutes();
       return generateIntervalInRange(start, end, durationInMunutes, busyIntervals);
@@ -97,7 +98,6 @@ export const createObjFromDurations = (
 
 export const getIntervalFromTimeAndDuration = (time: string, duration: string) => {
   const parsedDuration = parse(duration, "HH:mm", new Date(), {
-    in: tz("UTC"),
   });
   const parsedTime = parse(time, "HH:mm", new Date());
   const start = parsedTime;

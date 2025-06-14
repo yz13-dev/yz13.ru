@@ -5,20 +5,13 @@ import { format, parse } from "date-fns";
 
 export const adaptSchedule = (schedule: DaySchedule[], timezone: string): DaySchedule[] => {
   return schedule.map((item) => {
-    const start = parse(item.start, "HH:mm", new Date(), {
-      in: tz("UTC"),
-    });
-    const end = parse(item.end, "HH:mm", new Date(), {
-      in: tz("UTC"),
-    });
+    const start = parse(item.start, "HH:mm", new Date());
+    const end = parse(item.end, "HH:mm", new Date());
+    console.log(start, end)
     return {
       enabled: item.enabled,
-      start: format(start, "HH:mm", {
-        in: tz(timezone),
-      }),
-      end: format(end, "HH:mm", {
-        in: tz(timezone),
-      }),
+      start: format(start, "HH:mm"),
+      end: format(end, "HH:mm"),
     }
   });
 };

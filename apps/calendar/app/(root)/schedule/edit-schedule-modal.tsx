@@ -122,10 +122,8 @@ const prepareSchedule = (schedule: DaySchedule[]): DaySchedule[] => {
     return {
       enabled: item.enabled,
       start: format(start, "HH:mm", {
-        in: tz("UTC"),
       }),
       end: format(end, "HH:mm", {
-        in: tz("UTC"),
       }),
     };
   })
@@ -186,7 +184,9 @@ export default function EditScheduleModal({
       saturday,
       sunday,
     };
-    return isEqual(initialSchedule, currentSchedule);
+    const sameDurations = isEqual(defaultDurations, durations);
+    const sameSchedule = isEqual(initialSchedule, currentSchedule);
+    return sameDurations && sameSchedule;
   };
 
   const disabled = loading ? loading : getChanges();

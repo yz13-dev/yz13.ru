@@ -6,7 +6,7 @@ import { Calendar } from "../../src/components/ui/calendar";
 export function CalendarDemo() {
   const [date, setDate] = React.useState<Date[] | undefined>([]);
   return (
-    <div className="w-80">
+    <div className="w-96">
       <Calendar
         mode="multiple"
         selected={date}
