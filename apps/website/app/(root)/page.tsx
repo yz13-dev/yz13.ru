@@ -13,7 +13,7 @@ import { Suspense } from "react";
 import Background from "./components/background";
 import CallToAction from "./components/call-to-action";
 import GitHubActivityMap from "./components/github-activity-map";
-import { OtherProjectsSkeleton } from "./components/other-projects";
+import OtherProjects, { OtherProjectsSkeleton } from "./components/other-projects";
 import ServicesDetails from "./components/services-details";
 
 export default async function page() {
@@ -115,7 +115,7 @@ export default async function page() {
           <div className="w-full">
             <ul className="gap-6 grid md:grid-cols-2 grid-cols-1 w-full">
               <Suspense fallback={<OtherProjectsSkeleton />}>
-                <OtherProjectsSkeleton />
+                <OtherProjects />
               </Suspense>
             </ul>
           </div>

@@ -1,7 +1,7 @@
 "use server";
 
 import { customFetch } from "@/const/fetch";
-import { Publication } from "@/types/store";
+import type { Publication } from "@/types/store";
 
 export async function getPublications() {
   return customFetch<Publication[]>("/store");
