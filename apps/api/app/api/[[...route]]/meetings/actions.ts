@@ -1,4 +1,4 @@
-import { yz13 } from "@yz13/api/client";
+import { getAuthorizedSession } from "@yz13/api/auth";
 import type { Event } from "@yz13/api/types/calendar";
 import { parse } from "date-fns";
 
@@ -10,7 +10,7 @@ export async function getZoomMeetings() {
   const url = new URL(path, apiUrl)
   try {
 
-    const session = await yz13.user.auth.getSession()
+    const { data: session } = await getAuthorizedSession()
 
     const accessToken = session?.provider_token;
     const refreshToken = session?.provider_refresh_token;

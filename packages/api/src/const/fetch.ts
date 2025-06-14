@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { API_URL } from "./api";
+import type { FetchResponse } from "./response";
 
 // NOTE: Supports cases where `content-type` is other than `json`
 const getBody = <T>(c: Response | Request): Promise<T> => {
@@ -46,7 +47,7 @@ const getHeaders = async (headers?: HeadersInit): Promise<HeadersInit> => {
 export const customFetch = async <T>(
   url: string,
   options?: RequestInit,
-): Promise<Response | null> => {
+): Promise<FetchResponse<T>> => {
   try {
     const header = options?.headers ?? {};
     const requestUrl = getUrl(url);
@@ -59,10 +60,15 @@ export const customFetch = async <T>(
 
     const request = new Request(requestUrl, requestInit);
     const response = await fetch(request);
+    const data = await getBody<T>(response);
 
-    return response;
+    return {
+      status: response.status,
+      data,
+      headers: response.headers,
+    } as FetchResponse<T>;
   } catch (error) {
     console.log(error);
-    return null
+    return { status: 500, data: null, headers: null } as FetchResponse<T>;
   }
 };
