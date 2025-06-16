@@ -137,6 +137,7 @@ schedule.get("/:uid/available", async (c) => {
     const appointments: Event[] = allAppointments.filter((appointment) => {
       return ["CONFIRMED", "TENTATIVE"].includes(appointment.status ?? "TENTATIVE")
     });
+    console.log(appointments);
     const weekday = format(parsedDate, "eeeeeeee").toLowerCase();
     const schedule = await getSchedule(uid);
     if (!schedule) {

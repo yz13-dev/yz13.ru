@@ -96,11 +96,17 @@ events.patch("/:id", async (c) => {
       const key = `events:${organizer_id}:${startAtFormatted}`;
       const eventKey = `${key}:event`
       const appointmentKey = `${key}:appointment`
-      const availabilityKey = `${key}:availability:${startAtFormatted}`
-      redis.del(key);
-      redis.del(eventKey);
-      redis.del(appointmentKey);
-      redis.del(availabilityKey);
+      const availabilityKey = `availability:${organizer_id}:${startAtFormatted}`
+      console.log("key", key);
+      console.log("eventKey", eventKey);
+      console.log("appointmentKey", appointmentKey);
+      console.log("availabilityKey", availabilityKey);
+      await Promise.all([
+        redis.del(key),
+        redis.del(eventKey),
+        redis.del(appointmentKey),
+        redis.del(availabilityKey)
+      ])
     }
 
     return c.json(data);
@@ -132,11 +138,17 @@ events.post("/", async (c) => {
       const key = `events:${organizer_id}:${startAtFormatted}`;
       const eventKey = `${key}:event`
       const appointmentKey = `${key}:appointment`
-      const availabilityKey = `${key}:availability:${startAtFormatted}`
-      redis.del(key);
-      redis.del(eventKey);
-      redis.del(appointmentKey);
-      redis.del(availabilityKey);
+      const availabilityKey = `availability:${organizer_id}:${startAtFormatted}`
+      console.log("key", key);
+      console.log("eventKey", eventKey);
+      console.log("appointmentKey", appointmentKey);
+      console.log("availabilityKey", availabilityKey);
+      await Promise.all([
+        redis.del(key),
+        redis.del(eventKey),
+        redis.del(appointmentKey),
+        redis.del(availabilityKey)
+      ])
     }
 
     return c.json(data);

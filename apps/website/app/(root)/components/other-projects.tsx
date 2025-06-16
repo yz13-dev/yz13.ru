@@ -101,10 +101,13 @@ export default async function OtherProjects({
                 </div>
                 <div className="flex w-full flex-col gap-1">
                   <div className="group *:inline relative space-x-2 line-clamp-2 *:text-base *:font-medium">
-                    <Link
-                      href={`/${publication.id}`}
-                      className="w-full h-full absolute left-0 top-0"
-                    />
+                    {
+                      false &&
+                      <Link
+                        href={`/${publication.id}`}
+                        className="w-full h-full absolute left-0 top-0"
+                      />
+                    }
                     <span className="group-hover:underline">
                       {publication.name}
                     </span>
