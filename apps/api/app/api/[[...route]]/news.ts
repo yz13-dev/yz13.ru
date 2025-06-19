@@ -1,5 +1,6 @@
 import { sourcesWithObjectTags } from "@/const/sources-rules";
 import { expire, redis } from "@/extensions/redis";
+import { clearNewsCache } from "@/lib/cache";
 import { createClient } from "@yz13/supabase/server";
 import { addDays, format, parseISO } from "date-fns";
 import { GeoMiddleware } from "hono-geo-middleware";
@@ -303,3 +304,14 @@ news.post("/articles/new", async (c) => {
     }
   }
 });
+
+news.post("/cache/clear", async (c) => {
+  try {
+    await clearNewsCache()
+
+    return c.text("true")
+  } catch (error) {
+    console.log(error);
+    return c.text("false")
+  }
+})

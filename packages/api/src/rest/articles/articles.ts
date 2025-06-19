@@ -50,3 +50,9 @@ export const getArticle = async (article_id: string) => {
     method: "GET",
   });
 };
+
+export const clearNewsCache = async () => {
+  return await customFetch<boolean>("/news/cache/clear", {
+    method: "POST",
+  });
+};

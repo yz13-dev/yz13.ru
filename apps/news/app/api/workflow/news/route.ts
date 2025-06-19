@@ -1,6 +1,6 @@
 import { parseNewsFromSource } from "@/lib/parse-news";
 import { serve } from "@upstash/workflow/nextjs";
-import { getCountryCodes, uploadArticle } from "@yz13/api/articles";
+import { clearNewsCache, getArticlesForCountry, getCountryCodes, uploadArticle } from "@yz13/api/articles";
 import { getNewsSources } from "@yz13/api/sources";
 
 export const { POST } = serve(async (context) => {
@@ -44,6 +44,11 @@ export const { POST } = serve(async (context) => {
     if (articles.length === 0) await context.cancel();
     else await Promise.all(articles.map((article) => uploadArticle(article)));
   });
+
+  await clearNewsCache()
+
+  await getArticlesForCountry("RU")
+
   return new Response(JSON.stringify({ articles, codes, sources }), {
     status: 200,
   });
