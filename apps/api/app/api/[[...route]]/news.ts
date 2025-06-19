@@ -1,4 +1,6 @@
 import { sourcesWithObjectTags } from "@/const/sources-rules";
+import { expire, redis } from "@/extensions/redis";
+import type { Article } from "@yz13/api/types/articles";
 import { createClient } from "@yz13/supabase/server";
 import { addDays, format, parseISO } from "date-fns";
 import { GeoMiddleware } from "hono-geo-middleware";
@@ -126,6 +128,13 @@ news.get("/country/:code/articles", async (c) => {
   );
   const chunkSize = 4;
   const nextDate = format(addDays(date, 1), "yyyy-MM-dd");
+
+  const key = `news:${date}-${nextDate}:${offset}`;
+
+  const cached = await redis.get<Article[]>(key);
+
+  if (cached) return c.json(cached);
+
   const limit = Number.parseInt(c.req.query("limit") || String((chunkSize * 4)));
   const code = String(c.req.param("code")).toUpperCase();
   const cookieStore = await cookies();
@@ -149,6 +158,11 @@ news.get("/country/:code/articles", async (c) => {
   if (error) {
     return c.json([]);
   }
+
+  if (articles.length > 0) {
+    await redis.set(key, articles, { ex: expire.hour });
+  }
+
   return c.json(articles);
 });
 
