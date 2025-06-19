@@ -14,6 +14,7 @@ import { Suspense } from "react";
 import AppLogo from "./components/app-logo";
 import { UserPublisher, UserPublisherSkeleton } from "./components/publisher";
 import ShareButton from "./components/share-button";
+import { getWiget } from "./registry";
 
 type Props = {
   params: Promise<{ appId: string }>;
@@ -28,11 +29,14 @@ export default async function page({ params }: Props) {
   const categoriesSlice = categories.slice(0, sliceCount) ?? [];
   const restCount = (publication.categories?.length ?? 0) - sliceCount;
   const stage = publication.stage;
+
+  const tags = publication.tags ?? [];
+
   return (
     <>
       <header className="max-w-6xl w-full mx-auto flex items-center justify-between p-6">
         <Link href="/">
-          <Logo size={64} type="full" />
+          <Logo size={28} type="full" />
         </Link>
         <Suspense fallback={<Skeleton className="h-9 w-16" />}>
           <User />
@@ -101,6 +105,17 @@ export default async function page({ params }: Props) {
           <ShareButton appId={appId} />
         </div>
       </div>
+
+      <div className="w-full space-y-24 max-w-6xl mx-auto p-6">
+        {
+          tags.map(tagId => {
+            const Widget = getWiget(tagId)
+            if (!Widget) return null;
+            return <Widget key={tagId} />;
+          })
+        }
+      </div>
+
       <div className="w-full space-y-4 max-w-6xl mx-auto p-6">
         <span className="text-base block font-medium">Другие проекты</span>
         <ul className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">

@@ -17,9 +17,12 @@ export default function Loading() {
       <div className="max-w-6xl w-full mx-auto py-12 px-6 space-y-6">
         <Skeleton className="size-24 relative border rounded-[25%] shrink-0" />
         <div className="w-full space-y-2 max-w-lg">
-          <Skeleton className="w-full h-9 rounded-full" />
-          <Skeleton className="w-1/2 h-9 rounded-full" />
-          <Skeleton className="w-2/3 h-9 rounded-full" />
+          <div className="flex items-center h-10 w-full">
+            <Skeleton className="w-full h-9 rounded-full" />
+          </div>
+          <div className="flex items-center h-10 w-full">
+            <Skeleton className="w-1/2 h-9 rounded-full" />
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex flex-col gap-2">
