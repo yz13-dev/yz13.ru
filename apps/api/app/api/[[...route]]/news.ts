@@ -1,6 +1,5 @@
 import { sourcesWithObjectTags } from "@/const/sources-rules";
 import { expire, redis } from "@/extensions/redis";
-import type { Article } from "@yz13/api/types/articles";
 import { createClient } from "@yz13/supabase/server";
 import { addDays, format, parseISO } from "date-fns";
 import { GeoMiddleware } from "hono-geo-middleware";
@@ -131,39 +130,44 @@ news.get("/country/:code/articles", async (c) => {
 
   const key = `news:${date}-${nextDate}:${offset}`;
 
-  const cached = await redis.get<Article[]>(key);
+  try {
 
-  if (cached) return c.json(cached);
+    // set any[], because Article[] caused type error;
+    const cached = await redis.get<any[]>(key);
 
-  const limit = Number.parseInt(c.req.query("limit") || String((chunkSize * 4)));
-  const code = String(c.req.param("code")).toUpperCase();
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const { data, error } = await supabase
-    .from("news")
-    .select(
-      `
+    if (cached) return c.json(cached);
+
+    const limit = Number.parseInt(c.req.query("limit") || String((chunkSize * 4)));
+    const code = String(c.req.param("code")).toUpperCase();
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("news")
+      .select(
+        `
       *,
       news_source:news_sources(*)
       `,
-    )
-    .eq("news_source.country_code", code)
-    .order("published_at", { ascending: false })
-    .gte("published_at", date)
-    .lte("published_at", nextDate)
-    .range(offset, offset + limit);
+      )
+      .eq("news_source.country_code", code)
+      .order("published_at", { ascending: false })
+      .gte("published_at", date)
+      .lte("published_at", nextDate)
+      .range(offset, offset + limit);
 
-  const articles = (data ?? []).filter((article) => !!article.news_source);
+    const articles = (data ?? []).filter((article) => !!article.news_source);
 
-  if (error) {
-    return c.json([]);
+    if (error) {
+      return c.json([]);
+    }
+
+    if (articles.length > 0) await redis.set(key, articles, { ex: expire.hour });
+
+    return c.json(articles);
+  } catch (error) {
+    console.log(error);
+    return c.json([])
   }
-
-  if (articles.length > 0) {
-    await redis.set(key, articles, { ex: expire.hour });
-  }
-
-  return c.json(articles);
 });
 
 news.get("/article/:article_id", async (c) => {
