@@ -17,6 +17,8 @@ export const getNewsCache = async () => {
 export const clearNewsCache = async () => {
   const keys = await getNewsCache();
 
+  console.log("clearing news cache", keys);
+
   for (const key of keys) {
     await redis.del(key);
   }

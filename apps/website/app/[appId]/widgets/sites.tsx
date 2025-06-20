@@ -1,3 +1,4 @@
+import { cn } from "@yz13/ui/cn";
 import { Badge } from "@yz13/ui/components/badge";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { parseISO } from "date-fns";
@@ -6,6 +7,7 @@ import { BookmarkIcon, PlusIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import CardImage from "../components/card-image";
+import { CommonProps } from "../registry";
 
 async function fetchData(): Promise<any[]> {
   try {
@@ -23,19 +25,21 @@ async function fetchData(): Promise<any[]> {
   }
 }
 
-export default async function () {
+export default async function ({ className = "", max = 8 }: CommonProps) {
 
   const data = await fetchData()
 
   return (
     <div className="w-full space-y-4">
       <span className="text-2xl font-medium block">Новые сайты</span>
-      <ul className="grid grid-cols-2 gap-4">
+      <ul className={cn("grid grid-cols-2 gap-4", className)}>
 
         {
-          data.map(item => {
-            return <SiteCard key={item.id} link={item} />
-          })
+          data
+            .slice(0, max)
+            .map(item => {
+              return <SiteCard key={item.id} link={item} />
+            })
         }
       </ul>
     </div>
@@ -81,7 +85,7 @@ export function SiteCard({ link, hideImage = false }: Props) {
 
   const wasCreatedMoreThanTwoDays = differenceInDays(createdAt, new Date()) > 2;
 
-  const domainLink = `/site/${domain}`;
+  const domainLink = `https://yzlab.ru/site/${domain}`;
 
   return (
     <div className="w-full h-full flex flex-col gap-2 relative">

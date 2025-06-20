@@ -1,38 +1,17 @@
 import { cn } from "@yz13/ui/cn";
-import Link from "next/link";
+import { Suspense } from "react";
 import { Logo } from "../logo";
-import { links } from "../social-links";
+import Projects, { ProjectsSkeleton } from "./projects";
+import Socials from "./socials";
 
 const Footer = ({ className = "" }: { className?: string }) => {
   return (
-    <footer className={cn("w-full h-fit *:p-6 grid grid-cols-1 md:grid-cols-2", className)}>
-      <div className="">
-        <div className="space-y-3">
-          <span className="block text-muted-foreground">
-            Социальные сети
-          </span>
-          <ul>
-            {
-              links.map((link) => (
-                <li key={link.href} className="h-8 items-center">
-                  <Link
-                    target="_blank"
-                    href={link.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-                  >
-                    <link.icon
-                      size={16}
-                      className="text-muted-foreground hover:text-foreground transition-colors"
-                    />
-                    <span className="text-sm">
-                      {link.name}
-                    </span>
-                  </Link>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+    <footer className={cn("w-full h-fit gap-3 grid grid-cols-1 md:grid-cols-3", className)}>
+      <div className="grid lg:grid-cols-3 grid-cols-2 gap-3 col-span-2">
+        <Socials />
+        <Suspense fallback={<ProjectsSkeleton />}>
+          <Projects />
+        </Suspense>
       </div>
       <div className="flex items-start justify-end">
         <Logo size={36} />

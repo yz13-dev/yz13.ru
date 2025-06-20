@@ -2,17 +2,21 @@ import { ReactNode, Suspense } from "react";
 import Ogs, { SectionSkeleton as OgsSectionSkeleton } from "./widgets/ogs";
 import Sites, { SectionSkeleton as SitesSectionSkeleton } from "./widgets/sites";
 
+export type CommonProps = {
+  className?: string;
+  max?: number;
+}
 
-export const registry = new Map<string, () => ReactNode>();
+export const registry = new Map<string, (props: CommonProps) => ReactNode>();
 
-registry.set("ogs", () => (
+registry.set("ogs", (props) => (
   <Suspense fallback={<OgsSectionSkeleton />}>
-    <Ogs />
+    <Ogs {...props} />
   </Suspense>
 ));
-registry.set("sites", () => (
+registry.set("sites", (props) => (
   <Suspense fallback={<SitesSectionSkeleton />}>
-    <Sites />
+    <Sites {...props} />
   </Suspense>
 ));
 

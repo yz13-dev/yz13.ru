@@ -2,6 +2,7 @@ import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
 import User from "@/components/user";
+import YzlabLogo from "@/components/yzlab-logo";
 import { availableForWork } from "@yz13/flags";
 import { cn } from "@yz13/ui/cn";
 import { Badge } from "@yz13/ui/components/badge";
@@ -10,6 +11,7 @@ import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ArrowRightIcon, CircleHelp, SendIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
+import { getWiget } from "../[appId]/registry";
 import Background from "./components/background";
 import CallToAction from "./components/call-to-action";
 import GitHubActivityMap from "./components/github-activity-map";
@@ -19,6 +21,10 @@ import ServicesDetails from "./components/services-details";
 export default async function page() {
   const isAvailable = await availableForWork();
   const chat_url = "https://t.me/yz13_dev";
+
+  const OgsWidget = getWiget("ogs")
+  const SitesWidget = getWiget("sites")
+
   return (
     <>
       <Background />
@@ -73,7 +79,7 @@ export default async function page() {
         </main>
       </div>
       <div className="w-full divide-y *:first:border-t *:border-x *:last:border-b">
-        <div className="w-full max-w-5xl mx-auto bg-card rounded-t-lg">
+        <div className="w-full max-w-7xl mx-auto bg-card rounded-t-lg">
           <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="col-span-2 w-full h-full">
               <ServicesDetails />
@@ -92,7 +98,7 @@ export default async function page() {
             </div>
           </div>
         </div>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
           <div className="w-full">
             <h3 className="text-2xl font-medium">
               Активность
@@ -103,7 +109,7 @@ export default async function page() {
             <GitHubActivityMap username="yz13-dev" />
           </div>
         </section>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
           <div className="w-full">
             <h3 className="text-2xl font-medium">
               Проекты
@@ -113,22 +119,39 @@ export default async function page() {
             </p>
           </div>
           <div className="w-full">
-            <ul className="gap-6 grid md:grid-cols-2 grid-cols-1 w-full">
+            <ul className="gap-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full">
               <Suspense fallback={<OtherProjectsSkeleton />}>
                 <OtherProjects />
               </Suspense>
             </ul>
           </div>
         </section>
-        <div className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
-          <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
-            <div className="col-span-2 w-full h-full flex items-center">
-              <div className="h-16 w-full text-background bg-foreground rounded-full flex items-center pl-6 pr-1.5 py-1.5">
-                <span className="lg:text-4xl text-3xl font-semibold">
-                  Готовы начать?
-                </span>
-                <div className="h-full aspect-square flex items-center justify-center rounded-full text-foreground bg-background ml-auto">
-                  <CircleHelp className="lg:size-12 size-10" />
+        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
+          <div className="flex items-center justify-between gap-3">
+            <YzlabLogo size={24} />
+            <Button variant="secondary" asChild size="sm">
+              <Link href="https://yzlab.ru"><ArrowRightIcon /></Link>
+            </Button>
+          </div>
+          {OgsWidget && <OgsWidget className="lg:grid-cols-4 grid-cols-2" />}
+        </section>
+        <div className="w-full py-6 *:px-6 max-w-7xl mx-auto bg-card">
+          <div className="w-full grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+            <div className="lg:col-span-2 col-span-1 w-full h-full flex items-center">
+              <div className="w-full h-16 relative group flex items-center justify-center">
+                <div
+                  className={cn(
+                    "w-full h-full rounded-full bg-foreground/40 absolute transition-all",
+                    "group-hover:scale-100 group-hover:blur-md"
+                  )}
+                />
+                <div className="h-full w-full z-10 text-background bg-foreground rounded-full flex items-center pl-6 pr-1.5 py-1.5">
+                  <span className="lg:text-4xl text-3xl font-semibold">
+                    Готовы начать?
+                  </span>
+                  <div className="h-full aspect-square flex items-center justify-center rounded-full text-foreground bg-background ml-auto">
+                    <CircleHelp className="lg:size-12 size-10" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -150,7 +173,7 @@ export default async function page() {
             </div>
           </div>
         </div>
-        <div className="w-full p-6 max-w-5xl mx-auto bg-card">
+        <div className="w-full p-6 max-w-7xl mx-auto bg-card">
           <Footer />
         </div>
       </div>
