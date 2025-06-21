@@ -1,13 +1,14 @@
 import packageJson from "@/package.json";
 import timezones from "@/time-zones.json";
-import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { languageDetector } from "hono/language";
 import { poweredBy } from "hono/powered-by";
+import { Hono } from "hono/quick";
 import { requestId } from "hono/request-id";
 import { handle } from "hono/vercel";
 import { auth } from "./auth";
 import { calendar } from "./calendar/endpoint";
+import { charts } from "./charts/endpoint";
 import { events } from "./events/endpoint";
 import { meetings } from "./meetings/endpoint";
 import { news } from "./news";
@@ -69,6 +70,7 @@ app.route("/calendar/events", events);
 app.route("/calendar/schedule", schedule);
 app.route("/calendar/meetings", meetings)
 app.route("/positions", positions);
+app.route("/charts", charts)
 
 app.get("/timezones", (c) => {
   return c.json(timezones);

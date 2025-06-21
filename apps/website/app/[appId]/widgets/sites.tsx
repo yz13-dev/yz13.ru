@@ -46,14 +46,14 @@ export default async function ({ className = "", max = 8 }: CommonProps) {
   )
 }
 
-export const SectionSkeleton = () => {
+export const SectionSkeleton = ({ className }: { className?: string }) => {
 
   const cards = Array.from({ length: 8 }, (_, i) => i);
 
   return (
     <div className="w-full space-y-4">
       <Skeleton className="w-1/3 h-8" />
-      <ul className="grid grid-cols-2 gap-4">
+      <ul className={cn("grid grid-cols-2 gap-4", className)}>
 
         {
           cards.map(item => {

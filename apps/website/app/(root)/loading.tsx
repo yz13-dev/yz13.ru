@@ -1,11 +1,14 @@
 import { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
+import NewsLogo from "@/components/news-logo";
+import YzlabLogo from "@/components/yzlab-logo";
 import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ArrowRightIcon, CircleHelp } from "lucide-react";
 import Link from "next/link";
+import { SectionSkeleton } from "../[appId]/widgets/ogs";
 import { CallToActionSkeleton } from "./components/call-to-action";
 import { CalendarSkeleton } from "./components/github-activity-map";
 import { OtherProjectsSkeleton } from "./components/other-projects";
@@ -27,7 +30,7 @@ export default function loading() {
         <div className="w-full h-16 justify-center items-center flex">
           <AvailabilitySkeleton />
         </div>
-        <main className="w-full max-w-5xl mx-auto h-[calc(100%-64px)] flex flex-col gap-20 justify-center items-center">
+        <main className="w-full max-w-7xl mx-auto h-[calc(100%-64px)] flex flex-col gap-20 justify-center items-center">
           <div className="px-6 space-y-8">
             <div className="flex md:flex-row flex-col justify-center items-center gap-6">
               <div className="size-[148px] lg:flex hidden aspect-square items-center justify-center">
@@ -51,7 +54,7 @@ export default function loading() {
         </main>
       </div>
       <div className="w-full divide-y *:first:border-t *:border-x *:last:border-b">
-        <div className="w-full max-w-5xl mx-auto bg-card rounded-t-lg">
+        <div className="w-full max-w-7xl mx-auto bg-card rounded-t-lg">
           <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="col-span-2 w-full h-full">
               <Skeleton className="w-full h-full" />
@@ -69,7 +72,7 @@ export default function loading() {
             </div>
           </div>
         </div>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
           <div className="w-full">
             <h3 className="text-2xl font-medium">
               Активность
@@ -80,7 +83,7 @@ export default function loading() {
             <CalendarSkeleton loading />
           </div>
         </section>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
           <div className="w-full">
             <h3 className="text-2xl font-medium">
               Проекты
@@ -95,7 +98,28 @@ export default function loading() {
             </ul>
           </div>
         </section>
-        <div className="w-full py-6 *:px-6 space-y-10 max-w-5xl mx-auto bg-card">
+        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <NewsLogo size={24} />
+              <h3 className="text-lg font-medium">Кол-во новостей по месяцам</h3>
+            </div>
+            <Button variant="secondary" asChild size="sm">
+              <Link href="https://yzlab.ru"><ArrowRightIcon /></Link>
+            </Button>
+          </div>
+          <Skeleton className="h-[400px] rounded-none shrink-0" />
+        </section>
+        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
+          <div className="flex items-center justify-between gap-3">
+            <YzlabLogo size={24} />
+            <Button variant="secondary" asChild size="sm">
+              <Link href="https://yzlab.ru"><ArrowRightIcon /></Link>
+            </Button>
+          </div>
+          <SectionSkeleton />
+        </section>
+        <div className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
           <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="col-span-2 w-full h-full flex items-center">
               <div className="h-16 w-full text-background bg-foreground rounded-full flex items-center pl-6 pr-1.5 py-1.5">
@@ -125,7 +149,7 @@ export default function loading() {
             </div>
           </div>
         </div>
-        <div className="w-full p-6 max-w-5xl mx-auto bg-card">
+        <div className="w-full p-6 max-w-7xl mx-auto bg-card">
           <Footer />
         </div>
       </div>

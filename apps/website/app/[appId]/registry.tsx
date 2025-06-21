@@ -10,12 +10,12 @@ export type CommonProps = {
 export const registry = new Map<string, (props: CommonProps) => ReactNode>();
 
 registry.set("ogs", (props) => (
-  <Suspense fallback={<OgsSectionSkeleton />}>
+  <Suspense fallback={<OgsSectionSkeleton className={props.className} />}>
     <Ogs {...props} />
   </Suspense>
 ));
 registry.set("sites", (props) => (
-  <Suspense fallback={<SitesSectionSkeleton />}>
+  <Suspense fallback={<SitesSectionSkeleton className={props.className} />}>
     <Sites {...props} />
   </Suspense>
 ));

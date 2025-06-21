@@ -28,6 +28,7 @@
       "import": "./dist/lib/avatar-url.mjs",
       "require": "./dist/lib/avatar-url.js"
     },
+    "./types/charts": "./dist/types/charts.d.ts",
     "./types/timezone": "./dist/types/timezone.d.ts",
     "./types/articles": "./dist/types/articles.d.ts",
     "./types/pricing": "./dist/types/pricing.d.ts",
@@ -41,6 +42,11 @@
       "types": "./dist/const/fetch.d.ts",
       "import": "./dist/const/fetch.mjs",
       "require": "./dist/const/fetch.js"
+    },
+    "./charts": {
+      "types": "./dist/rest/charts/charts.d.ts",
+      "import": "./dist/rest/charts/charts.mjs",
+      "require": "./dist/rest/charts/charts.js"
     },
     "./timezone": {
       "types": "./dist/rest/timezone/timezone.d.ts",

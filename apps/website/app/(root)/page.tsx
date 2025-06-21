@@ -1,6 +1,7 @@
 import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
+import NewsLogo from "@/components/news-logo";
 import User from "@/components/user";
 import YzlabLogo from "@/components/yzlab-logo";
 import { availableForWork } from "@yz13/flags";
@@ -15,6 +16,7 @@ import { getWiget } from "../[appId]/registry";
 import Background from "./components/background";
 import CallToAction from "./components/call-to-action";
 import GitHubActivityMap from "./components/github-activity-map";
+import NewsChart from "./components/news-chart";
 import OtherProjects, { OtherProjectsSkeleton } from "./components/other-projects";
 import ServicesDetails from "./components/services-details";
 
@@ -23,7 +25,7 @@ export default async function page() {
   const chat_url = "https://t.me/yz13_dev";
 
   const OgsWidget = getWiget("ogs")
-  const SitesWidget = getWiget("sites")
+  // const SitesWidget = getWiget("sites")
 
   return (
     <>
@@ -125,6 +127,18 @@ export default async function page() {
               </Suspense>
             </ul>
           </div>
+        </section>
+        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <NewsLogo size={24} />
+              <h3 className="text-lg font-medium">Кол-во новостей по месяцам</h3>
+            </div>
+            <Button variant="secondary" asChild size="sm">
+              <Link href="https://news.yz13.ru"><ArrowRightIcon /></Link>
+            </Button>
+          </div>
+          <NewsChart />
         </section>
         <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
           <div className="flex items-center justify-between gap-3">
