@@ -132,13 +132,15 @@ export default async function page() {
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <NewsLogo size={24} />
-              <h3 className="text-lg font-medium">Кол-во новостей по месяцам</h3>
             </div>
             <Button variant="secondary" asChild size="sm">
               <Link href="https://news.yz13.ru"><ArrowRightIcon /></Link>
             </Button>
           </div>
-          <NewsChart />
+          <div className="w-full space-y-4">
+            <h3 className="text-2xl font-medium block">Кол-во новостей по месяцам</h3>
+            <NewsChart />
+          </div>
         </section>
         <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
           <div className="flex items-center justify-between gap-3">

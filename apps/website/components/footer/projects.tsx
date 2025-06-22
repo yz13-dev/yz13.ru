@@ -58,7 +58,7 @@ export default async function () {
                   <div
                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                   >
-                    <div className="size-7 shrink-0 flex items-center justify-center relative overflow-hidden">
+                    <div className="size-7 shrink-0 flex items-center justify-center rounded-full relative overflow-hidden">
                       <AppLogo publication={publication} />
                     </div>
                     <span className="text-sm">
@@ -74,7 +74,7 @@ export default async function () {
                     href={link}
                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
                   >
-                    <div className="size-7 shrink-0 flex items-center justify-center relative overflow-hidden">
+                    <div className="size-7 shrink-0 flex items-center justify-center rounded-full relative overflow-hidden">
                       <AppLogo publication={publication} />
                     </div>
                     <span className="text-sm">
