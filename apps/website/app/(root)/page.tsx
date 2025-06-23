@@ -48,7 +48,7 @@ export default async function page() {
             <Availability />
           </Suspense>
         </div>
-        <main className="w-full max-w-5xl mx-auto h-[calc(100%-64px)] flex flex-col gap-20 justify-center items-center">
+        <main className="w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min flex flex-col gap-20 justify-center items-center">
           <div className="px-6 space-y-8">
             <div className="flex md:flex-row flex-col justify-center items-center gap-6">
               <div className="size-[148px] lg:flex hidden aspect-square items-center justify-center">
@@ -79,6 +79,9 @@ export default async function page() {
             </Button>
           </div>
         </main>
+        <div className="w-full h-[10%] py-3 flex iteitems-center justify-center">
+          {/* <div className="h-full w-96 rounded-md bg-secondary"></div> */}
+        </div>
       </div>
       <div className="w-full divide-y *:first:border-t *:border-x *:last:border-b">
         <div className="w-full max-w-7xl mx-auto bg-card rounded-t-lg">

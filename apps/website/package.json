@@ -29,7 +29,6 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.452.0",
     "maplibre-gl": "^5.1.0",
-    "@yz13/ui": "*",
     "motion": "^11.14.4",
     "next": "14.2.26",
     "next-safe-action": "^7.9.9",
@@ -42,11 +41,12 @@
     "react-responsive": "^10.0.0",
     "recharts": "^2.15.0",
     "resend": "^4.1.1",
-    "@yz13/api": "*",
     "sharp": "^0.33.5",
-    "@yz13/supabase": "*",
     "zod": "^3.23.8",
     "zustand": "^5.0.1",
+    "@yz13/ui": "*",
+    "@yz13/api": "*",
+    "@yz13/supabase": "*",
     "@yz13/flags": "*"
   },
   "devDependencies": {

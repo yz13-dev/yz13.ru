@@ -29,7 +29,7 @@ export default function loading() {
         <div className="w-full h-16 justify-center items-center flex">
           <AvailabilitySkeleton />
         </div>
-        <main className="w-full max-w-7xl mx-auto h-[calc(100%-64px)] flex flex-col gap-20 justify-center items-center">
+        <main className="w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min flex flex-col gap-20 justify-center items-center">
           <div className="px-6 space-y-8">
             <div className="flex md:flex-row flex-col justify-center items-center gap-6">
               <div className="size-[148px] lg:flex hidden aspect-square items-center justify-center">
@@ -51,6 +51,7 @@ export default function loading() {
             <CallToActionSkeleton className="lg:w-fit w-full lg:*:w-fit *:w-full" />
           </div>
         </main>
+        <div className="w-full h-[10%] py-3 flex iteitems-center justify-center" />
       </div>
       <div className="w-full divide-y *:first:border-t *:border-x *:last:border-b">
         <div className="w-full max-w-7xl mx-auto bg-card rounded-t-lg">

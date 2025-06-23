@@ -79,7 +79,7 @@ export default function Background({
             alt="background"
           />
         </motion.div>
-        <div className="w-full h-full absolute top-0 left-0 backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background backdrop-blur-2xl" />
+        <div className="w-full h-full absolute inset-0 backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background backdrop-blur-2xl" />
       </div>
     </div>
   );

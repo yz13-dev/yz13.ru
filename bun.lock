@@ -49,6 +49,27 @@
         "typescript-config": "*",
       },
     },
+    "apps/board": {
+      "name": "board",
+      "version": "0.1.0",
+      "dependencies": {
+        "@yz13/api": "*",
+        "@yz13/flags": "*",
+        "@yz13/supabase": "*",
+        "@yz13/ui": "*",
+        "next": "15.3.4",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+      },
+      "devDependencies": {
+        "@tailwindcss/postcss": "^4",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "tailwindcss": "^4",
+        "typescript": "^5",
+      },
+    },
     "apps/calendar": {
       "name": "calendar",
       "version": "0.1.0",
@@ -1336,6 +1357,8 @@
     "bitsyntax": ["bitsyntax@0.0.4", "", { "dependencies": { "buffer-more-ints": "0.0.2" } }, "sha512-Pav3HSZXD2NLQOWfJldY3bpJLt8+HS2nUo5Z1bLLmHg2vCE/cM1qfEvNjlYo7GgYQPneNr715Bh42i01ZHZPvw=="],
 
     "bluebird": ["bluebird@3.7.2", "", {}, "sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg=="],
+
+    "board": ["board@workspace:apps/board"],
 
     "body-parser": ["body-parser@1.18.3", "", { "dependencies": { "bytes": "3.0.0", "content-type": "~1.0.4", "debug": "2.6.9", "depd": "~1.1.2", "http-errors": "~1.6.3", "iconv-lite": "0.4.23", "on-finished": "~2.3.0", "qs": "6.5.2", "raw-body": "2.3.3", "type-is": "~1.6.16" } }, "sha512-YQyoqQG3sO8iCmf8+hyVpgHHOv0/hCEFiS4zTGUwTA1HjAFX66wRcNQrVCeJq9pgESMRvUAOvSil5MJlmccuKQ=="],
 
