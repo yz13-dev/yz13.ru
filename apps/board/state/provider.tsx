@@ -1,12 +1,12 @@
 "use client";
 
-import { type ReactNode, createContext, useContext, useEffect } from "react";
+import { createContext, type ReactNode, useContext, useEffect } from "react";
 
 import { useStore } from "zustand";
 import { useShallow } from "zustand/react/shallow";
-import { api, type createMapApi, setDpr, type Store } from "./api";
+import { api, type createMapState, setDpr, type Store } from "./state";
 
-export type StoreApi = ReturnType<typeof createMapApi>;
+export type StoreApi = ReturnType<typeof createMapState>;
 
 export const StoreContext = createContext<StoreApi | undefined>(undefined);
 
@@ -37,7 +37,7 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
   return <StoreContext.Provider value={api}>{children}</StoreContext.Provider>;
 };
 
-export const useMapApi = <T,>(selector: (store: Store) => T): T => {
+export const useMapState = <T,>(selector: (store: Store) => T): T => {
   const ctx = useContext(StoreContext);
   if (!ctx) {
     throw new Error("useStore must be used within StoreProvider");

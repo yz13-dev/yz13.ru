@@ -1,4 +1,4 @@
-import { getDpr, getOffset, getView, getZoom } from "./api";
+import { getDpr, getOffset, getView, getZoom } from "@/state/state";
 import { getStyle } from "./style";
 
 export const zoom = (ctx: CanvasRenderingContext2D) => {

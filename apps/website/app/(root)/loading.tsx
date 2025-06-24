@@ -21,22 +21,28 @@ export default function loading() {
           </div>
         </div>
       </header>
-      <div className="py-8 h-[calc(100dvh-64px)]">
+      <div className="h-[calc(100dvh-64px)]">
         <div className="w-full h-16 justify-center items-center flex">
           <AvailabilitySkeleton />
         </div>
-        <main className="w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min flex flex-col gap-20 justify-center items-center">
-          <div className="px-6 space-y-8">
-            <div className="flex md:flex-row flex-col justify-center items-center gap-6">
+        <main
+          className={cn(
+            "w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min",
+            "md:gap-20 gap-10 py-6",
+            "flex flex-col md:justify-center justify-between items-center"
+          )}
+        >
+          <div className="px-6 md:space-y-8 space-y-4">
+            <div className="flex flex-row md:justify-center justify-start items-center md:gap-6 gap-3">
               <div className="size-[148px] lg:flex hidden aspect-square items-center justify-center">
                 <Logo size={148} />
               </div>
               <div className="size-[96px] lg:hidden flex aspect-square items-center justify-center">
                 <Logo size={96} />
               </div>
-              <h1 className="lg:text-9xl text-7xl text-center font-bold">YZ13</h1>
+              <h1 className="lg:text-9xl text-7xl md:text-center text-start font-bold">YZ13</h1>
             </div>
-            <p className="lg:text-4xl text-2xl block max-w-3xl w-full text-center font-medium text-muted-foreground">
+            <p className="lg:text-4xl text-2xl block max-w-3xl w-full md:text-center text-start font-medium text-muted-foreground">
               Фронтенд разработчик, специализируюсь на разработке сайтов, веб-приложений.
             </p>
           </div>

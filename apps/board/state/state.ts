@@ -116,14 +116,14 @@ export const initialState: State = {
   },
 };
 
-export const createMapApi = (initState: Partial<State> = initialState) => {
+export const createMapState = (initState: Partial<State> = initialState) => {
   const state = { ...initialState, ...initState };
   return createStore<Store>()((set) => ({
     ...state,
   }));
 };
 
-export const api = createMapApi({
+export const api = createMapState({
   flags: {
     grid: true,
     rulers: true,
