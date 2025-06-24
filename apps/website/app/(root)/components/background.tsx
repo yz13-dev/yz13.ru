@@ -24,7 +24,7 @@ import variant6 from "public/background/variant-6.gif";
 import variant7 from "public/background/variant-7.gif";
 import variant8 from "public/background/variant-8.gif";
 import variant9 from "public/background/variant-9.gif";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const bgs = [
   variant1,
@@ -59,7 +59,13 @@ export default function Background({
   const bgSrc = randomBg ?? variant1;
 
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [ready, setReady] = useState<boolean>(false);
 
+
+  useEffect(() => {
+    setReady(true)
+  }, [])
+  if (!ready) return null
   return (
     <div className={cn("w-full h-dvh absolute top-0 z-[-1] left-0", className)}>
       <div

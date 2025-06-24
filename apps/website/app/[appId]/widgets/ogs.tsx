@@ -25,13 +25,16 @@ async function fetchData(): Promise<any[]> {
   }
 }
 
-export default async function ({ className = "", max = 8 }: CommonProps) {
+export default async function ({ className = "", max = 8, title = true }: CommonProps) {
 
   const data = await fetchData()
 
   return (
     <div className="w-full space-y-4">
-      <span className="text-2xl font-medium block">Новые OGs</span>
+      {
+        title &&
+        <span className="text-2xl font-medium block">Новые OGs</span>
+      }
       <ul className={cn("grid grid-cols-2 gap-4", className)}>
 
         {
@@ -47,19 +50,24 @@ export default async function ({ className = "", max = 8 }: CommonProps) {
 }
 
 
-export const SectionSkeleton = ({ className }: { className?: string }) => {
+export const SectionSkeleton = ({ className, max = 8, title = true }: CommonProps) => {
 
   const cards = Array.from({ length: 8 }, (_, i) => i);
 
   return (
     <div className="w-full space-y-4">
-      <Skeleton className="w-1/3 h-8" />
+      {
+        title &&
+        <Skeleton className="w-1/3 h-8" />
+      }
       <ul className={cn("grid grid-cols-2 gap-4", className)}>
 
         {
-          cards.map(item => {
-            return <CardSkeleton key={`og/${item}`} />
-          })
+          cards
+            .slice(0, max)
+            .map(item => {
+              return <CardSkeleton key={`og/${item}`} />
+            })
         }
       </ul>
     </div>

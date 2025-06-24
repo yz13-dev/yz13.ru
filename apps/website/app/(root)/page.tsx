@@ -1,10 +1,8 @@
 import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
-import NewsLogo from "@/components/news-logo";
 import User from "@/components/user";
-import YzlabLogo from "@/components/yzlab-logo";
-import { availableForWork } from "@yz13/flags";
+import { availableForWork, getMainEmail, getSecondaryEmail } from "@yz13/flags";
 import { cn } from "@yz13/ui/cn";
 import { Badge } from "@yz13/ui/components/badge";
 import { Button } from "@yz13/ui/components/button";
@@ -12,20 +10,18 @@ import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ArrowRightIcon, CircleHelp, SendIcon } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getWiget } from "../[appId]/registry";
 import Background from "./components/background";
 import CallToAction from "./components/call-to-action";
-import GitHubActivityMap from "./components/github-activity-map";
-import NewsChart from "./components/news-chart";
 import OtherProjects, { OtherProjectsSkeleton } from "./components/other-projects";
 import ServicesDetails from "./components/services-details";
+import Stand from "./components/widgets/stand";
 
 export default async function page() {
   const isAvailable = await availableForWork();
   const chat_url = "https://t.me/yz13_dev";
 
-  const OgsWidget = getWiget("ogs")
-  // const SitesWidget = getWiget("sites")
+  const primaryEmail = await getMainEmail()
+  const secondaryEmail = await getSecondaryEmail()
 
   return (
     <>
@@ -42,24 +38,30 @@ export default async function page() {
           </div>
         </div>
       </header>
-      <div className="py-8 h-[calc(100dvh-64px)]">
+      <div className="h-[calc(100dvh-64px)]">
         <div className="w-full h-16 justify-center items-center flex">
           <Suspense fallback={<AvailabilitySkeleton />}>
             <Availability />
           </Suspense>
         </div>
-        <main className="w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min flex flex-col gap-20 justify-center items-center">
-          <div className="px-6 space-y-8">
-            <div className="flex md:flex-row flex-col justify-center items-center gap-6">
+        <main
+          className={cn(
+            "w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min",
+            "md:gap-20 gap-10 py-6",
+            "flex flex-col md:justify-center justify-between items-center"
+          )}
+        >
+          <div className="px-6 md:space-y-8 space-y-4">
+            <div className="flex flex-row md:justify-center justify-start items-center md:gap-6 gap-3">
               <div className="size-[148px] lg:flex hidden aspect-square items-center justify-center">
                 <Logo size={148} />
               </div>
               <div className="size-[96px] lg:hidden flex aspect-square items-center justify-center">
                 <Logo size={96} />
               </div>
-              <h1 className="lg:text-9xl text-7xl text-center font-bold">YZ13</h1>
+              <h1 className="lg:text-9xl text-7xl md:text-center text-start font-bold">YZ13</h1>
             </div>
-            <p className="lg:text-4xl text-2xl block max-w-3xl w-full text-center font-medium text-muted-foreground">
+            <p className="lg:text-4xl text-2xl block max-w-3xl w-full md:text-center text-start font-medium text-muted-foreground">
               Фронтенд разработчик, специализируюсь на разработке сайтов, веб-приложений.
             </p>
           </div>
@@ -79,12 +81,22 @@ export default async function page() {
             </Button>
           </div>
         </main>
-        <div className="w-full h-[10%] py-3 flex iteitems-center justify-center">
-          {/* <div className="h-full w-96 rounded-md bg-secondary"></div> */}
+        <div className="w-full h-[10%] py-3">
+          <div className="w-full max-w-screen-2xl mx-auto px-6 flex items-center justify-between">
+            <div className="flex flex-col gap-1">
+              <span className="text-muted-foreground text-xs">По вопросам и/или предложениям пишите:</span>
+              <div className="flex items-center gap-2">
+                <Link href={`mailto:${primaryEmail}`} className="text-foreground text-xs hover:underline">{primaryEmail}</Link>
+                <span className="text-muted-foreground text-xs">или</span>
+                <Link href={`mailto:${secondaryEmail}`} className="text-foreground text-xs hover:underline">{secondaryEmail}</Link>
+              </div>
+            </div>
+            <div className="flex items-center gap-2"></div>
+          </div>
         </div>
       </div>
-      <div className="w-full divide-y *:first:border-t *:border-x *:last:border-b">
-        <div className="w-full max-w-7xl mx-auto bg-card rounded-t-lg">
+      <div className="w-full *:max-w-screen-2xl space-y-12">
+        <div className="w-full mx-auto">
           <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="col-span-2 w-full h-full">
               <ServicesDetails />
@@ -97,24 +109,17 @@ export default async function page() {
               <Button
                 className="justify-between mt-auto w-full"
                 disabled
+                size="lg"
               >
                 Заказать <ArrowRightIcon />
               </Button>
             </div>
           </div>
         </div>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
-          <div className="w-full">
-            <h3 className="text-2xl font-medium">
-              Активность
-            </h3>
-            <p className="text-base text-muted-foreground">Календарь активности GitHub.</p>
-          </div>
-          <div className="w-full">
-            <GitHubActivityMap username="yz13-dev" />
-          </div>
+        <section className="w-full py-6 *:px-6 space-y-6 mx-auto">
+          <Stand />
         </section>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
+        <section className="w-full py-6 *:px-6 space-y-10  mx-auto">
           <div className="w-full">
             <h3 className="text-2xl font-medium">
               Проекты
@@ -124,37 +129,14 @@ export default async function page() {
             </p>
           </div>
           <div className="w-full">
-            <ul className="gap-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full">
+            <ul className="gap-6 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full">
               <Suspense fallback={<OtherProjectsSkeleton />}>
                 <OtherProjects />
               </Suspense>
             </ul>
           </div>
         </section>
-        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <NewsLogo size={24} />
-            </div>
-            <Button variant="secondary" asChild size="sm">
-              <Link href="https://news.yz13.ru"><ArrowRightIcon /></Link>
-            </Button>
-          </div>
-          <div className="w-full space-y-4">
-            <h3 className="text-2xl font-medium block">Кол-во новостей по месяцам</h3>
-            <NewsChart />
-          </div>
-        </section>
-        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
-          <div className="flex items-center justify-between gap-3">
-            <YzlabLogo size={24} />
-            <Button variant="secondary" asChild size="sm">
-              <Link href="https://yzlab.ru"><ArrowRightIcon /></Link>
-            </Button>
-          </div>
-          {OgsWidget && <OgsWidget className="lg:grid-cols-4 grid-cols-2" />}
-        </section>
-        <div className="w-full py-6 *:px-6 max-w-7xl mx-auto bg-card">
+        <div className="w-full py-6 *:px-6  mx-auto">
           <div className="w-full grid gap-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="lg:col-span-2 col-span-1 w-full h-full flex items-center">
               <div className="w-full h-16 relative group flex items-center justify-center">
@@ -175,24 +157,30 @@ export default async function page() {
               </div>
             </div>
             <div className="w-full h-full space-y-3">
-              <Button className="w-full justify-between" variant="default" disabled={!isAvailable}>
+              <Button
+                className="w-full justify-between text-base"
+                variant="default"
+                size="lg"
+                disabled={!isAvailable}
+              >
                 Запланировать видеозвонок
-                <ArrowRightIcon />
+                <ArrowRightIcon className="size-5" />
               </Button>
               <Button
-                className="w-full justify-between"
+                className="w-full justify-between text-base"
                 variant="outline"
+                size="lg"
                 asChild
               >
                 <Link href={chat_url} target="_blank">
                   Открыть чат
-                  <ArrowRightIcon />
+                  <ArrowRightIcon className="size-5" />
                 </Link>
               </Button>
             </div>
           </div>
         </div>
-        <div className="w-full p-6 max-w-7xl mx-auto bg-card">
+        <div className="w-full p-6  mx-auto">
           <Footer />
         </div>
       </div>

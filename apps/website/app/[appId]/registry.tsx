@@ -4,6 +4,7 @@ import Sites, { SectionSkeleton as SitesSectionSkeleton } from "./widgets/sites"
 
 export type CommonProps = {
   className?: string;
+  title?: boolean;
   max?: number;
 }
 

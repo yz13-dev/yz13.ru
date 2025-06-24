@@ -36,3 +36,7 @@ export const availableForWork = flag<boolean>(hypertuneAdapter.declarations.avai
 export const showEventForm = flag<boolean>(hypertuneAdapter.declarations.showEventForm)
 
 export const showLinkToCalendar = flag<boolean>(hypertuneAdapter.declarations.showLinkToCalendar)
+
+export const getMainEmail = flag<string>(hypertuneAdapter.declarations.primaryEmail)
+
+export const getSecondaryEmail = flag<string>(hypertuneAdapter.declarations.secondaryEmail)

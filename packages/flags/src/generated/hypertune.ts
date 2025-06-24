@@ -2,13 +2,18 @@
 
 import * as sdk from "hypertune";
 
-export const queryCode = `query FullQuery{root{showLinkToCalendar showEventForm availableForWork enableSearch}}`;
+export const queryId = "d06e2843-143c-5b11-8179-4f18ddd9917d";
 
-export const query: sdk.Query<sdk.ObjectValueWithVariables> = {"variableDefinitions":{},"fragmentDefinitions":{},"fieldQuery":{"Query":{"type":"InlineFragment","objectTypeName":"Query","selection":{"root":{"fieldArguments":{"__isPartialObject__":true},"fieldQuery":{"Root":{"type":"InlineFragment","objectTypeName":"Root","selection":{"showLinkToCalendar":{"fieldArguments":{},"fieldQuery":null},"showEventForm":{"fieldArguments":{},"fieldQuery":null},"availableForWork":{"fieldArguments":{},"fieldQuery":null},"enableSearch":{"fieldArguments":{},"fieldQuery":null}}}}}}}}};
+export const query: sdk.Query<sdk.ObjectValueWithVariables> = {"variableDefinitions":{},"fragmentDefinitions":{},"fieldQuery":{"Query":{"type":"InlineFragment","objectTypeName":"Query","selection":{"root":{"fieldArguments":{"__isPartialObject__":true},"fieldQuery":{"Root":{"type":"InlineFragment","objectTypeName":"Root","selection":{"primaryEmail":{"fieldArguments":{},"fieldQuery":null},"secondaryEmail":{"fieldArguments":{},"fieldQuery":null},"showSearch":{"fieldArguments":{},"fieldQuery":null},"showRequestSite":{"fieldArguments":{},"fieldQuery":null},"showEmailSubscribe":{"fieldArguments":{},"fieldQuery":null},"showLinkToCalendar":{"fieldArguments":{},"fieldQuery":null},"showEventForm":{"fieldArguments":{},"fieldQuery":null},"availableForWork":{"fieldArguments":{},"fieldQuery":null},"enableSearch":{"fieldArguments":{},"fieldQuery":null}}}}}}}}};
 
-export const vercelFlagDefinitions = {"showLinkToCalendar":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowLinkToCalendar"},"showEventForm":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEventForm"},"availableForWork":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EavailableForWork"},"enableSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EenableSearch"}};
+export const vercelFlagDefinitions = {"primaryEmail":{"options":[],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EprimaryEmail"},"secondaryEmail":{"options":[],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EsecondaryEmail"},"showSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowSearch"},"showRequestSite":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowRequestSite"},"showEmailSubscribe":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEmailSubscribe"},"showLinkToCalendar":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowLinkToCalendar"},"showEventForm":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEventForm"},"availableForWork":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EavailableForWork"},"enableSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EenableSearch"}};
 
 export type RootFlagValues = {
+  "primaryEmail": string;
+  "secondaryEmail": string;
+  "showSearch": boolean;
+  "showRequestSite": boolean;
+  "showEmailSubscribe": boolean;
   "showLinkToCalendar": boolean;
   "showEventForm": boolean;
   "availableForWork": boolean;
@@ -16,6 +21,11 @@ export type RootFlagValues = {
 }
 
 export type FlagValues = {
+  "primaryEmail": string;
+  "secondaryEmail": string;
+  "showSearch": boolean;
+  "showRequestSite": boolean;
+  "showEmailSubscribe": boolean;
   "showLinkToCalendar": boolean;
   "showEventForm": boolean;
   "availableForWork": boolean;
@@ -25,6 +35,11 @@ export type FlagValues = {
 export type FlagPaths = keyof FlagValues & string;
 
 export const flagFallbacks: FlagValues = {
+  "primaryEmail": "",
+  "secondaryEmail": "",
+  "showSearch": false,
+  "showRequestSite": false,
+  "showEmailSubscribe": false,
   "showLinkToCalendar": false,
   "showEventForm": false,
   "availableForWork": false,
@@ -72,13 +87,18 @@ export type RootArgs = {
 export type EmptyObject = {};
 
 export type Root = {
+  primaryEmail: string;
+  secondaryEmail: string;
+  showSearch: boolean;
+  showRequestSite: boolean;
+  showEmailSubscribe: boolean;
   showLinkToCalendar: boolean;
   showEventForm: boolean;
   availableForWork: boolean;
   enableSearch: boolean;
 }
 
-const rootFallback = {showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false};
+const rootFallback = {primaryEmail:"",secondaryEmail:"",showSearch:false,showRequestSite:false,showEmailSubscribe:false,showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false};
 
 export class RootNode extends sdk.Node {
   override typeName = "Root" as const;
@@ -91,6 +111,106 @@ export class RootNode extends sdk.Node {
   get({ fallback = rootFallback as Root}: { fallback?: Root } = {}): Root {
     const getQuery = null;
     return this.getValue({ query: getQuery, fallback }) as Root;
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EprimaryEmail})
+   */
+  primaryEmail({ args = {}, fallback }: { args?: EmptyObject; fallback: string; }): string {
+    const props0 = this.getFieldNodeProps("primaryEmail", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "StringExpression"
+    ) {
+      const node = new sdk.StringNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.StringNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EsecondaryEmail})
+   */
+  secondaryEmail({ args = {}, fallback }: { args?: EmptyObject; fallback: string; }): string {
+    const props0 = this.getFieldNodeProps("secondaryEmail", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "StringExpression"
+    ) {
+      const node = new sdk.StringNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.StringNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowSearch})
+   */
+  showSearch({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
+    const props0 = this.getFieldNodeProps("showSearch", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "BooleanExpression"
+    ) {
+      const node = new sdk.BooleanNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.BooleanNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowRequestSite})
+   */
+  showRequestSite({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
+    const props0 = this.getFieldNodeProps("showRequestSite", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "BooleanExpression"
+    ) {
+      const node = new sdk.BooleanNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.BooleanNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEmailSubscribe})
+   */
+  showEmailSubscribe({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
+    const props0 = this.getFieldNodeProps("showEmailSubscribe", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "BooleanExpression"
+    ) {
+      const node = new sdk.BooleanNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.BooleanNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
   }
 
   /**
@@ -195,7 +315,7 @@ export type Source = {
   root: Root;
 }
 
-const sourceFallback = {root:{showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false}};
+const sourceFallback = {root:{primaryEmail:"",secondaryEmail:"",showSearch:false,showRequestSite:false,showEmailSubscribe:false,showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false}};
 
 export type GetQueryRootArgs = {
   args: RootArgs;
@@ -269,7 +389,7 @@ export function createSource({
     NodeConstructor: SourceNode,
     token,
     query,
-    queryCode,
+    queryId,
     variableValues,
     override,
     options,

@@ -1,15 +1,11 @@
 import { AvailabilitySkeleton } from "@/components/availability";
 import { Logo } from "@/components/logo";
-import NewsLogo from "@/components/news-logo";
-import YzlabLogo from "@/components/yzlab-logo";
 import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ArrowRightIcon, CircleHelp } from "lucide-react";
 import Link from "next/link";
-import { SectionSkeleton } from "../[appId]/widgets/ogs";
 import { CallToActionSkeleton } from "./components/call-to-action";
-import { CalendarSkeleton } from "./components/github-activity-map";
 import { OtherProjectsSkeleton } from "./components/other-projects";
 
 export default function loading() {
@@ -53,37 +49,48 @@ export default function loading() {
         </main>
         <div className="w-full h-[10%] py-3 flex iteitems-center justify-center" />
       </div>
-      <div className="w-full divide-y *:first:border-t *:border-x *:last:border-b">
-        <div className="w-full max-w-7xl mx-auto bg-card rounded-t-lg">
+      <div className="w-full *:max-w-screen-2xl space-y-12">
+        <div className="w-full mx-auto">
           <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="col-span-2 w-full h-full">
-              <Skeleton className="w-full h-full" />
+              <div className="space-y-6">
+                <div className="space-y-0.5">
+                  <Skeleton className="w-full h-6" />
+                  <Skeleton className="w-1/2 h-6" />
+                </div>
+                <div className="w-full flex gap-2 flex-wrap items-start">
+                  <Skeleton className="w-36 h-10" />
+                  <Skeleton className="w-36 h-10" />
+                  <Skeleton className="w-36 h-10" />
+                  <Skeleton className="w-36 h-10" />
+                </div>
+              </div>
             </div>
             <div className="w-full h-full flex flex-col gap-3">
-              <span className="block text-muted-foreground text-base">
-                Скоро появится страница для прямой оплаты услуг.
-              </span>
-              <Button
-                className="justify-between mt-auto w-full"
-                disabled
-              >
-                Заказать <ArrowRightIcon />
-              </Button>
+              <Skeleton className="w-1/3 h-6" />
+              <Skeleton className="w-full h-10" />
             </div>
           </div>
         </div>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
-          <div className="w-full">
-            <h3 className="text-2xl font-medium">
-              Активность
-            </h3>
-            <p className="text-base text-muted-foreground">Календарь активности GitHub.</p>
+        <section className="w-full py-6 *:px-6 space-y-6 mx-auto">
+          <div className="w-full space-y-3">
+            <div className="w-full">
+              <h3 className="text-2xl font-medium">
+                Виджеты
+              </h3>
+              <p className="text-base text-muted-foreground">Последние добавленные виджеты.</p>
+            </div>
+            <div className="w-full flex flex-row gap-3">
+              <Skeleton className="w-36 h-10" />
+              <Skeleton className="w-36 h-10" />
+              <Skeleton className="w-36 h-10" />
+            </div>
           </div>
           <div className="w-full">
-            <CalendarSkeleton loading />
+            <Skeleton className="w-full h-[250px]" />
           </div>
         </section>
-        <section className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
+        <section className="w-full py-6 *:px-6 space-y-10 mx-auto">
           <div className="w-full">
             <h3 className="text-2xl font-medium">
               Проекты
@@ -93,35 +100,12 @@ export default function loading() {
             </p>
           </div>
           <div className="w-full">
-            <ul className="gap-6 grid md:grid-cols-2 grid-cols-1 w-full">
+            <ul className="gap-6 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full">
               <OtherProjectsSkeleton />
             </ul>
           </div>
         </section>
-        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <NewsLogo size={24} />
-            </div>
-            <Button variant="secondary" asChild size="sm">
-              <Link href="https://news.yz13.ru"><ArrowRightIcon /></Link>
-            </Button>
-          </div>
-          <div className="w-full space-y-4">
-            <h3 className="text-2xl font-medium block">Кол-во новостей по месяцам</h3>
-            <Skeleton className="h-[400px] rounded-none shrink-0" />
-          </div>
-        </section>
-        <section className="w-full max-w-7xl mx-auto bg-card *:px-6 py-6 space-y-6">
-          <div className="flex items-center justify-between gap-3">
-            <YzlabLogo size={24} />
-            <Button variant="secondary" asChild size="sm">
-              <Link href="https://yzlab.ru"><ArrowRightIcon /></Link>
-            </Button>
-          </div>
-          <SectionSkeleton />
-        </section>
-        <div className="w-full py-6 *:px-6 space-y-10 max-w-7xl mx-auto bg-card">
+        <div className="w-full py-6 *:px-6 space-y-10 mx-auto">
           <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="col-span-2 w-full h-full flex items-center">
               <div className="h-16 w-full text-background bg-foreground rounded-full flex items-center pl-6 pr-1.5 py-1.5">
@@ -151,7 +135,7 @@ export default function loading() {
             </div>
           </div>
         </div>
-        <Skeleton className="w-full p-6 max-w-7xl mx-auto bg-card h-80" />
+        <Skeleton className="w-full p-6 mx-auto h-80" />
       </div>
     </>
   );

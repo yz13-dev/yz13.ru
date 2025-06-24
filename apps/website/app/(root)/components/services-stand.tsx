@@ -54,7 +54,7 @@ export default function ({ services = [], sign = "₽" }: Props) {
               duration: 0.75
             }}
           >
-            <span className="text-lg font-medium">{selected.description ?? "Нет описания"}</span>
+            <span className="text-xl font-medium">{selected.description ?? "Нет описания"}</span>
           </motion.div>
         }
       </AnimatePresence>
@@ -73,7 +73,8 @@ export default function ({ services = [], sign = "₽" }: Props) {
                   setValue(null)
                   setTimeout(() => setValue(type), 250)
                 }}
-                size="sm"
+                size="lg"
+                className="text-base [&>svg]:!size-5"
               >
                 {icon}
                 {service.name ?? "Неизвестно"}
