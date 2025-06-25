@@ -1,6 +1,7 @@
 "use client";
 
 import { Event } from "@yz13/api/types/calendar";
+import { cn } from "@yz13/ui/cn";
 import {
   eachDayOfInterval,
   endOfMonth,
@@ -18,7 +19,6 @@ import {
 } from "date-fns";
 import { ru as locale } from "date-fns/locale/ru";
 import * as React from "react";
-import { cn } from "@yz13/ui/cn";
 
 interface FullScreenCalendarProps {
   data?: Event[];
@@ -70,14 +70,14 @@ export default function FullScreenCalendar({
     <div className={cn("flex flex-1 flex-col", className)}>
       <div className={cn("flex w-full h-full flex-col", gridClassName)}>
         {/* Week Days Header */}
-        <div className="grid grid-cols-7 border-x text-center text-xs font-semibold leading-6">
-          <div className="border-r py-2.5">Пн</div>
-          <div className="border-r py-2.5">Вт</div>
-          <div className="border-r py-2.5">Ср</div>
-          <div className="border-r py-2.5">Чт</div>
-          <div className="border-r py-2.5">Пт</div>
-          <div className="border-r py-2.5">Сб</div>
-          <div className="py-2.5">Вс</div>
+        <div className="grid grid-cols-7 *:py-0 border-x text-center text-xs font-semibold leading-6">
+          <div className="border-r">Пн</div>
+          <div className="border-r">Вт</div>
+          <div className="border-r">Ср</div>
+          <div className="border-r">Чт</div>
+          <div className="border-r">Пт</div>
+          <div className="border-r">Сб</div>
+          <div className="">Вс</div>
         </div>
 
         {/* Calendar Days */}

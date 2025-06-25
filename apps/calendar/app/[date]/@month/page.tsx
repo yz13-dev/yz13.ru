@@ -33,7 +33,7 @@ export default async function page({ params }: PageProps) {
   });
   return (
     <FullScreenCalendar
-      className="h-[calc(100dvh-61px)]"
+      className="h-[calc(100dvh-var(--dock-height))]"
       gridClassName="divide-y"
       data={events ?? []}
     />

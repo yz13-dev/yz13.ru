@@ -1,7 +1,7 @@
+import Dock from "@/components/dock/dock";
 import { auth } from "@/lib/auth";
 import { format, parse } from "date-fns";
 import { redirect } from "next/navigation";
-import Header from "./header";
 import ViewWrapper from "./view-wrapper";
 
 type LayoutProps = {
@@ -37,7 +37,6 @@ export default async function layout({
   }
   return (
     <div className="w-full divide-y">
-      <Header date={dateKey} defaultView={view} uid={user?.id} />
       <ViewWrapper
         defaultView={view}
         views={{
@@ -47,6 +46,8 @@ export default async function layout({
           day,
         }}
       />
+      {/* <Header date={dateKey} defaultView={view} uid={user?.id} /> */}
+      <Dock className="rounded-none border-0 w-full" />
     </div>
   );
   // return children;

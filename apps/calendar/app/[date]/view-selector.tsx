@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@yz13/ui/components/select";
+import { CalendarIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -48,6 +49,7 @@ export default function ViewSelector({
   return (
     <Select value={view} onValueChange={changeView}>
       <SelectTrigger className={className}>
+        <CalendarIcon />
         <SelectValue placeholder="Вид календаря" />
       </SelectTrigger>
       <SelectContent>

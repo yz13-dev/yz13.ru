@@ -60,7 +60,7 @@ export default function RootLayout({
           />
         </head>
       )}
-      <body>
+      <body id="root">
         <NuqsAdapter>
           <Toaster position="top-right" />
           <LiveTimeProvider>{children}</LiveTimeProvider>

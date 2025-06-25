@@ -1,6 +1,9 @@
 "use client";
 import useTimeStore from "@/components/live/time.store";
 import type { Event } from "@yz13/api/types/calendar";
+import { cn } from "@yz13/ui/cn";
+import { Separator } from "@yz13/ui/components/separator";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import {
   addDays,
   format,
@@ -9,14 +12,12 @@ import {
   parse,
   parseISO,
 } from "date-fns";
-import { Separator } from "@yz13/ui/components/separator";
-import { Skeleton } from "@yz13/ui/components/skeleton";
 import { useEffect, useMemo, useState } from "react";
-import { cn } from "@yz13/ui/cn";
 
 type TimeRange = [number, number];
 
 type CalendarProps = {
+  label?: boolean;
   events?: Event[];
   timeRange?: TimeRange;
   dateRange?: number[];
@@ -126,6 +127,7 @@ const DayTimeline = ({
   dateRange = [0, 1],
   className = "",
   events = [],
+  label = true,
   timeline = { date: formatISO(new Date()) },
 }: CalendarProps) => {
   const today = new Date();
@@ -188,6 +190,7 @@ const DayTimeline = ({
             key={"today/" + index}
             range={range}
             date={formatISO(day)}
+            showLabel={label}
           />
         );
       })}
