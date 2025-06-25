@@ -6,23 +6,23 @@ import UserWrapper from "@/components/user/user-wrapper";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 
 type UserProps = {
-  sideOffset?: number;
+    sideOffset?: number;
 };
 const User = ({ sideOffset }: UserProps) => {
-  return (
-    <UserWrapper
-      authorized={(user) => (
-        <UserDropdown user={user} sideOffset={sideOffset}>
-          <UserCircle user={user} className="bg-background" />
-        </UserDropdown>
-      )}
-      unauthorized={<SignInButton href="/login" variant="default" />}
-    />
-  );
+    return (
+        <UserWrapper
+            authorized={(user) => (
+                <UserDropdown user={user} sideOffset={sideOffset}>
+                    <UserCircle user={user} className="bg-background" />
+                </UserDropdown>
+            )}
+            unauthorized={<SignInButton href="/login" variant="default" />}
+        />
+    );
 };
 
 export const UserSkeleton = () => {
-  return <Skeleton className="h-9 w-[75px] rounded-full" />;
+    return <Skeleton className="size-9 shrink-0 rounded-full" />;
 };
 
 export default User;

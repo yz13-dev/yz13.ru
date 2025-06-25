@@ -8,39 +8,39 @@ import { useState } from "react"
 
 export default function () {
 
-  const [view, setView] = useState("day")
+    const [view, setView] = useState("day")
 
-  return (
-    <>
-      <div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button>
-              <CalendarRangeIcon />
-              Расписание
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="*:justify-between">
-            <DropdownMenuItem onClick={() => setView("day")}>
-              <span>Расписание</span>
-              {view === "day" && <CheckIcon />}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setView("week")}>
-              <span>Неделя</span>
-              {view === "week" && <CheckIcon />}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setView("month")}>
-              <span>Месяц</span>
-              {view === "month" && <CheckIcon />}
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setView("year")}>
-              <span>Год</span>
-              {view === "year" && <CheckIcon />}
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <Button variant="secondary"><CompassIcon /></Button>
-    </>
-  )
+    return (
+        <>
+            <div>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button>
+                            <CalendarRangeIcon />
+                            <span className="">Расписание</span>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="*:justify-between">
+                        <DropdownMenuItem onClick={() => setView("day")}>
+                            <span>Расписание</span>
+                            {view === "day" && <CheckIcon />}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setView("week")}>
+                            <span>Неделя</span>
+                            {view === "week" && <CheckIcon />}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setView("month")}>
+                            <span>Месяц</span>
+                            {view === "month" && <CheckIcon />}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setView("year")}>
+                            <span>Год</span>
+                            {view === "year" && <CheckIcon />}
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+            <Button variant="secondary"><CompassIcon /></Button>
+        </>
+    )
 }
