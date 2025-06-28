@@ -1,8 +1,11 @@
 import Background from "@/app/(root)/components/background";
 import { auth } from "@/lib/auth";
+import { getV1PositionsLangPositionId, getV1UserUid } from "@yz13/api";
 import { avatarURL } from "@yz13/api/lib/avatar-url";
-import { getPosition } from "@yz13/api/positions";
-import { getUserById } from "@yz13/api/user";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
+import { Badge } from "@yz13/ui/components/badge";
+import { Button } from "@yz13/ui/components/button";
+import { Skeleton } from "@yz13/ui/components/skeleton";
 import { format, parseISO } from "date-fns";
 import {
   ArrowLeftIcon,
@@ -12,10 +15,6 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
-import { Badge } from "@yz13/ui/components/badge";
-import { Button } from "@yz13/ui/components/button";
-import { Skeleton } from "@yz13/ui/components/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -26,12 +25,12 @@ type PageProps = {
 };
 export default async function page({ params }: PageProps) {
   const { userId } = await params;
-  const { data: user } = await getUserById(userId);
+  const user = await getV1UserUid(userId);
   const currentUser = await auth();
   const isCurrentUser = currentUser?.id === userId;
   const avatarUrl = user?.avatar_url ? avatarURL(user.avatar_url) : undefined;
   const username = user?.username ?? "Пользователь";
-  const role = user?.position ? await getPosition("ru", user.position) : null;
+  const role = user?.position ? await getV1PositionsLangPositionId("ru", user.position) : null;
   const email = user?.email ?? "Не указан";
   const identities = user?.identities ?? [];
   return (
@@ -63,7 +62,7 @@ export default async function page({ params }: PageProps) {
             <div className="*:block space-y-1">
               <span className="text-2xl font-medium">{username}</span>
               <span className="text-sm text-muted-foreground">
-                {role?.data?.label}
+                {role?.label}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -117,7 +116,7 @@ export default async function page({ params }: PageProps) {
               </div>
               <div className="w-full h-32 border hover:border-foreground rounded-lg">
                 <ul className="*:py-2 *:px-3 divide-y h-full w-full *:h-1/2">
-                  {identities.map((i) => {
+                  {identities.map((i: any) => {
                     const data = i.identity_data;
                     const email = data?.email ?? "";
                     return (

@@ -5,9 +5,8 @@
  * It's YZ13 API
  * OpenAPI spec version: 1.0.0
  */
-import type { PostV1AuthSignup500Error } from './post-v1-auth-signup500-error';
 
-export type PostV1AuthSignup500 = {
-  /** @nullable */
-  error?: PostV1AuthSignup500Error;
-};
+/**
+ * @nullable
+ */
+export type PostV1AuthSignup500 = unknown | null;

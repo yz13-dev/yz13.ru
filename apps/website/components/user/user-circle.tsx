@@ -1,4 +1,4 @@
-import type { UserObject } from "@yz13/api/types/user";
+import { GetV1UserUid200 } from "@yz13/api/types";
 import { cn } from "@yz13/ui/cn";
 import { UserIcon } from "lucide-react";
 import Image from "next/image";
@@ -7,7 +7,7 @@ const UserCircle = ({
   user,
   className = "",
 }: {
-  user: UserObject;
+  user: NonNullable<GetV1UserUid200>;
   className?: string;
 }) => {
   const avatarUrl = user.avatar_url;

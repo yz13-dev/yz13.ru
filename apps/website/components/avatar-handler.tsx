@@ -1,7 +1,7 @@
 "use client";
 import { useUserStore } from "@/app/account/settings/user.store";
+import { patchV1UserUid } from "@yz13/api";
 import { avatarURL } from "@yz13/api/lib/avatar-url";
-import { updateUser } from "@yz13/api/user";
 import { createClient } from "@yz13/supabase/client";
 import { cn } from "@yz13/ui/cn";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
@@ -20,7 +20,7 @@ export default function AvatarHandler() {
   const handleAvatarChange = async (url: string | null) => {
     const uid = user?.id;
     if (!uid) return;
-    const { data: updated } = await updateUser(uid, {
+    const updated = await patchV1UserUid(uid, {
       data: {
         avatar_url: url,
       },

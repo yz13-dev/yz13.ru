@@ -1,13 +1,13 @@
 "use client";
-import { createClient } from "@yz13/supabase/client";
-import { Loader2Icon } from "lucide-react";
+import { postV1AuthSignup } from "@yz13/api";
+import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
 import { Input } from "@yz13/ui/components/input";
 import { Label } from "@yz13/ui/components/label";
+import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ComponentPropsWithoutRef, useState } from "react";
-import { cn } from "@yz13/ui/cn";
 
 type FormProps = ComponentPropsWithoutRef<"div"> & {
   continueLink?: string;
@@ -24,7 +24,6 @@ export function SignupForm({
 }: FormProps) {
   const searchParams = useSearchParams();
   const searchParamsAsString = searchParams.toString();
-  const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setError] = useState<boolean>(false);
@@ -34,7 +33,7 @@ export function SignupForm({
   const signIn = async () => {
     try {
       setIsLoading(true);
-      const { data, error } = await supabase.auth.signUp({
+      const user = await postV1AuthSignup({
         email: email,
         password: password,
         options: {
@@ -44,8 +43,7 @@ export function SignupForm({
           },
         },
       });
-      const user = data.user;
-      if (error) setError(true);
+      // if (error) setError(true);
       if (back) router.back();
       else {
         const urlToOnboarding = `/onboarding${searchParamsAsString ? `?${searchParamsAsString}` : ""}`;

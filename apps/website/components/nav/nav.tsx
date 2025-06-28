@@ -1,8 +1,8 @@
 import { get } from "@vercel/edge-config";
-import { getShortPricing } from "@yz13/api/pricing";
+import { getV1PricingShort } from "@yz13/api";
 import { availableForWork } from "@yz13/flags";
-import type { ReactNode } from "react";
 import { cn } from "@yz13/ui/cn";
+import type { ReactNode } from "react";
 import Blog from "./blog";
 import NavWrapper from "./nav-wrapper";
 import Projects from "./projects";
@@ -16,7 +16,7 @@ const Nav = async ({
   className?: string;
   side?: "left" | "right";
 }) => {
-  const { data: services } = await getShortPricing();
+  const services = await getV1PricingShort();
   const busy = await availableForWork();
   const sign = await get<string>("price-sign");
   return (

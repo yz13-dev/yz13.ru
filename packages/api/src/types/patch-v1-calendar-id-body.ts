@@ -6,7 +6,21 @@
  * OpenAPI spec version: 1.0.0
  */
 
-/**
- * @nullable
- */
-export type PatchV1CalendarIdBody = unknown | null;
+export type PatchV1CalendarIdBody = {
+  user_id?: string;
+  /** @nullable */
+  name?: string | null;
+  /** @nullable */
+  description?: string | null;
+  /** @nullable */
+  timezone?: string | null;
+  /** @nullable */
+  is_default?: boolean | null;
+  /** @nullable */
+  is_public?: boolean | null;
+  /** @nullable */
+  visible?: boolean | null;
+  /** @nullable */
+  shared_with?: string[] | null;
+  created_at?: string;
+};

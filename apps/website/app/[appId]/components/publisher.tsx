@@ -13,7 +13,7 @@ export function UserPublisherSkeleton() {
   );
 }
 export async function UserPublisher({ uid }: { uid: string }) {
-  const { data: user } = await getV1UserUid(uid);
+  const user = await getV1UserUid(uid);
   const username = user?.username ?? "";
   const usernameFallback = username?.slice(0, 2);
   const avatarUrl = user?.avatar_url ?? "";

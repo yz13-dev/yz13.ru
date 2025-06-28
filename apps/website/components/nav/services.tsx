@@ -1,6 +1,6 @@
 "use client";
 
-import { ShortPricing } from "@yz13/api/types/pricing";
+import { GetV1PricingShort200Item } from "@yz13/api/types";
 import { Button } from "@yz13/ui/components/button";
 import {
   NavigationMenuContent,
@@ -14,6 +14,8 @@ import {
   SparklesIcon,
 } from "lucide-react";
 import Link from "next/link";
+
+type ShortPricing = GetV1PricingShort200Item;
 
 type ServicesProps = {
   busy?: boolean;

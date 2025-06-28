@@ -1,5 +1,6 @@
+import { calendarSchema, calendarUpdateSchema } from "@/schemas";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
-import { getCalendar, updateCalendar, deleteCalendar } from "../actions";
+import { deleteCalendar, getCalendar, updateCalendar } from "../actions";
 
 const routeGETCalendar = createRoute({
   method: "get",
@@ -14,7 +15,7 @@ const routeGETCalendar = createRoute({
       description: "Get calendar by id",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarSchema.nullable()
         }
       }
     }
@@ -31,7 +32,7 @@ const routePATCHCalendar = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarUpdateSchema
         }
       }
     }
@@ -41,7 +42,7 @@ const routePATCHCalendar = createRoute({
       description: "Update calendar",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarSchema.nullable()
         }
       }
     }
@@ -61,7 +62,7 @@ const routeDELETECalendar = createRoute({
       description: "Delete calendar",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarSchema.nullable()
         }
       }
     }
@@ -71,9 +72,11 @@ const routeDELETECalendar = createRoute({
 export const calendarById = new OpenAPIHono();
 
 calendarById.openapi(routeGETCalendar, async (c) => {
+
   const id = c.req.param("id");
   const data = await getCalendar(id);
   return c.json(data, 200);
+
 });
 
 calendarById.openapi(routePATCHCalendar, async (c) => {
@@ -87,4 +90,4 @@ calendarById.openapi(routeDELETECalendar, async (c) => {
   const id = c.req.param("id");
   const data = await deleteCalendar(id);
   return c.json(data, 200);
-}); 
+});

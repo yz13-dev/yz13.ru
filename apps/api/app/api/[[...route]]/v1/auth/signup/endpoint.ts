@@ -1,3 +1,4 @@
+import { userInsertSchema, userSchema } from "@/schemas";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { signupUser } from "../actions";
 
@@ -8,10 +9,7 @@ const routePOSTSignup = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.object({
-            email: z.string().email(),
-            password: z.string()
-          })
+          schema: userInsertSchema
         }
       }
     }
@@ -21,10 +19,15 @@ const routePOSTSignup = createRoute({
       description: "Signup successful",
       content: {
         "application/json": {
-          schema: z.object({
-            user: z.any().optional(),
-            error: z.string().optional()
-          })
+          schema: userSchema
+        }
+      }
+    },
+    400: {
+      description: "Bad Request",
+      content: {
+        "application/json": {
+          schema: z.null()
         }
       }
     },
@@ -32,9 +35,7 @@ const routePOSTSignup = createRoute({
       description: "Internal Server Error",
       content: {
         "application/json": {
-          schema: z.object({
-            error: z.any()
-          })
+          schema: z.null()
         }
       }
     }
@@ -47,9 +48,16 @@ signup.openapi(routePOSTSignup, async (c) => {
   try {
     const { email, password } = await c.req.json();
     const result = await signupUser(email, password);
-    return c.json(result, 200);
+
+    if (!result.user) {
+      return c.json(null, 400);
+    }
+
+    const user = result.user;
+
+    return c.json(user, 200);
   } catch (error) {
     console.error(error);
-    return c.json({ error }, 500);
+    return c.json(null, 500);
   }
-}); 
+});

@@ -9,4 +9,4 @@
 /**
  * @nullable
  */
-export type GetV1CalendarUserUid200 = unknown | null;
+export type GetV1ScheduleUid200WednesdayItem = unknown | null;

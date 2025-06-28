@@ -1,15 +1,15 @@
 "use client";
+import { patchV1UserUid } from "@yz13/api";
 import { avatarURL } from "@yz13/api/lib/avatar-url";
-import { updateUser } from "@yz13/api/user";
 import { createClient } from "@yz13/supabase/client";
-import { XIcon } from "lucide-react";
+import { cn } from "@yz13/ui/cn";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
 import { Button, buttonVariants } from "@yz13/ui/components/button";
 import { Input } from "@yz13/ui/components/input";
 import { Label } from "@yz13/ui/components/label";
+import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
-import { cn } from "@yz13/ui/cn";
 import { Field, FieldContent, FieldDescription, FieldLabel } from "../field";
 import { useUserStore } from "../user.store";
 
@@ -23,7 +23,7 @@ export default function AvatarField() {
   const handleAvatarChange = async (url: string | null) => {
     const uid = user?.id;
     if (!uid) return;
-    const { data: updated } = await updateUser(uid, {
+    const updated = await patchV1UserUid(uid, {
       data: {
         avatar_url: url,
       },

@@ -6,7 +6,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-/**
- * @nullable
- */
-export type PostV1AuthSignup200User = unknown | null;
+export type GetV1EventsUserUid500 = {
+  error: string;
+};

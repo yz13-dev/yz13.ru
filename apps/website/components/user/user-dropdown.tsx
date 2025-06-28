@@ -1,5 +1,5 @@
 "use client";
-import type { UserObject } from "@yz13/api/types/user";
+import { GetV1UserUid200 } from "@yz13/api/types";
 import { createClient } from "@yz13/supabase/client";
 import {
   DropdownMenu,
@@ -18,7 +18,7 @@ const UserDropdown = ({
   children,
   sideOffset = 4,
 }: {
-  user: UserObject;
+  user: NonNullable<GetV1UserUid200>;
   sideOffset?: number;
   children: React.ReactNode;
 }) => {

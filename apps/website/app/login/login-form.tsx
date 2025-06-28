@@ -33,7 +33,7 @@ export function LoginForm({
   const signIn = async () => {
     try {
       setIsLoading(true);
-      const { data } = await postV1AuthLogin({
+      const data = await postV1AuthLogin({
         email: email,
         password: password,
       });

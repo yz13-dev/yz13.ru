@@ -1,6 +1,6 @@
 import { Logo } from "@/components/logo";
 import { auth } from "@/lib/auth";
-import { getPositions } from "@yz13/api/positions";
+import { getV1PositionsLang } from "@yz13/api";
 import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
 import { Skeleton } from "@yz13/ui/components/skeleton";
@@ -18,7 +18,7 @@ type PageProps = {
 export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const continueLink = search.continue;
-  const { data: positions } = await getPositions("ru");
+  const positions = await getV1PositionsLang("ru");
   const disabled = !continueLink;
   const href = continueLink ? continueLink : "/";
   const user = await auth();

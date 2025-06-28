@@ -1,6 +1,5 @@
 "use client";
 import { getCallToAction } from "@/actions/call-to-action";
-import { toggleMenu } from "@/components/dock/menus/menu.store";
 import useTimeStore from "@/components/live/time.store";
 import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
@@ -9,7 +8,6 @@ import { format } from "date-fns";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useHotkeys } from "react-hotkeys-hook";
 
 type Props = {
   className?: string;
@@ -42,15 +40,6 @@ const CallToAction = ({
   const date = format(time, "yyyy-MM-dd");
   const CALL_TO_ACTION_LINK =
     `https://calendar.yz13.ru/booking/${uuid}?continue=https://yz13.ru&date=${date}`;
-  useHotkeys(
-    "ctrl+k, command+k",
-    () => {
-      toggleMenu("quick-search", true);
-    },
-    {
-      preventDefault: true,
-    },
-  );
   useEffect(() => {
     getCallToAction().then((action) => {
       if (action) {

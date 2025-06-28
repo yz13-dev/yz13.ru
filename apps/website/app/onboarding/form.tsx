@@ -1,8 +1,7 @@
 "use client";
 import AvatarHandler from "@/components/avatar-handler";
-import type { Position } from "@yz13/api/types/positions";
-import type { UserObject } from "@yz13/api/types/user";
-import { updateUser } from "@yz13/api/user";
+import { patchV1UserUid } from "@yz13/api";
+import { GetV1PositionsLangPositionId200, GetV1UserUid200 } from "@yz13/api/types";
 import { Input } from "@yz13/ui/components/input";
 import {
   Select,
@@ -19,11 +18,13 @@ import { useUserStore } from "../account/settings/user.store";
 import Google from "./extensions/google";
 import Zoom from "./extensions/zoom";
 
+type Position = GetV1PositionsLangPositionId200;
+
 export default function ({
   defaultUser,
   positions = [],
 }: {
-  defaultUser?: UserObject;
+  defaultUser?: GetV1UserUid200;
   positions?: Position[];
 }) {
   const user = useUserStore((state) => state.user);
@@ -40,7 +41,7 @@ export default function ({
     const uid = user?.id;
     if (!uid) return;
     try {
-      await updateUser(uid, {
+      await patchV1UserUid(uid, {
         data: {
           username,
         },
@@ -56,7 +57,7 @@ export default function ({
     const uid = user?.id;
     if (!uid) return;
     try {
-      await updateUser(uid, {
+      await patchV1UserUid(uid, {
         data: {
           position: position.id,
         },
@@ -69,11 +70,15 @@ export default function ({
     }
   };
 
-  const googleIdentity = user?.identities?.find((i) => i.provider === "google");
-  const zoomIdentity = user?.identities?.find((i) => i.provider === "zoom");
+  const getIdentity = (provider: string): any => {
+    return (user?.identities ?? [])?.find((i: any) => i.provider === provider);
+  }
 
-  const gooleLinked = user?.identities?.find((i) => i.provider === "google");
-  const zoomLinked = user?.identities?.find((i) => i.provider === "zoom");
+  const googleIdentity = getIdentity("google")
+  const zoomIdentity = getIdentity("zoom")
+
+  const gooleLinked = !!googleIdentity
+  const zoomLinked = !!zoomIdentity
 
   console.log(user);
 

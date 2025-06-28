@@ -17,6 +17,18 @@ export const userSchema = z.object({
 
 export const userSchemaArray = z.array(userSchema);
 
+export const userInsertSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+  options: z.object({
+    data: z.object({
+      username: z.string().optional(),
+      avatar_url: z.string().url().nullable().optional(),
+      position: z.string().optional(),
+      role: z.string().optional(),
+    }).optional(),
+  }).optional(),
+})
 
 export const userUpdateSchema = z.object({
   email: z.string().email().optional(),

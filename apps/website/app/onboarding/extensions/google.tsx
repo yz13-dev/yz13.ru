@@ -1,12 +1,13 @@
 "use client";
 import { useUserStore } from "@/app/account/settings/user.store";
 import { isDev } from "@/app/login/get-url";
-import type { UserIdentity } from "@yz13/api/types/user";
 import { createClient } from "@yz13/supabase/client";
 import { Button } from "@yz13/ui/components/button";
 import { CheckIcon, Loader2Icon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { PiGoogleLogo } from "react-icons/pi";
+
+type UserIdentity = any;
 
 export default function ({ linked = false, identity }: { linked?: boolean, identity?: UserIdentity }) {
   const [loading, setLoading] = useState<boolean>(false);

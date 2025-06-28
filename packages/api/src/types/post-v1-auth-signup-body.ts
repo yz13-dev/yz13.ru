@@ -5,8 +5,11 @@
  * It's YZ13 API
  * OpenAPI spec version: 1.0.0
  */
+import type { PostV1AuthSignupBodyOptions } from './post-v1-auth-signup-body-options';
 
 export type PostV1AuthSignupBody = {
   email: string;
+  /** @minLength 6 */
   password: string;
+  options?: PostV1AuthSignupBodyOptions;
 };

@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { getUserEvents } from "@yz13/api/calendar/events";
+import { getV1EventsUserUid } from "@yz13/api";
 import { format } from "date-fns";
 import Calls from "./calls";
 
@@ -11,7 +11,7 @@ export default async function () {
   if (!user) return null
 
   const date = format(new Date(), "yyyy-MM-dd")
-  const { data } = await getUserEvents(user.id, {
+  const data = await getV1EventsUserUid(user.id, {
     date,
     type: "appointment",
   })

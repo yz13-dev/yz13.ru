@@ -2,6 +2,7 @@ import OtherProjects from "@/app/(root)/components/other-projects";
 import { Logo } from "@/components/logo";
 import Footer from "@/components/small-footer";
 import User from "@/components/user";
+import { getV1StoreId } from "@yz13/api";
 import { Badge } from "@yz13/ui/components/badge";
 import { Button } from "@yz13/ui/components/button";
 import { Separator } from "@yz13/ui/components/separator";
@@ -20,8 +21,8 @@ type Props = {
 };
 export default async function page({ params }: Props) {
   const { appId } = await params;
-  // const { data: publication } = await getPublication(appId);
-  if (true) return notFound();
+  const publication = await getV1StoreId(appId);
+  if (!publication) return notFound();
   const noPublicUrl = !publication.public_url;
   const sliceCount = 2;
   const categories = publication.categories ?? [];

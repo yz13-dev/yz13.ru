@@ -1,6 +1,6 @@
 import { Logo } from "@/components/logo";
 // import { getPublication } from "@yz13/api";
-import { getV1AuthCurrent } from "@yz13/api";
+import { getV1AuthCurrent, getV1StoreId } from "@yz13/api";
 import { cn } from "@yz13/ui/cn";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ExternalLink } from "lucide-react";
@@ -21,16 +21,15 @@ type Props = {
 
 const getAppById = async (appId?: string) => {
   if (!appId) return null;
-  // const { data: app } = await getPublication(appId);
-  // return app;
-  return null;
+  const app = await getV1StoreId(appId);
+  return app;
 };
 
 const page = async (props: Props) => {
   const searchParams = await props.searchParams;
   const appId = searchParams.appId;
 
-  const { data: user } = await getV1AuthCurrent()
+  const user = await getV1AuthCurrent()
 
   const app = await getAppById(appId);
   const continueLink = searchParams.continue;

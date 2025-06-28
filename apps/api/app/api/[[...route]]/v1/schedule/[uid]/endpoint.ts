@@ -1,3 +1,4 @@
+import { calendarScheduleSchema } from "@/schemas";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { getSchedule } from "../actions";
 
@@ -14,7 +15,7 @@ const routeGETSchedule = createRoute({
       description: "Get schedule by uid",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarScheduleSchema
         }
       }
     }

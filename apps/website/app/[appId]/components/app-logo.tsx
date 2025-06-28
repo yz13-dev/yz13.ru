@@ -1,36 +1,39 @@
 import { cdn } from "@/lib/cdn";
-import Image from "next/image";
-import type { Publication } from "@yz13/api/types/store";
+import type { GetV1Store200Item } from "@yz13/api/types";
 import { cn } from "@yz13/ui/cn";
+import Image from "next/image";
 
 export default function AppLogo({
   publication,
   className = "",
 }: {
-  publication: Publication;
+  publication: GetV1Store200Item;
   className?: string;
 }) {
+
+  const icon = publication.icon as any;
+
   return (
     <>
-      {publication.icon.type === "themed" && (
+      {icon.type === "themed" && (
         <>
           <Image
-            src={cdn(`/apps${publication.icon.dark}`)}
+            src={cdn(`/apps${icon.dark}`)}
             className={cn("dark-mode-image", className)}
             alt=""
             fill
           />
           <Image
-            src={cdn(`/apps${publication.icon.light}`)}
+            src={cdn(`/apps${icon.light}`)}
             className={cn("light-mode-image", className)}
             alt=""
             fill
           />
         </>
       )}
-      {publication.icon.type === "simple" && (
+      {icon.type === "simple" && (
         <Image
-          src={cdn(`/apps${publication.icon.url}`)}
+          src={cdn(`/apps${icon.url}`)}
           className={className}
           alt=""
           fill

@@ -1,5 +1,5 @@
 "use client";
-import type { Pricing } from "@yz13/api/types/pricing";
+import type { GetV1Pricing200Item } from "@yz13/api/types";
 import { Button } from "@yz13/ui/components/button";
 import {
   AppWindowIcon,
@@ -15,7 +15,7 @@ import { useState } from "react";
 
 type Props = {
   sign?: string;
-  services?: Pricing[];
+  services?: GetV1Pricing200Item[];
 };
 
 const icons = {

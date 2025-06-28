@@ -5,10 +5,20 @@
  * It's YZ13 API
  * OpenAPI spec version: 1.0.0
  */
-import type { PostV1AuthSignup200User } from './post-v1-auth-signup200-user';
+import type { PostV1AuthSignup200IdentitiesItem } from './post-v1-auth-signup200-identities-item';
 
 export type PostV1AuthSignup200 = {
+  id: string;
+  email?: string;
+  email_confirmed_at?: string;
+  phone?: string;
+  created_at: string;
+  updated_at?: string;
+  last_signin_at?: string;
+  role: string;
+  username: string;
   /** @nullable */
-  user?: PostV1AuthSignup200User;
-  error?: string;
+  avatar_url: string | null;
+  identities: PostV1AuthSignup200IdentitiesItem[];
+  position?: string;
 };

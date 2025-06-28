@@ -834,7 +834,32 @@
                     "format": "email"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 6
+                  },
+                  "options": {
+                    "type": "object",
+                    "properties": {
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string"
+                          },
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true,
+                            "format": "uri"
+                          },
+                          "position": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
                   }
                 },
                 "required": [
@@ -853,13 +878,65 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "user": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "email_confirmed_at": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "last_signin_at": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string",
                       "nullable": true
                     },
-                    "error": {
+                    "identities": {
+                      "type": "array",
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "position": {
                       "type": "string"
                     }
-                  }
+                  },
+                  "required": [
+                    "id",
+                    "created_at",
+                    "role",
+                    "username",
+                    "avatar_url",
+                    "identities"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
                 }
               }
             }
@@ -869,12 +946,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "nullable": true
-                    }
-                  }
+                  "nullable": true
                 }
               }
             }
@@ -1380,6 +1452,1163 @@
         }
       }
     },
+    "/v1/events": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "calendar_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "organizer_id": {
+                    "type": "string"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "date_start": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "date_end": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "all_day": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "location": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "geo_lat": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "geo_lon": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "duration": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "event",
+                      "appointment"
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "class": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "categories": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "guests": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "url": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "conference_id": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "recurrence_id": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "recurrence_rule": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "sequence": {
+                    "type": "number",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "calendar_id",
+                  "summary",
+                  "description",
+                  "date_start",
+                  "date_end"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "calendar_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "organizer_id": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "date_start": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "date_end": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "all_day": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "location": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "geo_lat": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "geo_lon": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "duration": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "event",
+                        "appointment"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "class": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "categories": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "guests": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "conference_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_rule": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "sequence": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    },
+                    "last_modified": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "calendar_id",
+                    "organizer_id",
+                    "summary",
+                    "description",
+                    "date_start",
+                    "date_end",
+                    "all_day",
+                    "location",
+                    "geo_lat",
+                    "geo_lon",
+                    "duration",
+                    "type",
+                    "status",
+                    "class",
+                    "categories",
+                    "guests",
+                    "url",
+                    "conference_id",
+                    "recurrence_id",
+                    "recurrence_rule",
+                    "sequence",
+                    "created",
+                    "last_modified"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/events/user/{uid}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "uid",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "date_start",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "date_end",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "date",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "type",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "calendar_id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "organizer_id": {
+                        "type": "string"
+                      },
+                      "summary": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "date_start": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "date_end": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "all_day": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "location": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "geo_lat": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "geo_lon": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "duration": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "event",
+                          "appointment"
+                        ]
+                      },
+                      "status": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "class": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "categories": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "guests": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "conference_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "recurrence_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "recurrence_rule": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "sequence": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "created": {
+                        "type": "string",
+                        "nullable": true,
+                        "format": "date-time"
+                      },
+                      "last_modified": {
+                        "type": "string",
+                        "nullable": true,
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "calendar_id",
+                      "organizer_id",
+                      "summary",
+                      "description",
+                      "date_start",
+                      "date_end",
+                      "all_day",
+                      "location",
+                      "geo_lat",
+                      "geo_lon",
+                      "duration",
+                      "type",
+                      "status",
+                      "class",
+                      "categories",
+                      "guests",
+                      "url",
+                      "conference_id",
+                      "recurrence_id",
+                      "recurrence_rule",
+                      "sequence",
+                      "created",
+                      "last_modified"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/events/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get event by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "calendar_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "organizer_id": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "date_start": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "date_end": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "all_day": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "location": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "geo_lat": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "geo_lon": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "duration": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "event",
+                        "appointment"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "class": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "categories": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "guests": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "conference_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_rule": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "sequence": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    },
+                    "last_modified": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "calendar_id",
+                    "organizer_id",
+                    "summary",
+                    "description",
+                    "date_start",
+                    "date_end",
+                    "all_day",
+                    "location",
+                    "geo_lat",
+                    "geo_lon",
+                    "duration",
+                    "type",
+                    "status",
+                    "class",
+                    "categories",
+                    "guests",
+                    "url",
+                    "conference_id",
+                    "recurrence_id",
+                    "recurrence_rule",
+                    "sequence",
+                    "created",
+                    "last_modified"
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "calendar_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "organizer_id": {
+                    "type": "string"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "date_start": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "date_end": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "all_day": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "location": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "geo_lat": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "geo_lon": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "duration": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "event",
+                      "appointment"
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "class": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "categories": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "guests": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "url": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "conference_id": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "recurrence_id": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "recurrence_rule": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "sequence": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "created": {
+                    "type": "string",
+                    "nullable": true,
+                    "format": "date-time"
+                  },
+                  "last_modified": {
+                    "type": "string",
+                    "nullable": true,
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "calendar_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "organizer_id": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "date_start": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "date_end": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "all_day": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "location": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "geo_lat": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "geo_lon": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "duration": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "event",
+                        "appointment"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "class": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "categories": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "guests": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "conference_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_rule": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "sequence": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    },
+                    "last_modified": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "calendar_id",
+                    "organizer_id",
+                    "summary",
+                    "description",
+                    "date_start",
+                    "date_end",
+                    "all_day",
+                    "location",
+                    "geo_lat",
+                    "geo_lon",
+                    "duration",
+                    "type",
+                    "status",
+                    "class",
+                    "categories",
+                    "guests",
+                    "url",
+                    "conference_id",
+                    "recurrence_id",
+                    "recurrence_rule",
+                    "sequence",
+                    "created",
+                    "last_modified"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete event",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "calendar_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "organizer_id": {
+                      "type": "string"
+                    },
+                    "summary": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "date_start": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "date_end": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "all_day": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "location": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "geo_lat": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "geo_lon": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "duration": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "event",
+                        "appointment"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "class": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "categories": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "guests": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "conference_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "recurrence_rule": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "sequence": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "created": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    },
+                    "last_modified": {
+                      "type": "string",
+                      "nullable": true,
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "calendar_id",
+                    "organizer_id",
+                    "summary",
+                    "description",
+                    "date_start",
+                    "date_end",
+                    "all_day",
+                    "location",
+                    "geo_lat",
+                    "geo_lon",
+                    "duration",
+                    "type",
+                    "status",
+                    "class",
+                    "categories",
+                    "guests",
+                    "url",
+                    "conference_id",
+                    "recurrence_id",
+                    "recurrence_rule",
+                    "sequence",
+                    "created",
+                    "last_modified"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/store": {
       "get": {
         "responses": {
@@ -1680,7 +2909,96 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "nullable": true
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "icon": {
+                      "nullable": true
+                    },
+                    "publisher_id": {
+                      "type": "string"
+                    },
+                    "publisher_type": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "stage": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "categories": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "tags": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "public_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "published_version": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "versions": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "is_archived": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "publisher_id",
+                    "publisher_type",
+                    "type",
+                    "stage",
+                    "categories",
+                    "tags",
+                    "public_url",
+                    "published_version",
+                    "versions",
+                    "is_archived",
+                    "created_at",
+                    "updated_at"
+                  ]
                 }
               }
             }
@@ -1706,7 +3024,84 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "nullable": true
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string"
+                    },
+                    "calendar_id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "monday": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "tuesday": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "wednesday": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "thursday": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "friday": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "saturday": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "sunday": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "durations": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "uid",
+                    "calendar_id",
+                    "monday",
+                    "tuesday",
+                    "wednesday",
+                    "thursday",
+                    "friday",
+                    "saturday",
+                    "sunday",
+                    "durations"
+                  ]
                 }
               }
             }
@@ -1801,6 +3196,73 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_default": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "is_public": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "shared_with": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user_id",
+                    "name",
+                    "description",
+                    "timezone",
+                    "is_default",
+                    "is_public",
+                    "visible",
+                    "shared_with",
+                    "created_at"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
                   "nullable": true
                 }
               }
@@ -1827,7 +3289,66 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "nullable": true
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "user_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "timezone": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "is_default": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "is_public": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "visible": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "shared_with": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "user_id",
+                      "name",
+                      "description",
+                      "timezone",
+                      "is_default",
+                      "is_public",
+                      "visible",
+                      "shared_with",
+                      "created_at"
+                    ]
+                  }
                 }
               }
             }
@@ -1849,7 +3370,43 @@
           "content": {
             "application/json": {
               "schema": {
-                "nullable": true
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "timezone": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "is_default": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "is_public": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "visible": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "shared_with": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
               }
             }
           }
@@ -1860,7 +3417,64 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "nullable": true
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_default": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "is_public": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "shared_with": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user_id",
+                    "name",
+                    "description",
+                    "timezone",
+                    "is_default",
+                    "is_public",
+                    "visible",
+                    "shared_with",
+                    "created_at"
+                  ]
                 }
               }
             }
@@ -1886,7 +3500,64 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "nullable": true
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_default": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "is_public": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "shared_with": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user_id",
+                    "name",
+                    "description",
+                    "timezone",
+                    "is_default",
+                    "is_public",
+                    "visible",
+                    "shared_with",
+                    "created_at"
+                  ]
                 }
               }
             }
@@ -1908,7 +3579,47 @@
           "content": {
             "application/json": {
               "schema": {
-                "nullable": true
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "timezone": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "is_default": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "is_public": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "visible": {
+                    "type": "boolean",
+                    "nullable": true
+                  },
+                  "shared_with": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
               }
             }
           }
@@ -1919,7 +3630,64 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "nullable": true
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_default": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "is_public": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "shared_with": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user_id",
+                    "name",
+                    "description",
+                    "timezone",
+                    "is_default",
+                    "is_public",
+                    "visible",
+                    "shared_with",
+                    "created_at"
+                  ]
                 }
               }
             }
@@ -1943,7 +3711,64 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "nullable": true
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "timezone": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "is_default": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "is_public": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "visible": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "shared_with": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "user_id",
+                    "name",
+                    "description",
+                    "timezone",
+                    "is_default",
+                    "is_public",
+                    "visible",
+                    "shared_with",
+                    "created_at"
+                  ]
                 }
               }
             }

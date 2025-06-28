@@ -230,4 +230,46 @@ export const createEvent = async (body: CalendarEventInsert): Promise<CalendarEv
     console.log(error);
     return null;
   }
+};
+
+export const deleteEvent = async (id: string): Promise<CalendarEvent | null> => {
+  try {
+    const cookieStore = await cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .delete()
+      .eq("id", id)
+      .select()
+      .maybeSingle();
+    if (error) {
+      console.log(error);
+      return null;
+    }
+
+    if (data) {
+      const organizer_id = data.organizer_id;
+      const startAt = parseISO(data.date_start);
+      const startAtFormatted = format(startAt, "yyyy-MM-dd");
+      const key = `events:${organizer_id}:${startAtFormatted}`;
+      const eventKey = `${key}:event`
+      const appointmentKey = `${key}:appointment`
+      const availabilityKey = `availability:${organizer_id}:${startAtFormatted}`
+      console.log("key", key);
+      console.log("eventKey", eventKey);
+      console.log("appointmentKey", appointmentKey);
+      console.log("availabilityKey", availabilityKey);
+      await Promise.all([
+        redis.del(key),
+        redis.del(eventKey),
+        redis.del(appointmentKey),
+        redis.del(availabilityKey)
+      ])
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }; 

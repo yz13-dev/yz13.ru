@@ -5,8 +5,31 @@
  * It's YZ13 API
  * OpenAPI spec version: 1.0.0
  */
+import type { GetV1ScheduleUid200MondayItem } from './get-v1-schedule-uid200-monday-item';
+import type { GetV1ScheduleUid200TuesdayItem } from './get-v1-schedule-uid200-tuesday-item';
+import type { GetV1ScheduleUid200WednesdayItem } from './get-v1-schedule-uid200-wednesday-item';
+import type { GetV1ScheduleUid200ThursdayItem } from './get-v1-schedule-uid200-thursday-item';
+import type { GetV1ScheduleUid200FridayItem } from './get-v1-schedule-uid200-friday-item';
+import type { GetV1ScheduleUid200SaturdayItem } from './get-v1-schedule-uid200-saturday-item';
+import type { GetV1ScheduleUid200SundayItem } from './get-v1-schedule-uid200-sunday-item';
 
-/**
- * @nullable
- */
-export type GetV1ScheduleUid200 = unknown | null;
+export type GetV1ScheduleUid200 = {
+  uid: string;
+  calendar_id: string;
+  /** @nullable */
+  monday: GetV1ScheduleUid200MondayItem[] | null;
+  /** @nullable */
+  tuesday: GetV1ScheduleUid200TuesdayItem[] | null;
+  /** @nullable */
+  wednesday: GetV1ScheduleUid200WednesdayItem[] | null;
+  /** @nullable */
+  thursday: GetV1ScheduleUid200ThursdayItem[] | null;
+  /** @nullable */
+  friday: GetV1ScheduleUid200FridayItem[] | null;
+  /** @nullable */
+  saturday: GetV1ScheduleUid200SaturdayItem[] | null;
+  /** @nullable */
+  sunday: GetV1ScheduleUid200SundayItem[] | null;
+  /** @nullable */
+  durations: string[] | null;
+};

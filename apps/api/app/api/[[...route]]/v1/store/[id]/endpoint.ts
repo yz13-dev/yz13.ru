@@ -1,3 +1,4 @@
+import { publicationsSchema } from "@/schemas";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { getPublicationById } from "../actions";
 
@@ -14,7 +15,7 @@ const routeGETStoreById = createRoute({
       description: "Get publication by id",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: publicationsSchema.nullable()
         }
       }
     }
@@ -27,4 +28,4 @@ storeById.openapi(routeGETStoreById, async (c) => {
   const id = c.req.param("id");
   const data = await getPublicationById(id);
   return c.json(data, 200);
-}); 
+});

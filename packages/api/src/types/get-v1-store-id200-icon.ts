@@ -9,4 +9,4 @@
 /**
  * @nullable
  */
-export type PostV1AuthSignup500Error = unknown | null;
+export type GetV1StoreId200Icon = unknown | null;

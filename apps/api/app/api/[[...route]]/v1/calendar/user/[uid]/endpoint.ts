@@ -1,3 +1,4 @@
+import { calendarInsertSchema, calendarsArraySchema, calendarSchema } from "@/schemas";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { createCalendar, getCalendars } from "../../actions";
 
@@ -14,7 +15,7 @@ const routeGETCalendars = createRoute({
       description: "Get calendars by uid",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarsArraySchema
         }
       }
     }
@@ -31,7 +32,7 @@ const routePOSTCalendar = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarInsertSchema
         }
       }
     }
@@ -41,7 +42,7 @@ const routePOSTCalendar = createRoute({
       description: "Create calendar",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: calendarSchema.nullable()
         }
       }
     }

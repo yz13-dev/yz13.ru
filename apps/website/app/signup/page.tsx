@@ -1,5 +1,5 @@
 import { Logo } from "@/components/logo";
-import { getPublication } from "@yz13/api/store";
+import { getV1StoreId } from "@yz13/api";
 import { cn } from "@yz13/ui/cn";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ExternalLink } from "lucide-react";
@@ -18,7 +18,7 @@ type Props = {
 
 const getAppById = async (appId?: string) => {
   if (!appId) return null;
-  const { data: app } = await getPublication(appId);
+  const app = await getV1StoreId(appId);
   return app;
 };
 
