@@ -1,10 +1,9 @@
 import { Logo } from "@/components/logo";
-import { getPublication } from "@yz13/api/store";
-import { createClient } from "@yz13/supabase/server";
+// import { getPublication } from "@yz13/api";
+import { getV1AuthCurrent } from "@yz13/api";
 import { cn } from "@yz13/ui/cn";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ExternalLink } from "lucide-react";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { permanentRedirect } from "next/navigation";
 import { Suspense } from "react";
@@ -22,22 +21,23 @@ type Props = {
 
 const getAppById = async (appId?: string) => {
   if (!appId) return null;
-  const { data: app } = await getPublication(appId);
-  return app;
+  // const { data: app } = await getPublication(appId);
+  // return app;
+  return null;
 };
 
 const page = async (props: Props) => {
   const searchParams = await props.searchParams;
   const appId = searchParams.appId;
-  const cks = await cookies();
-  const sp = createClient(cks);
-  const {
-    data: { user },
-  } = await sp.auth.getUser();
+
+  const { data: user } = await getV1AuthCurrent()
+
   const app = await getAppById(appId);
   const continueLink = searchParams.continue;
-  const appName = app?.name;
+  const appName = null; // app?.name;
+
   if (user) return permanentRedirect(continueLink || "/");
+
   return (
     <div className="w-full h-dvh flex flex-col items-center justify-center">
       <Suspense

@@ -1,5 +1,5 @@
 "use client";
-import { getAuthorizedUser } from "@yz13/api/auth";
+import { getV1AuthCurrent } from "@yz13/api";
 import { UserObject } from "@yz13/api/types/user";
 import { useEffect } from "react";
 import { create } from "zustand";
@@ -15,7 +15,7 @@ type State = {
 const useUserStore = create<State & Actions>()((set) => ({
   user: null,
   refreshUser: () => {
-    getAuthorizedUser().then((user) => {
+    getV1AuthCurrent().then((user) => {
       const { data } = user;
       if (data) {
         set({ user: data });
@@ -30,7 +30,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const setUser = useUserStore((state) => state.setUser);
   useEffect(() => {
     if (user) return;
-    getAuthorizedUser().then((user) => {
+    getV1AuthCurrent().then((user) => {
       const { data } = user;
       if (data) {
         setUser(data);

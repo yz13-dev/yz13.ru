@@ -1,4 +1,3 @@
-import { avatarURL } from "@yz13/api/lib/avatar-url";
 import type { UserObject } from "@yz13/api/types/user";
 import { cn } from "@yz13/ui/cn";
 import { UserIcon } from "lucide-react";
@@ -11,7 +10,7 @@ const UserCircle = ({
   user: UserObject;
   className?: string;
 }) => {
-  const avatarUrl = user.avatar_url ? avatarURL(user.avatar_url) : null;
+  const avatarUrl = user.avatar_url;
   if (!user) return;
   return (
     <div

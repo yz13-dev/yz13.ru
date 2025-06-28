@@ -1,22 +1,17 @@
-"use client";
-import SignInButton from "@/components/user/sign-in-button";
-import UserCircle from "@/components/user/user-circle";
-import UserDropdown from "@/components/user/user-dropdown";
 import UserWrapper from "@/components/user/user-wrapper";
+import { getV1AuthCurrent } from "@yz13/api";
 
 type UserProps = {
   sideOffset?: number;
 };
-const User = ({ sideOffset }: UserProps) => {
+const User = async ({ sideOffset }: UserProps) => {
+
+  const data = await getV1AuthCurrent()
+
+  const user = data
+
   return (
-    <UserWrapper
-      authorized={(user) => (
-        <UserDropdown user={user} sideOffset={sideOffset}>
-          <UserCircle user={user} className="bg-background" />
-        </UserDropdown>
-      )}
-      unauthorized={<SignInButton href="/login" variant="default" />}
-    />
+    <UserWrapper defaultUser={user} sideOffset={sideOffset} />
   );
 };
 

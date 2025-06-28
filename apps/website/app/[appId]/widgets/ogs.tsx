@@ -12,7 +12,7 @@ import { CommonProps } from "../registry";
 async function fetchData(): Promise<any[]> {
   try {
 
-    const response = await fetch("https://api.yzlab.ru/links/ogs/recent")
+    const response = await fetch("https://api.yzlab.ru/v1/links/ogs/recent")
 
     const json = await response.json()
 

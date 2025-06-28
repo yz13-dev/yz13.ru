@@ -1,5 +1,5 @@
 "use client";
-import { createClient } from "@yz13/supabase/client";
+import { postV1AuthLogin } from "@yz13/api";
 import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
 import { Input } from "@yz13/ui/components/input";
@@ -24,7 +24,7 @@ export function LoginForm({
 }: LoginFormProps) {
   const searchParams = useSearchParams();
   const searchParamsAsString = searchParams.toString();
-  const supabase = createClient();
+  // const supabase = createClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hasError, setError] = useState<boolean>(false);
@@ -33,15 +33,18 @@ export function LoginForm({
   const signIn = async () => {
     try {
       setIsLoading(true);
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data } = await postV1AuthLogin({
         email: email,
         password: password,
       });
+
+      console.log(data)
+
       const user = data.user;
       const backLink = continueLink
         ? `${continueLink}?${searchParamsAsString}`
         : "/";
-      if (error) setError(true);
+      // if (error) setError(true);
       if (user) {
         if (back) router.back();
         else router.push(backLink);
@@ -54,7 +57,7 @@ export function LoginForm({
   };
   return (
     <div className={cn("flex flex-col space-y-12 h-fit", className)} {...props}>
-      <form>
+      <div>
         <div className="grid gap-6">
           <div className="grid gap-6">
             <div className="grid gap-2">
@@ -127,7 +130,7 @@ export function LoginForm({
             </div>
           </div>
         </div>
-      </form>
+      </div>
       <div className="text-balance text-start text-xs text-muted-foreground">
         Нажимая на «Продолжить», вы соглашаетесь с нашими{" "}
         <Link href="#" className="text-foreground">

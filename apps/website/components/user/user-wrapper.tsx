@@ -1,51 +1,76 @@
 "use client";
 import { useUserStore } from "@/app/account/settings/user.store";
-import { getAuthorizedUser } from "@yz13/api/auth";
-import type { UserObject } from "@yz13/api/types/user";
+import UserCircle from "@/components/user/user-circle";
+import UserDropdown from "@/components/user/user-dropdown";
+import { getV1AuthCurrent } from "@yz13/api";
+import { GetV1UserUid200 } from "@yz13/api/types";
 import { createClient } from "@yz13/supabase/client";
-import { type ReactElement, useEffect, useState } from "react";
-import type SignInButton from "./sign-in-button";
-import type UserCircle from "./user-circle";
-import type UserDropdown from "./user-dropdown";
+import { Button } from "@yz13/ui/components/button";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type WrapperProps = {
-  authorized?: (
-    user: UserObject,
-  ) =>
-    | ReactElement<typeof UserCircle>
-    | ReactElement<typeof SignInButton>
-    | ReactElement<typeof UserDropdown>;
-  unauthorized?: ReactElement<typeof SignInButton>;
+  defaultUser?: GetV1UserUid200;
+  sideOffset?: number
 };
 
-const UserWrapper = ({ authorized, unauthorized }: WrapperProps) => {
-  const [user, setUser] = useState<UserObject | null>(null);
+const UserWrapper = ({ defaultUser, sideOffset }: WrapperProps) => {
+  const [user, setUser] = useState<GetV1UserUid200 | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const setUserInStore = useUserStore(state => state.setUser);
   const refreshUser = async () => {
-    const { data: user } = await getAuthorizedUser()
+    const user = await getV1AuthCurrent()
     if (user) {
       setUser(user);
       setUserInStore(user);
     }
   }
   useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) {
-        refreshUser()
-        // const user = makeUserObj(session.user);
-        // setUser(user);
-      } else {
-        setUser(null);
-      }
-    });
-    setLoading(false);
-  }, []);
+    if (!defaultUser) {
+      const supabase = createClient();
+      supabase.auth.onAuthStateChange((event, session) => {
+        if (session?.user) {
+          refreshUser()
+          // const user = makeUserObj(session.user);
+          // setUser(user);
+        } else {
+          setUser(null);
+        }
+      });
+      setLoading(false);
+    }
+  }, [defaultUser]);
+  useEffect(() => {
+    if (defaultUser) {
+      setUser(defaultUser);
+      setLoading(false);
+    }
+  }, [defaultUser])
   if (loading) return <div className="rounded-full bg-neutral-200 size-9" />;
-  if (!authorized && !unauthorized) return;
-  if (user && authorized) return authorized(user);
-  return unauthorized;
+  if (user) return <Authorized sideOffset={sideOffset} />
+  return <Unauthorized />;
 };
 
+const Authorized = ({ sideOffset }: { sideOffset?: number }) => {
+
+  const user = useUserStore(state => state.user);
+
+  if (!user) return null;
+  return (
+    <UserDropdown user={user} sideOffset={sideOffset}>
+      <UserCircle user={user} className="bg-background" />
+    </UserDropdown>
+  )
+}
+
+const Unauthorized = () => {
+  return (
+    <div className="flex items-center gap-2">
+      <Button><Link href="/login">Войти</Link></Button>
+    </div>
+  )
+}
+
+
+export { Authorized, Unauthorized };
 export default UserWrapper;

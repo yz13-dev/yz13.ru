@@ -1,5 +1,5 @@
+import { getV1UserUid } from "@yz13/api";
 import { avatarURL } from "@yz13/api/lib/avatar-url";
-import { getUserById } from "@yz13/api/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/components/avatar";
 import { Badge } from "@yz13/ui/components/badge";
 import { Skeleton } from "@yz13/ui/components/skeleton";
@@ -13,7 +13,7 @@ export function UserPublisherSkeleton() {
   );
 }
 export async function UserPublisher({ uid }: { uid: string }) {
-  const { data: user } = await getUserById(uid);
+  const { data: user } = await getV1UserUid(uid);
   const username = user?.username ?? "";
   const usernameFallback = username?.slice(0, 2);
   const avatarUrl = user?.avatar_url ?? "";

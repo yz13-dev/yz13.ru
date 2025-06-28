@@ -1,5 +1,4 @@
 "use client"
-import { getNewsCountForSixMonths } from "@yz13/api/charts"
 import type { MonthlyNewsCountChart } from "@yz13/api/types/charts"
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@yz13/ui/components/chart"
 import { Skeleton } from "@yz13/ui/components/skeleton"
@@ -18,11 +17,11 @@ export default function () {
   const [data, setData] = useState<MonthlyNewsCountChart[]>([])
 
   useEffect(() => {
-    getNewsCountForSixMonths()
-      .then(({ data }) => {
-        console.log(data ?? [])
-        setData(data ?? [])
-      })
+    // getNewsCountForSixMonths()
+    // .then(({ data }) => {
+    // console.log(data ?? [])
+    // setData(data ?? [])
+    // })
   }, [])
   if (!data.length) return <Skeleton className="h-[400px] rounded-none shrink-0" />
   return (

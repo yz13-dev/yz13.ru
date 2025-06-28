@@ -53,7 +53,8 @@
       "types": "./dist/supabase/extra.d.ts",
       "import": "./dist/supabase/extra.js",
       "require": "./dist/supabase/extra.cjs"
-    }
+    },
+    "./types": "./dist/types.d.cts"
   },
   "files": [
     "dist"

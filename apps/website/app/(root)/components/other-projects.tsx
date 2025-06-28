@@ -1,5 +1,4 @@
 import AppLogo from "@/app/[appId]/components/app-logo";
-import { getPublications } from "@yz13/api/store";
 import { Badge } from "@yz13/ui/components/badge";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { differenceInDays } from "date-fns";
@@ -66,12 +65,13 @@ export default async function OtherProjects({
 }: {
   exclude?: string[];
 }) {
-  const { data } = await getPublications();
-  const publications = (data ?? [])?.filter((publication) => {
-    const isIn = exclude.includes(publication.id);
-    if (isIn) return false;
-    return true;
-  });
+  // const { data } = await publica();
+  const publications: any[] = []
+  //   (data ?? [])?.filter((publication) => {
+  //   const isIn = exclude.includes(publication.id);
+  //   if (isIn) return false;
+  //   return true;
+  // });
   if (!publications.length) return <OtherProjectsSkeleton />;
   return (
     <>

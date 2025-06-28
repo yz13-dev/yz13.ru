@@ -1,0 +1,29 @@
+import type { UserObject } from "@/schemas/user";
+import type { User } from "@yz13/supabase/types";
+import { getAvatarURL } from "@yz13/utils/avatar-url";
+
+export const wrapUser = (user: User): UserObject => {
+  const role = user.user_metadata.role as string;
+  const username = user.user_metadata.username as string;
+  const identities = user.identities ?? [];
+  const position = user.user_metadata.position as string | undefined;
+
+  const avatar_url = (user.user_metadata.avatar_url as string) || null;
+
+  const wrapped_avatar_url = avatar_url ? getAvatarURL(avatar_url) : null;
+
+  return {
+    id: user.id,
+    email: user.email ?? null,
+    email_confirmed_at: user.email_confirmed_at ?? null,
+    phone: user.phone ?? null,
+    created_at: user.created_at,
+    updated_at: user.updated_at ?? null,
+    last_signin_at: user.last_sign_in_at ?? null,
+    position: position ?? null,
+    role,
+    username,
+    avatar_url: wrapped_avatar_url,
+    identities,
+  };
+};
