@@ -1,4 +1,5 @@
-import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
+import { chartDataArraySchema } from "@/schemas";
+import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
 import { getNewsCountForSixMonths } from "../actions";
 
 const routeGETNews = createRoute({
@@ -9,7 +10,7 @@ const routeGETNews = createRoute({
       description: "News count for 6 months",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: chartDataArraySchema
         }
       }
     }
@@ -21,4 +22,4 @@ export const news = new OpenAPIHono();
 news.openapi(routeGETNews, async (c) => {
   const count = await getNewsCountForSixMonths();
   return c.json(count);
-}); 
+});

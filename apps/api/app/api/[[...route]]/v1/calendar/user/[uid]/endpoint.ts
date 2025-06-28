@@ -1,9 +1,9 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
-import { getCalendars, createCalendar } from "../../actions";
+import { createCalendar, getCalendars } from "../../actions";
 
 const routeGETCalendars = createRoute({
   method: "get",
-  path: "/user/{uid}",
+  path: "/{uid}",
   request: {
     params: z.object({
       uid: z.string()
@@ -23,7 +23,7 @@ const routeGETCalendars = createRoute({
 
 const routePOSTCalendar = createRoute({
   method: "post",
-  path: "/user/{uid}",
+  path: "/{uid}",
   request: {
     params: z.object({
       uid: z.string()
@@ -61,4 +61,4 @@ calendarsByUid.openapi(routePOSTCalendar, async (c) => {
   const body = await c.req.json();
   const data = await createCalendar(uid, body);
   return c.json(data, 200);
-}); 
+});

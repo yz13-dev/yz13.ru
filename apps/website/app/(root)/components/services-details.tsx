@@ -4,7 +4,7 @@ import ServicesStand from "./services-stand";
 
 
 const ServicesDetails = async () => {
-  const { data } = await getV1Pricing();
+  const data = await getV1Pricing();
   const sign = await get<string>("price-sign");
   const services = (data ?? []).sort((a, b) => a.price - b.price);
   return <ServicesStand sign={sign} services={services} />;

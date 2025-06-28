@@ -6,8 +6,13 @@
  * OpenAPI spec version: 1.0.0
  */
 import type {
+  DeleteV1CalendarId200,
   GetV1AuthCurrent200,
   GetV1AuthCurrentSession200,
+  GetV1CalendarId200,
+  GetV1CalendarUserUid200,
+  GetV1CalendarUserUidDefault200,
+  GetV1ChartsNews200Item,
   GetV1NewsArticleArticleId200,
   GetV1NewsArticles200Item,
   GetV1NewsArticlesParams,
@@ -23,7 +28,14 @@ import type {
   GetV1Pricing200Item,
   GetV1PricingShort200Item,
   GetV1RoomsId200,
+  GetV1ScheduleUid200,
+  GetV1ScheduleUidAvailable200,
+  GetV1ScheduleUidAvailableParams,
+  GetV1Store200Item,
+  GetV1StoreId200,
   GetV1UserUid200,
+  PatchV1CalendarId200,
+  PatchV1CalendarIdBody,
   PatchV1NewsRepatch200,
   PatchV1UserUid200,
   PatchV1UserUidBody,
@@ -32,10 +44,14 @@ import type {
   PostV1AuthLogout200,
   PostV1AuthSignup200,
   PostV1AuthSignupBody,
+  PostV1CalendarUserUid200,
+  PostV1CalendarUserUidBody,
   PostV1NewsArticlesNew200,
   PostV1NewsArticlesNewBody,
   PostV1RoomsNew200,
-  PostV1RoomsNewBody
+  PostV1RoomsNewBody,
+  PostV1Store200,
+  PostV1StoreBody
 } from '../types';
 
 import { axios } from '../lib/custom-instance';
@@ -51,7 +67,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
       return axios<GetV1PositionsLang200Item[]>(
       {url: `https://localhost:3000/v1/positions/${lang}`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1PositionsLangPositionId = (
@@ -61,7 +77,7 @@ export const getV1PositionsLangPositionId = (
       return axios<GetV1PositionsLangPositionId200>(
       {url: `https://localhost:3000/v1/positions/${lang}/${positionId}`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1Pricing = (
@@ -70,7 +86,7 @@ export const getV1Pricing = (
       return axios<GetV1Pricing200Item[]>(
       {url: `https://localhost:3000/v1/pricing`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1PricingShort = (
@@ -79,7 +95,7 @@ export const getV1PricingShort = (
       return axios<GetV1PricingShort200Item[]>(
       {url: `https://localhost:3000/v1/pricing/short`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1UserUid = (
@@ -88,7 +104,7 @@ export const getV1UserUid = (
       return axios<GetV1UserUid200>(
       {url: `https://localhost:3000/v1/user/${uid}`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const patchV1UserUid = (
@@ -100,7 +116,7 @@ export const patchV1UserUid = (
       headers: {'Content-Type': 'application/json', },
       data: patchV1UserUidBody
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1AuthCurrent = (
@@ -109,7 +125,7 @@ export const getV1AuthCurrent = (
       return axios<GetV1AuthCurrent200>(
       {url: `https://localhost:3000/v1/auth/current`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1AuthCurrentSession = (
@@ -118,7 +134,7 @@ export const getV1AuthCurrentSession = (
       return axios<GetV1AuthCurrentSession200>(
       {url: `https://localhost:3000/v1/auth/current/session`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const postV1AuthLogin = (
@@ -129,7 +145,7 @@ export const postV1AuthLogin = (
       headers: {'Content-Type': 'application/json', },
       data: postV1AuthLoginBody
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const postV1AuthSignup = (
@@ -140,7 +156,7 @@ export const postV1AuthSignup = (
       headers: {'Content-Type': 'application/json', },
       data: postV1AuthSignupBody
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const postV1AuthLogout = (
@@ -149,7 +165,7 @@ export const postV1AuthLogout = (
       return axios<PostV1AuthLogout200>(
       {url: `https://localhost:3000/v1/auth/logout`, method: 'POST'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1RoomsId = (
@@ -158,7 +174,7 @@ export const getV1RoomsId = (
       return axios<GetV1RoomsId200>(
       {url: `https://localhost:3000/v1/rooms/${id}`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const postV1RoomsNew = (
@@ -169,7 +185,7 @@ export const postV1RoomsNew = (
       headers: {'Content-Type': 'application/json', },
       data: postV1RoomsNewBody
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsNewsSources = (
@@ -179,7 +195,7 @@ export const getV1NewsNewsSources = (
       {url: `https://localhost:3000/v1/news/news-sources`, method: 'GET',
         params
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsNewsSourcesSourceId = (
@@ -188,7 +204,7 @@ export const getV1NewsNewsSourcesSourceId = (
       return axios<GetV1NewsNewsSourcesSourceId200>(
       {url: `https://localhost:3000/v1/news/news-sources/${sourceId}`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsCountryCodeSources = (
@@ -197,7 +213,7 @@ export const getV1NewsCountryCodeSources = (
       return axios<GetV1NewsCountryCodeSources200Item[]>(
       {url: `https://localhost:3000/v1/news/country/${code}/sources`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsArticles = (
@@ -207,7 +223,7 @@ export const getV1NewsArticles = (
       {url: `https://localhost:3000/v1/news/articles`, method: 'GET',
         params
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsArticlesSourceId = (
@@ -216,7 +232,7 @@ export const getV1NewsArticlesSourceId = (
       return axios<GetV1NewsArticlesSourceId200Item[]>(
       {url: `https://localhost:3000/v1/news/articles/${sourceId}`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const postV1NewsArticlesNew = (
@@ -227,7 +243,7 @@ export const postV1NewsArticlesNew = (
       headers: {'Content-Type': 'application/json', },
       data: postV1NewsArticlesNewBody
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsCountryCodeArticles = (
@@ -238,7 +254,7 @@ export const getV1NewsCountryCodeArticles = (
       {url: `https://localhost:3000/v1/news/country/${code}/articles`, method: 'GET',
         params
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsArticleArticleId = (
@@ -247,7 +263,7 @@ export const getV1NewsArticleArticleId = (
       return axios<GetV1NewsArticleArticleId200>(
       {url: `https://localhost:3000/v1/news/article/${articleId}`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsCodes = (
@@ -256,7 +272,7 @@ export const getV1NewsCodes = (
       return axios<string[]>(
       {url: `https://localhost:3000/v1/news/codes`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const getV1NewsCategories = (
@@ -265,7 +281,7 @@ export const getV1NewsCategories = (
       return axios<string[]>(
       {url: `https://localhost:3000/v1/news/categories`, method: 'GET'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const patchV1NewsRepatch = (
@@ -274,7 +290,7 @@ export const patchV1NewsRepatch = (
       return axios<PatchV1NewsRepatch200>(
       {url: `https://localhost:3000/v1/news/repatch`, method: 'PATCH'
     },
-      { withCredentials: true,  ...options});
+      options);
     }
   
 export const postV1NewsCacheClear = (
@@ -283,7 +299,125 @@ export const postV1NewsCacheClear = (
       return axios<string>(
       {url: `https://localhost:3000/v1/news/cache/clear`, method: 'POST'
     },
-      { withCredentials: true,  ...options});
+      options);
+    }
+  
+export const getV1Store = (
+    
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1Store200Item[]>(
+      {url: `https://localhost:3000/v1/store`, method: 'GET'
+    },
+      options);
+    }
+  
+export const postV1Store = (
+    postV1StoreBody: BodyType<PostV1StoreBody>,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<PostV1Store200>(
+      {url: `https://localhost:3000/v1/store`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postV1StoreBody
+    },
+      options);
+    }
+  
+export const getV1StoreId = (
+    id: string,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1StoreId200>(
+      {url: `https://localhost:3000/v1/store/${id}`, method: 'GET'
+    },
+      options);
+    }
+  
+export const getV1ScheduleUid = (
+    uid: string,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1ScheduleUid200>(
+      {url: `https://localhost:3000/v1/schedule/${uid}`, method: 'GET'
+    },
+      options);
+    }
+  
+export const getV1ScheduleUidAvailable = (
+    uid: string,
+    params?: GetV1ScheduleUidAvailableParams,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1ScheduleUidAvailable200>(
+      {url: `https://localhost:3000/v1/schedule/${uid}/available`, method: 'GET',
+        params
+    },
+      options);
+    }
+  
+export const getV1ChartsNews = (
+    
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1ChartsNews200Item[]>(
+      {url: `https://localhost:3000/v1/charts/news`, method: 'GET'
+    },
+      options);
+    }
+  
+export const getV1CalendarUserUidDefault = (
+    uid: string,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1CalendarUserUidDefault200>(
+      {url: `https://localhost:3000/v1/calendar/user/${uid}/default`, method: 'GET'
+    },
+      options);
+    }
+  
+export const getV1CalendarUserUid = (
+    uid: string,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1CalendarUserUid200>(
+      {url: `https://localhost:3000/v1/calendar/user/${uid}`, method: 'GET'
+    },
+      options);
+    }
+  
+export const postV1CalendarUserUid = (
+    uid: string,
+    postV1CalendarUserUidBody: BodyType<PostV1CalendarUserUidBody>,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<PostV1CalendarUserUid200>(
+      {url: `https://localhost:3000/v1/calendar/user/${uid}`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postV1CalendarUserUidBody
+    },
+      options);
+    }
+  
+export const getV1CalendarId = (
+    id: string,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<GetV1CalendarId200>(
+      {url: `https://localhost:3000/v1/calendar/${id}`, method: 'GET'
+    },
+      options);
+    }
+  
+export const patchV1CalendarId = (
+    id: string,
+    patchV1CalendarIdBody: BodyType<PatchV1CalendarIdBody>,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<PatchV1CalendarId200>(
+      {url: `https://localhost:3000/v1/calendar/${id}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: patchV1CalendarIdBody
+    },
+      options);
+    }
+  
+export const deleteV1CalendarId = (
+    id: string,
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<DeleteV1CalendarId200>(
+      {url: `https://localhost:3000/v1/calendar/${id}`, method: 'DELETE'
+    },
+      options);
     }
   
 export type GetV1PositionsLangResult = NonNullable<Awaited<ReturnType<typeof getV1PositionsLang>>>
@@ -311,3 +445,15 @@ export type GetV1NewsCodesResult = NonNullable<Awaited<ReturnType<typeof getV1Ne
 export type GetV1NewsCategoriesResult = NonNullable<Awaited<ReturnType<typeof getV1NewsCategories>>>
 export type PatchV1NewsRepatchResult = NonNullable<Awaited<ReturnType<typeof patchV1NewsRepatch>>>
 export type PostV1NewsCacheClearResult = NonNullable<Awaited<ReturnType<typeof postV1NewsCacheClear>>>
+export type GetV1StoreResult = NonNullable<Awaited<ReturnType<typeof getV1Store>>>
+export type PostV1StoreResult = NonNullable<Awaited<ReturnType<typeof postV1Store>>>
+export type GetV1StoreIdResult = NonNullable<Awaited<ReturnType<typeof getV1StoreId>>>
+export type GetV1ScheduleUidResult = NonNullable<Awaited<ReturnType<typeof getV1ScheduleUid>>>
+export type GetV1ScheduleUidAvailableResult = NonNullable<Awaited<ReturnType<typeof getV1ScheduleUidAvailable>>>
+export type GetV1ChartsNewsResult = NonNullable<Awaited<ReturnType<typeof getV1ChartsNews>>>
+export type GetV1CalendarUserUidDefaultResult = NonNullable<Awaited<ReturnType<typeof getV1CalendarUserUidDefault>>>
+export type GetV1CalendarUserUidResult = NonNullable<Awaited<ReturnType<typeof getV1CalendarUserUid>>>
+export type PostV1CalendarUserUidResult = NonNullable<Awaited<ReturnType<typeof postV1CalendarUserUid>>>
+export type GetV1CalendarIdResult = NonNullable<Awaited<ReturnType<typeof getV1CalendarId>>>
+export type PatchV1CalendarIdResult = NonNullable<Awaited<ReturnType<typeof patchV1CalendarId>>>
+export type DeleteV1CalendarIdResult = NonNullable<Awaited<ReturnType<typeof deleteV1CalendarId>>>

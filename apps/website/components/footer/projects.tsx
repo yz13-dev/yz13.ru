@@ -1,4 +1,5 @@
 import AppLogo from "@/app/[appId]/components/app-logo";
+import { getV1Store } from "@yz13/api";
 import { Skeleton } from "@yz13/ui/components/skeleton";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -35,7 +36,8 @@ export const ProjectsSkeleton = () => {
 export default async function () {
 
 
-  const publications: any[] = [];
+  const data = await getV1Store();
+  const publications = data
 
   return (
     <div className="space-y-3">

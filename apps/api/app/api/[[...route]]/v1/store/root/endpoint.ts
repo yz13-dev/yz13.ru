@@ -1,5 +1,6 @@
-import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
-import { getPublications, createPublication } from "../actions";
+import { publicationsArraySchema, publicationsInsertSchema, publicationsSchema } from "@/schemas";
+import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
+import { createPublication, getPublications } from "../actions";
 
 const routeGETStore = createRoute({
   method: "get",
@@ -9,7 +10,7 @@ const routeGETStore = createRoute({
       description: "Get publications",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: publicationsArraySchema
         }
       }
     }
@@ -23,7 +24,7 @@ const routePOSTStore = createRoute({
     body: {
       content: {
         "application/json": {
-          schema: z.any()
+          schema: publicationsInsertSchema
         }
       }
     }
@@ -33,7 +34,7 @@ const routePOSTStore = createRoute({
       description: "Create publication",
       content: {
         "application/json": {
-          schema: z.any()
+          schema: publicationsSchema
         }
       }
     }
@@ -51,4 +52,4 @@ root.openapi(routePOSTStore, async (c) => {
   const body = await c.req.json();
   const data = await createPublication(body);
   return c.json(data, 200);
-}); 
+});

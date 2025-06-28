@@ -3,7 +3,7 @@ import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 
 const routeGETAvailable = createRoute({
   method: "get",
-  path: "/{uid}/available",
+  path: "/available",
   request: {
     params: z.object({
       uid: z.string()
@@ -29,4 +29,4 @@ export const available = new OpenAPIHono();
 available.openapi(routeGETAvailable, async (c) => {
   // Здесь должна быть логика получения доступности
   return c.json({}, 200);
-}); 
+});

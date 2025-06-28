@@ -27,4 +27,4 @@ scheduleByUid.openapi(routeGETSchedule, async (c) => {
   const uid = c.req.param("uid");
   const data = await getSchedule(uid);
   return c.json(data, 200);
-}); 
+});

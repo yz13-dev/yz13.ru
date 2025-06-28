@@ -3,7 +3,7 @@ import { getDefaultCalendar } from "../../../actions";
 
 const routeGETDefault = createRoute({
   method: "get",
-  path: "/user/{uid}/default",
+  path: "/default",
   request: {
     params: z.object({
       uid: z.string()
@@ -27,4 +27,4 @@ defaultCalendar.openapi(routeGETDefault, async (c) => {
   const uid = c.req.param("uid");
   const data = await getDefaultCalendar(uid);
   return c.json(data, 200);
-}); 
+});

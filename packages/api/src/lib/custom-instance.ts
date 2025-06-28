@@ -1,8 +1,8 @@
-import { CancelToken, create, type AxiosError, type AxiosRequestConfig } from 'axios';
+import Axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
 
 
 
-export const AXIOS_INSTANCE = create({ baseURL: "https://localhost:3000" }); // use your own URL here or environment variable
+export const AXIOS_INSTANCE = Axios.create({ baseURL: "https://localhost:3000" }); // use your own URL here or environment variable
 
 
 
@@ -16,7 +16,7 @@ export const axios = <T>(
 
 ): Promise<T> => {
 
-  const source = CancelToken.source();
+  const source = Axios.CancelToken.source();
 
   const promise = AXIOS_INSTANCE({
 

@@ -30,9 +30,6 @@ export const gfkOrvalConfig: OptionsExport = {
           header: true
         }
       },
-      requestOptions: {
-        withCredentials: true,
-      }
     },
   },
 };

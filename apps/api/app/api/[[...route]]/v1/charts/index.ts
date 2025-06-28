@@ -3,4 +3,4 @@ import { news } from "./news/endpoint"
 
 export const charts = new OpenAPIHono()
 
-charts.route("/news", news) 
+charts.route("/", news)

@@ -1,5 +1,6 @@
 "use client"
-import type { MonthlyNewsCountChart } from "@yz13/api/types/charts"
+import { getV1ChartsNews } from "@yz13/api"
+import { GetV1ChartsNews200Item } from "@yz13/api/types"
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@yz13/ui/components/chart"
 import { Skeleton } from "@yz13/ui/components/skeleton"
 import { useEffect, useState } from "react"
@@ -14,14 +15,18 @@ const chartConfig = {
 
 export default function () {
 
-  const [data, setData] = useState<MonthlyNewsCountChart[]>([])
+  const [data, setData] = useState<GetV1ChartsNews200Item[]>([])
+
+  const handleChartData = async () => {
+    if (data.length !== 0) return;
+
+    const chart = await getV1ChartsNews()
+
+    if (chart.length !== 0) setData(chart)
+  }
 
   useEffect(() => {
-    // getNewsCountForSixMonths()
-    // .then(({ data }) => {
-    // console.log(data ?? [])
-    // setData(data ?? [])
-    // })
+    handleChartData()
   }, [])
   if (!data.length) return <Skeleton className="h-[400px] rounded-none shrink-0" />
   return (

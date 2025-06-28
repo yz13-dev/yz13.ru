@@ -1379,6 +1379,577 @@
           }
         }
       }
+    },
+    "/v1/store": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Get publications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "icon": {
+                        "nullable": true
+                      },
+                      "publisher_id": {
+                        "type": "string"
+                      },
+                      "publisher_type": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "stage": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "categories": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "public_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "published_version": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "versions": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "nullable": true
+                        }
+                      },
+                      "is_archived": {
+                        "type": "boolean",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "description",
+                      "publisher_id",
+                      "publisher_type",
+                      "type",
+                      "stage",
+                      "categories",
+                      "tags",
+                      "public_url",
+                      "published_version",
+                      "versions",
+                      "is_archived",
+                      "created_at",
+                      "updated_at"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "icon": {
+                    "nullable": true
+                  },
+                  "publisher_id": {
+                    "type": "string"
+                  },
+                  "publisher_type": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "stage": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "categories": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "public_url": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "published_version": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "versions": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "nullable": true
+                    }
+                  },
+                  "is_archived": {
+                    "type": "boolean",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "publisher_id",
+                  "publisher_type"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create publication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "icon": {
+                      "nullable": true
+                    },
+                    "publisher_id": {
+                      "type": "string"
+                    },
+                    "publisher_type": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "stage": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "categories": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "tags": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "public_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "published_version": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "versions": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "is_archived": {
+                      "type": "boolean",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "description",
+                    "publisher_id",
+                    "publisher_type",
+                    "type",
+                    "stage",
+                    "categories",
+                    "tags",
+                    "public_url",
+                    "published_version",
+                    "versions",
+                    "is_archived",
+                    "created_at",
+                    "updated_at"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/store/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get publication by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/schedule/{uid}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "uid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get schedule by uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/schedule/{uid}/available": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "uid",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "date",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get availability by uid and date",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/charts/news": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "News count for 6 months",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "month": {
+                        "type": "number"
+                      },
+                      "count": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "month",
+                      "count"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/calendar/user/{uid}/default": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "uid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get default calendar by uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/calendar/user/{uid}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "uid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get calendars by uid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "uid",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "nullable": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create calendar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/calendar/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get calendar by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "nullable": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update calendar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete calendar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
