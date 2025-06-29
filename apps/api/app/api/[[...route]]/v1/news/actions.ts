@@ -312,6 +312,11 @@ export const createArticle = async (article: NewsInsert, token: string): Promise
     if (error) {
       return { error };
     }
+
+    if (!data) {
+      return { data: undefined };
+    }
+
     return { data };
   } catch (error) {
     console.log(error);
