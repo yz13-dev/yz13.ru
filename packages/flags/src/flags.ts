@@ -38,4 +38,4 @@ export const getMainEmail = flag<string>(hypertuneAdapter.declarations.primaryEm
 
 export const getSecondaryEmail = flag<string>(hypertuneAdapter.declarations.secondaryEmail)
 
-export const callToAction = flag(hypertuneAdapter.declarations.callToAction)
+// export const callToAction = flag(hypertuneAdapter.declarations.callToAction)
