@@ -1,6 +1,6 @@
-import { getAuthorizedSession } from "@yz13/api/auth";
 import type { CalendarEvent } from "@/schemas/calendar-events";
 import type { Meeting } from "@/schemas/meetings";
+import { getV1AuthCurrentSession } from "@yz13/api";
 import { parse } from "date-fns";
 
 export async function getZoomMeetings(): Promise<Meeting[]> {
@@ -8,7 +8,7 @@ export async function getZoomMeetings(): Promise<Meeting[]> {
   const path = "/v2/users/me/meetings"
   const url = new URL(path, apiUrl)
   try {
-    const { data: session } = await getAuthorizedSession()
+    const session: any = await getV1AuthCurrentSession()
     const accessToken = session?.provider_token;
     const refreshToken = session?.provider_refresh_token;
     console.log("access token", !!accessToken)
@@ -84,4 +84,4 @@ export async function createMeeting(token: string, event: CalendarEvent, timezon
     console.error(error)
     return null
   }
-} 
+}

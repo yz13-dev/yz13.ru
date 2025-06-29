@@ -1,7 +1,7 @@
 import { expire, redis } from "@/extensions/redis";
-import { tz } from "@date-fns/tz";
-import type { DaySchedule, WeekSchedule } from "@yz13/api/types/calendar";
+import { CalendarSchedule, CalendarScheduleDay } from "@/schemas";
 import type { CalendarEvent } from "@/schemas/calendar-events";
+import { tz } from "@date-fns/tz";
 import { createClient } from "@yz13/supabase/server";
 import { addMinutes, areIntervalsOverlapping, format, type Interval, interval, isWithinInterval, parse, parseISO } from "date-fns";
 import { cookies } from "next/headers";
@@ -46,7 +46,7 @@ export const generateIntervalInRange = (
 
 export const createObjFromDurations = (
   durations: string[],
-  schedule: DaySchedule[],
+  schedule: CalendarScheduleDay[],
   busy: { time: string; duration: string }[],
 ) => {
   const obj: Record<string, string[]> = {};
@@ -126,9 +126,9 @@ export const getTimeAndDurationFromAppointments = (appointments: CalendarEvent[]
 };
 
 
-export const getSchedule = async (uid: string): Promise<WeekSchedule | null> => {
+export const getSchedule = async (uid: string): Promise<CalendarSchedule | null> => {
   const key = `schedule:${uid}`;
-  const cached = await redis.get<WeekSchedule>(key);
+  const cached = await redis.get<CalendarSchedule>(key);
   if (cached) return cached;
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
@@ -143,5 +143,5 @@ export const getSchedule = async (uid: string): Promise<WeekSchedule | null> => 
   }
 
   if (data) await redis.set(key, data, { ex: expire.day });
-  return data as WeekSchedule | null;
+  return data as CalendarSchedule | null;
 };

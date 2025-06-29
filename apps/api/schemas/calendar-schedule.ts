@@ -33,5 +33,6 @@ export const calendarScheduleUpdateSchema = calendarScheduleSchema.partial().omi
 export const calendarSchedulesArraySchema = z.array(calendarScheduleSchema);
 
 export type CalendarSchedule = z.infer<typeof calendarScheduleSchema>;
+export type CalendarScheduleDay = NonNullable<CalendarSchedule["friday"]>[number];
 export type CalendarScheduleInsert = z.infer<typeof calendarScheduleInsertSchema>;
-export type CalendarScheduleUpdate = z.infer<typeof calendarScheduleUpdateSchema>; 
+export type CalendarScheduleUpdate = z.infer<typeof calendarScheduleUpdateSchema>;

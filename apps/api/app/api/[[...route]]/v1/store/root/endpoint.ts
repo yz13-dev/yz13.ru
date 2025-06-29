@@ -34,7 +34,7 @@ const routePOSTStore = createRoute({
       description: "Create publication",
       content: {
         "application/json": {
-          schema: publicationsSchema
+          schema: publicationsSchema.nullable()
         }
       }
     }

@@ -1,9 +1,9 @@
+import { CalendarSchedule, CalendarScheduleDay } from "@/schemas";
 import { tz } from "@date-fns/tz";
-import type { DaySchedule, WeekSchedule } from "@yz13/api/types/calendar";
 import { format, parse } from "date-fns";
 
 
-export const adaptSchedule = (schedule: DaySchedule[], timezone: string): DaySchedule[] => {
+export const adaptSchedule = (schedule: CalendarScheduleDay[], timezone: string): CalendarScheduleDay[] => {
   return schedule.map((item) => {
     const start = parse(item.start, "HH:mm", new Date(), {
       in: tz("UTC"),
@@ -23,15 +23,15 @@ export const adaptSchedule = (schedule: DaySchedule[], timezone: string): DaySch
   });
 };
 
-export const adaptWeekSchedule = (schedule: WeekSchedule, timezone: string): WeekSchedule => {
+export const adaptWeekSchedule = (schedule: CalendarSchedule, timezone: string): CalendarSchedule => {
   return {
     ...schedule,
-    monday: adaptSchedule((schedule.monday ?? []) as DaySchedule[], timezone),
-    tuesday: adaptSchedule((schedule.tuesday ?? []) as DaySchedule[], timezone),
-    wednesday: adaptSchedule((schedule.wednesday ?? []) as DaySchedule[], timezone),
-    thursday: adaptSchedule((schedule.thursday ?? []) as DaySchedule[], timezone),
-    friday: adaptSchedule((schedule.friday ?? []) as DaySchedule[], timezone),
-    saturday: adaptSchedule((schedule.saturday ?? []) as DaySchedule[], timezone),
-    sunday: adaptSchedule((schedule.sunday ?? []) as DaySchedule[], timezone),
+    monday: adaptSchedule((schedule.monday ?? []) as CalendarScheduleDay[], timezone),
+    tuesday: adaptSchedule((schedule.tuesday ?? []) as CalendarScheduleDay[], timezone),
+    wednesday: adaptSchedule((schedule.wednesday ?? []) as CalendarScheduleDay[], timezone),
+    thursday: adaptSchedule((schedule.thursday ?? []) as CalendarScheduleDay[], timezone),
+    friday: adaptSchedule((schedule.friday ?? []) as CalendarScheduleDay[], timezone),
+    saturday: adaptSchedule((schedule.saturday ?? []) as CalendarScheduleDay[], timezone),
+    sunday: adaptSchedule((schedule.sunday ?? []) as CalendarScheduleDay[], timezone),
   }
 }

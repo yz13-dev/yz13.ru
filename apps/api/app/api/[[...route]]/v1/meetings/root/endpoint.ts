@@ -1,5 +1,5 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
-import { getZoomMeetings, createMeeting } from "../actions";
+import { createMeeting, getZoomMeetings } from "../actions";
 
 const routeGETMeetings = createRoute({
   method: "get",
@@ -51,6 +51,14 @@ const routePOSTMeeting = createRoute({
         }
       }
     },
+    401: {
+      description: "Bad request",
+      content: {
+        "application/json": {
+          schema: z.null()
+        }
+      }
+    },
     400: {
       description: "Bad request",
       content: {
@@ -78,8 +86,13 @@ root.openapi(routePOSTMeeting, async (c) => {
   const body = await c.req.json();
   const event = body.event;
   const timezone = body.timezone;
+
+  if (!token) {
+    return c.json(null, 401);
+  }
+
   // Здесь повторяем проверки из старого endpoint.ts
   // Для краткости — просто вызываем createMeeting
   const meeting = await createMeeting(token, event, timezone, { email: "", username: "", id: "" });
   return c.json(meeting, 200);
-}); 
+});

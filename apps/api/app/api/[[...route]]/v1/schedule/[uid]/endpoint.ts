@@ -15,7 +15,7 @@ const routeGETSchedule = createRoute({
       description: "Get schedule by uid",
       content: {
         "application/json": {
-          schema: calendarScheduleSchema
+          schema: calendarScheduleSchema.nullable()
         }
       }
     }

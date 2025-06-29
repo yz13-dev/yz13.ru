@@ -29,16 +29,19 @@ const routeGETCountryArticles = createRoute({
 export const countryArticles = new OpenAPIHono();
 
 countryArticles.openapi(routeGETCountryArticles, async (c) => {
+
+  const limitQuery = c.req.query("limit");
+
   try {
     const code = c.req.param("code");
     const offset = Number.parseInt(c.req.query("offset") || "0");
-    const limit = c.req.query("limit") ? Number.parseInt(c.req.query("limit")) : undefined;
+    const limit = limitQuery ? Number.parseInt(limitQuery) : undefined;
     const date = c.req.query("date");
-    
+
     const data = await getCountryArticles(code, offset, limit, date);
     return c.json(data, 200);
   } catch (error) {
     console.error(error);
     return c.json([], 200);
   }
-}); 
+});
