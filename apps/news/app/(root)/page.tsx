@@ -2,7 +2,7 @@ import Footer from "@/components/footer";
 import { type CalendarLocale, contries, locales } from "@/const/locale-to-country";
 import { chunk } from "@/lib/chunk";
 import { getLocaleFromCookie } from "@/lib/locale";
-import { getArticlesForCountry } from "@yz13/api/articles";
+import { getV1NewsCountryCodeArticles } from "@yz13/api";
 import { Button } from "@yz13/ui/components/button";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -13,7 +13,7 @@ import Time from "./time";
 
 const page = async () => {
   const language = (await getLocaleFromCookie()) || "RU";
-  const { data } = await getArticlesForCountry(language);
+  const data = await getV1NewsCountryCodeArticles(language);
   const articles = data ?? [];
   const sliceNumber = 8;
   const chunks = chunk(articles, sliceNumber);

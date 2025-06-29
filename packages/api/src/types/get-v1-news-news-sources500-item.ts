@@ -6,7 +6,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetV1NewsNewsSources200Item = {
+export type GetV1NewsNewsSources500Item = {
   id: string;
   name: string;
   url: string;

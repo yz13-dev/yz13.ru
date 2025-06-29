@@ -8,6 +8,9 @@
 import type { PostV1Store200Icon } from './post-v1-store200-icon';
 import type { PostV1Store200VersionsItem } from './post-v1-store200-versions-item';
 
+/**
+ * @nullable
+ */
 export type PostV1Store200 = {
   id: string;
   name: string;
@@ -35,4 +38,4 @@ export type PostV1Store200 = {
   is_archived: boolean | null;
   created_at: string;
   updated_at: string;
-};
+} | null;

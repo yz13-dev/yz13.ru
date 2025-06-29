@@ -1,3 +1,4 @@
+import { newsSourcesArraySchema } from "@/schemas";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { getNewsSources } from "../actions";
 
@@ -14,7 +15,15 @@ const routeGETNewsSources = createRoute({
       description: "News sources",
       content: {
         "application/json": {
-          schema: z.array(z.any())
+          schema: newsSourcesArraySchema
+        }
+      }
+    },
+    500: {
+      description: "Internal server error",
+      content: {
+        "application/json": {
+          schema: newsSourcesArraySchema
         }
       }
     }
@@ -30,6 +39,6 @@ newsSources.openapi(routeGETNewsSources, async (c) => {
     return c.json(data, 200);
   } catch (error) {
     console.error(error);
-    return c.json([], 200);
+    return c.json([], 500);
   }
-}); 
+});

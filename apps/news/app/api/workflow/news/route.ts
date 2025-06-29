@@ -1,11 +1,10 @@
 import { parseNewsFromSource } from "@/lib/parse-news";
 import { serve } from "@upstash/workflow/nextjs";
-import { clearNewsCache, getArticlesForCountry, getCountryCodes, uploadArticle } from "@yz13/api/articles";
-import { getNewsSources } from "@yz13/api/sources";
+import { getV1NewsCodes, getV1NewsCountryCodeArticles, getV1NewsNewsSources, postV1NewsArticlesNew, postV1NewsCacheClear } from "@yz13/api";
 
 export const { POST } = serve(async (context) => {
   const codes = await context.run("fetching-country-codes", async () => {
-    const { data } = await getCountryCodes();
+    const data = await getV1NewsCodes();
     return data ?? [];
   });
   const sources = await context.run(
@@ -13,9 +12,8 @@ export const { POST } = serve(async (context) => {
     async () => {
       if (codes.length === 0) await context.cancel();
       const newsSources = (
-        await Promise.all(codes.map((code) => getNewsSources(code)))
+        await Promise.all(codes.map((code) => getV1NewsNewsSources({ country_code: code })))
       )
-        .map((sources) => (sources.data ?? []).flat())
         .flat();
       return newsSources;
     },
@@ -42,12 +40,12 @@ export const { POST } = serve(async (context) => {
   await context.run("storing-articles", async () => {
     console.log("about-to-store-articles", articles.length);
     if (articles.length === 0) await context.cancel();
-    else await Promise.all(articles.map((article) => uploadArticle(article)));
+    else await Promise.all(articles.map((article) => postV1NewsArticlesNew(article)));
   });
 
-  await clearNewsCache()
+  await postV1NewsCacheClear()
 
-  await getArticlesForCountry("RU")
+  await getV1NewsCountryCodeArticles("RU")
 
   return new Response(JSON.stringify({ articles, codes, sources }), {
     status: 200,

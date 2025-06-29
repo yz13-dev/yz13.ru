@@ -9,4 +9,4 @@
 /**
  * @nullable
  */
-export type PostV1NewsArticlesNew401 = unknown | null;
+export type PostV1NewsArticlesNew200Img = unknown | null;

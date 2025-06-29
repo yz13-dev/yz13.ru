@@ -5,8 +5,24 @@
  * It's YZ13 API
  * OpenAPI spec version: 1.0.0
  */
+import type { GetV1NewsCountryCodeArticles200ItemImg } from './get-v1-news-country-code-articles200-item-img';
 
-/**
- * @nullable
- */
-export type GetV1NewsCountryCodeArticles200Item = unknown | null;
+export type GetV1NewsCountryCodeArticles200Item = {
+  id: string;
+  title: string;
+  /** @nullable */
+  description: string | null;
+  url: string;
+  /** @nullable */
+  author: string | null;
+  published_at: string;
+  /** @nullable */
+  source: string | null;
+  /** @nullable */
+  source_id: string | null;
+  method: string;
+  /** @nullable */
+  tags: string[] | null;
+  /** @nullable */
+  img?: GetV1NewsCountryCodeArticles200ItemImg;
+};

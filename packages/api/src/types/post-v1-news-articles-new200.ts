@@ -5,8 +5,27 @@
  * It's YZ13 API
  * OpenAPI spec version: 1.0.0
  */
+import type { PostV1NewsArticlesNew200Img } from './post-v1-news-articles-new200-img';
 
 /**
  * @nullable
  */
-export type PostV1NewsArticlesNew200 = unknown | null;
+export type PostV1NewsArticlesNew200 = {
+  id: string;
+  title: string;
+  /** @nullable */
+  description: string | null;
+  url: string;
+  /** @nullable */
+  author: string | null;
+  published_at: string;
+  /** @nullable */
+  source: string | null;
+  /** @nullable */
+  source_id: string | null;
+  method: string;
+  /** @nullable */
+  tags: string[] | null;
+  /** @nullable */
+  img?: PostV1NewsArticlesNew200Img;
+} | null;

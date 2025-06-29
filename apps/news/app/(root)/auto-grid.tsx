@@ -1,14 +1,16 @@
 "use client";
 import type { CalendarLocale } from "@/const/locale-to-country";
 import { chunk } from "@/lib/chunk";
-import { getArticlesForCountry } from "@yz13/api/articles";
-import type { Article } from "@yz13/api/types/articles";
+import { getV1NewsCountryCodeArticles } from "@yz13/api";
+import { GetV1NewsCountryCodeArticles200Item } from "@yz13/api/types";
 import { format } from "date-fns";
 import "dayjs/locale/ru";
 import { Loader2Icon } from "lucide-react";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import NewsChunk from "./news-chunk";
+
+type Article = GetV1NewsCountryCodeArticles200Item;
 
 type AutoGridProps = {
   date?: string;
@@ -39,10 +41,12 @@ const AutoGrid = ({
     setLoading(true);
     try {
       const newOffset = offset + offsetStep;
-      const { data: articles } = await getArticlesForCountry(
+      const articles = await getV1NewsCountryCodeArticles(
         locale,
-        newOffset,
-        date,
+        {
+          offset: String(newOffset),
+          date: date,
+        }
       );
       const newArticles = articles ?? [];
       const filteredArticles = newArticles.filter((article) => {

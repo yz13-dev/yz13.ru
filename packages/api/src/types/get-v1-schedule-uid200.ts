@@ -13,6 +13,9 @@ import type { GetV1ScheduleUid200FridayItem } from './get-v1-schedule-uid200-fri
 import type { GetV1ScheduleUid200SaturdayItem } from './get-v1-schedule-uid200-saturday-item';
 import type { GetV1ScheduleUid200SundayItem } from './get-v1-schedule-uid200-sunday-item';
 
+/**
+ * @nullable
+ */
 export type GetV1ScheduleUid200 = {
   uid: string;
   calendar_id: string;
@@ -32,4 +35,4 @@ export type GetV1ScheduleUid200 = {
   sunday: GetV1ScheduleUid200SundayItem[] | null;
   /** @nullable */
   durations: string[] | null;
-};
+} | null;
