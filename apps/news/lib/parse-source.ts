@@ -1,12 +1,14 @@
-import { NewArticle } from "@yz13/api/types/articles";
-import { Tables } from "@yz13/supabase/database";
+import { GetV1NewsNewsSourcesSourceId200, PostV1NewsArticlesNewBody } from "@yz13/api/types";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Parser from "rss-parser";
 dayjs.extend(utc);
-export type NewsSource = Tables<"news_sources">;
 
-async function fetchRSS(source: NewsSource): Promise<NewArticle[]> {
+type NewsSource = GetV1NewsNewsSourcesSourceId200;
+type NewArticle = PostV1NewsArticlesNewBody;
+
+async function fetchRSS(source: NewsSource): Promise<PostV1NewsArticlesNewBody[]> {
+  if (!source) return [];
   if (!source.rss) return [];
   try {
     const parser = new Parser();
@@ -21,7 +23,7 @@ async function fetchRSS(source: NewsSource): Promise<NewArticle[]> {
       source: source.id,
       author: item.author,
       description: item.description,
-      tags: typeof item.categories !== undefined ? item.categories : [],
+      tags: item.categories,
       img: item.enclosure as NewArticle["img"],
     }));
   } catch (error) {
@@ -32,7 +34,8 @@ async function fetchRSS(source: NewsSource): Promise<NewArticle[]> {
 
 export type ParseType = "rss" | "html";
 export async function parseNews(source: NewsSource): Promise<NewArticle[]> {
+  if (!source) return [];
   const hasRSS = !!source.rss;
   if (hasRSS) return await fetchRSS(source);
-  else return [];
+  return [];
 }

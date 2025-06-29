@@ -1,6 +1,8 @@
 import { CalendarLocale } from "@/const/locale-to-country";
-import { Article } from "@yz13/api/types/articles";
+import { GetV1NewsArticleArticleId200 } from "@yz13/api/types";
 import NewsCard from "./news-card";
+
+type Article = NonNullable<GetV1NewsArticleArticleId200>;
 
 type NewsChunkProps = {
   articles?: Article[];

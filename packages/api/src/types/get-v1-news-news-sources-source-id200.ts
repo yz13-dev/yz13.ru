@@ -9,4 +9,13 @@
 /**
  * @nullable
  */
-export type GetV1NewsNewsSourcesSourceId200 = unknown | null;
+export type GetV1NewsNewsSourcesSourceId200 = {
+  id: string;
+  name: string;
+  url: string;
+  country_code: string;
+  /** @nullable */
+  rss: string | null;
+  /** @nullable */
+  created_at: string | null;
+} | null;

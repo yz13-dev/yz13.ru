@@ -1,5 +1,5 @@
 import { CalendarLocale, locales } from "@/const/locale-to-country";
-import { Article } from "@yz13/api/types/articles";
+import { GetV1NewsArticleArticleId200 } from "@yz13/api/types";
 import { cn } from "@yz13/ui/cn";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import dayjs from "dayjs";
@@ -8,6 +8,8 @@ import { DotIcon, ExternalLinkIcon, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 dayjs.extend(relativeTime);
+
+type Article = NonNullable<GetV1NewsArticleArticleId200>;
 
 type NewsCardProps = {
   locale?: CalendarLocale;
@@ -45,8 +47,8 @@ const NewsCard = ({
 }: NewsCardProps) => {
   const currentLocale = locales[locale];
   const img = article ? (article.img as { url: string }) : null;
-  const sourceLink = article.news_source?.url;
-  const sourceName = article.news_source?.name;
+  const sourceLink = null //article.news_source?.url;
+  const sourceName = null // article.news_source?.name;
   const publishedAt = formatDistanceToNow(parseISO(article.published_at), {
     addSuffix: true,
     locale: currentLocale,
@@ -57,13 +59,16 @@ const NewsCard = ({
       className={cn("w-full flex group/link flex-col gap-2", className)}
     >
       {showThumbnail && <NewsThumbnail img={img} />}
-      <Link
-        href={sourceLink}
-        className="text-xs inline-flex text-muted-foreground hover:text-foreground transition-colors items-center gap-1.5 font-medium"
-      >
-        {sourceName}
-        <ExternalLinkIcon size={12} />
-      </Link>
+      {
+        sourceLink &&
+        <Link
+          href={sourceLink}
+          className="text-xs inline-flex text-muted-foreground hover:text-foreground transition-colors items-center gap-1.5 font-medium"
+        >
+          {sourceName}
+          <ExternalLinkIcon size={12} />
+        </Link>
+      }
       <Link
         href={article.url}
         target="_blank"
