@@ -49,7 +49,9 @@ root.openapi(routeGETStore, async (c) => {
 });
 
 root.openapi(routePOSTStore, async (c) => {
+
   const body = await c.req.json();
+
   const data = await createPublication(body);
   return c.json(data, 200);
 });

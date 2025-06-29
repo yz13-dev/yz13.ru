@@ -37,11 +37,21 @@ export const createPublication = async (body: PublicationInsert): Promise<Public
   const cookieStore = await cookies();
   try {
     const supabase = createClient(cookieStore);
-    const { data, error } = await supabase.from("publications").insert(body).select().maybeSingle();
+
+    const { data, error } = await supabase
+      .from("publications")
+      .insert(
+        [body]
+      )
+      .select()
+      .maybeSingle();
+
     if (error) {
       console.log(error);
       return null;
-    } else return data;
+    }
+
+    return data;
   } catch (error) {
     return null;
   }
@@ -72,4 +82,4 @@ export const getPublicationById = async (id: string): Promise<Publication | null
   } catch (error) {
     return null;
   }
-}; 
+};
