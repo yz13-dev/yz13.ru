@@ -6,9 +6,6 @@ const routePOSTNewArticle = createRoute({
   method: "post",
   path: "/",
   request: {
-    headers: z.object({
-      authorization: z.string()
-    }),
     body: {
       content: {
         "application/json": {
@@ -50,12 +47,18 @@ export const newArticle = new OpenAPIHono();
 newArticle.openapi(routePOSTNewArticle, async (c) => {
   try {
     const token = c.req.header("Authorization");
+
+    console.log(token);
+
     if (!token) {
       console.log("no token");
       return c.json(null, 401);
     }
 
     const article = await c.req.json();
+
+    console.log(article);
+
     const result = await createArticle(article, token);
 
     if (result.error) {
