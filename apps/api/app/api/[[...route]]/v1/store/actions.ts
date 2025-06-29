@@ -34,26 +34,30 @@ export const getPublications = async (): Promise<Publication[]> => {
 };
 
 export const createPublication = async (body: PublicationInsert): Promise<Publication | null> => {
-  return null;
-  // const cookieStore = await cookies();
-  // try {
-  //   const supabase = createClient(cookieStore);
+  const cookieStore = await cookies();
+  try {
+    const supabase = createClient(cookieStore);
 
-  //   const { data, error } = await supabase
-  //     .from("publications")
-  //     .insert([body])
-  //     .select()
-  //     .maybeSingle();
+    const { data, error } = await supabase
+      .from("publications")
+      .insert({
+        ...body,
+        icon: body.icon || null,
+        description: body.description || null,
+        categories: body.categories || [],
+      })
+      .select()
+      .maybeSingle();
 
-  //   if (error) {
-  //     console.log(error);
-  //     return null;
-  //   }
+    if (error) {
+      console.log(error);
+      return null;
+    }
 
-  //   return data;
-  // } catch (error) {
-  //   return null;
-  // }
+    return data;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const getPublicationById = async (id: string): Promise<Publication | null> => {

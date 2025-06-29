@@ -13,6 +13,7 @@ export default defineConfig([
   {
     entry: ["src/types.ts"],
     outDir: "dist",
+    format: ["esm", "cjs"],
     splitting: false,
     sourcemap: true,
     minify: true,
@@ -24,6 +25,7 @@ export default defineConfig([
   },
   {
     entry: ["src/lib/*", "src/locales/*", "src/supabase/*"],
+    format: ["esm", "cjs"],
     splitting: false,
     sourcemap: true,
     minify: true,
