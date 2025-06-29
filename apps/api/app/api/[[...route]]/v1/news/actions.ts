@@ -24,19 +24,19 @@ export const getNewsSources = async (countryCode?: string): Promise<NewsSource[]
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     if (countryCode) {
       const { data, error } = await supabase
         .from("news_sources")
         .select()
         .eq("country_code", countryCode.toUpperCase());
-      
+
       if (error) {
         return [];
       }
       return data || [];
     }
-    
+
     const { data, error } = await supabase.from("news_sources").select();
     if (error) {
       return [];
@@ -52,14 +52,14 @@ export const getNewsSourceById = async (sourceId: string): Promise<NewsSource | 
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase
       .from("news_sources")
       .select()
       .eq("id", sourceId)
       .limit(1)
       .maybeSingle();
-    
+
     if (error) {
       return null;
     }
@@ -75,15 +75,15 @@ export const getCountrySources = async (code?: string): Promise<NewsSource[]> =>
     if (!code) {
       return [];
     }
-    
+
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase
       .from("news_sources")
       .select("*")
       .eq("country_code", code.toUpperCase());
-    
+
     if (error) {
       return [];
     }
@@ -98,7 +98,7 @@ export const getArticles = async (offset: number = 0, limit: number = 10): Promi
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase
       .from("news")
       .select(
@@ -109,7 +109,7 @@ export const getArticles = async (offset: number = 0, limit: number = 10): Promi
       )
       .order("published_at", { ascending: false })
       .range(offset, offset + limit);
-    
+
     if (error) {
       return [];
     }
@@ -124,7 +124,7 @@ export const getArticlesBySource = async (sourceId: string): Promise<News[]> => 
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase
       .from("news")
       .select(
@@ -134,7 +134,7 @@ export const getArticlesBySource = async (sourceId: string): Promise<News[]> => 
         `,
       )
       .eq("source_id", sourceId);
-    
+
     if (error) {
       return [];
     }
@@ -150,7 +150,7 @@ export const getCountryArticles = async (code?: string, offset: number = 0, limi
     if (!code) {
       return [];
     }
-    
+
     const defaultDate = new Date();
     const date = format(
       dateQuery ? parseISO(dateQuery) : defaultDate,
@@ -166,7 +166,7 @@ export const getCountryArticles = async (code?: string, offset: number = 0, limi
     const actualLimit = limit || (chunkSize * 4);
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase
       .from("news")
       .select(
@@ -200,7 +200,7 @@ export const getArticleById = async (articleId: string): Promise<News | null> =>
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase
       .from("news")
       .select(
@@ -212,7 +212,7 @@ export const getArticleById = async (articleId: string): Promise<News | null> =>
       .eq("id", articleId)
       .limit(1)
       .maybeSingle();
-    
+
     if (error) {
       return null;
     }
@@ -227,15 +227,15 @@ export const getCountryCodes = async (): Promise<string[]> => {
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase
       .from("news_sources")
       .select("country_code");
-    
+
     if (error) {
       return [];
     }
-    
+
     const codes = data.map(({ country_code }) => country_code);
     const unique = [...new Set(codes)];
     return unique;
@@ -249,13 +249,13 @@ export const getCategories = async (): Promise<string[]> => {
   try {
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
-    
+
     const { data, error } = await supabase.from("news").select("tags");
-    
+
     if (error) {
       return [];
     }
-    
+
     const tags = data
       .map(({ tags }) => tags)
       .flat()
@@ -272,11 +272,13 @@ export const createArticle = async (article: NewsInsert, token: string): Promise
   try {
     const NEWS_API_TOKEN = process.env.NEWS_API_TOKEN;
     const tokenValid = token.replace("Bearer ", "") === NEWS_API_TOKEN;
-    
+
     if (!tokenValid) {
       return { error: "Unauthorized" };
     }
-    
+
+    if (!article.source_id) return { error: "Source id is required" };
+
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
 
@@ -293,19 +295,19 @@ export const createArticle = async (article: NewsInsert, token: string): Promise
       console.log("article already exists", title);
       return { data: similarArticles[0] };
     }
-    
+
     const tags: string[] = (article.tags || []).filter(
       (tag: string | null) => tag !== null,
     );
     const isSourceWithObjectTags = sourcesWithObjectTags.includes(source_id || "");
     const articleTags = isSourceWithObjectTags ? parseObjTags(tags) : tags;
-    
+
     const { data, error } = await supabase
       .from("news")
       .insert({ ...article, tags: articleTags })
       .select()
       .maybeSingle();
-    
+
     console.log(data, error);
     if (error) {
       return { error };
@@ -325,4 +327,4 @@ export const clearCache = async (): Promise<boolean> => {
     console.log(error);
     return false;
   }
-}; 
+};
