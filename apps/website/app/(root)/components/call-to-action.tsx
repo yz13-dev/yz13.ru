@@ -18,7 +18,7 @@ type Props = {
 export const CallToActionSkeleton = ({ className = "" }: { className?: string }) => {
   return (
     <div className={cn("w-full", className)}>
-      <div className="h-fit flex w-full justify-center items-center flex-row gap-2">
+      <div className="h-fit flex w-full justify-center items-center flex-row gap-6">
         <Skeleton className="rounded-full h-12 w-56" />
         <Skeleton className="rounded-full h-12 w-32" />
       </div>

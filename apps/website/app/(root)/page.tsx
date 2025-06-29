@@ -3,6 +3,7 @@ import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
 import User from "@/components/user";
 import { availableForWork, getMainEmail, getSecondaryEmail } from "@yz13/flags";
+import { isDev } from "@yz13/supabase/env";
 import { cn } from "@yz13/ui/cn";
 import { Badge } from "@yz13/ui/components/badge";
 import { Button } from "@yz13/ui/components/button";
@@ -12,11 +13,13 @@ import Link from "next/link";
 import { Suspense } from "react";
 import Background from "./components/background";
 import CallToAction from "./components/call-to-action";
+import Center from "./components/center";
 import OtherProjects, { OtherProjectsSkeleton } from "./components/other-projects";
 import ServicesDetails from "./components/services-details";
 import Stand from "./components/widgets/stand";
 
 export default async function page() {
+
   const isAvailable = await availableForWork();
   const chat_url = "https://t.me/yz13_dev";
 
@@ -91,7 +94,12 @@ export default async function page() {
                 <Link href={`mailto:${secondaryEmail}`} className="text-foreground text-xs hover:underline">{secondaryEmail}</Link>
               </div>
             </div>
-            <div className="flex items-center gap-2"></div>
+            <div className="flex items-center gap-2">
+              {
+                isDev &&
+                <Center />
+              }
+            </div>
           </div>
         </div>
       </div>

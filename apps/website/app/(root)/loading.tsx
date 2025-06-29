@@ -50,7 +50,7 @@ export default function loading() {
           <div className={cn(
             "flex lg:flex-row flex-col w-full items-center justify-center gap-6 px-6",
           )}>
-            <CallToActionSkeleton className="lg:w-fit w-full lg:*:w-fit *:w-full" />
+            <CallToActionSkeleton className="lg:[&>div>*]:w-56 [&>div>*]:w-full lg:[&>div]:flex-row [&>div]:flex-col" />
           </div>
         </main>
         <div className="w-full h-[10%] py-3 flex iteitems-center justify-center" />

@@ -2,11 +2,11 @@
 
 import * as sdk from "hypertune";
 
-export const queryId = "d06e2843-143c-5b11-8179-4f18ddd9917d";
+export const queryId = "9f584f68-72e7-5142-9bcf-e5e55b838a23";
 
-export const query: sdk.Query<sdk.ObjectValueWithVariables> = {"variableDefinitions":{},"fragmentDefinitions":{},"fieldQuery":{"Query":{"type":"InlineFragment","objectTypeName":"Query","selection":{"root":{"fieldArguments":{"__isPartialObject__":true},"fieldQuery":{"Root":{"type":"InlineFragment","objectTypeName":"Root","selection":{"primaryEmail":{"fieldArguments":{},"fieldQuery":null},"secondaryEmail":{"fieldArguments":{},"fieldQuery":null},"showSearch":{"fieldArguments":{},"fieldQuery":null},"showRequestSite":{"fieldArguments":{},"fieldQuery":null},"showEmailSubscribe":{"fieldArguments":{},"fieldQuery":null},"showLinkToCalendar":{"fieldArguments":{},"fieldQuery":null},"showEventForm":{"fieldArguments":{},"fieldQuery":null},"availableForWork":{"fieldArguments":{},"fieldQuery":null},"enableSearch":{"fieldArguments":{},"fieldQuery":null}}}}}}}}};
+export const query: sdk.Query<sdk.ObjectValueWithVariables> = {"variableDefinitions":{},"fragmentDefinitions":{"CallToAction":{"type":"InlineFragment","objectTypeName":"CallToAction","selection":{"label":{"fieldArguments":{},"fieldQuery":null},"href":{"fieldArguments":{},"fieldQuery":null},"disabled":{"fieldArguments":{},"fieldQuery":null},"visible":{"fieldArguments":{},"fieldQuery":null},"variant":{"fieldArguments":{},"fieldQuery":null},"icon":{"fieldArguments":{},"fieldQuery":null}}}},"fieldQuery":{"Query":{"type":"InlineFragment","objectTypeName":"Query","selection":{"root":{"fieldArguments":{"__isPartialObject__":true},"fieldQuery":{"Root":{"type":"InlineFragment","objectTypeName":"Root","selection":{"callToAction":{"fieldArguments":{},"fieldQuery":{"CallToAction":{"type":"FragmentSpread","fragmentName":"CallToAction"}}},"primaryEmail":{"fieldArguments":{},"fieldQuery":null},"secondaryEmail":{"fieldArguments":{},"fieldQuery":null},"showSearch":{"fieldArguments":{},"fieldQuery":null},"showRequestSite":{"fieldArguments":{},"fieldQuery":null},"showEmailSubscribe":{"fieldArguments":{},"fieldQuery":null},"showLinkToCalendar":{"fieldArguments":{},"fieldQuery":null},"showEventForm":{"fieldArguments":{},"fieldQuery":null},"availableForWork":{"fieldArguments":{},"fieldQuery":null}}}}}}}}};
 
-export const vercelFlagDefinitions = {"primaryEmail":{"options":[],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EprimaryEmail"},"secondaryEmail":{"options":[],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EsecondaryEmail"},"showSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowSearch"},"showRequestSite":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowRequestSite"},"showEmailSubscribe":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEmailSubscribe"},"showLinkToCalendar":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowLinkToCalendar"},"showEventForm":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEventForm"},"availableForWork":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EavailableForWork"},"enableSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EenableSearch"}};
+export const vercelFlagDefinitions = {"primaryEmail":{"options":[],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EprimaryEmail"},"secondaryEmail":{"options":[],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EsecondaryEmail"},"showSearch":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowSearch"},"showRequestSite":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowRequestSite"},"showEmailSubscribe":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEmailSubscribe"},"showLinkToCalendar":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowLinkToCalendar"},"showEventForm":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EshowEventForm"},"availableForWork":{"options":[{"label":"Off","value":false},{"label":"On","value":true}],"origin":"https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EavailableForWork"}};
 
 export type RootFlagValues = {
   "primaryEmail": string;
@@ -17,7 +17,6 @@ export type RootFlagValues = {
   "showLinkToCalendar": boolean;
   "showEventForm": boolean;
   "availableForWork": boolean;
-  "enableSearch": boolean;
 }
 
 export type FlagValues = {
@@ -29,7 +28,6 @@ export type FlagValues = {
   "showLinkToCalendar": boolean;
   "showEventForm": boolean;
   "availableForWork": boolean;
-  "enableSearch": boolean;
 }
 
 export type FlagPaths = keyof FlagValues & string;
@@ -43,7 +41,6 @@ export const flagFallbacks: FlagValues = {
   "showLinkToCalendar": false,
   "showEventForm": false,
   "availableForWork": false,
-  "enableSearch": false,
 }
 
 export function decodeFlagValues<TFlagPaths extends keyof FlagValues & string>(
@@ -54,12 +51,6 @@ export function decodeFlagValues<TFlagPaths extends keyof FlagValues & string>(
 }
 
 export type VariableValues = {};
-
-export type User = {
-  id: string;
-  name: string;
-  email: string;
-}
 
 export const EnvironmentEnumValues = [
   "development",
@@ -76,7 +67,6 @@ export type Environment = typeof EnvironmentEnumValues[number];
  * or other input types.
  */
 export type Context = {
-  user: User;
   environment: Environment;
 }
 
@@ -86,7 +76,148 @@ export type RootArgs = {
 
 export type EmptyObject = {};
 
+export type CallToAction = {
+  label: string;
+  href: string;
+  disabled: boolean;
+  visible: boolean;
+  variant: string;
+  icon: string;
+}
+
+const callToActionFallback = {label:"",href:"",disabled:false,visible:false,variant:"",icon:""};
+
+export class CallToActionNode extends sdk.Node {
+  override typeName = "CallToAction" as const;
+
+  get({ fallback = callToActionFallback as CallToAction}: { fallback?: CallToAction } = {}): CallToAction {
+    const getQuery = null;
+    return this.getValue({ query: getQuery, fallback }) as CallToAction;
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/schema?selected_schema_type=%7B%22type%22%3A%22object%22%2C%22name%22%3A%22CallToAction%22%2C%22selectedChildName%22%3A%22label%22%7D})
+   */
+  label({ args = {}, fallback }: { args?: EmptyObject; fallback: string; }): string {
+    const props0 = this.getFieldNodeProps("label", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "StringExpression"
+    ) {
+      const node = new sdk.StringNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.StringNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/schema?selected_schema_type=%7B%22type%22%3A%22object%22%2C%22name%22%3A%22CallToAction%22%2C%22selectedChildName%22%3A%22href%22%7D})
+   */
+  href({ args = {}, fallback }: { args?: EmptyObject; fallback: string; }): string {
+    const props0 = this.getFieldNodeProps("href", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "StringExpression"
+    ) {
+      const node = new sdk.StringNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.StringNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/schema?selected_schema_type=%7B%22type%22%3A%22object%22%2C%22name%22%3A%22CallToAction%22%2C%22selectedChildName%22%3A%22disabled%22%7D})
+   */
+  disabled({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
+    const props0 = this.getFieldNodeProps("disabled", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "BooleanExpression"
+    ) {
+      const node = new sdk.BooleanNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.BooleanNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/schema?selected_schema_type=%7B%22type%22%3A%22object%22%2C%22name%22%3A%22CallToAction%22%2C%22selectedChildName%22%3A%22visible%22%7D})
+   */
+  visible({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
+    const props0 = this.getFieldNodeProps("visible", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "BooleanExpression"
+    ) {
+      const node = new sdk.BooleanNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.BooleanNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/schema?selected_schema_type=%7B%22type%22%3A%22object%22%2C%22name%22%3A%22CallToAction%22%2C%22selectedChildName%22%3A%22variant%22%7D})
+   */
+  variant({ args = {}, fallback }: { args?: EmptyObject; fallback: string; }): string {
+    const props0 = this.getFieldNodeProps("variant", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "StringExpression"
+    ) {
+      const node = new sdk.StringNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.StringNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/schema?selected_schema_type=%7B%22type%22%3A%22object%22%2C%22name%22%3A%22CallToAction%22%2C%22selectedChildName%22%3A%22icon%22%7D})
+   */
+  icon({ args = {}, fallback }: { args?: EmptyObject; fallback: string; }): string {
+    const props0 = this.getFieldNodeProps("icon", { fieldArguments: args });
+    const expression0 = props0.expression;
+
+    if (
+      expression0 &&
+      expression0.type === "StringExpression"
+    ) {
+      const node = new sdk.StringNode(props0);
+      return node.get({ fallback });
+    }
+
+    const node = new sdk.StringNode(props0);
+    node._logUnexpectedTypeError();
+    return node.get({ fallback });
+  }
+}
+
 export type Root = {
+  callToAction: CallToAction[];
   primaryEmail: string;
   secondaryEmail: string;
   showSearch: boolean;
@@ -95,10 +226,9 @@ export type Root = {
   showLinkToCalendar: boolean;
   showEventForm: boolean;
   availableForWork: boolean;
-  enableSearch: boolean;
 }
 
-const rootFallback = {primaryEmail:"",secondaryEmail:"",showSearch:false,showRequestSite:false,showEmailSubscribe:false,showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false};
+const rootFallback = {callToAction:[],primaryEmail:"",secondaryEmail:"",showSearch:false,showRequestSite:false,showEmailSubscribe:false,showLinkToCalendar:false,showEventForm:false,availableForWork:false};
 
 export class RootNode extends sdk.Node {
   override typeName = "Root" as const;
@@ -111,6 +241,29 @@ export class RootNode extends sdk.Node {
   get({ fallback = rootFallback as Root}: { fallback?: Root } = {}): Root {
     const getQuery = null;
     return this.getValue({ query: getQuery, fallback }) as Root;
+  }
+
+  /**
+   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EcallToAction})
+   */
+  callToAction({ args = {}, listFallbackLength = 0 }: { args?: EmptyObject; listFallbackLength?: number; } = {}): CallToActionNode[] {
+    const props0 = this.getFieldNodeProps("callToAction", { fieldArguments: args });
+
+    return new sdk.Node(props0).getItemNodeProps({ fallbackLength: listFallbackLength }).map((props1) => {
+      const expression1 = props1.expression;
+
+      if (
+        expression1 &&
+        expression1.type === "ObjectExpression" &&
+        expression1.objectTypeName === "CallToAction"
+      ) {
+        return new CallToActionNode(props1);
+      }
+  
+      const node = new CallToActionNode(props1);
+      node._logUnexpectedTypeError();
+      return node;
+    });
   }
 
   /**
@@ -272,26 +425,6 @@ export class RootNode extends sdk.Node {
     node._logUnexpectedTypeError();
     return node.get({ fallback });
   }
-
-  /**
-   * [Open in Hypertune UI]({@link https://app.hypertune.com/projects/4870/main/draft/logic?selected_field_path=root%3EenableSearch})
-   */
-  enableSearch({ args = {}, fallback }: { args?: EmptyObject; fallback: boolean; }): boolean {
-    const props0 = this.getFieldNodeProps("enableSearch", { fieldArguments: args });
-    const expression0 = props0.expression;
-
-    if (
-      expression0 &&
-      expression0.type === "BooleanExpression"
-    ) {
-      const node = new sdk.BooleanNode(props0);
-      return node.get({ fallback });
-    }
-
-    const node = new sdk.BooleanNode(props0);
-    node._logUnexpectedTypeError();
-    return node.get({ fallback });
-  }
 }
 
 /**
@@ -315,7 +448,7 @@ export type Source = {
   root: Root;
 }
 
-const sourceFallback = {root:{primaryEmail:"",secondaryEmail:"",showSearch:false,showRequestSite:false,showEmailSubscribe:false,showLinkToCalendar:false,showEventForm:false,availableForWork:false,enableSearch:false}};
+const sourceFallback = {root:{callToAction:[],primaryEmail:"",secondaryEmail:"",showSearch:false,showRequestSite:false,showEmailSubscribe:false,showLinkToCalendar:false,showEventForm:false,availableForWork:false}};
 
 export type GetQueryRootArgs = {
   args: RootArgs;

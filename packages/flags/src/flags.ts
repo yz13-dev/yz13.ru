@@ -28,9 +28,6 @@ const hypertuneAdapter = createHypertuneAdapter<
   identify,
 });
 
-export const enableSearch = flag<boolean>(
-  hypertuneAdapter.declarations.enableSearch,
-);
 export const availableForWork = flag<boolean>(hypertuneAdapter.declarations.availableForWork)
 
 export const showEventForm = flag<boolean>(hypertuneAdapter.declarations.showEventForm)
@@ -40,3 +37,5 @@ export const showLinkToCalendar = flag<boolean>(hypertuneAdapter.declarations.sh
 export const getMainEmail = flag<string>(hypertuneAdapter.declarations.primaryEmail)
 
 export const getSecondaryEmail = flag<string>(hypertuneAdapter.declarations.secondaryEmail)
+
+export const callToAction = flag(hypertuneAdapter.declarations.callToAction)

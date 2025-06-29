@@ -75,7 +75,10 @@ export default function Background({
           initial={{ opacity: 0 }}
           animate={{ opacity: loaded ? 1 : 0 }}
           transition={{ duration: 1 }}
-          className="w-full h-full relative"
+          className={cn(
+            "w-full h-full relative",
+            "backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background blur-2xl"
+          )}
         >
           <Image
             onLoad={() => setLoaded(true)}
@@ -85,7 +88,7 @@ export default function Background({
             alt="background"
           />
         </motion.div>
-        <div className="w-full h-full absolute inset-0 backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background backdrop-blur-2xl" />
+        {/* <div className="w-full h-full absolute inset-0" /> */}
       </div>
     </div>
   );
