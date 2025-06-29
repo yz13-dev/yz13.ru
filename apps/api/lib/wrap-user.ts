@@ -1,6 +1,6 @@
+import { avatarURL } from "@/lib/avatar-url";
 import type { UserObject } from "@/schemas/user";
 import type { User } from "@yz13/supabase/types";
-import { getAvatarURL } from "@yz13/utils/avatar-url";
 
 export const wrapUser = (user: User): UserObject => {
   const role = user.user_metadata.role as string;
@@ -10,7 +10,7 @@ export const wrapUser = (user: User): UserObject => {
 
   const avatar_url = (user.user_metadata.avatar_url as string) || null;
 
-  const wrapped_avatar_url = avatar_url ? getAvatarURL(avatar_url) : null;
+  const wrapped_avatar_url = avatar_url ? avatarURL(avatar_url) : null;
 
   return {
     id: user.id,
