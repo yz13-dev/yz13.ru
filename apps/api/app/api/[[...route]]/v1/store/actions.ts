@@ -34,15 +34,14 @@ export const getPublications = async (): Promise<Publication[]> => {
 };
 
 export const createPublication = async (body: PublicationInsert): Promise<Publication | null> => {
+  return null;
   const cookieStore = await cookies();
   try {
     const supabase = createClient(cookieStore);
 
     const { data, error } = await supabase
       .from("publications")
-      .insert(
-        [body]
-      )
+      .insert([body])
       .select()
       .maybeSingle();
 
