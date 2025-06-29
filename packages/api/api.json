@@ -1356,16 +1356,6 @@
     },
     "/v1/news/articles/new": {
       "post": {
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "name": "authorization",
-            "in": "header"
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
