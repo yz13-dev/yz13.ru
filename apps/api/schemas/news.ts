@@ -6,7 +6,7 @@ export const newsSchema = z.object({
   description: z.string().nullable(),
   url: z.string().url(),
   author: z.string().nullable(),
-  published_at: z.string().datetime(),
+  published_at: z.string().datetime({ offset: true }),
   source: z.string().nullable(),
   source_id: z.string().nullable(),
   method: z.string(),
@@ -33,4 +33,4 @@ export const newsArraySchema = z.array(newsSchema);
 
 export type News = z.infer<typeof newsSchema>;
 export type NewsInsert = z.infer<typeof newsInsertSchema>;
-export type NewsUpdate = z.infer<typeof newsUpdateSchema>; 
+export type NewsUpdate = z.infer<typeof newsUpdateSchema>;
