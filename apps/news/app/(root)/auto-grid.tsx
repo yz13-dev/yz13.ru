@@ -68,6 +68,7 @@ const AutoGrid = ({
   useEffect(() => {
     if (inView) handleNewArticles();
   }, [inView]);
+  if (!data.length) return null;
   return (
     <>
       {children}

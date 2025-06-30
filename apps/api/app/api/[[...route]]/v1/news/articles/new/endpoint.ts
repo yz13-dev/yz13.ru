@@ -46,15 +46,6 @@ export const newArticle = new OpenAPIHono();
 
 newArticle.openapi(routePOSTNewArticle, async (c) => {
   try {
-    const token = c.req.header("Authorization");
-
-    console.log(token);
-
-    if (!token) {
-      console.log("no token");
-      return c.json(null, 401);
-    }
-
     const article = await c.req.json();
 
     console.log(article);

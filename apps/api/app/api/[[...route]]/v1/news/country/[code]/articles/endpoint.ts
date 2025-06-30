@@ -23,6 +23,14 @@ const routeGETCountryArticles = createRoute({
           schema: newsArraySchema
         }
       }
+    },
+    500: {
+      description: "IntervalError",
+      content: {
+        "application/json": {
+          schema: newsArraySchema
+        }
+      }
     }
   }
 });
@@ -40,9 +48,10 @@ countryArticles.openapi(routeGETCountryArticles, async (c) => {
     const date = c.req.query("date");
 
     const data = await getCountryArticles(code, offset, limit, date);
+
     return c.json(data, 200);
   } catch (error) {
     console.error(error);
-    return c.json([], 200);
+    return c.json([], 500);
   }
 });

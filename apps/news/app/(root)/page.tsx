@@ -5,7 +5,7 @@ import { getLocaleFromCookie } from "@/lib/locale";
 import { getV1NewsCountryCodeArticles } from "@yz13/api";
 import { Button } from "@yz13/ui/components/button";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { BracketsIcon, CalendarIcon } from "lucide-react";
 import AutoGrid from "./auto-grid";
 import CalendarPicker from "./calendar-picker";
 import NewsChunk from "./news-chunk";
@@ -13,11 +13,13 @@ import Time from "./time";
 
 const page = async () => {
   const language = (await getLocaleFromCookie()) || "RU";
+
   const data = await getV1NewsCountryCodeArticles(language);
+
   const articles = data ?? [];
   const sliceNumber = 8;
   const chunks = chunk(articles, sliceNumber);
-  const firstChunk = chunks[0];
+  const firstChunk = chunks[0] ?? [];
   const restOfChunks = chunks.slice(1);
   const flattedRestOfChunks = restOfChunks.flat();
   const country = contries[language as keyof typeof contries];
@@ -51,10 +53,21 @@ const page = async () => {
         </div>
       </div>
       <div className="*:p-6 max-w-4xl border mx-auto rounded-3xl bg-background divide-y">
-        <NewsChunk
-          articles={firstChunk}
-          locale={language.toLowerCase() as CalendarLocale}
-        />
+        {
+          firstChunk?.length === 0
+            ?
+            <div className="w-full gap-2 aspect-video flex items-center justify-center">
+              <BracketsIcon size={18} className="text-muted-foreground" />
+              <span className="text-base text-muted-foreground">
+                Список пустой
+              </span>
+            </div>
+            :
+            <NewsChunk
+              articles={firstChunk}
+              locale={language.toLowerCase() as CalendarLocale}
+            />
+        }
         <AutoGrid
           data={flattedRestOfChunks}
           defaultOffset={articles.length}

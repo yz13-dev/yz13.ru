@@ -146,6 +146,7 @@ export const getArticlesBySource = async (sourceId: string): Promise<News[]> => 
 };
 
 export const getCountryArticles = async (code?: string, offset: number = 0, limit?: number, dateQuery?: string): Promise<News[]> => {
+
   try {
     if (!code) {
       return [];
@@ -268,16 +269,19 @@ export const getCategories = async (): Promise<string[]> => {
   }
 };
 
-export const createArticle = async (article: NewsInsert, token: string): Promise<{ data?: News; error?: any }> => {
+export const createArticle = async (article: NewsInsert): Promise<News | null> => {
   try {
-    const NEWS_API_TOKEN = process.env.NEWS_API_TOKEN;
-    const tokenValid = token.replace("Bearer ", "") === NEWS_API_TOKEN;
+    // const NEWS_API_TOKEN = process.env.NEWS_API_TOKEN;
+    // const tokenValid = token.replace("Bearer ", "") === NEWS_API_TOKEN;
 
-    if (!tokenValid) {
-      return { error: "Unauthorized" };
+    // if (!tokenValid) {
+    // return { error: "Unauthorized" };
+    // }
+
+    if (!article.source_id) {
+      console.log("article.source_id", article.source_id);
+      return null;
     }
-
-    if (!article.source_id) return { error: "Source id is required" };
 
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
@@ -292,8 +296,8 @@ export const createArticle = async (article: NewsInsert, token: string): Promise
       .eq("source_id", source_id);
 
     if (similarArticles && similarArticles.length > 0) {
-      console.log("article already exists", title);
-      return { data: similarArticles[0] };
+      console.log("article already exists", title, similarArticles.length);
+      return null
     }
 
     const tags: string[] = (article.tags || []).filter(
@@ -310,17 +314,18 @@ export const createArticle = async (article: NewsInsert, token: string): Promise
 
     console.log(data, error);
     if (error) {
-      return { error };
+      console.log(error)
+      return null
     }
 
     if (!data) {
-      return { data: undefined };
+      return null
     }
 
-    return { data };
+    return data
   } catch (error) {
     console.log(error);
-    return { error };
+    return null;
   }
 };
 

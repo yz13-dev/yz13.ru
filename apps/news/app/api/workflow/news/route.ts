@@ -40,7 +40,13 @@ export const { POST } = serve(async (context) => {
   await context.run("storing-articles", async () => {
     console.log("about-to-store-articles", articles.length);
     if (articles.length === 0) await context.cancel();
-    else await Promise.all(articles.map((article) => postV1NewsArticlesNew(article, { headers: { Authorization: `Bearer ` } })));
+    else {
+      articles.forEach((article) => {
+        console.log("article", article);
+      });
+
+      await Promise.all(articles.map((article) => postV1NewsArticlesNew(article)));
+    }
   });
 
   await postV1NewsCacheClear()
