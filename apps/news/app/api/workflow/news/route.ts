@@ -1,3 +1,4 @@
+import { convertToISO } from "@/lib/parse-date";
 import { parseNewsFromSource } from "@/lib/parse-news";
 import { serve } from "@upstash/workflow/nextjs";
 import { getV1NewsCodes, getV1NewsCountryCodeArticles, getV1NewsNewsSources, postV1NewsArticlesNew, postV1NewsCacheClear } from "@yz13/api";
@@ -45,7 +46,12 @@ export const { POST } = serve(async (context) => {
         console.log("article", article);
       });
 
-      await Promise.all(articles.map((article) => postV1NewsArticlesNew(article)));
+      const formatted = articles.map((article) => ({
+        ...article,
+        published_at: convertToISO(article.published_at, true),
+      }))
+
+      await Promise.all(formatted.map((article) => postV1NewsArticlesNew(article)));
     }
   });
 
