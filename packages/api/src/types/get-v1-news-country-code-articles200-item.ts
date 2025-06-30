@@ -25,7 +25,7 @@ export type GetV1NewsCountryCodeArticles200Item = {
   /** @nullable */
   tags: string[] | null;
   /** @nullable */
-  img?: GetV1NewsCountryCodeArticles200ItemImg;
+  img: GetV1NewsCountryCodeArticles200ItemImg;
   /** @nullable */
   news_source: GetV1NewsCountryCodeArticles200ItemNewsSource;
 };

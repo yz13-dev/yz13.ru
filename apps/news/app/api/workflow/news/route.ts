@@ -1,10 +1,13 @@
+import { createArticle } from "@/lib/create-article";
 import { convertToISO } from "@/lib/parse-date";
 import { parseNewsFromSource } from "@/lib/parse-news";
 import { serve } from "@upstash/workflow/nextjs";
-import { getV1NewsCodes, getV1NewsCountryCodeArticles, getV1NewsNewsSources, postV1NewsArticlesNew, postV1NewsCacheClear } from "@yz13/api";
+import { getV1NewsCodes, getV1NewsCountryCodeArticles, getV1NewsNewsSources, postV1NewsCacheClear } from "@yz13/api";
 import { formatISO } from "date-fns";
 
 export const { POST } = serve(async (context) => {
+
+
   const codes = await context.run("fetching-country-codes", async () => {
     const data = await getV1NewsCodes();
     return data ?? [];
@@ -63,7 +66,7 @@ export const { POST } = serve(async (context) => {
         }
       })
 
-      await Promise.all(formatted.map((article) => postV1NewsArticlesNew(article)));
+      await Promise.all(formatted.map((article) => createArticle(article)));
     }
   });
 

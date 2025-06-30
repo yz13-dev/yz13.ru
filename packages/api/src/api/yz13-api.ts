@@ -56,6 +56,8 @@ import type {
   PostV1EventsBody,
   PostV1NewsArticlesNew200,
   PostV1NewsArticlesNewBody,
+  PostV1NewsArticlesNewChunk200Item,
+  PostV1NewsArticlesNewChunkBodyItem,
   PostV1RoomsNew200,
   PostV1RoomsNewBody,
   PostV1Store200,
@@ -250,6 +252,17 @@ export const postV1NewsArticlesNew = (
       {url: `https://api.yz13.ru/v1/news/articles/new`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1NewsArticlesNewBody
+    },
+      options);
+    }
+  
+export const postV1NewsArticlesNewChunk = (
+    postV1NewsArticlesNewChunkBodyItem: PostV1NewsArticlesNewChunkBodyItem[],
+ options?: SecondParameter<typeof axios>,) => {
+      return axios<PostV1NewsArticlesNewChunk200Item[]>(
+      {url: `https://api.yz13.ru/v1/news/articles/new/chunk`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postV1NewsArticlesNewChunkBodyItem
     },
       options);
     }
@@ -499,6 +512,7 @@ export type GetV1NewsCountryCodeSourcesResult = NonNullable<Awaited<ReturnType<t
 export type GetV1NewsArticlesResult = NonNullable<Awaited<ReturnType<typeof getV1NewsArticles>>>
 export type GetV1NewsArticlesSourceIdResult = NonNullable<Awaited<ReturnType<typeof getV1NewsArticlesSourceId>>>
 export type PostV1NewsArticlesNewResult = NonNullable<Awaited<ReturnType<typeof postV1NewsArticlesNew>>>
+export type PostV1NewsArticlesNewChunkResult = NonNullable<Awaited<ReturnType<typeof postV1NewsArticlesNewChunk>>>
 export type GetV1NewsCountryCodeArticlesResult = NonNullable<Awaited<ReturnType<typeof getV1NewsCountryCodeArticles>>>
 export type GetV1NewsArticleArticleIdResult = NonNullable<Awaited<ReturnType<typeof getV1NewsArticleArticleId>>>
 export type GetV1NewsCodesResult = NonNullable<Awaited<ReturnType<typeof getV1NewsCodes>>>

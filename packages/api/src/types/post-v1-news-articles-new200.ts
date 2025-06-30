@@ -27,5 +27,5 @@ export type PostV1NewsArticlesNew200 = {
   /** @nullable */
   tags: string[] | null;
   /** @nullable */
-  img?: PostV1NewsArticlesNew200Img;
+  img: PostV1NewsArticlesNew200Img;
 } | null;

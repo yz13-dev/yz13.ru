@@ -12,7 +12,11 @@ export const newsSchema = z.object({
   source_id: z.string().nullable(),
   method: z.string(),
   tags: z.array(z.string()).nullable(),
-  img: z.any().nullable(), // Json type
+  img: z.object({
+    url: z.string().url(),
+    type: z.string(),
+    length: z.string(),
+  }).nullable(), // Json type
 });
 
 export const newsSchemaWithSource = newsSchema.extend({
@@ -33,6 +37,8 @@ export const newsInsertSchema = newsSchema.omit({
 export const newsUpdateSchema = newsSchema.partial().omit({
   id: true,
 });
+
+export const newsInsertSchemaArray = z.array(newsInsertSchema);
 
 export const newsSchemaWithSourceArray = z.array(newsSchemaWithSource);
 export const newsArraySchema = z.array(newsSchema);

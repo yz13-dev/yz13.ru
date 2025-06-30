@@ -1400,7 +1400,25 @@
                     }
                   },
                   "img": {
-                    "nullable": true
+                    "type": "object",
+                    "nullable": true,
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "length": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "url",
+                      "type",
+                      "length"
+                    ]
                   }
                 },
                 "required": [
@@ -1464,7 +1482,25 @@
                       }
                     },
                     "img": {
-                      "nullable": true
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "length": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "type",
+                        "length"
+                      ]
                     }
                   },
                   "required": [
@@ -1477,7 +1513,8 @@
                     "source",
                     "source_id",
                     "method",
-                    "tags"
+                    "tags",
+                    "img"
                   ]
                 }
               }
@@ -1499,6 +1536,360 @@
               "application/json": {
                 "schema": {
                   "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/news/articles/new/chunk": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "author": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "published_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "source": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "source_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "method": {
+                      "type": "string"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "img": {
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "length": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "type",
+                        "length"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title",
+                    "url",
+                    "published_at",
+                    "method"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Articles created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "author": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "published_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "source": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "source_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "method": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "img": {
+                        "type": "object",
+                        "nullable": true,
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "length": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "type",
+                          "length"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "description",
+                      "url",
+                      "author",
+                      "published_at",
+                      "source",
+                      "source_id",
+                      "method",
+                      "tags",
+                      "img"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "author": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "published_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "source": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "source_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "method": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "img": {
+                        "type": "object",
+                        "nullable": true,
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "length": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "type",
+                          "length"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "description",
+                      "url",
+                      "author",
+                      "published_at",
+                      "source",
+                      "source_id",
+                      "method",
+                      "tags",
+                      "img"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "format": "uuid"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "url": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "author": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "published_at": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "source": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "source_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "method": {
+                        "type": "string"
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "img": {
+                        "type": "object",
+                        "nullable": true,
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "length": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "type",
+                          "length"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "title",
+                      "description",
+                      "url",
+                      "author",
+                      "published_at",
+                      "source",
+                      "source_id",
+                      "method",
+                      "tags",
+                      "img"
+                    ]
+                  }
                 }
               }
             }
@@ -1595,7 +1986,25 @@
                         }
                       },
                       "img": {
-                        "nullable": true
+                        "type": "object",
+                        "nullable": true,
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "length": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "type",
+                          "length"
+                        ]
                       },
                       "news_source": {
                         "type": "object",
@@ -1646,6 +2055,7 @@
                       "source_id",
                       "method",
                       "tags",
+                      "img",
                       "news_source"
                     ]
                   }
@@ -1704,7 +2114,25 @@
                         }
                       },
                       "img": {
-                        "nullable": true
+                        "type": "object",
+                        "nullable": true,
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "length": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url",
+                          "type",
+                          "length"
+                        ]
                       },
                       "news_source": {
                         "type": "object",
@@ -1755,6 +2183,7 @@
                       "source_id",
                       "method",
                       "tags",
+                      "img",
                       "news_source"
                     ]
                   }
@@ -1828,7 +2257,25 @@
                       }
                     },
                     "img": {
-                      "nullable": true
+                      "type": "object",
+                      "nullable": true,
+                      "properties": {
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "length": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "url",
+                        "type",
+                        "length"
+                      ]
                     }
                   },
                   "required": [
@@ -1841,7 +2288,8 @@
                     "source",
                     "source_id",
                     "method",
-                    "tags"
+                    "tags",
+                    "img"
                   ]
                 }
               }

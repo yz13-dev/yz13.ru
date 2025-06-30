@@ -9,4 +9,8 @@
 /**
  * @nullable
  */
-export type GetV1NewsArticleArticleId200Img = unknown | null;
+export type GetV1NewsArticleArticleId200Img = {
+  url: string;
+  type: string;
+  length: string;
+} | null;

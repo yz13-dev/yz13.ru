@@ -9,7 +9,7 @@
 /**
  * @nullable
  */
-export type PostV1NewsArticlesNewBodyImg = {
+export type PostV1NewsArticlesNewChunk200ItemImg = {
   url: string;
   type: string;
   length: string;

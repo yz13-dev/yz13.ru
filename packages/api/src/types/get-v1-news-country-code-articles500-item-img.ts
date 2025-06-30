@@ -9,4 +9,8 @@
 /**
  * @nullable
  */
-export type GetV1NewsCountryCodeArticles500ItemImg = unknown | null;
+export type GetV1NewsCountryCodeArticles500ItemImg = {
+  url: string;
+  type: string;
+  length: string;
+} | null;

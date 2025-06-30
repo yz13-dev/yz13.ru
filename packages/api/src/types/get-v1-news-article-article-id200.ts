@@ -27,5 +27,5 @@ export type GetV1NewsArticleArticleId200 = {
   /** @nullable */
   tags: string[] | null;
   /** @nullable */
-  img?: GetV1NewsArticleArticleId200Img;
+  img: GetV1NewsArticleArticleId200Img;
 } | null;
