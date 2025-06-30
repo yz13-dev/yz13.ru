@@ -50,14 +50,11 @@ newArticle.openapi(routePOSTNewArticle, async (c) => {
 
     console.log(article);
 
-    const result = await createArticle(article, token);
+    const data = await createArticle(article);
 
-    if (result.error) {
-      console.log(result.error);
-      return c.json(null, 401);
-    }
+    console.log(data)
 
-    return c.json(result.data ?? null, 200);
+    return c.json(data ?? null, 200);
   } catch (error) {
     console.error(error);
     return c.json(null, 500);
