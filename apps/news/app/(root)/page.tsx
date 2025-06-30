@@ -30,29 +30,27 @@ const page = async () => {
 
   return (
     <>
-      <div className="py-6 space-y-6 mt-[10dvh] *:px-6 max-w-4xl mx-auto">
-        <div className="flex w-full flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <h1 className="text-3xl font-medium">Сводка новостей</h1>
-            <span className="text-3xl font-medium">/</span>
-            {/* <CountryPicker country={language}> */}
-            <span className="text-3xl font-medium">{country}</span>
-            {/* </CountryPicker> */}
-          </div>
-          <div className="flex items-center gap-4">
-            <Time className="text-2xl text-muted-foreground font-medium" />
-            <CalendarPicker locale={language.toLowerCase() as CalendarLocale}>
-              <Button variant="secondary" className="w-fit text-muted-foreground">
-                <CalendarIcon className="lg:size-5 size-4" />
-                <span className="lg:text-lg text-sm capitalize">
-                  {calendarDate}
-                </span>
-              </Button>
-            </CalendarPicker>
-          </div>
+      <div className="py-12 space-y-4 *:px-6 max-w-4xl mx-auto">
+        <div className="flex items-center gap-2">
+          <h1 className="text-3xl font-medium">Сводка новостей</h1>
+          <span className="text-3xl font-medium">/</span>
+          {/* <CountryPicker country={language}> */}
+          <span className="text-3xl font-medium">{country}</span>
+          {/* </CountryPicker> */}
+        </div>
+        <div className="flex items-center gap-4">
+          <Time className="text-2xl text-muted-foreground font-medium" />
+          <CalendarPicker locale={language.toLowerCase() as CalendarLocale}>
+            <Button variant="secondary" className="w-fit text-muted-foreground">
+              <CalendarIcon className="lg:size-5 size-4" />
+              <span className="lg:text-lg text-sm capitalize">
+                {calendarDate}
+              </span>
+            </Button>
+          </CalendarPicker>
         </div>
       </div>
-      <div className="*:p-6 max-w-4xl border mx-auto rounded-3xl bg-background divide-y">
+      <div className="max-w-4xl border-y border-l rounded-3xl overflow-hidden mx-auto bg-background">
         {
           firstChunk?.length === 0
             ?

@@ -1,7 +1,7 @@
 import { sourcesWithObjectTags } from "@/const/sources-rules";
 import { expire, redis } from "@/extensions/redis";
 import { clearNewsCache } from "@/lib/cache";
-import type { News, NewsInsert } from "@/schemas/news";
+import type { News, NewsInsert, NewsWithSource } from "@/schemas/news";
 import type { NewsSource } from "@/schemas/news-sources";
 import { createClient } from "@yz13/supabase/server";
 import { addDays, format, parseISO } from "date-fns";
@@ -145,7 +145,7 @@ export const getArticlesBySource = async (sourceId: string): Promise<News[]> => 
   }
 };
 
-export const getCountryArticles = async (code?: string, offset: number = 0, limit?: number, dateQuery?: string): Promise<News[]> => {
+export const getCountryArticles = async (code?: string, offset: number = 0, limit?: number, dateQuery?: string): Promise<NewsWithSource[]> => {
 
   try {
     if (!code) {
@@ -161,10 +161,10 @@ export const getCountryArticles = async (code?: string, offset: number = 0, limi
     const nextDate = format(addDays(date, 1), "yyyy-MM-dd");
     const key = `news:${date}-${nextDate}:${offset}`;
 
-    const cached = await redis.get<News[]>(key);
+    const cached = await redis.get<NewsWithSource[]>(key);
     if (cached) return cached;
 
-    const actualLimit = limit || (chunkSize * 4);
+    const actualLimit = (limit || (chunkSize * 4)) - 1;
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
 

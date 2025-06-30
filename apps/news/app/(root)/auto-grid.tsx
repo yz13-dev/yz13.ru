@@ -10,7 +10,7 @@ import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import NewsChunk from "./news-chunk";
 
-type Article = GetV1NewsCountryCodeArticles200Item;
+type Article = NonNullable<GetV1NewsCountryCodeArticles200Item>;
 
 type AutoGridProps = {
   date?: string;
@@ -72,22 +72,25 @@ const AutoGrid = ({
   return (
     <>
       {children}
-      {articles.map((chunk, index) => {
-        return (
-          <NewsChunk
-            key={`auto-grid/chunk/#${index}`}
-            articles={chunk}
-            locale={locale.toLowerCase() as CalendarLocale}
-          />
-        );
-      })}
+      {
+        articles
+          .map((chunk, index) => {
+            return (
+              <NewsChunk
+                key={`auto-grid/chunk/#${index}`}
+                articles={chunk}
+                locale={locale.toLowerCase() as CalendarLocale}
+              />
+            );
+          })
+      }
       {/* {articles.map((news, index) => {
         return <NewsCard key={`${news.id}/${index}`} news={news} className={className} />;
       })} */}
       {loading && (
-        <div className="w-full col-span-full flex items-center gap-2 justify-center">
-          <Loader2Icon size={18} className="text-foreground animate-spin" />
-          <span className="text-sm text-foreground">Подгружаем новости...</span>
+        <div className="w-full py-6 col-span-full flex items-center gap-2 justify-center text-muted-foreground">
+          <Loader2Icon size={18} className="animate-spin" />
+          <span className="text-sm">Подгружаем новости...</span>
         </div>
       )}
       {isAll && (

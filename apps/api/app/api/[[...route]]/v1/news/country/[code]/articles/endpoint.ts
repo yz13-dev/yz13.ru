@@ -1,4 +1,4 @@
-import { newsArraySchema } from "@/schemas";
+import { newsSchemaWithSourceArray } from "@/schemas";
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { getCountryArticles } from "../../../actions";
 
@@ -20,7 +20,7 @@ const routeGETCountryArticles = createRoute({
       description: "Country articles",
       content: {
         "application/json": {
-          schema: newsArraySchema
+          schema: newsSchemaWithSourceArray
         }
       }
     },
@@ -28,7 +28,7 @@ const routeGETCountryArticles = createRoute({
       description: "IntervalError",
       content: {
         "application/json": {
-          schema: newsArraySchema
+          schema: newsSchemaWithSourceArray
         }
       }
     }

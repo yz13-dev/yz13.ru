@@ -67,9 +67,17 @@ export const { POST } = serve(async (context) => {
     }
   });
 
-  await postV1NewsCacheClear()
+  try {
+    await postV1NewsCacheClear()
+  } catch (error) {
+    console.log("cache-clear-error", error)
+  }
 
-  await getV1NewsCountryCodeArticles("RU")
+  try {
+    await getV1NewsCountryCodeArticles("RU")
+  } catch (error) {
+    console.log("re-cache-error", error)
+  }
 
   return new Response(JSON.stringify({ articles, codes, sources }), {
     status: 200,
