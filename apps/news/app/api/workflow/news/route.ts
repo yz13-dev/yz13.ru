@@ -2,6 +2,7 @@ import { convertToISO } from "@/lib/parse-date";
 import { parseNewsFromSource } from "@/lib/parse-news";
 import { serve } from "@upstash/workflow/nextjs";
 import { getV1NewsCodes, getV1NewsCountryCodeArticles, getV1NewsNewsSources, postV1NewsArticlesNew, postV1NewsCacheClear } from "@yz13/api";
+import { formatISO } from "date-fns";
 
 export const { POST } = serve(async (context) => {
   const codes = await context.run("fetching-country-codes", async () => {
@@ -42,14 +43,25 @@ export const { POST } = serve(async (context) => {
     console.log("about-to-store-articles", articles.length);
     if (articles.length === 0) await context.cancel();
     else {
-      articles.forEach((article) => {
-        console.log("article", article);
-      });
+      // articles.forEach((article) => {
+      //   console.log("article", article);
+      // });
 
-      const formatted = articles.map((article) => ({
-        ...article,
-        published_at: convertToISO(article.published_at, true),
-      }))
+      const formatted = articles.map((article) => {
+        try {
+          const published_at = new Date(article.published_at);
+          console.log("published_at", article.published_at);
+          console.log("published_at_parsed", convertToISO(article.published_at, true));
+          console.log("fallback", formatISO(published_at))
+          return {
+            ...article,
+            published_at: convertToISO(article.published_at, true),
+          }
+        } catch (error) {
+          console.log("error", error);
+          return article;
+        }
+      })
 
       await Promise.all(formatted.map((article) => postV1NewsArticlesNew(article)));
     }
