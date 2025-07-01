@@ -1,10 +1,10 @@
 "use client"
-import { ArrowLeftIcon, FileIcon, PlusIcon, StoreIcon } from "lucide-react";
+import { getGridCoords } from "@/api/api";
+import { useMapState } from "@/state/provider";
 import { Button } from "@yz13/ui/components/button";
 import { Separator } from "@yz13/ui/components/separator";
+import { ArrowLeftIcon, FileIcon, PlusIcon, StoreIcon } from "lucide-react";
 import Link from "next/link";
-import { useMapApi } from "../api/api-provider";
-import { getGridCoords } from "../api/canvas-api";
 
 export default function ({ id }: { id: string }) {
   return (
@@ -58,7 +58,7 @@ export default function ({ id }: { id: string }) {
 
 
 function Coorinates() {
-  const cursor = useMapApi((state) => state.cursor);
+  const cursor = useMapState((state) => state.cursor);
   return (
     <div className="p-1 rounded-md grid grid-cols-2 gap-1 border bg-card">
       <Button variant="secondary">X:{cursor.x}</Button>
@@ -68,7 +68,7 @@ function Coorinates() {
 }
 
 function View() {
-  const view = useMapApi((state) => state.view);
+  const view = useMapState((state) => state.view);
   return (
     <div className="p-1 rounded-md grid grid-cols-2 gap-1 border bg-card">
       <Button variant="secondary">X:{view.x}</Button>
@@ -80,7 +80,7 @@ function View() {
 }
 
 function Grid() {
-  const offset = useMapApi((state) => state.offset);
+  const offset = useMapState((state) => state.offset);
   const coords = getGridCoords(-offset.x, -offset.y);
 
   const startX = coords.x1

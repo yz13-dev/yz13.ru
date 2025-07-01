@@ -1,11 +1,12 @@
 "use client";
-import { isDev } from "@/app/login/get-url";
-import type { ReactNode } from "react";
+import { useMapState } from "@/state/provider";
 import { cn } from "@yz13/ui/cn";
-import { useMapApi } from "../api/api-provider";
+import type { ReactNode } from "react";
+
+const isDev = process.env.NODE_ENV === "development";
 
 const OffsetCoords = () => {
-  const offset = useMapApi((state) => state.offset);
+  const offset = useMapState((state) => state.offset);
   return (
     <span className="px-2 py-0.5 border rounded-full bg-background">
       x:{offset.x.toFixed(2)} y:{offset.y.toFixed(2)}
@@ -14,7 +15,7 @@ const OffsetCoords = () => {
 };
 
 const Zoom = () => {
-  const zoom = useMapApi((state) => state.zoom);
+  const zoom = useMapState((state) => state.zoom);
   return (
     <span className="px-2 py-0.5 border rounded-full bg-background">
       {zoom.toFixed(2)}
@@ -23,7 +24,7 @@ const Zoom = () => {
 };
 
 const CursorPosition = () => {
-  const cursor = useMapApi((state) => state.cursor);
+  const cursor = useMapState((state) => state.cursor);
   return (
     <span className="px-2 py-0.5 border rounded-full bg-background">
       x:{cursor.x.toFixed(2)} y:{cursor.y.toFixed(2)}

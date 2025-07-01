@@ -1,4 +1,4 @@
-import { getOffset, getZoom } from "./api";
+import { getOffset, getZoom } from "@/state/state";
 
 export const fromCanvasCoords = (x: number, y: number) => {
   const zoom = getZoom();

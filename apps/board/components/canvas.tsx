@@ -1,4 +1,8 @@
 "use client";
+import { offset as applyOffset, zoom as applyZoom } from "@/api/api";
+import { onMouseDown, onMouseMove } from "@/api/event";
+import { useMapState } from "@/state/provider";
+import { Coordinate, getZoom, setCtx, setCursor, setOffset, setSize, setZoom, Size } from "@/state/state";
 import {
   type PointerEvent,
   useCallback,
@@ -7,20 +11,6 @@ import {
   useState,
   type WheelEvent
 } from "react";
-import {
-  type Coordinate,
-  getZoom,
-  setCtx,
-  setCursor,
-  setOffset,
-  setSize,
-  setZoom,
-  type Size
-} from "../api/api";
-import { useMapApi } from "../api/api-provider";
-import { offset as applyOffset, zoom as applyZoom } from "../api/canvas-api";
-import useCanvasEventStore, { setEvent } from "../api/canvas.event";
-import { onMouseDown, onMouseMove } from "../api/event-api";
 
 type CanvasOptions = {
   grid?: boolean;
@@ -43,13 +33,13 @@ const Canvas = ({
   } = options || {};
 
   const ref = useRef<HTMLCanvasElement>(null);
-  const offset = useMapApi((state) => state.offset);
-  const size = useMapApi((state) => state.canvas);
-  const zoom = useMapApi((state) => state.zoom);
-  const dpr = useMapApi((state) => state.dpr);
-  const ctx = useMapApi((state) => state.canvas.ctx);
-  const event = useCanvasEventStore((state) => state.event);
-  const elements = useMapApi((state) => state.elements);
+  const offset = useMapState((state) => state.offset);
+  const size = useMapState((state) => state.canvas);
+  const zoom = useMapState((state) => state.zoom);
+  const dpr = useMapState((state) => state.dpr);
+  const ctx = useMapState((state) => state.canvas.ctx);
+  // const event = useCanvasEventStore((state) => state.event);
+  const elements = useMapState((state) => state.elements);
 
   const [dragStart, setDragStart] = useState<Coordinate>({ x: 0, y: 0 });
   const [lastWheelEventTime, setLastWheelEventTime] = useState<number>(0);
@@ -133,7 +123,7 @@ const Canvas = ({
       e.currentTarget.setPointerCapture(e.pointerId);
 
       const { x, y } = onMouseDown(e);
-      setEvent("move");
+      // setEvent("move");
       setDragStart({ x: e.clientX, y: e.clientY });
     },
     [ctx],
@@ -154,10 +144,10 @@ const Canvas = ({
 
       if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return; // Micro-movement threshold
 
-      if (event === "move") {
-        moveCanvas(dx, dy);
-        setDragStart({ x: clientX, y: clientY });
-      }
+      // if (event === "move") {
+      moveCanvas(dx, dy);
+      setDragStart({ x: clientX, y: clientY });
+      // }
     },
     [dragStart, event, dpr],
   );
@@ -181,9 +171,9 @@ const Canvas = ({
       // Release pointer capture
       e.currentTarget.releasePointerCapture(e.pointerId);
 
-      if (event === "move") {
-        setEvent(null);
-      }
+      // if (event === "move") {
+      // setEvent(null);
+      // }
     },
     [event],
   );

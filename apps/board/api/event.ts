@@ -1,5 +1,5 @@
-import { toCanvasCoords } from "./canvas.coordinates";
-import { getDragStart } from "./drag-point.store";
+import { getDragStart } from "@/stores/drag-point.store";
+import { toCanvasCoords } from "./coordinates";
 
 export const getMousePosition = (e: React.PointerEvent<HTMLCanvasElement>) => {
   const rect = e.currentTarget.getBoundingClientRect();

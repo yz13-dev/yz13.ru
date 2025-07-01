@@ -1,6 +1,6 @@
+import type { Element } from "@/state/state";
 import { CircleIcon, MinusIcon, SquareIcon, TriangleIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import type { Element } from "../api/api";
 
 export type DockModel = {
   code: Element["code"];

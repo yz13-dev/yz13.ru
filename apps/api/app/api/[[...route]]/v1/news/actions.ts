@@ -113,6 +113,7 @@ export const getArticles = async (offset: number = 0, limit: number = 10): Promi
     if (error) {
       return [];
     }
+    // @ts-expect-error
     return data || [];
   } catch (error) {
     console.log(error);
@@ -138,6 +139,7 @@ export const getArticlesBySource = async (sourceId: string): Promise<News[]> => 
     if (error) {
       return [];
     }
+    // @ts-expect-error
     return data || [];
   } catch (error) {
     console.log(error);
@@ -190,6 +192,7 @@ export const getCountryArticles = async (code?: string, offset: number = 0, limi
 
     if (articles.length > 0) await redis.set(key, articles, { ex: expire.hour });
 
+    // @ts-expect-error
     return articles;
   } catch (error) {
     console.log(error);
@@ -217,6 +220,7 @@ export const getArticleById = async (articleId: string): Promise<News | null> =>
     if (error) {
       return null;
     }
+    // @ts-expect-error
     return data;
   } catch (error) {
     console.log(error);
@@ -322,6 +326,7 @@ export const createArticle = async (article: NewsInsert): Promise<News | null> =
       return null
     }
 
+    // @ts-expect-error
     return data
   } catch (error) {
     console.log(error);

@@ -5,7 +5,6 @@ import { Button } from "@yz13/ui/components/button";
 import { useClickAway } from "ahooks";
 import { ChevronLeftIcon } from "lucide-react";
 import { useRef, useState } from "react";
-import { setCode } from "../api/api";
 import models, { type DockModel, getGroup } from "../const/models";
 
 export default function ({ group, code }: { group: string, code?: string }) {
@@ -31,7 +30,7 @@ export default function ({ group, code }: { group: string, code?: string }) {
                     onClick={() => {
                       setModel(model);
                       setOpen(false);
-                      setCode(model.code);
+                      // setCode(model.code);
                     }}
                     variant="secondary"
                   >
@@ -43,8 +42,8 @@ export default function ({ group, code }: { group: string, code?: string }) {
           </div>
         }
         <Button variant={isSelected ? "default" : "secondary"} onClick={() => {
-          if (isSelected) setCode(null)
-          else if (model) setCode(model.code)
+          // if (isSelected) setCode(null)
+          // else if (model) setCode(model.code)
         }}>
           {model?.icon}
         </Button>
