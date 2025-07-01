@@ -166,7 +166,7 @@ export const getCountryArticles = async (code?: string, offset: number = 0, limi
     const cached = await redis.get<NewsWithSource[]>(key);
     if (cached) return cached;
 
-    const actualLimit = (limit || (chunkSize * 4)) - 1;
+    const actualLimit = (limit || (chunkSize * 4));
     const cookieStore = await cookies();
     const supabase = createClient(cookieStore);
 
