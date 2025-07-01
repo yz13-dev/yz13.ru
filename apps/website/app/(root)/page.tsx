@@ -1,6 +1,7 @@
 import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer/footer";
 import { Logo } from "@/components/logo";
+import Nav from "@/components/nav";
 import User from "@/components/user";
 import { availableForWork, getMainEmail, getSecondaryEmail } from "@yz13/flags";
 import { cn } from "@yz13/ui/cn";
@@ -50,7 +51,7 @@ export default async function page() {
         </div>
         <main
           className={cn(
-            "w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min",
+            "w-full max-w-5xl mx-auto h-[calc(100%-64px-120px)] min-h-min",
             "md:gap-20 gap-10 pt-6 lg:pb-12 pb-6",
             "flex flex-col md:justify-center justify-between items-center"
           )}
@@ -85,8 +86,8 @@ export default async function page() {
             </Button>
           </div>
         </main>
-        <div className="w-full h-[10%] py-3">
-          <div className="w-full max-w-5xl mx-auto px-6 flex items-center justify-between">
+        <div className="w-full h-[120px] py-3">
+          <div className="w-full max-w-5xl h-fit mx-auto px-6 flex md:flex-row flex-col gap-6 items-center justify-between">
             <div className="flex flex-col gap-1">
               <span className="text-muted-foreground text-xs">По вопросам и/или предложениям пишите:</span>
               <div className="flex items-center gap-2">
@@ -96,6 +97,7 @@ export default async function page() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <Nav />
               <Suspense fallback={<Skeleton className="h-9 w-16" />}>
                 <User />
               </Suspense>
