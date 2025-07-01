@@ -103,7 +103,7 @@ export default async function page() {
           </div>
         </div>
       </div>
-      <div className="w-full *:max-w-screen-2xl space-y-12">
+      <div className="w-full *:max-w-screen-2xl mt-[10%] space-y-12">
         <div className="w-full mx-auto">
           <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
             <div className="col-span-2 w-full h-full">
