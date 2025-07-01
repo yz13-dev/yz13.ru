@@ -1,5 +1,5 @@
 "use client";
-import type { UserObject } from "@yz13/api/types/user";
+import { GetV1UserUid200 } from "@yz13/api/types";
 import { createClient } from "@yz13/supabase/client";
 import {
   DropdownMenu,
@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@yz13/ui/components/dropdown-menu";
-import { LogOutIcon, SettingsIcon, UserCircleIcon } from "lucide-react";
+import { LogOutIcon, UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +18,7 @@ const UserDropdown = ({
   children,
   sideOffset = 4,
 }: {
-  user: UserObject;
+  user: NonNullable<GetV1UserUid200>;
   sideOffset?: number;
   children: React.ReactNode;
 }) => {
@@ -28,8 +28,9 @@ const UserDropdown = ({
     await supabase.auth.signOut();
     router.refresh();
   };
-  const positionOrEmail = user.email ?? user.role;
-  // const isAdmin = user.role === "admin";
+  const username = user.username || "Пользователь";
+  const positionOrEmail = user.email;
+  const isAdmin = user.role === "admin";
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
@@ -40,30 +41,25 @@ const UserDropdown = ({
       >
         <DropdownMenuLabel className="flex flex-col">
           <span className="text-sm font-medium">
-            {user.username ?? "Username"}
+            {username}
           </span>
-          <span className="text-xs text-muted-foreground font-normal">
+          <span className="text-xs text-foreground font-normal">
             {positionOrEmail}
           </span>
         </DropdownMenuLabel>
-        {false && (
-          <>
-            <DropdownMenuItem className="justify-between" asChild>
-              <Link href="/account">
-                Профиль
-                <UserCircleIcon size={16} />
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="justify-between" asChild>
-              <Link href="/account/settings">
-                Настройки аккаунта
-                <SettingsIcon size={16} />
-              </Link>
-            </DropdownMenuItem>
-          </>
+        {isAdmin && (
+          <DropdownMenuItem className="justify-between" asChild>
+            <Link href={`/u/${user.id}`}>
+              Профиль
+              <UserCircleIcon size={16} />
+            </Link>
+          </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="justify-between" onClick={handleSignOut}>
+        <DropdownMenuItem
+          className="justify-between rounded-xl"
+          onClick={handleSignOut}
+        >
           Выйти из аккаунта
           <LogOutIcon size={16} />
         </DropdownMenuItem>

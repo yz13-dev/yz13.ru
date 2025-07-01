@@ -1,7 +1,7 @@
 import { getDaysForMonthView } from "@/components/calendar/api";
 import FullScreenCalendar from "@/components/calendar/fullscreen-calendar";
 import { auth } from "@/lib/auth";
-import { getUserEvents } from "@yz13/api/calendar/events";
+import { getV1EventsUserUid } from "@yz13/api";
 import { format, parse } from "date-fns";
 
 type PageProps = {
@@ -27,9 +27,9 @@ export default async function page({ params }: PageProps) {
     );
   const date_start = format(startDate, "yyyy-MM-dd");
   const date_end = format(endDate, "yyyy-MM-dd");
-  const { data: events } = await getUserEvents(user.id, {
-    start: date_start,
-    end: date_end,
+  const events = await getV1EventsUserUid(user.id, {
+    date_start: date_start,
+    date_end: date_end,
   });
   return (
     <FullScreenCalendar

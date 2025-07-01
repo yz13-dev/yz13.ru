@@ -29,8 +29,9 @@ export const current = new OpenAPIHono();
 
 current.openapi(routeGETCurrent, async (c) => {
 
-  try {
+  console.log(c.req.raw)
 
+  try {
     const user = await getCurrentUser();
     return c.json(user, 200);
 

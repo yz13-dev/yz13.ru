@@ -18,13 +18,14 @@ app.use("*", every(
   requestId(),
   poweredBy(),
   cors({
-    origin: (origin) => {
+    origin: (origin, c) => {
+      console.log("origin", origin || "*", c.header("Cookie"));
       if (isDev) return origin || '*';
       if (!origin) return "https://yz13.ru"; // В продакшене
       return origin.endsWith(".yz13.ru") ? origin : "https://yz13.ru";
     },
-    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowHeaders: ["Content-Type", "Authorization", "Cookie"],
+    allowMethods: ['GET', 'POST', "PATCH", 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: ["Content-Type", "Authorization"],
     credentials: true,
     maxAge: 86400, // Кеширование CORS-префлайта на 24 часа
   }),

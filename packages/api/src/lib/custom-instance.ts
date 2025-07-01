@@ -19,15 +19,15 @@ export const axios = <T>(
   const source = Axios.CancelToken.source();
 
   const promise = AXIOS_INSTANCE({
-
     ...config,
-
     ...options,
-
     withCredentials: true,
     cancelToken: source.token,
 
-  }).then(({ data }) => data);
+  }).then(({ data }) => {
+    return data
+  });
+
 
 
 

@@ -1,18 +1,16 @@
+import { GetV1UserUid200 } from "@yz13/api/types";
+import { cn } from "@yz13/ui/cn";
 import { UserIcon } from "lucide-react";
 import Image from "next/image";
-// import { avatarURL } from "@yz13/api/lib/avatar-url";
-import type { UserObject } from "@yz13/api/types/user";
-import { cn } from "@yz13/ui/cn";
-import { getAvatarURL } from "@yz13/utils/avatar-url";
 
 const UserCircle = ({
   user,
   className = "",
 }: {
-  user: UserObject;
+  user: NonNullable<GetV1UserUid200>;
   className?: string;
 }) => {
-  const avatarUrl = user.avatar_url ? getAvatarURL(user.avatar_url) : null;
+  const avatarUrl = user.avatar_url;
   if (!user) return;
   return (
     <div
@@ -22,7 +20,12 @@ const UserCircle = ({
       )}
     >
       {avatarUrl ? (
-        <Image src={avatarUrl} alt="avatar" fill className="rounded-full" />
+        <Image
+          src={avatarUrl}
+          alt="avatar"
+          fill
+          className="size-9 rounded-full"
+        />
       ) : (
         <UserIcon size={18} />
       )}

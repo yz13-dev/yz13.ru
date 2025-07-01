@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { getV1AuthCurrent } from "@yz13/api";
 import { format } from "date-fns";
 import { redirect } from "next/navigation";
 import Landing from "../(landing)/landing";
@@ -11,7 +11,9 @@ type PageProps = {
 export default async function page({ searchParams }: PageProps) {
   const search = await searchParams;
   const date = search.date;
-  const user = await auth();
+  const user = await getV1AuthCurrent({ withCredentials: true })
+
+  console.log(user)
 
   if (!user) return <Landing />;
 

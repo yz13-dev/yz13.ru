@@ -1,4 +1,3 @@
-import Dock from "@/components/dock/dock";
 import { auth } from "@/lib/auth";
 import { format, parse } from "date-fns";
 import { redirect } from "next/navigation";
@@ -46,8 +45,6 @@ export default async function layout({
           day,
         }}
       />
-      {/* <Header date={dateKey} defaultView={view} uid={user?.id} /> */}
-      <Dock className="rounded-none border-0 w-full" />
     </div>
   );
   // return children;
