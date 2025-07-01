@@ -120,7 +120,7 @@ export function Stand({
   }, [widgets, defaultSelected, selected, setSelected, setWidgets])
 
   const content = widgets.find(widget => widget.value === selected)?.content
-  const selectedWidget = widgets.find(widget => widget.value === selected)
+  // const selectedWidget = widgets.find(widget => widget.value === selected)
 
   if (!widgets.length) {
     return (

@@ -23,7 +23,7 @@ const getWidgets = () => {
       value: "ogs",
       title: "Новые OGs",
       description: "Новые OGs по месяцам.",
-      content: OgsWidget ? <OgsWidget className="lg:grid-cols-4 grid-cols-2" title={false} /> : null
+      content: OgsWidget ? <OgsWidget className="grid-cols-2" title={false} /> : null
     }
   ]
 }

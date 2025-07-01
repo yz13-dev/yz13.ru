@@ -54,7 +54,7 @@ export default function ({ services = [], sign = "₽" }: Props) {
               duration: 0.75
             }}
           >
-            <span className="text-xl font-medium">{selected.description ?? "Нет описания"}</span>
+            <span className="text-xl text-muted-foreground font-medium">{selected.description ?? "Нет описания"}</span>
           </motion.div>
         }
       </AnimatePresence>

@@ -11,24 +11,27 @@ import { OtherProjectsSkeleton } from "./components/other-projects";
 export default function loading() {
   return (
     <>
-      <header className="w-full h-16 flex items-center">
-        <div className="max-w-screen-2xl px-6 w-full mx-auto h-fit flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Logo type="full" size={24} />
+      {
+        false &&
+        <header className="w-full h-16 flex items-center">
+          <div className="max-w-screen-2xl px-6 w-full mx-auto h-fit flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Logo type="full" size={24} />
+            </div>
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-9 w-16" />
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Skeleton className="h-9 w-16" />
-          </div>
-        </div>
-      </header>
-      <div className="h-[calc(100dvh-64px)]">
+        </header>
+      }
+      <div className="h-dvh">
         <div className="w-full h-16 justify-center items-center flex">
           <AvailabilitySkeleton />
         </div>
         <main
           className={cn(
             "w-full max-w-5xl mx-auto h-[calc(100%-64px-10%)] min-h-min",
-            "md:gap-20 gap-10 py-6",
+            "md:gap-20 gap-10 pt-6 lg:pb-12 pb-6",
             "flex flex-col md:justify-center justify-between items-center"
           )}
         >
@@ -48,18 +51,24 @@ export default function loading() {
           </div>
 
           <div className={cn(
-            "flex lg:flex-row flex-col w-full items-center justify-center gap-6 px-6",
+            "flex md:flex-row flex-col w-full items-center justify-center gap-6 px-6",
           )}>
-            <CallToActionSkeleton className="lg:[&>div>*]:w-56 [&>div>*]:w-full lg:[&>div]:flex-row [&>div]:flex-col" />
+            <CallToActionSkeleton className="md:[&>div>*]:w-56 [&>div>*]:w-full md:[&>div]:flex-row [&>div]:flex-col" />
           </div>
         </main>
         <div className="w-full h-[10%] py-3 flex iteitems-center justify-center" />
       </div>
-      <div className="w-full *:max-w-screen-2xl mt-[10%] space-y-12">
-        <div className="w-full mx-auto">
-          <div className="w-full grid *:p-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+      <div className="w-full *:max-w-5xl mt-[10%] space-y-12">
+        <section className="w-full py-6 *:px-6 space-y-6 mx-auto">
+          <div className="w-full">
+            <h3 className="text-2xl font-medium">
+              Услуги
+            </h3>
+            {/* <p className="text-base text-muted-foreground"></p> */}
+          </div>
+          <div className="w-full grid grid-cols-1">
             <div className="col-span-2 w-full h-full">
-              <div className="space-y-6">
+              <div className="min-h-24 space-y-6">
                 <div className="space-y-0.5">
                   <Skeleton className="w-full h-6" />
                   <Skeleton className="w-1/2 h-6" />
@@ -72,12 +81,15 @@ export default function loading() {
                 </div>
               </div>
             </div>
-            <div className="w-full h-full flex flex-col gap-3">
-              <Skeleton className="w-1/3 h-6" />
-              <Skeleton className="w-full h-10" />
-            </div>
+            {
+              false &&
+              <div className="w-full h-full flex flex-col gap-3">
+                <Skeleton className="w-1/3 h-6" />
+                <Skeleton className="w-full h-10" />
+              </div>
+            }
           </div>
-        </div>
+        </section>
         <section className="w-full py-6 *:px-6 space-y-6 mx-auto">
           <div className="w-full space-y-3">
             <div className="w-full">
@@ -106,7 +118,7 @@ export default function loading() {
             </p>
           </div>
           <div className="w-full">
-            <ul className="gap-6 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full">
+            <ul className="gap-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full">
               <OtherProjectsSkeleton />
             </ul>
           </div>
