@@ -2,8 +2,9 @@ import type { OptionsExport } from "@orval/core";
 import { defineConfig } from "orval";
 
 
-const env = process.env.VERCEL_ENV ?? "development";
-const API_URL = env === "development" ? "https://localhost:3000" : "https://api.yz13.ru"
+// const env = process.env.VERCEL_ENV ?? "development";
+const API_URL = "https://api.yz13.ru"
+// "https://localhost:3000"
 
 export const gfkOrvalConfig: OptionsExport = {
   input: {

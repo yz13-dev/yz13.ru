@@ -75,7 +75,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
     lang: 'en' | 'ru',
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1PositionsLang200Item[]>(
-      {url: `https://localhost:3000/v1/positions/${lang}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/positions/${lang}`, method: 'GET'
     },
       options);
     }
@@ -85,7 +85,7 @@ export const getV1PositionsLangPositionId = (
     positionId: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1PositionsLangPositionId200>(
-      {url: `https://localhost:3000/v1/positions/${lang}/${positionId}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/positions/${lang}/${positionId}`, method: 'GET'
     },
       options);
     }
@@ -94,7 +94,7 @@ export const getV1Pricing = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1Pricing200Item[]>(
-      {url: `https://localhost:3000/v1/pricing`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/pricing`, method: 'GET'
     },
       options);
     }
@@ -103,7 +103,7 @@ export const getV1PricingShort = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1PricingShort200Item[]>(
-      {url: `https://localhost:3000/v1/pricing/short`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/pricing/short`, method: 'GET'
     },
       options);
     }
@@ -112,7 +112,7 @@ export const getV1UserUid = (
     uid: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1UserUid200>(
-      {url: `https://localhost:3000/v1/user/${uid}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/user/${uid}`, method: 'GET'
     },
       options);
     }
@@ -122,7 +122,7 @@ export const patchV1UserUid = (
     patchV1UserUidBody: BodyType<PatchV1UserUidBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PatchV1UserUid200>(
-      {url: `https://localhost:3000/v1/user/${uid}`, method: 'PATCH',
+      {url: `https://api.yz13.ru/v1/user/${uid}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: patchV1UserUidBody
     },
@@ -133,7 +133,7 @@ export const getV1AuthCurrent = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1AuthCurrent200>(
-      {url: `https://localhost:3000/v1/auth/current`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/auth/current`, method: 'GET'
     },
       options);
     }
@@ -142,7 +142,7 @@ export const getV1AuthCurrentSession = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1AuthCurrentSession200>(
-      {url: `https://localhost:3000/v1/auth/current/session`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/auth/current/session`, method: 'GET'
     },
       options);
     }
@@ -151,7 +151,7 @@ export const postV1AuthLogin = (
     postV1AuthLoginBody: BodyType<PostV1AuthLoginBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1AuthLogin200>(
-      {url: `https://localhost:3000/v1/auth/login`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/auth/login`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1AuthLoginBody
     },
@@ -162,7 +162,7 @@ export const postV1AuthSignup = (
     postV1AuthSignupBody: BodyType<PostV1AuthSignupBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1AuthSignup200>(
-      {url: `https://localhost:3000/v1/auth/signup`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/auth/signup`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1AuthSignupBody
     },
@@ -173,7 +173,7 @@ export const postV1AuthLogout = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1AuthLogout200>(
-      {url: `https://localhost:3000/v1/auth/logout`, method: 'POST'
+      {url: `https://api.yz13.ru/v1/auth/logout`, method: 'POST'
     },
       options);
     }
@@ -182,7 +182,7 @@ export const getV1RoomsId = (
     id: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1RoomsId200>(
-      {url: `https://localhost:3000/v1/rooms/${id}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/rooms/${id}`, method: 'GET'
     },
       options);
     }
@@ -191,7 +191,7 @@ export const postV1RoomsNew = (
     postV1RoomsNewBody: BodyType<PostV1RoomsNewBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1RoomsNew200>(
-      {url: `https://localhost:3000/v1/rooms/new`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/rooms/new`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1RoomsNewBody
     },
@@ -202,7 +202,7 @@ export const getV1NewsNewsSources = (
     params?: GetV1NewsNewsSourcesParams,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1NewsNewsSources200Item[]>(
-      {url: `https://localhost:3000/v1/news/news-sources`, method: 'GET',
+      {url: `https://api.yz13.ru/v1/news/news-sources`, method: 'GET',
         params
     },
       options);
@@ -212,7 +212,7 @@ export const getV1NewsNewsSourcesSourceId = (
     sourceId: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1NewsNewsSourcesSourceId200>(
-      {url: `https://localhost:3000/v1/news/news-sources/${sourceId}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/news/news-sources/${sourceId}`, method: 'GET'
     },
       options);
     }
@@ -221,7 +221,7 @@ export const getV1NewsCountryCodeSources = (
     code: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1NewsCountryCodeSources200Item[]>(
-      {url: `https://localhost:3000/v1/news/country/${code}/sources`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/news/country/${code}/sources`, method: 'GET'
     },
       options);
     }
@@ -230,7 +230,7 @@ export const getV1NewsArticles = (
     params?: GetV1NewsArticlesParams,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1NewsArticles200Item[]>(
-      {url: `https://localhost:3000/v1/news/articles`, method: 'GET',
+      {url: `https://api.yz13.ru/v1/news/articles`, method: 'GET',
         params
     },
       options);
@@ -240,7 +240,7 @@ export const getV1NewsArticlesSourceId = (
     sourceId: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1NewsArticlesSourceId200Item[]>(
-      {url: `https://localhost:3000/v1/news/articles/${sourceId}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/news/articles/${sourceId}`, method: 'GET'
     },
       options);
     }
@@ -249,7 +249,7 @@ export const postV1NewsArticlesNew = (
     postV1NewsArticlesNewBody: BodyType<PostV1NewsArticlesNewBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1NewsArticlesNew200>(
-      {url: `https://localhost:3000/v1/news/articles/new`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/news/articles/new`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1NewsArticlesNewBody
     },
@@ -260,7 +260,7 @@ export const postV1NewsArticlesNewChunk = (
     postV1NewsArticlesNewChunkBodyItem: PostV1NewsArticlesNewChunkBodyItem[],
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1NewsArticlesNewChunk200Item[]>(
-      {url: `https://localhost:3000/v1/news/articles/new/chunk`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/news/articles/new/chunk`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1NewsArticlesNewChunkBodyItem
     },
@@ -272,7 +272,7 @@ export const getV1NewsCountryCodeArticles = (
     params?: GetV1NewsCountryCodeArticlesParams,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1NewsCountryCodeArticles200Item[]>(
-      {url: `https://localhost:3000/v1/news/country/${code}/articles`, method: 'GET',
+      {url: `https://api.yz13.ru/v1/news/country/${code}/articles`, method: 'GET',
         params
     },
       options);
@@ -282,7 +282,7 @@ export const getV1NewsArticleArticleId = (
     articleId: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1NewsArticleArticleId200>(
-      {url: `https://localhost:3000/v1/news/article/${articleId}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/news/article/${articleId}`, method: 'GET'
     },
       options);
     }
@@ -291,7 +291,7 @@ export const getV1NewsCodes = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<string[]>(
-      {url: `https://localhost:3000/v1/news/codes`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/news/codes`, method: 'GET'
     },
       options);
     }
@@ -300,7 +300,7 @@ export const getV1NewsCategories = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<string[]>(
-      {url: `https://localhost:3000/v1/news/categories`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/news/categories`, method: 'GET'
     },
       options);
     }
@@ -309,7 +309,7 @@ export const patchV1NewsRepatch = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<PatchV1NewsRepatch200>(
-      {url: `https://localhost:3000/v1/news/repatch`, method: 'PATCH'
+      {url: `https://api.yz13.ru/v1/news/repatch`, method: 'PATCH'
     },
       options);
     }
@@ -318,7 +318,7 @@ export const postV1NewsCacheClear = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<string>(
-      {url: `https://localhost:3000/v1/news/cache/clear`, method: 'POST'
+      {url: `https://api.yz13.ru/v1/news/cache/clear`, method: 'POST'
     },
       options);
     }
@@ -327,7 +327,7 @@ export const postV1Events = (
     postV1EventsBody: BodyType<PostV1EventsBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1Events200>(
-      {url: `https://localhost:3000/v1/events`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/events`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1EventsBody
     },
@@ -339,7 +339,7 @@ export const getV1EventsUserUid = (
     params?: GetV1EventsUserUidParams,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1EventsUserUid200Item[]>(
-      {url: `https://localhost:3000/v1/events/user/${uid}`, method: 'GET',
+      {url: `https://api.yz13.ru/v1/events/user/${uid}`, method: 'GET',
         params
     },
       options);
@@ -349,7 +349,7 @@ export const getV1EventsId = (
     id: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1EventsId200>(
-      {url: `https://localhost:3000/v1/events/${id}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/events/${id}`, method: 'GET'
     },
       options);
     }
@@ -359,7 +359,7 @@ export const patchV1EventsId = (
     patchV1EventsIdBody: BodyType<PatchV1EventsIdBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PatchV1EventsId200>(
-      {url: `https://localhost:3000/v1/events/${id}`, method: 'PATCH',
+      {url: `https://api.yz13.ru/v1/events/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: patchV1EventsIdBody
     },
@@ -370,7 +370,7 @@ export const deleteV1EventsId = (
     id: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<DeleteV1EventsId200>(
-      {url: `https://localhost:3000/v1/events/${id}`, method: 'DELETE'
+      {url: `https://api.yz13.ru/v1/events/${id}`, method: 'DELETE'
     },
       options);
     }
@@ -379,7 +379,7 @@ export const getV1Store = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1Store200Item[]>(
-      {url: `https://localhost:3000/v1/store`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/store`, method: 'GET'
     },
       options);
     }
@@ -388,7 +388,7 @@ export const postV1Store = (
     postV1StoreBody: BodyType<PostV1StoreBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1Store200>(
-      {url: `https://localhost:3000/v1/store`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/store`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1StoreBody
     },
@@ -399,7 +399,7 @@ export const getV1StoreId = (
     id: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1StoreId200>(
-      {url: `https://localhost:3000/v1/store/${id}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/store/${id}`, method: 'GET'
     },
       options);
     }
@@ -408,7 +408,7 @@ export const getV1ScheduleUid = (
     uid: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1ScheduleUid200>(
-      {url: `https://localhost:3000/v1/schedule/${uid}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/schedule/${uid}`, method: 'GET'
     },
       options);
     }
@@ -418,7 +418,7 @@ export const getV1ScheduleUidAvailable = (
     params?: GetV1ScheduleUidAvailableParams,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1ScheduleUidAvailable200>(
-      {url: `https://localhost:3000/v1/schedule/${uid}/available`, method: 'GET',
+      {url: `https://api.yz13.ru/v1/schedule/${uid}/available`, method: 'GET',
         params
     },
       options);
@@ -428,7 +428,7 @@ export const getV1ChartsNews = (
     
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1ChartsNews200Item[]>(
-      {url: `https://localhost:3000/v1/charts/news`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/charts/news`, method: 'GET'
     },
       options);
     }
@@ -437,7 +437,7 @@ export const getV1CalendarUserUidDefault = (
     uid: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1CalendarUserUidDefault200>(
-      {url: `https://localhost:3000/v1/calendar/user/${uid}/default`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/calendar/user/${uid}/default`, method: 'GET'
     },
       options);
     }
@@ -446,7 +446,7 @@ export const getV1CalendarUserUid = (
     uid: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1CalendarUserUid200Item[]>(
-      {url: `https://localhost:3000/v1/calendar/user/${uid}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/calendar/user/${uid}`, method: 'GET'
     },
       options);
     }
@@ -456,7 +456,7 @@ export const postV1CalendarUserUid = (
     postV1CalendarUserUidBody: BodyType<PostV1CalendarUserUidBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PostV1CalendarUserUid200>(
-      {url: `https://localhost:3000/v1/calendar/user/${uid}`, method: 'POST',
+      {url: `https://api.yz13.ru/v1/calendar/user/${uid}`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postV1CalendarUserUidBody
     },
@@ -467,7 +467,7 @@ export const getV1CalendarId = (
     id: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<GetV1CalendarId200>(
-      {url: `https://localhost:3000/v1/calendar/${id}`, method: 'GET'
+      {url: `https://api.yz13.ru/v1/calendar/${id}`, method: 'GET'
     },
       options);
     }
@@ -477,7 +477,7 @@ export const patchV1CalendarId = (
     patchV1CalendarIdBody: BodyType<PatchV1CalendarIdBody>,
  options?: SecondParameter<typeof axios>,) => {
       return axios<PatchV1CalendarId200>(
-      {url: `https://localhost:3000/v1/calendar/${id}`, method: 'PATCH',
+      {url: `https://api.yz13.ru/v1/calendar/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: patchV1CalendarIdBody
     },
@@ -488,7 +488,7 @@ export const deleteV1CalendarId = (
     id: string,
  options?: SecondParameter<typeof axios>,) => {
       return axios<DeleteV1CalendarId200>(
-      {url: `https://localhost:3000/v1/calendar/${id}`, method: 'DELETE'
+      {url: `https://api.yz13.ru/v1/calendar/${id}`, method: 'DELETE'
     },
       options);
     }
