@@ -5,6 +5,7 @@ import UserDropdown from "@/components/user/user-dropdown";
 import { getV1AuthCurrent } from "@yz13/api";
 import { GetV1UserUid200 } from "@yz13/api/types";
 import { createClient } from "@yz13/supabase/client";
+import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -12,9 +13,10 @@ import { useEffect, useState } from "react";
 type WrapperProps = {
   defaultUser?: GetV1UserUid200;
   sideOffset?: number
+  className?: string
 };
 
-const UserWrapper = ({ defaultUser, sideOffset }: WrapperProps) => {
+const UserWrapper = ({ className = "", defaultUser, sideOffset }: WrapperProps) => {
   const [user, setUser] = useState<GetV1UserUid200 | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const setUserInStore = useUserStore(state => state.setUser);
@@ -46,19 +48,19 @@ const UserWrapper = ({ defaultUser, sideOffset }: WrapperProps) => {
       setLoading(false);
     }
   }, [defaultUser])
-  if (loading) return <div className="rounded-full bg-neutral-200 size-9" />;
-  if (user) return <Authorized sideOffset={sideOffset} />
+  if (loading) return <div className={cn("rounded-full bg-neutral-200 size-9", className)} />;
+  if (user) return <Authorized sideOffset={sideOffset} className={className} />;
   return <Unauthorized />;
 };
 
-const Authorized = ({ sideOffset }: { sideOffset?: number }) => {
+const Authorized = ({ sideOffset, className = "" }: { className?: string, sideOffset?: number }) => {
 
   const user = useUserStore(state => state.user);
 
   if (!user) return null;
   return (
     <UserDropdown user={user} sideOffset={sideOffset}>
-      <UserCircle user={user} className="bg-background" />
+      <UserCircle user={user} className={cn("bg-background", className)} />
     </UserDropdown>
   )
 }

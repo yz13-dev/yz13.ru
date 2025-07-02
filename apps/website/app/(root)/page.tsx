@@ -44,9 +44,13 @@ export default async function page() {
         </header>
       }
       <div className="h-dvh">
-        <div className="w-full h-16 justify-center items-center flex">
+        <div className="w-full h-16 px-6 justify-between items-center flex">
+          <div className="size-12" />
           <Suspense fallback={<AvailabilitySkeleton />}>
             <Availability />
+          </Suspense>
+          <Suspense fallback={<Skeleton className="size-12" />}>
+            <User className="size-12" />
           </Suspense>
         </div>
         <main
@@ -98,9 +102,6 @@ export default async function page() {
             </div>
             <div className="flex items-center gap-2">
               <Nav />
-              <Suspense fallback={<Skeleton className="h-9 w-16" />}>
-                <User />
-              </Suspense>
             </div>
           </div>
         </div>

@@ -1,13 +1,16 @@
 import type { OptionsExport } from "@orval/core";
 import { defineConfig } from "orval";
 
+
+const env = process.env.VERCEL_ENV ?? "development";
+const API_URL = env === "development" ? "https://localhost:3000" : "https://api.yz13.ru"
+
 export const gfkOrvalConfig: OptionsExport = {
   input: {
     target: "./api.json",
   },
   output: {
-    baseUrl: "https://api.yz13.ru",
-    // baseUrl: "https://localhost:3000",
+    baseUrl: API_URL,
     httpClient: "axios",
     mode: "split",
     target: "./src/api",

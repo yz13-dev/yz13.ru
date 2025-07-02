@@ -1,14 +1,13 @@
 import { writeFileSync } from "node:fs";
 
+const env = process.env.VERCEL_ENV ?? "development";
+const API_URL = env === "development" ? "https://localhost:3000" : "https://api.yz13.ru"
+
 const fetchAndWriteOpenAPI = async () => {
   try {
 
-    const server = process.env.NODE_ENV === "development"
-      ? "https://localhost:3000"
-      : "https://api.yzlab.ru";
-
     const path = "/openapi.json";
-    const url = new URL(path, "https://localhost:3000");
+    const url = new URL(path, API_URL);
 
     console.log(url.toString())
 

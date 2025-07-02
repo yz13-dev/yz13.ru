@@ -109,7 +109,7 @@
     "dist"
   ],
   "scripts": {
-    "publish": "bun run build",
+    "publish": "bun run api:generate && bun run build",
     "build": "tsup",
     "dev": "tsup --watch --clean=false",
     "api:fetch": "bun run generate-api",

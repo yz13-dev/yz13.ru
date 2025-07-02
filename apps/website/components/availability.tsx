@@ -26,7 +26,6 @@ const unavailableTexts = [
   "Занят выполнением проектов",
   "Нет свободного времени",
   "Временно перегружен",
-  "Все силы уходят на текущие проекты",
   "В тисках дедлайнов",
   "Завален работой"
 ];
@@ -47,16 +46,16 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
     >
       <div
         data-status={status}
-        className="size-2 group relative">
+        className="size-3 group relative">
         <div
           className={cn(
-            "absolute inset-0 size-2 animate-ping rounded-full",
+            "absolute inset-0 size-3 animate-ping rounded-full",
             "group-data-[status=available]:bg-foreground",
             "group-data-[status=unavailable]:bg-destructive",
           )}
         />
         <div className={cn(
-          "size-2 animate-pulse rounded-full",
+          "size-3 animate-pulse rounded-full",
           "group-data-[status=available]:bg-foreground",
           "group-data-[status=unavailable]:bg-destructive",
         )} />
@@ -73,7 +72,7 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
             text={text}
             speed={100}
             loop={true}
-            className="text-sm"
+            className="text-base"
           />
         )}
       </div>
