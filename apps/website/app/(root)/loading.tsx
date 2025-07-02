@@ -1,4 +1,3 @@
-import { AvailabilitySkeleton } from "@/components/availability";
 import { Logo } from "@/components/logo";
 import { cn } from "@yz13/ui/cn";
 import { Button } from "@yz13/ui/components/button";
@@ -11,22 +10,13 @@ import { OtherProjectsSkeleton } from "./components/other-projects";
 export default function loading() {
   return (
     <>
-      {
-        false &&
-        <header className="w-full h-16 flex items-center">
-          <div className="max-w-screen-2xl px-6 w-full mx-auto h-fit flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Logo type="full" size={24} />
-            </div>
-            <div className="flex items-center gap-2">
-              <Skeleton className="h-9 w-16" />
-            </div>
-          </div>
-        </header>
-      }
       <div className="h-dvh">
-        <div className="w-full h-16 justify-center items-center flex">
-          <AvailabilitySkeleton />
+        <div className="w-full h-16 px-6 justify-between items-center flex">
+          <div className="flex items-center gap-4">
+            <Logo type="full" size={28} />
+            <Skeleton className="h-9 w-36" />
+          </div>
+          <Skeleton className="size-9" />
         </div>
         <main
           className={cn(

@@ -28,29 +28,16 @@ export default async function page() {
   return (
     <>
       <Background />
-      {
-        false &&
-        <header className="w-full h-16 flex items-center">
-          <div className="max-w-screen-2xl px-6 w-full mx-auto h-fit flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Logo type="full" size={24} />
-            </div>
-            <div className="flex items-center gap-2">
-              <Suspense fallback={<Skeleton className="h-9 w-16" />}>
-                <User />
-              </Suspense>
-            </div>
-          </div>
-        </header>
-      }
       <div className="h-dvh">
         <div className="w-full h-16 px-6 justify-between items-center flex">
-          <div className="size-12" />
-          <Suspense fallback={<AvailabilitySkeleton />}>
-            <Availability />
-          </Suspense>
-          <Suspense fallback={<Skeleton className="size-12" />}>
-            <User className="size-12" />
+          <div className="flex items-center gap-4">
+            <Logo type="full" size={28} />
+            <Suspense fallback={<Skeleton className="h-9 w-36" />}>
+              <Nav />
+            </Suspense>
+          </div>
+          <Suspense fallback={<Skeleton className="size-9" />}>
+            <User className="size-9" />
           </Suspense>
         </div>
         <main
@@ -91,17 +78,19 @@ export default async function page() {
           </div>
         </main>
         <div className="w-full h-[120px] py-3">
-          <div className="w-full max-w-5xl h-fit mx-auto px-6 flex md:flex-row flex-col gap-6 items-center justify-between">
+          <div className="w-full max-w-5xl h-fit mx-auto px-6 flex flex-col gap-3 items-center justify-between">
+            <Suspense fallback={<AvailabilitySkeleton />}>
+              <Availability className="bg-background/40" />
+            </Suspense>
             <div className="flex flex-col gap-1">
-              <span className="text-muted-foreground text-xs">По вопросам и/или предложениям пишите:</span>
-              <div className="flex items-center gap-2">
+              <span className="text-muted-foreground text-center text-xs">По вопросам и/или предложениям пишите:</span>
+              <div className="flex items-center gap-2 text-center">
                 <Link href={`mailto:${primaryEmail}`} className="text-foreground text-xs hover:underline">{primaryEmail}</Link>
                 <span className="text-muted-foreground text-xs">или</span>
                 <Link href={`mailto:${secondaryEmail}`} className="text-foreground text-xs hover:underline">{secondaryEmail}</Link>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Nav />
             </div>
           </div>
         </div>

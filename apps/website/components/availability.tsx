@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 type AvailabilityProps = {
   label?: ReactNode;
   className?: string;
+  size?: "sm" | "default" | "lg";
 };
 
 const availableTexts = [
@@ -30,7 +31,11 @@ const unavailableTexts = [
   "Завален работой"
 ];
 
-const Availability = async ({ label, className = "" }: AvailabilityProps) => {
+const Availability = async ({
+  label,
+  className = "",
+  size = "default"
+}: AvailabilityProps) => {
   const available = await availableForWork();
   const status: "available" | "unavailable" = available
     ? "available"
@@ -39,25 +44,40 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
   const text = status === "available" ? availableTexts : unavailableTexts;
   return (
     <div
+      data-size={size}
       className={cn(
-        "w-fit flex items-center bg-background gap-2 px-3 py-1 rounded-full border",
+        "w-fit group flex items-center bg-background gap-2 rounded-full border",
+        "data-[size=sm]:px-2.5 data-[size=sm]:py-0.5",
+        "data-[size=default]:px-3 data-[size=default]:py-1",
+        "data-[size=lg]:px-4 data-[size=lg]:py-1.5",
         className,
       )}
     >
       <div
         data-status={status}
-        className="size-3 group relative">
+        className={cn(
+          "group relative",
+          "group-data-[size=sm]:size-1",
+          "group-data-[size=default]:size-2",
+          "group-data-[size=lg]:size-3",
+        )}>
         <div
           className={cn(
-            "absolute inset-0 size-3 animate-ping rounded-full",
+            "absolute inset-0 animate-ping rounded-full",
             "group-data-[status=available]:bg-foreground",
             "group-data-[status=unavailable]:bg-destructive",
+            "group-data-[size=sm]:size-1",
+            "group-data-[size=default]:size-2",
+            "group-data-[size=lg]:size-3",
           )}
         />
         <div className={cn(
-          "size-3 animate-pulse rounded-full",
+          "animate-pulse rounded-full",
           "group-data-[status=available]:bg-foreground",
           "group-data-[status=unavailable]:bg-destructive",
+          "group-data-[size=sm]:size-1",
+          "group-data-[size=default]:size-2",
+          "group-data-[size=lg]:size-3",
         )} />
       </div>
       <div data-status={status} className={cn(
@@ -72,7 +92,11 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
             text={text}
             speed={100}
             loop={true}
-            className="text-base"
+            className={cn(
+              "group-data-[size=sm]:text-xs",
+              "group-data-[size=default]:text-sm",
+              "group-data-[size=lg]:text-base",
+            )}
           />
         )}
       </div>
@@ -80,12 +104,17 @@ const Availability = async ({ label, className = "" }: AvailabilityProps) => {
   );
 };
 
-export const AvailabilitySkeleton = () => {
+export const AvailabilitySkeleton = ({ size = "default" }: { size?: AvailabilityProps["size"] }) => {
   return (
-    <div className="w-fit h-[30px] flex items-center gap-2 px-3 py-1 rounded-full border">
-      <div className="size-2 animate-pulse bg-secondary rounded-full" />
-      <Skeleton className="w-32 h-4 rounded-full" />
-    </div>
+    <Skeleton
+      data-size={size}
+      className={cn(
+        "w-48 rounded-full",
+        "data-[size=sm]:h-[22px]",
+        "data-[size=default]:h-[30px]",
+        "data-[size=lg]:h-[38px]",
+      )}
+    />
   );
 };
 export default Availability;
