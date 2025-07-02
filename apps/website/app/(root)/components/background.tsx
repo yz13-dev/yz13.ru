@@ -77,7 +77,7 @@ export default function Background({
           transition={{ duration: 1 }}
           className={cn(
             "w-full h-full relative",
-            "backdrop-grayscale bg-gradient-to-b from-background via-transparent to-background blur-2xl"
+            "grayscale bg-gradient-to-b from-background via-transparent to-background blur-2xl"
           )}
         >
           <Image
