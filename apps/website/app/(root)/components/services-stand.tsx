@@ -1,14 +1,9 @@
 "use client";
+import { icons } from "@/const/pricing-icons";
 import type { GetV1Pricing200Item } from "@yz13/api/types";
 import { Button } from "@yz13/ui/components/button";
 import {
-  AppWindowIcon,
-  ComponentIcon,
-  GlobeIcon,
-  PackageIcon,
-  PanelTopIcon,
-  SparklesIcon,
-  StoreIcon,
+  StoreIcon
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
@@ -16,15 +11,6 @@ import { useState } from "react";
 type Props = {
   sign?: string;
   services?: GetV1Pricing200Item[];
-};
-
-const icons = {
-  components: <ComponentIcon size={14} />,
-  package: <PackageIcon size={14} />,
-  pages: <PanelTopIcon size={14} />,
-  website: <GlobeIcon size={14} />,
-  "web-app": <AppWindowIcon size={14} />,
-  mvp: <SparklesIcon size={14} />,
 };
 
 export default function ({ services = [], sign = "₽" }: Props) {
