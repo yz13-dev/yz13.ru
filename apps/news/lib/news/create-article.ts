@@ -1,8 +1,8 @@
 import { sourcesWithObjectTags } from "@/const/sources-rules";
-import { PostV1NewsArticlesNewBody } from "@yz13/api/types";
+import type { PostV1NewsArticlesNewBody } from "@yz13/api/types";
 import { createClient } from "@yz13/supabase/server";
 import { cookies } from "next/headers";
-import { parseObjTags } from "./parse-obj-tags";
+import { parseObjTags } from "../parse-obj-tags";
 
 
 

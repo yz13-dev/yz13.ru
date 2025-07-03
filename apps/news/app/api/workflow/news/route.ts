@@ -1,9 +1,9 @@
-import { createArticle } from "@/lib/create-article";
+import { createArticle } from "@/lib/news/create-article";
+import getNewsSources from "@/lib/news/get-news-sources";
 import { convertToISO } from "@/lib/parse-date";
 import { parseNewsFromSource } from "@/lib/parse-news";
 import { serve } from "@upstash/workflow/nextjs";
-import { getV1NewsCodes, getV1NewsCountryCodeArticles, getV1NewsNewsSources, postV1NewsCacheClear } from "@yz13/api";
-import { formatISO } from "date-fns";
+import { getV1NewsCodes, postV1NewsCacheClear } from "@yz13/api";
 
 export const { POST } = serve(async (context) => {
 
@@ -17,7 +17,7 @@ export const { POST } = serve(async (context) => {
     async () => {
       if (codes.length === 0) await context.cancel();
       const newsSources = (
-        await Promise.all(codes.map((code) => getV1NewsNewsSources({ country_code: code })))
+        await Promise.all(codes.map((code) => getNewsSources(code)))
       )
         .flat();
       return newsSources;
@@ -52,10 +52,10 @@ export const { POST } = serve(async (context) => {
 
       const formatted = articles.map((article) => {
         try {
-          const published_at = new Date(article.published_at);
-          console.log("published_at", article.published_at);
-          console.log("published_at_parsed", convertToISO(article.published_at, true));
-          console.log("fallback", formatISO(published_at))
+          // const published_at = new Date(article.published_at);
+          // console.log("published_at", article.published_at);
+          // console.log("published_at_parsed", convertToISO(article.published_at, true));
+          // console.log("fallback", formatISO(published_at))
           return {
             ...article,
             published_at: convertToISO(article.published_at, true),
@@ -76,11 +76,11 @@ export const { POST } = serve(async (context) => {
     console.log("cache-clear-error", error)
   }
 
-  try {
-    await getV1NewsCountryCodeArticles("RU")
-  } catch (error) {
-    console.log("re-cache-error", error)
-  }
+  // try {
+  // await getV1NewsCountryCodeArticles("RU")
+  // } catch (error) {
+  // console.log("re-cache-error", error)
+  // }
 
   return new Response(JSON.stringify({ articles, codes, sources }), {
     status: 200,
