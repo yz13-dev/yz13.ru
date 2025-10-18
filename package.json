@@ -1,45 +1,23 @@
 {
-  "name": "yz13-monorepo",
+  "name": "yz13.ru",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "build:apps": "turbo build --filter=./apps/*",
-    "build:packages": "turbo build --filter=./packages/*",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
-  },
-  "devDependencies": {
-    "prettier": "^3.5.3",
-    "turbo": "^2.5.0",
-    "typescript": "^5.8.3"
-  },
-  "engines": {
-    "node": ">=22",
-    "npm": ">=11.0.0"
-  },
-  "packageManager": "bun@1.2.9",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "peerDependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
-  },
-  "resolutions": {
-    "tsup": "^6.6.0",
-    "lucide-react": "^0.488.0",
-    "typescript": "^5.8.3",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "@types/react": "^19.1.0",
-    "@types/react-dom": "^19.1.0",
-    "@types/node": "22",
-    "next": "^15.3.0",
-    "tailwindcss": "^4.1.3"
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start"
   },
   "dependencies": {
-    "next": "^15.3.0"
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "next": "15.5.6"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4"
   }
 }
