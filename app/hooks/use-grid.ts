@@ -20,8 +20,8 @@ type ColsOptions = {
 }
 
 const defaultOptions: ColsOptions = {
-  "extra-large": 3,
-  large: 3,
+  "extra-large": 4,
+  large: 4,
   medium: 3,
   small: 2,
 }

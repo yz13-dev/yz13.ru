@@ -1,6 +1,5 @@
 import { getBlogV1Posts, getNewsV1Recent, getPinsV1PinsRecommendations } from "@yz13/api";
 import { Badge } from "@yz13/ui/badge";
-import { Button } from "@yz13/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@yz13/ui/input-group";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -8,7 +7,10 @@ import { ArrowRightIcon, ExternalLinkIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import Favicon from "./components/favicon";
 import { Logo } from "./components/logo";
+import LogoSvg from "./components/logo-svg";
+import LinkLogo from "./components/logos/link-logo";
 import PinsGrid from "./components/pins-grid";
+import User from "./components/user";
 
 export default async function () {
 
@@ -23,14 +25,35 @@ export default async function () {
           <Logo type="full" />
         </div>
         <div className="w-1/3 flex justify-end">
-          <div className="size-10 rounded-full border bg-secondary" />
+          <User />
         </div>
       </header>
-      <div className="max-w-4xl h-[calc(60dvh-56px)] mx-auto flex flex-col items-center justify-center py-12 gap-2">
-        <div className="w-full px-6">
-          <div className="shrink-0 rounded-xl w-full h-12 bg-card border">
-            <InputGroup className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none">
-              <InputGroupInput placeholder="Поиск среди сервисов YZ13" className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none px-4" />
+      <div className="max-w-4xl h-[calc(75dvh-56px)] mx-auto flex flex-col items-center justify-center pt-12 pb-36 gap-2">
+        <div className="w-full px-6 flex flex-col justify-center gap-24">
+          <div className="flex items-center mx-auto gap-6">
+
+            <div className="px-6">
+              <div className="flex flex-col gap-1.5 justify-center items-center group cursor-pointer">
+                <div className="size-16 rounded-lg border-2 group-hover:bg-secondary/50 group-hover:!border-foreground flex justify-center items-center p-2">
+                  <Logo type="icon" />
+                </div>
+                <span className="text-center text-sm font-medium text-muted-foreground">Портфолио</span>
+              </div>
+            </div>
+
+            <div className="px-6">
+              <div className="flex flex-col gap-1.5 justify-center items-center group cursor-pointer">
+                <div className="size-16 rounded-lg border-2 group-hover:bg-secondary/50 group-hover:!border-foreground flex justify-center items-center p-2">
+                  <LinkLogo type="icon" />
+                </div>
+                <span className="text-center text-sm font-medium text-muted-foreground">Линк</span>
+              </div>
+            </div>
+
+          </div>
+          <div className="shrink-0 rounded-xl w-full h-14 bg-card border">
+            <InputGroup className="w-full h-14 *:h-full !text-xl font-medium rounded-xl border-none bg-none shadow-none">
+              <InputGroupInput placeholder="Поиск внутри YZ13" className="w-full !text-xl font-medium rounded-xl border-none bg-none shadow-none px-4" />
               <InputGroupAddon>
                 <SearchIcon className="size-6" />
               </InputGroupAddon>
@@ -43,17 +66,11 @@ export default async function () {
         <div className="flex px-6 justify-between w-full items-center">
           <div></div>
           <div>
-            <Button variant="secondary" size="sm" asChild>
-              <Link href="https://yz13.dev">
-                <span>yz13.dev</span>
-                <ArrowRightIcon />
-              </Link>
-            </Button>
           </div>
         </div>
       </div>
-      <div className="w-full max-w-4xl mx-auto pb-6 *:px-6 *:pt-6">
-        <div className="w-full flex md:flex-row flex-col gap-4">
+      <div className="w-full max-w-6xl mx-auto pb-6 *:px-6 *:pt-6">
+        <div className="w-full flex md:flex-row flex-col gap-6">
           <section className="md:w-2/3 w-full">
             <div className="w-full py-4">
               <h3 className="text-2xl font-medium">Новостная лента</h3>
@@ -125,6 +142,9 @@ export default async function () {
           </div>
         </section>
       </div>
+      <footer className="max-w-6xl mx-auto w-full px-6 pt-24 pb-6">
+        <LogoSvg className="opacity-10" />
+      </footer>
     </>
   );
 }
