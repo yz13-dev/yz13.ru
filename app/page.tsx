@@ -1,9 +1,11 @@
 import { getBlogV1Posts, getNewsV1 } from "@yz13/api";
 import { Badge } from "@yz13/ui/badge";
+import { Button } from "@yz13/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@yz13/ui/input-group";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { ArrowRightIcon, SearchIcon } from "lucide-react";
+import { ArrowRightIcon, ExternalLinkIcon, SearchIcon } from "lucide-react";
+import Link from "next/link";
 import { Logo } from "./components/logo";
 
 export default async function () {
@@ -21,7 +23,7 @@ export default async function () {
           <div className="size-10 rounded-full border bg-secondary" />
         </div>
       </header>
-      <div className="max-w-4xl mx-auto py-12">
+      <div className="max-w-4xl mx-auto py-12 space-y-2">
         <div className="shrink-0 rounded-xl w-full h-12 bg-card border">
           <InputGroup className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none">
             <InputGroupInput placeholder="Поиск среди сервисов YZ13" className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none px-4" />
@@ -32,6 +34,17 @@ export default async function () {
               <InputGroupButton variant="secondary" className="h-full aspect-square"><ArrowRightIcon className="size-4" /></InputGroupButton>
             </InputGroupAddon>
           </InputGroup>
+        </div>
+        <div className="flex justify-between items-center">
+          <div></div>
+          <div>
+            <Button variant="secondary" size="sm" asChild>
+              <Link href="https://yz13.dev">
+                <span>yz13.dev</span>
+                <ArrowRightIcon />
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
       <div className="w-full max-w-4xl mx-auto pb-6 *:pt-6">
@@ -46,16 +59,26 @@ export default async function () {
                   .slice(0, 5)
                   .map(article => {
 
-                    const date = new Date(article.published_at);
+                    // @ts-expect-error
+                    const source = article.news_source as { name: string, url: string };
+                    const name = source.name;
+
+                    const source_url = source.url;
+                    const url = article.url;
 
                     return (
-                      <li key={article.id} className="w-full justify-between flex items-center gap-2 py-2">
-                        <div className="flex items-center gap-2 max-w-[75%]">
+                      <li key={article.id} className="w-full cursor-pointer group justify-between flex items-center gap-2 py-2">
+                        <div className="flex items-center gap-2 max-w-[75%] relative">
+                          <Link href={url} className="absolute inset-0" />
                           <div className="size-5 rounded-full shrink-0 border bg-secondary" />
-                          <span className="text-sm">{article.title}</span>
+                          <span className="text-sm line-clamp-1 group-hover:underline">{article.title}</span>
                         </div>
                         <span className="dashed-line" />
-                        <Badge variant="outline">{format(date, "HH:mm", { locale: ru })}</Badge>
+                        <Badge variant="outline" asChild>
+                          <Link href={source_url}>
+                            {name}<ExternalLinkIcon />
+                          </Link>
+                        </Badge>
                       </li>
                     )
                   })
@@ -73,10 +96,12 @@ export default async function () {
                     const id = post.id;
 
                     const date = new Date(post.date);
+                    const url = `https://blog.yz13.ru/${post.id}`;
 
                     return (
-                      <li key={id} className="w-full justify-between flex items-center gap-2 py-2">
-                        <span className="text-sm">{post.title}</span>
+                      <li key={id} className="w-full justify-between relative group flex items-center gap-2 py-2">
+                        <Link href={url} className="absolute inset-0" />
+                        <span className="text-sm group-hover:underline">{post.title}</span>
                         <span className="dashed-line" />
                         <Badge variant="outline">{format(date, "dd LLLL", { locale: ru })}</Badge>
                       </li>
