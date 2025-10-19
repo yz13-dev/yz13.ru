@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { ArrowRightIcon, ExternalLinkIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
+import Favicon from "./components/favicon";
 import { Logo } from "./components/logo";
 import PinsGrid from "./components/pins-grid";
 
@@ -74,7 +75,9 @@ export default async function () {
                       <li key={article.id} className="w-full cursor-pointer group justify-between flex items-center gap-2 py-2">
                         <div className="flex items-center gap-2 max-w-[75%] relative">
                           <Link href={url} className="absolute inset-0" />
-                          <div className="size-5 rounded-full shrink-0 border bg-secondary" />
+                          <div className="size-5 rounded-full shrink-0 border bg-transparent">
+                            <Favicon url={source_url} size={18} />
+                          </div>
                           <span className="text-sm line-clamp-1 group-hover:underline">{article.title}</span>
                         </div>
                         <span className="dashed-line" />
