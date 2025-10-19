@@ -23,19 +23,21 @@ export default async function () {
           <div className="size-10 rounded-full border bg-secondary" />
         </div>
       </header>
-      <div className="max-w-4xl mx-auto py-12 space-y-2">
-        <div className="shrink-0 rounded-xl w-full h-12 bg-card border">
-          <InputGroup className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none">
-            <InputGroupInput placeholder="Поиск среди сервисов YZ13" className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none px-4" />
-            <InputGroupAddon>
-              <SearchIcon className="size-6" />
-            </InputGroupAddon>
-            <InputGroupAddon align="inline-end" className="px-4 py-2 h-full">
-              <InputGroupButton variant="secondary" className="h-full aspect-square"><ArrowRightIcon className="size-4" /></InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
+      <div className="max-w-4xl h-[calc(60dvh-56px)] mx-auto flex flex-col items-center justify-center py-12 gap-2">
+        <div className="w-full px-6">
+          <div className="shrink-0 rounded-xl w-full h-12 bg-card border">
+            <InputGroup className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none">
+              <InputGroupInput placeholder="Поиск среди сервисов YZ13" className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none px-4" />
+              <InputGroupAddon>
+                <SearchIcon className="size-6" />
+              </InputGroupAddon>
+              <InputGroupAddon align="inline-end" className="px-4 py-2 h-full">
+                <InputGroupButton variant="secondary" className="h-full aspect-square"><ArrowRightIcon className="size-4" /></InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </div>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex px-6 justify-between w-full items-center">
           <div></div>
           <div>
             <Button variant="secondary" size="sm" asChild>
@@ -47,9 +49,9 @@ export default async function () {
           </div>
         </div>
       </div>
-      <div className="w-full max-w-4xl mx-auto pb-6 *:pt-6">
-        <div className="w-full flex gap-4">
-          <section className="w-2/3">
+      <div className="w-full max-w-4xl mx-auto pb-6 *:px-6 *:pt-6">
+        <div className="w-full flex md:flex-row flex-col gap-4">
+          <section className="md:w-2/3 w-full">
             <div className="w-full py-4">
               <h3 className="text-2xl font-medium">Новостная лента</h3>
             </div>
@@ -85,7 +87,7 @@ export default async function () {
               }
             </ul>
           </section>
-          <section className="w-1/3">
+          <section className="md:w-1/3 w-full">
             <div className="w-full py-4">
               <h3 className="text-2xl font-medium">Блог</h3>
             </div>
