@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@yz13/api": "^0.2.20",
+    "@yz13/api": "^0.2.21",
     "@yz13/ui": "^0.2.3",
     "ahooks": "^3.9.5",
     "date-fns": "^4.1.0",

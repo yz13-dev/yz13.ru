@@ -1,4 +1,4 @@
-import { getBlogV1Posts, getNewsV1, getPinsV1PinsRecommendations } from "@yz13/api";
+import { getBlogV1Posts, getNewsV1Recent, getPinsV1PinsRecommendations } from "@yz13/api";
 import { Badge } from "@yz13/ui/badge";
 import { Button } from "@yz13/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@yz13/ui/input-group";
@@ -13,7 +13,7 @@ import PinsGrid from "./components/pins-grid";
 export default async function () {
 
   const blog = await getBlogV1Posts();
-  const news = await getNewsV1();
+  const news = await getNewsV1Recent();
   const pins = await getPinsV1PinsRecommendations();
 
   return (
@@ -61,10 +61,8 @@ export default async function () {
             <ul>
               {
                 (news || [])
-                  .slice(0, 5)
                   .map(article => {
 
-                    // @ts-expect-error
                     const source = article.news_source as { name: string, url: string };
                     const name = source.name;
 
@@ -75,7 +73,7 @@ export default async function () {
                       <li key={article.id} className="w-full cursor-pointer group justify-between flex items-center gap-2 py-2">
                         <div className="flex items-center gap-2 max-w-[75%] relative">
                           <Link href={url} className="absolute inset-0" />
-                          <div className="size-5 rounded-full shrink-0 border bg-transparent">
+                          <div className="size-5 rounded-full shrink-0 border flex items-center justify-center bg-transparent">
                             <Favicon url={source_url} size={18} />
                           </div>
                           <span className="text-sm line-clamp-1 group-hover:underline">{article.title}</span>
