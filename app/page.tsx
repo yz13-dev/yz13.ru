@@ -1,15 +1,15 @@
 import { getBlogV1Posts, getNewsV1Recent, getPinsV1PinsRecommendations } from "@yz13/api";
 import { Badge } from "@yz13/ui/badge";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@yz13/ui/input-group";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import { ArrowRightIcon, ExternalLinkIcon, SearchIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 import Favicon from "./components/favicon";
 import { Logo } from "./components/logo";
 import LogoSvg from "./components/logo-svg";
 import LinkLogo from "./components/logos/link-logo";
 import PinsGrid from "./components/pins-grid";
+import SearchInput from "./components/search-input";
 import User from "./components/user";
 
 export default async function () {
@@ -28,7 +28,7 @@ export default async function () {
           <User />
         </div>
       </header>
-      <div className="max-w-4xl h-[calc(75dvh-56px)] mx-auto flex flex-col items-center justify-center pt-12 pb-36 gap-2">
+      <div className="max-w-4xl md:h-[calc(75dvh-56px)] h-fit mx-auto flex flex-col items-center justify-center pt-12 md:pb-36 pb-12 gap-2">
         <div className="w-full px-6 flex flex-col justify-center gap-24">
           <div className="flex items-center mx-auto gap-6">
 
@@ -51,22 +51,11 @@ export default async function () {
             </div>
 
           </div>
-          <div className="shrink-0 rounded-xl w-full h-14 bg-card border">
-            <InputGroup className="w-full h-14 *:h-full !text-xl font-medium rounded-xl border-none bg-none shadow-none">
-              <InputGroupInput placeholder="Поиск внутри YZ13" className="w-full !text-xl font-medium rounded-xl border-none bg-none shadow-none px-4" />
-              <InputGroupAddon>
-                <SearchIcon className="size-6" />
-              </InputGroupAddon>
-              <InputGroupAddon align="inline-end" className="px-4 py-2 h-full">
-                <InputGroupButton variant="secondary" className="h-full aspect-square"><ArrowRightIcon className="size-4" /></InputGroupButton>
-              </InputGroupAddon>
-            </InputGroup>
-          </div>
+          <SearchInput />
         </div>
         <div className="flex px-6 justify-between w-full items-center">
           <div></div>
-          <div>
-          </div>
+          <div></div>
         </div>
       </div>
       <div className="w-full max-w-6xl mx-auto pb-6 *:px-6 *:pt-6">
