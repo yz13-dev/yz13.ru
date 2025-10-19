@@ -1,4 +1,4 @@
-import { getBlogV1Posts, getNewsV1 } from "@yz13/api";
+import { getBlogV1Posts, getNewsV1, getPinsV1PinsRecommendations } from "@yz13/api";
 import { Badge } from "@yz13/ui/badge";
 import { Button } from "@yz13/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@yz13/ui/input-group";
@@ -7,11 +7,13 @@ import { ru } from "date-fns/locale";
 import { ArrowRightIcon, ExternalLinkIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "./components/logo";
+import PinsGrid from "./components/pins-grid";
 
 export default async function () {
 
   const blog = await getBlogV1Posts();
   const news = await getNewsV1();
+  const pins = await getPinsV1PinsRecommendations();
 
   return (
     <>
@@ -118,30 +120,7 @@ export default async function () {
             <h3 className="text-2xl font-medium">Пины</h3>
           </div>
           <div className="w-full flex gap-2">
-            <div className="w-1/4 space-y-2">
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-            </div>
-            <div className="w-1/4 space-y-2">
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-            </div>
-            <div className="w-1/4 space-y-2">
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-            </div>
-            <div className="w-1/4 space-y-2">
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-              <div className="w-full aspect-[9/16] bg-secondary rounded-xl" />
-              <div className="w-full aspect-square bg-secondary rounded-xl" />
-            </div>
+            <PinsGrid pins={pins} />
           </div>
         </section>
       </div>
