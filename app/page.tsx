@@ -1,6 +1,16 @@
+import { getBlogV1Posts, getNewsV1 } from "@yz13/api";
+import { Badge } from "@yz13/ui/badge";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@yz13/ui/input-group";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
+import { ArrowRightIcon, SearchIcon } from "lucide-react";
 import { Logo } from "./components/logo";
 
-export default function () {
+export default async function () {
+
+  const blog = await getBlogV1Posts();
+  const news = await getNewsV1();
+
   return (
     <>
       <header className="w-full flex px-6 pt-4 items-center justify-between">
@@ -12,14 +22,74 @@ export default function () {
         </div>
       </header>
       <div className="max-w-4xl mx-auto py-12">
-        <div className="shrink-0 rounded-xl w-full h-12 bg-card border" />
+        <div className="shrink-0 rounded-xl w-full h-12 bg-card border">
+          <InputGroup className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none">
+            <InputGroupInput placeholder="Поиск среди сервисов YZ13" className="w-full h-12 !text-xl font-medium rounded-xl border-none bg-none shadow-none px-4" />
+            <InputGroupAddon>
+              <SearchIcon className="size-6" />
+            </InputGroupAddon>
+            <InputGroupAddon align="inline-end" className="px-4 py-2 h-full">
+              <InputGroupButton variant="secondary" className="h-full aspect-square"><ArrowRightIcon className="size-4" /></InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
       </div>
       <div className="w-full max-w-4xl mx-auto pb-6 *:pt-6">
         <div className="w-full flex gap-4">
-          <div className="w-2/3 h-48 rounded-xl bg-secondary"></div>
-          <div className="w-1/3 h-48 rounded-xl bg-secondary"></div>
+          <section className="w-2/3">
+            <div className="w-full py-4">
+              <h3 className="text-2xl font-medium">Новостная лента</h3>
+            </div>
+            <ul>
+              {
+                (news || [])
+                  .slice(0, 5)
+                  .map(article => {
+
+                    const date = new Date(article.published_at);
+
+                    return (
+                      <li key={article.id} className="w-full justify-between flex items-center gap-2 py-2">
+                        <div className="flex items-center gap-2 max-w-[75%]">
+                          <div className="size-5 rounded-full shrink-0 border bg-secondary" />
+                          <span className="text-sm">{article.title}</span>
+                        </div>
+                        <span className="dashed-line" />
+                        <Badge variant="outline">{format(date, "HH:mm", { locale: ru })}</Badge>
+                      </li>
+                    )
+                  })
+              }
+            </ul>
+          </section>
+          <section className="w-1/3">
+            <div className="w-full py-4">
+              <h3 className="text-2xl font-medium">Блог</h3>
+            </div>
+            <ul>
+              {
+                blog
+                  .map(post => {
+                    const id = post.id;
+
+                    const date = new Date(post.date);
+
+                    return (
+                      <li key={id} className="w-full justify-between flex items-center gap-2 py-2">
+                        <span className="text-sm">{post.title}</span>
+                        <span className="dashed-line" />
+                        <Badge variant="outline">{format(date, "dd LLLL", { locale: ru })}</Badge>
+                      </li>
+                    )
+                  })
+              }
+            </ul>
+          </section>
         </div>
-        <div className="w-full">
+        <section className="w-full">
+          <div className="w-full py-4">
+            <h3 className="text-2xl font-medium">Пины</h3>
+          </div>
           <div className="w-full flex gap-2">
             <div className="w-1/4 space-y-2">
               <div className="w-full aspect-square bg-secondary rounded-xl" />
@@ -46,7 +116,7 @@ export default function () {
               <div className="w-full aspect-square bg-secondary rounded-xl" />
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </>
   );
