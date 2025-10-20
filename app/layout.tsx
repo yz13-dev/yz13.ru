@@ -1,7 +1,8 @@
+import { Toaster } from "@yz13/ui/sonner";
 import type { Metadata } from "next";
 import { Geist_Mono, Inter } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
-import { Toaster } from "@yz13/ui/sonner";
 
 const sans = Inter({
   variable: "--font-sans",
@@ -26,8 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sans.variable} ${mono.variable} antialiased`}>
-        <Toaster position="bottom-center" />
-        {children}
+        <NuqsAdapter>
+          <Toaster position="bottom-center" />
+          {children}
+        </NuqsAdapter>
       </body>
     </html>
   );
