@@ -1,31 +1,15 @@
-import {
-  getBlogV1Posts,
-  getNewsV1Recent,
-  getPinsV1PinsRecommendations,
-} from "@yz13/api";
-import { Badge } from "@yz13/ui/badge";
-import { format } from "date-fns";
-import { ru } from "date-fns/locale";
-import { ExternalLinkIcon, LayoutGridIcon } from "lucide-react";
-import Link from "next/link";
-import Favicon from "./components/favicon";
+import { Skeleton } from "@yz13/ui/skeleton";
+import { Suspense } from "react";
+import Blog, { BlogLoading } from "./components/blog";
+import ExternalProject from "./components/external-project";
 import { Logo } from "./components/logo";
 import LogoSvg from "./components/logo-svg";
 import LinkLogo from "./components/logos/link-logo";
-import PinsGrid from "./components/pins/pins-grid";
+import YzlabLogo from "./components/logos/yzlab-logo";
+import News, { NewsLoading } from "./components/news";
+import Pins from "./components/pins";
 import SearchInput from "./components/search-input";
 import User from "./components/user";
-import News, { NewsLoading } from "./components/news";
-import { Suspense } from "react";
-import Blog, { BlogLoading } from "./components/blog";
-import Pins from "./components/pins";
-import { Skeleton } from "@yz13/ui/skeleton";
-import YzlabLogo from "./components/logos/yzlab-logo";
-import ExternalProject from "./components/external-project";
-import { Button } from "@yz13/ui/button";
-import { Popover } from "@yz13/ui/popover";
-import { PopoverTrigger } from "@yz13/ui/popover";
-import { PopoverContent } from "@yz13/ui/popover";
 
 export default function () {
   return (
