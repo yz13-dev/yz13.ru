@@ -3,11 +3,16 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "srvx"
+    "start": "bun run server.ts",
+    "dev": "bun run --watch server.ts"
   },
   "dependencies": {
     "@hono/zod-openapi": "^1.1.4",
     "@hono/zod-validator": "^0.7.4",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.78.0",
+    "date-fns": "^4.1.0",
+    "gray-matter": "^4.0.3",
     "hono": "^4.8.10",
     "hono-openapi": "^1.1.1",
     "zod": "^4.1.12"

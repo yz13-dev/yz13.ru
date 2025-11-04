@@ -1,11 +1,13 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
+import { serveStatic } from "hono/bun";
 import { every } from "hono/combine";
 import { cors } from "hono/cors";
 import { requestId } from "hono/request-id";
 import { timing } from "hono/timing";
-import packageJson from '../package.json' with { type: "json" };
+import packageJson from './package.json' with { type: "json" };
+import { root } from "./src/services/root";
 
-const app = new OpenAPIHono();
+const app = new OpenAPIHono({ strict: false });
 
 app.use(
   "*",
@@ -40,6 +42,10 @@ app.use(
   ),
 );
 
+app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
+
+app.route("/", root);
+
 app.doc("/openapi.json", {
   openapi: "3.0.0",
   info: {
@@ -62,5 +68,6 @@ app.get("version", (c) => {
     version: packageJson.version
   });
 });
+
 
 export default app;
