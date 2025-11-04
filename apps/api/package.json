@@ -1,0 +1,20 @@
+{
+  "name": "api",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "srvx"
+  },
+  "dependencies": {
+    "@hono/zod-openapi": "^1.1.4",
+    "@hono/zod-validator": "^0.7.4",
+    "hono": "^4.8.10",
+    "hono-openapi": "^1.1.1",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "srvx": "^0.8.7",
+    "typescript": "^5.8.3"
+  }
+}

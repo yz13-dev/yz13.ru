@@ -1,0 +1,30 @@
+{
+  "extends": "@yz13/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "strict": true,
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "types": [
+      "node"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "content-collections": [
+        "./.content-collections/generated"
+      ]
+    }
+  },
+  "include": [
+    ".content-collections",
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

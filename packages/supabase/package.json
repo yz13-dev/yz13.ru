@@ -1,0 +1,105 @@
+{
+  "name": "@yz13/supabase",
+  "version": "0.1.1",
+  "description": "Supabase for yz13 projects",
+  "exports": {
+    "./hono/middleware": {
+      "types": "./dist/supabase/hono/supabase.middleware.d.ts",
+      "import": "./dist/supabase/hono/supabase.middleware.mjs",
+      "require": "./dist/supabase/hono/supabase.middleware.js"
+    },
+    "./hono/middleware/admin": {
+      "types": "./dist/supabase/hono/admin.supabase.middleware.d.ts",
+      "import": "./dist/supabase/hono/admin.supabase.middleware.mjs",
+      "require": "./dist/supabase/hono/admin.supabase.middleware.js"
+    },
+    "./hono/storage": {
+      "types": "./dist/supabase/hono/storage.d.ts",
+      "import": "./dist/supabase/hono/storage.mjs",
+      "require": "./dist/supabase/hono/storage.js"
+    },
+    "./next/client": {
+      "types": "./dist/supabase/next/client.d.ts",
+      "import": "./dist/supabase/next/client.mjs",
+      "require": "./dist/supabase/next/client.js"
+    },
+    "./next/server": {
+      "types": "./dist/supabase/next/server.d.ts",
+      "import": "./dist/supabase/next/server.mjs",
+      "require": "./dist/supabase/next/server.js"
+    },
+    "./next/admin": {
+      "types": "./dist/supabase/next/admin.d.ts",
+      "import": "./dist/supabase/next/admin.mjs",
+      "require": "./dist/supabase/next/admin.js"
+    },
+    "./next/middleware": {
+      "types": "./dist/supabase/next/middleware.d.ts",
+      "import": "./dist/supabase/next/middleware.mjs",
+      "require": "./dist/supabase/next/middleware.js"
+    },
+    "./next/storage": {
+      "types": "./dist/supabase/next/storage.d.ts",
+      "import": "./dist/supabase/next/storage.mjs",
+      "require": "./dist/supabase/next/storage.js"
+    },
+    "./cookies": {
+      "types": "./dist/supabase/cookies.d.ts",
+      "import": "./dist/supabase/cookies.mjs",
+      "require": "./dist/supabase/cookies.js"
+    },
+    "./extra": {
+      "types": "./dist/supabase/extra.d.ts",
+      "import": "./dist/supabase/extra.mjs",
+      "require": "./dist/supabase/extra.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublishOnly": "bun run build",
+    "build": "tsup",
+    "dev": "tsup --watch --clean=false",
+    "test": "jest .test.ts"
+  },
+  "keywords": [
+    "package",
+    "yz13"
+  ],
+  "author": "YZ13",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yz13-dev/yz13.git"
+  },
+  "homepage": "https://github.com/yz13-dev/yz13#redme",
+  "bugs": {
+    "url": "https://github.com/yz13-dev/yz13/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.4",
+    "clsx": "^2.1.1",
+    "next": "^15.3.0",
+    "react": "^19.1.0",
+    "rimraf": "^6.0.1",
+    "tsup": "^6.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.14.1",
+    "@types/react": "^19.1.1",
+    "@types/react-dom": "^19.1.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

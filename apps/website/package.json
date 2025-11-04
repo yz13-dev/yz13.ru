@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000",
+    "dev": "next dev --port 5173",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --max-warnings 0",
@@ -21,6 +21,7 @@
     "tailwindcss": "^4.1.16"
   },
   "devDependencies": {
+    "@content-collections/next": "^0.2.9",
     "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",

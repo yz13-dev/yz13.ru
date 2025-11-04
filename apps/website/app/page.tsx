@@ -5,7 +5,7 @@ import { ThemeImage } from "@/components/theme-image";
 import { Badge } from "@yz13/ui/badge";
 import { Button } from "@yz13/ui/button";
 import { ButtonGroup } from "@yz13/ui/button-group";
-import { ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
+import { ArrowRightIcon, ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
 import { InputGroupButton } from "@yz13/ui/input-group";
 import Image from "next/image";
 import Link from "next/link";
@@ -103,7 +103,7 @@ export default function Root() {
               <span className="dashed-line" />
               <InputGroupButton variant="outline">
                 <span>Открыть</span>
-                <ExternalLinkIcon />
+                <ArrowRightIcon />
               </InputGroupButton>
             </div>
           </li>
@@ -124,7 +124,7 @@ export default function Root() {
               <span className="dashed-line" />
               <InputGroupButton variant="outline">
                 <span>Открыть</span>
-                <ExternalLinkIcon />
+                <ArrowRightIcon />
               </InputGroupButton>
             </div>
           </li>
@@ -166,7 +166,7 @@ export default function Root() {
               <span className="dashed-line" />
               <InputGroupButton variant="outline">
                 <span>Открыть</span>
-                <ExternalLinkIcon />
+                <ArrowRightIcon />
               </InputGroupButton>
             </div>
           </li>
