@@ -4,7 +4,7 @@ FROM oven/bun:1.1 AS builder
 WORKDIR /repo
 
 # Сначала копируем root package.json, lock файл и turbo.json — ускоряет install
-COPY package.json bun.lockb turbo.json ./
+COPY package.json bun.lock turbo.json ./
 
 # Затем копируем workspace конфиги и apps/packages
 COPY apps ./apps
