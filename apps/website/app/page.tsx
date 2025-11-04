@@ -3,10 +3,11 @@ import Experience from "@/components/experience";
 import GithubContributions from "@/components/github-contributions";
 import LogoSvg from "@/components/logo-svg";
 import { ThemeImage } from "@/components/theme-image";
+import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/avatar";
 import { Badge } from "@yz13/ui/badge";
 import { Button } from "@yz13/ui/button";
 import { ButtonGroup } from "@yz13/ui/button-group";
-import { ArrowRightIcon, ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, Code2Icon, ExternalLinkIcon, GlobeIcon, MailIcon } from "@yz13/ui/icons";
 import { InputGroupButton } from "@yz13/ui/input-group";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,22 +18,73 @@ import Link from "next/link";
 export default function Root() {
   return (
     <>
-      <header className="max-w-2xl mx-auto w-full px-4 py-6">
-        <Link href="/">
-          <ThemeImage
-            srcDark="/logo/dark-full.png"
-            srcLight="/logo/light-full.png"
-            width={128}
-            height={32}
+      <main className="px-4 py-[5%] max-w-2xl space-y-12 mx-auto w-full">
+        <div className="w-full relative overflow-hidden aspect-video flex items-center justify-center bg-card border rounded-xl">
+          <Image
+            src="/og/og.png"
+            fill
             alt="logo"
           />
-        </Link>
-      </header>
-      <main className="px-4 py-6 max-w-2xl mx-auto w-full *:block space-y-1">
-        <h1 className="text-4xl font-medium">YZ13 - фронтенд разработчик</h1>
-        <p className="text-muted-foreground">
-          Нужен разработчик? Разработаю фронтенд для вашего проекта.
-        </p>
+        </div>
+        <div className="w-full flex flex-row gap-4 items-end">
+          <Avatar className="size-36 rounded-full border">
+            <AvatarImage src="https://github.com/yz13-dev.png" alt="avatar" />
+            <AvatarFallback>YZ</AvatarFallback>
+          </Avatar>
+          <div className="*:block space-y-1">
+            <h1 className="text-2xl font-semibold">YZ13 - фронтенд разработчик</h1>
+            <p className="text-base text-muted-foreground">
+              Нужен разработчик? Разработаю фронтенд для вашего проекта.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center w-fit gap-2">
+          <Button size="lg" asChild>
+            <Link href="https://cal.com/yz13-dev">
+              <ArrowLeftIcon />
+              <span>Запланировать встречу</span>
+            </Link>
+          </Button>
+          <Button size="lg" variant="outline" asChild>
+            <Link href="https://t.me/yz13_dev">
+              <span>Чат</span>
+              <Image src="https://cdn.simpleicons.org/telegram/000000/ffffff" unoptimized width={16} height={16} alt="telegram" />
+            </Link>
+          </Button>
+        </div>
+        <ul className="space-y-3">
+          <li>
+            <div className="flex items-center gap-2">
+              <div className="size-6 rounded-[8px] outline-2 outline-ring/20 bg-card border flex items-center justify-center">
+                <Code2Icon size={16} />
+              </div>
+              <span className="text-base text-balance">
+                Фронтенд разработчик
+              </span>
+            </div>
+          </li>
+          <li>
+            <div className="flex items-center gap-2">
+              <div className="size-6 rounded-[8px] outline-2 outline-ring/20 bg-card border flex items-center justify-center">
+                <MailIcon size={16} />
+              </div>
+              <Link href="mailto:yz13.dev@gmail.com" className="text-base text-balance hover:underline">
+                yz13.dev@gmail.com
+              </Link>
+            </div>
+          </li>
+          <li>
+            <div className="flex items-center gap-2">
+              <div className="size-6 rounded-[8px] outline-2 outline-ring/20 bg-card border flex items-center justify-center">
+                <GlobeIcon size={16} />
+              </div>
+              <Link href="https://yz13.ru" className="text-base text-balance hover:underline">
+                yz13.ru
+              </Link>
+            </div>
+          </li>
+        </ul>
+        <Experience />
       </main>
       <section className="p-4 max-w-2xl mx-auto w-full">
         <div className="h-48">
@@ -67,12 +119,6 @@ export default function Root() {
         </ButtonGroup>
       </div>
       <div className="bg-card max-w-2xl w-full mx-auto *:px-6 py-6 space-y-6 rounded-xl border">
-        <section className="max-w-2xl mx-auto w-full">
-          <div className="pb-4">
-            <h3 className="text-lg font-medium">Опыт работы</h3>
-          </div>
-          <Experience />
-        </section>
         <section className="max-w-2xl mx-auto w-full">
           <div className="pb-4">
             <h3 className="text-lg font-medium">Проекты</h3>
