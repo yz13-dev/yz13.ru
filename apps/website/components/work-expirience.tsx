@@ -11,6 +11,7 @@ import Image from "next/image";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
+import { Badge } from "@yz13/ui/badge";
 import { cn } from "@yz13/ui/cn";
 import {
   Collapsible,
@@ -74,7 +75,7 @@ export function WorkExperience({
   experiences: ExperienceItemType[];
 }) {
   return (
-    <div className={cn("bg-background", className)}>
+    <div className={cn("", className)}>
       {experiences.map((experience) => (
         <ExperienceItem key={experience.id} experience={experience} />
       ))}
@@ -115,14 +116,14 @@ export function ExperienceItem({
 
         {experience.isCurrentEmployer && (
           <span className="relative flex items-center justify-center">
-            <span className="absolute inline-flex size-3 animate-ping rounded-full bg-info opacity-50" />
-            <span className="relative inline-flex size-2 rounded-full bg-info" />
+            <span className="absolute inline-flex size-3 animate-ping rounded-full opacity-50" />
+            <span className="relative inline-flex size-2 rounded-full" />
             <span className="sr-only">Текущее весто работы</span>
           </span>
         )}
       </div>
 
-      <div className="relative space-y-4 before:absolute before:left-3 before:h-full before:w-px before:bg-border">
+      <div className="relative space-y-4 before:absolute before:left-3 before:h-full before:w-px">
         {experience.positions.map((position) => (
           <ExperiencePositionItem key={position.id} position={position} />
         ))}
@@ -140,9 +141,9 @@ export function ExperiencePositionItem({
 
   return (
     <Collapsible defaultOpen={position.isExpanded} asChild>
-      <div className="relative last:before:absolute last:before:h-full last:before:w-4 last:before:bg-background">
+      <div className="relative last:before:absolute last:before:h-full last:before:w-4">
         <CollapsibleTrigger className="group/experience not-prose block w-full text-left select-none">
-          <div className="relative z-1 mb-1 flex items-center gap-3 bg-background">
+          <div className="relative z-1 mb-1 flex items-center gap-3">
             <div
               className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground"
               aria-hidden
@@ -213,7 +214,7 @@ function Prose({ className, ...props }: React.ComponentProps<"div">) {
       className={cn(
         "prose prose-sm max-w-none font-mono text-foreground prose-zinc dark:prose-invert",
         "prose-a:font-medium prose-a:break-words prose-a:text-foreground prose-a:underline prose-a:underline-offset-4",
-        "prose-code:rounded-md prose-code:border prose-code:bg-muted/50 prose-code:px-[0.3rem] prose-code:py-[0.2rem] prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none",
+        "prose-code:rounded-md prose-code:border prose-code:px-[0.3rem] prose-code:py-[0.2rem] prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none",
         className
       )}
       {...props}
@@ -223,9 +224,10 @@ function Prose({ className, ...props }: React.ComponentProps<"div">) {
 
 function Skill({ className, ...props }: React.ComponentProps<"span">) {
   return (
-    <span
+    <Badge
+      variant="secondary"
       className={cn(
-        "inline-flex items-center rounded-lg border bg-muted/50 px-1.5 py-0.5 font-mono text-xs text-muted-foreground",
+        "",
         className
       )}
       {...props}
