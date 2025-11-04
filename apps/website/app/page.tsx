@@ -139,7 +139,7 @@ export default function Root() {
                   <span className="text-base font-medium">yzlab</span>
                 </div>
                 <span className="dashed-line" />
-                <InputGroupButton variant="outline">
+                <InputGroupButton variant="outline" disabled>
                   <span>Открыть</span>
                   <ExternalLinkIcon />
                 </InputGroupButton>
@@ -160,7 +160,7 @@ export default function Root() {
                   <span className="text-base font-medium">Блог</span>
                 </div>
                 <span className="dashed-line" />
-                <InputGroupButton variant="outline">
+                <InputGroupButton variant="outline" disabled>
                   <span>Открыть</span>
                   <ArrowRightIcon />
                 </InputGroupButton>
@@ -181,7 +181,7 @@ export default function Root() {
                   <span className="text-base font-medium">Пины</span>
                 </div>
                 <span className="dashed-line" />
-                <InputGroupButton variant="outline">
+                <InputGroupButton variant="outline" disabled>
                   <span>Открыть</span>
                   <ArrowRightIcon />
                 </InputGroupButton>
@@ -202,7 +202,7 @@ export default function Root() {
                   <span className="text-base font-medium">Link</span>
                 </div>
                 <span className="dashed-line" />
-                <InputGroupButton variant="outline">
+                <InputGroupButton variant="outline" disabled>
                   <span>Открыть</span>
                   <ExternalLinkIcon />
                 </InputGroupButton>
@@ -223,7 +223,7 @@ export default function Root() {
                   <span className="text-base font-medium">Новостная лента</span>
                 </div>
                 <span className="dashed-line" />
-                <InputGroupButton variant="outline">
+                <InputGroupButton variant="outline" disabled>
                   <span>Открыть</span>
                   <ArrowRightIcon />
                 </InputGroupButton>
@@ -235,35 +235,38 @@ export default function Root() {
           <div className="pb-4">
             <h3 className="text-lg font-medium">Блог</h3>
           </div>
-          <ul className="space-y-6">
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <span className="text-base font-medium">Заголовок</span>
-                <span className="dashed-line" />
-                <Badge variant="outline">
-                  12 Сентября
-                </Badge>
-              </div>
-            </li>
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <span className="text-base font-medium">Заголовок</span>
-                <span className="dashed-line" />
-                <Badge variant="outline">
-                  12 Сентября
-                </Badge>
-              </div>
-            </li>
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <span className="text-base font-medium">Заголовок</span>
-                <span className="dashed-line" />
-                <Badge variant="outline">
-                  12 Сентября
-                </Badge>
-              </div>
-            </li>
-          </ul>
+          {
+            false &&
+            <ul className="space-y-6">
+              <li>
+                <div className="w-full flex items-center gap-3 justify-between">
+                  <span className="text-base font-medium">Заголовок</span>
+                  <span className="dashed-line" />
+                  <Badge variant="outline">
+                    12 Сентября
+                  </Badge>
+                </div>
+              </li>
+              <li>
+                <div className="w-full flex items-center gap-3 justify-between">
+                  <span className="text-base font-medium">Заголовок</span>
+                  <span className="dashed-line" />
+                  <Badge variant="outline">
+                    12 Сентября
+                  </Badge>
+                </div>
+              </li>
+              <li>
+                <div className="w-full flex items-center gap-3 justify-between">
+                  <span className="text-base font-medium">Заголовок</span>
+                  <span className="dashed-line" />
+                  <Badge variant="outline">
+                    12 Сентября
+                  </Badge>
+                </div>
+              </li>
+            </ul>
+          }
         </section>
       </div>
       <footer className="p-6 max-w-2xl mx-auto w-full">
