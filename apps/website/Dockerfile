@@ -1,27 +1,47 @@
-# Stage 1: Build
-FROM oven/bun:1.1 AS builder
+FROM oven/bun:1.3 AS base
+ 
+FROM base AS builder
 
-WORKDIR /repo
-
-# Сначала копируем root package.json, lock файл и turbo.json — ускоряет install
-COPY package.json bun.lock turbo.json ./
-
-# Затем копируем workspace конфиги и apps/packages
-COPY apps ./apps
-COPY packages ./packages
-
-RUN bun install
-RUN bun run turbo build --filter=website
-
-# Stage 2: Runtime (минимальный)
-FROM oven/bun:1.1
-
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends libc6
+# Set working directory
 WORKDIR /app
-
-# Копируем только output (из .output или .next, зависит от Next.js версии)
-COPY --from=builder /repo/apps/website/.next ./.next
-COPY --from=builder /repo/apps/website/package.json ./package.json
-COPY --from=builder /repo/node_modules ./node_modules
-
-EXPOSE 3000
-CMD ["bun", "next", "start"]
+# Replace <your-major-version> with the major version installed in your repository. For example:
+# RUN bun install -g turbo@^2
+RUN bun install -g turbo@2.6.0
+COPY . .
+ 
+# Generate a partial monorepo with a pruned lockfile for a target workspace.
+# Assuming "website" is the name entered in the project's package.json: { name: "website" }
+RUN turbo prune website --docker
+ 
+# Add lockfile and package.json's of isolated subworkspace
+FROM base AS installer
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends libc6
+WORKDIR /app
+ 
+# First install the dependencies (as they change less often)
+COPY --from=builder /app/out/json/ .
+RUN bun install -g turbo@2.6.0
+RUN bun install
+ 
+# Build the project
+COPY --from=builder /app/out/full/ .
+RUN turbo run build
+ 
+FROM base AS runner
+WORKDIR /app
+ 
+# Don't run production as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+USER nextjs
+ 
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/static ./apps/website/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/website/public ./apps/website/public
+ 
+CMD bun run apps/website/server.js
