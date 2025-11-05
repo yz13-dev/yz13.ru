@@ -1,14 +1,15 @@
 import { cn } from "@yz13/ui/cn";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
   preload: true,
+  display: "swap",
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 });
-const geistMono = Geist_Mono({
+const geistMono = JetBrains_Mono({
   preload: true,
   subsets: ["latin", "cyrillic"],
   variable: "--font-mono",
