@@ -9,14 +9,14 @@ export default function CommandBlock({
   as = "div"
 }: {
   as?: keyof HTMLElementTagNameMap,
-  children: React.ReactNode,
+  children?: React.ReactNode,
   command?: string
 }) {
 
   const Tag = as;
 
   return (
-    <div className="w-full">
+    <div className="w-full border-b">
       <Toolbar />
       <Tag className="px-6 pb-6 font-mono space-y-3">
         {

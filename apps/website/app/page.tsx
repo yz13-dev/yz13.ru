@@ -1,277 +1,131 @@
-import CopyButton from "@/components/copy-button";
-import Experience from "@/components/experience";
+import AutoScroll from "@/components/auto-scroll";
+import CommandBlock from "@/components/command-block";
 import GithubContributions from "@/components/github-contributions";
 import LogoSvg from "@/components/logo-svg";
-import { ThemeImage } from "@/components/theme-image";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/avatar";
-import { Badge } from "@yz13/ui/badge";
-import { Button } from "@yz13/ui/button";
-import { ButtonGroup } from "@yz13/ui/button-group";
-import { ArrowLeftIcon, ArrowRightIcon, Code2Icon, ExternalLinkIcon, GlobeIcon, MailIcon } from "@yz13/ui/icons";
+import { ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
 import { InputGroupButton } from "@yz13/ui/input-group";
-import Image from "next/image";
 import Link from "next/link";
 
 
 
-
-export default function Root() {
+export default function Terminal() {
   return (
     <>
-      <main className="px-4 py-[5%] max-w-2xl space-y-12 mx-auto w-full">
-        <div className="w-full relative overflow-hidden aspect-video flex items-center justify-center bg-card border rounded-xl">
-          <Image
-            src="/og/og.png"
-            fill
-            alt="logo"
-          />
-        </div>
-        <div className="w-full flex flex-row gap-4 items-end">
-          <Avatar className="size-36 rounded-full border">
-            <AvatarImage src="https://github.com/yz13-dev.png" alt="avatar" />
-            <AvatarFallback>YZ</AvatarFallback>
-          </Avatar>
-          <div className="*:block space-y-1">
-            <h1 className="text-2xl font-semibold">YZ13 - фронтенд разработчик</h1>
-            <p className="text-base text-muted-foreground">
-              Нужен разработчик? Разработаю фронтенд для вашего проекта.
-            </p>
+      <AutoScroll />
+      <div className="w-full h-10 border-b sticky top-0 bg-background z-10 py-2 px-6">
+        <div className="w-full flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <InputGroupButton variant="secondary">Терминал</InputGroupButton>
+            <InputGroupButton variant="ghost">Работы</InputGroupButton>
+          </div>
+          <div className="flex items-center gap-2">
+            <Avatar className="size-6">
+              <AvatarImage src="https://github.com/yz13-dev.png" alt="yz13-dev" />
+              <AvatarFallback>YZ13</AvatarFallback>
+            </Avatar>
           </div>
         </div>
-        <div className="flex items-center w-fit gap-2">
-          <Button size="lg" asChild>
-            <Link href="https://cal.com/yz13-dev">
-              <ArrowLeftIcon />
-              <span>Запланировать встречу</span>
-            </Link>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <Link href="https://t.me/yz13_dev">
-              <span>Чат</span>
-              <Image src="https://cdn.simpleicons.org/telegram/000000/ffffff" unoptimized width={16} height={16} alt="telegram" />
-            </Link>
-          </Button>
-        </div>
-        <ul className="space-y-3">
+      </div>
+      <CommandBlock command="whoami">
+        <span className="text-sm block">yz13</span>
+      </CommandBlock>
+      <CommandBlock command="/logo">
+        <LogoSvg className="max-w-2xs" />
+      </CommandBlock>
+      <CommandBlock command="/info" as="main">
+        <h1 className="text-sm block">yz13 - фронтенд разработчик</h1>
+        <p className="text-sm block">Нужен разработчик? Разработаю фронтенд для вашего проекта.</p>
+
+        <ul className="text-sm *:py-1 *:list-disc *:list-inside">
           <li>
-            <div className="flex items-center gap-2">
-              <div className="size-6 rounded-[8px] outline-2 outline-ring/20 bg-card border flex items-center justify-center">
-                <Code2Icon size={16} />
-              </div>
-              <span className="text-base text-balance">
-                Фронтенд разработчик
-              </span>
-            </div>
+            <span>Фронтенд разработчик</span>
           </li>
           <li>
-            <div className="flex items-center gap-2">
-              <div className="size-6 rounded-[8px] outline-2 outline-ring/20 bg-card border flex items-center justify-center">
-                <MailIcon size={16} />
-              </div>
-              <Link href="mailto:yz13.dev@gmail.com" className="text-base text-balance hover:underline">
-                yz13.dev@gmail.com
-              </Link>
-            </div>
+            <Link href="mailto:yz13.dev@gmail.com" className="hover:underline">yz13.dev@gmail.com</Link>
           </li>
           <li>
-            <div className="flex items-center gap-2">
-              <div className="size-6 rounded-[8px] outline-2 outline-ring/20 bg-card border flex items-center justify-center">
-                <GlobeIcon size={16} />
-              </div>
-              <Link href="https://yz13.ru" className="text-base text-balance hover:underline">
-                yz13.ru
-              </Link>
-            </div>
+            <Link href="https://yz13.ru" target="_blank" className="hover:underline">yz13.ru</Link>
           </li>
         </ul>
-        <Experience />
-      </main>
-      <section className="p-4 max-w-2xl mx-auto w-full">
-        <div className="h-48">
-          <GithubContributions username="yz13-dev" />
+      </CommandBlock>
+      <CommandBlock command="/work">
+
+        <span className="text-sm block">Reservia [09.2024 — 11.2025] (1 год 3 месяца)</span>
+
+        <div className="py-2 space-y-2">
+          <span className="text-sm block text-muted-foreground">
+            Проект был построен на базе Next.js, а также использовал TailwindCSS для создания компонентов и стилей. Но позднее было решено перейти на Vite + ReactRouter.
+          </span>
+
+          <span className="text-sm block text-muted-foreground">
+            В рамках проекта были выполнены и разработаны следующие функции:
+          </span>
         </div>
-      </section>
-      <div className="px-4 max-w-2xl mx-auto w-full pb-6 flex items-center justify-between gap-4">
-        <ButtonGroup className="*:bg-card">
-          <Button variant="outline" size="icon" asChild>
-            <Link href="https://t.me/yz13_dev">
-              <Image src="https://cdn.simpleicons.org/telegram/000000/ffffff" unoptimized width={18} height={18} alt="telegram" />
+
+        <ul className="text-sm *:py-1 *:list-disc *:list-inside text-muted-foreground">
+          <li><span>Редактор карты заведений.</span></li>
+          <li><span>Разработка и написание фронта.</span></li>
+          <li><span>Фикс багов и оптимизация кода.</span></li>
+          <li><span>Подключение к API сервиса и работа с ним.</span></li>
+        </ul>
+
+        <ul className="flex text-sm text-muted-foreground items-start flex-wrap gap-1">
+          <li><span>[ Next.js ]</span></li>
+          <li><span>[ TailwindCSS ]</span></li>
+          <li><span>[ Typescript ]</span></li>
+          <li><span>[ ReactRouter ]</span></li>
+          <li><span>[ Vite ]</span></li>
+        </ul>
+
+      </CommandBlock>
+
+      <CommandBlock command="/socials">
+        <ul className="text-sm *:py-1 *:list-disc *:list-inside">
+          <li>
+            <Link href="https://t.me/yz13_dev" target="_blank" className="inline-flex hover:cursor-pointer items-center gap-1 hover:underline">
+              <span>telegram</span><ExternalLinkIcon size={14} />
             </Link>
-          </Button>
-          <Button variant="outline" size="icon" asChild>
-            <Link href="https://github.com/yz13-dev">
-              <Image src="https://cdn.simpleicons.org/github/000000/ffffff" unoptimized width={18} height={18} alt="github" />
+          </li>
+          <li>
+            <Link href="https://github.com/yz13-dev" target="_blank" className="inline-flex hover:cursor-pointer items-center gap-1 hover:underline">
+              <span>github</span><ExternalLinkIcon size={14} />
             </Link>
-          </Button>
-          <Button variant="outline" size="icon" asChild>
-            <Link href="https://x.com/yz13_dev">
-              <Image src="https://cdn.simpleicons.org/x/000000/ffffff" unoptimized width={18} height={18} alt="x" />
+          </li>
+          <li>
+            <Link href="https://x.com/yz13_dev" target="_blank" className="inline-flex hover:cursor-pointer items-center gap-1 hover:underline">
+              <span>x</span><ExternalLinkIcon size={14} />
             </Link>
-          </Button>
-        </ButtonGroup>
-        <ButtonGroup className="*:bg-card">
-          <Button variant="outline" size="icon" asChild>
-            <Link href="mailto:yz13.dev@gmail.com">
-              <MailIcon />
+          </li>
+          <li>
+            <Link href="mailto:yz13.dev@gmail.com" target="_blank" className="inline-flex hover:cursor-pointer items-center gap-1 hover:underline">
+              <span>email</span>
+              <MailIcon size={14} />
             </Link>
-          </Button>
-          <CopyButton value="yz13.dev@gmail.com" />
-        </ButtonGroup>
-      </div>
-      <div className="bg-card max-w-2xl w-full mx-auto *:px-6 py-6 space-y-6 rounded-xl border">
-        <section className="max-w-2xl mx-auto w-full">
-          <div className="pb-4">
-            <h3 className="text-lg font-medium">Проекты</h3>
-          </div>
-          <ul className="space-y-6">
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <div className="flex items-center gap-1.5">
-                  <div className="size-6">
-                    <ThemeImage
-                      srcDark="/projects/yzlab/logo/dark.png"
-                      srcLight="/projects/yzlab/logo/light.png"
-                      width={24}
-                      height={24}
-                      alt="yzlab"
-                    />
-                  </div>
-                  <span className="text-base font-medium">yzlab</span>
-                </div>
-                <span className="dashed-line" />
-                <InputGroupButton variant="outline" disabled>
-                  <span>Открыть</span>
-                  <ExternalLinkIcon />
-                </InputGroupButton>
-              </div>
-            </li>
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <div className="flex items-center gap-1.5">
-                  <div className="size-6">
-                    <ThemeImage
-                      srcDark="/projects/blog/logo/dark.png"
-                      srcLight="/projects/blog/logo/light.png"
-                      width={24}
-                      height={24}
-                      alt="blog"
-                    />
-                  </div>
-                  <span className="text-base font-medium">Блог</span>
-                </div>
-                <span className="dashed-line" />
-                <InputGroupButton variant="outline" disabled>
-                  <span>Открыть</span>
-                  <ArrowRightIcon />
-                </InputGroupButton>
-              </div>
-            </li>
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <div className="flex items-center gap-1.5">
-                  <div className="size-6">
-                    <ThemeImage
-                      srcDark="/projects/pins/logo/dark.png"
-                      srcLight="/projects/pins/logo/light.png"
-                      width={24}
-                      height={24}
-                      alt="blog"
-                    />
-                  </div>
-                  <span className="text-base font-medium">Пины</span>
-                </div>
-                <span className="dashed-line" />
-                <InputGroupButton variant="outline" disabled>
-                  <span>Открыть</span>
-                  <ArrowRightIcon />
-                </InputGroupButton>
-              </div>
-            </li>
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <div className="flex items-center gap-1.5">
-                  <div className="size-6 rounded-full border overflow-hidden">
-                    <ThemeImage
-                      srcDark="/projects/link/logo/dark.png"
-                      srcLight="/projects/link/logo/light.png"
-                      width={24}
-                      height={24}
-                      alt="blog"
-                    />
-                  </div>
-                  <span className="text-base font-medium">Link</span>
-                </div>
-                <span className="dashed-line" />
-                <InputGroupButton variant="outline" disabled>
-                  <span>Открыть</span>
-                  <ExternalLinkIcon />
-                </InputGroupButton>
-              </div>
-            </li>
-            <li>
-              <div className="w-full flex items-center gap-3 justify-between">
-                <div className="flex items-center gap-1.5">
-                  <div className="size-6">
-                    <ThemeImage
-                      srcDark="/projects/news/logo/dark.png"
-                      srcLight="/projects/news/logo/light.png"
-                      width={24}
-                      height={24}
-                      alt="blog"
-                    />
-                  </div>
-                  <span className="text-base font-medium">Новостная лента</span>
-                </div>
-                <span className="dashed-line" />
-                <InputGroupButton variant="outline" disabled>
-                  <span>Открыть</span>
-                  <ArrowRightIcon />
-                </InputGroupButton>
-              </div>
-            </li>
-          </ul>
-        </section>
-        <section className="max-w-2xl mx-auto w-full">
-          <div className="pb-4">
-            <h3 className="text-lg font-medium">Блог</h3>
-          </div>
-          {
-            false &&
-            <ul className="space-y-6">
-              <li>
-                <div className="w-full flex items-center gap-3 justify-between">
-                  <span className="text-base font-medium">Заголовок</span>
-                  <span className="dashed-line" />
-                  <Badge variant="outline">
-                    12 Сентября
-                  </Badge>
-                </div>
-              </li>
-              <li>
-                <div className="w-full flex items-center gap-3 justify-between">
-                  <span className="text-base font-medium">Заголовок</span>
-                  <span className="dashed-line" />
-                  <Badge variant="outline">
-                    12 Сентября
-                  </Badge>
-                </div>
-              </li>
-              <li>
-                <div className="w-full flex items-center gap-3 justify-between">
-                  <span className="text-base font-medium">Заголовок</span>
-                  <span className="dashed-line" />
-                  <Badge variant="outline">
-                    12 Сентября
-                  </Badge>
-                </div>
-              </li>
-            </ul>
-          }
-        </section>
-      </div>
-      <footer className="p-6 max-w-2xl mx-auto w-full">
-        <LogoSvg className="opacity-10" />
-      </footer>
+          </li>
+        </ul>
+      </CommandBlock>
+
+      <CommandBlock command="/contributions">
+        <GithubContributions username="yz13-dev" />
+      </CommandBlock>
+
+      <CommandBlock command="/projects">
+
+        <ul className="text-sm *:py-1 *:list-disc *:list-inside">
+          <li>
+            <Link href="https://yzlab.ru" target="_blank" className="inline-flex hover:cursor-pointer items-center gap-1 hover:underline">
+              <span>yzlab</span><ExternalLinkIcon size={14} />
+            </Link>
+          </li>
+          <li><span>Блог</span></li>
+          <li><span>Пины</span></li>
+          <li><span>Link</span></li>
+          <li><span>Новостная лента</span></li>
+        </ul>
+
+      </CommandBlock>
+
     </>
   )
 }
