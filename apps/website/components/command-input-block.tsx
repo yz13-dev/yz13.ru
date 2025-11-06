@@ -270,6 +270,7 @@ export default function CommandInputBlock() {
         <CommandListPopover />
         <InputGroup>
           <InputGroupAddon align="block-start">
+            <Badge variant="secondary">yz13@yz13.ru</Badge>
             <Badge variant="secondary">v{version}</Badge>
             <Badge variant="secondary">/</Badge>
           </InputGroupAddon>
