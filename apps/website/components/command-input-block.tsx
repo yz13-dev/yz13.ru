@@ -4,8 +4,9 @@ import { CmdHistoryContext } from "@/stores/cmd-history.store";
 import { randomId } from "@/utils/random-id";
 import { version } from "@/utils/version";
 import { Badge } from "@yz13/ui/badge";
-import { ArrowUpIcon } from "@yz13/ui/icons";
+import { ArrowDownIcon, ArrowUpIcon } from "@yz13/ui/icons";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from "@yz13/ui/input-group";
+import { Kbd } from "@yz13/ui/kbd";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { create, useStore } from "zustand";
@@ -32,6 +33,7 @@ export const CommandListPopover = () => {
 
   const text = useCommandInputStore((state) => state.text);
   const isSelected = useCommandInputStore((state) => state.selectedCommand);
+  const setSelectedCommand = useCommandInputStore((state) => state.setSelectedCommand)
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -69,6 +71,9 @@ export const CommandListPopover = () => {
   useEffect(() => {
     if (isSelected) {
       unlockScroll();
+
+      if (text.length === 0) setSelectedCommand(null);
+
       return;
     }
     if (isCommandList) {
@@ -84,26 +89,46 @@ export const CommandListPopover = () => {
       commandInput.blur();
 
     } else unlockScroll();
-  }, [isCommandList, isSelected]);
+  }, [isCommandList, isSelected, text]);
   if (isSelected) return null;
   if (!isCommandList) return null;
   return (
     <div ref={ref} className="p-2 absolute bottom-full max-w-96 w-full">
-      <div className="bg-card border rounded-xl p-2 *:w-full w-full">
-        <ul className="[&>li>button]:w-full [&>li>button]:justify-start">
-          {
-            list.map((command, index) => {
+      <div className="bg-card py-2 space-y-2 border rounded-xl *:w-full w-full">
+        <div className="px-2">
+          <ul className="[&>li>button]:w-full [&>li>button]:justify-start">
+            {
+              list.map((command, index) => {
 
-              const isActive = index === activeIndex;
+                const isActive = index === activeIndex;
 
-              return (
-                <li key={command.command}>
-                  <CommandButton command={command} active={isActive} />
-                </li>
-              )
-            })
-          }
-        </ul>
+                return (
+                  <li key={command.command}>
+                    <CommandButton command={command} active={isActive} />
+                  </li>
+                )
+              })
+            }
+          </ul>
+        </div>
+        <div className="px-2">
+          <div className="flex items-center gap-2 justify-between">
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Kbd><ArrowUpIcon /></Kbd>
+                <span className="text-xs text-muted-foreground">Вверх</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Kbd><ArrowDownIcon /></Kbd>
+                <span className="text-xs text-muted-foreground">Вниз</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1">
+              <Kbd>Enter</Kbd>
+              <span className="text-xs text-muted-foreground">Выбрать команду</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
