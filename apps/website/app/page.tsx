@@ -1,7 +1,10 @@
 import AutoScroll from "@/components/auto-scroll";
 import CommandBlock from "@/components/command-block";
+import CommandHistory from "@/components/command-history";
+import CommandInputBlock from "@/components/command-input-block";
 import GithubContributions from "@/components/github-contributions";
 import LogoSvg from "@/components/logo-svg";
+import { CmdHistoryProvider } from "@/stores/cmd-history.store";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/avatar";
 import { ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
 import { InputGroupButton } from "@yz13/ui/input-group";
@@ -11,13 +14,13 @@ import Link from "next/link";
 
 export default function Terminal() {
   return (
-    <>
+    <CmdHistoryProvider>
       <AutoScroll />
       <div className="w-full h-10 border-b sticky top-0 bg-background z-10 py-2 px-6">
         <div className="w-full flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <InputGroupButton variant="secondary">Терминал</InputGroupButton>
-            <InputGroupButton variant="ghost">Работы</InputGroupButton>
+            {/*<InputGroupButton variant="ghost">Работы</InputGroupButton>*/}
           </div>
           <div className="flex items-center gap-2">
             <Avatar className="size-6">
@@ -126,6 +129,15 @@ export default function Terminal() {
 
       </CommandBlock>
 
-    </>
+      <div className="w-full px-6 py-2 border-b">
+        <span className="text-xs text-muted-foreground">
+          Последняя сессия - 10:00 13.08.2025
+        </span>
+      </div>
+
+      <CommandHistory />
+
+      <CommandInputBlock />
+    </CmdHistoryProvider>
   )
 }

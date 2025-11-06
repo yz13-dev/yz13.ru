@@ -1,16 +1,13 @@
 import { version } from "@/utils/version";
+import { Badge } from "@yz13/ui/badge";
 
 
 export default function Toolbar() {
   return (
-    <div className="p-6 flex items-center justify-between">
+    <div className="p-6 font-mono flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <span className="font-mono text-sm text-muted-foreground">
-          v{version}
-        </span>
-        <span className="font-mono text-sm text-muted-foreground">
-          /
-        </span>
+        <Badge variant="secondary">v{version}</Badge>
+        <Badge variant="secondary">/</Badge>
       </div>
       <div className="flex items-center gap-2"></div>
     </div>
