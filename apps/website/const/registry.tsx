@@ -1,6 +1,5 @@
 import GithubContributions from "@/components/github-contributions";
 import LogoSvg from "@/components/logo-svg";
-import { randomId } from "@/utils/random-id";
 import { ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 
@@ -114,12 +113,12 @@ commands
     content: <GithubContributions username="yz13-dev" />
   })
 
-export const getCommands = () => {
+export const getCommands = (cmd?: string) => {
 
   const cmds: Command[] = [];
 
   const keys = commands.keys();
-  const id = randomId();
+  // const id = randomId();
 
   for (const key of keys) {
     const command = commands.get(key);
@@ -135,5 +134,8 @@ export const getCommands = () => {
 
   }
 
-  return cmds;
+  return cmds.filter(item => {
+    if (!cmd) return true;
+    return item.command.startsWith(cmd);
+  })
 }

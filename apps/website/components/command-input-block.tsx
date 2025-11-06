@@ -37,9 +37,10 @@ export const CommandListPopover = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const isCommandList = text.startsWith("/");
+  const isSpecificCommand = text.startsWith("/");
+  const isCommandList = text === "/";
 
-  const list = getCommands();
+  const list = getCommands(text);
 
   const nextCommand = () => {
     if (list.length - 1 === activeIndex) return;
@@ -62,12 +63,21 @@ export const CommandListPopover = () => {
     doc.classList.remove("overflow-hidden");
   }
 
+  const returnToInput = () => {
+    const commandInput = document.getElementById("command-input");
+    if (!commandInput) return;
+    commandInput.focus();
+  }
+
+  useHotkeys("esc", () => {
+    returnToInput();
+  }, { enabled: isSpecificCommand })
   useHotkeys("arrowup", () => {
     prevCommand();
-  }, { enabled: isCommandList })
+  }, { enabled: isSpecificCommand })
   useHotkeys("arrowdown", () => {
     nextCommand();
-  }, { enabled: isCommandList })
+  }, { enabled: isSpecificCommand })
   useEffect(() => {
     if (isSelected) {
       unlockScroll();
@@ -88,12 +98,15 @@ export const CommandListPopover = () => {
       lockScroll()
       commandInput.blur();
 
-    } else unlockScroll();
-  }, [isCommandList, isSelected, text]);
+    } else if (isSpecificCommand) {
+      return
+    }
+    else unlockScroll();
+  }, [isCommandList, isSelected, text, isSpecificCommand]);
   if (isSelected) return null;
-  if (!isCommandList) return null;
+  if (!isSpecificCommand) return null;
   return (
-    <div ref={ref} className="p-2 absolute bottom-full max-w-96 w-full">
+    <div ref={ref} className="p-2 absolute bottom-full max-w-lg w-full">
       <div className="bg-card py-2 space-y-2 border rounded-xl *:w-full w-full">
         <div className="px-2">
           <ul className="[&>li>button]:w-full [&>li>button]:justify-start">
@@ -123,9 +136,15 @@ export const CommandListPopover = () => {
                 <span className="text-xs text-muted-foreground">Вниз</span>
               </div>
             </div>
-            <div className="flex items-center gap-1">
-              <Kbd>Enter</Kbd>
-              <span className="text-xs text-muted-foreground">Выбрать команду</span>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                <Kbd>Esc</Kbd>
+                <span className="text-xs text-muted-foreground">Вернуться к вводу</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Kbd>Enter</Kbd>
+                <span className="text-xs text-muted-foreground">Выбрать команду</span>
+              </div>
             </div>
           </div>
         </div>

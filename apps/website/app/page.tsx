@@ -15,8 +15,7 @@ import Link from "next/link";
 export default function Terminal() {
   return (
     <CmdHistoryProvider>
-      <AutoScroll />
-      <div className="w-full h-10 border-b sticky top-0 bg-background z-10 py-2 px-6">
+      <header className="w-full h-10 border-b sticky top-0 bg-background z-10 py-2 px-6">
         <div className="w-full flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <InputGroupButton variant="secondary">Терминал</InputGroupButton>
@@ -29,7 +28,7 @@ export default function Terminal() {
             </Avatar>
           </div>
         </div>
-      </div>
+      </header>
       <CommandBlock command="whoami">
         <span className="text-sm block">yz13</span>
       </CommandBlock>
@@ -138,6 +137,7 @@ export default function Terminal() {
       <CommandHistory />
 
       <CommandInputBlock />
+      <AutoScroll />
     </CmdHistoryProvider>
   )
 }
