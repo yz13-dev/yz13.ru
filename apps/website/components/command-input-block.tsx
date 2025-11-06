@@ -7,49 +7,75 @@ import { Badge } from "@yz13/ui/badge";
 import { ArrowDownIcon, ArrowUpIcon } from "@yz13/ui/icons";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from "@yz13/ui/input-group";
 import { Kbd } from "@yz13/ui/kbd";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { create, useStore } from "zustand";
 
 type State = {
   text: string
   selectedCommand: Command | null;
+
+  commands: Command[]
+  activeIndex: number
 }
 type Actions = {
   setText: (text: string) => void
   setSelectedCommand: (cmd: Command | null) => void
+
+  setCommands: (commands: Command[]) => void
+  setActiveIndex: (index: number) => void
 }
 
 export const useCommandInputStore = create<State & Actions>()((set) => ({
   text: "",
   selectedCommand: null,
-  setText: (text) => set({ text }),
-  setSelectedCommand: (selectedCommand) => set({ selectedCommand })
+
+  setText: (text) => set(state => {
+
+    const commands = getCommands(text);
+
+    const isIndexOutside = state.activeIndex > commands.length - 1;
+
+    return {
+      text,
+      commands: getCommands(text),
+      activeIndex: isIndexOutside ? 0 : state.activeIndex
+    }
+  }),
+  setSelectedCommand: (selectedCommand) => set({ selectedCommand }),
+
+  activeIndex: 0,
+  commands: [],
+
+  setActiveIndex: (index) => set({ activeIndex: index }),
+  setCommands: (commands) => set({ commands })
 }))
 
 export const CommandListPopover = () => {
 
   const ref = useRef<HTMLDivElement>(null)
 
+  const setText = useCommandInputStore((state) => state.setText);
   const text = useCommandInputStore((state) => state.text);
   const isSelected = useCommandInputStore((state) => state.selectedCommand);
   const setSelectedCommand = useCommandInputStore((state) => state.setSelectedCommand)
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndex = useCommandInputStore((state) => state.activeIndex);
+  const setActiveIndex = useCommandInputStore((state) => state.setActiveIndex);
 
   const isSpecificCommand = text.startsWith("/");
   const isCommandList = text === "/";
 
-  const list = getCommands(text);
+  const list = useCommandInputStore(state => state.commands);
 
   const nextCommand = () => {
     if (list.length - 1 === activeIndex) return;
-    setActiveIndex(prev => prev + 1);
+    setActiveIndex(activeIndex + 1);
   }
 
   const prevCommand = () => {
     if (activeIndex === 0) return;
-    setActiveIndex(prev => prev - 1);
+    setActiveIndex(activeIndex - 1);
   }
 
   const lockScroll = () => {
@@ -69,15 +95,37 @@ export const CommandListPopover = () => {
     commandInput.focus();
   }
 
+  const selectCommand = () => {
+    const command = list[activeIndex];
+    if (!command) return;
+    const cmd = command.command;
+
+    setText(cmd);
+    setSelectedCommand({
+      ...command,
+      id: randomId()
+    });
+
+    const commandInput = document.getElementById("command-input");
+
+    if (!commandInput) return;
+
+    commandInput.focus();
+
+  }
+
   useHotkeys("esc", () => {
     returnToInput();
   }, { enabled: isSpecificCommand })
   useHotkeys("arrowup", () => {
     prevCommand();
-  }, { enabled: isSpecificCommand })
+  }, { enabled: isSpecificCommand, enableOnFormTags: ["textarea"] })
   useHotkeys("arrowdown", () => {
     nextCommand();
-  }, { enabled: isSpecificCommand })
+  }, { enabled: isSpecificCommand, enableOnFormTags: ["textarea"] });
+  useHotkeys("enter", () => {
+    selectCommand();
+  }, { enabled: isSpecificCommand, enableOnFormTags: ["textarea"] });
   useEffect(() => {
     if (isSelected) {
       unlockScroll();
@@ -90,13 +138,13 @@ export const CommandListPopover = () => {
 
       const div = ref.current;
 
-      const commandInput = document.getElementById("command-input");
+      // const commandInput = document.getElementById("command-input");
 
       if (!div) return;
-      if (!commandInput) return;
+      // if (!commandInput) return;
 
-      lockScroll()
-      commandInput.blur();
+      lockScroll();
+      // commandInput.blur();
 
     } else if (isSpecificCommand) {
       return
@@ -106,7 +154,7 @@ export const CommandListPopover = () => {
   if (isSelected) return null;
   if (!isSpecificCommand) return null;
   return (
-    <div ref={ref} className="p-2 absolute bottom-full max-w-lg w-full">
+    <div ref={ref} className="p-2 absolute left-0 bottom-full md:max-w-lg max-w-full w-full">
       <div className="bg-card py-2 space-y-2 border rounded-xl *:w-full w-full">
         <div className="px-2">
           <ul className="[&>li>button]:w-full [&>li>button]:justify-start">
@@ -172,7 +220,7 @@ const CommandButton = ({
 
     if (!button) return;
 
-    button.focus();
+    // button.focus();
 
   }
 
@@ -210,6 +258,8 @@ const CommandButton = ({
     <InputGroupButton
       ref={ref}
       className="flex h-fit items-start flex-col"
+      aria-selected={active}
+      data-active={active}
       onKeyDown={e => {
         e.preventDefault();
         if (e.key === "Enter") selectCommand(command.command);
@@ -268,7 +318,7 @@ export default function CommandInputBlock() {
     <>
       <div className="p-1 relative">
         <CommandListPopover />
-        <InputGroup>
+        <InputGroup className="bg-card">
           <InputGroupAddon align="block-start">
             <Badge variant="secondary">yz13@yz13.ru</Badge>
             <Badge variant="secondary">v{version}</Badge>
@@ -282,7 +332,15 @@ export default function CommandInputBlock() {
             onKeyDown={e => {
               if (e.key === "Enter") {
                 e.preventDefault();
+                if (!selectedCommand) return;
                 addCommand();
+              }
+              if (e.key === "ArrowUp") {
+                e.preventDefault();
+              }
+              if (e.key === "ArrowDown") {
+                e.preventDefault();
+
               }
             }}
           />

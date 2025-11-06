@@ -57,7 +57,7 @@ export default function Terminal() {
 
         <div className="py-2 space-y-2">
           <span className="text-sm block text-muted-foreground">
-            Проект был построен на базе Next.js, а также использовал TailwindCSS для создания компонентов и стилей. Но позднее было решено перейти на Vite + ReactRouter.
+            Надо было начать разработку быстро, поэтому было решено начать с shadcn и  tailwindcss. По началу проект был написан на NextJS, но позднее было решено перейти на Vite + ReactRouter.
           </span>
 
           <span className="text-sm block text-muted-foreground">
