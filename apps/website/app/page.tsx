@@ -19,7 +19,7 @@ export default function Terminal() {
         <div className="w-full flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <InputGroupButton variant="secondary">Терминал</InputGroupButton>
-            {/*<InputGroupButton variant="ghost">Работы</InputGroupButton>*/}
+            <InputGroupButton variant="ghost" asChild><Link href="/works">Работы</Link></InputGroupButton>
           </div>
           <div className="flex items-center gap-2">
             <Avatar className="size-6">

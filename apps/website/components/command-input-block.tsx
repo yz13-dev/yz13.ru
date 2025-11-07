@@ -185,10 +185,13 @@ export const CommandListPopover = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                <Kbd>Esc</Kbd>
-                <span className="text-xs text-muted-foreground">Вернуться к вводу</span>
-              </div>
+              {
+                false &&
+                <div className="flex items-center gap-1">
+                  <Kbd>Esc</Kbd>
+                  <span className="text-xs text-muted-foreground">Вернуться к вводу</span>
+                </div>
+              }
               <div className="flex items-center gap-1">
                 <Kbd>Enter</Kbd>
                 <span className="text-xs text-muted-foreground">Выбрать команду</span>

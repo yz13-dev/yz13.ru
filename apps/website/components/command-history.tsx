@@ -15,9 +15,11 @@ export default function CommandHistory() {
 
   return commands.map((command) => {
 
+    const Content = command.content;
+
     return (
       <CommandBlock command={command.command} key={command.id} as={command.as}>
-        {command.content}
+        <Content />
       </CommandBlock>
     )
   })

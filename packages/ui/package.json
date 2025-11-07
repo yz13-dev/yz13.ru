@@ -54,6 +54,7 @@
     "./calendar": "./src/components/calendar.tsx",
     "./recharts": "./src/components/recharts.ts",
     "./collapsible": "./src/components/collapsible.tsx",
+    "./carousel": "./src/components/carousel.tsx",
     "./breadcrumb": "./src/components/breadcrumb.tsx"
   },
   "scripts": {

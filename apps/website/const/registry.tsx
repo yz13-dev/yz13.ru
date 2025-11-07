@@ -2,11 +2,13 @@ import GithubContributions from "@/components/github-contributions";
 import LogoSvg from "@/components/logo-svg";
 import { ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 
 export type CommandContent = {
   description: string;
-  content: React.ReactNode
+  content: () => React.ReactNode
   as?: keyof HTMLElementTagNameMap
 }
 
@@ -20,14 +22,14 @@ export const commands: Map<string, CommandContent> = new Map();
 commands
   .set("/logo", {
     description: "Выводит логотип проекта.",
-    content: <LogoSvg className="max-w-2xs" />
+    content: () => <LogoSvg className="max-w-2xs" />
   })
 
 commands
   .set("/info", {
     as: "main",
     description: "Выводит информацию о проекте.",
-    content: <>
+    content: () => <>
       <h1 className="text-sm block">yz13 - фронтенд разработчик</h1>
       <p className="text-sm block">Нужен разработчик? Разработаю фронтенд для вашего проекта.</p>
 
@@ -48,7 +50,7 @@ commands
 commands
   .set("/work", {
     description: "Выводит информацию об опыте работы.",
-    content: <>
+    content: () => <>
       <span className="text-sm block">Reservia [09.2024 — 11.2025] (1 год 3 месяца)</span>
 
       <div className="py-2 space-y-2">
@@ -82,7 +84,7 @@ commands
 commands
   .set("/socials", {
     description: "Выводит ссылки на социальные сети.",
-    content: <ul className="text-sm *:py-1 *:list-disc *:list-inside">
+    content: () => <ul className="text-sm *:py-1 *:list-disc *:list-inside">
       <li>
         <Link href="https://t.me/yz13_dev" target="_blank" className="inline-flex hover:cursor-pointer items-center gap-1 hover:underline">
           <span>telegram</span><ExternalLinkIcon size={14} />
@@ -110,7 +112,20 @@ commands
 commands
   .set("/contributions", {
     description: "Выводит активность на GitHub.",
-    content: <GithubContributions username="yz13-dev" />
+    content: () => <GithubContributions username="yz13-dev" />
+  })
+
+commands
+  .set("/works", {
+    description: "Переход на страницу работ.",
+    content: () => {
+
+      const router = useRouter();
+      useEffect(() => {
+        router.push("/works");
+      }, [])
+      return null
+    }
   })
 
 export const getCommands = (cmd?: string) => {
