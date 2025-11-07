@@ -22,7 +22,7 @@ export default function Works() {
     <>
       <ImagePreview />
       <div className="w-full lg:px-[7.5%] px-0 flex">
-        <div className="lg:w-2/3 w-full border bg-card min-h-dvh">
+        <div className="lg:w-2/3 w-full border-x bg-card min-h-dvh">
           <header className="w-full flex items-center justify-between px-6 py-2 h-10">
             <div className="flex items-center gap-2">
               <InputGroupButton asChild>

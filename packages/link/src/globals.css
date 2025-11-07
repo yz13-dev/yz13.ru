@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@source "./";
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  ::selection {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+}

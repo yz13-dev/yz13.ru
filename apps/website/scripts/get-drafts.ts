@@ -38,11 +38,9 @@ const clearDir = async () => {
 const fetchDrafts = async () => {
   try {
     const response = await fetch(`http://localhost:3000/blog/v1/drafts?token=${process.env.API_TOKEN}`)
-    const posts = await response.json();
+    const posts: any[] = await response.json();
 
     if (!posts.length) throw new Error("No posts found");
-
-    console.log(posts)
 
     const slugs = posts.map(post => post.name);
 

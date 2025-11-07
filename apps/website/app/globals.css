@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@yz13/ui/globals.css";
+@import "@yz13/link/globals.css";
 
 html,
 body {

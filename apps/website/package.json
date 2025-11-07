@@ -22,6 +22,7 @@
     "@content-collections/core": "^0.12.0",
     "@content-collections/next": "^0.2.9",
     "@yz13/ui": "*",
+    "@yz13/link": "*",
     "date-fns": "^4.1.0",
     "next": "^16.0.0",
     "react": "^19.2.0",

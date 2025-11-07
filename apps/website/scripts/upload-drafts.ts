@@ -1,4 +1,4 @@
-import { postBlogV1Drafts } from "@yz13/api";
+// import { postBlogV1Drafts } from "@yz13/api";
 import { readdir, readFile } from "fs/promises";
 
 const uploadDraft = async (filename: string) => {
@@ -8,16 +8,16 @@ const uploadDraft = async (filename: string) => {
     const blob = new Blob([buffer]);
     const name = filename.replace(".md", "");
 
-    await postBlogV1Drafts({
-      file: blob,
-    }, {
-      name
-    },
-      { params: { "token": import.meta.env.API_TOKEN, name } }
-    )
+    // await postBlogV1Drafts({
+    //   file: blob,
+    // }, {
+    //   name
+    // },
+    //   { params: { "token": import.meta.env.API_TOKEN, name } }
+    // )
 
   } catch (error) {
-    console.error(error?.response?.data);
+    // console.error(error?.response?.data);
   }
 }
 

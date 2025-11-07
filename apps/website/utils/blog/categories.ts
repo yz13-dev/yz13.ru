@@ -1,4 +1,4 @@
-import { getCategory } from "@/const/categories";
+import { getCategory } from "@/const/blog/categories";
 import type { Post } from "content-collections";
 
 type Category = {
