@@ -1,22 +1,23 @@
-import { getBlogV1Drafts } from "@yz13/api";
+import { blog } from "@/utils/blog/blog";
 import { existsSync } from "fs";
 import { mkdir, rm, writeFile } from "fs/promises";
-import { draft } from "../src/utils/draft";
 
-const generateDraft = async (url: string, name: string) => {
+const generatePost = async (url: string, name: string) => {
   try {
-    if (!name.includes(".md")) return;
+
+    const nameWithExtension = name.includes(".md") ? name : `${name}.md`;
+
     const post = await fetch(url);
 
     const text = await post.text();
 
-    await mkdir("./drafts", { recursive: true });
+    await mkdir("./posts", { recursive: true });
 
-    const file = `./drafts/${name}`;
+    const file = `./posts/${nameWithExtension}`;
 
     await writeFile(file, text);
 
-    console.log(`✅ Post ${name} generated`);
+    console.log(`✅ Post ${nameWithExtension} generated`);
 
   } catch (error) {
     console.error(error);
@@ -24,7 +25,7 @@ const generateDraft = async (url: string, name: string) => {
 }
 
 const clearDir = async () => {
-  const path = "./drafts";
+  const path = "./posts";
   try {
     const isExist = existsSync(path)
 
@@ -36,25 +37,27 @@ const clearDir = async () => {
   }
 }
 
-const fetchDrafts = async () => {
+const fetchPosts = async () => {
   try {
-    const posts = await getBlogV1Drafts({ params: { "token": import.meta.env.API_TOKEN } });
+    const response = await fetch(`http://localhost:3000/blog/v1/posts`)
+    const posts = await response.json();
 
     if (!posts.length) throw new Error("No posts found");
 
-    console.log(posts)
 
-    const slugs = posts.map(post => post.name);
+    const slugs = posts.map(post => post.id);
+
+    console.log("posts", posts, slugs);
 
     const items = slugs.map(slug => ({
-      url: draft(slug),
+      url: blog(slug),
       name: slug
     }));
 
     await clearDir();
 
     for (const item of items) {
-      await generateDraft(item.url, item.name);
+      await generatePost(item.url, item.name);
     }
 
     console.log("✅ All posts generated");
@@ -64,4 +67,4 @@ const fetchDrafts = async () => {
   }
 }
 
-fetchDrafts();
+fetchPosts();

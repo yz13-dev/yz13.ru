@@ -1,3 +1,4 @@
+import { allPosts } from "@/.content-collections/generated";
 import { ThemeImage } from "@/components/theme-image";
 import { projects } from "@/const/projects";
 import { works } from "@/const/works";
@@ -6,7 +7,6 @@ import { cn } from "@yz13/ui/cn";
 import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon, LinkIcon, MapPinIcon, SearchIcon } from "@yz13/ui/icons";
 import { InputGroupButton } from "@yz13/ui/input-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@yz13/ui/tabs";
-import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import ImagePreview from "./components/image-preview";
@@ -14,6 +14,10 @@ import ImagesGrid from "./components/images-grid";
 
 
 export default function Works() {
+
+  const posts = allPosts;
+  console.log("posts", posts)
+
   return (
     <>
       <ImagePreview />
@@ -173,20 +177,15 @@ export default function Works() {
             </div>
           </Tabs>
         </div>
-        <div className="w-1/3 p-6 hidden">
-          <div className="w-full h-60 border rounded-xl bg-card">
+        <div className="w-1/3 p-6 lg:block hidden">
+          <div className="w-full h-fit border rounded-xl bg-card">
             <div className="w-full p-3">
-              <span className="text-lg font-medium">Проекты</span>
+              <span className="text-lg font-medium">Блог</span>
             </div>
-            <ul className="divide-y">
-              <li className="p-3">
-                <div className="w-full flex items-center gap-2">
-                  <div className="size-10 rounded-full border flex items-center justify-center">
-                    <Image src="https://cdn.simpleicons.org/telegram/000000/ffffff" unoptimized alt="telegram" width={40} height={40} />
-                  </div>
-                </div>
-              </li>
-            </ul>
+            <div className="w-full h-60 flex items-center justify-center">
+              <span className="text-sm text-muted-foreground">Скоро...</span>
+            </div>
+            {/*<ul className="divide-y"></ul>*/}
           </div>
         </div>
       </div>

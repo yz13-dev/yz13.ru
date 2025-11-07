@@ -1,19 +1,17 @@
-import { getBlogV1Posts } from "@yz13/api";
+import { draft } from "@/utils/blog/draft";
 import { existsSync } from "fs";
 import { mkdir, rm, writeFile } from "fs/promises";
-import { blog } from "../src/utils/blog";
 
-const generatePost = async (url: string, name: string) => {
+const generateDraft = async (url: string, name: string) => {
   try {
     if (!name.includes(".md")) return;
-
     const post = await fetch(url);
 
     const text = await post.text();
 
-    await mkdir("./posts", { recursive: true });
+    await mkdir("./drafts", { recursive: true });
 
-    const file = `./posts/${name}`;
+    const file = `./drafts/${name}`;
 
     await writeFile(file, text);
 
@@ -25,7 +23,7 @@ const generatePost = async (url: string, name: string) => {
 }
 
 const clearDir = async () => {
-  const path = "./posts";
+  const path = "./drafts";
   try {
     const isExist = existsSync(path)
 
@@ -37,25 +35,26 @@ const clearDir = async () => {
   }
 }
 
-const fetchPosts = async () => {
+const fetchDrafts = async () => {
   try {
-    const posts = await getBlogV1Posts();
+    const response = await fetch(`http://localhost:3000/blog/v1/drafts?token=${process.env.API_TOKEN}`)
+    const posts = await response.json();
 
     if (!posts.length) throw new Error("No posts found");
 
-    console.log(posts);
+    console.log(posts)
 
     const slugs = posts.map(post => post.name);
 
     const items = slugs.map(slug => ({
-      url: blog(slug),
+      url: draft(slug),
       name: slug
     }));
 
     await clearDir();
 
     for (const item of items) {
-      await generatePost(item.url, item.name);
+      await generateDraft(item.url, item.name);
     }
 
     console.log("✅ All posts generated");
@@ -65,4 +64,4 @@ const fetchPosts = async () => {
   }
 }
 
-fetchPosts();
+fetchDrafts();
