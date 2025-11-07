@@ -1,18 +1,20 @@
 import { ThemeImage } from "@/components/theme-image";
 import { Button } from "@yz13/ui/button";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@yz13/ui/carousel";
 import { cn } from "@yz13/ui/cn";
 import { ArrowLeftIcon, ArrowRightIcon, LinkIcon, MapPinIcon, SearchIcon } from "@yz13/ui/icons";
 import { InputGroupButton } from "@yz13/ui/input-group";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import ImagePreview from "./components/image-preview";
+import ImagesGrid from "./components/images-grid";
 
 
 export default function Works() {
   return (
     <>
-      <div className="w-full px-[7.5%] flex">
+      <ImagePreview />
+      <div className="w-full lg:px-[7.5%] px-0 flex">
         <div className="lg:w-2/3 w-full border bg-card min-h-dvh">
           <header className="w-full flex items-center justify-between px-6 py-2 h-10">
             <div className="flex items-center gap-2">
@@ -26,7 +28,7 @@ export default function Works() {
               <InputGroupButton disabled variant="outline"><SearchIcon /><span>Поиск</span></InputGroupButton>
             </div>
           </header>
-          <div className="w-full border-y">
+          <div className="w-full max-h-[400px] border-y">
             <ThemeImage
               className="w-full"
               srcDark="/banner/dark.png"
@@ -110,33 +112,13 @@ Reservia
                   }
                   </ReactMarkdown>
                 </div>
-                <div className="w-full">
-
-                  <Carousel className="w-full">
-                    <CarouselContent>
-                      {
-                        [
-                          "/works/reservia/home.png",
-                          "/works/reservia/map-creating.png",
-                          "/works/reservia/timeline.png",
-                        ].map((src, index) => {
-                          return (
-                            <CarouselItem className="w-full" key={`${index}/${src}`}>
-                              <Image
-                                className="!static !block rounded-xl w-full h-fit object-contain"
-                                fill
-                                src={src}
-                                alt="carousel"
-                              />
-                            </CarouselItem>
-                          )
-                        })
-                      }
-                    </CarouselContent>
-                    <CarouselPrevious className="left-3" />
-                    <CarouselNext className="right-3" />
-                  </Carousel>
-                </div>
+                <ImagesGrid
+                  paths={[
+                    "/works/reservia/home.png",
+                    "/works/reservia/map-creating.png",
+                    "/works/reservia/timeline.png",
+                  ]}
+                />
               </div>
             </div>
           </div>

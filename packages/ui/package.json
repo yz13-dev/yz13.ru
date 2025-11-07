@@ -55,6 +55,7 @@
     "./recharts": "./src/components/recharts.ts",
     "./collapsible": "./src/components/collapsible.tsx",
     "./carousel": "./src/components/carousel.tsx",
+    "./slot": "./src/components/slot.tsx",
     "./breadcrumb": "./src/components/breadcrumb.tsx"
   },
   "scripts": {
