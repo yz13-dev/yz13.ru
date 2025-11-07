@@ -1,8 +1,11 @@
 import { ThemeImage } from "@/components/theme-image";
+import { projects } from "@/const/projects";
+import { works } from "@/const/works";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
-import { ArrowLeftIcon, ArrowRightIcon, LinkIcon, MapPinIcon, SearchIcon } from "@yz13/ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, ExternalLinkIcon, LinkIcon, MapPinIcon, SearchIcon } from "@yz13/ui/icons";
 import { InputGroupButton } from "@yz13/ui/input-group";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@yz13/ui/tabs";
 import Image from "next/image";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
@@ -85,43 +88,90 @@ export default function Works() {
               </div>
             </div>
           </div>
-          <div className="w-full border-t divide-y">
-            <div className="w-full py-3 px-6 flex gap-3">
-              <div className="flex aspect-square shrink-0 size-12 items-center justify-center rounded-full border bg-card">
-                <ThemeImage
-                  className="w-2/3"
-                  srcDark="/logo/dark.png"
-                  srcLight="/logo/light.png"
-                  width={256}
-                  height={256}
-                  alt="logo"
-                />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <div className="flex items-center gap-1">
-                  <span className="text-base font-medium">YZ13</span>
-                  <span className="text-base font-medium text-muted-foreground">@yz13_dev</span>
-                </div>
-                <div className="markdown">
-                  <ReactMarkdown>{
-                    (`
-Reservia
-
-Проект был построен на базе Next.js, а также использовал TailwindCSS для создания компонентов и стилей. Но позднее было решено перейти на Vite + ReactRouter.
-                    `).trimStart().trimEnd()
-                  }
-                  </ReactMarkdown>
-                </div>
-                <ImagesGrid
-                  paths={[
-                    "/works/reservia/home.png",
-                    "/works/reservia/map-creating.png",
-                    "/works/reservia/timeline.png",
-                  ]}
-                />
-              </div>
+          <Tabs defaultValue="works">
+            <div className="w-full px-6">
+              <TabsList>
+                <TabsTrigger value="works">Работы ({works.length})</TabsTrigger>
+                <TabsTrigger value="projects">Проекты ({projects.length})</TabsTrigger>
+              </TabsList>
             </div>
-          </div>
+            <div className="w-full border-t divide-y">
+              <TabsContent value="works">
+                {
+                  works
+                    .map((work, index) => {
+
+                      return (
+                        <div key={work.id} className="w-full py-3 px-6 flex gap-3">
+                          <div className="flex aspect-square shrink-0 size-12 items-center justify-center rounded-full border bg-card">
+                            <ThemeImage
+                              className="w-2/3"
+                              srcDark="/logo/dark.png"
+                              srcLight="/logo/light.png"
+                              width={256}
+                              height={256}
+                              alt="logo"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-1.5">
+                            <div className="flex items-center gap-1">
+                              <span className="text-base font-medium">YZ13</span>
+                              <span className="text-base font-medium text-muted-foreground">@yz13_dev</span>
+                            </div>
+                            <div className="markdown">
+                              <ReactMarkdown>{work.content.trimStart().trimEnd()}</ReactMarkdown>
+                            </div>
+                            <ImagesGrid
+                              paths={work.assets}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })
+                }
+              </TabsContent>
+              <TabsContent value="projects">
+                {
+                  projects
+                    .map((work, index) => {
+
+                      return (
+                        <div key={work.id} className="w-full py-3 px-6 flex gap-3">
+                          <div className="flex aspect-square shrink-0 size-12 items-center justify-center rounded-full border bg-card">
+                            <ThemeImage
+                              className="w-2/3"
+                              srcDark="/logo/dark.png"
+                              srcLight="/logo/light.png"
+                              width={256}
+                              height={256}
+                              alt="logo"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-1.5">
+                            <div className="flex items-center gap-1">
+                              <span className="text-base font-medium">YZ13</span>
+                              <span className="text-base font-medium text-muted-foreground">@yz13_dev</span>
+                            </div>
+                            {
+                              work.url &&
+                              <Link href={work.url} className="inline-flex gap-1 items-center hover:underline" target="_blank">
+                                {new URL(work.url).hostname}<ExternalLinkIcon size={14} />
+                              </Link>
+                            }
+                            <div className="markdown">
+                              <ReactMarkdown>{work.content.trimStart().trimEnd()}</ReactMarkdown>
+                            </div>
+                            <ImagesGrid
+                              paths={work.assets}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })
+                }
+              </TabsContent>
+            </div>
+          </Tabs>
         </div>
         <div className="w-1/3 p-6 hidden">
           <div className="w-full h-60 border rounded-xl bg-card">

@@ -36,13 +36,13 @@ export default function () {
   if (!src) return null;
   return (
     <div
-      className="fixed inset-0 z-20 w-full h-dvh bg-background/40 backdrop-blur-md flex items-center justify-center"
+      className="fixed inset-0 z-20 p-[10%] w-full h-dvh bg-background/40 backdrop-blur-md flex items-center justify-center"
       onClick={() => setSrc(null)}
     >
       <Button
         size="icon"
         variant="ghost"
-        className="absolute top-6 right-6"
+        className="absolute top-6 right-6 z-30"
         onClick={() => setSrc(null)}
       >
         <XIcon />
@@ -53,7 +53,7 @@ export default function () {
           e.stopPropagation();
         }}
         src={src}
-        className="max-w-7xl size-fit !static !block object-contain"
+        className="size-fit block object-contain"
         fill
         alt="image-preview"
       />

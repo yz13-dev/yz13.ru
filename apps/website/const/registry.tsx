@@ -1,5 +1,7 @@
 import GithubContributions from "@/components/github-contributions";
 import LogoSvg from "@/components/logo-svg";
+import { randomId } from "@/utils/random-id";
+import { Button } from "@yz13/ui/button";
 import { ExternalLinkIcon, MailIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,6 +20,8 @@ export type Command = {
 } & CommandContent;
 
 export const commands: Map<string, CommandContent> = new Map();
+
+export type Commands = "/logo" | "/info" | "/work" | "/socials" | "/contributions" | "/projects" | "/actions";
 
 commands
   .set("/logo", {
@@ -116,17 +120,39 @@ commands
   })
 
 commands
-  .set("/works", {
+  .set("/profile", {
     description: "Переход на страницу работ.",
     content: () => {
 
       const router = useRouter();
       useEffect(() => {
-        router.push("/works");
+        router.push("/profile");
       }, [])
       return null
     }
   })
+
+commands
+  .set("/actions", {
+    description: "Выводит активность на GitHub.",
+    content: () => <div className="flex items-center gap-4 *:px-0">
+      <Button variant="link" disabled>Чат</Button>
+      <Button variant="link" disabled>Запланировать видеозвонок</Button>
+    </div>
+  })
+
+export const getCommand = (cmd?: string): Command | null => {
+  if (!cmd) return null
+  const command = commands.get(cmd);
+
+  if (!command) return null;
+
+  return {
+    ...command,
+    id: randomId(),
+    command: cmd
+  }
+};
 
 export const getCommands = (cmd?: string) => {
 
