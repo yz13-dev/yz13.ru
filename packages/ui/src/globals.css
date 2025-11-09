@@ -163,6 +163,10 @@
     @apply bg-background text-foreground font-sans;
   }
 
+  button:hover {
+    @apply cursor-pointer;
+  }
+
   ::selection {
     background-color: var(--color-foreground);
     color: var(--color-background);

@@ -28,6 +28,7 @@ export default function Footer() {
             <ul className="*:py-1">
               <li><Link href="/" className="text-lg">Главная</Link></li>
               <li><Link href="/projects" className="text-lg">Проекты</Link></li>
+              <li><Link href="/blog" className="text-lg">Блог</Link></li>
             </ul>
           </div>
           <div>

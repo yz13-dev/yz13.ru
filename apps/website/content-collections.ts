@@ -1,10 +1,11 @@
 import { defineCollection, defineConfig } from "@content-collections/core";
+import { compileMDX } from "@content-collections/mdx";
 import { z } from "zod";
 
 const posts = defineCollection({
   name: "posts",
   directory: "posts",
-  include: "**/*.md",
+  include: "**/*.mdx",
   schema: z.object({
     pinned: z.boolean().optional(),
     title: z.string(),
@@ -13,22 +14,16 @@ const posts = defineCollection({
     date: z.string(),
     authors: z.array(z.string()),
   }),
+  transform: async (data, context) => {
+    const body = await compileMDX(context, data);
+    return {
+      ...data,
+      body,
+    };
+  },
 });
 
-const drafts = defineCollection({
-  name: "drafts",
-  directory: "drafts",
-  include: "**/*.md",
-  schema: z.object({
-    pinned: z.boolean().optional(),
-    title: z.string(),
-    summary: z.string(),
-    categories: z.array(z.string()),
-    date: z.string(),
-    authors: z.array(z.string()),
-  }),
-});
 
 export default defineConfig({
-  collections: [posts, drafts],
+  collections: [posts],
 });
