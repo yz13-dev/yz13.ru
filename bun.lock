@@ -99,6 +99,14 @@
         "typescript-eslint": "^8.40.0",
       },
     },
+    "packages/flags": {
+      "name": "@yz13/flags",
+      "version": "0.0.1",
+      "devDependencies": {
+        "@yz13/eslint-config": "*",
+        "@yz13/typescript-config": "*",
+      },
+    },
     "packages/link": {
       "name": "@yz13/link",
       "version": "0.0.0",
@@ -787,6 +795,8 @@
     "@yz13/api": ["@yz13/api@workspace:packages/api"],
 
     "@yz13/eslint-config": ["@yz13/eslint-config@workspace:packages/eslint-config"],
+
+    "@yz13/flags": ["@yz13/flags@workspace:packages/flags"],
 
     "@yz13/link": ["@yz13/link@workspace:packages/link"],
 

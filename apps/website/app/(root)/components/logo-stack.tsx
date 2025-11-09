@@ -54,7 +54,18 @@ export const stack: IconStackItem[] = [
 const MAX_VISIBLE = 4;
 const ROTATION_INTERVAL = 3000; // 3 секунды
 
-export default function LogoStack() {
+type Props = {
+  className?: string;
+  orientation?: "horizontal" | "vertical"
+  align?: "top" | "bottom" | "left" | "right"
+  gap?: number
+}
+export default function LogoStack({
+  className = "",
+  orientation = "vertical",
+  align = "top",
+  gap = 24
+}: Props) {
   const [startIndex, setStartIndex] = useState(0);
 
   // Получаем видимые иконки (максимум 4) с их индексами в исходном массиве
@@ -87,16 +98,19 @@ export default function LogoStack() {
     { scale: 1, z: 0, zIndex: 10 },
     { scale: 0.85, z: -10, zIndex: -10 },
     { scale: 0.65, z: -30, zIndex: -20 },
-    { scale: 0.45, z: -40, zIndex: -30 },
+    { scale: 0.425, z: -40, zIndex: -30 },
   ] as const;
 
   return (
-    <div className="size-32 mx-auto relative">
+    <div className={cn(
+      "size-32 relative",
+      className
+    )}>
       {visibleIcons.map(({ item, originalIndex, stackIndex }) => {
         const config = stackConfig[stackIndex];
         if (!config) return null;
 
-        const y = stackIndex * 24
+        const axis = gap * stackIndex;
 
         return (
           <motion.div
@@ -104,7 +118,8 @@ export default function LogoStack() {
             layout
             animate={{
               scale: config.scale,
-              y: -y,
+              y: orientation === "vertical" ? align === "top" ? -axis : align === "bottom" ? axis : undefined : undefined,
+              x: orientation === "horizontal" ? align === "left" ? -axis : align === "right" ? axis : undefined : undefined,
               z: config.z,
               opacity: 1,
             }}
