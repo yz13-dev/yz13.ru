@@ -1,7 +1,7 @@
 "use client";
 import { ThemeImage } from "@/components/theme-image";
 import { cn } from "@yz13/ui/cn";
-import { motion } from "motion/react";
+import { cubicBezier, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 type IconStackItem = {
@@ -85,9 +85,9 @@ export default function LogoStack() {
 
   const stackConfig = [
     { scale: 1, z: 0, zIndex: 10 },
-    { scale: 0.9, z: -10, zIndex: -10 },
-    { scale: 0.75, z: -30, zIndex: -20 },
-    { scale: 0.55, z: -40, zIndex: -30 },
+    { scale: 0.85, z: -10, zIndex: -10 },
+    { scale: 0.65, z: -30, zIndex: -20 },
+    { scale: 0.45, z: -40, zIndex: -30 },
   ] as const;
 
   return (
@@ -108,17 +108,24 @@ export default function LogoStack() {
               z: config.z,
               opacity: 1,
             }}
+            data-index={stackIndex}
             transition={{
-              duration: 0.4,
-              ease: "easeInOut",
-              layout: { duration: 0.4 }
+              delayChildren: 0.5,
+              type: "spring",
+              duration: 0.75,
+              ease: cubicBezier(0.5, 0.1, 0.1, 1),
+              layout: { duration: 0.75 }
             }}
             style={{
               zIndex: config.zIndex,
             }}
             className={cn(
-              "absolute size-32 border",
-              stackIndex === 3 ? "border-2" : "",
+              "absolute size-32",
+              "data-[index=0]:outline-6 data-[index=0]:border",
+              "data-[index=1]:outline-4 data-[index=1]:border",
+              "data-[index=2]:outline-2 data-[index=2]:border-2",
+              "data-[index=3]:outline-2 data-[index=3]:border-[3px]",
+              "outline-border/40 transition-colors",
               "rounded-3xl bg-card flex items-center justify-center"
             )}
           >
