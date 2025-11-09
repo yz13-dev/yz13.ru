@@ -15,10 +15,10 @@ export default function Home() {
         className={cn(
           "max-w-7xl w-full mx-auto h-fit md:py-[10%] py-[7.5%] px-6",
           "md:h-fit h-[calc(100dvh-102px)]",
-          "flex flex-col items-center md:justify-start justify-end"
+          "flex flex-col items-center md:justify-start justify-between"
         )}
       >
-        <div className="w-full md:h-fit h-full py-6 flex items-center justify-center">
+        <div className="w-full h-fit md:py-6 pt-32 flex items-center justify-center">
           <LogoStack />
         </div>
         <div className="w-full space-y-6">
