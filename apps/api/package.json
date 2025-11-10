@@ -15,6 +15,8 @@
     "gray-matter": "^4.0.3",
     "hono": "^4.8.10",
     "hono-openapi": "^1.1.1",
+    "plaiceholder": "^3.0.0",
+    "sharp": "^0.34.5",
     "zod": "^4.1.12"
   },
   "devDependencies": {

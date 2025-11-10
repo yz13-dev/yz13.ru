@@ -13,6 +13,7 @@ const posts = defineCollection({
     categories: z.array(z.string()),
     date: z.string(),
     authors: z.array(z.string()),
+    content: z.string(),
   }),
   transform: async (data, context) => {
     const body = await compileMDX(context, data);

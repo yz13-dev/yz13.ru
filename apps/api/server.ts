@@ -5,6 +5,7 @@ import { cors } from "hono/cors";
 import { requestId } from "hono/request-id";
 import { timing } from "hono/timing";
 import packageJson from './package.json' with { type: "json" };
+import { core } from "./src/core/root";
 import { supabaseMiddleware } from "./src/middlewares/supabase.middleware";
 import { root } from "./src/services/root";
 
@@ -47,6 +48,7 @@ app.use("*", supabaseMiddleware());
 
 app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
 
+app.route("/", core);
 app.route("/", root);
 
 app.doc("/openapi.json", {
