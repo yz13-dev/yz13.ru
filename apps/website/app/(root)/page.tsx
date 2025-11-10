@@ -19,16 +19,16 @@ export default function Home() {
       <Header />
       <main
         className={cn(
-          "container w-full mx-auto md:pb-[10%] md:pt-[7.5%] py-[7.5%] px-6",
+          "container w-full mx-auto md:pt-32 pt-24 md:pb-[10%] pb-[7.5%] px-6",
           "md:h-fit h-[calc(100dvh-88px)]",
           "flex flex-col items-center md:justify-start justify-between"
         )}
       >
-        <div className="w-full h-fit md:py-6 pt-16 flex items-center">
+        <div className="w-full h-fit flex items-center">
           <LogoStack orientation="horizontal" align="right" />
         </div>
         <div className="w-full space-y-6">
-          <div className="relative py-10 *:block space-y-8 max-w-4xl w-fit">
+          <div className="relative md:py-16 py-10 *:block space-y-8 max-w-4xl w-fit">
             <div className="w-fit hidden! md:py-10 py-0">
               <ThemeImage
                 className="mx-auto w-fit"
@@ -40,7 +40,7 @@ export default function Home() {
               />
             </div>
             <h1 className="md:text-6xl text-5xl text-balance font-semibold">
-              YZ13 - Нужен разработчик?
+              Нужен разработчик?
             </h1>
             <p className="md:text-4xl text-2xl text-balance text-muted-foreground">
               Разработаю фронтенд для вашего проекта

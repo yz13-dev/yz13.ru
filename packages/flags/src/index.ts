@@ -13,13 +13,17 @@ export const createClient = ({ appId }: ClientOptions) => {
     const base = "https://cdn.flags.yz13.ru"
     const path = `/${id}/${filename}`
     const url = new URL(path, base).toString()
-    if (process.env.NODE_ENV === "development") console.log("cdn", url);
+    // if (process.env.NODE_ENV === "development") console.log("cdn", url);
     return url.toString();
   }
 
   const get = async (url: string) => {
     try {
+      const start = Date.now()
       const response = await fetch(url);
+
+      const end = Date.now()
+      if (process.env.NODE_ENV === "development") console.log("get", url, end - start);
       return await response.json()
     } catch (error) {
       console.error(error)

@@ -60,10 +60,10 @@ const ProjectContent = ({
     <div className="size-full flex flex-col justify-between">
       <div className="w-full">
         <div className="*:block space-y-2">
-          <h3 className="text-4xl font-medium text-muted-foreground">
+          <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
             {project.name}
           </h3>
-          <p className="text-4xl font-medium text-foreground">
+          <p className="lg:text-4xl text-2xl font-medium text-foreground">
             {project.description}
           </p>
         </div>
@@ -111,10 +111,10 @@ const ProjectContent = ({
     <div className="size-full flex flex-row justify-between">
       <div className="w-full">
         <div className="*:block space-y-2">
-          <h3 className="text-4xl font-medium text-muted-foreground">
+          <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
             {project.name}
           </h3>
-          <p className="text-4xl font-medium text-foreground">
+          <p className="lg:text-4xl text-2xl font-medium text-foreground">
             {project.description}
           </p>
         </div>
