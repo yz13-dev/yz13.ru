@@ -17,17 +17,17 @@ export default function Home() {
       <Header />
       <main
         className={cn(
-          "max-w-7xl w-full mx-auto md:pb-[10%] md:pt-[7.5%] py-[7.5%] px-6",
-          "h-[calc(100dvh-88px)]",
+          "container w-full mx-auto md:pb-[10%] md:pt-[7.5%] py-[7.5%] px-6",
+          "md:h-fit h-[calc(100dvh-88px)]",
           "flex flex-col items-center md:justify-start justify-between"
         )}
       >
-        <div className="w-full h-fit md:py-6 pt-16 flex items-center justify-center">
-          <LogoStack />
+        <div className="w-full h-fit md:py-6 pt-16 flex items-center">
+          <LogoStack orientation="horizontal" align="right" />
         </div>
         <div className="w-full space-y-6">
-          <div className="relative py-10 *:block space-y-8 max-w-4xl w-fit mx-auto">
-            <div className="w-fit mx-auto hidden! md:py-10 py-0">
+          <div className="relative py-10 *:block space-y-8 max-w-4xl w-fit">
+            <div className="w-fit hidden! md:py-10 py-0">
               <ThemeImage
                 className="mx-auto w-fit"
                 srcDark="/logo/dark-full.png"
@@ -37,10 +37,10 @@ export default function Home() {
                 alt="logo"
               />
             </div>
-            <h1 className="md:text-6xl text-5xl text-balance text-center font-semibold">
+            <h1 className="md:text-6xl text-5xl text-balance font-semibold">
               YZ13 - Нужен разработчик?
             </h1>
-            <p className="md:text-4xl text-2xl text-balance text-center text-muted-foreground">
+            <p className="md:text-4xl text-2xl text-balance text-muted-foreground">
               Разработаю фронтенд для вашего проекта
             </p>
           </div>
@@ -48,7 +48,7 @@ export default function Home() {
         <div
           className={cn(
             "pt-4 *:text-lg [&>button>svg]:size-5!",
-            "flex md:flex-row flex-col items-center justify-center gap-2",
+            "flex md:flex-row flex-col items-center justify-start gap-2",
             "md:*:w-fit *:w-full *:h-12 *:px-8 w-full"
           )}
         >
