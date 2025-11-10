@@ -32,7 +32,10 @@ export default function Project({
           "group-data-[orientation=horizontal]:aspect-4/3",
           "group-data-[orientation=vertical]:aspect-video"
         )}>
-          <ImagesGrid paths={project.attachment || []} className="size-full rounded-4xl" />
+          <ImagesGrid
+            paths={project.attachment || []}
+            className="size-full rounded-4xl border hover:outline-8 outline-border/40 transition-all"
+          />
         </div>
       </div>
     </div>

@@ -8,9 +8,7 @@ export const pins: Project = {
   name: "Пинс",
   description: "Галерея для вдохновления на новые проекты",
   attachment: [
-    "/projects/pins/screenshots/main.png",
-    "/projects/pins/screenshots/site.png",
-    "/projects/pins/screenshots/og.png",
+    "/projects/pins/screenshots/home.png",
   ],
   stack: joinStack(["nextjs", "tailwindcss", "shadcnui"])
 }

@@ -64,8 +64,8 @@ export default function Header() {
             </Link>
           </Button>
         </div>
-        <Button variant="default">Связаться</Button>
-        <Button variant="outline"><EllipsisIcon /></Button>
+        <Button variant="default" disabled>Связаться</Button>
+        <Button variant="outline" disabled><EllipsisIcon /></Button>
       </nav>
     </header>
   )

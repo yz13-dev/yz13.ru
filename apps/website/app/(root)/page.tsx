@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@y
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { ArrowRightIcon, SendIcon } from "@yz13/ui/icons";
+import Link from "next/link";
 import LogoStack from "./components/logo-stack";
 
 export default function Home() {
@@ -16,8 +17,8 @@ export default function Home() {
       <Header />
       <main
         className={cn(
-          "max-w-7xl w-full mx-auto md:pb-[10%] md:pt-[5%] py-[7.5%] px-6",
-          "md:h-[80dvh] h-[calc(100dvh-88px)]",
+          "max-w-7xl w-full mx-auto md:pb-[10%] md:pt-[7.5%] py-[7.5%] px-6",
+          "h-[calc(100dvh-88px)]",
           "flex flex-col items-center md:justify-start justify-between"
         )}
       >
@@ -51,9 +52,11 @@ export default function Home() {
             "md:*:w-fit *:w-full *:h-12 *:px-8 w-full"
           )}
         >
-          <Button variant="outline" size="lg" disabled>
-            <SendIcon />
-            <span>Чат</span>
+          <Button variant="outline" size="lg" asChild>
+            <Link href="https://t.me/yz13_dev" target="_blank">
+              <SendIcon />
+              <span>Чат</span>
+            </Link>
           </Button>
           <Button variant="default" size="lg" disabled>
             <span>Запланировать видеозвонок</span><ArrowRightIcon />
@@ -61,7 +64,7 @@ export default function Home() {
         </div>
       </main>
 
-      <div className="w-full container mx-auto px-6 py-6 space-y-6">
+      <div className="w-full hidden! container mx-auto px-6 py-6 space-y-6">
         <div className="grid mx-auto xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
           <div className="flex items-center gap-3">
             <div className="rounded-md h-16 aspect-video bg-secondary" />
