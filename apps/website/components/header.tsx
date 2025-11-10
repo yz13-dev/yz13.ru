@@ -1,6 +1,6 @@
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
-import { ArchiveIcon, EllipsisIcon } from "@yz13/ui/icons";
+import { ArchiveIcon, BookTextIcon, EllipsisIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 import { ThemeImage } from "./theme-image";
 
@@ -11,10 +11,10 @@ export default function Header() {
     <header
       className={cn(
         "flex items-center justify-between gap-4 mx-auto",
-        "*:py-4 h-[68px]"
+        "*:py-6"
       )}
     >
-      <div className="pl-6 py-4">
+      <div className="pl-6">
         <div className="h-10 flex items-center">
           <Link href="/" className="lg:block hidden">
             <ThemeImage
@@ -46,7 +46,7 @@ export default function Header() {
         )}
       >
         <div className={cn(
-          "md:flex hidden items-center gap-1",
+          "flex items-center gap-1.5",
           "[&>button]:h-10 [&>button]:text-base",
           "[&>a]:h-10 [&>a]:text-base",
         )}
@@ -55,6 +55,12 @@ export default function Header() {
             <Link href="/projects">
               <ArchiveIcon />
               <span className="lg:inline hidden">Проекты</span>
+            </Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link href="/blog">
+              <BookTextIcon />
+              <span className="lg:inline hidden">Блог</span>
             </Link>
           </Button>
         </div>

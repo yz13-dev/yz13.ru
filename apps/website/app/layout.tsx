@@ -1,3 +1,4 @@
+import ImagePreview from "@/components/image-preview";
 import { cn } from "@yz13/ui/cn";
 import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
@@ -68,6 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn(geistSans.variable, geistMono.variable)}>
       <body className="relative">
+        <ImagePreview />
         {children}
       </body>
     </html>

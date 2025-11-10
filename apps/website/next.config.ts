@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  transpilePackages: ["@yz13/ui", "@yz13/link"],
+  transpilePackages: ["@yz13/ui", "@yz13/link", "@yz13/registries", "@yz13/flags"],
   compress: true,
   images: {
     remotePatterns: [

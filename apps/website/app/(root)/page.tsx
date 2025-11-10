@@ -2,15 +2,14 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
 import { ThemeImage } from "@/components/theme-image";
+import { projects } from "@yz13/registries";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@yz13/ui/accordion";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { ArrowRightIcon, SendIcon } from "@yz13/ui/icons";
 import LogoStack from "./components/logo-stack";
 
-
 export default function Home() {
-
 
   return (
     <>
@@ -18,7 +17,7 @@ export default function Home() {
       <main
         className={cn(
           "max-w-7xl w-full mx-auto md:pb-[10%] md:pt-[5%] py-[7.5%] px-6",
-          "md:h-[80dvh] h-[calc(100dvh-102px)]",
+          "md:h-[80dvh] h-[calc(100dvh-88px)]",
           "flex flex-col items-center md:justify-start justify-between"
         )}
       >
@@ -171,15 +170,16 @@ export default function Home() {
         </h2>
       </div>
       <div className="w-full divide-y border-y *:[&>div]:px-6">
-        <ProjectContainer>
-          <Project />
-        </ProjectContainer>
-        <ProjectContainer>
-          <Project />
-        </ProjectContainer>
-        <ProjectContainer>
-          <Project />
-        </ProjectContainer>
+        {
+          projects
+            .map(project => {
+              return (
+                <ProjectContainer key={project.id}>
+                  <Project project={project} />
+                </ProjectContainer>
+              )
+            })
+        }
       </div>
       <div className="w-full *:px-6 pb-6">
         <div className="py-12 container mx-auto">
@@ -193,7 +193,7 @@ export default function Home() {
               <AccordionTrigger className="text-lg">
                 <span>Почему стоит работать со мной?</span>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="text-lg">
                 <span>123</span>
               </AccordionContent>
             </AccordionItem>
@@ -201,7 +201,7 @@ export default function Home() {
               <AccordionTrigger className="text-lg">
                 <span>Почему стоит работать со мной?</span>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="text-lg">
                 <span>123</span>
               </AccordionContent>
             </AccordionItem>
@@ -211,7 +211,7 @@ export default function Home() {
               <AccordionTrigger className="text-lg">
                 <span>Почему стоит работать со мной?</span>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="text-lg">
                 <span>123</span>
               </AccordionContent>
             </AccordionItem>
@@ -219,7 +219,7 @@ export default function Home() {
               <AccordionTrigger className="text-lg">
                 <span>Почему стоит работать со мной?</span>
               </AccordionTrigger>
-              <AccordionContent>
+              <AccordionContent className="text-lg">
                 <span>123</span>
               </AccordionContent>
             </AccordionItem>

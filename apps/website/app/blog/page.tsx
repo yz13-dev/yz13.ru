@@ -3,7 +3,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { ThemeImage } from "@/components/theme-image";
 import { Button } from "@yz13/ui/button";
-import { ChevronRightIcon } from "@yz13/ui/icons";
+import { ChevronRightIcon, FilterIcon } from "@yz13/ui/icons";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 
@@ -13,7 +13,7 @@ export default function Blog() {
     <>
       <Header />
 
-      <div className="w-full container px-6 mx-auto h-fit py-32 space-y-12">
+      <div className="w-full container px-6 mx-auto h-fit md:pt-32 pt-24 md:pb-16 pb-12 space-y-12">
         <div className="size-32 relative outline-6 border outline-border/40 rounded-3xl bg-card flex items-center justify-center">
           <ThemeImage
             className="relative"
@@ -24,7 +24,12 @@ export default function Blog() {
             alt="logo"
           />
         </div>
+      </div>
+      <div className="w-full container px-6 mx-auto h-fit py-6 space-y-12">
         <h1 className="text-6xl block font-medium">Блог</h1>
+        <div className="pt-6 flex items-center gap-2">
+          <Button variant="secondary"><FilterIcon /><span>Фильтры</span></Button>
+        </div>
       </div>
 
       <div className="w-full divide-y border-y">

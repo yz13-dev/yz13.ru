@@ -36,6 +36,29 @@ body {
   background-position: 0 48%;
 }
 
+/* Базовая настройка анимации */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .35s;
+  animation-timing-function: ease;
+}
+
+::view-transition-old(image-preview),
+::view-transition-new(image-preview) {
+  animation-duration: .35s;
+  animation-timing-function: ease;
+}
+
+/* Чтобы элементы не мигали */
+::view-transition-group(*) {
+  isolation: isolate;
+}
+
+.image-preview {
+  isolation: isolate;
+  view-transition-name: image-preview;
+}
+
 .markdown {
 
   &>* {

@@ -1,9 +1,10 @@
 {
-  "name": "@yz13/flags",
+  "name": "@yz13/registries",
   "version": "0.0.1",
   "private": true,
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./projects/reservia": "./src/projects/reservia.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",

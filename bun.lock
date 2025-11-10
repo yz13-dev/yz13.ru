@@ -38,6 +38,7 @@
         "@content-collections/next": "^0.2.9",
         "@yz13/flags": "*",
         "@yz13/link": "*",
+        "@yz13/registries": "*",
         "@yz13/ui": "*",
         "date-fns": "^4.1.0",
         "motion": "^12.23.24",
@@ -105,6 +106,8 @@
       "name": "@yz13/flags",
       "version": "0.0.1",
       "devDependencies": {
+        "@types/node": "^22.15.3",
+        "@types/react": "19.1.0",
         "@yz13/eslint-config": "*",
         "@yz13/typescript-config": "*",
       },
@@ -133,6 +136,16 @@
         "@yz13/typescript-config": "*",
         "@yz13/ui": "*",
         "typescript": "5.9.2",
+      },
+    },
+    "packages/registries": {
+      "name": "@yz13/registries",
+      "version": "0.0.1",
+      "devDependencies": {
+        "@types/node": "^22.15.3",
+        "@types/react": "19.1.0",
+        "@yz13/eslint-config": "*",
+        "@yz13/typescript-config": "*",
       },
     },
     "packages/supabase": {
@@ -815,6 +828,8 @@
     "@yz13/flags": ["@yz13/flags@workspace:packages/flags"],
 
     "@yz13/link": ["@yz13/link@workspace:packages/link"],
+
+    "@yz13/registries": ["@yz13/registries@workspace:packages/registries"],
 
     "@yz13/supabase": ["@yz13/supabase@workspace:packages/supabase"],
 
@@ -2108,7 +2123,11 @@
 
     "@typescript-eslint/typescript-estree/semver": ["semver@7.7.3", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q=="],
 
+    "@yz13/flags/@types/react": ["@types/react@19.1.0", "", { "dependencies": { "csstype": "^3.0.2" } }, "sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w=="],
+
     "@yz13/link/@types/react": ["@types/react@19.1.0", "", { "dependencies": { "csstype": "^3.0.2" } }, "sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w=="],
+
+    "@yz13/registries/@types/react": ["@types/react@19.1.0", "", { "dependencies": { "csstype": "^3.0.2" } }, "sha512-UaicktuQI+9UKyA4njtDOGBD/67t8YEBt2xdfqu8+gP9hqPUPsiXlNPcpS2gVdjmis5GKPG3fCxbQLVgxsQZ8w=="],
 
     "@yz13/supabase/@types/react-dom": ["@types/react-dom@19.2.2", "", { "peerDependencies": { "@types/react": "^19.2.0" } }, "sha512-9KQPoO6mZCi7jcIStSnlOWn2nEF3mNmyr3rIAsGnAbQKYbRLyqmeSc39EVgtxXVia+LMT8j3knZLAZAh+xLmrw=="],
 

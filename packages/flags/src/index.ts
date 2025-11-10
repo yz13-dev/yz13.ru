@@ -12,7 +12,9 @@ export const createClient = ({ appId }: ClientOptions) => {
     // `/${appId}/flags.json`
     const base = "https://cdn.flags.yz13.ru"
     const path = `/${id}/${filename}`
-    return new URL(path, base).toString()
+    const url = new URL(path, base).toString()
+    if (process.env.NODE_ENV === "development") console.log("cdn", url);
+    return url.toString();
   }
 
   const get = async (url: string) => {

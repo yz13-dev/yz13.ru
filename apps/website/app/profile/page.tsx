@@ -1,4 +1,3 @@
-import { allPosts } from "@/.content-collections/generated";
 import { ThemeImage } from "@/components/theme-image";
 import { projects } from "@/const/projects";
 import { works } from "@/const/works";
@@ -9,18 +8,13 @@ import { InputGroupButton } from "@yz13/ui/input-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@yz13/ui/tabs";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import ImagePreview from "./components/image-preview";
-import ImagesGrid from "./components/images-grid";
+import ImagesGrid from "../../components/images-grid";
 
 
 export default function Works() {
 
-  const posts = allPosts;
-  console.log("posts", posts)
-
   return (
     <>
-      <ImagePreview />
       <div className="w-full lg:px-[7.5%] px-0 flex">
         <div className="lg:w-2/3 w-full border-x bg-card min-h-dvh">
           <header className="w-full flex items-center justify-between px-6 py-2 h-10">
