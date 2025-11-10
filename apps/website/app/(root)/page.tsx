@@ -184,51 +184,54 @@ export default function Home() {
             })
         }
       </div>
-      <div className="w-full *:px-6 pb-6">
-        <div className="py-12 container mx-auto">
-          <h2 className="text-4xl font-medium">
-            Ответы на вопросы
-          </h2>
+      {
+        false &&
+        <div className="w-full *:px-6 pb-6">
+          <div className="py-12 container mx-auto">
+            <h2 className="text-4xl font-medium">
+              Ответы на вопросы
+            </h2>
+          </div>
+          <div className="grid container md:gap-6 gap-0 mx-auto md:grid-cols-2 grid-cols-1 md:divide-y-0 divide-y">
+            <Accordion type="multiple">
+              <AccordionItem value="1">
+                <AccordionTrigger className="text-lg">
+                  <span>Почему стоит работать со мной?</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-lg">
+                  <span>123</span>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="2">
+                <AccordionTrigger className="text-lg">
+                  <span>Почему стоит работать со мной?</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-lg">
+                  <span>123</span>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <Accordion type="multiple">
+              <AccordionItem value="1">
+                <AccordionTrigger className="text-lg">
+                  <span>Почему стоит работать со мной?</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-lg">
+                  <span>123</span>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="2">
+                <AccordionTrigger className="text-lg">
+                  <span>Почему стоит работать со мной?</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-lg">
+                  <span>123</span>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
         </div>
-        <div className="grid container md:gap-6 gap-0 mx-auto md:grid-cols-2 grid-cols-1 md:divide-y-0 divide-y">
-          <Accordion type="multiple">
-            <AccordionItem value="1">
-              <AccordionTrigger className="text-lg">
-                <span>Почему стоит работать со мной?</span>
-              </AccordionTrigger>
-              <AccordionContent className="text-lg">
-                <span>123</span>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="2">
-              <AccordionTrigger className="text-lg">
-                <span>Почему стоит работать со мной?</span>
-              </AccordionTrigger>
-              <AccordionContent className="text-lg">
-                <span>123</span>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-          <Accordion type="multiple">
-            <AccordionItem value="1">
-              <AccordionTrigger className="text-lg">
-                <span>Почему стоит работать со мной?</span>
-              </AccordionTrigger>
-              <AccordionContent className="text-lg">
-                <span>123</span>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="2">
-              <AccordionTrigger className="text-lg">
-                <span>Почему стоит работать со мной?</span>
-              </AccordionTrigger>
-              <AccordionContent className="text-lg">
-                <span>123</span>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </div>
+      }
       <Footer />
       <div className="py-4 px-6 container flex items-center justify-between mx-auto w-full">
         <span className="text-sm text-muted-foreground">
