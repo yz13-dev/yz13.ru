@@ -1,6 +1,8 @@
 import { github, telegram, x } from "@/const/socials";
 import { ExternalLinkIcon } from "@yz13/ui/icons";
 import Link from "next/link";
+import { Suspense } from "react";
+import Availability, { AvailabilitySkeleton } from "./availability";
 import { ThemeImage } from "./theme-image";
 
 
@@ -8,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="container py-12 mx-auto px-6 w-full">
       <div className="w-full flex md:flex-row gap-10 flex-col">
-        <div className="max-w-sm flex flex-col gap-8">
+        <div className="max-w-sm flex flex-col gap-10">
           <ThemeImage
             srcDark="/logo/dark.png"
             srcLight="/logo/light.png"
@@ -20,6 +22,9 @@ export default function Footer() {
             Нужен разработчик?
             Разработаю фронтенд для вашего проекта.
           </span>
+          <Suspense fallback={<AvailabilitySkeleton className="h-10" type="full" />}>
+            <Availability textType="full" className="h-10 justify-start w-fit text-base" />
+          </Suspense>
         </div>
         <div className="w-full grid md:grid-cols-3 grid-cols-2 gap-4">
           <div>

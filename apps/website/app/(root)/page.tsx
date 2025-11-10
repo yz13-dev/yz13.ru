@@ -1,3 +1,4 @@
+import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
@@ -8,6 +9,7 @@ import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { ArrowRightIcon, SendIcon } from "@yz13/ui/icons";
 import Link from "next/link";
+import { Suspense } from "react";
 import LogoStack from "./components/logo-stack";
 
 export default function Home() {
@@ -45,22 +47,27 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div
-          className={cn(
-            "pt-4 *:text-lg [&>button>svg]:size-5!",
-            "flex md:flex-row flex-col items-center justify-start gap-2",
-            "md:*:w-fit *:w-full *:h-12 *:px-8 w-full"
-          )}
-        >
-          <Button variant="outline" size="lg" asChild>
-            <Link href="https://t.me/yz13_dev" target="_blank">
-              <SendIcon />
-              <span>Чат</span>
-            </Link>
-          </Button>
-          <Button variant="default" size="lg" disabled>
-            <span>Запланировать видеозвонок</span><ArrowRightIcon />
-          </Button>
+        <div className="w-full space-y-3">
+          <Suspense fallback={<AvailabilitySkeleton type="full" className="h-10" />}>
+            <Availability textType="full" className="h-10 text-base" />
+          </Suspense>
+          <div
+            className={cn(
+              "pt-4 *:text-lg [&>button>svg]:size-5!",
+              "flex md:flex-row flex-col items-center justify-start gap-2",
+              "md:*:w-fit *:w-full *:h-12 *:px-8 w-full"
+            )}
+          >
+            <Button variant="outline" size="lg" asChild>
+              <Link href="https://t.me/yz13_dev" target="_blank">
+                <SendIcon />
+                <span>Чат</span>
+              </Link>
+            </Button>
+            <Button variant="default" size="lg" disabled>
+              <span>Запланировать видеозвонок</span><ArrowRightIcon />
+            </Button>
+          </div>
         </div>
       </main>
 
