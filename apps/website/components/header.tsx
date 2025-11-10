@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header
       className={cn(
-        "flex items-center justify-between gap-4 mx-auto",
+        "flex items-center container justify-between gap-4 mx-auto",
         "*:py-6"
       )}
     >
