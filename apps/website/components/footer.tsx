@@ -1,10 +1,8 @@
+import { github, telegram, x } from "@/const/socials";
 import { ExternalLinkIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 import { ThemeImage } from "./theme-image";
 
-const telegram = "https://t.me/yz13_dev";
-const github = "https://github.com/yz13-dev";
-const x = "https://x.com/yz13_dev";
 
 export default function Footer() {
   return (

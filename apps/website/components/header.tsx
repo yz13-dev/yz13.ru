@@ -1,7 +1,9 @@
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
+import { Drawer, DrawerContent, DrawerTrigger } from "@yz13/ui/drawer";
 import { ArchiveIcon, BookTextIcon, EllipsisIcon } from "@yz13/ui/icons";
 import Link from "next/link";
+import ContactForm from "./contact-form";
 import { ThemeImage } from "./theme-image";
 
 
@@ -64,7 +66,12 @@ export default function Header() {
             </Link>
           </Button>
         </div>
-        <Button variant="default" disabled>Связаться</Button>
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button variant="default" disabled>Связаться</Button>
+          </DrawerTrigger>
+          <DrawerContent className="max-w-2xl mx-auto border-x px-6 pb-6"><ContactForm /></DrawerContent>
+        </Drawer>
         <Button variant="outline" disabled><EllipsisIcon /></Button>
       </nav>
     </header>
