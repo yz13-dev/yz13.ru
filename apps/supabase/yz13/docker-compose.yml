@@ -268,7 +268,7 @@ services:
       FILE_SIZE_LIMIT: 52428800
       STORAGE_BACKEND: file
       FILE_STORAGE_BACKEND_PATH: /var/lib/storage
-      TENANT_ID: yz13
+      TENANT_ID: stub
       #
 
       STORAGE_S3_MAX_SOCKETS: 200
