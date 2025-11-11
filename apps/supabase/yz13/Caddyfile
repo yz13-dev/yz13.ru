@@ -11,9 +11,6 @@
 	}
 
 	reverse_proxy kong:8000 {
-		transport http {
-			versions h2c 1.1
-		}
 	}
 }
 
