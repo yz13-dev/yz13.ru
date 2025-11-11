@@ -1,20 +1,9 @@
 # Primary host; required: SUPABASE_DOMAIN (e.g. example.com or api.example.com)
 {$SUPABASE_DOMAIN} {
-	# TLS issuer selection
-	@internalIssuer expression {env.SUPABASE_TLS_ISSUER} == "internal"
-	handle @internalIssuer {
-		tls internal
-	}
-	@letsencrypt expression {env.SUPABASE_TLS_ISSUER} != "internal"
-	handle @letsencrypt {
-		# Will be skipped if email is empty; Caddy is fine without it
-		tls {env.SUPABASE_TLS_EMAIL}
-	}
+	tls {env.SUPABASE_TLS_EMAIL}
 
-	# Proxy all traffic to Kong (which already routes '/' to Studio dashboard)
 	encode zstd gzip
 	header {
-		# Security headers (minimal sane defaults)
 		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 		Referrer-Policy "no-referrer-when-downgrade"
 		X-Content-Type-Options "nosniff"
@@ -22,17 +11,10 @@
 		X-XSS-Protection "0"
 	}
 
-	@websockets header Connection *Upgrade*
-	handle @websockets {
-		reverse_proxy kong:8000 {
-			transport http {
-				versions h2c 1.1
-			}
+	reverse_proxy kong:8000 {
+		transport http {
+			versions h2c 1.1
 		}
-	}
-
-	handle {
-		reverse_proxy kong:8000
 	}
 }
 
