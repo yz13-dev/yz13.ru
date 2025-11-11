@@ -267,19 +267,6 @@ services:
       #      - ::1
       #    deny: []
 
-  - name: dashboard-static
-    _comment: 'Studio static assets without auth'
-    url: http://studio:3000/
-    routes:
-      - name: dashboard-static-all
-        strip_path: false
-        paths:
-          - /_next/
-          - /monaco-editor/
-          - /img/
-          - /media/
-    plugins:
-      - name: cors
   ## Protected Dashboard - catch all remaining routes
   - name: dashboard
     _comment: 'Studio: /* -> http://studio:3000/*'
