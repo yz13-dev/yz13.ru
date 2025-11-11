@@ -85,6 +85,25 @@ services:
     # https://unix.stackexchange.com/a/294837
     entrypoint: bash -c 'eval "echo \"$$(cat ~/temp.yml)\"" > ~/kong.yml && /docker-entrypoint.sh kong docker-start'
 
+  # HTTPS reverse proxy and TLS termination
+  caddy:
+    container_name: supabase-caddy
+    image: caddy:2.8.4-alpine
+    restart: unless-stopped
+    depends_on:
+      - kong
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      SUPABASE_DOMAIN: ${SUPABASE_PUBLIC_URL}
+      SUPABASE_TLS_EMAIL: ${SUPABASE_TLS_EMAIL:-}
+      SUPABASE_TLS_ISSUER: ${SUPABASE_TLS_ISSUER:-letsencrypt}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
   auth:
     container_name: supabase-auth
     image: supabase/gotrue:v2.180.0
@@ -537,3 +556,5 @@ services:
 
 volumes:
   db-config:
+  caddy-data:
+  caddy-config:
