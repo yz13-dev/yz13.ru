@@ -1,5 +1,6 @@
 # Primary host; required: SUPABASE_DOMAIN (e.g. example.com or api.example.com)
 {$SUPABASE_DOMAIN} {
+	tls internal
 
 	encode zstd gzip
 	header {

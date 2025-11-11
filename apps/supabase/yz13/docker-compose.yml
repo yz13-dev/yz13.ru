@@ -101,8 +101,8 @@ services:
       SUPABASE_TLS_ISSUER: ${SUPABASE_TLS_ISSUER:-letsencrypt}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy-data:/data
-      - caddy-config:/config
+      - ./volumes/caddy/data:/data
+      - ./volumes/caddy/config:/config
 
   auth:
     container_name: supabase-auth
@@ -556,5 +556,3 @@ services:
 
 volumes:
   db-config:
-  caddy-data:
-  caddy-config:
