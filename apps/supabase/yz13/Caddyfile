@@ -1,6 +1,5 @@
 # Primary host; required: SUPABASE_DOMAIN (e.g. example.com or api.example.com)
 {$SUPABASE_DOMAIN} {
-	tls {env.SUPABASE_TLS_EMAIL}
 
 	encode zstd gzip
 	header {
