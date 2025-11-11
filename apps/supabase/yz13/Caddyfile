@@ -10,23 +10,19 @@
 		X-XSS-Protection "0"
 	}
 
-	# Long-cache static assets
-	handle_path /_next/* {
-		header Cache-Control "public, max-age=31536000, immutable"
-		reverse_proxy kong:8000
-	}
-	handle_path /monaco-editor/* {
-		header Cache-Control "public, max-age=31536000, immutable"
-		reverse_proxy kong:8000
-	}
-	handle_path /_next/static/* {
-		header Cache-Control "public, max-age=31536000, immutable"
-		reverse_proxy kong:8000
-	}
-	handle_path /img/* {
-		header Cache-Control "public, max-age=31536000, immutable"
-		reverse_proxy kong:8000
-	}
+	# Long-cache static assets (no path rewrite)
+	@next path /_next/*
+	header @next Cache-Control "public, max-age=31536000, immutable"
+	@nextstatic path /_next/static/*
+	header @nextstatic Cache-Control "public, max-age=31536000, immutable"
+	@monaco path /monaco-editor/*
+	header @monaco Cache-Control "public, max-age=31536000, immutable"
+	@img path /img/*
+	header @img Cache-Control "public, max-age=31536000, immutable"
+	@media path /media/* /_next/static/media/*
+	header @media Cache-Control "public, max-age=31536000, immutable"
+	@editor path /editor/*
+	header @editor Cache-Control "public, max-age=31536000, immutable"
 
 	reverse_proxy kong:8000 {
 		flush_interval -1
