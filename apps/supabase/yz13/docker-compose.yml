@@ -268,7 +268,7 @@ services:
       FILE_SIZE_LIMIT: 52428800
       STORAGE_BACKEND: file
       FILE_STORAGE_BACKEND_PATH: /var/lib/storage
-      TENANT_ID: stub
+      TENANT_ID: yz13
       #
 
       STORAGE_S3_MAX_SOCKETS: 200
@@ -283,8 +283,8 @@ services:
       STORAGE_S3_FORCE_PATH_STYLE: "true"
 
       # TODO: https://github.com/supabase/storage-api/issues/55
-      REGION: stub
-      GLOBAL_S3_BUCKET: stub
+      REGION: ru-central1
+      GLOBAL_S3_BUCKET: yz13
       ENABLE_IMAGE_TRANSFORMATION: "true"
       IMGPROXY_URL: http://imgproxy:5001
 
