@@ -96,7 +96,7 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      SUPABASE_DOMAIN: ${SUPABASE_PUBLIC_URL}
+      SUPABASE_DOMAIN: ${SUPABASE_PUBLIC_DOMAIN}
       SUPABASE_TLS_EMAIL: ${SUPABASE_TLS_EMAIL:-}
       SUPABASE_TLS_ISSUER: ${SUPABASE_TLS_ISSUER:-letsencrypt}
     volumes:
