@@ -1,11 +1,3 @@
-{
-	# Optional: increase reverse proxy timeouts for long requests
-	servers {
-		read_timeout  600s
-		write_timeout 600s
-	}
-}
-
 # Primary host; required: SUPABASE_DOMAIN (e.g. example.com or api.example.com)
 {$SUPABASE_DOMAIN} {
 	# TLS issuer selection
