@@ -1,7 +1,7 @@
 # Primary host; required: SUPABASE_DOMAIN (e.g. example.com or api.example.com)
 {$SUPABASE_DOMAIN} {
-	tls {env.SUPABASE_TLS_EMAIL}
-
+	# TLS: Caddy automatically uses Let's Encrypt
+	# If rate limited, Caddy will retry automatically
 
 	encode zstd gzip
 	header {
