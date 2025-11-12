@@ -1,12 +1,12 @@
 import AutoScroll from "@/components/auto-scroll";
-import CommandBlock from "@/components/command-block";
-import CommandHistory from "@/components/command-history";
-import CommandInputBlock from "@/components/command-input-block";
-import InlineCommand from "@/components/inline-command";
 import { CmdHistoryProvider } from "@/stores/cmd-history.store";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/avatar";
 import { InputGroupButton } from "@yz13/ui/input-group";
 import Link from "next/link";
+import CommandBlock from "./components/command-block";
+import CommandHistory from "./components/command-history";
+import CommandInputBlock from "./components/command-input-block";
+import InlineCommand from "./components/inline-command";
 
 
 

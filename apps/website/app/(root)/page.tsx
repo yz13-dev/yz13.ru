@@ -271,7 +271,7 @@ export default function Home() {
         <span className="text-sm text-muted-foreground">
           YZ13 - фронтенд разработчик.
         </span>
-        <span className="text-sm text-muted-foreground">...</span>
+        <span className="text-sm text-muted-foreground">2025</span>
       </div>
     </>
   );

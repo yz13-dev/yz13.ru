@@ -1,6 +1,6 @@
 "use client";
+import CommandBlock from "@/app/cli/components/command-block";
 import { Commands, getCommand } from "@/const/registry";
-import CommandBlock from "./command-block";
 
 
 
