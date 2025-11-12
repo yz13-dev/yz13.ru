@@ -1,16 +1,6 @@
 # Primary host; required: SUPABASE_DOMAIN (e.g. example.com or api.example.com)
 {$SUPABASE_DOMAIN} {
-	# TLS issuer selection
-	@internalIssuer expression {env.SUPABASE_TLS_ISSUER} == "internal"
-	handle @internalIssuer {
-		tls internal
-	}
-
-	@letsencrypt expression {env.SUPABASE_TLS_ISSUER} != "internal"
-	handle @letsencrypt {
-		# Will be skipped if email is empty; Caddy is fine without it
-		tls {env.SUPABASE_TLS_EMAIL}
-	}
+	tls {env.SUPABASE_TLS_EMAIL}
 
 
 	encode zstd gzip
