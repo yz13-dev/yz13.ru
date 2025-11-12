@@ -2,11 +2,7 @@ import { getAvailability } from "@/flags";
 import { useState } from "react";
 import { useInterval } from "./use-interval";
 
-
-
-
 export const useAvailable = () => {
-
   const [isAvailable, setIsAvailable] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -21,10 +17,10 @@ export const useAvailable = () => {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   useInterval(() => {
     fetchAvailability();
   }, 10000);
-  return [isAvailable, loading]
-}
+  return [isAvailable, loading] as const;
+};

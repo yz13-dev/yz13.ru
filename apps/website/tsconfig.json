@@ -4,17 +4,13 @@
     "plugins": [
       {
         "name": "next"
-      },
+      }
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "content-collections": [
-        ".content-collections/generated"
-      ]
-    },
+      "@/*": ["./*"],
+      "content-collections": [".content-collections/generated"]
+    }
   },
   "include": [
     "**/*.ts",
@@ -23,7 +19,5 @@
     "next.config.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

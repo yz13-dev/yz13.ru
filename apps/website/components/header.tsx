@@ -1,19 +1,26 @@
+"use client";
+import { useAvailable } from "@/hooks/use-available";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
-import { Drawer, DrawerContent, DrawerTrigger } from "@yz13/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerTrigger,
+} from "@yz13/ui/drawer";
 import { ArchiveIcon, BookTextIcon, EllipsisIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 import ContactForm from "./contact-form";
 import { ThemeImage } from "./theme-image";
 
-
-
 export default function Header() {
+  const [available] = useAvailable();
+
   return (
     <header
       className={cn(
         "flex items-center container justify-between gap-4 mx-auto",
-        "*:py-6"
+        "*:py-6",
       )}
     >
       <div className="pl-6">
@@ -47,11 +54,12 @@ export default function Header() {
           "[&>a]:h-10 [&>a]:text-base",
         )}
       >
-        <div className={cn(
-          "flex items-center gap-1.5",
-          "[&>button]:h-10 [&>button]:text-base",
-          "[&>a]:h-10 [&>a]:text-base",
-        )}
+        <div
+          className={cn(
+            "flex items-center gap-1.5",
+            "[&>button]:h-10 [&>button]:text-base",
+            "[&>a]:h-10 [&>a]:text-base",
+          )}
         >
           <Button variant="outline" asChild>
             <Link href="/projects">
@@ -67,13 +75,40 @@ export default function Header() {
           </Button>
         </div>
         <Drawer>
-          <DrawerTrigger asChild>
-            <Button variant="default" disabled>Связаться</Button>
+          <DrawerTrigger asChild disabled={!available}>
+            <Button variant="default">Связаться</Button>
           </DrawerTrigger>
-          <DrawerContent className="max-w-2xl mx-auto border-x px-6 pb-6"><ContactForm /></DrawerContent>
+          <DrawerContent className="max-w-2xl mx-auto border-x px-6">
+            <ContactForm />
+          </DrawerContent>
         </Drawer>
-        <Button variant="outline" disabled><EllipsisIcon /></Button>
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button variant="outline">
+              <EllipsisIcon />
+            </Button>
+          </DrawerTrigger>
+          <DrawerContent className="container mx-auto border-x px-6">
+            <div className="w-full flex items-center">
+              <div className="h-10 flex items-center">
+                <ThemeImage
+                  className="max-h-10 w-fit"
+                  srcDark="/logo/dark-full.png"
+                  srcLight="/logo/light-full.png"
+                  width={250}
+                  height={40}
+                  alt="logo"
+                />
+              </div>
+            </div>
+            <DrawerFooter className="px-0">
+              <Button className="w-fit">
+                <span>Закрыть</span>
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
       </nav>
     </header>
-  )
+  );
 }
