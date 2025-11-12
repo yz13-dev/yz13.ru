@@ -1,10 +1,16 @@
 import Availability, { AvailabilitySkeleton } from "@/components/availability";
 import Footer from "@/components/footer";
+import GithubContributions from "@/components/github-contributions";
 import Header from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
 import { ThemeImage } from "@/components/theme-image";
 import { projects } from "@yz13/registries";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@yz13/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@yz13/ui/accordion";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { ArrowRightIcon, SendIcon } from "@yz13/ui/icons";
@@ -13,7 +19,6 @@ import { Suspense } from "react";
 import LogoStack from "./components/logo-stack";
 
 export default function Home() {
-
   return (
     <>
       <Header />
@@ -21,7 +26,7 @@ export default function Home() {
         className={cn(
           "container w-full mx-auto md:pt-32 pt-24 md:pb-[10%] pb-[7.5%] px-6",
           "md:h-fit h-[calc(100dvh-88px)]",
-          "flex flex-col items-center md:justify-start justify-between"
+          "flex flex-col items-center md:justify-start justify-between",
         )}
       >
         <div className="w-full h-fit flex items-center">
@@ -48,14 +53,16 @@ export default function Home() {
           </div>
         </div>
         <div className="w-full space-y-3">
-          <Suspense fallback={<AvailabilitySkeleton type="full" className="h-10" />}>
+          <Suspense
+            fallback={<AvailabilitySkeleton type="full" className="h-10" />}
+          >
             <Availability textType="full" className="h-10 text-base" />
           </Suspense>
           <div
             className={cn(
               "pt-4 *:text-lg [&>button>svg]:size-5!",
               "flex md:flex-row flex-col items-center justify-start gap-2",
-              "md:*:w-fit *:w-full *:h-12 *:px-8 w-full"
+              "md:*:w-fit *:w-full *:h-12 *:px-8 w-full",
             )}
           >
             <Button variant="outline" size="lg" asChild>
@@ -65,11 +72,31 @@ export default function Home() {
               </Link>
             </Button>
             <Button variant="default" size="lg" disabled>
-              <span>Запланировать видеозвонок</span><ArrowRightIcon />
+              <span>Запланировать видеозвонок</span>
+              <ArrowRightIcon />
             </Button>
           </div>
         </div>
       </main>
+
+      <div className="w-full container mx-auto px-6 py-6 space-y-6">
+        <Suspense
+          fallback={
+            <GithubContributions
+              username="yz13-dev"
+              blockSize={24}
+              blockRadius={6}
+              loading
+            />
+          }
+        >
+          <GithubContributions
+            username="yz13-dev"
+            blockSize={24}
+            blockRadius={6}
+          />
+        </Suspense>
+      </div>
 
       <div className="w-full hidden! container mx-auto px-6 py-6 space-y-6">
         <div className="grid mx-auto xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
@@ -79,7 +106,9 @@ export default function Home() {
               <span className="text-base font-medium line-clamp-2 leading-5">
                 Один из проектов, которые закрепленны в списке проектов
               </span>
-              <span className="text-xs text-muted-foreground uppercase">проект</span>
+              <span className="text-xs text-muted-foreground uppercase">
+                проект
+              </span>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -88,7 +117,9 @@ export default function Home() {
               <span className="text-base font-medium line-clamp-2 leading-5">
                 Один из записей в блоге, которые закрепленны в списке блога
               </span>
-              <span className="text-xs text-muted-foreground uppercase">блог</span>
+              <span className="text-xs text-muted-foreground uppercase">
+                блог
+              </span>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -97,7 +128,9 @@ export default function Home() {
               <span className="text-base font-medium line-clamp-2 leading-5">
                 Один из проектов, которые закрепленны в списке проектов
               </span>
-              <span className="text-xs text-muted-foreground uppercase">проект</span>
+              <span className="text-xs text-muted-foreground uppercase">
+                проект
+              </span>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -106,7 +139,9 @@ export default function Home() {
               <span className="text-base font-medium line-clamp-2 leading-5">
                 Один из записей в блоге, которые закрепленны в списке блога
               </span>
-              <span className="text-xs text-muted-foreground uppercase">блог</span>
+              <span className="text-xs text-muted-foreground uppercase">
+                блог
+              </span>
             </div>
           </div>
         </div>
@@ -175,29 +210,21 @@ export default function Home() {
       </div>
 
       <div className="py-12 px-6 container mx-auto">
-        <h2 className="text-4xl font-medium">
-          Работы
-        </h2>
+        <h2 className="text-4xl font-medium">Работы</h2>
       </div>
       <div className="w-full divide-y border-y *:[&>div]:px-6">
-        {
-          projects
-            .map(project => {
-              return (
-                <ProjectContainer key={project.id}>
-                  <Project project={project} />
-                </ProjectContainer>
-              )
-            })
-        }
+        {projects.map((project) => {
+          return (
+            <ProjectContainer key={project.id}>
+              <Project project={project} />
+            </ProjectContainer>
+          );
+        })}
       </div>
-      {
-        false &&
+      {false && (
         <div className="w-full *:px-6 pb-6">
           <div className="py-12 container mx-auto">
-            <h2 className="text-4xl font-medium">
-              Ответы на вопросы
-            </h2>
+            <h2 className="text-4xl font-medium">Ответы на вопросы</h2>
           </div>
           <div className="grid container md:gap-6 gap-0 mx-auto md:grid-cols-2 grid-cols-1 md:divide-y-0 divide-y">
             <Accordion type="multiple">
@@ -238,16 +265,14 @@ export default function Home() {
             </Accordion>
           </div>
         </div>
-      }
+      )}
       <Footer />
       <div className="py-4 px-6 container flex items-center justify-between mx-auto w-full">
         <span className="text-sm text-muted-foreground">
           YZ13 - фронтенд разработчик.
         </span>
-        <span className="text-sm text-muted-foreground">
-          ...
-        </span>
+        <span className="text-sm text-muted-foreground">...</span>
       </div>
     </>
-  )
+  );
 }
