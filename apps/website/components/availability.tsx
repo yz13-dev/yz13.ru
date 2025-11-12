@@ -25,7 +25,7 @@ export default async function Availability({ className = "", textType = "short",
         >
           <div className="relative flex items-center justify-center size-2">
             <div className={cn(
-              "absolute size-3 rounded-full animate-ping",
+              "absolute size-2.5 rounded-full animate-ping",
               "group-data-[available=true]:bg-foreground",
               "group-data-[available=false]:bg-destructive-foreground",
             )}

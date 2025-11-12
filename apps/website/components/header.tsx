@@ -1,20 +1,20 @@
-"use client";
-import { useAvailable } from "@/hooks/use-available";
+import { getAvailability } from "@/flags";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import {
   Drawer,
   DrawerContent,
-  DrawerFooter,
-  DrawerTrigger,
+  DrawerTrigger
 } from "@yz13/ui/drawer";
 import { ArchiveIcon, BookTextIcon, EllipsisIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 import ContactForm from "./contact-form";
+import ExtraMenu from "./extra-menu";
 import { ThemeImage } from "./theme-image";
 
-export default function Header() {
-  const [available] = useAvailable();
+export default async function Header() {
+
+  const isAvailable = await getAvailability();
 
   return (
     <header
@@ -75,7 +75,7 @@ export default function Header() {
           </Button>
         </div>
         <Drawer>
-          <DrawerTrigger asChild disabled={!available}>
+          <DrawerTrigger asChild disabled={!isAvailable}>
             <Button variant="default">Связаться</Button>
           </DrawerTrigger>
           <DrawerContent className="max-w-2xl mx-auto border-x px-6">
@@ -88,24 +88,8 @@ export default function Header() {
               <EllipsisIcon />
             </Button>
           </DrawerTrigger>
-          <DrawerContent className="container mx-auto border-x px-6">
-            <div className="w-full flex items-center">
-              <div className="h-10 flex items-center">
-                <ThemeImage
-                  className="max-h-10 w-fit"
-                  srcDark="/logo/dark-full.png"
-                  srcLight="/logo/light-full.png"
-                  width={250}
-                  height={40}
-                  alt="logo"
-                />
-              </div>
-            </div>
-            <DrawerFooter className="px-0">
-              <Button className="w-fit">
-                <span>Закрыть</span>
-              </Button>
-            </DrawerFooter>
+          <DrawerContent className="max-w-2xl pb-6 mx-auto border-x px-6">
+            <ExtraMenu />
           </DrawerContent>
         </Drawer>
       </nav>
