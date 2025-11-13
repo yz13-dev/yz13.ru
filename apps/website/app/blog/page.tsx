@@ -1,14 +1,16 @@
-import { allPosts } from "@/.content-collections/generated";
+import BlogPost, { BlogPostContainer } from "@/components/blog-post";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { ThemeImage } from "@/components/theme-image";
+import { getBlogPosts } from "@/utils/blog/blog";
 import { Button } from "@yz13/ui/button";
-import { ChevronRightIcon, FilterIcon } from "@yz13/ui/icons";
-import { format } from "date-fns";
-import { ru } from "date-fns/locale";
+import { FilterIcon } from "@yz13/ui/icons";
 
 
 export default function Blog() {
+
+  const posts = getBlogPosts();
+
   return (
     <>
       <Header />
@@ -38,7 +40,7 @@ export default function Blog() {
       <div className="w-full divide-y border-y">
 
         {
-          allPosts.length === 0 &&
+          posts.length === 0 &&
           <div className="w-full container mx-auto px-6 py-6 space-y-6">
             <div className="text-center">
               <span className="text-muted-foreground">
@@ -47,48 +49,16 @@ export default function Blog() {
             </div>
           </div>
         }
-
         {
-          allPosts
-            .map((post) => {
-
-              const date = new Date(post.date);
-
+          posts
+            .map(post => {
               return (
-                <div key={post._meta.fileName} className="w-full hover:bg-card transition-colors py-6">
-                  <article className="container mx-auto px-6">
-                    <div className="flex items-center gap-2">
-                      <time dateTime={post.date} className="font-medium text-muted-foreground">
-                        {format(date, "dd MMMM yyyy", { locale: ru })}
-                      </time>
-                    </div>
-                    <div className="py-4 *:block space-y-1">
-                      <h2 className="text-2xl font-medium">{post.title}</h2>
-                      <p className="text-base text-muted-foreground">{post.summary}</p>
-                    </div>
-                    <div className="flex items-start flex-wrap gap-2">
-                      {
-                        post.categories.map((category) => {
-                          return (
-                            <Button
-                              className="text-base capitalize text-muted-foreground px-3"
-                              size="sm"
-                              variant="outline"
-                              key={category}
-                            >
-                              {category}
-                              <ChevronRightIcon className="size-4!" />
-                            </Button>
-                          );
-                        })
-                      }
-                    </div>
-                  </article>
-                </div>
+                <BlogPostContainer key={post._meta.fileName}>
+                  <BlogPost post={post} />
+                </BlogPostContainer>
               )
             })
         }
-
       </div>
 
       <Footer />

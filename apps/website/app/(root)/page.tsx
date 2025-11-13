@@ -1,9 +1,11 @@
 import Availability, { AvailabilitySkeleton } from "@/components/availability";
+import BlogPost, { BlogPostContainer } from "@/components/blog-post";
 import Footer from "@/components/footer";
 import GithubContributions from "@/components/github-contributions";
 import Header from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
 import { ThemeImage } from "@/components/theme-image";
+import { getBlogPosts } from "@/utils/blog/blog";
 import { projects } from "@yz13/registries";
 import {
   Accordion,
@@ -19,6 +21,10 @@ import { Suspense } from "react";
 import LogoStack from "./components/logo-stack";
 
 export default function Home() {
+
+  const posts = getBlogPosts()
+  const hasBlogPosts = posts.length > 0;
+
   return (
     <>
       <Header />
@@ -221,6 +227,27 @@ export default function Home() {
           );
         })}
       </div>
+      {
+        hasBlogPosts &&
+        <div className="w-full pb-6">
+          <section className="py-12 px-6 container mx-auto">
+            <h2 className="text-4xl font-medium text-muted-foreground">Блог</h2>
+            <p className="text-4xl font-medium">Мои идеи, проекты, результаты</p>
+          </section>
+          <div className="w-full divide-y border-y">
+            {
+              posts
+                .map(post => {
+                  return (
+                    <BlogPostContainer key={post._meta.fileName}>
+                      <BlogPost post={post} />
+                    </BlogPostContainer>
+                  )
+                })
+            }
+          </div>
+        </div>
+      }
       {false && (
         <div className="w-full *:px-6 pb-6">
           <div className="py-12 container mx-auto">

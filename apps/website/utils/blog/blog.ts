@@ -1,6 +1,9 @@
+import { allPosts, type Post } from "@/.content-collections/generated";
+import { isDev } from "@/const/enviroment";
 
-export const blog = (id: string) => {
-  const postId = id;
-  const cdn = "https://emsrhdthyrigsgogumbr.supabase.co/storage/v1/object/public/blog/published/"
-  return `${cdn}${postId}`
+export type BlogPost = Post;
+
+export function getBlogPosts() {
+  if (isDev) return allPosts
+  return allPosts.filter(post => post.published !== true)
 }

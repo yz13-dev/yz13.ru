@@ -173,7 +173,7 @@ const ProjectContent = ({
 
 export const ProjectContainer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className="py-6 hover:bg-card transition-colors">
+    <section className="py-12 hover:bg-card transition-colors">
       {children}
     </section>
   )

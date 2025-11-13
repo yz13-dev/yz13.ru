@@ -1,5 +1,7 @@
 import { github, telegram, x } from "@/const/socials";
+import { Badge } from "@yz13/ui/badge";
 import { ExternalLinkIcon } from "@yz13/ui/icons";
+import { Skeleton } from "@yz13/ui/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 import Availability, { AvailabilitySkeleton } from "./availability";
@@ -37,18 +39,17 @@ export default function Footer() {
               <li><Link href="/blog" className="text-lg hover:underline">Блог</Link></li>
             </ul>
           </div>
-          {
-            false &&
-            <div>
-              <div className="py-2">
-                <span className="text-base text-muted-foreground uppercase">ресурсы</span>
-              </div>
-              <ul className="*:py-1">
-                <li><span className="text-lg">...</span></li>
-                <li><span className="text-lg">...</span></li>
-              </ul>
+
+          <div>
+            <div className="py-2">
+              <span className="text-base text-muted-foreground uppercase">мини-приложения <Badge variant="secondary">скоро</Badge></span>
             </div>
-          }
+            <ul className="*:py-1">
+              <li><Skeleton className="h-[23px] w-1/3" /></li>
+              <li><Skeleton className="h-[23px] w-1/4" /></li>
+              <li><Skeleton className="h-[23px] w-1/2" /></li>
+            </ul>
+          </div>
 
           <div>
             <div className="py-2">
