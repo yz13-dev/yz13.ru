@@ -1,3 +1,4 @@
+import { isPublished } from "@/utils/blog/projects";
 import type { Project as ProjectType } from "@yz13/registries";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
@@ -51,14 +52,20 @@ const ProjectContent = ({
 }) => {
 
   const isHorizontal = orientation === "horizontal";
-
   const hasContent = !!project.contentId;
+
+  const published = isPublished(project.id);
+
   const hasUrl = !!project.url;
 
   if (isHorizontal) return (
 
     <div className="size-full flex flex-col justify-between">
-      <div className="w-full">
+      <div className="w-full relative">
+        {
+          hasContent && published &&
+          <Link href={`/projects/${project.id}`} className="absolute inset-0" />
+        }
         <div className="*:block space-y-2">
           <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
             {project.name}
@@ -96,7 +103,7 @@ const ProjectContent = ({
           </Button>
         }
         {
-          hasContent &&
+          hasContent && published &&
           <Button variant="outline" size="lg" asChild>
             <Link href={`/projects/${project.id}`}>
               <span>Открыть проект</span>
@@ -109,7 +116,11 @@ const ProjectContent = ({
   )
   return (
     <div className="size-full flex flex-row justify-between">
-      <div className="w-full">
+      <div className="w-full relative">
+        {
+          hasContent && published &&
+          <Link href={`/projects/${project.id}`} className="absolute inset-0" />
+        }
         <div className="*:block space-y-2">
           <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
             {project.name}
@@ -147,7 +158,7 @@ const ProjectContent = ({
           </Button>
         }
         {
-          hasContent &&
+          hasContent && published &&
           <Button variant="outline" size="lg" asChild>
             <Link href={`/projects/${project.id}`}>
               <span>Открыть проект</span>

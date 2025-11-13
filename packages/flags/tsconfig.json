@@ -1,6 +1,11 @@
 {
   "extends": "@yz13/typescript-config/react-library.json",
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "outDir": "dist"
   },
   "include": [

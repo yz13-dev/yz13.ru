@@ -20,7 +20,14 @@ export const createClient = ({ appId }: ClientOptions) => {
   const get = async (url: string) => {
     try {
       const start = Date.now()
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        // @ts-expect-error
+        next: {
+          // one hour
+          revalidate: 60 * 60 * 1000,
+          tags: ["flags"]
+        }
+      });
 
       const end = Date.now()
       if (process.env.NODE_ENV === "development") console.log("get", url, end - start);

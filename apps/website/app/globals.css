@@ -70,35 +70,35 @@ body {
   }
 
   * {
-    @apply mb-2;
+    @apply mb-6;
   }
 
   h1 {
-    @apply text-4xl font-semibold text-foreground my-4;
+    @apply text-4xl font-semibold text-foreground my-6;
   }
 
   h2 {
-    @apply text-3xl font-semibold text-foreground my-3;
+    @apply text-3xl font-semibold text-foreground my-5;
   }
 
   h3 {
-    @apply text-2xl font-semibold text-foreground my-2.5;
+    @apply text-2xl font-semibold text-foreground my-4;
   }
 
   h4 {
-    @apply text-xl font-semibold text-foreground my-2.5;
+    @apply text-xl font-semibold text-foreground my-3;
   }
 
   h5 {
-    @apply text-lg font-semibold text-foreground my-2;
+    @apply text-lg font-semibold text-foreground my-2.5;
   }
 
   h6 {
-    @apply text-base font-semibold text-foreground my-1.5;
+    @apply text-base font-semibold text-foreground my-2;
   }
 
   p {
-    @apply text-sm text-muted-foreground;
+    @apply text-muted-foreground;
   }
 
   ul {
@@ -110,7 +110,7 @@ body {
   }
 
   li {
-    @apply ml-4 text-sm text-muted-foreground;
+    @apply ml-4 text-muted-foreground;
   }
 
   blockquote {

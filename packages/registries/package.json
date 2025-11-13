@@ -4,7 +4,8 @@
   "private": true,
   "exports": {
     ".": "./src/index.ts",
-    "./projects/reservia": "./src/projects/reservia.ts"
+    "./projects/reservia": "./src/projects/reservia.ts",
+    "./utils/projects": "./src/utils/projects.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",

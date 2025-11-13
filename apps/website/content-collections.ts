@@ -7,6 +7,7 @@ const posts = defineCollection({
   directory: "posts",
   include: "**/*.mdx",
   schema: z.object({
+    published: z.boolean().optional(),
     pinned: z.boolean().optional(),
     title: z.string(),
     summary: z.string(),
@@ -24,7 +25,30 @@ const posts = defineCollection({
   },
 });
 
+const projects = defineCollection({
+  name: "projects",
+  directory: "projects",
+  include: "**/*.mdx",
+  schema: z.object({
+    banner: z.string().optional(),
+    published: z.boolean().optional(),
+    pinned: z.boolean().optional(),
+    title: z.string(),
+    summary: z.string(),
+    categories: z.array(z.string()),
+    date: z.string(),
+    authors: z.array(z.string()),
+    content: z.string(),
+  }),
+  transform: async (data, context) => {
+    const body = await compileMDX(context, data);
+    return {
+      ...data,
+      body,
+    };
+  },
+});
 
 export default defineConfig({
-  collections: [posts],
+  collections: [posts, projects],
 });

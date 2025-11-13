@@ -4,6 +4,9 @@ import { cn } from "@yz13/ui/cn";
 import {
   Drawer,
   DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
   DrawerTrigger
 } from "@yz13/ui/drawer";
 import { ArchiveIcon, BookTextIcon, EllipsisIcon } from "@yz13/ui/icons";
@@ -79,6 +82,10 @@ export default async function Header() {
             <Button variant="default">Связаться</Button>
           </DrawerTrigger>
           <DrawerContent className="max-w-2xl mx-auto border-x px-6">
+            <DrawerHeader className="px-0">
+              <DrawerTitle className="text-start text-2xl">Что вы хотите сделать?</DrawerTitle>
+              <DrawerDescription className="text-start text-lg">Выберите один из предложенных вариантов</DrawerDescription>
+            </DrawerHeader>
             <ContactForm />
           </DrawerContent>
         </Drawer>

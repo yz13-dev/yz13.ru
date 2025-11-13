@@ -1,7 +1,7 @@
 import { github, telegram, x } from "@/const/socials";
 import { getAvailability } from "@/flags";
 import { Button } from "@yz13/ui/button";
-import { DrawerDescription, DrawerTitle } from "@yz13/ui/drawer";
+import { DrawerClose, DrawerDescription, DrawerTitle } from "@yz13/ui/drawer";
 import { ExternalLinkIcon, XIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -27,7 +27,9 @@ export default async function ExtraMenu() {
         />
         <div className="flex items-center gap-2">
           <Button variant="default" disabled={!isAvailable}>Связаться</Button>
-          <Button variant="outline"><XIcon /></Button>
+          <DrawerClose asChild>
+            <Button variant="outline"><XIcon /></Button>
+          </DrawerClose>
         </div>
       </div>
       <div className="pt-6 *:text-2xl *:text-foreground *:font-medium *:block space-x-2">
