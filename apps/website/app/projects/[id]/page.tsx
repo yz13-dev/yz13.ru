@@ -8,6 +8,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/avatar";
 import { cn } from "@yz13/ui/cn";
 import { ExternalLink, ExternalLinkIcon } from "@yz13/ui/icons";
 import { Separator } from "@yz13/ui/separator";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -59,6 +61,14 @@ export default async function Project({ params }: Props) {
               {project.summary}
             </p>
           </div>
+          <div className="w-full pt-6">
+            <time
+              dateTime={project.date}
+              className="text-sm text-muted-foreground capitalize"
+            >
+              {format(new Date(project.date), "LLLL, yyyy", { locale: ru })}
+            </time>
+          </div>
         </div>
         <Separator className="max-w-2xl mx-auto" />
         <div className="max-w-2xl mx-auto w-full px-6">
@@ -92,8 +102,7 @@ export default async function Project({ params }: Props) {
         </div>
         <Separator className="max-w-2xl mx-auto" />
         <div className="max-w-2xl mx-auto w-full grid grid-cols-3 px-6">
-          {
-            data.url &&
+          {data.url && (
             <div className="size-full">
               <span className="text-sm text-muted-foreground uppercase">
                 ссылки
@@ -112,7 +121,8 @@ export default async function Project({ params }: Props) {
                 )}
               </ul>
             </div>
-          }          <div className="size-full">
+          )}{" "}
+          <div className="size-full">
             <span className="text-sm text-muted-foreground uppercase">тип</span>
             <ul className="py-4">
               <li>
@@ -137,7 +147,7 @@ export default async function Project({ params }: Props) {
                     href={`https://github.com/${author}`}
                     className="absolute inset-0"
                   />
-                  <Avatar className="size-6">
+                  <Avatar className="size-6 rounded-full border">
                     <AvatarImage
                       src={`https://github.com/${author}.png`}
                       alt={author}
@@ -220,7 +230,7 @@ export default async function Project({ params }: Props) {
                 </div>
               </div>
             </div>
-            <div className="w-full px-6 pt-6 pb-2">
+            <div className="w-full px-6 pt-6 pb-2 flex flex-col justify-between">
               <ContactForm />
             </div>
           </div>

@@ -1,8 +1,8 @@
 import ImagePreview from "@/components/image-preview";
+import "@/styles/globals.css";
 import { cn } from "@yz13/ui/cn";
 import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
 
 const geistSans = Geist({
   preload: true,
@@ -27,7 +27,16 @@ export const metadata: Metadata = {
   },
   applicationName: "YZ13",
   creator: "yz13",
-  keywords: ["yz13", "developer", "frontend", "backend", "react", "nextjs", "typescript", "tailwindcss"],
+  keywords: [
+    "yz13",
+    "developer",
+    "frontend",
+    "backend",
+    "react",
+    "nextjs",
+    "typescript",
+    "tailwindcss",
+  ],
   openGraph: {
     title: "YZ13 - фронтенд разработчик",
     description: "Нужен разработчик? Разработаю фронтенд для вашего проекта.",
@@ -57,9 +66,9 @@ export const viewport: Viewport = {
     {
       media: "(prefers-color-scheme: dark)",
       color: "#000000",
-    }
-  ]
-}
+    },
+  ],
+};
 
 export default function RootLayout({
   children,

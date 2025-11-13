@@ -4,6 +4,8 @@ type ClientOptions = {
   appId: string
 }
 
+const isDev = process.env.NODE_ENV === "development"
+
 export const createClient = ({ appId }: ClientOptions) => {
   const filename = "flags.json"
 
@@ -23,8 +25,8 @@ export const createClient = ({ appId }: ClientOptions) => {
       const response = await fetch(url, {
         // @ts-expect-error
         next: {
-          // one hour
-          revalidate: 60 * 60 * 1000,
+          // is prod is 5 minutes, in dev is one hour
+          revalidate: isDev ? 60 * 60 * 1000 : 5 * 60 * 1000,
           tags: ["flags"]
         }
       });
