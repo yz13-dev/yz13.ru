@@ -34,22 +34,36 @@ services:
     depends_on:
       - minio-createbucket
     environment:
-      RCLONE_CONFIG_S3_TYPE: s3
-      RCLONE_CONFIG_S3_PROVIDER: Other
-      RCLONE_CONFIG_S3_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      RCLONE_CONFIG_S3_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      RCLONE_CONFIG_S3_ENDPOINT: https://storage.yandexcloud.net
-      RCLONE_CONFIG_S3_REGION: ${STORAGE_S3_REGION}
-    volumes:
-      - ./rclone.conf:/config/rclone/rclone.conf
-    command:
-      - "sync"
-      - "--progress"
-      - "--s3-upload-concurrency=8"
-      - "local:${STORAGE_S3_BUCKET}"
-      - "s3:${STORAGE_S3_BUCKET}"
-    # Для периодической синхронизации добавьте:
-    # restart: unless-stopped
+      # Конфигурация MinIO (source)
+      RCLONE_CONFIG_MYMINIO_TYPE: s3
+      RCLONE_CONFIG_MYMINIO_PROVIDER: MinIO
+      RCLONE_CONFIG_MYMINIO_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
+      RCLONE_CONFIG_MYMINIO_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      RCLONE_CONFIG_MYMINIO_ENDPOINT: http://minio:9000
+      RCLONE_CONFIG_MYMINIO_REGION: ${STORAGE_S3_REGION}
+
+      # Конфигурация Yandex Cloud (destination)
+      RCLONE_CONFIG_YC_TYPE: s3
+      RCLONE_CONFIG_YC_PROVIDER: Other
+      RCLONE_CONFIG_YC_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      RCLONE_CONFIG_YC_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      RCLONE_CONFIG_YC_ENDPOINT: https://storage.yandexcloud.net
+      RCLONE_CONFIG_YC_REGION: ${STORAGE_S3_REGION}
+    restart: unless-stopped # Автоматический перезапуск
+    entrypoint: >
+      /bin/sh -c "
+      while true; do
+        echo 'Starting sync at $$(date)'
+        /usr/bin/rclone sync \
+          --progress \
+          --s3-upload-concurrency=8 \
+          --transfers=4 \
+          myminio:${STORAGE_S3_BUCKET} \
+          yc:${STORAGE_S3_BUCKET}
+        echo 'Sync completed, waiting 5 minutes...'
+        sleep 300
+      done
+      "
   storage:
     container_name: supabase-storage
     image: supabase/storage-api:v1.28.2
