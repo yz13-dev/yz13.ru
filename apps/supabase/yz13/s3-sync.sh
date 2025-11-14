@@ -42,6 +42,6 @@ sync_bucket() {
 while true; do
     echo "Starting sync at $(date)"
     sync_bucket "${STORAGE_S3_BUCKET}"
-    echo "Sync completed, waiting 10 minutes..."
-    sleep 600
+    echo "Sync completed, waiting 1 minutes..."
+    sleep 60
 done
