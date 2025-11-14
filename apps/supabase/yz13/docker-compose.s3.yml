@@ -7,7 +7,8 @@ services:
     environment:
       MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
       MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
-    command: server --console-address ":9001" /data
+      MINIO_REGION: ${STORAGE_S3_REGION}
+    command: gateway s3 --console-address ":9001" ${STORAGE_S3_ENDPOINT}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://minio:9000/minio/health/live"]
       interval: 2s
@@ -16,15 +17,21 @@ services:
     volumes:
       - ./volumes/storage:/data:z
 
-  minio-createbucket:
+  minio-setup:
     image: minio/mc
     depends_on:
       minio:
         condition: service_healthy
+    environment:
+      # Используем переменные Yandex Cloud напрямую
+      MC_HOST_yandex: https://${AWS_ACCESS_KEY_ID}:${AWS_SECRET_ACCESS_KEY}@storage.yandexcloud.net
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc alias set supa-minio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY};
-      /usr/bin/mc mb supa-minio/${STORAGE_S3_BUCKET} || true;
+      # Проверяем подключение к Yandex Cloud
+      /usr/bin/mc alias set yandex https://storage.yandexcloud.net ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY};
+      /usr/bin/mc mb yandex/${STORAGE_S3_BUCKET} || true;
+      /usr/bin/mc anonymous set download yandex/${STORAGE_S3_BUCKET} || true;
+      echo 'Bucket ${STORAGE_S3_BUCKET} is ready in Yandex Cloud';
       exit 0;
       "
 
