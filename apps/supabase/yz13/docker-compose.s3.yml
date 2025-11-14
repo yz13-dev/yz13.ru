@@ -50,15 +50,9 @@ services:
       RCLONE_CONFIG_YC_ENDPOINT: https://storage.yandexcloud.net
       RCLONE_CONFIG_YC_REGION: ${STORAGE_S3_REGION}
     restart: unless-stopped # Автоматический перезапуск
-    command: >
-      /bin/sh -c "
-      while true; do
-        echo 'Starting sync...'
-        rclone sync myminio:${STORAGE_S3_BUCKET} yc:${STORAGE_S3_BUCKET} --progress --transfers=4
-        echo 'Sync completed, waiting 10 minutes...'
-        sleep 600
-      done
-      "
+    volumes:
+      - ./s3-sync.sh:/s3-sync.sh
+    command: "sync myminio:${STORAGE_S3_BUCKET} yc:${STORAGE_S3_BUCKET} --progress --transfers=4"
   storage:
     container_name: supabase-storage
     image: supabase/storage-api:v1.28.2
