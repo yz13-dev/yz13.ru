@@ -52,7 +52,7 @@ services:
     restart: unless-stopped # Автоматический перезапуск
     volumes:
       - ./s3-sync.sh:/s3-sync.sh
-    command: "sync myminio:${STORAGE_S3_BUCKET} yc:${STORAGE_S3_BUCKET} --progress --transfers=4"
+    command: "/s3-sync.sh"
   storage:
     container_name: supabase-storage
     image: supabase/storage-api:v1.28.2
