@@ -1,6 +1,7 @@
 import ContactForm from "@/components/contact-form";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { isDev } from "@/const/enviroment";
 import { github, telegram, x } from "@/const/socials";
 import { getProject } from "@/utils/blog/projects";
 import { getProject as getProjectData } from "@yz13/registries/utils/projects";
@@ -168,73 +169,76 @@ export default async function Project({ params }: Props) {
         <Content content={project.body} />
       </main>
       <div className="w-full py-6">
-        <section className="container mx-auto overflow-hidden bg-card border rounded-3xl">
-          <div className="flex lg:flex-row flex-col">
-            <div
-              className={cn(
-                "lg:max-w-2xs max-w-full w-full lg:border-r border-r-0 lg:border-b-0 border-b",
-                "flex lg:flex-col sm:flex-row flex-col justify-between",
-              )}
-            >
-              <div>
-                <div className="*:block space-y-2 px-6 pt-6">
-                  <h3 className="text-2xl font-medium text-foreground">
-                    Готов работать над фронтендом
-                  </h3>
-                  <p className="text-lg text-muted-foreground">
-                    Чем могу помочь?
-                  </p>
+        {
+          isDev &&
+          <section className="container mx-auto overflow-hidden bg-card border rounded-3xl">
+            <div className="flex lg:flex-row flex-col">
+              <div
+                className={cn(
+                  "lg:max-w-2xs max-w-full w-full lg:border-r border-r-0 lg:border-b-0 border-b",
+                  "flex lg:flex-col sm:flex-row flex-col justify-between",
+                )}
+              >
+                <div>
+                  <div className="*:block space-y-2 px-6 pt-6">
+                    <h3 className="text-2xl font-medium text-foreground">
+                      Готов работать над фронтендом
+                    </h3>
+                    <p className="text-lg text-muted-foreground">
+                      Чем могу помочь?
+                    </p>
+                  </div>
+                  <ul className="*:py-1 p-6">
+                    <li className="group">
+                      <Link
+                        href={telegram}
+                        target="_blank"
+                        className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
+                      >
+                        Telegram
+                        <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
+                      </Link>
+                    </li>
+                    <li className="group">
+                      <Link
+                        href={github}
+                        target="_blank"
+                        className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
+                      >
+                        Github
+                        <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
+                      </Link>
+                    </li>
+                    <li className="group">
+                      <Link
+                        href={x}
+                        target="_blank"
+                        className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
+                      >
+                        X
+                        <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
+                      </Link>
+                    </li>
+                  </ul>
                 </div>
-                <ul className="*:py-1 p-6">
-                  <li className="group">
-                    <Link
-                      href={telegram}
-                      target="_blank"
-                      className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                    >
-                      Telegram
-                      <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                    </Link>
-                  </li>
-                  <li className="group">
-                    <Link
-                      href={github}
-                      target="_blank"
-                      className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                    >
-                      Github
-                      <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                    </Link>
-                  </li>
-                  <li className="group">
-                    <Link
-                      href={x}
-                      target="_blank"
-                      className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                    >
-                      X
-                      <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                    </Link>
-                  </li>
-                </ul>
+                <div className="px-6 lg:pt-0 pt-6 pb-6">
+                  <div className="size-full sm:max-w-full max-w-2xs p-6 rounded-2xl bg-card border">
+                    <QRCode
+                      className="aspect-square"
+                      size={256}
+                      style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                      value={telegram}
+                      viewBox={`0 0 256 256`}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="px-6 lg:pt-0 pt-6 pb-6">
-                <div className="size-full sm:max-w-full max-w-2xs p-6 rounded-2xl bg-card border">
-                  <QRCode
-                    className="aspect-square"
-                    size={256}
-                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                    value={telegram}
-                    viewBox={`0 0 256 256`}
-                  />
-                </div>
+              <div className="w-full px-6 pt-6 pb-2 flex flex-col justify-between">
+                <ContactForm />
               </div>
             </div>
-            <div className="w-full px-6 pt-6 pb-2 flex flex-col justify-between">
-              <ContactForm />
-            </div>
-          </div>
-        </section>
+          </section>
+        }
       </div>
       <Footer />
     </>

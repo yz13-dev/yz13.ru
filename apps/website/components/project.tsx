@@ -60,7 +60,7 @@ const ProjectContent = ({
 
   const type = project.type;
 
-  const link = `/${type}/${project.id}`;
+  const link = `/${type}s/${project.id}`;
 
   if (isHorizontal) return (
 
