@@ -49,9 +49,13 @@ services:
       RCLONE_CONFIG_YC_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
       RCLONE_CONFIG_YC_ENDPOINT: https://storage.yandexcloud.net
       RCLONE_CONFIG_YC_REGION: ${STORAGE_S3_REGION}
+
+      STORAGE_S3_BUCKET: ${STORAGE_S3_BUCKET}
+      STORAGE_S3_REGION: ${STORAGE_S3_REGION}
     restart: unless-stopped # Автоматический перезапуск
     volumes:
       - ./s3-sync.sh:/s3-sync.sh
+      - ./rclone.conf:/root/.config/rclone/rclone.conf # ← Монтируем конфиг
     command: "/s3-sync.sh"
   storage:
     container_name: supabase-storage

@@ -27,10 +27,12 @@ sync_bucket() {
         if echo "$relative_path" | grep -q '/'; then
             # Берем имя папки как имя файла, игнорируя UUID-файл внутри
             new_filename=$(dirname "$relative_path")
+            echo "Transforming: $relative_path -> $new_filename"
             # Копируем файл с правильным именем
             rclone copyto "$file_path" "yc:$1/$new_filename"
         else
             # Обычный файл без вложенности
+            echo "Copying: $relative_path"
             rclone copyto "$file_path" "yc:$1/$relative_path"
         fi
     done
@@ -39,9 +41,17 @@ sync_bucket() {
     rm -rf /tmp/sync_temp
 }
 
+# Основной цикл
 while true; do
     echo "Starting sync at $(date)"
+
+    # Проверяем, что переменная установлена
+    if [ -z "${STORAGE_S3_BUCKET}" ]; then
+        echo "ERROR: STORAGE_S3_BUCKET is not set!"
+        exit 1
+    fi
+
     sync_bucket "${STORAGE_S3_BUCKET}"
-    echo "Sync completed, waiting 1 minutes..."
+    echo "Sync completed, waiting 1 minute..."
     sleep 60
 done
