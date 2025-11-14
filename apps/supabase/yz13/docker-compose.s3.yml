@@ -50,16 +50,11 @@ services:
       RCLONE_CONFIG_YC_ENDPOINT: https://storage.yandexcloud.net
       RCLONE_CONFIG_YC_REGION: ${STORAGE_S3_REGION}
     restart: unless-stopped # Автоматический перезапуск
-    entrypoint: >
+    command: >
       /bin/sh -c "
       while true; do
-        echo 'Starting sync at $$(date)'
-        rclone sync \
-          --progress \
-          --s3-upload-concurrency=8 \
-          --transfers=4 \
-          myminio:${STORAGE_S3_BUCKET} \
-          yc:${STORAGE_S3_BUCKET}
+        echo 'Starting sync...'
+        rclone sync myminio:${STORAGE_S3_BUCKET} yc:${STORAGE_S3_BUCKET} --progress --transfers=4
         echo 'Sync completed, waiting 10 minutes...'
         sleep 600
       done
