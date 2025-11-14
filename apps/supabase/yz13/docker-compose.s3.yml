@@ -54,14 +54,14 @@ services:
       /bin/sh -c "
       while true; do
         echo 'Starting sync at $$(date)'
-        /usr/bin/rclone sync \
+        rclone sync \
           --progress \
           --s3-upload-concurrency=8 \
           --transfers=4 \
           myminio:${STORAGE_S3_BUCKET} \
           yc:${STORAGE_S3_BUCKET}
-        echo 'Sync completed, waiting 5 minutes...'
-        sleep 300
+        echo 'Sync completed, waiting 10 minutes...'
+        sleep 600
       done
       "
   storage:
