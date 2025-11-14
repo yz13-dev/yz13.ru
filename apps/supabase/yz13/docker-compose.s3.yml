@@ -5,36 +5,51 @@ services:
       - "9000:9000"
       - "9001:9001"
     environment:
-      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
-      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
       MINIO_REGION: ${STORAGE_S3_REGION}
-    command: gateway s3 --console-address ":9001" ${STORAGE_S3_ENDPOINT}
+    command: server --console-address ":9001" /data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://minio:9000/minio/health/live"]
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 2s
       timeout: 10s
       retries: 5
     volumes:
       - ./volumes/storage:/data:z
 
-  minio-setup:
+  minio-createbucket:
     image: minio/mc
     depends_on:
       minio:
         condition: service_healthy
-    environment:
-      # Используем переменные Yandex Cloud напрямую
-      MC_HOST_yandex: https://${AWS_ACCESS_KEY_ID}:${AWS_SECRET_ACCESS_KEY}@storage.yandexcloud.net
     entrypoint: >
       /bin/sh -c "
-      # Проверяем подключение к Yandex Cloud
-      /usr/bin/mc alias set yandex https://storage.yandexcloud.net ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY};
-      /usr/bin/mc mb yandex/${STORAGE_S3_BUCKET} || true;
-      /usr/bin/mc anonymous set download yandex/${STORAGE_S3_BUCKET} || true;
-      echo 'Bucket ${STORAGE_S3_BUCKET} is ready in Yandex Cloud';
+      /usr/bin/mc alias set local http://minio:9000 ${MINIO_ROOT_USER:-minioadmin} ${MINIO_ROOT_PASSWORD:-minioadmin};
+      /usr/bin/mc mb local/${STORAGE_S3_BUCKET} || true;
       exit 0;
       "
 
+  rclone-sync:
+    image: rclone/rclone
+    depends_on:
+      - minio-createbucket
+    environment:
+      RCLONE_CONFIG_S3_TYPE: s3
+      RCLONE_CONFIG_S3_PROVIDER: Other
+      RCLONE_CONFIG_S3_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      RCLONE_CONFIG_S3_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      RCLONE_CONFIG_S3_ENDPOINT: https://storage.yandexcloud.net
+      RCLONE_CONFIG_S3_REGION: ${STORAGE_S3_REGION}
+    volumes:
+      - ./rclone.conf:/config/rclone/rclone.conf
+    command:
+      - "sync"
+      - "--progress"
+      - "--s3-upload-concurrency=8"
+      - "local:${STORAGE_S3_BUCKET}"
+      - "s3:${STORAGE_S3_BUCKET}"
+    # Для периодической синхронизации добавьте:
+    # restart: unless-stopped
   storage:
     container_name: supabase-storage
     image: supabase/storage-api:v1.28.2
