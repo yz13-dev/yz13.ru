@@ -9,49 +9,49 @@ fi
 # Ваш основной код скрипта
 echo "Starting sync..."
 
-sync_bucket() {
-    echo "Starting sync for bucket: $1"
+
+# Основной цикл с интеллектуальной синхронизацией
+while true; do
+    echo "Starting smart sync at $(date)"
 
     # Создаем временную директорию
     mkdir -p /tmp/sync_temp
 
-    # Копируем все из MinIO
-    rclone copy "myminio:$1" /tmp/sync_temp --include='*/**' -v
+    # Копируем ТОЛЬКО измененные файлы из MinIO (используем --max-age)
+    echo "Copying modified files from MinIO (last 2 minutes)..."
+    rclone copy "myminio:${STORAGE_S3_BUCKET}" /tmp/sync_temp \
+        --include='*/**' \
+        --max-age 2m \        # Только файлы измененные за последние 2 минуты
+        --no-traverse \       # Не сканировать всю директорию
+        -v --progress
 
-    # Обрабатываем каждый файл
-    find /tmp/sync_temp -type f | while read file_path; do
-        # Получаем относительный путь
-        relative_path="${file_path#/tmp/sync_temp/}"
+    # Если есть новые файлы - обрабатываем их
+    file_count=$(find /tmp/sync_temp -type f | wc -l)
 
-        # Если путь содержит вложенность (папка-файл)
-        if echo "$relative_path" | grep -q '/'; then
-            # Берем имя папки как имя файла, игнорируя UUID-файл внутри
-            new_filename=$(dirname "$relative_path")
-            echo "Transforming: $relative_path -> $new_filename"
-            # Копируем файл с правильным именем
-            rclone copyto "$file_path" "yc:$1/$new_filename"
-        else
-            # Обычный файл без вложенности
-            echo "Copying: $relative_path"
-            rclone copyto "$file_path" "yc:$1/$relative_path"
-        fi
-    done
+    if [ "$file_count" -gt 0 ]; then
+        echo "Found $file_count new/modified files to process"
 
-    # Очистка
-    rm -rf /tmp/sync_temp
-}
+        find /tmp/sync_temp -type f | while read file_path; do
+            relative_path="${file_path#/tmp/sync_temp/}"
 
-# Основной цикл
-while true; do
-    echo "Starting sync at $(date)"
-
-    # Проверяем, что переменная установлена
-    if [ -z "${STORAGE_S3_BUCKET}" ]; then
-        echo "ERROR: STORAGE_S3_BUCKET is not set!"
-        exit 1
+            if echo "$relative_path" | grep -q '/'; then
+                new_filename=$(dirname "$relative_path")
+                echo "Transforming: $relative_path -> $new_filename"
+                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$new_filename" \
+                    --no-update-modtime \  # Сохраняем оригинальное время
+                    -v
+            else
+                echo "Copying: $relative_path"
+                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$relative_path" \
+                    --no-update-modtime \
+                    -v
+            fi
+        done
+    else
+        echo "No new files to sync"
     fi
 
-    sync_bucket "${STORAGE_S3_BUCKET}"
+    rm -rf /tmp/sync_temp
     echo "Sync completed, waiting 1 minute..."
     sleep 60
 done
