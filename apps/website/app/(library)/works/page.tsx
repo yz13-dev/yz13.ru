@@ -61,7 +61,7 @@ export default function Works() {
       <div className="w-full container px-6 mx-auto h-fit py-6 space-y-12">
         <div className="*:block max-w-4xl space-y-4">
           <h1 className="text-6xl block font-medium">Работы</h1>
-          <p className="text-4xl text-muted-foreground">Проекты в которых принимал участвовал в процессе разработки</p>
+          <p className="text-4xl text-muted-foreground">Проекты в которых принимал участие в разработке</p>
         </div>
         {
           false &&
