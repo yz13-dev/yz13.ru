@@ -10,6 +10,13 @@ fi
 echo "Starting sync..."
 
 
+# Функция для удаления projectId из пути
+remove_project_id() {
+    local full_path="$1"
+    # Удаляем первую папку (projectId) из пути
+    echo "$full_path" | sed 's|^[^/]*/||'
+}
+
 # Основной цикл с интеллектуальной синхронизацией
 while true; do
     echo "Starting smart sync at $(date)"
@@ -30,13 +37,24 @@ while true; do
         find /tmp/sync_temp -type f | while read file_path; do
             relative_path="${file_path#/tmp/sync_temp/}"
 
-            if echo "$relative_path" | grep -q '/'; then
-                new_filename=$(dirname "$relative_path")
-                echo "Transforming: $relative_path -> $new_filename"
-                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$new_filename" --no-update-modtime -v # Сохраняем оригинальное время
+            # УДАЛЯЕМ projectId из пути
+            clean_path=$(remove_project_id "$relative_path")
+
+            # Пропускаем если путь пустой после очистки
+            if [ -z "$clean_path" ]; then
+                echo "Skipping empty path: $relative_path"
+                continue
+            fi
+
+            echo "Original: $relative_path -> Clean: $clean_path"
+
+            if echo "$clean_path" | grep -q '/'; then
+                new_filename=$(dirname "$clean_path")
+                echo "Transforming: $clean_path -> $new_filename"
+                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$new_filename" --no-update-modtime -v
             else
-                echo "Copying: $relative_path"
-                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$relative_path" --no-update-modtime -v
+                echo "Copying: $clean_path"
+                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$clean_path" --no-update-modtime -v
             fi
         done
     else
