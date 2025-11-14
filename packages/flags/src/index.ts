@@ -23,7 +23,6 @@ export const createClient = ({ appId }: ClientOptions) => {
     try {
       const start = Date.now()
       const response = await fetch(url, {
-        // @ts-expect-error
         next: {
           // is prod is 5 minutes, in dev is one hour
           revalidate: isDev ? 60 * 60 * 1000 : 5 * 60 * 1000,

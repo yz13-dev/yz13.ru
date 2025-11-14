@@ -8,14 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --max-warnings 0",
-    "check-types": "next typegen && tsc --noEmit",
-    "generate": "bun run scripts/get-posts.ts && bun run scripts/get-drafts.ts",
-    "generate:posts": "bun run scripts/get-posts.ts",
-    "generate:drafts": "bun run scripts/get-drafts.ts",
-    "generate:new": "bun run scripts/new-draft.ts",
-    "upload": "bun run scripts/upload-posts.ts && bun run scripts/upload-drafts.ts",
-    "upload:posts": "bun run scripts/upload-posts.ts",
-    "upload:drafts": "bun run scripts/upload-drafts.ts"
+    "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@content-collections/cli": "^0.1.7",
