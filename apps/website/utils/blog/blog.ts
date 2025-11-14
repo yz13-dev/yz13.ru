@@ -5,7 +5,7 @@ export type BlogPost = Post;
 
 export function getBlogPosts() {
   if (isDev) return allPosts
-  return allPosts.filter(post => post.published !== true)
+  return allPosts.filter(post => post.published === true)
 }
 
 export function getBlogPost(id: string) {
