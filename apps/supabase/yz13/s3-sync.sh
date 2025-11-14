@@ -19,11 +19,7 @@ while true; do
 
     # Копируем ТОЛЬКО измененные файлы из MinIO (используем --max-age)
     echo "Copying modified files from MinIO (last 2 minutes)..."
-    rclone copy "myminio:${STORAGE_S3_BUCKET}" /tmp/sync_temp \
-        --include='*/**' \
-        --max-age 2m \        # Только файлы измененные за последние 2 минуты
-        --no-traverse \       # Не сканировать всю директорию
-        -v --progress
+    rclone copy "myminio:${STORAGE_S3_BUCKET}" /tmp/sync_temp --include='*/**' --max-age 2m --no-traverse -v --progress
 
     # Если есть новые файлы - обрабатываем их
     file_count=$(find /tmp/sync_temp -type f | wc -l)
@@ -37,14 +33,10 @@ while true; do
             if echo "$relative_path" | grep -q '/'; then
                 new_filename=$(dirname "$relative_path")
                 echo "Transforming: $relative_path -> $new_filename"
-                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$new_filename" \
-                    --no-update-modtime \  # Сохраняем оригинальное время
-                    -v
+                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$new_filename" --no-update-modtime -v # Сохраняем оригинальное время
             else
                 echo "Copying: $relative_path"
-                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$relative_path" \
-                    --no-update-modtime \
-                    -v
+                rclone copyto "$file_path" "yc:${STORAGE_S3_BUCKET}/$relative_path" --no-update-modtime -v
             fi
         done
     else
