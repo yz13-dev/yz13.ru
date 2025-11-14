@@ -1,5 +1,6 @@
 import { getAvailability } from "@/flags";
 import { Button } from "@yz13/ui/button";
+import { ButtonGroup } from "@yz13/ui/button-group";
 import { cn } from "@yz13/ui/cn";
 import {
   Drawer,
@@ -9,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "@yz13/ui/drawer";
-import { ArchiveIcon, BookTextIcon, EllipsisIcon } from "@yz13/ui/icons";
+import { BookTextIcon, BriefcaseBusinessIcon, EllipsisIcon, FolderIcon } from "@yz13/ui/icons";
 import Link from "next/link";
 import ContactForm from "./contact-form";
 import ExtraMenu from "./extra-menu";
@@ -23,7 +24,7 @@ export default async function Header() {
     <header
       className={cn(
         "flex items-center container justify-between gap-4 mx-auto",
-        "*:py-6",
+        "*:py-6 sticky top-0 bg-background z-20",
       )}
     >
       <div className="pl-6">
@@ -64,12 +65,20 @@ export default async function Header() {
             "[&>a]:h-10 [&>a]:text-base",
           )}
         >
-          <Button variant="outline" asChild>
-            <Link href="/projects">
-              <ArchiveIcon />
-              <span className="lg:inline hidden">Проекты</span>
-            </Link>
-          </Button>
+          <ButtonGroup className="*:h-10 *:text-base">
+            <Button variant="outline" asChild>
+              <Link href="/projects">
+                <FolderIcon />
+                <span className="lg:inline hidden">Проекты</span>
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/works">
+                <BriefcaseBusinessIcon />
+                <span className="lg:inline hidden">Работы</span>
+              </Link>
+            </Button>
+          </ButtonGroup>
           <Button variant="outline" asChild>
             <Link href="/blog">
               <BookTextIcon />

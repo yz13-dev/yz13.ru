@@ -6,6 +6,7 @@ import type { Project } from "./types";
 export const yzlab: Project = {
   id: "yzlab",
   name: "yzlab",
+  type: "project",
   description: "Галерея сайтов и og обложек",
   url: "https://yzlab.ru",
   attachment: [
@@ -13,5 +14,11 @@ export const yzlab: Project = {
     "/projects/yzlab/screenshots/site.png",
     "/projects/yzlab/screenshots/og.png",
   ],
-  stack: joinStack(["nextjs", "tailwindcss", "shadcnui"])
+  stack: joinStack(["nextjs", "tailwindcss", "shadcnui"]),
+  logo: {
+    theme: {
+      light: "/projects/yzlab/logo/light.png",
+      dark: "/projects/yzlab/logo/dark.png"
+    }
+  }
 }

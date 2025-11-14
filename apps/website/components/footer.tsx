@@ -35,7 +35,11 @@ export default function Footer() {
             </div>
             <ul className="*:py-1">
               <li><Link href="/" className="text-lg hover:underline">Главная</Link></li>
-              <li><Link href="/projects" className="text-lg hover:underline">Проекты</Link></li>
+              <li className="space-x-1.5">
+                <Link href="/projects" className="text-lg hover:underline">Проекты</Link>
+                <span className="text-muted-foreground">/</span>
+                <Link href="/works" className="text-lg hover:underline">Работы</Link>
+              </li>
               <li><Link href="/blog" className="text-lg hover:underline">Блог</Link></li>
             </ul>
           </div>
@@ -89,6 +93,12 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="pt-20 container flex items-center justify-between mx-auto w-full">
+        <span className="text-sm text-muted-foreground">
+          YZ13 - фронтенд разработчик.
+        </span>
+        <span className="text-sm text-muted-foreground">2025</span>
       </div>
     </footer>
   )

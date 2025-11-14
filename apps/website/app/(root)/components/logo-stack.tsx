@@ -12,7 +12,7 @@ type IconStackItem = {
   }
 }
 
-export const stack: IconStackItem[] = [
+export const defaultStack: IconStackItem[] = [
   {
     theme: {
       light: "/logo/light.png",
@@ -55,12 +55,16 @@ const MAX_VISIBLE = 4;
 const ROTATION_INTERVAL = 3000; // 3 секунды
 
 type Props = {
+  loop?: boolean
   className?: string;
   orientation?: "horizontal" | "vertical"
   align?: "top" | "bottom" | "left" | "right"
   gap?: number
+  stack?: IconStackItem[]
 }
 export default function LogoStack({
+  stack = defaultStack,
+  loop = true,
   className = "",
   orientation = "vertical",
   align = "top",
@@ -85,6 +89,7 @@ export default function LogoStack({
 
   // Автоматическая ротация
   useEffect(() => {
+    if (!loop || stack.length <= 1) return; // Не нужно ротировать, если иконок меньше или равно 1
     if (stack.length <= MAX_VISIBLE) return; // Не нужно ротировать, если иконок меньше или равно 4
 
     const interval = setInterval(() => {
@@ -92,7 +97,7 @@ export default function LogoStack({
     }, ROTATION_INTERVAL);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [loop]);
 
   const stackConfig = [
     { scale: 1, z: 0, zIndex: 10 },

@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import QRCode from "react-qr-code";
-import Content from "./components/content";
+import Content from "../../components/content";
 
 type Props = {
   params: Promise<{

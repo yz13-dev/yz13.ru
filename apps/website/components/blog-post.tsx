@@ -3,6 +3,7 @@ import { Button } from "@yz13/ui/button";
 import { ChevronRightIcon } from "@yz13/ui/icons";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
+import Link from "next/link";
 
 type Props = {
   post: Post;
@@ -13,7 +14,8 @@ export default function BlogPost({ post }: Props) {
   const date = new Date(rest.date);
 
   return (
-    <article className="container mx-auto px-6">
+    <article className="container mx-auto px-6 relative">
+      <Link href={`/blog/${post._meta.path}`} className="absolute inset-0 size-full" />
       <div className="flex items-center gap-2">
         <time dateTime={rest.date} className="font-medium text-muted-foreground">
           {format(date, "dd MMMM yyyy", { locale: ru })}

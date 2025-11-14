@@ -6,6 +6,7 @@ import type { Project } from "./types";
 export const reservia: Project = {
   id: "reservia",
   name: "Reservia",
+  type: "work",
   description: "Приложение для администрации и резервирования столов в заведениях",
   contentId: "reservia",
   attachment: [

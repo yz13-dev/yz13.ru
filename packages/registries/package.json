@@ -5,7 +5,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./projects/reservia": "./src/projects/reservia.ts",
-    "./utils/projects": "./src/utils/projects.ts"
+    "./utils/projects": "./src/utils/projects.ts",
+    "./utils/filter": "./src/utils/filter.ts"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",

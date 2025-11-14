@@ -58,13 +58,17 @@ const ProjectContent = ({
 
   const hasUrl = !!project.url;
 
+  const type = project.type;
+
+  const link = `/${type}/${project.id}`;
+
   if (isHorizontal) return (
 
     <div className="size-full flex flex-col justify-between">
       <div className="w-full relative">
         {
           hasContent && published &&
-          <Link href={`/projects/${project.id}`} className="absolute inset-0" />
+          <Link href={link} className="absolute inset-0" />
         }
         <div className="*:block space-y-2">
           <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
@@ -105,7 +109,7 @@ const ProjectContent = ({
         {
           hasContent && published &&
           <Button variant="outline" size="lg" asChild>
-            <Link href={`/projects/${project.id}`}>
+            <Link href={link}>
               <span>Открыть проект</span>
               <ArrowRightIcon />
             </Link>
@@ -119,7 +123,7 @@ const ProjectContent = ({
       <div className="w-full relative">
         {
           hasContent && published &&
-          <Link href={`/projects/${project.id}`} className="absolute inset-0" />
+          <Link href={link} className="absolute inset-0" />
         }
         <div className="*:block space-y-2">
           <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
@@ -160,7 +164,7 @@ const ProjectContent = ({
         {
           hasContent && published &&
           <Button variant="outline" size="lg" asChild>
-            <Link href={`/projects/${project.id}`}>
+            <Link href={link}>
               <span>Открыть проект</span>
               <ArrowRightIcon />
             </Link>

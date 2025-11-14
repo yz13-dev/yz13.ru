@@ -216,7 +216,7 @@ export default function Home() {
       </div>
 
       <div className="py-12 px-6 container mx-auto">
-        <h2 className="text-4xl font-medium">Работы</h2>
+        <h2 className="text-4xl font-medium">Проекты и работы</h2>
       </div>
       <div className="w-full divide-y border-y *:[&>div]:px-6">
         {projects.map((project) => {
@@ -232,7 +232,7 @@ export default function Home() {
         <div className="w-full pb-6">
           <section className="py-12 px-6 container mx-auto">
             <h2 className="text-4xl font-medium text-muted-foreground">Блог</h2>
-            <p className="text-4xl font-medium">Мои идеи, проекты, результаты</p>
+            <p className="text-4xl font-medium">Мои идеи, результаты</p>
           </section>
           <div className="w-full divide-y border-y">
             {
@@ -294,12 +294,6 @@ export default function Home() {
         </div>
       )}
       <Footer />
-      <div className="py-4 px-6 container flex items-center justify-between mx-auto w-full">
-        <span className="text-sm text-muted-foreground">
-          YZ13 - фронтенд разработчик.
-        </span>
-        <span className="text-sm text-muted-foreground">2025</span>
-      </div>
     </>
   );
 }

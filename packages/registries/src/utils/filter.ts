@@ -6,7 +6,7 @@ type Filter = {
   [key in keyof Project]: Project[keyof Project];
 }
 
-export function filterProjects(projects?: Project[], filter?: Filter) {
+export function filterProjects(projects?: Project[], filter?: Partial<Filter>) {
 
   if (!projects) return [];
   if (!filter) return projects;

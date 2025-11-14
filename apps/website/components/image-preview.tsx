@@ -5,7 +5,7 @@ import { Kbd } from "@yz13/ui/kbd"
 import { Slot } from "@yz13/ui/slot"
 import { motion } from "motion/react"
 import Image from "next/image"
-import { startTransition } from "react"
+import { startTransition, useEffect } from "react"
 import { useHotkeys } from "react-hotkeys-hook"
 import { create } from "zustand"
 
@@ -48,6 +48,20 @@ export default function ImagePreview() {
     enabled: !!src
   })
 
+  const unlockScroll = () => {
+    const doc = document.documentElement
+
+    doc.classList.remove("overflow-hidden")
+  }
+  const lockScroll = () => {
+    const doc = document.documentElement
+    doc.classList.add("overflow-hidden")
+  }
+
+  useEffect(() => {
+    if (src) lockScroll()
+    else unlockScroll()
+  }, [src])
   if (!src) return null
   return (
     <motion.div

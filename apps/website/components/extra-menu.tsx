@@ -48,7 +48,11 @@ export default async function ExtraMenu() {
           </div>
           <ul className="*:py-1">
             <li><Link href="/" className="text-lg hover:underline">Главная</Link></li>
-            <li><Link href="/projects" className="text-lg hover:underline">Проекты</Link></li>
+            <li className="space-x-1.5">
+              <Link href="/projects" className="text-lg hover:underline">Проекты</Link>
+              <span className="text-muted-foreground">/</span>
+              <Link href="/works" className="text-lg hover:underline">Работы</Link>
+            </li>
             <li><Link href="/blog" className="text-lg hover:underline">Блог</Link></li>
           </ul>
         </div>
