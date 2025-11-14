@@ -30,7 +30,7 @@ services:
       "
 
   rclone-sync:
-    image: rclone/rclone
+    image: alpine:latest
     depends_on:
       - minio-createbucket
     environment:

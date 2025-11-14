@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# Устанавливаем rclone (если еще не установлен)
+if ! command -v rclone &> /dev/null; then
+    echo "Installing rclone..."
+    apk add --no-cache rclone
+fi
+
+# Ваш основной код скрипта
+echo "Starting sync..."
+
 sync_bucket() {
     echo "Starting sync for bucket: $1"
 
