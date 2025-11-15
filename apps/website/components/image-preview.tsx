@@ -65,7 +65,7 @@ export default function ImagePreview() {
   if (!src) return null
   return (
     <motion.div
-      className="fixed inset-0 z-20 p-[10%] w-full h-dvh bg-black/60 backdrop-blur-md flex items-center justify-center"
+      className="fixed inset-0 z-50 p-[10%] w-full h-dvh bg-black/60 backdrop-blur-md flex items-center justify-center"
       onClick={() => setSrc(null)}
     >
       <Button
