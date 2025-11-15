@@ -18,27 +18,32 @@ export default function Project({
   project
 }: Props) {
 
+  const isEmtpy = (project.attachment || [])?.length === 0;
+
   return (
     <div
       data-orientation={orientation}
       className={cn(
-        "container group mx-auto gap-3 grid grid-cols-1",
-        "data-[orientation=horizontal]:md:grid-cols-2"
+        "container group mx-auto gap-3 grid",
+        "data-[orientation=horizontal]:md:grid-cols-2 grid-cols-1"
       )}
     >
       <ProjectContent project={project} orientation={orientation} />
-      <div className="size-full">
-        <div className={cn(
-          "w-full rounded-4xl",
-          "group-data-[orientation=horizontal]:aspect-4/3",
-          "group-data-[orientation=vertical]:aspect-video"
-        )}>
-          <ImagesGrid
-            paths={project.attachment || []}
-            className="size-full rounded-4xl border hover:outline-8 outline-border/40 transition-all"
-          />
+      {
+        !isEmtpy &&
+        <div className="size-full">
+          <div className={cn(
+            "w-full rounded-4xl",
+            "group-data-[orientation=horizontal]:aspect-4/3",
+            "group-data-[orientation=vertical]:aspect-video"
+          )}>
+            <ImagesGrid
+              paths={project.attachment || []}
+              className="size-full rounded-4xl border hover:outline-8 outline-border/40 transition-all"
+            />
+          </div>
         </div>
-      </div>
+      }
     </div>
   )
 }
