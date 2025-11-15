@@ -1,6 +1,7 @@
 import ContactForm from "@/components/contact-form";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { StackItem } from "@/components/stack-item";
 import { isDev } from "@/const/enviroment";
 import { github, telegram, x } from "@/const/socials";
 import { getProject } from "@/utils/blog/projects";
@@ -76,28 +77,7 @@ export default async function Project({ params }: Props) {
           <span className="text-sm text-muted-foreground uppercase">стэк</span>
           <div className="w-full py-6 grid md:grid-cols-3 grid-cols-2 gap-4">
             {data.stack.map((item) => {
-              return (
-                <div
-                  key={`${id}/${item.id}`}
-                  className="flex items-center gap-3"
-                >
-                  <div className="h-12 aspect-4/3 rounded-xl border bg-secondary flex items-center justify-center">
-                    <Image
-                      src={item.icon}
-                      width={32}
-                      height={32}
-                      unoptimized
-                      alt={item.name}
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm uppercase text-muted-foreground">
-                      {item.category}
-                    </span>
-                    <span className="text-base font-medium">{item.name}</span>
-                  </div>
-                </div>
-              );
+              return <StackItem key={item.id} item={item} />;
             })}
           </div>
         </div>
