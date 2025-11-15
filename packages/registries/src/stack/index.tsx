@@ -1,15 +1,18 @@
+import { icons } from "../icons";
 import type { Stack } from "./types";
 export * from "./types";
 
 
-
+// Переписать icon function
 export const nextjs: Stack = {
   id: "nextdotjs",
   category: "фреймворк",
   name: "Nextjs",
   source: "https://nextjs.org/",
-  icon: function () {
-    return `/stack/${this.id}.svg`
+  icon: (props) => {
+    const id = "nextdotjs";
+    const Icon = icons[id];
+    return <Icon {...props} />
   }
 }
 
@@ -18,8 +21,10 @@ export const tailwindcss: Stack = {
   category: "css",
   name: "Tailwindcss",
   source: "https://tailwindcss.com/",
-  icon: function () {
-    return `/stack/${this.id}.svg`
+  icon: (props) => {
+    const id = "tailwindcss";
+    const Icon = icons[id];
+    return <Icon {...props} />
   }
 }
 
@@ -28,8 +33,10 @@ export const reactrouter: Stack = {
   category: "фреймворк",
   name: "React Router",
   source: "https://reactrouter.com/",
-  icon: function () {
-    return `/stack/${this.id}.svg`
+  icon: (props) => {
+    const id = "reactrouter";
+    const Icon = icons[id];
+    return <Icon {...props} />
   }
 }
 
@@ -38,8 +45,10 @@ export const shadcn: Stack = {
   category: "ui",
   name: "Shadcn",
   source: "https://ui.shadcn.com/",
-  icon: function () {
-    return `/stack/${this.id}.svg`
+  icon: (props) => {
+    const id = "shadcnui";
+    const Icon = icons[id];
+    return <Icon {...props} />
   }
 }
 

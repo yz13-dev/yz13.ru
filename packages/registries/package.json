@@ -5,7 +5,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./projects": "./src/projects/index.ts",
-    "./stack": "./src/stack/index.ts",
+    "./stack": "./src/stack/index.tsx",
+    "./icons": "./src/icons/index.ts",
     "./projects/reservia": "./src/projects/reservia.ts",
     "./utils/projects": "./src/utils/projects.ts",
     "./utils/filter": "./src/utils/filter.ts"
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
+    "@yz13/ui": "*",
     "@yz13/typescript-config": "*",
     "@yz13/eslint-config": "*"
   }

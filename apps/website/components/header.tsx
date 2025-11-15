@@ -24,7 +24,7 @@ export default async function Header() {
     <header
       className={cn(
         "flex items-center container justify-between gap-4 mx-auto",
-        "*:py-6 sticky top-0 bg-background z-20",
+        "*:py-6 sticky top-0 bg-background z-20 rounded-xl",
       )}
     >
       <div className="pl-6">

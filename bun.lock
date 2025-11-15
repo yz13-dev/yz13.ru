@@ -153,6 +153,7 @@
         "@types/react": "19.1.0",
         "@yz13/eslint-config": "*",
         "@yz13/typescript-config": "*",
+        "@yz13/ui": "*",
       },
     },
     "packages/supabase": {
