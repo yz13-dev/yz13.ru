@@ -2,8 +2,8 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
 import { ThemeImage } from "@/components/theme-image";
-import { projects } from "@yz13/registries";
-import { filterProjects } from "@yz13/registries/utils/filter";
+import { Project as ProjectType, projects } from "@yz13/registries";
+import { filter } from "@yz13/registries/utils/filter";
 import { Button } from "@yz13/ui/button";
 import { FilterIcon } from "@yz13/ui/icons";
 import { Skeleton } from "@yz13/ui/skeleton";
@@ -11,7 +11,7 @@ import Image from "next/image";
 
 export default function Works() {
 
-  const onlyWorks = filterProjects(projects, { type: "work" });
+  const onlyWorks = filter<ProjectType>(projects, (project) => project.type === "work");
 
   return (
     <>

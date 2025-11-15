@@ -4,6 +4,8 @@
   "private": true,
   "exports": {
     ".": "./src/index.ts",
+    "./projects": "./src/projects/index.ts",
+    "./stack": "./src/stack/index.ts",
     "./projects/reservia": "./src/projects/reservia.ts",
     "./utils/projects": "./src/utils/projects.ts",
     "./utils/filter": "./src/utils/filter.ts"

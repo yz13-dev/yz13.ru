@@ -4,7 +4,7 @@
 
 export type Stack = {
   id: string
-  icon: string
+  icon: () => string
   name: string
   source: string
   category: string

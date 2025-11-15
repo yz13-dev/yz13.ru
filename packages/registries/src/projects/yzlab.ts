@@ -14,7 +14,7 @@ export const yzlab: Project = {
     "/projects/yzlab/screenshots/site.png",
     "/projects/yzlab/screenshots/og.png",
   ],
-  stack: joinStack(["nextjs", "tailwindcss", "shadcnui"]),
+  stack: joinStack(["nextdotjs", "tailwindcss", "shadcnui"]),
   logo: {
     theme: {
       light: "/projects/yzlab/logo/light.png",

@@ -3,9 +3,9 @@ import type { Project as ProjectType } from "@yz13/registries";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { ArrowRightIcon, GlobeIcon } from "@yz13/ui/icons";
-import Image from "next/image";
 import Link from "next/link";
 import ImagesGrid from "./images-grid";
+import { StackItem } from "./stack-item";
 
 
 
@@ -82,15 +82,7 @@ const ProjectContent = ({
           {
             project.stack.map(item => {
               return (
-                <div key={`${project.id}/${item.id}`} className="flex items-center gap-3">
-                  <div className="h-12 aspect-4/3 rounded-xl border bg-secondary flex items-center justify-center">
-                    <Image src={item.icon} width={32} height={32} unoptimized alt={item.name} />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm uppercase text-muted-foreground">{item.category}</span>
-                    <span className="text-base font-medium">{item.name}</span>
-                  </div>
-                </div>
+                <StackItem key={`${project.id}/${item.id}`} item={item} />
               )
             })
           }
@@ -133,19 +125,11 @@ const ProjectContent = ({
             {project.description}
           </p>
         </div>
-        <div className="w-full py-6 grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-4">
+        <div className="w-full py-6 grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
           {
             project.stack.map(item => {
               return (
-                <div key={`${project.id}/${item.id}`} className="flex items-center gap-3">
-                  <div className="h-12 aspect-4/3 rounded-xl border bg-secondary flex items-center justify-center">
-                    <Image src={item.icon} width={32} height={32} unoptimized alt={item.name} />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-sm uppercase text-muted-foreground">{item.category}</span>
-                    <span className="text-base font-medium">{item.name}</span>
-                  </div>
-                </div>
+                <StackItem key={`${project.id}/${item.id}`} item={item} />
               )
             })
           }

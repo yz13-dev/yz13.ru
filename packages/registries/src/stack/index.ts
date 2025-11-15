@@ -1,14 +1,16 @@
 import type { Stack } from "./types";
-
+export * from "./types";
 
 
 
 export const nextjs: Stack = {
-  id: "nextjs",
+  id: "nextdotjs",
   category: "фреймворк",
   name: "Nextjs",
   source: "https://nextjs.org/",
-  icon: "https://cdn.simpleicons.org/nextdotjs/000000/ffffff"
+  icon: function () {
+    return `/stack/${this.id}.svg`
+  }
 }
 
 export const tailwindcss: Stack = {
@@ -16,7 +18,9 @@ export const tailwindcss: Stack = {
   category: "css",
   name: "Tailwindcss",
   source: "https://tailwindcss.com/",
-  icon: "https://cdn.simpleicons.org/tailwindcss/000000/ffffff"
+  icon: function () {
+    return `/stack/${this.id}.svg`
+  }
 }
 
 export const reactrouter: Stack = {
@@ -24,7 +28,9 @@ export const reactrouter: Stack = {
   category: "фреймворк",
   name: "React Router",
   source: "https://reactrouter.com/",
-  icon: "https://cdn.simpleicons.org/reactrouter/000000/ffffff"
+  icon: function () {
+    return `/stack/${this.id}.svg`
+  }
 }
 
 export const shadcn: Stack = {
@@ -32,7 +38,9 @@ export const shadcn: Stack = {
   category: "ui",
   name: "Shadcn",
   source: "https://ui.shadcn.com/",
-  icon: "https://cdn.simpleicons.org/shadcnui/000000/ffffff"
+  icon: function () {
+    return `/stack/${this.id}.svg`
+  }
 }
 
 const stacks: Stack[] = [

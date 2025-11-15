@@ -11,7 +11,7 @@ export const pins: Project = {
   attachment: [
     "/projects/pins/screenshots/home.png",
   ],
-  stack: joinStack(["nextjs", "tailwindcss", "shadcnui"]),
+  stack: joinStack(["nextdotjs", "tailwindcss", "shadcnui"]),
   logo: {
     theme: {
       light: "/projects/pins/logo/light.png",

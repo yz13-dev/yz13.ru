@@ -6,7 +6,7 @@ type Filter = {
   [key in keyof Project]: Project[keyof Project];
 }
 
-export function filterProjects(projects?: Project[], filter?: Partial<Filter>) {
+export function filterProjects(projects?: Project[], filter?: Partial<Filter> | ((project: Project) => boolean)) {
 
   if (!projects) return [];
   if (!filter) return projects;
@@ -41,10 +41,9 @@ export function filter<T>(data?: T[], filter?: Partial<T> | ((item: T) => boolea
   for (const item of data) {
     let match = true;
     if (typeof filter === "function") {
-      if (!filter(item)) {
-        match = false;
-        break;
-      }
+      const run = filter(item);
+
+      match = run;
     }
     if (typeof filter === "object") {
       for (const key in filter) {

@@ -14,5 +14,11 @@ export const reservia: Project = {
     "/works/reservia/map-creating.png",
     "/works/reservia/timeline.png",
   ],
-  stack: joinStack(["nextjs", "reactrouter", "tailwindcss", "shadcnui"])
+  stack: joinStack(["nextdotjs", "reactrouter", "tailwindcss", "shadcnui"]),
+  logo: {
+    theme: {
+      light: "/works/reservia/logo/light.png",
+      dark: "/works/reservia/logo/dark.png"
+    }
+  }
 }
