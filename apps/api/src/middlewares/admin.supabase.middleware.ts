@@ -39,7 +39,7 @@ export const adminSupabaseMiddleware = (): MiddlewareHandler => {
       throw new Error('SUPABASE_SERVICE_ROLE_KEY missing!');
     }
 
-    const supabase = createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
+    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
       cookies: {
         async getAll() {
           try {
