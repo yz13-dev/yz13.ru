@@ -1,4 +1,3 @@
-import { github, telegram, x } from "@/const/socials";
 import { Badge } from "@yz13/ui/badge";
 import { ExternalLinkIcon } from "@yz13/ui/icons";
 import { Skeleton } from "@yz13/ui/skeleton";
@@ -63,7 +62,7 @@ export default function Footer() {
             <ul className="*:py-1">
               <li className="group">
                 <Link
-                  href={telegram}
+                  href="/me/telegram"
                   target="_blank"
                   className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
                 >
@@ -73,7 +72,7 @@ export default function Footer() {
               </li>
               <li className="group">
                 <Link
-                  href={github}
+                  href="/me/github"
                   target="_blank"
                   className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
                 >
@@ -83,7 +82,7 @@ export default function Footer() {
               </li>
               <li className="group">
                 <Link
-                  href={x}
+                  href="/me/x"
                   target="_blank"
                   className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
                 >
