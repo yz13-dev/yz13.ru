@@ -19,7 +19,7 @@ export const getSupabase = (c: Context) => {
 export const adminSupabaseMiddleware = (): MiddlewareHandler => {
   return async (c, next) => {
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseServiceKey = process.env.SUPABASE_ANON_KEY;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl) {
       throw new Error('SUPABASE_URL missing!');
