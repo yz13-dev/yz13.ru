@@ -2,6 +2,7 @@ import ImagePreview from "@/components/image-preview";
 import "@/styles/globals.css";
 import { cn } from "@yz13/ui/cn";
 import type { Metadata, Viewport } from "next";
+import { ThemeProvider } from "next-themes";
 import { Geist, JetBrains_Mono } from "next/font/google";
 
 const geistSans = Geist({
@@ -78,8 +79,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn(geistSans.variable, geistMono.variable)}>
       <body className="relative">
-        <ImagePreview />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+          enableColorScheme={true}
+        >
+          <ImagePreview />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

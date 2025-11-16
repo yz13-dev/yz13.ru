@@ -21,8 +21,7 @@ import { Suspense } from "react";
 import LogoStack from "./components/logo-stack";
 
 export default function Home() {
-
-  const posts = getBlogPosts()
+  const posts = getBlogPosts();
   const hasBlogPosts = posts.length > 0;
 
   return (
@@ -227,27 +226,23 @@ export default function Home() {
           );
         })}
       </div>
-      {
-        hasBlogPosts &&
+      {hasBlogPosts && (
         <div className="w-full pb-6">
           <section className="py-12 px-6 container mx-auto">
             <h2 className="text-4xl font-medium text-muted-foreground">Блог</h2>
             <p className="text-4xl font-medium">Мои идеи, результаты</p>
           </section>
           <div className="w-full divide-y border-y">
-            {
-              posts
-                .map(post => {
-                  return (
-                    <BlogPostContainer key={post._meta.fileName}>
-                      <BlogPost post={post} />
-                    </BlogPostContainer>
-                  )
-                })
-            }
+            {posts.map((post) => {
+              return (
+                <BlogPostContainer key={post._meta.fileName}>
+                  <BlogPost post={post} />
+                </BlogPostContainer>
+              );
+            })}
           </div>
         </div>
-      }
+      )}
       {false && (
         <div className="w-full *:px-6 pb-6">
           <div className="py-12 container mx-auto">

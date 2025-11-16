@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import Availability, { AvailabilitySkeleton } from "./availability";
 import { ThemeImage } from "./theme-image";
+import { ThemeSwitcher } from "./theme-switcher";
 
 
 export default function Footer() {
@@ -93,6 +94,9 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+      </div>
+      <div className="w-full flex items-center justify-end">
+        <ThemeSwitcher />
       </div>
       <div className="pt-20 container flex items-center justify-between mx-auto w-full">
         <span className="text-sm text-muted-foreground">

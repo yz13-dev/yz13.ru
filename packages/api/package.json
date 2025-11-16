@@ -3,6 +3,8 @@
   "version": "0.2.23",
   "description": "Package with REST API for yz13 projects",
   "exports": {
+    ".": "./src/api/api.ts",
+    "./types": "./src/types/index.ts",
     "./client": {
       "types": "./dist/client.d.ts",
       "import": "./dist/client.mjs",
@@ -17,12 +19,6 @@
       "types": "./dist/lib/avatar-url.d.ts",
       "import": "./dist/lib/avatar-url.mjs",
       "require": "./dist/lib/avatar-url.js"
-    },
-    "./types": "./dist/types/index.d.ts",
-    ".": {
-      "types": "./dist/api/api-yz13.d.ts",
-      "import": "./dist/api/api-yz13.mjs",
-      "require": "./dist/api/api-yz13.js"
     },
     "./lib/custom-fetch": {
       "types": "./dist/const/fetch.d.ts",
@@ -135,19 +131,22 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^22.14.1",
-    "@types/react": "^19.1.1",
+    "@types/node": "^22.19.1",
+    "@types/react": "^19.2.5",
     "@yz13/supabase": "*",
-    "ajv": "^8.17.1",
-    "orval": "^7.5.0",
-    "typescript": "^5.8.3"
+    "ajv": "^6.12.6",
+    "ajv-draft-04": "^1.0.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "axios": "^1.10.0",
+    "@orval/core": "^7.16.0",
+    "@yz13/typescript-config": "*",
+    "axios": "^1.13.2",
     "date-fns": "^4.1.0",
-    "next": "^15.3.0",
-    "tsup": "^6.7.0",
-    "@yz13/typescript-config": "*"
+    "next": "^16.0.0",
+    "orval": "^7.16.0",
+    "rimraf": "^6.1.0",
+    "tsup": "^6.7.0"
   },
   "engines": {
     "node": ">=20"

@@ -1,0 +1,6058 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "api",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Server"
+    },
+    {
+      "url": "https://api.yz13.ru",
+      "description": "Production Server"
+    }
+  ],
+  "components": {
+    "schemas": {},
+    "parameters": {}
+  },
+  "paths": {
+    "/users/v1/{uid}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "uid",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current user information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "email_confirmed_at": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "last_signin_at": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "identities": {
+                      "type": "array",
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "position": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "created_at",
+                    "role",
+                    "username",
+                    "avatar_url",
+                    "identities"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/me": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Current user information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "email_confirmed_at": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "last_signin_at": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "identities": {
+                      "type": "array",
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "position": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "created_at",
+                    "role",
+                    "username",
+                    "avatar_url",
+                    "identities"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/login": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 6
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "email_confirmed_at": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "last_signin_at": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "identities": {
+                      "type": "array",
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "position": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "created_at",
+                    "role",
+                    "username",
+                    "avatar_url",
+                    "identities"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/register": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 6
+                  },
+                  "username": {
+                    "type": "string",
+                    "minLength": 3
+                  }
+                },
+                "required": [
+                  "email",
+                  "password",
+                  "username"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "email_confirmed_at": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    },
+                    "last_signin_at": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "avatar_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "identities": {
+                      "type": "array",
+                      "items": {
+                        "nullable": true
+                      }
+                    },
+                    "position": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "created_at",
+                    "role",
+                    "username",
+                    "avatar_url",
+                    "identities"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/logout": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successfull response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blog/v1/posts": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "attachments": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "authors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "categories": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "pinned": {
+                        "type": "boolean"
+                      },
+                      "summary": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "title": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "attachments",
+                      "authors",
+                      "categories",
+                      "date",
+                      "id",
+                      "pinned",
+                      "summary",
+                      "title"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "attachments": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "url"
+                          ]
+                        }
+                      },
+                      "authors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "categories": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "pinned": {
+                        "type": "boolean"
+                      },
+                      "summary": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "title": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "attachments",
+                      "authors",
+                      "categories",
+                      "date",
+                      "id",
+                      "pinned",
+                      "summary",
+                      "title"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Markdown file to upload"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Optional name for the file (without .md extension)"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "fullPath": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "path",
+                    "fullPath"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid file or missing file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blog/v1/drafts": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "last_accessed_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "id",
+                      "updated_at",
+                      "created_at",
+                      "last_accessed_at"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "last_accessed_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "id",
+                      "updated_at",
+                      "created_at",
+                      "last_accessed_at"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "name",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Markdown file to upload"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Optional name for the file (without .md extension)"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "fullPath": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "path",
+                    "fullPath"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid file or missing file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/recommendations": {
+      "get": {
+        "description": "Get pins recommendations",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/search": {
+      "get": {
+        "description": "Search pins",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "q",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/all": {
+      "get": {
+        "description": "Get all pins",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "boardId",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/{pinId}": {
+      "get": {
+        "description": "Get a pin",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "source_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "tags": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "avatar_url",
+                        "created_at",
+                        "full_name",
+                        "updated_at",
+                        "user_id",
+                        "username"
+                      ]
+                    },
+                    "attachment": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "width": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "height": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "thumbnail": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "attachment",
+                    "thumbnail"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a pin",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "board_id": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "tags": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "width": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "height": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "attachment",
+                  "thumbnail"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "source_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "tags": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "avatar_url",
+                        "created_at",
+                        "full_name",
+                        "updated_at",
+                        "user_id",
+                        "username"
+                      ]
+                    },
+                    "attachment": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "width": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "height": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "thumbnail": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "attachment",
+                    "thumbnail"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a pin",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "source_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "tags": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "avatar_url",
+                        "created_at",
+                        "full_name",
+                        "updated_at",
+                        "user_id",
+                        "username"
+                      ]
+                    },
+                    "attachment": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "width": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "height": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "thumbnail": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "attachment",
+                    "thumbnail"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/{pinId}/similar": {
+      "get": {
+        "description": "Get similar pins",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/{pinId}/anchor": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anchor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "pin_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "board_id",
+                    "created_at",
+                    "pin_id",
+                    "user_id"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to get anchor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "pin_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "board_id",
+                    "created_at",
+                    "pin_id",
+                    "user_id"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/{pinId}/upload": {
+      "post": {
+        "description": "Upload a file to a pin",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "type",
+            "in": "query"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "fullPath": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "path",
+                    "fullPath"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/pins/new": {
+      "post": {
+        "description": "Create a pin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "board_id": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "description": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "source_url": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "tags": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "attachment": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "width": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "height": {
+                    "type": "number",
+                    "nullable": true
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "attachment",
+                  "thumbnail"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "source_url": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "tags": {
+                      "type": "array",
+                      "nullable": true,
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "avatar_url",
+                        "created_at",
+                        "full_name",
+                        "updated_at",
+                        "user_id",
+                        "username"
+                      ]
+                    },
+                    "attachment": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "width": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "height": {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    "thumbnail": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "attachment",
+                    "thumbnail"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/boards/all": {
+      "get": {
+        "description": "Get all boards",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "userId",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "authors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "public": {
+                        "type": "boolean"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "authors",
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "public"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "authors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "public": {
+                        "type": "boolean"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "authors",
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "public"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "authors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "public": {
+                        "type": "boolean"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "authors",
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "public"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "authors": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "owner": {
+                        "type": "string"
+                      },
+                      "public": {
+                        "type": "boolean"
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "authors",
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "public"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/boards/{boardId}": {
+      "get": {
+        "description": "Get a board",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "boardId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "Update a board",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "boardId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "authors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "owner": {
+                    "type": "string"
+                  },
+                  "public": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a board",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "boardId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/boards/{boardId}/pins": {
+      "get": {
+        "description": "Get all pins of a board",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "boardId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "board_id": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "source_url": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "tags": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "updated_at": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      },
+                      "attachment": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "width": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "height": {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      "thumbnail": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "name",
+                      "owner",
+                      "attachment",
+                      "thumbnail"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/boards/new": {
+      "post": {
+        "description": "Create a board",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "authors": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "owner": {
+                    "type": "string"
+                  },
+                  "public": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "authors",
+                  "name",
+                  "owner",
+                  "public"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "authors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "owner": {
+                      "type": "string"
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "authors",
+                    "created_at",
+                    "id",
+                    "name",
+                    "owner",
+                    "public"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/boards/{boardId}/anchors/{pinId}": {
+      "post": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "boardId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anchor created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "pin": {
+                      "type": "object",
+                      "properties": {
+                        "board_id": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "source_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "tags": {
+                          "type": "array",
+                          "nullable": true,
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "owner": {
+                          "type": "object",
+                          "properties": {
+                            "avatar_url": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "user_id": {
+                              "type": "string"
+                            },
+                            "username": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "avatar_url",
+                            "created_at",
+                            "full_name",
+                            "updated_at",
+                            "user_id",
+                            "username"
+                          ]
+                        },
+                        "attachment": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "width": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "height": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "thumbnail": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "created_at",
+                        "id",
+                        "name",
+                        "owner",
+                        "attachment",
+                        "thumbnail"
+                      ]
+                    },
+                    "board": {
+                      "type": "object",
+                      "properties": {
+                        "authors": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "owner": {
+                          "type": "string"
+                        },
+                        "public": {
+                          "type": "boolean"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "authors",
+                        "created_at",
+                        "id",
+                        "name",
+                        "owner",
+                        "public"
+                      ]
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "avatar_url",
+                        "created_at",
+                        "full_name",
+                        "updated_at",
+                        "user_id",
+                        "username"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "pin",
+                    "board",
+                    "owner"
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Anchor already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "pin": {
+                      "type": "object",
+                      "properties": {
+                        "board_id": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "source_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "tags": {
+                          "type": "array",
+                          "nullable": true,
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "owner": {
+                          "type": "object",
+                          "properties": {
+                            "avatar_url": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "user_id": {
+                              "type": "string"
+                            },
+                            "username": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "avatar_url",
+                            "created_at",
+                            "full_name",
+                            "updated_at",
+                            "user_id",
+                            "username"
+                          ]
+                        },
+                        "attachment": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "width": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "height": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "thumbnail": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "created_at",
+                        "id",
+                        "name",
+                        "owner",
+                        "attachment",
+                        "thumbnail"
+                      ]
+                    },
+                    "board": {
+                      "type": "object",
+                      "properties": {
+                        "authors": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "owner": {
+                          "type": "string"
+                        },
+                        "public": {
+                          "type": "boolean"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "authors",
+                        "created_at",
+                        "id",
+                        "name",
+                        "owner",
+                        "public"
+                      ]
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "avatar_url",
+                        "created_at",
+                        "full_name",
+                        "updated_at",
+                        "user_id",
+                        "username"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "pin",
+                    "board",
+                    "owner"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to create anchor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "pin": {
+                      "type": "object",
+                      "properties": {
+                        "board_id": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "source_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "tags": {
+                          "type": "array",
+                          "nullable": true,
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "owner": {
+                          "type": "object",
+                          "properties": {
+                            "avatar_url": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "user_id": {
+                              "type": "string"
+                            },
+                            "username": {
+                              "type": "string",
+                              "nullable": true
+                            }
+                          },
+                          "required": [
+                            "avatar_url",
+                            "created_at",
+                            "full_name",
+                            "updated_at",
+                            "user_id",
+                            "username"
+                          ]
+                        },
+                        "attachment": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "width": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "height": {
+                          "type": "number",
+                          "nullable": true
+                        },
+                        "thumbnail": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "created_at",
+                        "id",
+                        "name",
+                        "owner",
+                        "attachment",
+                        "thumbnail"
+                      ]
+                    },
+                    "board": {
+                      "type": "object",
+                      "properties": {
+                        "authors": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "owner": {
+                          "type": "string"
+                        },
+                        "public": {
+                          "type": "boolean"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "authors",
+                        "created_at",
+                        "id",
+                        "name",
+                        "owner",
+                        "public"
+                      ]
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "avatar_url": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "nullable": true
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string",
+                          "nullable": true
+                        }
+                      },
+                      "required": [
+                        "avatar_url",
+                        "created_at",
+                        "full_name",
+                        "updated_at",
+                        "user_id",
+                        "username"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "pin",
+                    "board",
+                    "owner"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "boardId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "pinId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anchor deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "pin_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "board_id",
+                    "created_at",
+                    "pin_id",
+                    "user_id"
+                  ]
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to delete anchor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "board_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "pin_id": {
+                      "type": "string"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "board_id",
+                    "created_at",
+                    "pin_id",
+                    "user_id"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/boards/{boardId}/anchors": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "boardId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Anchors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "pin": {
+                        "type": "object",
+                        "properties": {
+                          "board_id": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "source_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "tags": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "owner": {
+                            "type": "object",
+                            "properties": {
+                              "avatar_url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "created_at": {
+                                "type": "string"
+                              },
+                              "full_name": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "user_id": {
+                                "type": "string"
+                              },
+                              "username": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "avatar_url",
+                              "created_at",
+                              "full_name",
+                              "updated_at",
+                              "user_id",
+                              "username"
+                            ]
+                          },
+                          "attachment": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "width": {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          "height": {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          "thumbnail": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "created_at",
+                          "id",
+                          "name",
+                          "owner",
+                          "attachment",
+                          "thumbnail"
+                        ]
+                      },
+                      "board": {
+                        "type": "object",
+                        "properties": {
+                          "authors": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "owner": {
+                            "type": "string"
+                          },
+                          "public": {
+                            "type": "boolean"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "authors",
+                          "created_at",
+                          "id",
+                          "name",
+                          "owner",
+                          "public"
+                        ]
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "pin",
+                      "board",
+                      "owner"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Failed to get anchors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "pin": {
+                        "type": "object",
+                        "properties": {
+                          "board_id": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "source_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "tags": {
+                            "type": "array",
+                            "nullable": true,
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "owner": {
+                            "type": "object",
+                            "properties": {
+                              "avatar_url": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "created_at": {
+                                "type": "string"
+                              },
+                              "full_name": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "updated_at": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "user_id": {
+                                "type": "string"
+                              },
+                              "username": {
+                                "type": "string",
+                                "nullable": true
+                              }
+                            },
+                            "required": [
+                              "avatar_url",
+                              "created_at",
+                              "full_name",
+                              "updated_at",
+                              "user_id",
+                              "username"
+                            ]
+                          },
+                          "attachment": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "width": {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          "height": {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          "thumbnail": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "created_at",
+                          "id",
+                          "name",
+                          "owner",
+                          "attachment",
+                          "thumbnail"
+                        ]
+                      },
+                      "board": {
+                        "type": "object",
+                        "properties": {
+                          "authors": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "owner": {
+                            "type": "string"
+                          },
+                          "public": {
+                            "type": "boolean"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "authors",
+                          "created_at",
+                          "id",
+                          "name",
+                          "owner",
+                          "public"
+                        ]
+                      },
+                      "owner": {
+                        "type": "object",
+                        "properties": {
+                          "avatar_url": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "user_id": {
+                            "type": "string"
+                          },
+                          "username": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "avatar_url",
+                          "created_at",
+                          "full_name",
+                          "updated_at",
+                          "user_id",
+                          "username"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "pin",
+                      "board",
+                      "owner"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/tags/search": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "q",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/tags/all": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "name": "search",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "created_at",
+                      "id",
+                      "label"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/tags/{tagId}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "tagId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "label"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "tagId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "label"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "tagId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "label"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pins/v1/tags/new": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "label"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "nullable": true,
+                  "properties": {
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "created_at",
+                    "id",
+                    "label"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
