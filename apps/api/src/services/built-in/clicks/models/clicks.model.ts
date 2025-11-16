@@ -9,6 +9,7 @@ export const ClicksSchema = z.object({
   created_at: z.string(),
   domain: z.string().nullable(),
   path: z.string(),
+  from: z.string().nullable(),
 })
 
 export const NewClicksSchema = ClicksSchema.omit({

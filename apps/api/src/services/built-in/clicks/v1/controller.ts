@@ -8,6 +8,7 @@ export const TrackClick = async (c: Context) => {
 
   const path = c.req.query("path")
   const domain = c.req.query("domain")
+  const from = c.req.query("from")
 
   if (!path) return c.json(null, 400);
 
@@ -19,7 +20,8 @@ export const TrackClick = async (c: Context) => {
       .from("clicks")
       .insert({
         path,
-        domain
+        domain,
+        from
       })
       .select()
       .maybeSingle()

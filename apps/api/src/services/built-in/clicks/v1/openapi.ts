@@ -10,6 +10,7 @@ export const TrackClickRoute = createRoute({
   request: {
     query: z.object({
       domain: z.string().optional(),
+      from: z.string().optional(),
       path: z.string()
     })
   },
