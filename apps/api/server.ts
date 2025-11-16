@@ -6,7 +6,7 @@ import { requestId } from "hono/request-id";
 import { timing } from "hono/timing";
 import packageJson from './package.json' with { type: "json" };
 import { core } from "./src/core/root";
-import { getSupabase, supabaseMiddleware } from "./src/middlewares/supabase.middleware";
+import { supabaseMiddleware } from "./src/middlewares/supabase.middleware";
 import { root } from "./src/services/root";
 
 const app = new OpenAPIHono({ strict: false });
@@ -51,16 +51,6 @@ app.use("/favicon.ico", serveStatic({ path: "./public/favicon.ico" }));
 app.route("/", core);
 app.route("/", root);
 
-app.get("/", async (c) => {
-
-  const supabase = getSupabase(c);
-
-  const { data, error } = await supabase.storage.listBuckets()
-
-  return c.json({
-    data, error
-  })
-})
 
 app.doc("/openapi.json", {
   openapi: "3.0.0",
