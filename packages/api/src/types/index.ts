@@ -141,6 +141,7 @@ export * from './post-blog-v1-posts-params';
 export * from './post-blog-v1-posts200';
 export * from './post-blog-v1-posts400';
 export * from './post-blog-v1-posts502';
+export * from './post-clicks-v1-track-params';
 export * from './post-clicks-v1-track200';
 export * from './post-clicks-v1-track400';
 export * from './post-clicks-v1-track500';

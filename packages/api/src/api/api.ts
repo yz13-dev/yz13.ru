@@ -49,6 +49,7 @@ import type {
   PostBlogV1PostsBody,
   PostBlogV1PostsParams,
   PostClicksV1Track200,
+  PostClicksV1TrackParams,
   PostPinsV1BoardsBoardIdAnchorsPinId200,
   PostPinsV1BoardsNew200,
   PostPinsV1BoardsNewBody,
@@ -471,10 +472,11 @@ export const postPinsV1TagsNew = (
     }
   
 export const postClicksV1Track = (
-    
+    params: PostClicksV1TrackParams,
  options?: SecondParameter<typeof axios<PostClicksV1Track200>>,) => {
       return axios<PostClicksV1Track200>(
-      {url: `https://api.yz13.ru/clicks/v1/track`, method: 'POST'
+      {url: `https://api.yz13.ru/clicks/v1/track`, method: 'POST',
+        params
     },
       options);
     }
