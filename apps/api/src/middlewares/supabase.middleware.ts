@@ -26,7 +26,7 @@ export const supabaseMiddleware = (): MiddlewareHandler => {
   return async (c, next) => {
     const supabaseEnv = env<SupabaseEnv>(c);
     const supabaseUrl =
-      supabaseEnv.SUPABASE_URL ?? process.env.SUPABASE_URL;
+      supabaseEnv.SUPABASE_URL || process.env.SUPABASE_URL;
     const supabaseAnonKey =
       supabaseEnv.SUPABASE_ANON_KEY ||
       process.env.SUPABASE_ANON_KEY;

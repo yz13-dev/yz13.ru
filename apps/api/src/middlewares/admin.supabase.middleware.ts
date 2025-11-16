@@ -26,7 +26,7 @@ export const adminSupabaseMiddleware = (): MiddlewareHandler => {
   return async (c, next) => {
     const supabaseEnv = env<SupabaseEnv>(c);
     const supabaseUrl =
-      supabaseEnv.SUPABASE_URL ?? process.env.SUPABASE_URL;
+      supabaseEnv.SUPABASE_URL || process.env.SUPABASE_URL;
     const supabaseServiceKey =
       supabaseEnv.SUPABASE_SERVICE_ROLE_KEY ||
       process.env.SUPABASE_SERVICE_ROLE_KEY;
