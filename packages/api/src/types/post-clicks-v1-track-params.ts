@@ -7,5 +7,6 @@
 
 export type PostClicksV1TrackParams = {
 domain?: string;
+from?: string;
 path: string;
 };

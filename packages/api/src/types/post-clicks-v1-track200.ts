@@ -14,4 +14,6 @@ export type PostClicksV1Track200 = {
   /** @nullable */
   domain: string | null;
   path: string;
+  /** @nullable */
+  from: string | null;
 } | null;

@@ -1,9 +1,12 @@
-import type { NextRequest } from 'next/server';
+import { postClicksV1Track } from '@yz13/api';
+import { NextResponse, type NextRequest } from 'next/server';
 
 // This function can be marked `async` if using `await` inside
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
 
-  const { searchParams, pathname } = new URL(request.url);
+  const url = new URL(request.url);
+  const searchParams = url.searchParams;
+  const pathname = url.pathname;
 
   const from = searchParams.get("from");
   const path = pathname;
@@ -12,6 +15,14 @@ export function proxy(request: NextRequest) {
     console.log("clicked", path, "from", from);
 
     // track this moment;
+    await postClicksV1Track({
+      from,
+      path,
+    })
+
+    url.searchParams.delete("from");
+
+    return NextResponse.redirect(url)
   }
 
 }
