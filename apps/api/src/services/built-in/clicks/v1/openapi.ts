@@ -7,6 +7,12 @@ import { ClicksSchema } from "../models/clicks.model";
 export const TrackClickRoute = createRoute({
   path: "/track",
   method: "post",
+  request: {
+    query: z.object({
+      domain: z.string().optional(),
+      path: z.string()
+    })
+  },
   responses: {
     200: {
       description: "Track a click",

@@ -48,6 +48,7 @@ import type {
   PostBlogV1Posts200,
   PostBlogV1PostsBody,
   PostBlogV1PostsParams,
+  PostClicksV1Track200,
   PostPinsV1BoardsBoardIdAnchorsPinId200,
   PostPinsV1BoardsNew200,
   PostPinsV1BoardsNewBody,
@@ -469,6 +470,15 @@ export const postPinsV1TagsNew = (
       options);
     }
   
+export const postClicksV1Track = (
+    
+ options?: SecondParameter<typeof axios<PostClicksV1Track200>>,) => {
+      return axios<PostClicksV1Track200>(
+      {url: `https://api.yz13.ru/clicks/v1/track`, method: 'POST'
+    },
+      options);
+    }
+  
 export type GetUsersV1UidResult = NonNullable<Awaited<ReturnType<typeof getUsersV1Uid>>>
 export type GetAuthV1MeResult = NonNullable<Awaited<ReturnType<typeof getAuthV1Me>>>
 export type PostAuthV1LoginResult = NonNullable<Awaited<ReturnType<typeof postAuthV1Login>>>
@@ -503,3 +513,4 @@ export type GetPinsV1TagsTagIdResult = NonNullable<Awaited<ReturnType<typeof get
 export type PatchPinsV1TagsTagIdResult = NonNullable<Awaited<ReturnType<typeof patchPinsV1TagsTagId>>>
 export type DeletePinsV1TagsTagIdResult = NonNullable<Awaited<ReturnType<typeof deletePinsV1TagsTagId>>>
 export type PostPinsV1TagsNewResult = NonNullable<Awaited<ReturnType<typeof postPinsV1TagsNew>>>
+export type PostClicksV1TrackResult = NonNullable<Awaited<ReturnType<typeof postClicksV1Track>>>

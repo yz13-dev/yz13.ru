@@ -3,7 +3,9 @@ import { redirect } from "next/navigation"
 
 
 
+export async function GET() {
 
-export function GET() {
+  // await postClicksV1Track({})
+
   return redirect(x)
 }
