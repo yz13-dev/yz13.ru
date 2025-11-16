@@ -7,9 +7,10 @@ import { redirect } from "next/navigation"
 
 export async function GET() {
 
-  await postClicksV1Track({
+  const response = await postClicksV1Track({
     path: "/me/github",
   })
+  console.log("response", response)
 
   return redirect(github)
 }

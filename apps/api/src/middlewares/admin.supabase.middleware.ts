@@ -27,19 +27,19 @@ export const adminSupabaseMiddleware = (): MiddlewareHandler => {
     const supabaseEnv = env<SupabaseEnv>(c);
     const supabaseUrl =
       supabaseEnv.SUPABASE_URL ?? process.env.SUPABASE_URL;
-    const supabaseAnonKey =
-      supabaseEnv.SUPABASE_SERVICE_ROLE_KEY ??
+    const supabaseServiceKey =
+      supabaseEnv.SUPABASE_SERVICE_ROLE_KEY ||
       process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl) {
       throw new Error('SUPABASE_URL missing!');
     }
 
-    if (!supabaseAnonKey) {
+    if (!supabaseServiceKey) {
       throw new Error('SUPABASE_SERVICE_ROLE_KEY missing!');
     }
 
-    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+    const supabase = createServerClient(supabaseUrl, supabaseServiceKey, {
       cookies: {
         async getAll() {
           try {
