@@ -4,6 +4,7 @@ import { cn } from "@yz13/ui/cn";
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "next-themes";
 import { Geist, JetBrains_Mono } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const geistSans = Geist({
   preload: true,
@@ -79,15 +80,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn(geistSans.variable, geistMono.variable)}>
       <body className="relative">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
-          enableColorScheme={true}
-        >
-          <ImagePreview />
-          {children}
-        </ThemeProvider>
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem={true}
+            enableColorScheme={true}
+          >
+            <ImagePreview />
+            {children}
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

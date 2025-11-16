@@ -8,7 +8,7 @@ import { ThemeImage } from "./theme-image";
 import { ThemeSwitcher } from "./theme-switcher";
 
 
-export default function Footer() {
+export default async function Footer() {
   return (
     <footer className="container py-12 mx-auto px-6 w-full">
       <div className="w-full flex md:flex-row gap-10 flex-col">

@@ -5,6 +5,7 @@ import type { Project } from "./types";
 
 export const yzlab: Project = {
   id: "yzlab",
+  date: "2025-08-13",
   name: "yzlab",
   type: "project",
   description: "Галерея сайтов и og обложек",

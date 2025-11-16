@@ -3,7 +3,7 @@
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { MonitorIcon, MoonStarIcon, SunIcon } from "@yz13/ui/icons";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
 import type { JSX } from "react";
 import { useEffect, useState } from "react";
@@ -12,21 +12,20 @@ function ThemeOption({
   icon,
   value,
   isActive,
+  label,
   onClick,
 }: {
   icon: JSX.Element;
   value: string;
+  label: string;
   isActive?: boolean;
   onClick: (value: string) => void;
 }) {
   return (
     <Button
-      variant="ghost"
+      variant={isActive ? "default" : "ghost"}
       className={cn(
-        "relative flex size-8 cursor-default items-center justify-center rounded-full transition-all [&_svg]:size-4",
-        isActive
-          ? "text-zinc-950 dark:text-zinc-50"
-          : "text-zinc-400 hover:text-zinc-950 dark:text-zinc-500 dark:hover:text-zinc-50"
+        "relative flex h-8 gap-0 cursor-default items-center justify-center rounded-full transition-all [&_svg]:size-4",
       )}
       role="radio"
       aria-checked={isActive}
@@ -34,14 +33,20 @@ function ThemeOption({
       onClick={() => onClick(value)}
     >
       {icon}
-
-      {isActive && (
-        <motion.div
-          layoutId="theme-option"
-          transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-          className="absolute inset-0 rounded-full border border-zinc-200 dark:border-zinc-700"
-        />
-      )}
+      <AnimatePresence>
+        {
+          isActive &&
+          <motion.span
+            initial={{ opacity: 0, width: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, width: "auto", filter: "blur(0)" }}
+            exit={{ opacity: 0, width: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.3 }}
+            className={cn("pl-2 shrink-0", !isActive && "hidden")}
+          >
+            {label}
+          </motion.span>
+        }
+      </AnimatePresence>
     </Button>
   );
 }
@@ -50,14 +55,17 @@ const THEME_OPTIONS = [
   {
     icon: <MonitorIcon />,
     value: "system",
+    label: "Ситемная",
   },
   {
     icon: <SunIcon />,
     value: "light",
+    label: "Светлая",
   },
   {
     icon: <MoonStarIcon />,
     value: "dark",
+    label: "Темная",
   },
 ];
 
@@ -76,11 +84,12 @@ function ThemeSwitcher() {
 
   return (
     <motion.div
+      layout
       key={String(isMounted)}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="inline-flex items-center overflow-hidden rounded-full bg-white ring-1 ring-zinc-200 ring-inset dark:bg-zinc-950 dark:ring-zinc-700"
+      className="inline-flex items-center overflow-hidden rounded-full border bg-background ring-1 ring-border"
       role="radiogroup"
     >
       {THEME_OPTIONS.map((option) => (
@@ -88,6 +97,7 @@ function ThemeSwitcher() {
           key={option.value}
           icon={option.icon}
           value={option.value}
+          label={option.label}
           isActive={theme === option.value}
           onClick={setTheme}
         />

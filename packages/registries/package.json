@@ -8,6 +8,7 @@
     "./stack": "./src/stack/index.tsx",
     "./icons": "./src/icons/index.ts",
     "./projects/reservia": "./src/projects/reservia.ts",
+    "./utils/stack": "./src/utils/stack.ts",
     "./utils/projects": "./src/utils/projects.ts",
     "./utils/filter": "./src/utils/filter.ts"
   },

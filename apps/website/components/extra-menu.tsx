@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import Availability, { AvailabilitySkeleton } from "./availability";
 import { ThemeImage } from "./theme-image";
+import { ThemeSwitcher } from "./theme-switcher";
 
 
 
@@ -36,10 +37,11 @@ export default async function ExtraMenu() {
         <DrawerTitle>Нужен разработчик?</DrawerTitle>
         <DrawerDescription>Разработаю фронтенд для вашего проекта.</DrawerDescription>
       </div>
-      <div className="py-6">
+      <div className="py-6 flex items-center justify-between">
         <Suspense fallback={<AvailabilitySkeleton className="h-10" type="full" />}>
           <Availability textType="full" className="h-10 justify-start w-fit text-base" />
         </Suspense>
+        <ThemeSwitcher />
       </div>
       <div className="w-full grid grid-cols-1 gap-4">
         <div>

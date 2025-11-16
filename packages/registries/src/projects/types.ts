@@ -1,4 +1,4 @@
-import { Stack } from "../stack/types"
+import { Stack } from "../stack/types";
 
 
 
@@ -7,6 +7,7 @@ import { Stack } from "../stack/types"
 export type Project = {
   id: string
   type: "project" | "work"
+  date: string
   name: string
   description: string
   stack: Stack[]

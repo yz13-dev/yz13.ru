@@ -5,6 +5,7 @@ import type { Project } from "./types";
 
 export const reservia: Project = {
   id: "reservia",
+  date: "2025-11-01",
   name: "Reservia",
   type: "work",
   description: "Приложение для администрации и резервирования столов в заведениях",
