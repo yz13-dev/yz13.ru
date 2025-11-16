@@ -24,6 +24,9 @@ export const TrackClick = async (c: Context) => {
       .select()
       .maybeSingle()
 
+    console.log("data", data)
+    console.log("error", error)
+
     if (error) return c.json(null, 500);
 
     return c.json(data, 200);
