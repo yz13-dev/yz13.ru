@@ -62,8 +62,6 @@
   ],
   "scripts": {
     "prepublishOnly": "bun run build",
-    "build": "tsup",
-    "dev": "tsup --watch --clean=false",
     "test": "jest .test.ts"
   },
   "keywords": [

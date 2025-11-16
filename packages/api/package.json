@@ -105,9 +105,6 @@
     "dist"
   ],
   "scripts": {
-    "build:full": "bun run api:generate && bun run build",
-    "build": "tsup",
-    "dev": "tsup --watch --clean=false",
     "api:fetch": "bun run generate-api",
     "api:generate": "rimraf src/api && rimraf src/types && orval",
     "api:update": "bun run api:fetch && bun run api:generate",
