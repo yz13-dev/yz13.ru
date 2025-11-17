@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import Availability, { AvailabilitySkeleton } from "./availability";
 import { ThemeImage } from "./theme-image";
 import { ThemeSwitcher } from "./theme-switcher";
+import TrackableLink from "./trackable-link";
 
 
 export default async function Footer() {
@@ -61,34 +62,37 @@ export default async function Footer() {
             </div>
             <ul className="*:py-1">
               <li className="group">
-                <Link
+                <TrackableLink
+                  track
                   href="/me/telegram"
                   target="_blank"
                   className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
                 >
                   Telegram
                   <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                </Link>
+                </TrackableLink>
               </li>
               <li className="group">
-                <Link
+                <TrackableLink
+                  track
                   href="/me/github"
                   target="_blank"
                   className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
                 >
                   Github
                   <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                </Link>
+                </TrackableLink>
               </li>
               <li className="group">
-                <Link
+                <TrackableLink
+                  track
                   href="/me/x"
                   target="_blank"
                   className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
                 >
                   X
                   <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                </Link>
+                </TrackableLink>
               </li>
             </ul>
           </div>
