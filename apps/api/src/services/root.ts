@@ -1,5 +1,6 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { clicks } from "./built-in/clicks/v1/route";
+import { links } from "./built-in/links/v1/route";
 import { blog } from "./external/blog/v1/route";
 import { pins } from "./external/pins/v1/route";
 
@@ -11,3 +12,4 @@ root.route("/blog", blog);
 root.route("/pins", pins);
 
 root.route("/clicks", clicks);
+root.route("/links", links);
