@@ -217,7 +217,7 @@ export default function Home() {
       <div className="py-12 px-6 container mx-auto">
         <h2 className="text-4xl font-medium">Проекты и работы</h2>
       </div>
-      <div className="w-full divide-y border-y *:[&>div]:px-6">
+      <div className="w-full divide-y border-y">
         {projects.map((project) => {
           return (
             <ProjectContainer key={project.id}>

@@ -136,10 +136,10 @@ const ProjectContent = ({
     return (
       <div className="size-full flex flex-col justify-between">
         <div className="w-full relative">
-          {hasContent && published && (
-            <Link href={link} className="absolute inset-0" />
-          )}
-          <div className="*:block space-y-2">
+          <div className="*:block space-y-2 relative">
+            {hasContent && published && (
+              <Link href={link} className="absolute inset-0" />
+            )}
             <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
               {project.name}
             </h3>
@@ -180,10 +180,10 @@ const ProjectContent = ({
   return (
     <div className="size-full flex flex-col justify-between">
       <div className="w-full relative">
-        {hasContent && published && (
-          <Link href={link} className="absolute inset-0" />
-        )}
-        <div className="*:block space-y-2">
+        <div className="*:block space-y-2 relative">
+          {hasContent && published && (
+            <Link href={link} className="absolute inset-0" />
+          )}
           <h3 className="lg:text-4xl text-2xl font-medium text-muted-foreground">
             {project.name}
           </h3>
