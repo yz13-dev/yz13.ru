@@ -45,6 +45,18 @@ export default async function Footer() {
             </ul>
           </div>
 
+          {
+            false &&
+            <div>
+              <div className="py-2">
+                <span className="text-base text-muted-foreground uppercase">ресурсы</span>
+              </div>
+              <ul className="*:py-1">
+                <li><Link href="/open-stats" className="text-lg hover:underline">Открытая статистика</Link></li>
+              </ul>
+            </div>
+          }
+
           <div>
             <div className="py-2">
               <span className="text-base text-muted-foreground uppercase">мини-приложения <Badge variant="secondary">скоро</Badge></span>

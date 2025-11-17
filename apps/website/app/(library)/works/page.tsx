@@ -163,7 +163,7 @@ export default async function Works({ searchParams }: Props) {
         </div>
       </div>
 
-      <div className="w-full divide-y border-y *:[&>div]:px-6">
+      <div className="w-full divide-y border-y">
         {
           filtered.length === 0 &&
           <div className="w-full container mx-auto px-6 py-6 space-y-6">

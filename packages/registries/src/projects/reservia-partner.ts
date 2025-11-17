@@ -1,22 +1,14 @@
 import { joinStack } from "../utils/join";
-import { reserviaAdmin } from "./reservia-admin";
-import { reserviaClient } from "./reservia-client";
-import { reserviaPartner } from "./reservia-partner";
 import type { Project } from "./types";
 
-export const reservia: Project = {
-  id: "reservia",
+export const reserviaPartner: Project = {
+  id: "reservia-partner",
   date: "2025-11-01",
-  name: "Reservia",
+  name: "Reservia/Partner",
   type: "work",
   description:
     "Приложение для администрации и резервирования столов в заведениях",
   contentId: "reservia",
-  attachment: [
-    "/works/reservia/home.png",
-    "/works/reservia/map-creating.png",
-    "/works/reservia/timeline.png",
-  ],
   stack: joinStack(["nextdotjs", "reactrouter", "tailwindcss", "shadcnui"]),
   logo: {
     theme: {
@@ -24,5 +16,4 @@ export const reservia: Project = {
       dark: "/works/reservia/logo/dark.png",
     },
   },
-  subProjects: [reserviaClient, reserviaAdmin, reserviaPartner],
 };
