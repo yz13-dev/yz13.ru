@@ -9,7 +9,7 @@ export const blog: Project = {
   name: "Блог",
   type: "project",
   description: "Простой блог <3",
-  attachment: [],
+  attachments: [],
   stack: joinStack(["nextdotjs", "tailwindcss", "shadcnui"]),
   logo: {
     theme: {

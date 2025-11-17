@@ -11,12 +11,14 @@ import { StackItem } from "./stack-item";
 type Props = {
   orientation?: "horizontal" | "vertical";
   project: ProjectType;
+  defaultOpen?: boolean;
 };
 export default function Project({
   orientation = "horizontal",
   project,
+  defaultOpen = true
 }: Props) {
-  const isEmtpy = (project.attachment || [])?.length === 0;
+  const isEmtpy = (project.attachments || [])?.length === 0;
   const subProjects = project.subProjects || [];
 
   return (
@@ -44,7 +46,7 @@ export default function Project({
               )}
             >
               <ImagesGrid
-                paths={project.attachment || []}
+                paths={project.attachments || []}
                 className="size-full rounded-4xl border hover:outline-8 outline-border/40 transition-all"
               />
             </div>
@@ -53,7 +55,7 @@ export default function Project({
       </div>
       {
         !!subProjects.length &&
-        <Accordion className="pt-8" type="multiple">
+        <Accordion className="pt-8" type="multiple" defaultValue={defaultOpen ? ["group-projects"] : undefined}>
           <AccordionItem value="group-projects">
             <AccordionTrigger className="pt-4 pb-12 container mx-auto px-6 [&>svg]:size-8">
               <span className="text-2xl font-medium">
@@ -63,47 +65,8 @@ export default function Project({
             <AccordionContent className="w-full pb-0 col-span-full border-t divide-y">
               {
                 subProjects.map(pr => {
-                  return (
-                    <div key={pr.id} className="hover:bg-foreground/5 transition-colors">
-                      <div className="container mx-auto py-6 px-6 grid md:grid-cols-2 gap-6">
-                        <div className="">
-                          <div className="*:block space-y-0">
-                            <h3 className="text-2xl font-medium text-muted-foreground">
-                              {pr.name}
-                            </h3>
-                            <p className="text-2xl font-medium text-foreground">
-                              {pr.description}
-                            </p>
-                          </div>
-                          <div className="w-full py-8 space-y-6">
-                            <div className="grid grid-cols-2 gap-4">
-                              {project.stack.map((item) => {
-                                return (
-                                  <StackItem key={`${project.id}/${item.id}`} item={item} />
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                        {!isEmtpy && (
-                          <div className="size-full">
-                            <div
-                              className={cn(
-                                "w-full rounded-4xl aspect-4/3",
-                                "group-data-[orientation=horizontal]:aspect-4/3",
-                                "group-data-[orientation=vertical]:aspect-video",
-                              )}
-                            >
-                              <ImagesGrid
-                                paths={project.attachment || []}
-                                className="size-full rounded-4xl border hover:outline-8 outline-border/40 transition-all"
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )
+
+                  return <SupProject key={pr.id} project={pr} />
                 })
               }
             </AccordionContent>
@@ -124,13 +87,13 @@ const ProjectContent = ({
   const isHorizontal = orientation === "horizontal";
   const hasContent = !!project.contentId;
 
-  const published = isPublished(project.id);
+  const published = isPublished(project.contentId);
 
   const hasUrl = !!project.url;
 
   const type = project.type;
 
-  const link = `/${type}s/${project.id}`;
+  const link = `/${type}s/${project.contentId}`;
 
   if (isHorizontal)
     return (
@@ -220,6 +183,87 @@ const ProjectContent = ({
     </div>
   );
 };
+
+const SupProject = ({ project }: { project: ProjectType; }) => {
+
+  const isEmtpy = (project.attachments || [])?.length === 0;
+
+  const hasContent = !!project.contentId;
+
+  const published = isPublished(project.id);
+  console.log("published", project.id, published)
+
+  const hasUrl = !!project.url;
+
+  const type = project.type;
+
+  const link = `/${type}s/${project.contentId}`;
+
+  return (
+    <div className="hover:bg-foreground/5 transition-colors">
+      <div className="container mx-auto py-6 px-6 grid md:grid-cols-2 gap-6">
+        <div className="size-full flex flex-col justify-between">
+          <div>
+            <div className="*:block space-y-0 relative">
+              {hasContent && published && (
+                <Link href={link} className="absolute inset-0" />
+              )}
+              <h3 className="text-2xl font-medium text-muted-foreground">
+                {project.name}
+              </h3>
+              <p className="text-2xl font-medium text-foreground">
+                {project.description}
+              </p>
+            </div>
+            <div className="w-full py-8 space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                {project.stack.map((item) => {
+                  return (
+                    <StackItem key={`${project.id}/${item.id}`} item={item} />
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div className="w-fit flex items-center gap-3">
+            {hasUrl && project.url && (
+              <Button variant="outline" size="lg" asChild>
+                <Link href={project.url} target="_blank">
+                  <GlobeIcon />
+                  <span>Открыть сайт</span>
+                </Link>
+              </Button>
+            )}
+            {hasContent && published && (
+              <Button variant="outline" size="lg" asChild>
+                <Link href={link}>
+                  <span>Открыть проект</span>
+                  <ArrowRightIcon />
+                </Link>
+              </Button>
+            )}
+          </div>
+        </div>
+        {!isEmtpy && (
+          <div className="size-full">
+            <div
+              className={cn(
+                "w-full rounded-4xl aspect-4/3",
+                "group-data-[orientation=horizontal]:aspect-4/3",
+                "group-data-[orientation=vertical]:aspect-video",
+              )}
+            >
+              <ImagesGrid
+                paths={project.attachments || []}
+                className="size-full rounded-4xl border hover:outline-8 outline-border/40 transition-all"
+              />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
 
 export const ProjectContainer = ({
   children,

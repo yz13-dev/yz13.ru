@@ -9,7 +9,7 @@ export const pins: Project = {
   name: "Пинс",
   type: "project",
   description: "Галерея для вдохновления на новые проекты",
-  attachment: [
+  attachments: [
     "/projects/pins/screenshots/home.png",
   ],
   stack: joinStack(["nextdotjs", "tailwindcss", "shadcnui"]),

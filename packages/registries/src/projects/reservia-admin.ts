@@ -7,9 +7,14 @@ export const reserviaAdmin: Project = {
   name: "Reservia/Admin",
   type: "work",
   description:
-    "Приложение для администрации и резервирования столов в заведениях",
-  contentId: "reservia",
+    "Администрирование заведений, управление и отслеживание броней.",
   stack: joinStack(["nextdotjs", "reactrouter", "tailwindcss", "shadcnui"]),
+  contentId: "reservia-admin",
+  attachments: [
+    "/works/reservia/admin/home.png",
+    "/works/reservia/admin/map-creating.png",
+    "/works/reservia/admin/timeline.png",
+  ],
   logo: {
     theme: {
       light: "/works/reservia/logo/light.png",

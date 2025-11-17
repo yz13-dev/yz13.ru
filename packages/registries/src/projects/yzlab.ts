@@ -10,7 +10,7 @@ export const yzlab: Project = {
   type: "project",
   description: "Галерея сайтов и og обложек",
   url: "https://yzlab.ru",
-  attachment: [
+  attachments: [
     "/projects/yzlab/screenshots/main.png",
     "/projects/yzlab/screenshots/site.png",
     "/projects/yzlab/screenshots/og.png",

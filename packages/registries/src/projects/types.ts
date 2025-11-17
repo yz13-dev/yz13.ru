@@ -9,7 +9,7 @@ export type Project = {
   stack: Stack[]
   pinned?: boolean
   url?: string
-  attachment?: string[]
+  attachments?: string[]
   contentId?: string
   logo?: {
     // is simple url, or themed logo with dark and light versions, for themed better use png's without background

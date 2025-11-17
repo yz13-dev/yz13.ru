@@ -7,9 +7,14 @@ export const reserviaPartner: Project = {
   name: "Reservia/Partner",
   type: "work",
   description:
-    "Приложение для администрации и резервирования столов в заведениях",
-  contentId: "reservia",
+    "Управление реферальной программой для заведений",
   stack: joinStack(["nextdotjs", "reactrouter", "tailwindcss", "shadcnui"]),
+  contentId: "reservia-partner",
+  attachments: [
+    "/works/reservia/partner/dashboard.png",
+    "/works/reservia/partner/refs.png",
+    "/works/reservia/partner/new-map.png",
+  ],
   logo: {
     theme: {
       light: "/works/reservia/logo/light.png",

@@ -7,9 +7,14 @@ export const reserviaClient: Project = {
   name: "Reservia/Client",
   type: "work",
   description:
-    "Приложение для администрации и резервирования столов в заведениях",
-  contentId: "reservia",
+    "Бронирование столов в заведениях, управление и отслеживание броней.",
   stack: joinStack(["nextdotjs", "reactrouter", "tailwindcss", "shadcnui"]),
+  contentId: "reservia-client",
+  attachments: [
+    "/works/reservia/client/client-step-1.png",
+    "/works/reservia/client/client-step-2.png",
+    "/works/reservia/client/client-step-4.png",
+  ],
   logo: {
     theme: {
       light: "/works/reservia/logo/light.png",

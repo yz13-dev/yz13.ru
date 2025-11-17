@@ -1,22 +1,20 @@
-import ContactForm from "@/components/contact-form";
+import ContactMeForm from "@/components/contact-me-form";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { StackItem } from "@/components/stack-item";
 import { isDev } from "@/const/enviroment";
-import { github, telegram, x } from "@/const/socials";
 import { getProject } from "@/utils/blog/projects";
 import { getProject as getProjectData } from "@yz13/registries/utils/projects";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/avatar";
-import { cn } from "@yz13/ui/cn";
-import { ExternalLink, ExternalLinkIcon } from "@yz13/ui/icons";
+import { ExternalLink } from "@yz13/ui/icons";
 import { Separator } from "@yz13/ui/separator";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import QRCode from "react-qr-code";
 import Content from "../../components/content";
+import SubProjectPreview from "../../components/sub-project-preview";
 
 type Props = {
   params: Promise<{
@@ -33,6 +31,8 @@ export default async function Project({ params }: Props) {
   if (!data) return notFound();
   if (!project) return notFound();
 
+  const hasSubProjects = (data?.subProjects || [])?.length > 0;
+  const subProjects = data?.subProjects || [];
   const authors = project.authors;
 
   return (
@@ -148,76 +148,34 @@ export default async function Project({ params }: Props) {
 
         <Content content={project.body} />
       </main>
+      {
+        hasSubProjects &&
+        <div className="w-full py-6 space-y-3">
+          <div className="py-4 px-6 mx-auto max-w-2xl w-full">
+            <span className="text-2xl font-medium">Подпроекты</span>
+          </div>
+          <ul className="space-y-12">
+            {
+              subProjects
+                .map(project => {
+
+                  if (!project.contentId) return null;
+
+                  const post = getProject(project.contentId);
+                  if (!post) return null;
+
+                  if (!post.published) return null;
+
+                  return <SubProjectPreview key={project.id} project={project} />
+                })
+            }
+          </ul>
+        </div>
+      }
       <div className="w-full py-6">
         {
           isDev &&
-          <section className="container mx-auto overflow-hidden bg-card border rounded-3xl">
-            <div className="flex lg:flex-row flex-col">
-              <div
-                className={cn(
-                  "lg:max-w-2xs max-w-full w-full lg:border-r border-r-0 lg:border-b-0 border-b",
-                  "flex lg:flex-col sm:flex-row flex-col justify-between",
-                )}
-              >
-                <div>
-                  <div className="*:block space-y-2 px-6 pt-6">
-                    <h3 className="text-2xl font-medium text-foreground">
-                      Готов работать над фронтендом
-                    </h3>
-                    <p className="text-lg text-muted-foreground">
-                      Чем могу помочь?
-                    </p>
-                  </div>
-                  <ul className="*:py-1 p-6">
-                    <li className="group">
-                      <Link
-                        href={telegram}
-                        target="_blank"
-                        className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                      >
-                        Telegram
-                        <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                      </Link>
-                    </li>
-                    <li className="group">
-                      <Link
-                        href={github}
-                        target="_blank"
-                        className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                      >
-                        Github
-                        <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                      </Link>
-                    </li>
-                    <li className="group">
-                      <Link
-                        href={x}
-                        target="_blank"
-                        className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                      >
-                        X
-                        <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="px-6 lg:pt-0 pt-6 pb-6">
-                  <div className="size-full sm:max-w-full max-w-2xs p-6 rounded-2xl bg-card border">
-                    <QRCode
-                      className="aspect-square"
-                      size={256}
-                      style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                      value={telegram}
-                      viewBox={`0 0 256 256`}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="w-full px-6 pt-6 pb-2 flex flex-col justify-between">
-                <ContactForm />
-              </div>
-            </div>
-          </section>
+          <ContactMeForm />
         }
       </div>
       <Footer />
