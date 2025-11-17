@@ -10,6 +10,7 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@yz13/ui/tooltip";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
+import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 import Calendar, {
   Skeleton,
@@ -46,7 +47,7 @@ const labels = {
     "Пт",
     "Сб",
   ],
-  totalCount: "{{count}} активностей в {{year}} году",
+  totalCount: "За последний год - {{count}} активностей",
   legend: {
     less: "Меньше",
     more: "Больше",
@@ -79,6 +80,10 @@ export default function GithubContributions({
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const { theme, systemTheme } = useTheme()
+
+  console.log("theme", theme)
+
   const ref = useRef<HTMLDivElement>(null);
 
   const totalCount =
@@ -97,6 +102,7 @@ export default function GithubContributions({
     try {
       const apiUrl = "https://github-contributions-api.jogruber.de/v4/";
       const response = await fetch(`${apiUrl}${username}?y=${String(year)}`);
+      console.log("url", `${apiUrl}${username}?y=${String(year)}`)
       const data = (await response.json()) as ApiResponse | ApiErrorResponse;
 
       if (!response.ok) {
@@ -175,6 +181,7 @@ export default function GithubContributions({
       showWeekdayLabels={["mon", "fri"]}
       totalCount={transformFn && transformTotalCount ? undefined : totalCount}
       weekStart={0}
+      colorScheme={theme === "system" ? systemTheme : theme as "light" | "dark"}
       theme={gitHubTheme}
       maxLevel={4}
       renderBlock={(block, activity) => {

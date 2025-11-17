@@ -10,6 +10,7 @@ import { Skeleton } from "@yz13/ui/skeleton";
 import { parse } from "date-fns";
 import Image from "next/image";
 import Filters, { FilterItem } from "../components/filters";
+import LogoGrid from "../components/logo-grid";
 import SearchInput from "../components/search-input";
 
 type Props = {
@@ -65,7 +66,7 @@ export default async function Projects({ searchParams }: Props) {
     <>
       <Header />
 
-      <div className="w-full container px-6 mx-auto h-fit md:pt-32 pt-24 md:pb-16 pb-12 gap-12 grid lg:grid-cols-7 md:grid-cols-5 sm:grid-cols-3 grid-cols-2">
+      <LogoGrid>
         {
           onlyProjects
             .map((item, index) => {
@@ -105,7 +106,7 @@ export default async function Projects({ searchParams }: Props) {
         <Skeleton className="size-32 outline-6 border outline-border/40 transition-colors rounded-3xl bg-card flex items-center justify-center">
           <Skeleton className="size-24 rounded-xl" />
         </Skeleton>
-      </div>
+      </LogoGrid>
       <div className="w-full container px-6 mx-auto h-fit py-6 space-y-12">
         <div className="*:block max-w-4xl space-y-4">
           <h1 className="text-6xl block font-medium">Проекты</h1>

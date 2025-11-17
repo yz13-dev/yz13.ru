@@ -30,12 +30,12 @@ export default function Home() {
       <main
         className={cn(
           "container w-full mx-auto md:pt-32 pt-24 md:pb-[10%] pb-[7.5%] px-6",
-          "md:h-fit h-[calc(100dvh-88px)]",
+          "h-fit",
           "flex flex-col items-center md:justify-start justify-between",
         )}
       >
         <div className="w-full h-fit flex items-center">
-          <LogoStack orientation="horizontal" align="right" />
+          <LogoStack orientation="horizontal" align="right" gap={40} />
         </div>
         <div className="w-full space-y-6">
           <div className="relative md:py-16 py-10 *:block space-y-8 max-w-4xl w-fit">
@@ -66,8 +66,8 @@ export default function Home() {
           <div
             className={cn(
               "pt-4 *:text-lg [&>button>svg]:size-5!",
-              "flex md:flex-row flex-col items-center justify-start gap-2",
-              "md:*:w-fit *:w-full *:h-12 *:px-8 w-full",
+              "flex flex-row items-center justify-start gap-2",
+              "*:w-fit *:h-12 *:px-8 w-full",
             )}
           >
             <Button variant="outline" size="lg" asChild>

@@ -1,8 +1,4 @@
-import { Stack } from "../stack/types";
-
-
-
-
+import type { Stack } from "../stack/types";
 
 export type Project = {
   id: string
@@ -22,5 +18,6 @@ export type Project = {
       light: string,
       dark: string
     }
-  }
+  },
+  subProjects?: Project[]
 }
