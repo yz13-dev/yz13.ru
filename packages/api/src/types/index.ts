@@ -27,6 +27,8 @@ export * from './get-blog-v1-posts200-item';
 export * from './get-blog-v1-posts200-item-attachments-item';
 export * from './get-blog-v1-posts502-item';
 export * from './get-blog-v1-posts502-item-attachments-item';
+export * from './get-links-v1-id200';
+export * from './get-links-v1-id500';
 export * from './get-pins-v1-boards-all-params';
 export * from './get-pins-v1-boards-all200-item';
 export * from './get-pins-v1-boards-all400-item';
