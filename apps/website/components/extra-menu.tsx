@@ -37,11 +37,10 @@ export default async function ExtraMenu() {
         <DrawerTitle>Нужен разработчик?</DrawerTitle>
         <DrawerDescription>Разработаю фронтенд для вашего проекта.</DrawerDescription>
       </div>
-      <div className="py-6 flex items-center justify-between">
+      <div className="py-6">
         <Suspense fallback={<AvailabilitySkeleton className="h-10" type="full" />}>
           <Availability textType="full" className="h-10 justify-start w-fit text-base" />
         </Suspense>
-        <ThemeSwitcher />
       </div>
       <div className="w-full grid grid-cols-1 gap-4">
         <div>
@@ -108,6 +107,10 @@ export default async function ExtraMenu() {
             </li>
           </ul>
         </div>
+      </div>
+      <div className="pt-8 flex items-center justify-between">
+        <ThemeSwitcher />
+        <span className="text-sm text-muted-foreground">2025</span>
       </div>
     </>
   )

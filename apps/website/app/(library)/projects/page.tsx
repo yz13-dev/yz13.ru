@@ -9,6 +9,7 @@ import { ArrowDownAZIcon, ArrowDownNarrowWideIcon, ArrowDownWideNarrowIcon, Arro
 import { Skeleton } from "@yz13/ui/skeleton";
 import { parse } from "date-fns";
 import Image from "next/image";
+import { Suspense } from "react";
 import Filters, { FilterItem } from "../components/filters";
 import LogoGrid from "../components/logo-grid";
 import SearchInput from "../components/search-input";
@@ -113,8 +114,12 @@ export default async function Projects({ searchParams }: Props) {
           <p className="text-4xl text-muted-foreground">Личные проекты, разработанные в прошлом или находящиеся в разработке</p>
         </div>
         <div className="pt-6 flex items-center gap-2">
-          <SearchInput />
-          <Filters />
+          <Suspense fallback={<Skeleton className="w-full max-w-md" />}>
+            <SearchInput />
+          </Suspense>
+          <Suspense fallback={<Skeleton className="w-28" />}>
+            <Filters />
+          </Suspense>
         </div>
         <div className="flex items-center gap-2">
           {

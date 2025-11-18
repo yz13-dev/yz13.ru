@@ -147,7 +147,7 @@ export default async function Footer() {
           </div>
         </div>
       </div>
-      <div className="w-full flex items-center justify-end">
+      <div className="w-full flex items-center pt-8 justify-end">
         <ThemeSwitcher />
       </div>
       <div className="pt-20 container flex items-center justify-between mx-auto w-full">
