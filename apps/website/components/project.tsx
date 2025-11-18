@@ -1,6 +1,11 @@
 import { isPublished } from "@/utils/blog/projects";
 import type { Project as ProjectType } from "@yz13/registries";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@yz13/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@yz13/ui/accordion";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { ArrowRightIcon, GlobeIcon } from "@yz13/ui/icons";
@@ -16,18 +21,13 @@ type Props = {
 export default function Project({
   orientation = "horizontal",
   project,
-  defaultOpen = true
+  defaultOpen = true,
 }: Props) {
   const isEmtpy = (project.attachments || [])?.length === 0;
   const subProjects = project.subProjects || [];
 
   return (
-    <div
-      className={cn(
-        "pt-12",
-        subProjects.length > 0 ? "pb-0" : "pb-12"
-      )}
-    >
+    <div className={cn("pt-12", subProjects.length > 0 ? "pb-0" : "pb-12")}>
       <div
         data-orientation={orientation}
         className={cn(
@@ -53,9 +53,12 @@ export default function Project({
           </div>
         )}
       </div>
-      {
-        !!subProjects.length &&
-        <Accordion className="pt-8" type="multiple" defaultValue={defaultOpen ? ["group-projects"] : undefined}>
+      {!!subProjects.length && (
+        <Accordion
+          className="pt-8"
+          type="multiple"
+          defaultValue={defaultOpen ? ["group-projects"] : undefined}
+        >
           <AccordionItem value="group-projects">
             <AccordionTrigger className="pt-4 pb-12 container mx-auto px-6 [&>svg]:size-8">
               <span className="text-2xl font-medium">
@@ -63,16 +66,13 @@ export default function Project({
               </span>
             </AccordionTrigger>
             <AccordionContent className="w-full pb-0 col-span-full border-t divide-y">
-              {
-                subProjects.map(pr => {
-
-                  return <SupProject key={pr.id} project={pr} />
-                })
-              }
+              {subProjects.map((pr) => {
+                return <SupProject key={pr.id} project={pr} />;
+              })}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      }
+      )}
     </div>
   );
 }
@@ -184,14 +184,12 @@ const ProjectContent = ({
   );
 };
 
-const SupProject = ({ project }: { project: ProjectType; }) => {
-
+const SupProject = ({ project }: { project: ProjectType }) => {
   const isEmtpy = (project.attachments || [])?.length === 0;
 
   const hasContent = !!project.contentId;
 
   const published = isPublished(project.id);
-  console.log("published", project.id, published)
 
   const hasUrl = !!project.url;
 
@@ -262,8 +260,8 @@ const SupProject = ({ project }: { project: ProjectType; }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const ProjectContainer = ({
   children,
@@ -271,8 +269,6 @@ export const ProjectContainer = ({
   children: React.ReactNode;
 }) => {
   return (
-    <section className="hover:bg-card transition-colors">
-      {children}
-    </section>
+    <section className="hover:bg-card transition-colors">{children}</section>
   );
 };

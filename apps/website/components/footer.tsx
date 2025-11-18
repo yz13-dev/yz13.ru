@@ -1,3 +1,4 @@
+import { showMiniApps, showResources } from "@/flags";
 import { Badge } from "@yz13/ui/badge";
 import { ExternalLinkIcon } from "@yz13/ui/icons";
 import { Skeleton } from "@yz13/ui/skeleton";
@@ -8,8 +9,10 @@ import { ThemeImage } from "./theme-image";
 import { ThemeSwitcher } from "./theme-switcher";
 import TrackableLink from "./trackable-link";
 
-
 export default async function Footer() {
+  const enableMiniApps = await showMiniApps();
+  const enableResources = await showResources();
+
   return (
     <footer className="container py-12 mx-auto px-6 w-full">
       <div className="w-full flex md:flex-row gap-10 flex-col">
@@ -22,55 +25,89 @@ export default async function Footer() {
             alt="logo"
           />
           <span className="text-2xl font-medium">
-            Нужен разработчик?
-            Разработаю фронтенд для вашего проекта.
+            Нужен разработчик? Разработаю фронтенд для вашего проекта.
           </span>
-          <Suspense fallback={<AvailabilitySkeleton className="h-10" type="full" />}>
-            <Availability textType="full" className="h-10 justify-start w-fit text-base" />
+          <Suspense
+            fallback={<AvailabilitySkeleton className="h-10" type="full" />}
+          >
+            <Availability
+              textType="full"
+              className="h-10 justify-start w-fit text-base"
+            />
           </Suspense>
         </div>
         <div className="w-full grid md:grid-cols-3 grid-cols-2 gap-4">
           <div>
             <div className="py-2">
-              <span className="text-base text-muted-foreground uppercase">yz13</span>
+              <span className="text-base text-muted-foreground uppercase">
+                yz13
+              </span>
             </div>
             <ul className="*:py-1">
-              <li><Link href="/" className="text-lg hover:underline">Главная</Link></li>
-              <li className="space-x-1.5">
-                <Link href="/projects" className="text-lg hover:underline">Проекты</Link>
-                <span className="text-muted-foreground">/</span>
-                <Link href="/works" className="text-lg hover:underline">Работы</Link>
+              <li>
+                <Link href="/" className="text-lg hover:underline">
+                  Главная
+                </Link>
               </li>
-              <li><Link href="/blog" className="text-lg hover:underline">Блог</Link></li>
+              <li className="space-x-1.5">
+                <Link href="/projects" className="text-lg hover:underline">
+                  Проекты
+                </Link>
+                <span className="text-muted-foreground">/</span>
+                <Link href="/works" className="text-lg hover:underline">
+                  Работы
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-lg hover:underline">
+                  Блог
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {
-            false &&
+          {enableResources && (
             <div>
               <div className="py-2">
-                <span className="text-base text-muted-foreground uppercase">ресурсы</span>
+                <span className="text-base text-muted-foreground uppercase">
+                  ресурсы
+                </span>
               </div>
               <ul className="*:py-1">
-                <li><Link href="/open-stats" className="text-lg hover:underline">Открытая статистика</Link></li>
+                <li>
+                  <Link href="/open-stats" className="text-lg hover:underline">
+                    Открытая статистика
+                  </Link>
+                </li>
               </ul>
             </div>
-          }
-
-          <div>
-            <div className="py-2">
-              <span className="text-base text-muted-foreground uppercase">мини-приложения <Badge variant="secondary">скоро</Badge></span>
+          )}
+          {enableMiniApps && (
+            <div>
+              <div className="py-2">
+                <span className="text-base text-muted-foreground uppercase">
+                  мини-приложения <Badge variant="secondary">скоро</Badge>
+                </span>
+              </div>
+              <ul className="*:py-1">
+                <li>
+                  <Skeleton className="h-[23px] w-1/3" />
+                </li>
+                <li>
+                  <Skeleton className="h-[23px] w-1/4" />
+                </li>
+                <li>
+                  <Skeleton className="h-[23px] w-1/2" />
+                </li>
+              </ul>
             </div>
-            <ul className="*:py-1">
-              <li><Skeleton className="h-[23px] w-1/3" /></li>
-              <li><Skeleton className="h-[23px] w-1/4" /></li>
-              <li><Skeleton className="h-[23px] w-1/2" /></li>
-            </ul>
-          </div>
+          )}
 
           <div>
             <div className="py-2">
-              <span className="text-base text-muted-foreground uppercase">также в</span>
+              <span className="text-base text-muted-foreground uppercase">
+                также в
+              </span>
             </div>
             <ul className="*:py-1">
               <li className="group">
@@ -120,5 +157,5 @@ export default async function Footer() {
         <span className="text-sm text-muted-foreground">2025</span>
       </div>
     </footer>
-  )
+  );
 }

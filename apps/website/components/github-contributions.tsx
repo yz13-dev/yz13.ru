@@ -80,9 +80,7 @@ export default function GithubContributions({
   const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const { theme, systemTheme } = useTheme()
-
-  console.log("theme", theme)
+  const { theme, systemTheme } = useTheme();
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -102,7 +100,7 @@ export default function GithubContributions({
     try {
       const apiUrl = "https://github-contributions-api.jogruber.de/v4/";
       const response = await fetch(`${apiUrl}${username}?y=${String(year)}`);
-      console.log("url", `${apiUrl}${username}?y=${String(year)}`)
+      console.log("url", `${apiUrl}${username}?y=${String(year)}`);
       const data = (await response.json()) as ApiResponse | ApiErrorResponse;
 
       if (!response.ok) {
@@ -181,7 +179,9 @@ export default function GithubContributions({
       showWeekdayLabels={["mon", "fri"]}
       totalCount={transformFn && transformTotalCount ? undefined : totalCount}
       weekStart={0}
-      colorScheme={theme === "system" ? systemTheme : theme as "light" | "dark"}
+      colorScheme={
+        theme === "system" ? systemTheme : (theme as "light" | "dark")
+      }
       theme={gitHubTheme}
       maxLevel={4}
       renderBlock={(block, activity) => {
