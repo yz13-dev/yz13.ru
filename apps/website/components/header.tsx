@@ -65,7 +65,7 @@ export default async function Header() {
         >
           <div
             className={cn(
-              "flex items-center gap-1.5",
+              "sm:flex hidden items-center gap-1.5",
               "[&>button]:h-10 [&>button]:text-base",
               "[&>a]:h-10 [&>a]:text-base",
             )}
