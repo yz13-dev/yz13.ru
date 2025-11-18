@@ -9,11 +9,13 @@ import { NuqsAdapter } from "nuqs/adapters/next/app";
 const geistSans = Geist({
   preload: true,
   display: "swap",
+  fallback: ["Inter", "sans"],
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 });
 const geistMono = JetBrains_Mono({
   preload: true,
+  fallback: ["mono"],
   subsets: ["latin", "cyrillic"],
   variable: "--font-mono",
 });

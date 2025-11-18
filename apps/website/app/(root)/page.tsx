@@ -1,8 +1,5 @@
-import Availability, { AvailabilitySkeleton } from "@/components/availability";
+import { AvailabilitySkeleton } from "@/components/availability";
 import BlogPost, { BlogPostContainer } from "@/components/blog-post";
-import Footer from "@/components/footer";
-import GithubContributions from "@/components/github-contributions";
-import Header from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
 import { ThemeImage } from "@/components/theme-image";
 import { getBlogPosts } from "@/utils/blog/blog";
@@ -16,9 +13,23 @@ import {
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
 import { ArrowRightIcon, SendIcon } from "@yz13/ui/icons";
+import { Skeleton } from "@yz13/ui/skeleton";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Suspense } from "react";
-import LogoStack from "./components/logo-stack";
+const Availability = dynamic(() => import("@/components/availability"), {
+  loading: () => <AvailabilitySkeleton type="full" className="h-10" />
+});
+const LogoStack = dynamic(() => import("./components/logo-stack"), {
+  loading: () => <Skeleton className="size-32" />
+});
+const Footer = dynamic(() => import("@/components/footer"));
+const GithubContributions = dynamic(() => import("@/components/github-contributions"), {
+  loading: () => <Skeleton className="w-full h-[215px]" />
+});
+const Header = dynamic(() => import("@/components/header"), {
+  loading: () => <Skeleton className="w-full h-16 rounded-none" />
+})
 
 export default function Home() {
   const posts = getBlogPosts();
@@ -151,68 +162,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div
-        className={cn(
-          "hidden! size-full md:*:h-[800px] *:h-[400px] border mx-auto",
-          "grid md:grid-cols-4 grid-cols-1 md:grid-rows-1 grid-rows-3",
-          "md:[&>div]:first:rounded-l-4xl md:[&>div]:last:rounded-r-4xl",
-          "[&>div]:first:rounded-l-none [&>div]:last:rounded-r-none",
-          "md:divide-x divide-x-0",
-          "md:divide-y-0 divide-y",
-          "md:[&>div]:first:rounded-t-none md:[&>div]:last:rounded-b-none",
-          "[&>div]:first:rounded-t-4xl [&>div]:last:rounded-b-4xl",
-          "*:bg-transparent overflow-hidden",
-        )}
-      >
-        <div className="size-full space-y-6">
-          <div className="pt-6 px-6 flex items-center gap-3">
-            <div className="size-12 rounded-md bg-foreground" />
-            <span className="text-2xl font-medium">Project</span>
-          </div>
-          <div className="pb-6 px-6 w-full h-[calc(100%-96px)]">
-            <div className="size-full overflow-hidden relative">
-              <div className="h-full aspect-video rounded-lg bg-foreground" />
-            </div>
-          </div>
-        </div>
 
-        <div className="size-full space-y-6">
-          <div className="pt-6 px-6 flex items-center gap-3">
-            <div className="size-12 rounded-md bg-foreground" />
-            <span className="text-2xl font-medium">Project</span>
-          </div>
-          <div className="pb-6 px-6 w-full h-[calc(100%-96px)]">
-            <div className="size-full overflow-hidden relative">
-              <div className="h-full aspect-video rounded-lg bg-foreground" />
-            </div>
-          </div>
-        </div>
-
-        <div className="size-full space-y-6">
-          <div className="pt-6 px-6 flex items-center gap-3">
-            <div className="size-12 rounded-md bg-foreground" />
-            <span className="text-2xl font-medium">Project</span>
-          </div>
-          <div className="pb-6 px-6 w-full h-[calc(100%-96px)]">
-            <div className="size-full gap-6 flex items-start justify-start overflow-hidden relative">
-              <div className="h-full aspect-9/16 rounded-lg bg-foreground" />
-              <div className="h-full aspect-video rounded-lg bg-foreground" />
-            </div>
-          </div>
-        </div>
-
-        <div className="size-full space-y-6">
-          <div className="pt-6 px-6 flex items-center gap-3">
-            <div className="size-12 rounded-md bg-foreground" />
-            <span className="text-2xl font-medium">Project</span>
-          </div>
-          <div className="pb-6 px-6 w-full h-[calc(100%-96px)]">
-            <div className="size-full overflow-hidden relative">
-              <div className="h-full aspect-video rounded-lg bg-foreground" />
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div className="py-12 px-6 container mx-auto">
         <h2 className="text-4xl font-medium">Проекты и работы</h2>
