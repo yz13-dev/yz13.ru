@@ -6,9 +6,8 @@ export const reserviaPartner: Project = {
   date: "2025-11-01",
   name: "Reservia/Partner",
   type: "work",
-  description:
-    "Управление реферальной программой для заведений",
-  stack: joinStack(["nextdotjs", "reactrouter", "tailwindcss", "shadcnui"]),
+  description: "Управление реферальной программой для заведений",
+  stack: joinStack(["reactrouter", "tailwindcss", "shadcnui"]),
   contentId: "reservia-partner",
   attachments: [
     "/works/reservia/partner/dashboard.png",
