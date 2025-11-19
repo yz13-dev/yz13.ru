@@ -135,3 +135,21 @@ export type VedomostiArticle = {
   categories: string[]
   isoDate: string
 }
+
+export type CommonArticle = {
+  title: string
+  link: string
+  pubDate: string
+  guid: string
+  categories: string[]
+  isoDate: string
+  author?: string
+  creator?: string
+  enclosure?: {
+    url: string
+    type: string
+    length: string
+  }
+  content?: string
+  contentSnippet?: string
+}

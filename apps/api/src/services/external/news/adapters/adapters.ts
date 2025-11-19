@@ -1,6 +1,5 @@
-import Parser from "rss-parser";
 import { NewsSource } from "../models/news-source.model";
-import { InterfaxArticle, IzArticle, LentaArticle, NewNewsArticle, RBKArticle, RiaArticle, TassArticle, VedomostiArticle } from "../models/news.model";
+import { CommonArticle, InterfaxArticle, IzArticle, LentaArticle, NewNewsArticle, RBKArticle, RiaArticle, TassArticle, VedomostiArticle } from "../models/news.model";
 import { fromIz } from "./iz.adapter";
 import { fromLenta } from "./lenta.adapter";
 import { fromRBK } from "./rbk.adapter";
@@ -11,7 +10,7 @@ import { fromVedomosti } from "./vedomosti.adapter";
 
 
 // url = source.id
-export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [key: string]: any; }>["items"]) => {
+export const applyAdapters = async (source: NewsSource, items: CommonArticle[]) => {
 
   let count = 0;
   let articles: NewNewsArticle[] = [];
@@ -31,7 +30,7 @@ export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [
       console.log("No articles found")
     }
 
-    count += articles.length;
+    count = articles.length;
     articles = converted;
   }
 
@@ -43,7 +42,7 @@ export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [
       console.log("No articles found")
     }
 
-    count += articles.length;
+    count = articles.length;
     articles = converted;
   }
 
@@ -55,7 +54,7 @@ export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [
       console.log("No articles found")
     }
 
-    count += articles.length;
+    count = articles.length;
     articles = converted;
   }
 
@@ -67,7 +66,7 @@ export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [
       console.log("No articles found")
     }
 
-    count += articles.length;
+    count = articles.length;
     articles = converted;
   }
 
@@ -79,7 +78,7 @@ export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [
       console.log("No articles found")
     }
 
-    count += articles.length;
+    count = articles.length;
     articles = converted;
   }
 
@@ -91,7 +90,7 @@ export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [
       console.log("No articles found")
     }
 
-    count += articles.length;
+    count = articles.length;
     articles = converted;
   }
 
@@ -103,7 +102,7 @@ export const applyAdapters = async (source: NewsSource, items: Parser.Output<{ [
       console.log("No articles found")
     }
 
-    count += articles.length;
+    count = articles.length;
     articles = converted;
   }
 
