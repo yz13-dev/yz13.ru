@@ -30,6 +30,30 @@ export const indexNewsArticles = async (c: Context) => {
       }
     }
 
+    const checkForDuplicate = async (c: Context, article: NewNewsArticle) => {
+      try {
+        const { data, error } = await supabase
+          .from("news")
+          .select("*")
+          .eq("url", article.url)
+          .limit(1)
+          .maybeSingle()
+
+        if (error) return false;
+
+        if (data) {
+          console.log("Duplicate article", article.url)
+          return true
+        }
+
+        return false
+
+      } catch (error) {
+        console.warn(error)
+        return false
+      }
+    }
+
     const getSources = async (c: Context): Promise<NewsSource[]> => {
       try {
         const { data, error } = await supabase
@@ -52,9 +76,6 @@ export const indexNewsArticles = async (c: Context) => {
           .from("news")
           .insert(rows)
           .select("*")
-
-        console.log("data", data)
-        console.log("error", error)
 
         if (error) return []
 
@@ -111,7 +132,15 @@ export const indexNewsArticles = async (c: Context) => {
 
       const articles = withAdapters.articles;
 
-      await writeNews(c, articles)
+      for (const article of articles) {
+
+        const hasDuplicate = await checkForDuplicate(c, article)
+
+        if (hasDuplicate) continue;
+
+        await writeNews(c, [article])
+      }
+
     }
 
     return c.json({
