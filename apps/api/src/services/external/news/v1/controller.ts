@@ -7,6 +7,7 @@ import { applyAdapters } from "../adapters/adapters";
 import type { NewsSource } from "../models/news-source.model";
 import type { NewNewsArticle } from "../models/news.model";
 
+// TODO: refactor this maybe???
 export const indexNewsArticles = async (c: Context) => {
   try {
 
@@ -128,7 +129,7 @@ export const indexNewsArticles = async (c: Context) => {
 
       const withAdapters = await applyAdapters(source, items);
 
-      count = withAdapters.count;
+      count += withAdapters.count;
 
       const articles = withAdapters.articles;
 
