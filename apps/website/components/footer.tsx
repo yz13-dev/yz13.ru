@@ -111,37 +111,43 @@ export default async function Footer() {
             </div>
             <ul className="*:py-1">
               <li className="group">
-                <TrackableLink
-                  track
-                  href="/me/telegram"
-                  target="_blank"
-                  className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                >
-                  Telegram
-                  <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                </TrackableLink>
+                <Suspense fallback={<Skeleton className="h-[23px] w-1/3" />}>
+                  <TrackableLink
+                    track
+                    href="/me/telegram"
+                    target="_blank"
+                    className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
+                  >
+                    Telegram
+                    <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
+                  </TrackableLink>
+                </Suspense>
               </li>
               <li className="group">
-                <TrackableLink
-                  track
-                  href="/me/github"
-                  target="_blank"
-                  className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                >
-                  Github
-                  <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                </TrackableLink>
+                <Suspense fallback={<Skeleton className="h-[23px] w-1/3" />}>
+                  <TrackableLink
+                    track
+                    href="/me/github"
+                    target="_blank"
+                    className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
+                  >
+                    Github
+                    <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
+                  </TrackableLink>
+                </Suspense>
               </li>
               <li className="group">
-                <TrackableLink
-                  track
-                  href="/me/x"
-                  target="_blank"
-                  className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
-                >
-                  X
-                  <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
-                </TrackableLink>
+                <Suspense fallback={<Skeleton className="h-[23px] w-1/3" />}>
+                  <TrackableLink
+                    track
+                    href="/me/x"
+                    target="_blank"
+                    className="text-lg inline-flex items-center gap-2 hover:underline [&>svg]:size-4"
+                  >
+                    X
+                    <ExternalLinkIcon className="transition-colors text-muted-foreground group-hover:text-foreground" />
+                  </TrackableLink>
+                </Suspense>
               </li>
             </ul>
           </div>

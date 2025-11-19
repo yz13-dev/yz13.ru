@@ -21,7 +21,7 @@ export const createClient = ({ appId }: ClientOptions) => {
 
   const get = async (url: string) => {
     try {
-      const start = Date.now()
+      const start = performance.now()
       const response = await fetch(url, {
         next: {
           // is prod is 5 minutes, in dev is one hour
@@ -30,7 +30,7 @@ export const createClient = ({ appId }: ClientOptions) => {
         }
       });
 
-      const end = Date.now()
+      const end = performance.now()
       if (process.env.NODE_ENV === "development") console.log("get", url, end - start);
       return await response.json()
     } catch (error) {

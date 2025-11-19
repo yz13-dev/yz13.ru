@@ -65,6 +65,7 @@ export default async function Works({ searchParams }: Props) {
 
   return (
     <>
+      <title>Работы</title>
       <Header />
 
       <LogoGrid>

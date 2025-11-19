@@ -17,11 +17,14 @@ import {
   FolderIcon,
 } from "@yz13/ui/icons";
 import Link from "next/link";
+import { connection } from "next/server";
 import ContactForm from "./contact-form";
 import ExtraMenu from "./extra-menu";
 import { ThemeImage } from "./theme-image";
 
 export default async function Header() {
+  await connection()
+
   const isAvailable = await getAvailability();
 
   return (

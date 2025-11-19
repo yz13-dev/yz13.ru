@@ -10,6 +10,7 @@ import { ExternalLink } from "@yz13/ui/icons";
 import { Separator } from "@yz13/ui/separator";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
+import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,6 +22,55 @@ type Props = {
     id: string;
   }>;
 };
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+
+  const { id } = await params;
+
+  const project = getProject(id);
+
+  return {
+    robots: { index: true, follow: false },
+    title: project?.title,
+    description: project?.summary,
+    openGraph: {
+      url: new URL(`/works/${id}`, "https://yz13.ru"),
+      locale: "ru_RU",
+      title: project?.title,
+      description: project?.summary,
+      type: "article",
+      images: project?.banner
+        ? [
+          {
+            url: project.banner as string,
+            width: 1024,
+            height: 600,
+            alt: project?.title,
+          },
+        ] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project?.title,
+      description: project?.summary,
+      creator: "@yz13_dev",
+      site: "@yz13_dev",
+      images: project?.banner
+        ? [
+          {
+            url: project.banner as string,
+            width: 1024,
+            height: 600,
+            alt: project?.title,
+          },
+        ] : [],
+    },
+  }
+}
+
 export default async function Project({ params }: Props) {
   const { id } = await params;
 

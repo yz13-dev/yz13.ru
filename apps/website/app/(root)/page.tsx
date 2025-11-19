@@ -37,7 +37,9 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Suspense fallback={<Skeleton className="w-full h-16 rounded-none" />}>
+        <Header />
+      </Suspense>
       <main
         className={cn(
           "container w-full mx-auto md:pt-32 pt-24 md:pb-[10%] pb-[7.5%] px-6",

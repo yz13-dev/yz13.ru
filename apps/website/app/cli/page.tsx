@@ -2,7 +2,9 @@ import AutoScroll from "@/components/auto-scroll";
 import { CmdHistoryProvider } from "@/stores/cmd-history.store";
 import { Avatar, AvatarFallback, AvatarImage } from "@yz13/ui/avatar";
 import { InputGroupButton } from "@yz13/ui/input-group";
+import { Skeleton } from "@yz13/ui/skeleton";
 import Link from "next/link";
+import { Suspense } from "react";
 import CommandBlock from "./components/command-block";
 import CommandHistory from "./components/command-history";
 import CommandInputBlock from "./components/command-input-block";
@@ -31,13 +33,27 @@ export default function Terminal() {
         <span className="text-sm block">yz13</span>
       </CommandBlock>
 
-      <InlineCommand command="/logo" />
-      <InlineCommand command="/info" />
-      <InlineCommand command="/work" />
-      <InlineCommand command="/socials" />
-      <InlineCommand command="/contributions" />
-      <InlineCommand command="/projects" />
-      <InlineCommand command="/actions" />
+      <Suspense fallback={<Skeleton className="w-full h-36" />}>
+        <InlineCommand command="/logo" />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="w-full h-36" />}>
+        <InlineCommand command="/info" />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="w-full h-36" />}>
+        <InlineCommand command="/work" />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="w-full h-36" />}>
+        <InlineCommand command="/socials" />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="w-full h-36" />}>
+        <InlineCommand command="/contributions" />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="w-full h-36" />}>
+        <InlineCommand command="/projects" />
+      </Suspense>
+      <Suspense fallback={<Skeleton className="w-full h-36" />}>
+        <InlineCommand command="/actions" />
+      </Suspense>
 
       <div className="w-full px-6 py-2 border-b">
         <span className="text-xs text-muted-foreground">

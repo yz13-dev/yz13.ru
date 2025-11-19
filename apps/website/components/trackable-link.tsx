@@ -11,7 +11,6 @@ type Props = LinkProps & ComponentProps<"a"> & {
 }
 
 export default function TrackableLink({ href, track = false, className = "", children, ...props }: Props) {
-
   const pathname = usePathname();
 
   // if it's external link, then it's not trackable. Only interval links, example: /blog
