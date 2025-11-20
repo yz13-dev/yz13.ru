@@ -1,6 +1,7 @@
-import { showMiniApps, showResources } from "@/flags";
-import { Badge } from "@yz13/ui/badge";
-import { ExternalLinkIcon } from "@yz13/ui/icons";
+import { showResources } from "@/flags";
+import { Project, projects } from "@yz13/registries";
+import { filter } from "@yz13/registries/utils/filter";
+import { ArrowRightIcon, ExternalLinkIcon } from "@yz13/ui/icons";
 import { Skeleton } from "@yz13/ui/skeleton";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -10,8 +11,9 @@ import { ThemeSwitcher } from "./theme-switcher";
 import TrackableLink from "./trackable-link";
 
 export default async function Footer() {
-  const enableMiniApps = await showMiniApps();
+
   const enableResources = await showResources();
+  const allProjects = filter<Project>(projects, (project) => project.type === "project");
 
   return (
     <footer className="container py-12 mx-auto px-6 w-full">
@@ -82,26 +84,28 @@ export default async function Footer() {
               </ul>
             </div>
           )}
-          {enableMiniApps && (
-            <div>
-              <div className="py-2">
-                <span className="text-base text-muted-foreground uppercase">
-                  мини-приложения <Badge variant="secondary">скоро</Badge>
-                </span>
-              </div>
-              <ul className="*:py-1">
-                <li>
-                  <Skeleton className="h-[23px] w-1/3" />
-                </li>
-                <li>
-                  <Skeleton className="h-[23px] w-1/4" />
-                </li>
-                <li>
-                  <Skeleton className="h-[23px] w-1/2" />
-                </li>
-              </ul>
+          <div>
+            <div className="py-2">
+              <Link href="/projects" className="text-base inline-flex items-center gap-1 text-muted-foreground uppercase">
+                проекты
+                <ArrowRightIcon size={14} />
+              </Link>
             </div>
-          )}
+            <ul className="*:py-1">
+              {
+                allProjects.map((project) => {
+                  if (!project.url) return null;
+                  return (
+                    <li key={project.id}>
+                      <Link href={project.url} target="_blank" className="text-lg hover:underline">
+                        {project.name}
+                      </Link>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
 
           <div>
             <div className="py-2">

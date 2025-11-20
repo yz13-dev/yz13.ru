@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import { HeaderSkeleton } from "@/components/header";
 import { ThemeImage } from "@/components/theme-image";
 import dynamic from "next/dynamic";
@@ -47,6 +48,7 @@ export default function News() {
           <Last />
         </Suspense>
       </section>
+      <Footer />
     </>
   )
 }
