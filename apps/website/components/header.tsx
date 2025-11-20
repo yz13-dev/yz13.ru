@@ -139,11 +139,11 @@ export const HeaderSkeleton = () => {
         <div className="pl-6">
           <Skeleton className="h-9 w-32" />
         </div>
+        <nav className="pr-6 flex items-center gap-3">
+          <Skeleton className="h-10 w-28" />
+          <Skeleton className="size-10" />
+        </nav>
       </div>
-      <nav className="pr-6 flex items-center gap-3">
-        <Skeleton className="h-10 w-28" />
-        <Skeleton className="size-10" />
-      </nav>
     </header>
   )
 }
