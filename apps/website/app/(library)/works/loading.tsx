@@ -1,18 +1,14 @@
+import { HeaderSkeleton } from "@/components/header";
 import { Skeleton } from "@yz13/ui/skeleton";
 import dynamic from "next/dynamic";
 import LogoGrid from "../components/logo-grid";
 const Footer = dynamic(() => import("@/components/footer"));
 
 
-const Header = dynamic(() => import("@/components/header"), {
-  loading: () => <Skeleton className="w-full h-16 rounded-none" />
-})
-
-
 export default function Loading() {
   return (
     <>
-      <Header />
+      <HeaderSkeleton />
 
       <LogoGrid>
         <Skeleton className="size-32 outline-6 border outline-border/40 transition-colors rounded-3xl bg-card" />

@@ -4,13 +4,13 @@ import { API_URL } from "./config";
 
 // const env = process.env.VERCEL_ENV ?? "development";
 // "https://localhost:3000"
+console.log("orval", process.env.NODE_ENV, API_URL);
 
 export const gfkOrvalConfig: OptionsExport = {
   input: {
     target: "./api.json",
   },
   output: {
-    baseUrl: API_URL,
     httpClient: "axios",
     mode: "split",
     target: "./src/api",

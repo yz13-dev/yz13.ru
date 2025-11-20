@@ -16,6 +16,7 @@ import {
   EllipsisIcon,
   FolderIcon,
 } from "@yz13/ui/icons";
+import { Skeleton } from "@yz13/ui/skeleton";
 import Link from "next/link";
 import { connection } from "next/server";
 import ContactForm from "./contact-form";
@@ -124,4 +125,25 @@ export default async function Header() {
       </div>
     </header>
   );
+}
+
+export const HeaderSkeleton = () => {
+  return (
+    <header
+      className={cn(
+        "",
+        "sticky top-0 bg-background/90 backdrop-blur-lg z-20",
+      )}
+    >
+      <div className="w-full *:py-3 flex items-center container justify-between gap-4 mx-auto">
+        <div className="pl-6">
+          <Skeleton className="h-9 w-32" />
+        </div>
+      </div>
+      <nav className="pr-6 flex items-center gap-3">
+        <Skeleton className="h-10 w-28" />
+        <Skeleton className="size-10" />
+      </nav>
+    </header>
+  )
 }

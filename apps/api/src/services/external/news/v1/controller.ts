@@ -2,12 +2,53 @@ import { differenceInMinutes, formatRelative } from "date-fns";
 import { ru } from "date-fns/locale";
 import type { Context } from "hono";
 import { getSupabase as getAdminSupabase } from "../../../../middlewares/admin.supabase.middleware";
+import { getSupabase } from "../../../../middlewares/supabase.middleware";
 import { parseRSS } from "../../../../utils/rss";
 import { applyAdapters } from "../adapters/adapters";
 import type { NewsSource } from "../models/news-source.model";
 import type { CommonArticle, NewNewsArticle } from "../models/news.model";
 
-// TODO: refactor this maybe???
+const getSources = async (c: Context): Promise<NewsSource[]> => {
+  try {
+
+    const supabase = getSupabase(c);
+
+    const { data, error } = await supabase
+      .from("news_sources")
+      .select("*")
+
+    if (error) return []
+
+    return data
+
+  } catch (error) {
+    console.warn(error)
+    return []
+  }
+}
+
+const getLastArticleForSource = async (c: Context, source_id: string) => {
+  try {
+    const supabase = getSupabase(c);
+
+    const { data, error } = await supabase
+      .from("news")
+      .select("*")
+      .eq("source_id", source_id)
+      .order("published_at", { ascending: false })
+      .limit(1)
+      .maybeSingle()
+
+    if (error) return null;
+
+    return data
+
+  } catch (error) {
+    console.warn(error)
+    return null;
+  }
+}
+
 export const indexNewsArticles = async (c: Context) => {
   try {
     const start = performance.now();
@@ -53,22 +94,6 @@ export const indexNewsArticles = async (c: Context) => {
       } catch (error) {
         console.warn(error)
         return false
-      }
-    }
-
-    const getSources = async (c: Context): Promise<NewsSource[]> => {
-      try {
-        const { data, error } = await supabase
-          .from("news_sources")
-          .select("*")
-
-        if (error) return []
-
-        return data
-
-      } catch (error) {
-        console.warn(error)
-        return []
       }
     }
 
@@ -167,5 +192,55 @@ export const indexNewsArticles = async (c: Context) => {
     return c.json({
       count: 0,
     }, 500)
+  }
+}
+
+export const getRecentArticles = async (c: Context) => {
+  try {
+    const sources = await getSources(c);
+
+    const articles = await Promise.all(
+      sources.map(async (source) => {
+        const last = await getLastArticleForSource(c, source.id);
+        return last;
+      })
+    )
+
+    const filtered = articles.filter(article => article !== null);
+
+    return c.json(filtered, 200);
+
+  } catch (error) {
+    console.warn(error)
+    return c.json([], 500)
+  }
+}
+
+export const getLastArticles = async (c: Context) => {
+
+  const offsetQuery = c.req.query("offset");
+
+  const offset = offsetQuery ? parseInt(offsetQuery) : 0;
+  const limit = offset + 10;
+
+  console.log("offset", offset, "limit", limit)
+
+  try {
+
+    const supabase = getSupabase(c);
+
+    const { data, error } = await supabase
+      .from("news")
+      .select("*")
+      .order("published_at", { ascending: false })
+      .range(offset, limit)
+
+    if (error) return c.json([], 500);
+
+    return c.json(data, 200);
+
+  } catch (error) {
+    console.warn(error)
+    return c.json([], 500)
   }
 }

@@ -1,11 +1,10 @@
 import BlogPost, { BlogPostContainer } from "@/components/blog-post";
 import Footer from "@/components/footer";
-import Header from "@/components/header";
+import Header, { HeaderSkeleton } from "@/components/header";
 import { ThemeImage } from "@/components/theme-image";
 import { getBlogPosts } from "@/utils/blog/blog";
 import { Button } from "@yz13/ui/button";
 import { FilterIcon } from "@yz13/ui/icons";
-import { Skeleton } from "@yz13/ui/skeleton";
 import { Suspense } from "react";
 
 
@@ -16,7 +15,7 @@ export default function Blog() {
   return (
     <>
       <title>Блог</title>
-      <Suspense fallback={<Skeleton className="w-full h-16 rounded-none" />}>
+      <Suspense fallback={<HeaderSkeleton />}>
         <Header />
       </Suspense>
 

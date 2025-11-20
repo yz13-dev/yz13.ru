@@ -24,6 +24,8 @@ export const newNewsSchema = newsSchema.omit({
   id: true
 })
 
+export const newsSchemaArray = z.array(newsSchema)
+
 export type NewNewsArticle = z.infer<typeof newNewsSchema>;
 export type NewsArticle = z.infer<typeof newsSchema>
 export type NewsArticleArray = z.infer<typeof newsSchema>[]

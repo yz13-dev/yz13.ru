@@ -1,5 +1,5 @@
 import Footer from "@/components/footer";
-import Header from "@/components/header";
+import Header, { HeaderSkeleton } from "@/components/header";
 import { Skeleton } from "@yz13/ui/skeleton";
 import { Suspense } from "react";
 import Post from "./components/post";
@@ -19,7 +19,7 @@ export default async function Blog({ params }: Props) {
 
   return (
     <>
-      <Suspense fallback={<Skeleton className="w-full h-16 rounded-none" />}>
+      <Suspense fallback={<HeaderSkeleton />}>
         <Header />
       </Suspense>
       <Suspense fallback={<Skeleton className="w-full h-16 rounded-none" />}>

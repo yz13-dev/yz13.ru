@@ -51,6 +51,7 @@ import type {
   PostBlogV1PostsParams,
   PostClicksV1Track200,
   PostClicksV1TrackParams,
+  PostNewsV1Index200,
   PostPinsV1BoardsBoardIdAnchorsPinId200,
   PostPinsV1BoardsNew200,
   PostPinsV1BoardsNewBody,
@@ -74,7 +75,7 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
     uid: string,
  options?: SecondParameter<typeof axios<GetUsersV1Uid200>>,) => {
       return axios<GetUsersV1Uid200>(
-      {url: `https://api.yz13.ru/users/v1/${uid}`, method: 'GET'
+      {url: `/users/v1/${uid}`, method: 'GET'
     },
       options);
     }
@@ -83,7 +84,7 @@ export const getAuthV1Me = (
     
  options?: SecondParameter<typeof axios<GetAuthV1Me200>>,) => {
       return axios<GetAuthV1Me200>(
-      {url: `https://api.yz13.ru/auth/v1/me`, method: 'GET'
+      {url: `/auth/v1/me`, method: 'GET'
     },
       options);
     }
@@ -92,7 +93,7 @@ export const postAuthV1Login = (
     postAuthV1LoginBody: BodyType<PostAuthV1LoginBody>,
  options?: SecondParameter<typeof axios<PostAuthV1Login200>>,) => {
       return axios<PostAuthV1Login200>(
-      {url: `https://api.yz13.ru/auth/v1/login`, method: 'POST',
+      {url: `/auth/v1/login`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthV1LoginBody
     },
@@ -103,7 +104,7 @@ export const postAuthV1Register = (
     postAuthV1RegisterBody: BodyType<PostAuthV1RegisterBody>,
  options?: SecondParameter<typeof axios<PostAuthV1Register200>>,) => {
       return axios<PostAuthV1Register200>(
-      {url: `https://api.yz13.ru/auth/v1/register`, method: 'POST',
+      {url: `/auth/v1/register`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthV1RegisterBody
     },
@@ -114,7 +115,7 @@ export const postAuthV1Logout = (
     
  options?: SecondParameter<typeof axios<PostAuthV1Logout200>>,) => {
       return axios<PostAuthV1Logout200>(
-      {url: `https://api.yz13.ru/auth/v1/logout`, method: 'POST'
+      {url: `/auth/v1/logout`, method: 'POST'
     },
       options);
     }
@@ -123,7 +124,7 @@ export const getBlogV1Posts = (
     
  options?: SecondParameter<typeof axios<GetBlogV1Posts200Item[]>>,) => {
       return axios<GetBlogV1Posts200Item[]>(
-      {url: `https://api.yz13.ru/blog/v1/posts`, method: 'GET'
+      {url: `/blog/v1/posts`, method: 'GET'
     },
       options);
     }
@@ -138,7 +139,7 @@ if(postBlogV1PostsBody.name !== undefined) {
  }
 
       return axios<PostBlogV1Posts200>(
-      {url: `https://api.yz13.ru/blog/v1/posts`, method: 'POST',
+      {url: `/blog/v1/posts`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData,
         params
@@ -150,7 +151,7 @@ export const getBlogV1Drafts = (
     
  options?: SecondParameter<typeof axios<GetBlogV1Drafts200Item[]>>,) => {
       return axios<GetBlogV1Drafts200Item[]>(
-      {url: `https://api.yz13.ru/blog/v1/drafts`, method: 'GET'
+      {url: `/blog/v1/drafts`, method: 'GET'
     },
       options);
     }
@@ -165,7 +166,7 @@ if(postBlogV1DraftsBody.name !== undefined) {
  }
 
       return axios<PostBlogV1Drafts200>(
-      {url: `https://api.yz13.ru/blog/v1/drafts`, method: 'POST',
+      {url: `/blog/v1/drafts`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData,
         params
@@ -180,7 +181,7 @@ export const getPinsV1PinsRecommendations = (
     
  options?: SecondParameter<typeof axios<GetPinsV1PinsRecommendations200Item[]>>,) => {
       return axios<GetPinsV1PinsRecommendations200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/pins/recommendations`, method: 'GET'
+      {url: `/pins/v1/pins/recommendations`, method: 'GET'
     },
       options);
     }
@@ -192,7 +193,7 @@ export const getPinsV1PinsSearch = (
     params: GetPinsV1PinsSearchParams,
  options?: SecondParameter<typeof axios<GetPinsV1PinsSearch200Item[]>>,) => {
       return axios<GetPinsV1PinsSearch200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/pins/search`, method: 'GET',
+      {url: `/pins/v1/pins/search`, method: 'GET',
         params
     },
       options);
@@ -205,7 +206,7 @@ export const getPinsV1PinsAll = (
     params?: GetPinsV1PinsAllParams,
  options?: SecondParameter<typeof axios<GetPinsV1PinsAll200Item[]>>,) => {
       return axios<GetPinsV1PinsAll200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/pins/all`, method: 'GET',
+      {url: `/pins/v1/pins/all`, method: 'GET',
         params
     },
       options);
@@ -218,7 +219,7 @@ export const getPinsV1PinsPinId = (
     pinId: string,
  options?: SecondParameter<typeof axios<GetPinsV1PinsPinId200>>,) => {
       return axios<GetPinsV1PinsPinId200>(
-      {url: `https://api.yz13.ru/pins/v1/pins/${pinId}`, method: 'GET'
+      {url: `/pins/v1/pins/${pinId}`, method: 'GET'
     },
       options);
     }
@@ -231,7 +232,7 @@ export const patchPinsV1PinsPinId = (
     patchPinsV1PinsPinIdBody: BodyType<PatchPinsV1PinsPinIdBody>,
  options?: SecondParameter<typeof axios<PatchPinsV1PinsPinId200>>,) => {
       return axios<PatchPinsV1PinsPinId200>(
-      {url: `https://api.yz13.ru/pins/v1/pins/${pinId}`, method: 'PATCH',
+      {url: `/pins/v1/pins/${pinId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: patchPinsV1PinsPinIdBody
     },
@@ -245,7 +246,7 @@ export const deletePinsV1PinsPinId = (
     pinId: string,
  options?: SecondParameter<typeof axios<DeletePinsV1PinsPinId200>>,) => {
       return axios<DeletePinsV1PinsPinId200>(
-      {url: `https://api.yz13.ru/pins/v1/pins/${pinId}`, method: 'DELETE'
+      {url: `/pins/v1/pins/${pinId}`, method: 'DELETE'
     },
       options);
     }
@@ -257,7 +258,7 @@ export const getPinsV1PinsPinIdSimilar = (
     pinId: string,
  options?: SecondParameter<typeof axios<GetPinsV1PinsPinIdSimilar200Item[]>>,) => {
       return axios<GetPinsV1PinsPinIdSimilar200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/pins/${pinId}/similar`, method: 'GET'
+      {url: `/pins/v1/pins/${pinId}/similar`, method: 'GET'
     },
       options);
     }
@@ -266,7 +267,7 @@ export const getPinsV1PinsPinIdAnchor = (
     pinId: string,
  options?: SecondParameter<typeof axios<GetPinsV1PinsPinIdAnchor200>>,) => {
       return axios<GetPinsV1PinsPinIdAnchor200>(
-      {url: `https://api.yz13.ru/pins/v1/pins/${pinId}/anchor`, method: 'GET'
+      {url: `/pins/v1/pins/${pinId}/anchor`, method: 'GET'
     },
       options);
     }
@@ -282,7 +283,7 @@ export const postPinsV1PinsPinIdUpload = (
 formData.append(`file`, postPinsV1PinsPinIdUploadBody.file)
 
       return axios<PostPinsV1PinsPinIdUpload200>(
-      {url: `https://api.yz13.ru/pins/v1/pins/${pinId}/upload`, method: 'POST',
+      {url: `/pins/v1/pins/${pinId}/upload`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData,
         params
@@ -297,7 +298,7 @@ export const postPinsV1PinsNew = (
     postPinsV1PinsNewBody: BodyType<PostPinsV1PinsNewBody>,
  options?: SecondParameter<typeof axios<PostPinsV1PinsNew200>>,) => {
       return axios<PostPinsV1PinsNew200>(
-      {url: `https://api.yz13.ru/pins/v1/pins/new`, method: 'POST',
+      {url: `/pins/v1/pins/new`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postPinsV1PinsNewBody
     },
@@ -311,7 +312,7 @@ export const getPinsV1BoardsAll = (
     params?: GetPinsV1BoardsAllParams,
  options?: SecondParameter<typeof axios<GetPinsV1BoardsAll200Item[]>>,) => {
       return axios<GetPinsV1BoardsAll200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/boards/all`, method: 'GET',
+      {url: `/pins/v1/boards/all`, method: 'GET',
         params
     },
       options);
@@ -324,7 +325,7 @@ export const getPinsV1BoardsBoardId = (
     boardId: string,
  options?: SecondParameter<typeof axios<GetPinsV1BoardsBoardId200>>,) => {
       return axios<GetPinsV1BoardsBoardId200>(
-      {url: `https://api.yz13.ru/pins/v1/boards/${boardId}`, method: 'GET'
+      {url: `/pins/v1/boards/${boardId}`, method: 'GET'
     },
       options);
     }
@@ -337,7 +338,7 @@ export const patchPinsV1BoardsBoardId = (
     patchPinsV1BoardsBoardIdBody: BodyType<PatchPinsV1BoardsBoardIdBody>,
  options?: SecondParameter<typeof axios<PatchPinsV1BoardsBoardId200>>,) => {
       return axios<PatchPinsV1BoardsBoardId200>(
-      {url: `https://api.yz13.ru/pins/v1/boards/${boardId}`, method: 'PATCH',
+      {url: `/pins/v1/boards/${boardId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: patchPinsV1BoardsBoardIdBody
     },
@@ -351,7 +352,7 @@ export const deletePinsV1BoardsBoardId = (
     boardId: string,
  options?: SecondParameter<typeof axios<DeletePinsV1BoardsBoardId200>>,) => {
       return axios<DeletePinsV1BoardsBoardId200>(
-      {url: `https://api.yz13.ru/pins/v1/boards/${boardId}`, method: 'DELETE'
+      {url: `/pins/v1/boards/${boardId}`, method: 'DELETE'
     },
       options);
     }
@@ -363,7 +364,7 @@ export const getPinsV1BoardsBoardIdPins = (
     boardId: string,
  options?: SecondParameter<typeof axios<GetPinsV1BoardsBoardIdPins200Item[]>>,) => {
       return axios<GetPinsV1BoardsBoardIdPins200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/boards/${boardId}/pins`, method: 'GET'
+      {url: `/pins/v1/boards/${boardId}/pins`, method: 'GET'
     },
       options);
     }
@@ -375,7 +376,7 @@ export const postPinsV1BoardsNew = (
     postPinsV1BoardsNewBody: BodyType<PostPinsV1BoardsNewBody>,
  options?: SecondParameter<typeof axios<PostPinsV1BoardsNew200>>,) => {
       return axios<PostPinsV1BoardsNew200>(
-      {url: `https://api.yz13.ru/pins/v1/boards/new`, method: 'POST',
+      {url: `/pins/v1/boards/new`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postPinsV1BoardsNewBody
     },
@@ -387,7 +388,7 @@ export const postPinsV1BoardsBoardIdAnchorsPinId = (
     pinId: string,
  options?: SecondParameter<typeof axios<PostPinsV1BoardsBoardIdAnchorsPinId200>>,) => {
       return axios<PostPinsV1BoardsBoardIdAnchorsPinId200>(
-      {url: `https://api.yz13.ru/pins/v1/boards/${boardId}/anchors/${pinId}`, method: 'POST'
+      {url: `/pins/v1/boards/${boardId}/anchors/${pinId}`, method: 'POST'
     },
       options);
     }
@@ -397,7 +398,7 @@ export const deletePinsV1BoardsBoardIdAnchorsPinId = (
     pinId: string,
  options?: SecondParameter<typeof axios<DeletePinsV1BoardsBoardIdAnchorsPinId200>>,) => {
       return axios<DeletePinsV1BoardsBoardIdAnchorsPinId200>(
-      {url: `https://api.yz13.ru/pins/v1/boards/${boardId}/anchors/${pinId}`, method: 'DELETE'
+      {url: `/pins/v1/boards/${boardId}/anchors/${pinId}`, method: 'DELETE'
     },
       options);
     }
@@ -406,7 +407,7 @@ export const getPinsV1BoardsBoardIdAnchors = (
     boardId: string,
  options?: SecondParameter<typeof axios<GetPinsV1BoardsBoardIdAnchors200Item[]>>,) => {
       return axios<GetPinsV1BoardsBoardIdAnchors200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/boards/${boardId}/anchors`, method: 'GET'
+      {url: `/pins/v1/boards/${boardId}/anchors`, method: 'GET'
     },
       options);
     }
@@ -415,7 +416,7 @@ export const getPinsV1TagsSearch = (
     params?: GetPinsV1TagsSearchParams,
  options?: SecondParameter<typeof axios<GetPinsV1TagsSearch200Item[]>>,) => {
       return axios<GetPinsV1TagsSearch200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/tags/search`, method: 'GET',
+      {url: `/pins/v1/tags/search`, method: 'GET',
         params
     },
       options);
@@ -425,7 +426,7 @@ export const getPinsV1TagsAll = (
     params?: GetPinsV1TagsAllParams,
  options?: SecondParameter<typeof axios<GetPinsV1TagsAll200Item[]>>,) => {
       return axios<GetPinsV1TagsAll200Item[]>(
-      {url: `https://api.yz13.ru/pins/v1/tags/all`, method: 'GET',
+      {url: `/pins/v1/tags/all`, method: 'GET',
         params
     },
       options);
@@ -435,7 +436,7 @@ export const getPinsV1TagsTagId = (
     tagId: string,
  options?: SecondParameter<typeof axios<GetPinsV1TagsTagId200>>,) => {
       return axios<GetPinsV1TagsTagId200>(
-      {url: `https://api.yz13.ru/pins/v1/tags/${tagId}`, method: 'GET'
+      {url: `/pins/v1/tags/${tagId}`, method: 'GET'
     },
       options);
     }
@@ -445,7 +446,7 @@ export const patchPinsV1TagsTagId = (
     patchPinsV1TagsTagIdBody: BodyType<PatchPinsV1TagsTagIdBody>,
  options?: SecondParameter<typeof axios<PatchPinsV1TagsTagId200>>,) => {
       return axios<PatchPinsV1TagsTagId200>(
-      {url: `https://api.yz13.ru/pins/v1/tags/${tagId}`, method: 'PATCH',
+      {url: `/pins/v1/tags/${tagId}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: patchPinsV1TagsTagIdBody
     },
@@ -456,7 +457,7 @@ export const deletePinsV1TagsTagId = (
     tagId: string,
  options?: SecondParameter<typeof axios<DeletePinsV1TagsTagId200>>,) => {
       return axios<DeletePinsV1TagsTagId200>(
-      {url: `https://api.yz13.ru/pins/v1/tags/${tagId}`, method: 'DELETE'
+      {url: `/pins/v1/tags/${tagId}`, method: 'DELETE'
     },
       options);
     }
@@ -465,7 +466,7 @@ export const postPinsV1TagsNew = (
     postPinsV1TagsNewBody: BodyType<PostPinsV1TagsNewBody>,
  options?: SecondParameter<typeof axios<PostPinsV1TagsNew200>>,) => {
       return axios<PostPinsV1TagsNew200>(
-      {url: `https://api.yz13.ru/pins/v1/tags/new`, method: 'POST',
+      {url: `/pins/v1/tags/new`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postPinsV1TagsNewBody
     },
@@ -476,7 +477,7 @@ export const postClicksV1Track = (
     params: PostClicksV1TrackParams,
  options?: SecondParameter<typeof axios<PostClicksV1Track200>>,) => {
       return axios<PostClicksV1Track200>(
-      {url: `https://api.yz13.ru/clicks/v1/track`, method: 'POST',
+      {url: `/clicks/v1/track`, method: 'POST',
         params
     },
       options);
@@ -486,7 +487,16 @@ export const getLinksV1Id = (
     id: string,
  options?: SecondParameter<typeof axios<GetLinksV1Id200>>,) => {
       return axios<GetLinksV1Id200>(
-      {url: `https://api.yz13.ru/links/v1/${id}`, method: 'GET'
+      {url: `/links/v1/${id}`, method: 'GET'
+    },
+      options);
+    }
+  
+export const postNewsV1Index = (
+    
+ options?: SecondParameter<typeof axios<PostNewsV1Index200>>,) => {
+      return axios<PostNewsV1Index200>(
+      {url: `/news/v1/index`, method: 'POST'
     },
       options);
     }
@@ -527,3 +537,4 @@ export type DeletePinsV1TagsTagIdResult = NonNullable<Awaited<ReturnType<typeof 
 export type PostPinsV1TagsNewResult = NonNullable<Awaited<ReturnType<typeof postPinsV1TagsNew>>>
 export type PostClicksV1TrackResult = NonNullable<Awaited<ReturnType<typeof postClicksV1Track>>>
 export type GetLinksV1IdResult = NonNullable<Awaited<ReturnType<typeof getLinksV1Id>>>
+export type PostNewsV1IndexResult = NonNullable<Awaited<ReturnType<typeof postNewsV1Index>>>

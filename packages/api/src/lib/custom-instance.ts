@@ -1,4 +1,5 @@
 import Axios, { type AxiosError, type AxiosRequestConfig } from 'axios';
+import { API_URL } from '../../config';
 
 
 
@@ -25,7 +26,7 @@ const getUrl = () => {
 }
 
 export const AXIOS_INSTANCE = Axios.create({
-  baseURL: "https://localhost:3000",
+  baseURL: API_URL,
   headers: {
     "Access-Control-Allow-Origin": getUrl(),
   }

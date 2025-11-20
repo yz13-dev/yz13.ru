@@ -147,6 +147,8 @@ export * from './post-clicks-v1-track-params';
 export * from './post-clicks-v1-track200';
 export * from './post-clicks-v1-track400';
 export * from './post-clicks-v1-track500';
+export * from './post-news-v1-index200';
+export * from './post-news-v1-index500';
 export * from './post-pins-v1-boards-board-id-anchors-pin-id200';
 export * from './post-pins-v1-boards-board-id-anchors-pin-id200-board';
 export * from './post-pins-v1-boards-board-id-anchors-pin-id200-owner';

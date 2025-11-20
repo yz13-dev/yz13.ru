@@ -3,6 +3,7 @@ import { API_URL } from "./config";
 
 // const env = process.env.VERCEL_ENV ?? "development";
 // const API_URL = env === "development" ? "https://localhost:3000" : "https://api.yz13.ru"
+console.log("gen-api", process.env.NODE_ENV, API_URL);
 
 const fetchAndWriteOpenAPI = async () => {
   const start = Date.now();

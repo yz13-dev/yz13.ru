@@ -1,4 +1,5 @@
 import Availability, { AvailabilitySkeleton } from "@/components/availability";
+import { HeaderSkeleton } from "@/components/header";
 import { ThemeImage } from "@/components/theme-image";
 import { Button } from "@yz13/ui/button";
 import { cn } from "@yz13/ui/cn";
@@ -14,15 +15,12 @@ const Footer = dynamic(() => import("@/components/footer"));
 const GithubContributions = dynamic(() => import("@/components/github-contributions"), {
   loading: () => <Skeleton className="w-full h-[215px]" />
 });
-const Header = dynamic(() => import("@/components/header"), {
-  loading: () => <Skeleton className="w-full h-16 rounded-none" />
-})
 
 
 export default function Loading() {
   return (
     <>
-      <Header />
+      <HeaderSkeleton />
       <main
         className={cn(
           "container w-full mx-auto md:pt-32 pt-24 md:pb-[10%] pb-[7.5%] px-6",

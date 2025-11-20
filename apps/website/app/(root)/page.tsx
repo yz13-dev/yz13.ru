@@ -1,5 +1,6 @@
 import { AvailabilitySkeleton } from "@/components/availability";
 import BlogPost, { BlogPostContainer } from "@/components/blog-post";
+import { HeaderSkeleton } from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
 import { ThemeImage } from "@/components/theme-image";
 import { getBlogPosts } from "@/utils/blog/blog";
@@ -37,7 +38,7 @@ export default function Home() {
 
   return (
     <>
-      <Suspense fallback={<Skeleton className="w-full h-16 rounded-none" />}>
+      <Suspense fallback={<HeaderSkeleton />}>
         <Header />
       </Suspense>
       <main
