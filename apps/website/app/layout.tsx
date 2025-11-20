@@ -1,3 +1,4 @@
+import { Cmd } from "@/components/cmd";
 import ImagePreview from "@/components/image-preview";
 import "@/styles/globals.css";
 import { cn } from "@yz13/ui/cn";
@@ -93,6 +94,7 @@ export default function RootLayout({
             enableSystem={true}
             enableColorScheme={true}
           >
+            <Cmd />
             <ImagePreview />
             {children}
           </ThemeProvider>

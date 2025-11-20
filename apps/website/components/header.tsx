@@ -15,10 +15,13 @@ import {
   BriefcaseBusinessIcon,
   EllipsisIcon,
   FolderIcon,
+  SearchIcon,
 } from "@yz13/ui/icons";
+import { Kbd } from "@yz13/ui/kbd";
 import { Skeleton } from "@yz13/ui/skeleton";
 import Link from "next/link";
 import { connection } from "next/server";
+import { CmdTrigger } from "./cmd";
 import ContactForm from "./contact-form";
 import ExtraMenu from "./extra-menu";
 import { ThemeImage } from "./theme-image";
@@ -67,6 +70,10 @@ export default async function Header() {
             "[&>a]:h-10 [&>a]:text-base",
           )}
         >
+          <CmdTrigger variant="outline">
+            <SearchIcon />
+            <Kbd>Ctrl+K</Kbd>
+          </CmdTrigger>
           <div
             className={cn(
               "sm:flex hidden items-center gap-1.5",
