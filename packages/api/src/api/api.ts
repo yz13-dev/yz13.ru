@@ -13,6 +13,9 @@ import type {
   GetBlogV1Drafts200Item,
   GetBlogV1Posts200Item,
   GetLinksV1Id200,
+  GetNewsV1Last200Item,
+  GetNewsV1LastParams,
+  GetNewsV1Recent200Item,
   GetPinsV1BoardsAll200Item,
   GetPinsV1BoardsAllParams,
   GetPinsV1BoardsBoardId200,
@@ -501,6 +504,25 @@ export const postNewsV1Index = (
       options);
     }
   
+export const getNewsV1Last = (
+    params?: GetNewsV1LastParams,
+ options?: SecondParameter<typeof axios<GetNewsV1Last200Item[]>>,) => {
+      return axios<GetNewsV1Last200Item[]>(
+      {url: `/news/v1/last`, method: 'GET',
+        params
+    },
+      options);
+    }
+  
+export const getNewsV1Recent = (
+    
+ options?: SecondParameter<typeof axios<GetNewsV1Recent200Item[]>>,) => {
+      return axios<GetNewsV1Recent200Item[]>(
+      {url: `/news/v1/recent`, method: 'GET'
+    },
+      options);
+    }
+  
 export type GetUsersV1UidResult = NonNullable<Awaited<ReturnType<typeof getUsersV1Uid>>>
 export type GetAuthV1MeResult = NonNullable<Awaited<ReturnType<typeof getAuthV1Me>>>
 export type PostAuthV1LoginResult = NonNullable<Awaited<ReturnType<typeof postAuthV1Login>>>
@@ -538,3 +560,5 @@ export type PostPinsV1TagsNewResult = NonNullable<Awaited<ReturnType<typeof post
 export type PostClicksV1TrackResult = NonNullable<Awaited<ReturnType<typeof postClicksV1Track>>>
 export type GetLinksV1IdResult = NonNullable<Awaited<ReturnType<typeof getLinksV1Id>>>
 export type PostNewsV1IndexResult = NonNullable<Awaited<ReturnType<typeof postNewsV1Index>>>
+export type GetNewsV1LastResult = NonNullable<Awaited<ReturnType<typeof getNewsV1Last>>>
+export type GetNewsV1RecentResult = NonNullable<Awaited<ReturnType<typeof getNewsV1Recent>>>
