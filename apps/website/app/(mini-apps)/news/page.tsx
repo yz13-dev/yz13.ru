@@ -1,12 +1,11 @@
 import { HeaderSkeleton } from "@/components/header";
 import { ThemeImage } from "@/components/theme-image";
-import { Skeleton } from "@yz13/ui/skeleton";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import Last, { LastSkeleton } from "./components/last";
 import Recent, { RecentSkeleton } from "./components/recent";
 const Header = dynamic(() => import("@/components/header"), {
-  loading: () => <Skeleton className="w-full h-16 rounded-none" />
+  loading: () => <HeaderSkeleton />
 })
 export default function News() {
 

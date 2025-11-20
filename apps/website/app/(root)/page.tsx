@@ -29,7 +29,7 @@ const GithubContributions = dynamic(() => import("@/components/github-contributi
   loading: () => <Skeleton className="w-full h-[215px]" />
 });
 const Header = dynamic(() => import("@/components/header"), {
-  loading: () => <Skeleton className="w-full h-16 rounded-none" />
+  loading: () => <HeaderSkeleton />
 })
 
 export default function Home() {
