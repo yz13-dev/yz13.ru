@@ -1,17 +1,15 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
-import { ThemeImage } from "@/components/theme-image";
 import { Project as ProjectType, projects } from "@yz13/registries";
 import { filter } from "@yz13/registries/utils/filter";
 import { getStack } from "@yz13/registries/utils/stack";
 import { ArrowDownAZIcon, ArrowDownNarrowWideIcon, ArrowDownWideNarrowIcon, ArrowDownZAIcon, XIcon } from "@yz13/ui/icons";
 import { Skeleton } from "@yz13/ui/skeleton";
 import { parse } from "date-fns";
-import Image from "next/image";
 import { Suspense } from "react";
 import Filters, { FilterItem } from "../components/filters";
-import LogoGrid from "../components/logo-grid";
+import LogoGrid, { LogoGridItem } from "../components/logo-grid";
 import SearchInput from "../components/search-input";
 
 type Props = {
@@ -74,35 +72,7 @@ export default async function Projects({ searchParams }: Props) {
             .map((item, index) => {
               const logo = item.logo;
               if (!logo) return null;
-              if (logo.url) return (
-                <div
-                  key={`stack/${index}`}
-                  className="size-32 outline-6 border outline-border/40 transition-colors rounded-3xl bg-card flex items-center justify-center"
-                >
-                  <Image
-                    className="relative"
-                    src={logo.url || "/logo/dark.png"}
-                    width={96}
-                    height={96}
-                    alt="logo"
-                  />
-                </div>
-              )
-              return (
-                <div
-                  key={`stack/${index}`}
-                  className="size-32 outline-6 border outline-border/40 transition-colors rounded-3xl bg-card flex items-center justify-center"
-                >
-                  <ThemeImage
-                    className="relative"
-                    srcDark={logo.theme?.dark || "/logo/dark.png"}
-                    srcLight={logo.theme?.light || "/logo/light.png"}
-                    width={96}
-                    height={96}
-                    alt="logo"
-                  />
-                </div>
-              )
+              return <LogoGridItem key={`stack/${index}`} logo={logo} />
             })
         }
         <Skeleton className="size-32 outline-6 border outline-border/40 transition-colors rounded-3xl bg-card flex items-center justify-center">

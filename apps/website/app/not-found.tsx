@@ -2,7 +2,7 @@
 import { Button } from "@yz13/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import CommandBlock from "./cli/components/command-block";
+import CommandBlock from "./(projects)/cli/components/command-block";
 
 
 

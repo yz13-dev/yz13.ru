@@ -4,7 +4,8 @@ import { HeaderSkeleton } from "@/components/header";
 import Project, { ProjectContainer } from "@/components/project";
 import { ThemeImage } from "@/components/theme-image";
 import { getBlogPosts } from "@/utils/blog/blog";
-import { projects } from "@yz13/registries";
+import { Project as ProjectType, projects } from "@yz13/registries";
+import { filter } from "@yz13/registries/utils/filter";
 import {
   Accordion,
   AccordionContent,
@@ -35,6 +36,8 @@ const Header = dynamic(() => import("@/components/header"), {
 export default function Home() {
   const posts = getBlogPosts();
   const hasBlogPosts = posts.length > 0;
+
+  const allProjects = filter<ProjectType>(projects, project => project.type === "project");
 
   return (
     <>
