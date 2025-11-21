@@ -8,21 +8,28 @@ import { ru } from "date-fns/locale";
 import Link from "next/link";
 import Favicon from "./favicon";
 
-
-
-export default function ArticleCard({ article }: { article: GetNewsV1Last200Item }) {
-
+export default function ArticleCard({
+  article,
+}: {
+  article: GetNewsV1Last200Item;
+}) {
   const sourceUrl = new URL(article.url);
 
   return (
     <article className="w-full">
-      <Link href={`https://${sourceUrl.hostname}`} target="_blank" className="flex items-center group/source">
+      <Link
+        href={`https://${sourceUrl.hostname}`}
+        target="_blank"
+        className="flex items-center group/source"
+      >
         <Favicon url={article.url} size={16} />
-        <span className="text-sm text-muted-foreground pl-2 pr-1 group-hover/source:underline">{sourceUrl.hostname}</span>
+        <span className="text-sm text-muted-foreground pl-2 pr-1 group-hover/source:underline">
+          {sourceUrl.hostname}
+        </span>
         <ExternalLinkIcon size={12} />
       </Link>
       <div className="py-4">
-        <div className="*:block pb-4">
+        <div className="*:block space-y-1.5 pb-4 max-w-4xl">
           <h4 className="text-2xl font-medium">{article.title}</h4>
           <p className="text-lg text-muted-foreground">{article.description}</p>
         </div>
@@ -38,20 +45,22 @@ export default function ArticleCard({ article }: { article: GetNewsV1Last200Item
           dateTime={article.published_at}
           className="text-muted-foreground text-sm"
         >
-          {formatRelative(new Date(article.published_at), new Date(), { locale: ru })}
+          {formatRelative(new Date(article.published_at), new Date(), {
+            locale: ru,
+          })}
         </time>
         <div className="flex items-center gap-2 *:h-5">
-          {
-            article.authors.map(author => {
-              return (
-                <Badge key={`${article.id}/${author}`} variant="secondary">{author}</Badge>
-              )
-            })
-          }
+          {article.authors.map((author) => {
+            return (
+              <Badge key={`${article.id}/${author}`} variant="secondary">
+                {author}
+              </Badge>
+            );
+          })}
         </div>
       </div>
     </article>
-  )
+  );
 }
 
 export const ArticleCardSkeleton = () => {
@@ -79,5 +88,5 @@ export const ArticleCardSkeleton = () => {
         </div>
       </div>
     </article>
-  )
-}
+  );
+};

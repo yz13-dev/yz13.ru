@@ -1,6 +1,5 @@
 import { getAvailability } from "@/flags";
 import { Button } from "@yz13/ui/button";
-import { ButtonGroup } from "@yz13/ui/button-group";
 import { cn } from "@yz13/ui/cn";
 import {
   Drawer,
@@ -10,33 +9,26 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@yz13/ui/drawer";
-import {
-  BookTextIcon,
-  BriefcaseBusinessIcon,
-  EllipsisIcon,
-  FolderIcon,
-  SearchIcon,
-} from "@yz13/ui/icons";
+import { BookTextIcon, EllipsisIcon, SearchIcon } from "@yz13/ui/icons";
 import { Kbd } from "@yz13/ui/kbd";
 import { Skeleton } from "@yz13/ui/skeleton";
 import Link from "next/link";
 import { connection } from "next/server";
+import { Suspense } from "react";
 import { CmdTrigger } from "./cmd";
 import ContactForm from "./contact-form";
 import ExtraMenu from "./extra-menu";
+import ProjectsWorksSwitcher from "./projects-works-switcher";
 import { ThemeImage } from "./theme-image";
 
 export default async function Header() {
-  await connection()
+  await connection();
 
   const isAvailable = await getAvailability();
 
   return (
     <header
-      className={cn(
-        "",
-        "sticky top-0 bg-background/90 backdrop-blur-lg z-20",
-      )}
+      className={cn("", "sticky top-0 bg-background/90 backdrop-blur-lg z-20")}
     >
       <div className="w-full *:py-3 flex items-center container justify-between gap-4 mx-auto">
         <div className="pl-6">
@@ -81,20 +73,9 @@ export default async function Header() {
               "[&>a]:h-10 [&>a]:text-base",
             )}
           >
-            <ButtonGroup className="*:h-10 *:text-base">
-              <Button variant="outline" asChild>
-                <Link href="/projects">
-                  <FolderIcon />
-                  <span className="lg:inline hidden">Проекты</span>
-                </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/works">
-                  <BriefcaseBusinessIcon />
-                  <span className="lg:inline hidden">Работы</span>
-                </Link>
-              </Button>
-            </ButtonGroup>
+            <Suspense fallback={<Skeleton className="h-10 w-28" />}>
+              <ProjectsWorksSwitcher />
+            </Suspense>
             <Button variant="outline" asChild>
               <Link href="/blog">
                 <BookTextIcon />
@@ -137,10 +118,7 @@ export default async function Header() {
 export const HeaderSkeleton = () => {
   return (
     <header
-      className={cn(
-        "",
-        "sticky top-0 bg-background/90 backdrop-blur-lg z-20",
-      )}
+      className={cn("", "sticky top-0 bg-background/90 backdrop-blur-lg z-20")}
     >
       <div className="w-full *:py-3 flex items-center container justify-between gap-4 mx-auto">
         <div className="pl-6">
@@ -152,5 +130,5 @@ export const HeaderSkeleton = () => {
         </nav>
       </div>
     </header>
-  )
-}
+  );
+};

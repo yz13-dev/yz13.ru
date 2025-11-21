@@ -11,7 +11,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@yz13/ui/tooltip";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Calendar, {
   Skeleton,
   type Props as ActivityCalendarProps,
@@ -152,14 +152,22 @@ export default function GithubContributions({
 
   useEffect(() => {
     if (loading) return;
-
     scroll();
   }, [loading]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetchData();
   }, [username, year]);
 
   if (loading)
+    return (
+      <Skeleton
+        loading
+        labels={labels}
+        blockSize={blockSize}
+        blockRadius={blockRadius}
+      />
+    );
+  if (!calendar.length)
     return (
       <Skeleton
         loading
