@@ -2,8 +2,15 @@ import { withContentCollections } from "@content-collections/next";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
   output: "standalone",
-  transpilePackages: ["@yz13/ui", "@yz13/link", "@yz13/registries", "@yz13/flags", "@yz13/api"],
+  transpilePackages: [
+    "@yz13/ui",
+    "@yz13/link",
+    "@yz13/registries",
+    "@yz13/flags",
+    "@yz13/api",
+  ],
   compress: true,
   reactCompiler: true,
   productionBrowserSourceMaps: false,
@@ -17,13 +24,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cdn.simpleicons.org"
+        hostname: "cdn.simpleicons.org",
       },
       {
         protocol: "https",
-        hostname: "twenty-icons.com"
-      }
-    ]
+        hostname: "twenty-icons.com",
+      },
+    ],
   },
 };
 

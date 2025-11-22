@@ -62,7 +62,7 @@ export default async function Header() {
             "[&>a]:h-10 [&>a]:text-base",
           )}
         >
-          <CmdTrigger variant="outline" className="lg:flex hidden">
+          <CmdTrigger variant="ghost" className="lg:flex hidden">
             <SearchIcon />
             <Kbd>Ctrl+K</Kbd>
           </CmdTrigger>
