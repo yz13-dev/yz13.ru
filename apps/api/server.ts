@@ -2,6 +2,7 @@ import { OpenAPIHono } from "@hono/zod-openapi";
 import { serveStatic } from "hono/bun";
 import { every } from "hono/combine";
 import { cors } from "hono/cors";
+import { logger } from "hono/logger";
 import { requestId } from "hono/request-id";
 import { timing } from "hono/timing";
 import packageJson from './package.json' with { type: "json" };
@@ -15,7 +16,6 @@ app.use(
   "*",
   cors({
     origin: (origin) => {
-      console.log("==> origin", origin);
       return origin === "https://localhost:3000"
         ? origin
         : origin === "http://localhost:5173"
@@ -39,6 +39,7 @@ app.use(
 
 app.use(
   every(
+    logger(),
     timing(),
     requestId()
   ),
@@ -66,7 +67,7 @@ app.doc("/openapi.json", {
 
 // Health check endpoint
 app.get("/health", (c) => {
-  return c.json({ status: "ok", timestamp: new Date().toISOString() });
+  return c.json({ status: "OK", timestamp: new Date().toISOString() }, 200);
 });
 
 app.get("version", (c) => {
