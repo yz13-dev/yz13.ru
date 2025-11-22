@@ -1,4 +1,5 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
+import { Context } from "hono";
 import { serveStatic } from "hono/bun";
 import { every } from "hono/combine";
 import { cors } from "hono/cors";
@@ -65,10 +66,13 @@ app.doc("/openapi.json", {
   ],
 });
 
-// Health check endpoint
-app.get("/health", (c) => {
+const health = (c: Context) => {
   return c.json({ status: "OK", timestamp: new Date().toISOString() }, 200);
-});
+}
+
+// Health check endpoint
+app.get("/health", c => health(c));
+app.get("/h", c => health(c));
 
 app.get("version", (c) => {
   return c.json({
