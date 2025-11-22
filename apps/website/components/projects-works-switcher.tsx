@@ -21,6 +21,7 @@ export default function ProjectsWorksSwitcher() {
     <ButtonGroup className="*:h-10 *:text-base">
       <Button
         variant="outline"
+        className="gap-0!"
         asChild
         onPointerEnter={() => setHovered("projects")}
         onPointerLeave={() => setHovered(null)}
@@ -31,7 +32,7 @@ export default function ProjectsWorksSwitcher() {
             {isProjectsActive && (
               <motion.span
                 className={cn(
-                  "lg:inline hidden",
+                  "lg:inline hidden pl-2",
                   hovered === "works" && "text-muted-foreground",
                 )}
                 initial={{ opacity: 0, width: 0, filter: "blur(10px)" }}
@@ -46,6 +47,7 @@ export default function ProjectsWorksSwitcher() {
       </Button>
       <Button
         variant="outline"
+        className="gap-0!"
         asChild
         onPointerEnter={() => setHovered("works")}
         onPointerLeave={() => setHovered(null)}
@@ -56,7 +58,7 @@ export default function ProjectsWorksSwitcher() {
             {isWorksActive && (
               <motion.span
                 className={cn(
-                  "lg:inline hidden",
+                  "lg:inline hidden pl-2",
                   hovered === "projects" && "text-muted-foreground",
                 )}
                 initial={{ opacity: 0, width: 0, filter: "blur(10px)" }}

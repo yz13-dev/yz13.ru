@@ -4,21 +4,22 @@ import "@/styles/globals.css";
 import { cn } from "@yz13/ui/cn";
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "next-themes";
-import { Geist, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
-const geistSans = Geist({
-  preload: true,
-  display: "swap",
-  fallback: ["Inter", "sans"],
-  subsets: ["latin", "cyrillic"],
+const sans = localFont({
+  src: "./fonts/Geist.ttf",
   variable: "--font-sans",
+  display: "swap",
+  preload: true,
+  fallback: ["Inter", "sans-serif"],
 });
-const geistMono = JetBrains_Mono({
+const mono = localFont({
+  src: "./fonts/JetBrainsMono.ttf",
+  variable: "--font-mono",
+  display: "swap",
   preload: true,
   fallback: ["mono"],
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -84,7 +85,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(geistSans.variable, geistMono.variable)}
+      className={cn(sans.variable, mono.variable)}
     >
       <body className="relative">
         <NuqsAdapter>

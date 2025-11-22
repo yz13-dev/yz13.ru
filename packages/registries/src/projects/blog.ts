@@ -1,8 +1,6 @@
 import { joinStack } from "../utils/join";
 import type { Project } from "./types";
 
-
-
 export const blog: Project = {
   id: "blog",
   date: "2025-10-01",
@@ -11,10 +9,11 @@ export const blog: Project = {
   description: "Простой блог <3",
   attachments: [],
   stack: joinStack(["nextdotjs", "tailwindcss", "shadcnui"]),
+  url: "/blog",
   logo: {
     theme: {
       light: "/projects/blog/logo/light.png",
-      dark: "/projects/blog/logo/dark.png"
-    }
-  }
-}
+      dark: "/projects/blog/logo/dark.png",
+    },
+  },
+};
