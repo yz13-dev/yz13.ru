@@ -45,6 +45,10 @@ ENV SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
 ENV SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
 ENV SUPABASE_URL=${SUPABASE_URL}
 
+ENV HOST=0.0.0.0
+ENV PORT=3000
+EXPOSE 3000
+
 # Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 bunjs
