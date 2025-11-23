@@ -44,7 +44,10 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/standalone .
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/.next/static ./apps/website/.next/static
 COPY --from=installer --chown=nextjs:nodejs /app/apps/website/public ./apps/website/public
 
-# set node_env to production
 ENV NODE_ENV="production"
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-CMD bun run apps/website/server.js
+EXPOSE 3000
+
+CMD bun apps/website/server.js -p 3000 -H 0.0.0.0
