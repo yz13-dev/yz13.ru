@@ -81,4 +81,11 @@ app.get("version", (c) => {
 });
 
 
-export default app;
+const port = process.env.PORT ? parseInt(process.env.PORT) || 3000 : 3000;
+const hostname = process.env.HOST || '0.0.0.0';
+
+export default {
+  fetch: app.fetch,
+  port: port,
+  hostname: hostname,
+}
